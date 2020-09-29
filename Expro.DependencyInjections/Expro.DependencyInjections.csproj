@@ -1,0 +1,12 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Expro.Data\Expro.Data.csproj" />
+    <ProjectReference Include="..\Expro.Services\Expro.Services.csproj" />
+  </ItemGroup>
+
+</Project>

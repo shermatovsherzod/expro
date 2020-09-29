@@ -12,14 +12,23 @@ using Expro.Data;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Expro.Models;
+using Expro.Utils;
+using Expro.Common;
+using Expro.DependencyInjections;
+using Microsoft.Extensions.FileProviders;
+using System.IO;
 
 namespace Expro
 {
     public class Startup
     {
-        public Startup(IConfiguration configuration)
+        private IWebHostEnvironment _env;
+
+        public Startup(IConfiguration configuration, IWebHostEnvironment env)
         {
             Configuration = configuration;
+            _env = env;
         }
 
         public IConfiguration Configuration { get; }
@@ -27,11 +36,39 @@ namespace Expro
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            string connectionStringName = "DefaultConnection";
+
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(
-                    Configuration.GetConnectionString("DefaultConnection")));
-            services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
-                .AddEntityFrameworkStores<ApplicationDbContext>();
+                    Configuration.GetConnectionString(connectionStringName),
+                    b => b.MigrationsAssembly("Expro").UseRowNumberForPaging()));
+
+            //services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
+            //    .AddEntityFrameworkStores<ApplicationDbContext>();
+            services.AddIdentity<ApplicationUser, IdentityRole>()
+                .AddEntityFrameworkStores<ApplicationDbContext>()
+                .AddDefaultTokenProviders();
+
+            services.AddScoped<IUserClaimsPrincipalFactory<ApplicationUser>, AppClaimsPrincipalFactory>();
+
+            services.Configure<AppConfiguration>(Configuration.GetSection("MySettings"));
+
+            //add common dependencies
+            services.AddCommonDependencies(); //UnitOfWork and DatabaseFactory
+
+            //add repositories
+            services.AddRepositories();
+
+            //add services
+            services.AddServices();
+
+            var webRoot = _env.ContentRootPath;
+
+            services.AddSingleton<IFileProvider>(
+              new PhysicalFileProvider(
+                Path.Combine(webRoot, "Uploads")));
+
+            services.AddMvc().AddViewLocalization();
             services.AddControllersWithViews();
             services.AddRazorPages();
         }
@@ -41,17 +78,26 @@ namespace Expro
         {
             if (env.IsDevelopment())
             {
+                //app.UseStatusCodePagesWithReExecute("/Error/Status/{0}");
+                //app.UseExceptionHandler("/Error/Index");
+
                 app.UseDeveloperExceptionPage();
                 app.UseDatabaseErrorPage();
             }
             else
             {
-                app.UseExceptionHandler("/Home/Error");
-                // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
+                //app.UseStatusCodePagesWithReExecute("/Error/Status/{0}");
+                //app.UseExceptionHandler("/Error/Index");
+
+                app.UseDeveloperExceptionPage();
+                app.UseDatabaseErrorPage();
+
                 app.UseHsts();
             }
             app.UseHttpsRedirection();
             app.UseStaticFiles();
+
+            app.UseCookiePolicy();
 
             app.UseRouting();
 

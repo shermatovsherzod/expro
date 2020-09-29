@@ -11,6 +11,18 @@
     <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="3.1.8" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.1.8" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="3.1.8" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.1.4" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Expro.Common\Expro.Common.csproj" />
+    <ProjectReference Include="..\Expro.DependencyInjections\Expro.DependencyInjections.csproj" />
+    <ProjectReference Include="..\Expro.Models\Expro.Models.csproj" />
+    <ProjectReference Include="..\Expro.Services\Expro.Services.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Uploads\" />
   </ItemGroup>
 
 </Project>
