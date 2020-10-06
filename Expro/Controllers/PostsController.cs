@@ -94,5 +94,28 @@ namespace Expro.Controllers
 
             return View();
         }
+
+        public IActionResult TestF()
+        {
+
+            return View();
+        }
+
+        [HttpPost]
+        public JsonResult TestAjaxClick(int id)
+        {
+            var curUser = accountUtil.GetCurrentUser(User);
+
+            var newPost = new Post()
+            {
+                Title = "Hello world",
+                AuthorID = curUser.ID
+            };
+            PostService.Add(newPost, curUser.ID);
+
+
+            string result = "Added " + id;
+            return Json(result);
+        }
     }
 }

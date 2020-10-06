@@ -11,9 +11,15 @@ namespace Expro.Models
         //==========================================================
         public string CustomTag { get; set; }
         public string CustomTag2 { get; set; }
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
+        public string PatronymicName { get; set; }
+        public DateTime DateOfBirth { get; set; }
+        public Gender GenderID { get; set; }
+
 
         //==========================================================
         [InverseProperty("Author")]
         public virtual ICollection<Post> PostsAuthored { get; set; }
-    }
+    }   
 }

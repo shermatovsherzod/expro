@@ -49,19 +49,41 @@ namespace Expro.Areas.Identity.Pages.Account
         {
             [Required]
             [EmailAddress]
-            [Display(Name = "Email")]
+            [Display(Name = "Почтовый адрес")]
             public string Email { get; set; }
 
             [Required]
             [StringLength(100, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 6)]
             [DataType(DataType.Password)]
-            [Display(Name = "Password")]
+            [Display(Name = "Пароль")]
             public string Password { get; set; }
 
             [DataType(DataType.Password)]
-            [Display(Name = "Confirm password")]
-            [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
+            [Display(Name = "Подтверждение пароля")]
+            [Compare("Password", ErrorMessage = "Введенные пароли не совпадают.")]
             public string ConfirmPassword { get; set; }
+
+            [Display(Name = "Имя")]
+            public string Name { get; set; }
+
+            [Display(Name = "Фамилия")]
+            public string Surname { get; set; }
+
+            [Display(Name = "Отчество")]
+            public string Patronymic { get; set; }
+
+            [Display(Name = "Дата рождения")]
+            public DateTime DateOfBirth { get; set; }
+
+            [Display(Name = "Пол")]
+            public string Gender { get; set; }
+
+            [Display(Name = "Тип пользователя")]
+            public string UserType { get; set; }
+
+            [Display(Name = "Телефон")]
+            public string PhoneNumber { get; set; }
+
         }
 
         public async Task OnGetAsync(string returnUrl = null)
@@ -76,7 +98,7 @@ namespace Expro.Areas.Identity.Pages.Account
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = Input.Email, Email = Input.Email };
+                var user = new ApplicationUser { UserName = Input.Email, Email = Input.Email, FirstName = Input.Name, LastName = Input.Surname, PhoneNumber = Input.PhoneNumber };
                 var result = await _userManager.CreateAsync(user, Input.Password);
                 if (result.Succeeded)
                 {
@@ -90,7 +112,7 @@ namespace Expro.Areas.Identity.Pages.Account
                         values: new { area = "Identity", userId = user.Id, code = code, returnUrl = returnUrl },
                         protocol: Request.Scheme);
 
-                    string emailSubject = "Confirm your email";
+                    //string emailSubject = "Confirm your email";
                     string emailBody = $"Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.";
                     //await _emailSender.SendEmailAsync(Input.Email, emailSubject, emailBody);
 

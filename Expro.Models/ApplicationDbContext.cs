@@ -17,5 +17,7 @@ namespace Expro.Models
         }
 
         public DbSet<Post> Posts { get; set; }
+
+        public DbSet<Gender> Genders { get; set; }
     }
 }
