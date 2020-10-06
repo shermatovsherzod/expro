@@ -6,7 +6,7 @@
 
 <div class="row">
     <div class="col-md-4">  </div>
-    <div class="col-md-4">      
+    <div class="col-md-4">
         <h2 class="text-center">@ViewData["Title"]</h2>
     </div>
     <div class="col-md-4">  </div>
@@ -55,12 +55,17 @@
                 <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
             </div>
 
-            <p class="text-center"><button type="submit" class="btn btn-primary">Регистрация</button></p>
-            
+            <div class="text-center"><button type="submit" class="btn btn-primary">Регистрация</button></div>
         </form>
+
+        <div class="text-center">
+            <br />
+            <a href="/Identity/Account/RegisterExpert" class="btn btn-primary">Регистрация эксперта</a>
+        </div>
     </div>
 
     <div class="col-md-4"></div>
+
     @*<div class="col-md-6 col-md-offset-2">
             <section>
                 <h4>Use another service to register.</h4>
