@@ -5,7 +5,6 @@ using System.Text;
 namespace Expro.Models
 {
     public class Gender : BaseModelDropdownable
-    {
-        
+    {        
     }
 }

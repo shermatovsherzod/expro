@@ -12,20 +12,21 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Extensions.Logging;
 
 namespace Expro.Areas.Identity.Pages.Account
 {
     [AllowAnonymous]
-    public class RegisterModel : PageModel
+    public class RegisterExpertModel : PageModel
     {
         private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly ILogger<RegisterModel> _logger;
         //private readonly IEmailSender _emailSender;
 
-        public RegisterModel(
+        public RegisterExpertModel(
             UserManager<ApplicationUser> userManager,
             SignInManager<ApplicationUser> signInManager,
             ILogger<RegisterModel> logger
@@ -39,13 +40,13 @@ namespace Expro.Areas.Identity.Pages.Account
         }
 
         [BindProperty]
-        public InputModel Input { get; set; }
+        public InputExpertModel Input { get; set; }
 
         public string ReturnUrl { get; set; }
 
         public IList<AuthenticationScheme> ExternalLogins { get; set; }
 
-        public class InputModel
+        public class InputExpertModel
         {
             [Required]
             [EmailAddress]
@@ -70,19 +71,22 @@ namespace Expro.Areas.Identity.Pages.Account
             public string Surname { get; set; }
 
             [Display(Name = "Отчество")]
-            public string Patronymic { get; set; }
-
-            [Display(Name = "Дата рождения")]
-            public DateTime DateOfBirth { get; set; }
-
-            [Display(Name = "Пол")]
-            public string Gender { get; set; }
+            public string Patronymic { get; set; }              
 
             [Display(Name = "Тип пользователя")]
-            public string UserType { get; set; }
+            public int UserType { get; set; }
 
             [Display(Name = "Телефон")]
             public string PhoneNumber { get; set; }
+
+            [Display(Name = "Регион")]
+            public string Region { get; set; }
+
+            [Display(Name = "Город")]
+            public string City { get; set; }
+
+            [Display(Name = "Категория")]
+            public int LawAreaID { get; set; }
 
         }
 
@@ -98,7 +102,7 @@ namespace Expro.Areas.Identity.Pages.Account
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = Input.Email, Email = Input.Email, FirstName = Input.Name, LastName = Input.Surname, PhoneNumber = Input.PhoneNumber, UserType = 3 };
+                var user = new ApplicationUser { UserName = Input.Email, Email = Input.Email, FirstName = Input.Name, LastName = Input.Surname, PhoneNumber = Input.PhoneNumber, UserType = 2 };
                 var result = await _userManager.CreateAsync(user, Input.Password);
                 if (result.Succeeded)
                 {
