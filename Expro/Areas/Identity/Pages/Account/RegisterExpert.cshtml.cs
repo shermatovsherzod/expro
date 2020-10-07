@@ -71,7 +71,7 @@ namespace Expro.Areas.Identity.Pages.Account
             public string Surname { get; set; }
 
             [Display(Name = "Отчество")]
-            public string Patronymic { get; set; }              
+            public string PatronymicName { get; set; }
 
             [Display(Name = "Тип пользователя")]
             public int UserType { get; set; }
@@ -102,7 +102,7 @@ namespace Expro.Areas.Identity.Pages.Account
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = Input.Email, Email = Input.Email, FirstName = Input.Name, LastName = Input.Surname, PhoneNumber = Input.PhoneNumber, UserType = 2 };
+                var user = new ApplicationUser { UserName = Input.Email, Email = Input.Email, FirstName = Input.Name, LastName = Input.Surname, PhoneNumber = Input.PhoneNumber, UserType = 2, PatronymicName = Input.PatronymicName };
                 var result = await _userManager.CreateAsync(user, Input.Password);
                 if (result.Succeeded)
                 {
