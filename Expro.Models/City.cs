@@ -5,12 +5,13 @@
 
 //namespace Expro.Models
 //{
-//    public class Region : BaseModelDropdownable
+//    public class City : BaseModelDropdownable
 //    {
 //        //[InverseProperty("Region")]
 //        //public ICollection<ApplicationUser> Users { get; set; }
 
-//        [InverseProperty("Region")]
-//        public ICollection<City> Cities { get; set; }
+//        [ForeignKey("Region")]
+//        public int? RegionID { get; set; }
+//        public virtual Region Region { get; set; }
 //    }
 //}

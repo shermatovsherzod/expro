@@ -32,10 +32,19 @@ namespace Expro.Models
 
         public ICollection<UserLawArea> UserLawAreas { get; set; }
 
-        [InverseProperty("Creator")]
-        public ICollection<Gender> GendersCreated { get; set; }
-        [InverseProperty("Modifier")]
-        public ICollection<Gender> GendersModified { get; set; }
+        //[ForeignKey("Region")]
+        //public int? RegionID { get; set; }
+        //public virtual Region Region { get; set; }
+
+        //[ForeignKey("City")]
+        //public int? CityID { get; set; }
+        //public virtual City City { get; set; }
+        //public string CityOther { get; set; }
+
+        //[InverseProperty("Creator")]
+        //public ICollection<Gender> GendersCreated { get; set; }
+        //[InverseProperty("Modifier")]
+        //public ICollection<Gender> GendersModified { get; set; }
 
         //==========================================================
         [InverseProperty("Author")]

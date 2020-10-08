@@ -21,11 +21,11 @@ namespace Expro.Services
 
         public List<SelectListItem> GetAsSelectList(int[] selected = null)
         {
-            return GetAllActive().Select(item => new SelectListItem()
+            return GetAll().Select(item => new SelectListItem()
             {
                 Value = item.ID.ToString(),
                 Text = item.Name.ToString(),
-                Selected = (selected != null && selected.Contains(item.ID)) ? true : false
+                Selected = (selected != null && selected.Contains(item.ID))
             }).ToList();
         }
     }

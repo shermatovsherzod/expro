@@ -18,18 +18,17 @@ namespace Expro.Services.Interfaces
         void DeleteCollection(ICollection<T> entities, string modifierID);
 
         //uncomment when it is need
-        void DeletePermanently(T entity, string modifierID);
-        //void DeletePermanentlyCollection(ICollection<T> entities, string modifierID);
+        void DeletePermanently(T entity);
+        void DeletePermanentlyCollection(ICollection<T> entities);
 
         T GetByID(int id);
-        T GetActiveByID(int id);
+        //T GetActiveByID(int id);
         IEnumerable<T> GetByIDs(int[] ids);
-        IEnumerable<T> GetActiveByIDs(int[] ids);
+        //IEnumerable<T> GetActiveByIDs(int[] ids);
         IEnumerable<T> GetAll();
-        IEnumerable<T> GetAllActive();
+        //IEnumerable<T> GetAllActive();
         IQueryable<T> GetAsIQueryable();
-        IQueryable<T> GetAllActiveAsIQueryable();
-        IQueryable<T> GetActiveAsIQueryable();
+        //IQueryable<T> GetActiveAsIQueryable();
         //IQueryable<T> GetWithRelatedDataAsIQueryable();
     }
 }

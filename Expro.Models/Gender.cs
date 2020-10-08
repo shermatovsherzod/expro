@@ -7,7 +7,7 @@ namespace Expro.Models
 {
     public class Gender : BaseModelDropdownable
     {
-        [InverseProperty("Gender")]
-        public ICollection<ApplicationUser> Users { get; set; }
+        //[InverseProperty("Gender")]
+        //public ICollection<ApplicationUser> Users { get; set; }
     }
 }

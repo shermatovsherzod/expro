@@ -30,7 +30,7 @@ namespace Expro.Services
             HashSet<int> talentLawAreas = new HashSet<int>(model.UserLawAreas
                 .Select(m => m.LawAreaID));
 
-            List<LawArea> allLawAreas = GetAllActive().ToList();
+            List<LawArea> allLawAreas = GetAll().ToList();
             foreach (var lawArea in allLawAreas)
             {
                 if (selectedCategoriesHS.Contains(lawArea.ID))

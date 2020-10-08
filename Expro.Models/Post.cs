@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Expro.Models
 {
-    public class Post : BaseModel
+    public class Post : BaseModelAuthorable
     {
         public string Title { get; set; }
 

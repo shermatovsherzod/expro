@@ -26,9 +26,9 @@ namespace Expro.Models
                 .WithMany(c => c.UserLawAreas)
                 .HasForeignKey(bc => bc.LawAreaID);
 
-            modelBuilder.Entity<Gender>()
-                .HasMany(c => c.Users)
-                .WithOne(e => e.Gender);
+            //modelBuilder.Entity<Gender>()
+            //    .HasMany(c => c.Users)
+            //    .WithOne(e => e.Gender);
 
             //modelBuilder.Entity<ApplicationUser>()
             //    .HasMany(c => c.Users)
@@ -41,9 +41,9 @@ namespace Expro.Models
         }
 
         public DbSet<Post> Posts { get; set; }
-
         public DbSet<Gender> Genders { get; set; }
-
         public DbSet<LawArea> LawAreas { get; set; }
+        //public DbSet<Region> Regions { get; set; }
+        //public DbSet<City> Cities { get; set; }
     }
 }
