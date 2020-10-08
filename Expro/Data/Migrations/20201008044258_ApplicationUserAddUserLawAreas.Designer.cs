@@ -4,14 +4,16 @@ using Expro.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Expro.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20201008044258_ApplicationUserAddUserLawAreas")]
+    partial class ApplicationUserAddUserLawAreas
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -363,9 +365,6 @@ namespace Expro.Data.Migrations
                         .HasColumnType("nvarchar(256)")
                         .HasMaxLength(256);
 
-                    b.Property<int?>("GenderID")
-                        .HasColumnType("int");
-
                     b.Property<string>("LastName")
                         .IsRequired()
                         .HasColumnType("nvarchar(256)")
@@ -378,19 +377,17 @@ namespace Expro.Data.Migrations
                     b.Property<int>("UserType")
                         .HasColumnType("int");
 
-                    b.HasIndex("GenderID");
-
                     b.HasDiscriminator().HasValue("ApplicationUser");
                 });
 
             modelBuilder.Entity("Expro.Models.Gender", b =>
                 {
                     b.HasOne("Expro.Models.ApplicationUser", "Creator")
-                        .WithMany("GendersCreated")
+                        .WithMany()
                         .HasForeignKey("CreatedBy");
 
                     b.HasOne("Expro.Models.ApplicationUser", "Modifier")
-                        .WithMany("GendersModified")
+                        .WithMany()
                         .HasForeignKey("ModifiedBy");
                 });
 
@@ -484,13 +481,6 @@ namespace Expro.Data.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-                });
-
-            modelBuilder.Entity("Expro.Models.ApplicationUser", b =>
-                {
-                    b.HasOne("Expro.Models.Gender", "Gender")
-                        .WithMany("Users")
-                        .HasForeignKey("GenderID");
                 });
 #pragma warning restore 612, 618
         }

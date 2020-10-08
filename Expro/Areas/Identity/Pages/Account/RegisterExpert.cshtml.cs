@@ -6,6 +6,7 @@ using System.Text;
 using System.Text.Encodings.Web;
 using System.Threading.Tasks;
 using Expro.Models;
+using Expro.Services.Interfaces;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -24,12 +25,14 @@ namespace Expro.Areas.Identity.Pages.Account
         private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly ILogger<RegisterModel> _logger;
+        private readonly ILawAreaService LawAreaService;
         //private readonly IEmailSender _emailSender;
 
         public RegisterExpertModel(
             UserManager<ApplicationUser> userManager,
             SignInManager<ApplicationUser> signInManager,
-            ILogger<RegisterModel> logger
+            ILogger<RegisterModel> logger,
+            ILawAreaService lawAreaService
             //IEmailSender emailSender
             )
         {
@@ -37,6 +40,7 @@ namespace Expro.Areas.Identity.Pages.Account
             _signInManager = signInManager;
             _logger = logger;
             //_emailSender = emailSender;
+            LawAreaService = lawAreaService;
         }
 
         [BindProperty]
@@ -64,36 +68,47 @@ namespace Expro.Areas.Identity.Pages.Account
             [Compare("Password", ErrorMessage = "Введенные пароли не совпадают.")]
             public string ConfirmPassword { get; set; }
 
+            [Required]
             [Display(Name = "Имя")]
-            public string Name { get; set; }
+            [StringLength(256)]
+            public string FirstName { get; set; }
 
+            [Required]
             [Display(Name = "Фамилия")]
-            public string Surname { get; set; }
+            [StringLength(256)]
+            public string LastName { get; set; }
 
             [Display(Name = "Отчество")]
+            [StringLength(256)]
             public string PatronymicName { get; set; }
 
             [Display(Name = "Тип пользователя")]
             public int UserType { get; set; }
 
+            [Required]
             [Display(Name = "Телефон")]
             public string PhoneNumber { get; set; }
 
-            [Display(Name = "Регион")]
-            public string Region { get; set; }
+            //[Display(Name = "Регион")]
+            //public int RegionID { get; set; }
 
-            [Display(Name = "Город")]
-            public string City { get; set; }
+            //[Display(Name = "Город")]
+            //public int? CityID { get; set; }
 
-            [Display(Name = "Категория")]
-            public int LawAreaID { get; set; }
+            //[Display(Name = "Другое")]
+            ////[Remote("ValidateFrom", "VideoRequest", ErrorMessage = "Введите город", AdditionalFields = "TypeID")]
+            //public string CityOther { get; set; }
 
+            [Display(Name = "Направление")]
+            public List<int> LawAreas { get; set; }
         }
 
         public async Task OnGetAsync(string returnUrl = null)
         {
             ReturnUrl = returnUrl;
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
+
+            ViewData["lawAreas"] = LawAreaService.GetAsSelectList();
         }
 
         public async Task<IActionResult> OnPostAsync(string returnUrl = null)
@@ -102,7 +117,21 @@ namespace Expro.Areas.Identity.Pages.Account
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = Input.Email, Email = Input.Email, FirstName = Input.Name, LastName = Input.Surname, PhoneNumber = Input.PhoneNumber, UserType = 2, PatronymicName = Input.PatronymicName };
+                var user = new ApplicationUser 
+                { 
+                    UserName = Input.Email, 
+                    Email = Input.Email, 
+                    FirstName = Input.FirstName, 
+                    LastName = Input.LastName,
+                    PatronymicName = Input.PatronymicName,
+                    PhoneNumber = Input.PhoneNumber, 
+                    UserType = 2, 
+                    //regions and city
+
+                };
+
+                LawAreaService.UpdateUserLawAreas(user, Input.LawAreas);
+
                 var result = await _userManager.CreateAsync(user, Input.Password);
                 if (result.Succeeded)
                 {
@@ -135,6 +164,8 @@ namespace Expro.Areas.Identity.Pages.Account
                     ModelState.AddModelError(string.Empty, error.Description);
                 }
             }
+
+            ViewData["lawAreas"] = LawAreaService.GetAsSelectList();
 
             // If we got this far, something failed, redisplay form
             return Page();

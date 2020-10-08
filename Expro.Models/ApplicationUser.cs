@@ -29,12 +29,13 @@ namespace Expro.Models
         [ForeignKey("Gender")]
         public int? GenderID { get; set; }
         public virtual Gender Gender { get; set; }
-     
-        //[ForeignKey("LawArea")]
-        //public int? LawAreaID { get; set; }
-        //public virtual LawArea LawArea { get; set; }
 
         public ICollection<UserLawArea> UserLawAreas { get; set; }
+
+        [InverseProperty("Creator")]
+        public ICollection<Gender> GendersCreated { get; set; }
+        [InverseProperty("Modifier")]
+        public ICollection<Gender> GendersModified { get; set; }
 
         //==========================================================
         [InverseProperty("Author")]

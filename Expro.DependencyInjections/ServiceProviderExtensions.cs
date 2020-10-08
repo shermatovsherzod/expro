@@ -22,7 +22,7 @@ namespace Expro.DependencyInjections
         public static void AddRepositories(this IServiceCollection services)
         {
             services.AddTransient<IPostRepository, PostRepository>();
-            
+            services.AddTransient<ILawAreaRepository, LawAreaRepository>();
         }
 
         public static void AddServices(this IServiceCollection services)
@@ -30,6 +30,7 @@ namespace Expro.DependencyInjections
             //services.AddTransient<IEmailService, EmailService>();
 
             services.AddTransient<IPostService, PostService>();
+            services.AddTransient<ILawAreaService, LawAreaService>();
         }
     }
 }

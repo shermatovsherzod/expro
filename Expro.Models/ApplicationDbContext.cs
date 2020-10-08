@@ -25,6 +25,14 @@ namespace Expro.Models
                 .HasOne(bc => bc.LawArea)
                 .WithMany(c => c.UserLawAreas)
                 .HasForeignKey(bc => bc.LawAreaID);
+
+            modelBuilder.Entity<Gender>()
+                .HasMany(c => c.Users)
+                .WithOne(e => e.Gender);
+
+            //modelBuilder.Entity<ApplicationUser>()
+            //    .HasMany(c => c.Users)
+            //    .WithOne(e => e.Gender);
         }
 
         public virtual void Commit()

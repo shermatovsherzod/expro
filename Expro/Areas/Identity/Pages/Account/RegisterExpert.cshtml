@@ -20,29 +20,39 @@
             <div asp-validation-summary="All" class="text-danger"></div>
 
             <div class="form-group text-center">
-                <label asp-for="Input.Surname"></label>
-                <input asp-for="Input.Surname" class="form-control text-center" />
-                <span asp-validation-for="Input.Surname"></span>
+                <label asp-for="Input.LastName"></label>
+                <input asp-for="Input.LastName" class="form-control text-center" />
+                <span asp-validation-for="Input.LastName" class="text-danger"></span>
             </div>
 
             <div class="form-group text-center">
-                <label asp-for="Input.Name"></label>
-                <input asp-for="Input.Name" class="form-control text-center" />
-                <span asp-validation-for="Input.Name"></span>
+                <label asp-for="Input.FirstName"></label>
+                <input asp-for="Input.FirstName" class="form-control text-center" />
+                <span asp-validation-for="Input.FirstName" class="text-danger"></span>
             </div>
 
             <div class="form-group text-center">
-                <label asp-for="Input.Patronymic"></label>
-                <input asp-for="Input.Patronymic" class="form-control text-center" />
-                <span asp-validation-for="Input.Patronymic"></span>
+                <label asp-for="Input.PatronymicName"></label>
+                <input asp-for="Input.PatronymicName" class="form-control text-center" />
+                <span asp-validation-for="Input.PatronymicName" class="text-danger"></span>
             </div>
 
             <div class="form-group text-center">
                 <label asp-for="Input.PhoneNumber"></label>
                 <input asp-for="Input.PhoneNumber" class="form-control text-center" />
-                <span asp-validation-for="Input.PhoneNumber"></span>
+                <span asp-validation-for="Input.PhoneNumber" class="text-danger"></span>
             </div>
 
+            <!--region-->
+
+            <div class="form-group text-center">
+                <label asp-for="Input.LawAreas"></label>
+                <select asp-for="Input.LawAreas"
+                        asp-items="@ViewData["lawAreas"] as IEnumerable<SelectListItem>"
+                        class="form-control">
+                </select>
+                <span asp-validation-for="Input.LawAreas"></span>
+            </div>
 
             <div class="form-group text-center">
                 <label asp-for="Input.Email"></label>

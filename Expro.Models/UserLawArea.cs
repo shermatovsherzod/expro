@@ -8,7 +8,7 @@ namespace Expro.Models
     public class UserLawArea
     {
         [ForeignKey("User")]
-        public int UserID { get; set; }
+        public string UserID { get; set; }
         public ApplicationUser User { get; set; }
 
         [ForeignKey("LawArea")]

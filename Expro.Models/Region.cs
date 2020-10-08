@@ -5,9 +5,9 @@ using System.Text;
 
 namespace Expro.Models
 {
-    public class Gender : BaseModelDropdownable
+    public class Region : BaseModelDropdownable
     {
-        [InverseProperty("Gender")]
-        public ICollection<ApplicationUser> Users { get; set; }
+        //[InverseProperty("Region")]
+        //public ICollection<ApplicationUser> Users { get; set; }
     }
 }
