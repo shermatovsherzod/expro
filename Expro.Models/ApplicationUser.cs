@@ -23,7 +23,7 @@ namespace Expro.Models
 
         [StringLength(256)]
         public string PatronymicName { get; set; }
-        public DateTime DateOfBirth { get; set; }     
+        public DateTime DateOfBirth { get; set; }
         public int UserType { get; set; }
 
         [ForeignKey("Gender")]
@@ -44,5 +44,12 @@ namespace Expro.Models
         //==========================================================
         [InverseProperty("Author")]
         public virtual ICollection<Post> PostsAuthored { get; set; }
+    }
+
+    public enum UserType 
+    {
+        Admin = 1,
+        Expert = 2,
+        SimpleUser = 3
     }
 }

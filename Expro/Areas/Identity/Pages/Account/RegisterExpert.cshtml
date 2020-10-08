@@ -43,16 +43,24 @@
                 <span asp-validation-for="Input.PhoneNumber" class="text-danger"></span>
             </div>
 
-            <!--region-->
-
             <div class="form-group text-center">
                 <label asp-for="Input.LawAreas"></label>
                 <select asp-for="Input.LawAreas"
                         asp-items="@ViewData["lawAreas"] as IEnumerable<SelectListItem>"
                         class="form-control">
                 </select>
-                <span asp-validation-for="Input.LawAreas"></span>
+                <span asp-validation-for="Input.LawAreas" class="text-danger"></span>
             </div>
+
+            <div class="form-group text-center">
+                <label asp-for="Input.RegionID"></label>
+                <select asp-for="Input.RegionID"
+                        asp-items="@ViewData["regions"] as IEnumerable<SelectListItem>"
+                        class="form-control">
+                </select>
+                <span asp-validation-for="Input.RegionID" class="text-danger"></span>
+            </div>
+
 
             <div class="form-group text-center">
                 <label asp-for="Input.Email"></label>

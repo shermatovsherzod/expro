@@ -25,7 +25,9 @@ namespace Expro.Areas.Identity.Pages.Account
         private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly ILogger<RegisterModel> _logger;
-        private readonly ILawAreaService LawAreaService;
+        private readonly ILawAreaService _lawAreaService;
+        private readonly IRegionService _regionService;
+        private readonly ICityService _cityService;
         //private readonly IEmailSender _emailSender;
 
         public RegisterExpertModel(
@@ -40,7 +42,7 @@ namespace Expro.Areas.Identity.Pages.Account
             _signInManager = signInManager;
             _logger = logger;
             //_emailSender = emailSender;
-            LawAreaService = lawAreaService;
+            _lawAreaService = lawAreaService;
         }
 
         [BindProperty]
@@ -89,15 +91,15 @@ namespace Expro.Areas.Identity.Pages.Account
             [Display(Name = "Телефон")]
             public string PhoneNumber { get; set; }
 
-            //[Display(Name = "Регион")]
-            //public int RegionID { get; set; }
+            [Display(Name = "Регион")]
+            public int RegionID { get; set; }
 
-            //[Display(Name = "Город")]
-            //public int? CityID { get; set; }
+            [Display(Name = "Город")]
+            public int? CityID { get; set; }
 
-            //[Display(Name = "Другое")]
-            ////[Remote("ValidateFrom", "VideoRequest", ErrorMessage = "Введите город", AdditionalFields = "TypeID")]
-            //public string CityOther { get; set; }
+            [Display(Name = "Другое")]
+            //[Remote("ValidateFrom", "VideoRequest", ErrorMessage = "Введите город", AdditionalFields = "TypeID")]
+            public string CityOther { get; set; }
 
             [Display(Name = "Направление")]
             public List<int> LawAreas { get; set; }
@@ -108,7 +110,7 @@ namespace Expro.Areas.Identity.Pages.Account
             ReturnUrl = returnUrl;
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
 
-            ViewData["lawAreas"] = LawAreaService.GetAsSelectList();
+            ViewData["lawAreas"] = _lawAreaService.GetAsSelectList();
         }
 
         public async Task<IActionResult> OnPostAsync(string returnUrl = null)
@@ -117,20 +119,21 @@ namespace Expro.Areas.Identity.Pages.Account
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser 
-                { 
-                    UserName = Input.Email, 
-                    Email = Input.Email, 
-                    FirstName = Input.FirstName, 
+                var user = new ApplicationUser
+                {
+                    UserName = Input.Email,
+                    Email = Input.Email,
+                    FirstName = Input.FirstName,
                     LastName = Input.LastName,
                     PatronymicName = Input.PatronymicName,
-                    PhoneNumber = Input.PhoneNumber, 
-                    UserType = 2, 
-                    //regions and city
-
+                    PhoneNumber = Input.PhoneNumber,
+                    UserType = (int)UserType.Expert,
+                    RegionID = Input.RegionID,
+                    CityID = Input.CityID,
+                    CityOther = Input.CityID == null ? Input.CityOther : null
                 };
 
-                LawAreaService.UpdateUserLawAreas(user, Input.LawAreas);
+                _lawAreaService.UpdateUserLawAreas(user, Input.LawAreas);
 
                 var result = await _userManager.CreateAsync(user, Input.Password);
                 if (result.Succeeded)
@@ -165,7 +168,7 @@ namespace Expro.Areas.Identity.Pages.Account
                 }
             }
 
-            ViewData["lawAreas"] = LawAreaService.GetAsSelectList();
+            ViewData["lawAreas"] = _lawAreaService.GetAsSelectList();
 
             // If we got this far, something failed, redisplay form
             return Page();

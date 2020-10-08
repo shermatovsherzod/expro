@@ -23,6 +23,9 @@ namespace Expro.DependencyInjections
         {
             services.AddTransient<IPostRepository, PostRepository>();
             services.AddTransient<ILawAreaRepository, LawAreaRepository>();
+
+            services.AddTransient<IRegionRepository, RegionRepository>();
+            services.AddTransient<ICityRepository, CityRepository>();
         }
 
         public static void AddServices(this IServiceCollection services)
@@ -31,6 +34,9 @@ namespace Expro.DependencyInjections
 
             services.AddTransient<IPostService, PostService>();
             services.AddTransient<ILawAreaService, LawAreaService>();
+
+            services.AddTransient<IRegionService, RegionService>();
+            services.AddTransient<ICityService, CityService>();
         }
     }
 }
