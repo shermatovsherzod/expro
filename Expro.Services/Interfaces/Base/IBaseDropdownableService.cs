@@ -9,6 +9,6 @@ namespace Expro.Services.Interfaces
     public interface IBaseDropdownableService<T> : IBaseCRUDService<T> 
         where T : BaseModelDropdownable
     {
-        List<SelectListItem> GetAsSelectList(int[] selected = null);
+        List<SelectListItem> GetAsSelectList(int[] selected = null, bool includeOther = false);
     }
 }

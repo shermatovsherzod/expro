@@ -43,7 +43,7 @@ namespace Expro.Models
         public DbSet<Post> Posts { get; set; }
         public DbSet<Gender> Genders { get; set; }
         public DbSet<LawArea> LawAreas { get; set; }
-        //public DbSet<Region> Regions { get; set; }
-        //public DbSet<City> Cities { get; set; }
+        public DbSet<Region> Regions { get; set; }
+        public DbSet<City> Cities { get; set; }
     }
 }

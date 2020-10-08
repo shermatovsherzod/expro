@@ -19,14 +19,26 @@ namespace Expro.Services
             this._unitOfWork = unitOfWork;
         }
 
-        public List<SelectListItem> GetAsSelectList(int[] selected = null)
+        public List<SelectListItem> GetAsSelectList(int[] selected = null, bool includeOther = false)
         {
-            return GetAll().Select(item => new SelectListItem()
+            var result = GetAll().Select(item => new SelectListItem()
             {
                 Value = item.ID.ToString(),
                 Text = item.Name.ToString(),
                 Selected = (selected != null && selected.Contains(item.ID))
             }).ToList();
+
+            if (includeOther)
+            {
+                result.Add(new SelectListItem()
+                {
+                    Value = "0",
+                    Text = "Другое",
+                    Selected = false
+                });
+            }
+
+            return result;
         }
     }
 }
