@@ -34,7 +34,10 @@ namespace Expro.Areas.Identity.Pages.Account
             UserManager<ApplicationUser> userManager,
             SignInManager<ApplicationUser> signInManager,
             ILogger<RegisterModel> logger,
-            ILawAreaService lawAreaService
+            ILawAreaService lawAreaService,
+            IRegionService regionService,
+            ICityService cityService
+
             //IEmailSender emailSender
             )
         {
@@ -43,6 +46,8 @@ namespace Expro.Areas.Identity.Pages.Account
             _logger = logger;
             //_emailSender = emailSender;
             _lawAreaService = lawAreaService;
+            _regionService = regionService;
+            _cityService = cityService;
         }
 
         [BindProperty]
@@ -111,6 +116,8 @@ namespace Expro.Areas.Identity.Pages.Account
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
 
             ViewData["lawAreas"] = _lawAreaService.GetAsSelectList();
+            ViewData["regions"] = _regionService.GetAsSelectList();
+            ViewData["cities"] = _cityService.GetAsSelectList();
         }
 
         public async Task<IActionResult> OnPostAsync(string returnUrl = null)
@@ -169,9 +176,16 @@ namespace Expro.Areas.Identity.Pages.Account
             }
 
             ViewData["lawAreas"] = _lawAreaService.GetAsSelectList();
+            ViewData["regions"] = _regionService.GetAsSelectList();
+            ViewData["cities"] = _cityService.GetAsSelectList();
 
             // If we got this far, something failed, redisplay form
             return Page();
+        }
+
+        public JsonResult OnGetFilter(int mid)
+        {
+            return new JsonResult(9);
         }
     }
 }

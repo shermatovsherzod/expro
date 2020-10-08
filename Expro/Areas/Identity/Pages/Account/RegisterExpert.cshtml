@@ -63,6 +63,15 @@
 
 
             <div class="form-group text-center">
+                <label asp-for="Input.CityID"></label>
+                <select asp-for="Input.CityID"
+                        asp-items="@ViewData["cities"] as IEnumerable<SelectListItem>"
+                        class="form-control">
+                </select>
+                <span asp-validation-for="Input.CityID" class="text-danger"></span>
+            </div>
+
+            <div class="form-group text-center">
                 <label asp-for="Input.Email"></label>
                 <input asp-for="Input.Email" class="form-control text-center" />
                 <span asp-validation-for="Input.Email" class="text-danger"></span>
@@ -125,4 +134,42 @@
 
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
+
+    <script>
+        $('#Input_RegionID').change(function () {
+            var selectedRegion = $("#Input_RegionID").val();
+
+            //$.getJSON(url, function (data) {
+            //    $("#SelectedTimeOption").empty();
+            //    $.each(data,
+            //        function (i, item) {
+            //            $("#SelectedTimeOption")
+            //                .append($("<option>").text(item.text).val(item.value));
+            //        });
+            //});
+
+
+            $.ajax({
+                url: '/Identity/Account/RegisterExpert/Filter',
+                data: {
+                    mid: 8
+                }
+            })
+
+            //$.ajax({
+            //    type: 'GET',
+            //    url: '/Identity/Account/RegisterExpert/SelectCities?id=' + selectedRegion,
+            //    contentType: 'json',
+            //    data: selectedRegion,
+            //    success: function (result) {
+            //        $("#Input_CityID").empty();
+            //        $.each(data,
+            //            function (i, item) {
+            //                $("#SelectedTimeOption")
+            //                    .append($("<option>").text(item.text).val(item.value));
+            //            });
+            //    }
+            //});
+        });
+    </script>
 }
