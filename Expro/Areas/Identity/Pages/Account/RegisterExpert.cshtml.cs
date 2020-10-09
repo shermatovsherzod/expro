@@ -117,7 +117,7 @@ namespace Expro.Areas.Identity.Pages.Account
 
             ViewData["lawAreas"] = _lawAreaService.GetAsSelectList();
             ViewData["regions"] = _regionService.GetAsSelectList();
-            ViewData["cities"] = _cityService.GetAsSelectList();
+            //ViewData["cities"] = _cityService.GetAsSelectList();
         }
 
         public async Task<IActionResult> OnPostAsync(string returnUrl = null)
@@ -177,15 +177,10 @@ namespace Expro.Areas.Identity.Pages.Account
 
             ViewData["lawAreas"] = _lawAreaService.GetAsSelectList();
             ViewData["regions"] = _regionService.GetAsSelectList();
-            ViewData["cities"] = _cityService.GetAsSelectList();
+            //ViewData["cities"] = _cityService.GetAsSelectList();
 
             // If we got this far, something failed, redisplay form
             return Page();
-        }
-
-        public JsonResult OnGetFilter(int mid)
-        {
-            return new JsonResult(9);
         }
     }
 }

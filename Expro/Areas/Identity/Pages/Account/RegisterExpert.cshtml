@@ -99,37 +99,6 @@
     </div>
 
     <div class="col-md-4"></div>
-
-    @*<div class="col-md-6 col-md-offset-2">
-            <section>
-                <h4>Use another service to register.</h4>
-                <hr />
-                @{
-                    if ((Model.ExternalLogins?.Count ?? 0) == 0)
-                    {
-                        <div>
-                            <p>
-                                There are no external authentication services configured. See <a href="https://go.microsoft.com/fwlink/?LinkID=532715">this article</a>
-                                for details on setting up this ASP.NET application to support logging in via external services.
-                            </p>
-                        </div>
-                    }
-                    else
-                    {
-                        <form id="external-account" asp-page="./ExternalLogin" asp-route-returnUrl="@Model.ReturnUrl" method="post" class="form-horizontal">
-                            <div>
-                                <p>
-                                    @foreach (var provider in Model.ExternalLogins)
-                                    {
-                                        <button type="submit" class="btn btn-primary" name="provider" value="@provider.Name" title="Log in using your @provider.DisplayName account">@provider.DisplayName</button>
-                                    }
-                                </p>
-                            </div>
-                        </form>
-                    }
-                }
-            </section>
-        </div>*@
 </div>
 
 @section Scripts {
@@ -138,38 +107,33 @@
     <script>
         $('#Input_RegionID').change(function () {
             var selectedRegion = $("#Input_RegionID").val();
-
-            //$.getJSON(url, function (data) {
-            //    $("#SelectedTimeOption").empty();
-            //    $.each(data,
-            //        function (i, item) {
-            //            $("#SelectedTimeOption")
-            //                .append($("<option>").text(item.text).val(item.value));
-            //        });
-            //});
-
-
-            $.ajax({
-                url: '/Identity/Account/RegisterExpert/Filter',
-                data: {
-                    mid: 8
-                }
-            })
-
-            //$.ajax({
-            //    type: 'GET',
-            //    url: '/Identity/Account/RegisterExpert/SelectCities?id=' + selectedRegion,
-            //    contentType: 'json',
-            //    data: selectedRegion,
-            //    success: function (result) {
-            //        $("#Input_CityID").empty();
-            //        $.each(data,
-            //            function (i, item) {
-            //                $("#SelectedTimeOption")
-            //                    .append($("<option>").text(item.text).val(item.value));
-            //            });
-            //    }
-            //});
+            LoadCitiesByRegion(selectedRegion);
         });
+
+        function LoadCitiesByRegion(regionID, selectedCityID) {
+            $.ajax({
+                type: "GET",
+                url: "/City/GetByRegionIDAsSelectList",
+                //data: JSON.stringify({
+                //    selected: categoryID
+                //}),
+                data: {
+                    regionID: regionID
+                },
+                contentType: "application/json; charset=utf-8",
+                //dataType: "json",
+                success: function (data) {
+                    $("#Input_CityID").empty();
+                    $.each(data,
+                        function (i, item) {
+                            $("#Input_CityID")
+                                .append($("<option>").text(item.text).val(item.value));
+                        });
+                },
+                error: function (data) {
+                    console.log(data);
+                }
+            });
+        }
     </script>
 }
