@@ -2,7 +2,7 @@
 using Expro.Models;
 using System;
 
-namespace Cameo.ViewModels
+namespace Expro.ViewModels
 {
     public class AttachmentDetailsVM
     {
@@ -35,35 +35,35 @@ namespace Cameo.ViewModels
         public string Path { get; set; } //"path/to/file/file.txt"
         public long Size { get; set; } //byte
         public string ContentType { get; set; } //"image/jpeg"
-        //public string DownloadUrl { get; set; } //"https://gerlgnenr.com?param1=val1&param2=val2..."
+        public string DownloadUrl { get; set; } //"https://gerlgnenr.com?param1=val1&param2=val2..."
         public string FileType { get; set; } //Constants.FileTypes.VIDEO_REQUEST_VIDEO
         public int? ModelID { get; set; }
 
-        //public Attachment ToModel()
-        //{
-        //    Attachment attachment = new Attachment()
-        //    {
-        //        GUID = Guid.NewGuid().ToString(),
-        //        Filename = this.Filename,
-        //        Size = this.Size,
-        //        MimeType = this.ContentType
-        //    };
+        public Attachment ToModel()
+        {
+            Attachment attachment = new Attachment()
+            {
+                GUID = Guid.NewGuid().ToString(),
+                Filename = this.Filename,
+                Size = this.Size,
+                MimeType = this.ContentType
+            };
 
-        //    string path = "";
-        //    string[] tmp = this.Path.Split('/');
-        //    for (int i = 0; i < tmp.Length - 1; i++)
-        //    {
-        //        path += tmp[i];
-        //        if (i < tmp.Length - 2)
-        //            path += "/";
-        //    }
-        //    attachment.Path = path;
+            string path = "";
+            string[] tmp = this.Path.Split('/');
+            for (int i = 0; i < tmp.Length - 1; i++)
+            {
+                path += tmp[i];
+                if (i < tmp.Length - 2)
+                    path += "/";
+            }
+            attachment.Path = path;
 
-        //    tmp = this.DownloadUrl.Split('?');
-        //    if (tmp.Length > 1)
-        //        attachment.UrlParameters = tmp[1];
+            tmp = this.DownloadUrl.Split('?');
+            if (tmp.Length > 1)
+                attachment.UrlParameters = tmp[1];
 
-        //    return attachment;
-        //}
+            return attachment;
+        }
     }
 }

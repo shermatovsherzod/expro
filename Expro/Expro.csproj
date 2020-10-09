@@ -8,6 +8,8 @@
   <ItemGroup>
     <Compile Remove="Data\Migrations\20201007174252_ApplicationUserDeleteGender.cs" />
     <Compile Remove="Data\Migrations\20201007174252_ApplicationUserDeleteGender.Designer.cs" />
+    <Compile Remove="Data\Migrations\20201009103742_AttachmentModelAdded.cs" />
+    <Compile Remove="Data\Migrations\20201009103742_AttachmentModelAdded.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>

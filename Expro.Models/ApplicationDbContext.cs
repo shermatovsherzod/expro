@@ -45,5 +45,6 @@ namespace Expro.Models
         public DbSet<LawArea> LawAreas { get; set; }
         public DbSet<Region> Regions { get; set; }
         public DbSet<City> Cities { get; set; }
+        public DbSet<Attachment> Attachments{ get; set; }
     }
 }
