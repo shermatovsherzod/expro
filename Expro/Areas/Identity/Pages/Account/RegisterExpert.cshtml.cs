@@ -102,7 +102,8 @@ namespace Expro.Areas.Identity.Pages.Account
             [Display(Name = "Город")]
             public int? CityID { get; set; }
 
-            [Display(Name = "Другое")]
+            [Display(Name = "Другой город")]
+            [StringLength(256)]
             //[Remote("ValidateFrom", "VideoRequest", ErrorMessage = "Введите город", AdditionalFields = "TypeID")]
             public string CityOther { get; set; }
 
@@ -136,7 +137,7 @@ namespace Expro.Areas.Identity.Pages.Account
                     PhoneNumber = Input.PhoneNumber,
                     UserType = (int)UserType.Expert,
                     RegionID = Input.RegionID,
-                    CityID = Input.CityID,
+                    CityID = Input.CityID == 0 ? null : Input.CityID,
                     CityOther = Input.CityID == null ? Input.CityOther : null
                 };
 
