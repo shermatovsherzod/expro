@@ -79,7 +79,7 @@ namespace Expro
                 Path.Combine(webRoot, "Uploads")));
 
             services.AddMvc().AddViewLocalization();
-            services.AddControllersWithViews();
+            services.AddControllersWithViews().AddRazorRuntimeCompilation();
             services.AddRazorPages();
         }
 
