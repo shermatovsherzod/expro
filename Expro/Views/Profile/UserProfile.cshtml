@@ -36,7 +36,7 @@
                     </ul>
                 </div>
             </div>
-            <div class="col-md-2">                
+            <div class="col-md-2">
             </div>
         </div>
         <div class="row">
@@ -59,44 +59,90 @@
                     <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
                         <div class="row">
                             <div class="col-md-6">
-                                <label>User Id</label>
+                                <label asp-for="@Model.FirstName"></label>
                             </div>
                             <div class="col-md-6">
-                                <p>Kshiti1239999</p>
+                                <p>
+                                    <input asp-for="@Model.FirstName" class="form-control" />
+                                    <span asp-validation-for="@Model.FirstName"></span>
+                                </p>
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-md-6">
-                                <label>Name</label>
+                                <label asp-for="@Model.LastName"></label>
                             </div>
                             <div class="col-md-6">
-                                <p>Kshiti Ghelani</p>
+                                <p>
+                                    <input asp-for="@Model.LastName" class="form-control" />
+                                    <span asp-validation-for="@Model.LastName"></span>
+                                </p>
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-md-6">
-                                <label>Email</label>
+                                <label asp-for="@Model.PatronymicName"></label>
                             </div>
                             <div class="col-md-6">
-                                <p>kshitighelani@gmail.com</p>
+                                <p>
+                                    <input asp-for="@Model.PatronymicName" class="form-control" />
+                                    <span asp-validation-for="@Model.PatronymicName"></span>
+                                </p>
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-md-6">
-                                <label>Phone</label>
+                                <label asp-for="@Model.RegionID"></label>
                             </div>
                             <div class="col-md-6">
-                                <p>123 456 7890</p>
+                                <p>
+                                    <select asp-for="@Model.RegionID"
+                                            asp-items="@ViewData["regions"] as IEnumerable<SelectListItem>"
+                                            class="form-control">
+                                    </select>
+                                    <span asp-validation-for="@Model.RegionID" class="text-danger"></span>
+                                </p>
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-md-6">
-                                <label>Profession</label>
+                                <label asp-for="@Model.CityID"></label>
                             </div>
                             <div class="col-md-6">
-                                <p>Web Developer and Designer</p>
+                                <p>
+                                    <select asp-for="@Model.CityID"
+                                            asp-items="@ViewData["cities"] as IEnumerable<SelectListItem>"
+                                            class="form-control">
+                                        <option disabled>--- Выбрать город ---</option>
+                                    </select>
+                                    <span asp-validation-for="@Model.CityID" class="text-danger"></span>
+                                </p>
                             </div>
                         </div>
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label asp-for="@Model.DateOfBirth"></label>
+                            </div>
+                            <div class="col-md-6">
+                                <p>
+                                    <input asp-for="@Model.DateOfBirth" class="form-control" />
+                                    <span asp-validation-for="@Model.DateOfBirth"></span>
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label asp-for="@Model.Gender"></label>
+                            </div>
+                            <div class="col-md-6">
+                                <p>
+                                   
+                                </p>
+                            </div>
+                        </div>
+
                     </div>
                     <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
                         <div class="row">
