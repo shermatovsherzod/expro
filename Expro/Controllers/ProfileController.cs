@@ -61,14 +61,36 @@ namespace Expro.Controllers
             return View(userVM);
         }
 
-        public IActionResult ExpertProfile()
+        [HttpPost]
+        public JsonResult MainInfo(string FirstName)
         {
-            return View();
+            string result = "Added ";
+
+            return Json(result);
         }
 
-        public IActionResult AdminProfile()
+        [HttpPost]
+        public JsonResult Contacts()
         {
-            return View();
+            string result = "Added ";
+
+            return Json(result);
+        }
+
+        [HttpPost]
+        public JsonResult Education()
+        {
+            string result = "Added ";
+
+            return Json(result);
+        }
+
+        [HttpPost]
+        public JsonResult Experience()
+        {
+            string result = "Added ";
+
+            return Json(result);
         }
     }
 }

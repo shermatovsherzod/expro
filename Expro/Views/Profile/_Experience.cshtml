@@ -1,0 +1,135 @@
+﻿@model UserVM
+<form asp-controller="Profile" asp-action="Experience" data-ajax="true" data-ajax-method="POST">
+    <div class="row">
+        <div class="col-md-12">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Страна</th>
+                        <th>Город</th>
+                        <th>Место работы</th>
+                        <th>Должность</th>
+                        <th>Период</th>
+                        <th>Диплом</th>
+                        <th>Действие</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Узбекистан</td>
+                        <td>Ташкент</td>
+                        <td>ООО Legal law</td>
+                        <td>Юрист</td>
+                        <td>2005-2007</td>
+                        <td><button class="btn btn-info">Диплом</button></td>
+                        <td><button class="btn btn-danger">Удалить</button></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <hr />
+            <b>Добавить место работы</b>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-6">
+            <label>Страна</label>
+        </div>
+        <div class="col-md-6">
+            <p>
+                <select class="form-control" name="workcountry" id="workcountry">
+                    <option value="uzb">Узбекистан</option>
+                    <option value="rus">Россия</option>
+                    <option value="eng">Англия</option>
+                </select>
+            </p>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-6">
+            <label>Город</label>
+        </div>
+        <div class="col-md-6">
+            <p>
+                <select class="form-control" name="workcity" id="workcity">
+                    <option value="uzb">Ташкент</option>
+                    <option value="rus">Москва</option>
+                    <option value="eng">Лондон</option>
+                </select>
+            </p>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-6">
+            <label>Место работы</label>
+        </div>
+        <div class="col-md-6">
+            <p>
+                <input type="text" class="form-control" />
+            </p>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-6">
+            <label>Должность</label>
+        </div>
+        <div class="col-md-6">
+            <p>
+                <input type="text" class="form-control" />
+            </p>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-6">
+            <label>Период</label>
+        </div>
+        <div class="col-md-6">
+            <div class="row">
+                <div class="col-md-6">С</div>
+                <div class="col-md-6">
+                    <p>
+                        <input type="text" class="form-control" />
+                    </p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">По</div>
+                <div class="col-md-6">
+                    <p>
+                        <input type="text" class="form-control" />
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="row">
+        <div class="col-md-6">
+            <label>Год выпуска</label>
+        </div>
+        <div class="col-md-6">
+            <p>
+                <select class="form-control" name="graduationyear" id="graduationyear">
+                    <option value="uzb">2005</option>
+                    <option value="rus">2006</option>
+                    <option value="eng">2007</option>
+                </select>
+            </p>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12 text-right">
+            <button type="submit" class="btn btn-primary">Добавить</button>
+        </div>
+    </div>
+</form>

@@ -1,0 +1,31 @@
+﻿@model UserVM
+<form asp-controller="Profile" asp-action="Contacts" data-ajax="true" data-ajax-method="POST">
+    <div class="row">
+        <div class="col-md-6">
+            <label asp-for="@Model.Email"></label>
+        </div>
+        <div class="col-md-6">
+            <p>
+                <input asp-for="@Model.Email" class="form-control" />
+                <span asp-validation-for="@Model.Email"></span>
+            </p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <label asp-for="@Model.PhoneNumber"></label>
+        </div>
+        <div class="col-md-6">
+            <p>
+                <input asp-for="@Model.PhoneNumber" class="form-control" />
+                <span asp-validation-for="@Model.PhoneNumber"></span>
+            </p>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12 text-right">
+            <button type="submit" class="btn btn-primary">Сохранить</button>
+        </div>
+    </div>
+</form>

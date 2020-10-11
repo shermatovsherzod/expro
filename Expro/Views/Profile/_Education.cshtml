@@ -1,0 +1,113 @@
+﻿@model UserVM
+<form asp-controller="Profile" asp-action="Education" data-ajax="true" data-ajax-method="POST">
+    <div class="row">
+        <div class="col-md-12">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>
+                            Страна
+                        </th>
+                        <th>Город</th>
+                        <th>ВУЗ</th>
+                        <th>Факультет</th>
+                        <th>Год выпуска</th>
+                        <th>Действие</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Узбекистан</td>
+                        <td>Ташкент</td>
+                        <td>ТУИТ</td>
+                        <td>Дизайнер</td>
+                        <td>2005</td>
+                        <td>
+                            <button class="btn btn-danger">Удалить</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <hr />
+            <b>Добавить образование</b>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-6">
+            <label>Страна</label>
+        </div>
+        <div class="col-md-6">
+            <p>
+                <select class="form-control" name="country" id="country">
+                    <option value="uzb">Узбекистан</option>
+                    <option value="rus">Россия</option>
+                    <option value="eng">Англия</option>
+                </select>
+            </p>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-6">
+            <label>Город</label>
+        </div>
+        <div class="col-md-6">
+            <p>
+                <select class="form-control" name="city" id="city">
+                    <option value="uzb">Ташкент</option>
+                    <option value="rus">Москва</option>
+                    <option value="eng">Лондон</option>
+                </select>
+            </p>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-6">
+            <label>ВУЗ</label>
+        </div>
+        <div class="col-md-6">
+            <p>
+                <input type="text" id="university" name="university" class="form-control" />
+            </p>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-6">
+            <label>Факультет</label>
+        </div>
+        <div class="col-md-6">
+            <p>
+                <input type="text" id="faculty" name="faculty" class="form-control" />
+            </p>
+        </div>
+    </div>
+
+
+    <div class="row">
+        <div class="col-md-6">
+            <label>Год выпуска</label>
+        </div>
+        <div class="col-md-6">
+            <p>
+                <select class="form-control" name="graduationyear" id="graduationyear">
+                    <option value="uzb">2005</option>
+                    <option value="rus">2006</option>
+                    <option value="eng">2007</option>
+                </select>
+            </p>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12 text-right">
+            <button type="submit" class="btn btn-primary">Добавить</button>
+        </div>
+    </div>
+</form>
