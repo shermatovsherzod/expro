@@ -52,5 +52,8 @@ namespace Expro.Models
 
         [Display(Name = "Пол")]
         public string Gender { get; set; }
+
+        public List<EducationVM> educationVMs { get; set; }
+
     }
 }
