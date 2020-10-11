@@ -6,6 +6,7 @@ using System.Text;
 using System.Text.Encodings.Web;
 using System.Threading.Tasks;
 using Expro.Models;
+using Expro.Models.Enums;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -98,7 +99,16 @@ namespace Expro.Areas.Identity.Pages.Account
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = Input.Email, Email = Input.Email, FirstName = Input.Name, LastName = Input.Surname, PhoneNumber = Input.PhoneNumber, UserType = 3 };
+                var user = new ApplicationUser 
+                { 
+                    UserName = Input.Email,
+                    Email = Input.Email, 
+                    FirstName = Input.Name, 
+                    LastName = Input.Surname, 
+                    PhoneNumber = Input.PhoneNumber, 
+                    UserType = (int)UserTypesEnum.SimpleUser
+                };
+
                 var result = await _userManager.CreateAsync(user, Input.Password);
                 if (result.Succeeded)
                 {

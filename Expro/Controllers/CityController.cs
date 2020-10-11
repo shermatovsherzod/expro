@@ -19,9 +19,13 @@ namespace Expro.Controllers
             //_logger = logger;
         }
 
-        public List<SelectListItem> GetByRegionIDAsSelectList(int regionID)
+        public List<SelectListItem> GetByRegionIDAsSelectList(int regionID, int? selected = null)
         {
-            return _cityService.GetByRegionIDAsSelectList(regionID);
+            int[] selectedCities = null;
+            if (selected.HasValue)
+                selectedCities = new int[1] { selected.Value };
+
+            return _cityService.GetByRegionIDAsSelectList(regionID, selectedCities, true);
         }
     }
 }

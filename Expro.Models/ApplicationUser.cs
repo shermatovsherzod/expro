@@ -45,11 +45,4 @@ namespace Expro.Models
         [InverseProperty("Author")]
         public virtual ICollection<Post> PostsAuthored { get; set; }
     }
-
-    public enum UserType 
-    {
-        Admin = 1,
-        Expert = 2,
-        SimpleUser = 3
-    }
 }

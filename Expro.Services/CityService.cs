@@ -25,13 +25,14 @@ namespace Expro.Services
             return result;
         }
 
-        public List<SelectListItem> GetByRegionIDAsSelectList(int regionID, bool includeOther = false)
+        public List<SelectListItem> GetByRegionIDAsSelectList(int regionID, int[] selected = null, bool includeOther = false)
         {
             var result = GetByRegionID(regionID)
                 .Select(item => new SelectListItem()
                 {
                     Value = item.ID.ToString(),
-                    Text = item.Name.ToString()
+                    Text = item.Name.ToString(),
+                    Selected = (selected != null && selected.Contains(item.ID))
                 }).ToList();
 
             if (includeOther)
@@ -39,8 +40,8 @@ namespace Expro.Services
                 result.Add(new SelectListItem()
                 {
                     Value = "0",
-                    Text = "Другое",
-                    Selected = false
+                    Text = "Другой город",
+                    Selected = (selected != null && selected.Contains(0))
                 });
             }
 

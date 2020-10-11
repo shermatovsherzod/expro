@@ -7,6 +7,6 @@ namespace Expro.Services.Interfaces
     public interface ICityService : IBaseDropdownableService<City>
     {
         IEnumerable<City> GetByRegionID(int regionID);
-        List<SelectListItem> GetByRegionIDAsSelectList(int regionID, bool includeOther = false);
+        List<SelectListItem> GetByRegionIDAsSelectList(int regionID, int[] selected = null, bool includeOther = false);
     }
 }

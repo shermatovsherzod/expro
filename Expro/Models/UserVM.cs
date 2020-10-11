@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Expro.Models.Enums;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Text;
@@ -30,7 +31,7 @@ namespace Expro.Models
 
         [Display(Name = "Отчество")]
         public string PatronymicName { get; set; }
-        public UserType UserType { get; set; }
+        public UserTypesEnum UserType { get; set; }
 
         [Display(Name = "Город")]
         public int CityID { get; set; }

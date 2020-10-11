@@ -6,6 +6,7 @@ using System.Text;
 using System.Text.Encodings.Web;
 using System.Threading.Tasks;
 using Expro.Models;
+using Expro.Models.Enums;
 using Expro.Services.Interfaces;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
@@ -107,6 +108,7 @@ namespace Expro.Areas.Identity.Pages.Account
             //[Remote("ValidateFrom", "VideoRequest", ErrorMessage = "Введите город", AdditionalFields = "TypeID")]
             public string CityOther { get; set; }
 
+            [Required]
             [Display(Name = "Направление")]
             public List<int> LawAreas { get; set; }
         }
@@ -118,14 +120,13 @@ namespace Expro.Areas.Identity.Pages.Account
 
             ViewData["lawAreas"] = _lawAreaService.GetAsSelectList();
             ViewData["regions"] = _regionService.GetAsSelectList();
-            //ViewData["cities"] = _cityService.GetAsSelectList();
         }
 
         public async Task<IActionResult> OnPostAsync(string returnUrl = null)
         {
             returnUrl = returnUrl ?? Url.Content("~/");
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
                 var user = new ApplicationUser
                 {
@@ -135,7 +136,7 @@ namespace Expro.Areas.Identity.Pages.Account
                     LastName = Input.LastName,
                     PatronymicName = Input.PatronymicName,
                     PhoneNumber = Input.PhoneNumber,
-                    UserType = (int)UserType.Expert,
+                    UserType = (int)UserTypesEnum.Expert,
                     RegionID = Input.RegionID,
                     CityID = Input.CityID == 0 ? null : Input.CityID,
                     CityOther = Input.CityID == null ? Input.CityOther : null
@@ -178,7 +179,6 @@ namespace Expro.Areas.Identity.Pages.Account
 
             ViewData["lawAreas"] = _lawAreaService.GetAsSelectList();
             ViewData["regions"] = _regionService.GetAsSelectList();
-            //ViewData["cities"] = _cityService.GetAsSelectList();
 
             // If we got this far, something failed, redisplay form
             return Page();

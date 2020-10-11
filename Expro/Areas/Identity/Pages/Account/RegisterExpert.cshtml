@@ -2,6 +2,8 @@
 @model RegisterExpertModel
 @{
     ViewData["Title"] = "Регистрация";
+    
+    int? cityID = Model?.Input?.CityID;
 }
 
 <div class="row">
@@ -113,17 +115,33 @@
     <partial name="_ValidationScriptsPartial" />
     <script>
         $(document).ready(function () {
-            $("#Input_CityOther").attr('disabled', 'disabled');
-        });
-    </script>
+            var cityID = Number("@cityID");
+            if (cityID != "0")
+                $("#Input_CityOther").attr('disabled', 'disabled');
 
-    <script>
-        $('#Input_RegionID').change(function () {
-            var selectedRegion = $("#Input_RegionID").val();
-            LoadCitiesByRegion(selectedRegion);
+            $('#Input_RegionID').change(function () {
+                var selectedRegion = $("#Input_RegionID").val();
+                LoadCitiesByRegion(selectedRegion);
+            });
+
+            $('#Input_CityID').change(function () {
+                var selectedCity = $("#Input_CityID").val();
+                $("#Input_CityOther").val('');
+                if (selectedCity === "0") {
+                    $("#Input_CityOther").removeAttr('disabled');
+                }
+                else {
+                    $("#Input_CityOther").attr('disabled', 'disabled');
+                }
+            });
+
+            LoadCitiesByRegion($("#Input_RegionID").val(), cityID);
         });
 
         function LoadCitiesByRegion(regionID, selectedCityID) {
+            if (selectedCityID == undefined || (isNaN(selectedCityID)))
+                selectedCityID = null;
+
             $.ajax({
                 type: "GET",
                 url: "/City/GetByRegionIDAsSelectList",
@@ -131,7 +149,8 @@
                 //    selected: categoryID
                 //}),
                 data: {
-                    regionID: regionID
+                    regionID: regionID,
+                    selected: selectedCityID
                 },
                 contentType: "application/json; charset=utf-8",
                 //dataType: "json",
@@ -139,29 +158,22 @@
                     $("#Input_CityID").empty().append($("<option>").text("--- Выбрать город ---").attr('disabled', 'disabled').attr('selected', 'selected'));
                     $.each(data,
                         function (i, item) {
+                            var isSelected = "";
+                            if (item.selected == true)
+                                isSelected = "selected='selected'";
+
                             $("#Input_CityID")
-                                .append($("<option>").text(item.text).val(item.value));
+                                //.append($("<option>").text(item.text).val(item.value));
+                                .append("<option value='" + item.value + "' " + isSelected + ">" + item.text + "</option>");
+
                         });
-                    $("#Input_CityID")
-                        .append($("<option>").text("Другой город").val("0"));
+                    //$("#Input_CityID")
+                    //    .append($("<option>").text("Другой город").val("0"));
                 },
                 error: function (data) {
                     console.log(data);
                 }
             });
         }
-    </script>
-
-    <script>
-        $('#Input_CityID').change(function () {
-            var selectedCity = $("#Input_CityID").val();
-            $("#Input_CityOther").val('');
-            if (selectedCity === "0") {
-                $("#Input_CityOther").removeAttr('disabled');
-            }
-            else {
-                $("#Input_CityOther").attr('disabled', 'disabled');
-            }
-        });
     </script>
 }
