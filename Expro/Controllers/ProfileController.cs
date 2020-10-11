@@ -66,7 +66,7 @@ namespace Expro.Controllers
         {
             string result = "Added ";
 
-            return Json(result);
+            return Json(new { success = false, failure = true }) ;
         }
 
         [HttpPost]

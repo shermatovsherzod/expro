@@ -1,5 +1,5 @@
 ﻿@model UserVM
-<form asp-controller="Profile" asp-action="MainInfo" data-ajax="true" data-ajax-method="POST">
+<form asp-controller="Profile" asp-action="MainInfo" data-ajax="true" data-ajax-mode="replace" data-ajax-success="myfunction()" data-ajax-failure="myfunction2()" data-ajax-update="#results" data-ajax-method="POST">
 
     <div class="row">
         <div class="col-md-6">
