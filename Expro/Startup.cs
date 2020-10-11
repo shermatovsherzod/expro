@@ -53,6 +53,16 @@ namespace Expro
 
             services.Configure<AppConfiguration>(Configuration.GetSection("MySettings"));
 
+            //password requirements
+            services.Configure<IdentityOptions>(options =>
+            {
+                options.Password.RequireDigit = false;
+                options.Password.RequiredLength = 1;
+                options.Password.RequireLowercase = false;
+                options.Password.RequireNonAlphanumeric = false;
+                options.Password.RequireUppercase = false;
+            });
+
             //add common dependencies
             services.AddCommonDependencies(); //UnitOfWork and DatabaseFactory
 
@@ -69,7 +79,7 @@ namespace Expro
                 Path.Combine(webRoot, "Uploads")));
 
             services.AddMvc().AddViewLocalization();
-            services.AddControllersWithViews();
+            services.AddControllersWithViews().AddRazorRuntimeCompilation();
             services.AddRazorPages();
         }
 

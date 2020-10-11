@@ -57,6 +57,7 @@
                 <select asp-for="Input.RegionID"
                         asp-items="@ViewData["regions"] as IEnumerable<SelectListItem>"
                         class="form-control">
+                    <option disabled selected>--- Выбрать регион ---</option>
                 </select>
                 <span asp-validation-for="Input.RegionID" class="text-danger"></span>
             </div>
@@ -67,8 +68,15 @@
                 <select asp-for="Input.CityID"
                         asp-items="@ViewData["cities"] as IEnumerable<SelectListItem>"
                         class="form-control">
+                    <option disabled selected>--- Выбрать город ---</option>
                 </select>
                 <span asp-validation-for="Input.CityID" class="text-danger"></span>
+            </div>
+
+            <div class="form-group text-center">
+                <label asp-for="Input.CityOther"></label>
+                <input asp-for="Input.CityOther" class="form-control text-center" />
+                <span asp-validation-for="Input.CityOther" disabled class="text-danger"></span>
             </div>
 
             <div class="form-group text-center">
@@ -103,6 +111,11 @@
 
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
+    <script>
+        $(document).ready(function () {
+            $("#Input_CityOther").attr('disabled', 'disabled');
+        });
+    </script>
 
     <script>
         $('#Input_RegionID').change(function () {
@@ -123,17 +136,32 @@
                 contentType: "application/json; charset=utf-8",
                 //dataType: "json",
                 success: function (data) {
-                    $("#Input_CityID").empty();
+                    $("#Input_CityID").empty().append($("<option>").text("--- Выбрать город ---").attr('disabled', 'disabled').attr('selected', 'selected'));
                     $.each(data,
                         function (i, item) {
                             $("#Input_CityID")
                                 .append($("<option>").text(item.text).val(item.value));
                         });
+                    $("#Input_CityID")
+                        .append($("<option>").text("Другой город").val("0"));
                 },
                 error: function (data) {
                     console.log(data);
                 }
             });
         }
+    </script>
+
+    <script>
+        $('#Input_CityID').change(function () {
+            var selectedCity = $("#Input_CityID").val();
+            $("#Input_CityOther").val('');
+            if (selectedCity === "0") {
+                $("#Input_CityOther").removeAttr('disabled');
+            }
+            else {
+                $("#Input_CityOther").attr('disabled', 'disabled');
+            }
+        });
     </script>
 }

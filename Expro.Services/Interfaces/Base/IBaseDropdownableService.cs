@@ -10,5 +10,6 @@ namespace Expro.Services.Interfaces
         where T : BaseModelDropdownable
     {
         List<SelectListItem> GetAsSelectList(int[] selected = null, bool includeOther = false);
+        List<SelectListItem> GetAsSelectListOne(int? selected = null, bool includeOther = false);
     }
 }

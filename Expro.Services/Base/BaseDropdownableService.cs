@@ -12,7 +12,7 @@ namespace Expro.Services
         where T : BaseModelDropdownable
     {
         public BaseDropdownableService(
-            IBaseCRUDRepository<T> repository, 
+            IBaseCRUDRepository<T> repository,
             Data.Infrastructure.IUnitOfWork unitOfWork) : base(repository, unitOfWork)
         {
             this._repository = repository;
@@ -26,6 +26,28 @@ namespace Expro.Services
                 Value = item.ID.ToString(),
                 Text = item.Name.ToString(),
                 Selected = (selected != null && selected.Contains(item.ID))
+            }).ToList();
+
+            if (includeOther)
+            {
+                result.Add(new SelectListItem()
+                {
+                    Value = "0",
+                    Text = "Другое",
+                    Selected = false
+                });
+            }
+
+            return result;
+        }
+
+        public List<SelectListItem> GetAsSelectListOne(int? selected = null, bool includeOther = false)
+        {
+            var result = GetAll().Select(item => new SelectListItem()
+            {
+                Value = item.ID.ToString(),
+                Text = item.Name.ToString(),
+                Selected = (selected != null && selected == item.ID)
             }).ToList();
 
             if (includeOther)
