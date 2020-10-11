@@ -10,5 +10,9 @@ namespace Expro.Models
         [ForeignKey("Region")]
         public int? RegionID { get; set; }
         public virtual Region Region { get; set; }
+
+        [ForeignKey("Country")]
+        public int? CountryID { get; set; }
+        public virtual Country Country { get; set; }
     }
 }
