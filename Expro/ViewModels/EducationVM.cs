@@ -38,8 +38,13 @@ namespace Expro.Models
             if (model == null)
                 return;
 
-            //Email = model.Email;
-            //PhoneNumber = model.PhoneNumber;
+            ID = model.ID;
+            CountryID = model.ID;
+            CityID = model.CityID;
+            CityOther = model.CityOther;
+            University = model.University;
+            Faculty = model.Faculty;
+            GraduationYear = model.GraduationYear;
         }
     }
 
@@ -72,8 +77,13 @@ namespace Expro.Models
             if (model == null)
                 return;
 
-            //Email = model.Email;
-            //PhoneNumber = model.PhoneNumber;
+            ID = model.ID;
+            //Country = model.co;
+            //CityID = model.CityID;
+            //CityOther = model.CityOther;
+            //University = model.University;
+            //Faculty = model.Faculty;
+            //GraduationYear = model.GraduationYear;
         }
     }
 }
