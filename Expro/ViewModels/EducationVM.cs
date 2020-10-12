@@ -60,6 +60,9 @@ namespace Expro.Models
         [Display(Name = "Город")]
         public string City { get; set; }
 
+        [Display(Name = "Другой город")]
+        public string CityOther { get; set; }
+
         [Required]
         [Display(Name = "ВУЗ")]
         public string University { get; set; }
@@ -78,12 +81,12 @@ namespace Expro.Models
                 return;
 
             ID = model.ID;
-            //Country = model.co;
-            //CityID = model.CityID;
-            //CityOther = model.CityOther;
-            //University = model.University;
-            //Faculty = model.Faculty;
-            //GraduationYear = model.GraduationYear;
+            Country = model.Country.Name;
+            City = model.CityID != null ? model.City.Name : "";
+            CityOther = model.CityOther!=null ? model.CityOther:"" ;
+            University = model.University;
+            Faculty = model.Faculty;
+            GraduationYear = model.GraduationYear;
         }
     }
 }
