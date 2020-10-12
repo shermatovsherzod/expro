@@ -18,8 +18,8 @@ namespace Expro.Services
             this._repository = repository;
             this._unitOfWork = unitOfWork;
         }
-
-        public List<SelectListItem> GetAsSelectList(int[] selected = null, bool includeOther = false)
+       
+        public List<SelectListItem> GetAsSelectList(int[] selected = null, bool includeOther = false)//false berasiz i vsyo
         {
             var result = GetAll().Select(item => new SelectListItem()
             {

@@ -90,8 +90,8 @@ namespace Expro.Areas.Identity.Pages.Account
             [StringLength(256)]
             public string PatronymicName { get; set; }
 
-            [Display(Name = "Тип пользователя")]
-            public int UserType { get; set; }
+            //[Display(Name = "Тип пользователя")]
+            //public int UserType { get; set; }
 
             [Required]
             [Display(Name = "Телефон")]

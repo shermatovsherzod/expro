@@ -9,7 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Expro.Controllers
 {
-    public class ProfileController : Controller
+    public class ProfileController : BaseController
     {
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly ILawAreaService _lawAreaService;
@@ -40,37 +40,38 @@ namespace Expro.Controllers
 
         public IActionResult UserProfile()
         {
+            //var curUser = accountUtil.GetCurrentUser(User);
             var user = _userManager.Users.FirstOrDefault(c => c.UserName == "sirius.gml@gmail.com");
-            UserVM userVM = new UserVM();
-            userVM.FirstName = user.FirstName;
-            userVM.LastName = user.LastName;
-            userVM.PatronymicName = user.PatronymicName;
-            userVM.DateOfBirth = user.DateOfBirth;
-            userVM.Email = user.Email;
-            userVM.PhoneNumber = user.PhoneNumber;
-            userVM.GenderID = user.GenderID;
-            //userVM. = user.;
-            //userVM. = user.;
-            //userVM. = user.;
 
+            ExpertProfileEditVM profileEditVM = new ExpertProfileEditVM(user);
+            
             ViewData["lawAreas"] = _lawAreaService.GetAsSelectList();
             ViewData["regions"] = _regionService.GetAsSelectListOne(user.RegionID);
-            ViewData["cities"] = _cityService.GetAsSelectListOne(user.CityID);
+            ViewData["cities"] = _cityService.GetAsSelectListOne(user.CityID); // buni ham huddi registerdaka bo'ladide....
            
 
-            return View(userVM);
+            return View(profileEditVM);
         }
 
         [HttpPost]
-        public JsonResult MainInfo(string FirstName)
+        public IActionResult UserProfile(string FirstName)
+        {           
+            ModelState.AddModelError("FirstName", "Сообщение об ошибке");
+            return BadRequest(ModelState);
+            return Ok();
+                      
+        }
+
+        [HttpPost]
+        public IActionResult Contacts()
         {
             string result = "Added ";
 
-            return Json(new { success = false, failure = true }) ;
+            return Ok();
         }
 
         [HttpPost]
-        public JsonResult Contacts()
+        public IActionResult Education()
         {
             string result = "Added ";
 
@@ -78,15 +79,7 @@ namespace Expro.Controllers
         }
 
         [HttpPost]
-        public JsonResult Education()
-        {
-            string result = "Added ";
-
-            return Json(result);
-        }
-
-        [HttpPost]
-        public JsonResult Experience()
+        public IActionResult Experience()
         {
             string result = "Added ";
 

@@ -1,0 +1,100 @@
+﻿@model ExpertProfileEditVM
+    <form asp-controller="Profile" asp-action="UserProfile" data-ajax="true" data-ajax-mode="replace" data-ajax-success="UserProfilemyfunction()" data-ajax-failure="UserProfilemyfunction2()" data-ajax-update="#results" data-ajax-method="POST">
+
+        <div asp-validation-summary="All" class="text-danger"></div>
+        <div class="row">
+            <div class="col-md-6">
+                <label asp-for="@Model.FirstName"></label>
+            </div>
+            <div class="col-md-6">
+                <p>
+                    <input asp-for="@Model.FirstName" class="form-control" />
+                    <span asp-validation-for="@Model.FirstName"></span>   
+                </p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <label asp-for="@Model.LastName"></label>
+            </div>
+            <div class="col-md-6">
+                <p>
+                    <input asp-for="@Model.LastName" class="form-control" />
+                    <span asp-validation-for="@Model.LastName"></span>
+                </p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <label asp-for="@Model.PatronymicName"></label>
+            </div>
+            <div class="col-md-6">
+                <p>
+                    <input asp-for="@Model.PatronymicName" class="form-control" />
+                    <span asp-validation-for="@Model.PatronymicName"></span>
+                </p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <label asp-for="@Model.RegionID"></label>
+            </div>
+            <div class="col-md-6">
+                <p>
+                    <select asp-for="@Model.RegionID"
+                            asp-items="@ViewData["regions"] as IEnumerable<SelectListItem>"
+                            class="form-control">
+                    </select>
+                    <span asp-validation-for="@Model.RegionID" class="text-danger"></span>
+                </p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <label asp-for="@Model.CityID"></label>
+            </div>
+            <div class="col-md-6">
+                <p>
+                    <select asp-for="@Model.CityID"
+                            asp-items="@ViewData["cities"] as IEnumerable<SelectListItem>"
+                            class="form-control">
+                        <option disabled>--- Выбрать город ---</option>
+                    </select>
+                    <span asp-validation-for="@Model.CityID" class="text-danger"></span>
+                </p>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6">
+                <label asp-for="@Model.DateOfBirth"></label>
+            </div>
+            <div class="col-md-6">
+                <p>
+                    <input asp-for="@Model.DateOfBirth" class="form-control" />
+                    <span asp-validation-for="@Model.DateOfBirth"></span>
+                </p>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6">
+                <label asp-for="@Model.GenderID"></label>
+            </div>
+            <div class="col-md-6">
+                <p>
+                    <div class="radio">
+                        <input type="radio" name="userGender">Мужской&nbsp;&nbsp;&nbsp;
+                        <input type="radio" name="userGender">Женский <!--from db-->
+                    </div>
+                </p>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12 text-right">
+                <button type="submit" class="btn btn-primary">Сохранить</button>
+            </div>
+        </div>
+    </form>
+    

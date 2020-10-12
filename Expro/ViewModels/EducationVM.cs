@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Expro.Models
 {
-    public class EducationVM
+    public class EducationFormVM
     {
         public string Id { get; set; }
 

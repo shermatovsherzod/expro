@@ -1,4 +1,4 @@
-﻿@model UserVM
+﻿@model ExpertProfileEditVM
 @{
     ViewData["Title"] = "UserProfile";
 
@@ -63,7 +63,7 @@
         <div class="col-md-8">
             <div class="tab-content" id="myTabContent">
                 <div class="tab-pane fade show active" id="main" role="tabpanel" aria-labelledby="main-tab">
-                    @await Html.PartialAsync("_MainInfo", Model)
+                    @await Html.PartialAsync("_ProfileInfo", Model)
                 </div>
 
                 <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">
@@ -92,7 +92,8 @@
 
 @section Scripts
 {
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-ajax-unobtrusive/3.2.6/jquery.unobtrusive-ajax.min.js" integrity="sha512-DedNBWPF0hLGUPNbCYfj8qjlEnNE92Fqn7xd3Sscfu7ipy7Zu33unHdugqRD3c4Vj7/yLv+slqZhMls/4Oc7Zg==" crossorigin="anonymous"></script>
+    <partial name="_ValidationScriptsPartial" />
+
     <script>
         $(document).ready(function () {
 
@@ -100,13 +101,13 @@
         });
     </script>
 
-<script>
-    function myfunction() {
-        alert('ok');
-    }
-    function myfunction2() {
-        alert('error');
-    }
-</script>
+    <script>
+        function UserProfilemyfunction() {
+            alert('ok');
+        }
+        function UserProfilemyfunction2() {
+            alert('error');
+        }
+    </script>
 
 }
