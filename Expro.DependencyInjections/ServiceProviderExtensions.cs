@@ -27,6 +27,8 @@ namespace Expro.DependencyInjections
             services.AddTransient<IRegionRepository, RegionRepository>();
             services.AddTransient<ICityRepository, CityRepository>();
             services.AddTransient<IGenderRepository, GenderRepository>();
+            services.AddTransient<ICountryRepository, CountryRepository>();
+            services.AddTransient<IEducationRepository, EducationRepository>();
         }
 
         public static void AddServices(this IServiceCollection services)
@@ -39,6 +41,9 @@ namespace Expro.DependencyInjections
             services.AddTransient<IRegionService, RegionService>();
             services.AddTransient<ICityService, CityService>();
             services.AddTransient<IGenderService, GenderService>();
+            services.AddTransient<ICountryService, CountryService>();
+            services.AddTransient<IEducationService, EducationService>();
+
         }
     }
 }

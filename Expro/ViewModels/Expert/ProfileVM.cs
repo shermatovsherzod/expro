@@ -3,11 +3,12 @@ using Expro.Models.Enums;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Linq;
 using System.Text;
 
 namespace Expro.Models
 {
-    public class ExpertProfileEditVM
+    public class ExpertProfileMainInfoVM
     {
         [Required]
         [Display(Name = "Имя")]
@@ -24,7 +25,7 @@ namespace Expro.Models
         public string PatronymicName { get; set; }
 
         [Display(Name = "Регион")]
-        public int RegionID { get; set; }
+        public int? RegionID { get; set; }
 
         [Display(Name = "Город")]
         public int? CityID { get; set; }
@@ -46,16 +47,41 @@ namespace Expro.Models
         [Display(Name = "Пол")]
         public int? GenderID { get; set; }
 
-        public ExpertProfileEditVM(ApplicationUser model) // : base(model)
+        public ExpertProfileMainInfoVM(ApplicationUser model) // : base(model)
         {
             if (model == null)
                 return;
 
             FirstName = model.FirstName;
             LastName = model.LastName;
-            
+            PatronymicName = model.PatronymicName;
+            RegionID = model.RegionID;
+            CityID = model.CityID;
+            CityOther = model.CityOther;
+            LawAreas = model.UserLawAreas != null ? model.UserLawAreas.Select(r => (int)r.LawAreaID).ToList() : null;
             DateOfBirth = DateTimeUtils.ConvertToString(model.DateOfBirth, "dd/MM/yyyy");
             GenderID = model.GenderID;
         }
     }
+
+    public class ExpertProfileContactVM
+    {
+        [Required]
+        [Display(Name = "Email")]
+        public string Email { get; set; }
+
+        [Required]
+        [Display(Name = "PhoneNumber")]
+        public string PhoneNumber { get; set; }
+
+
+        public ExpertProfileContactVM(ApplicationUser model) // : base(model)
+        {
+            if (model == null)
+                return;
+
+            Email = model.Email;
+            PhoneNumber = model.PhoneNumber;
+        }
+    }  
 }

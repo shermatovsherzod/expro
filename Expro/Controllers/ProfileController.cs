@@ -16,13 +16,17 @@ namespace Expro.Controllers
         private readonly IRegionService _regionService;
         private readonly ICityService _cityService;
         private readonly IGenderService _genderService;
+        private readonly ICountryService _countryService;
+        private readonly IEducationService _educationService;
 
         public ProfileController(
               UserManager<ApplicationUser> userManager,
               ILawAreaService lawAreaService,
               IRegionService regionService,
               ICityService cityService,
-              IGenderService genderService
+              IGenderService genderService,
+              ICountryService countryService,
+              IEducationService educationService
               )
         {
             _userManager = userManager;
@@ -30,6 +34,8 @@ namespace Expro.Controllers
             _regionService = regionService;
             _cityService = cityService;
             _genderService = genderService;
+            _countryService = countryService;
+            _educationService = educationService;
         }
         public IActionResult Index()
         {
@@ -43,27 +49,32 @@ namespace Expro.Controllers
             //var curUser = accountUtil.GetCurrentUser(User);
             var user = _userManager.Users.FirstOrDefault(c => c.UserName == "sirius.gml@gmail.com");
 
-            ExpertProfileEditVM profileEditVM = new ExpertProfileEditVM(user);
-            
+            ViewData["country"] = _countryService.GetAsSelectList();
             ViewData["lawAreas"] = _lawAreaService.GetAsSelectList();
             ViewData["regions"] = _regionService.GetAsSelectListOne(user.RegionID);
-            ViewData["cities"] = _cityService.GetAsSelectListOne(user.CityID); // buni ham huddi registerdaka bo'ladide....
-           
+            ViewData["cities"] = _cityService.GetAsSelectListOne(user.CityID);
 
-            return View(profileEditVM);
+            ViewData["expertProfileMainInfoVM"] = new ExpertProfileMainInfoVM(user);
+
+            ViewData["expertProfileContactVM"] = new ExpertProfileContactVM(user);
+            //ViewData["expertProfileEducationVM"] = _educationService.ge
+            return View();
         }
 
+
         [HttpPost]
-        public IActionResult UserProfile(string FirstName)
-        {           
+        public IActionResult MainInfo(string FirstName)
+        {
+
             ModelState.AddModelError("FirstName", "Сообщение об ошибке");
             return BadRequest(ModelState);
-            return Ok();
-                      
+            // return Ok();
+
         }
 
+
         [HttpPost]
-        public IActionResult Contacts()
+        public IActionResult Contacts(string Email)
         {
             string result = "Added ";
 

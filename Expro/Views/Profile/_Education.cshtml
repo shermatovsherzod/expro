@@ -1,4 +1,4 @@
-﻿
+﻿@model ExpertProfileEducationFormVM
 <form asp-controller="Profile" asp-action="Education" data-ajax="true" data-ajax-method="POST">
     <div class="row">
         <div class="col-md-12">
@@ -43,11 +43,15 @@
         </div>
         <div class="col-md-6">
             <p>
-                <select class="form-control" name="country" id="country">
-                    <option value="uzb">Узбекистан</option>
-                    <option value="rus">Россия</option>
-                    <option value="eng">Англия</option>
-                </select>
+                <div class="form-group text-center">
+                    @*<label asp-for="@Model.CountryID"></label>
+                    <select asp-for="@Model.CountryID"
+                            asp-items="@ViewData["country"] as IEnumerable<SelectListItem>"
+                            class="form-control">
+                        <option disabled selected>--- Выбрать страну ---</option>
+                    </select>
+                    <span asp-validation-for="@Model.CountryID" class="text-danger"></span>*@
+                </div>
             </p>
         </div>
     </div>

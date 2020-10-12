@@ -1,5 +1,4 @@
-﻿@model ExpertProfileEditVM
-@{
+﻿@{
     ViewData["Title"] = "UserProfile";
 
     <link href="~/css/userprofile.css" rel="stylesheet" />
@@ -19,7 +18,7 @@
         <div class="col-md-6">
             <div class="profile-head">
                 <h5>
-                    @Model.FirstName @Model.LastName
+                    @*@Model.FirstName @Model.LastName*@
                 </h5>
                 <h6>
                     Web Developer and Designer
@@ -63,19 +62,19 @@
         <div class="col-md-8">
             <div class="tab-content" id="myTabContent">
                 <div class="tab-pane fade show active" id="main" role="tabpanel" aria-labelledby="main-tab">
-                    @await Html.PartialAsync("_ProfileInfo", Model)
+                    @await Html.PartialAsync("_MainInfo", ViewData["expertProfileMainInfoVM"])
                 </div>
 
                 <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">
-                    @await Html.PartialAsync("_Contacts", Model)
+                    @await Html.PartialAsync("_Contacts", ViewData["expertProfileContactVM"])
                 </div>
 
                 <div class="tab-pane fade" id="education" role="tabpanel" aria-labelledby="contact-tab">
-                    @await Html.PartialAsync("_Education", Model)
+                    @await Html.PartialAsync("_Education", ViewData["expertProfileEducationVM"])
                 </div>
 
                 <div class="tab-pane fade" id="workexperience" role="tabpanel" aria-labelledby="workexperience-tab">
-                    @await Html.PartialAsync("_Experience", Model)
+                    @await Html.PartialAsync("_Experience")
                 </div>
             </div>
         </div>
