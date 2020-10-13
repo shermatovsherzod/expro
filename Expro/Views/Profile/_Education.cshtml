@@ -16,16 +16,21 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td>Узбекистан</td>
-                        <td>Ташкент</td>
-                        <td>ТУИТ</td>
-                        <td>Дизайнер</td>
-                        <td>2005</td>
-                        <td>
-                            <button class="btn btn-danger">Удалить</button>
-                        </td>
-                    </tr>
+                    @{
+                        List<EducationListItemVM> edicationList = ViewData["educationListVM"] as List<EducationListItemVM>;
+                    }
+
+                    @foreach (var item in edicationList)
+                    {
+                        <tr>
+                            <td>@item.Country</td>
+                            <td>@item.City</td>
+                            <td>@item.University</td>
+                            <td>@item.Faculty</td>
+                            <td>@item.GraduationYear</td>
+                            <td><button class="btn btn-danger">Удалить</button></td>
+                        </tr>
+                    }
                 </tbody>
             </table>
         </div>
@@ -44,13 +49,13 @@
         <div class="col-md-6">
             <p>
                 <div class="form-group text-center">
-                    @*<label asp-for="@Model.CountryID"></label>
-                    <select asp-for="@Model.CountryID"
-                            asp-items="@ViewData["country"] as IEnumerable<SelectListItem>"
-                            class="form-control">
-                        <option disabled selected>--- Выбрать страну ---</option>
-                    </select>
-                    <span asp-validation-for="@Model.CountryID" class="text-danger"></span>*@
+                    <label asp-for="@Model.CountryID"></label>
+                        <select asp-for="@Model.CountryID"
+                                asp-items="@ViewData["country"] as IEnumerable<SelectListItem>"
+                                class="form-control">
+                            <option disabled selected>--- Выбрать страну ---</option>
+                        </select>
+                        <span asp-validation-for="@Model.CountryID" class="text-danger"></span>
                 </div>
             </p>
         </div>
@@ -62,11 +67,12 @@
         </div>
         <div class="col-md-6">
             <p>
-                <select class="form-control" name="city" id="city">
+                <input type="text" class="form-control"/>
+                @*<select class="form-control" name="city" id="city">
                     <option value="uzb">Ташкент</option>
                     <option value="rus">Москва</option>
                     <option value="eng">Лондон</option>
-                </select>
+                </select>*@
             </p>
         </div>
     </div>

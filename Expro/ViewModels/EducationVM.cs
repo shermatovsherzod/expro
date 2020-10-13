@@ -75,18 +75,18 @@ namespace Expro.Models
         [Display(Name = "Год окончания")]
         public int GraduationYear { get; set; }
 
-        public EducationListItemVM(Education model) // : base(model)
-        {
-            if (model == null)
-                return;
+        //public EducationListItemVM(Education model) // : base(model)
+        //{
+        //    if (model == null)
+        //        return;
 
-            ID = model.ID;
-            Country = model.Country.Name;
-            City = model.CityID != null ? model.City.Name : "";
-            CityOther = model.CityOther!=null ? model.CityOther:"" ;
-            University = model.University;
-            Faculty = model.Faculty;
-            GraduationYear = model.GraduationYear;
-        }
+        //    ID = model.ID;
+        //    Country = model.Country.Name;
+        //    City = model.CityID != null ? model.City.Name : "";
+        //    CityOther = model.CityOther != null ? model.CityOther : "";
+        //    University = model.University;
+        //    Faculty = model.Faculty;
+        //    GraduationYear = model.GraduationYear;
+        //}
     }
 }
