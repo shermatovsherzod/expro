@@ -57,7 +57,15 @@ namespace Expro.Controllers
             ViewData["expertProfileMainInfoVM"] = new ExpertProfileMainInfoVM(user);
 
             ViewData["expertProfileContactVM"] = new ExpertProfileContactVM(user);
-            //ViewData["expertProfileEducationVM"] = _educationService.ge
+            ViewData["educationListVM"] = _educationService.GetListByUserID(user.Id).Select(s => new EducationListItemVM
+            {
+                University = s.University,
+                City = s.City != null ? s.City.Name : s.CityOther,
+                Country = s.Country.Name,
+                Faculty = s.Faculty,
+                GraduationYear = s.GraduationYear,
+                ID = s.ID
+            }).ToList();
             return View();
         }
 
