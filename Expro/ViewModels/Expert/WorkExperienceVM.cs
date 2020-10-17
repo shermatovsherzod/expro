@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Expro.Models;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -37,17 +38,18 @@ namespace Expro.ViewModels.Expert
         [Display(Name = "По")]
         public string WorkPeriodTo { get; set; }
 
-        //public WorkExperienceVM(Education model) // : base(model)
-        //{
-        //    if (model == null)
-        //        return;
+        public WorkExperienceVM(WorkExperience model) // : base(model)
+        {
+            if (model == null)
+                return;
 
-        //    ID = model.ID;
-        //    CountryID = model.ID;
-        //    City = model.City;
-        //    University = model.University;
-        //    Faculty = model.Faculty;
-        //    GraduationYear = model.GraduationYear;
-        //}
+            ID = model.ID;
+            CountryID = model.ID;
+            City = model.City;
+            PlaceOfWork = model.PlaceOfWork;
+            Position = model.Position;
+            WorkPeriodFrom = model.WorkPeriodFrom;
+            WorkPeriodTo = model.WorkPeriodTo;
+        }
     }
 }
