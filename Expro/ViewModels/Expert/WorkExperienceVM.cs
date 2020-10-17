@@ -52,4 +52,32 @@ namespace Expro.ViewModels.Expert
             WorkPeriodTo = model.WorkPeriodTo;
         }
     }
+
+    public class WorkExperienceListItemVM
+    {
+        public int ID { get; set; }
+
+        [Required]
+        [Display(Name = "Страна")]
+        public string Country { get; set; }
+               
+        [Display(Name = "Город")]
+        public string City { get; set; }
+
+        [Required]
+        [Display(Name = "Место работы")]    
+        public string PlaceOfWork { get; set; }
+
+        [Required]
+        [Display(Name = "Должность")]     
+        public string Position { get; set; }
+
+        [Required]
+        [Display(Name = "С")]
+        public string WorkPeriodFrom { get; set; }
+
+        [Required]
+        [Display(Name = "По")]
+        public string WorkPeriodTo { get; set; }
+    }
 }
