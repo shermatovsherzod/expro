@@ -37,8 +37,8 @@
     </div>
     <div class="row">
         <div class="col-md-12">
-            <hr />
             <b>Добавить образование</b>
+            <br /> <br />
         </div>
     </div>
 
@@ -48,15 +48,12 @@
         </div>
         <div class="col-md-6">
             <p>
-                <div class="form-group text-center">
-                    <label asp-for="@Model.CountryID"></label>
-                        <select asp-for="@Model.CountryID"
-                                asp-items="@ViewData["country"] as IEnumerable<SelectListItem>"
-                                class="form-control">
-                            <option disabled selected>--- Выбрать страну ---</option>
-                        </select>
-                        <span asp-validation-for="@Model.CountryID" class="text-danger"></span>
-                </div>
+                <select asp-for="@Model.CountryID"
+                        asp-items="@ViewData["country"] as IEnumerable<SelectListItem>"
+                        class="form-control">
+                    <option disabled selected>--- Выбрать страну ---</option>
+                </select>
+                <span asp-validation-for="@Model.CountryID" class="text-danger"></span>
             </p>
         </div>
     </div>
@@ -67,12 +64,7 @@
         </div>
         <div class="col-md-6">
             <p>
-                <input type="text" class="form-control"/>
-                @*<select class="form-control" name="city" id="city">
-                    <option value="uzb">Ташкент</option>
-                    <option value="rus">Москва</option>
-                    <option value="eng">Лондон</option>
-                </select>*@
+                <input id="city" name="city" type="text" class="form-control" />
             </p>
         </div>
     </div>

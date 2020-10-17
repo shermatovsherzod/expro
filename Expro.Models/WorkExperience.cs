@@ -6,7 +6,7 @@ using System.Text;
 
 namespace Expro.Models
 {
-    public class Education : BaseModelAuthorable
+    public class WorkExperience : BaseModelAuthorable
     {
         [ForeignKey("Country")]
         public int CountryID { get; set; }
@@ -16,11 +16,17 @@ namespace Expro.Models
         public string City { get; set; }
 
         [StringLength(256)]
-        public string University { get; set; }
+        public string PlaceOfWork { get; set; }
 
         [StringLength(256)]
-        public string Faculty { get; set; }
-        public int GraduationYear { get; set; }
+        public string Position { get; set; }
+
+        [StringLength(100)]
+        public string WorkPeriodFrom { get; set; }
+
+        [StringLength(100)]
+        public string WorkPeriodTo { get; set; }
+
         public string UserID { get; set; }
         public ApplicationUser User { get; set; }
     }

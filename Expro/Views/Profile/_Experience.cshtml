@@ -41,11 +41,12 @@
         </div>
         <div class="col-md-6">
             <p>
-                <select class="form-control" name="workcountry" id="workcountry">
-                    <option value="uzb">Узбекистан</option>
-                    <option value="rus">Россия</option>
-                    <option value="eng">Англия</option>
+                @*<select asp-for="@Model.CountryID"
+                        asp-items="@ViewData["country"] as IEnumerable<SelectListItem>"
+                        class="form-control">
+                    <option disabled selected>--- Выбрать страну ---</option>
                 </select>
+                <span asp-validation-for="@Model.CountryID" class="text-danger"></span>*@
             </p>
         </div>
     </div>
@@ -111,21 +112,6 @@
         </div>
     </div>
 
-
-    <div class="row">
-        <div class="col-md-6">
-            <label>Год выпуска</label>
-        </div>
-        <div class="col-md-6">
-            <p>
-                <select class="form-control" name="graduationyear" id="graduationyear">
-                    <option value="uzb">2005</option>
-                    <option value="rus">2006</option>
-                    <option value="eng">2007</option>
-                </select>
-            </p>
-        </div>
-    </div>
 
     <div class="row">
         <div class="col-md-12 text-right">

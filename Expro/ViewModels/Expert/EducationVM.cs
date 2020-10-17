@@ -16,17 +16,17 @@ namespace Expro.Models
 
         //[Required]
         [Display(Name = "Город")]
-        public int? CityID { get; set; }
-
-        [Display(Name = "Город")]
-        public string CityOther { get; set; }
+        [StringLength(256)]
+        public string City { get; set; }      
 
         [Required]
         [Display(Name = "ВУЗ")]
+        [StringLength(256)]
         public string University { get; set; }
 
         [Required]
         [Display(Name = "Факультет")]
+        [StringLength(256)]
         public string Faculty { get; set; }
 
         [Required]
@@ -40,8 +40,7 @@ namespace Expro.Models
 
             ID = model.ID;
             CountryID = model.ID;
-            CityID = model.CityID;
-            CityOther = model.CityOther;
+            City = model.City;            
             University = model.University;
             Faculty = model.Faculty;
             GraduationYear = model.GraduationYear;

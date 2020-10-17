@@ -9,9 +9,7 @@ namespace Expro.Models
 {
     public class ApplicationUser : IdentityUser
     {
-        //==========================================================
-        public string CustomTag { get; set; }
-        public string CustomTag2 { get; set; }
+        //==========================================================     
 
         [Required]
         [StringLength(256)]
@@ -39,6 +37,8 @@ namespace Expro.Models
         [ForeignKey("City")]
         public int? CityID { get; set; }
         public virtual City City { get; set; }
+
+        [StringLength(256)]
         public string CityOther { get; set; }
 
         //==========================================================

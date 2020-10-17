@@ -60,7 +60,7 @@ namespace Expro.Controllers
             ViewData["educationListVM"] = _educationService.GetListByUserID(user.Id).Select(s => new EducationListItemVM
             {
                 University = s.University,
-                City = s.City != null ? s.City.Name : s.CityOther,
+                City = s.City,
                 Country = s.Country.Name,
                 Faculty = s.Faculty,
                 GraduationYear = s.GraduationYear,
