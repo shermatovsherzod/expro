@@ -5,9 +5,9 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Expro.ViewModels.Expert
+namespace Expro.Models
 {
-    public class WorkExperienceVM
+    public class ExpertProfileWorkExperienceFormVM 
     {
         public int ID { get; set; }
 
@@ -38,7 +38,7 @@ namespace Expro.ViewModels.Expert
         [Display(Name = "По")]
         public string WorkPeriodTo { get; set; }
 
-        public WorkExperienceVM(WorkExperience model) // : base(model)
+        public ExpertProfileWorkExperienceFormVM(WorkExperience model) // : base(model)
         {
             if (model == null)
                 return;
@@ -52,7 +52,7 @@ namespace Expro.ViewModels.Expert
             WorkPeriodTo = model.WorkPeriodTo;
         }
     }
-
+        
     public class WorkExperienceListItemVM
     {
         public int ID { get; set; }

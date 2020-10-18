@@ -23,6 +23,9 @@ namespace Expro.ViewModels
                 return;
 
             ID = user.FindFirst(ClaimTypes.NameIdentifier).Value;
+
+            
+
             //Type = user.FindFirst(CustomClaimTypes.UserType)?.Value;
             //FirebaseUid = user.FindFirst(CustomClaimTypes.FirebaseUid)?.Value;
 

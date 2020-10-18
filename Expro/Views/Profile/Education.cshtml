@@ -1,4 +1,10 @@
 ﻿@model ExpertProfileEducationFormVM
+
+@{
+    Layout = "_LayoutProfile";
+    ViewData["Title"] = "Образование";
+}
+
 <form asp-controller="Profile" asp-action="Education" data-ajax="true" data-ajax-method="POST">
     <div class="row">
         <div class="col-md-12">
@@ -98,11 +104,7 @@
         </div>
         <div class="col-md-6">
             <p>
-                <select class="form-control" name="graduationyear" id="graduationyear">
-                    <option value="uzb">2005</option>
-                    <option value="rus">2006</option>
-                    <option value="eng">2007</option>
-                </select>
+                <input type="text" id="graduationyear" name="graduationyear" class="form-control" />
             </p>
         </div>
     </div>

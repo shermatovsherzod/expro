@@ -18,6 +18,7 @@ namespace Expro.Controllers
         private readonly IGenderService _genderService;
         private readonly ICountryService _countryService;
         private readonly IEducationService _educationService;
+        private readonly IWorkExperienceService _workExperienceService;
 
         public ProfileController(
               UserManager<ApplicationUser> userManager,
@@ -26,7 +27,8 @@ namespace Expro.Controllers
               ICityService cityService,
               IGenderService genderService,
               ICountryService countryService,
-              IEducationService educationService
+              IEducationService educationService,
+              IWorkExperienceService workExperienceService
               )
         {
             _userManager = userManager;
@@ -36,27 +38,83 @@ namespace Expro.Controllers
             _genderService = genderService;
             _countryService = countryService;
             _educationService = educationService;
+            _workExperienceService = workExperienceService;
         }
         public IActionResult Index()
         {
-            return RedirectToAction("UserProfile");
+            return RedirectToAction("MainInfo");
+        }
+
+        public IActionResult MainInfo()
+        {
+            //var currentUser = accountUtil.GetCurrentUser(User);
+
+            var currentUser = _userManager.Users.FirstOrDefault(c => c.UserName == "sirius.gml@gmail.com");
+
+            ViewData["country"] = _countryService.GetAsSelectList();
+            ViewData["lawAreas"] = _lawAreaService.GetAsSelectList();
+            ViewData["regions"] = _regionService.GetAsSelectListOne(currentUser.RegionID);
+            ViewData["cities"] = _cityService.GetAsSelectListOne(currentUser.CityID);
+            ViewData["gender"] = new[] { "Мужской", "Женский" };
+
+            var userMainInfo = new ExpertProfileMainInfoVM(currentUser);
+            return View(userMainInfo);
+        }
+
+        [HttpPost]
+        public IActionResult MainInfo(ExpertProfileMainInfoVM vmodel, int userGender)
+        {
+            var currentUser = _userManager.Users.FirstOrDefault(c => c.UserName == "sirius.gml@gmail.com");
+
+            ViewData["country"] = _countryService.GetAsSelectList();
+            ViewData["lawAreas"] = _lawAreaService.GetAsSelectList();
+            ViewData["regions"] = _regionService.GetAsSelectListOne(vmodel.RegionID);
+            ViewData["cities"] = _cityService.GetAsSelectListOne(vmodel.CityID);
+            if (ModelState.IsValid && currentUser != null)
+            {
+                currentUser.FirstName = vmodel.FirstName;
+                currentUser.LastName = vmodel.LastName;
+                currentUser.PatronymicName = vmodel.PatronymicName;
+                currentUser.RegionID = vmodel.RegionID;
+                currentUser.CityID = vmodel.CityID;
+                currentUser.DateOfBirth = GetDate(vmodel.DateOfBirth);
+                currentUser.GenderID = userGender;
+                _userManager.UpdateAsync(currentUser);
+
+                var userMainInfo = new ExpertProfileMainInfoVM(currentUser);
+                return View(userMainInfo);
+            }
+
+            return View(vmodel);
+        }
+
+        public DateTime GetDate(string dateOfBirth)
+        {
+
+            return DateTime.Now;
+
+        }
+
+
+        public IActionResult Contacts()
+        {
+            var user = _userManager.Users.FirstOrDefault(c => c.UserName == "sirius.gml@gmail.com");
+            var userContactInfo = new ExpertProfileContactVM(user);
+            return View(userContactInfo);
+        }
+
+        [HttpPost]
+        public IActionResult Contacts(string Email)
+        {
+            string result = "Added ";
 
             return View();
         }
 
-        public IActionResult UserProfile()
+
+        public IActionResult Education()
         {
-            //var curUser = accountUtil.GetCurrentUser(User);
             var user = _userManager.Users.FirstOrDefault(c => c.UserName == "sirius.gml@gmail.com");
-
-            ViewData["country"] = _countryService.GetAsSelectList();
-            ViewData["lawAreas"] = _lawAreaService.GetAsSelectList();
-            ViewData["regions"] = _regionService.GetAsSelectListOne(user.RegionID);
-            ViewData["cities"] = _cityService.GetAsSelectListOne(user.CityID);
-
-            ViewData["expertProfileMainInfoVM"] = new ExpertProfileMainInfoVM(user);
-
-            ViewData["expertProfileContactVM"] = new ExpertProfileContactVM(user);
             ViewData["educationListVM"] = _educationService.GetListByUserID(user.Id).Select(s => new EducationListItemVM
             {
                 University = s.University,
@@ -66,43 +124,40 @@ namespace Expro.Controllers
                 GraduationYear = s.GraduationYear,
                 ID = s.ID
             }).ToList();
+
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult Education(string a)
+        {
+
+
             return View();
         }
 
 
-        [HttpPost]
-        public IActionResult MainInfo(string FirstName)
-        {
-
-            ModelState.AddModelError("FirstName", "Сообщение об ошибке");
-            return BadRequest(ModelState);
-            // return Ok();
-
-        }
-
-
-        [HttpPost]
-        public IActionResult Contacts(string Email)
-        {
-            string result = "Added ";
-
-            return Ok();
-        }
-
-        [HttpPost]
-        public IActionResult Education()
-        {
-            string result = "Added ";
-
-            return Json(result);
-        }
-
-        [HttpPost]
         public IActionResult Experience()
         {
-            string result = "Added ";
+            var user = _userManager.Users.FirstOrDefault(c => c.UserName == "sirius.gml@gmail.com");
+            ViewData["workExperienceListItemVM"] = _workExperienceService.GetListByUserID(user.Id).Select(s => new WorkExperienceListItemVM
+            {
+                PlaceOfWork = s.PlaceOfWork,
+                Position = s.Position,
+                WorkPeriodFrom = s.WorkPeriodFrom,
+                WorkPeriodTo = s.WorkPeriodTo,
+                City = s.City,
+                Country = s.Country.Name,
+                ID = s.ID
+            }).ToList();
 
-            return Json(result);
+            return View();
+        }
+        [HttpPost]
+        public IActionResult Experience(string b)
+        {
+
+            return View();
         }
     }
 }

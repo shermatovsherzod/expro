@@ -1,5 +1,10 @@
 ﻿@model ExpertProfileContactVM
 
+@{
+    Layout = "_LayoutProfile";
+    ViewData["Title"] = "Контакты";
+}
+
 <form asp-controller="Profile" asp-action="Contacts" data-ajax="true" data-ajax-method="POST">
     <div class="row">
         <div class="col-md-6">

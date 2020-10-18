@@ -1,4 +1,10 @@
-﻿
+﻿@model ExpertProfileWorkExperienceFormVM
+
+@{
+    Layout = "_LayoutProfile";
+    ViewData["Title"] = "Опыт работы";
+}
+
 <form asp-controller="Profile" asp-action="Experience" data-ajax="true" data-ajax-method="POST">
     <div class="row">
         <div class="col-md-12">
@@ -14,16 +20,24 @@
                         <th>Действие</th>
                     </tr>
                 </thead>
+
                 <tbody>
-                    <tr>
-                        <td>Узбекистан</td>
-                        <td>Ташкент</td>
-                        <td>ООО Legal law</td>
-                        <td>Юрист</td>
-                        <td>2005-2007</td>
-                        <td><button class="btn btn-info">Диплом</button></td>
-                        <td><button class="btn btn-danger">Удалить</button></td>
-                    </tr>
+                    @{
+                        List<WorkExperienceListItemVM> edicationList = ViewData["workExperienceListItemVM"] as List<WorkExperienceListItemVM>;
+                    }
+
+                    @foreach (var item in edicationList)
+                    {
+                        <tr>
+                            <td>@item.Country</td>
+                            <td>@item.City</td>
+                            <td>@item.PlaceOfWork</td>
+                            <td>@item.Position</td>
+                            <td>@item.WorkPeriodFrom - @item.WorkPeriodTo</td>
+                            <td></td>
+                            <td><button class="btn btn-danger">Удалить</button></td>
+                        </tr>
+                    }
                 </tbody>
             </table>
         </div>
@@ -41,12 +55,12 @@
         </div>
         <div class="col-md-6">
             <p>
-                @*<select asp-for="@Model.CountryID"
+                <select asp-for="@Model.CountryID"
                         asp-items="@ViewData["country"] as IEnumerable<SelectListItem>"
                         class="form-control">
                     <option disabled selected>--- Выбрать страну ---</option>
                 </select>
-                <span asp-validation-for="@Model.CountryID" class="text-danger"></span>*@
+                <span asp-validation-for="@Model.CountryID" class="text-danger"></span>
             </p>
         </div>
     </div>
@@ -57,11 +71,7 @@
         </div>
         <div class="col-md-6">
             <p>
-                <select class="form-control" name="workcity" id="workcity">
-                    <option value="uzb">Ташкент</option>
-                    <option value="rus">Москва</option>
-                    <option value="eng">Лондон</option>
-                </select>
+                <input id="city" name="city" type="text" class="form-control" />
             </p>
         </div>
     </div>

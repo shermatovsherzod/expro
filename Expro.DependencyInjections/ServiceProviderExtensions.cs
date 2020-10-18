@@ -29,6 +29,7 @@ namespace Expro.DependencyInjections
             services.AddTransient<IGenderRepository, GenderRepository>();
             services.AddTransient<ICountryRepository, CountryRepository>();
             services.AddTransient<IEducationRepository, EducationRepository>();
+            services.AddTransient<IWorkExperienceRepository, WorkExperienceRepository>();
         }
 
         public static void AddServices(this IServiceCollection services)
@@ -43,7 +44,7 @@ namespace Expro.DependencyInjections
             services.AddTransient<IGenderService, GenderService>();
             services.AddTransient<ICountryService, CountryService>();
             services.AddTransient<IEducationService, EducationService>();
-
+            services.AddTransient<IWorkExperienceService, WorkExperienceService>();
         }
     }
 }

@@ -10,6 +10,11 @@ namespace Expro.Models
 {
     public class ExpertProfileMainInfoVM
     {
+        public ExpertProfileMainInfoVM()
+        {
+
+        }
+
         [Required]
         [Display(Name = "Имя")]
         [StringLength(256)]
@@ -43,7 +48,7 @@ namespace Expro.Models
         [Display(Name = "Дата рождения")]
         public string DateOfBirth { get; set; }
 
-        [Required]
+ 
         [Display(Name = "Пол")]
         public int? GenderID { get; set; }
 
@@ -83,5 +88,5 @@ namespace Expro.Models
             Email = model.Email;
             PhoneNumber = model.PhoneNumber;
         }
-    }  
+    }
 }
