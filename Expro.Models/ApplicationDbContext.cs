@@ -49,5 +49,9 @@ namespace Expro.Models
         public DbSet<Attachment> Attachments{ get; set; }
         public DbSet<Education> Educations { get; set; }
         public DbSet<WorkExperience> WorkExperiences { get; set; }
+        public DbSet<Document> Documents { get; set; }
+        public DbSet<DocumentType> DocumentTypes { get; set; }
+        public DbSet<Language> Languages { get; set; }
+        public DbSet<DocumentStatus> DocumentStatuses { get; set; }
     }
 }
