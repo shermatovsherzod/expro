@@ -12,21 +12,21 @@ namespace Expro.ViewModels
         public AttachmentDetailsVM()
         { }
 
-        //public AttachmentDetailsVM(Attachment model)
-        //{
-        //    if (model == null)
-        //    {
-        //        this.Url = AppData.Configuration.NoPhotoUrl;
-        //        return;
-        //    }
+        public AttachmentDetailsVM(Attachment model)
+        {
+            if (model == null)
+            {
+                this.Url = AppData.Configuration.NoPhotoUrl;
+                return;
+            }
 
-        //    this.ID = model.ID;
-        //    if (this.ID > 0)
-        //        //this.Url = model.Path + "/" + model.GUID + "." + model.Extension;
-        //        this.Url = "https://firebasestorage.googleapis.com/v0/b/cameo-uz.appspot.com/o/" + model.Path.Replace("/", "%2F") + "%2F" + model.Filename + "?" + model.UrlParameters;
-        //    else
-        //        this.Url = AppData.Configuration.NoPhotoUrl;
-        //}
+            this.ID = model.ID;
+            if (this.ID > 0)
+                //this.Url = model.Path + "/" + model.GUID + "." + model.Extension;
+                this.Url = "https://firebasestorage.googleapis.com/v0/b/cameo-uz.appspot.com/o/" + model.Path.Replace("/", "%2F") + "%2F" + model.Filename + "?" + model.UrlParameters;
+            else
+                this.Url = AppData.Configuration.NoPhotoUrl;
+        }
     }
 
     public class UploadFileVM

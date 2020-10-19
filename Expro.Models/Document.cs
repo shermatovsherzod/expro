@@ -20,6 +20,8 @@ namespace Expro.Models
         public int LanguageID { get; set; }
         public virtual Language Language { get; set; }
 
+        public ICollection<DocumentLawArea> DocumentLawAreas { get; set; }
+
         [ForeignKey("Attachment")]
         public int? AttachmentID { get; set; }
         public virtual Attachment Attachment { get; set; }

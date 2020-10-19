@@ -7,5 +7,6 @@ namespace Expro.Models
     public class LawArea : BaseModelDropdownable
     {
         public ICollection<UserLawArea> UserLawAreas { get; set; }
+        public ICollection<DocumentLawArea> DocumentLawAreas { get; set; }
     }
 }

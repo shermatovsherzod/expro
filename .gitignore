@@ -25,8 +25,8 @@ bld/
 [Ll]og/
 
 # Firebase folder
-Cameo/wwwroot/firebase/
-Cameo.API/wwwroot/firebase/
+Expro/wwwroot/firebase/
+Expro.API/wwwroot/firebase/
 
 # Visual Studio 2015/2017 cache/options directory
 .vs/

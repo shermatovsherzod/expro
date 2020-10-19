@@ -55,5 +55,46 @@ namespace Expro.Services
                 }
             }
         }
+
+        public void UpdateDocumentLawAreas(Document model, List<int> selectedLawAreas)
+        {
+            if (selectedLawAreas == null || selectedLawAreas.Count == 0)
+            {
+                model.DocumentLawAreas = new List<DocumentLawArea>();
+                return;
+            }
+
+            HashSet<int> selectedCategoriesHS = new HashSet<int>(selectedLawAreas);
+            if (model.DocumentLawAreas == null)
+                model.DocumentLawAreas = new List<DocumentLawArea>();
+
+            HashSet<int> talentLawAreas = new HashSet<int>(model.DocumentLawAreas
+                .Select(m => m.LawAreaID));
+
+            List<LawArea> allLawAreas = GetAll().ToList();
+            foreach (var lawArea in allLawAreas)
+            {
+                if (selectedCategoriesHS.Contains(lawArea.ID))
+                {
+                    if (!talentLawAreas.Contains(lawArea.ID))
+                    {
+                        model.DocumentLawAreas.Add(new DocumentLawArea()
+                        {
+                            LawArea = lawArea,
+                            Document = model
+                        });
+                    }
+                }
+                else
+                {
+                    if (talentLawAreas.Contains(lawArea.ID))
+                    {
+                        var lawAreaa = model.DocumentLawAreas.FirstOrDefault(m => m.LawAreaID == lawArea.ID);
+                        if (lawAreaa != null)
+                            model.DocumentLawAreas.Remove(lawAreaa);
+                    }
+                }
+            }
+        }
     }
 }

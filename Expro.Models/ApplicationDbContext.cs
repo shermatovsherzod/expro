@@ -26,6 +26,17 @@ namespace Expro.Models
                 .WithMany(c => c.UserLawAreas)
                 .HasForeignKey(bc => bc.LawAreaID);
 
+            modelBuilder.Entity<DocumentLawArea>()
+                .HasKey(bc => new { bc.DocumentID, bc.LawAreaID });
+            modelBuilder.Entity<DocumentLawArea>()
+                .HasOne(bc => bc.Document)
+                .WithMany(b => b.DocumentLawAreas)
+                .HasForeignKey(bc => bc.DocumentID);
+            modelBuilder.Entity<DocumentLawArea>()
+                .HasOne(bc => bc.LawArea)
+                .WithMany(c => c.DocumentLawAreas)
+                .HasForeignKey(bc => bc.LawAreaID);
+
             //modelBuilder.Entity<Gender>()
             //    .HasMany(c => c.Users)
             //    .WithOne(e => e.Gender);

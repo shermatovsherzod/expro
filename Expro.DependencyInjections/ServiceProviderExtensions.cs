@@ -30,6 +30,8 @@ namespace Expro.DependencyInjections
             services.AddTransient<ICountryRepository, CountryRepository>();
             services.AddTransient<IEducationRepository, EducationRepository>();
             services.AddTransient<IWorkExperienceRepository, WorkExperienceRepository>();
+            services.AddTransient<ILanguageRepository, LanguageRepository>();
+            services.AddTransient<IAttachmentRepository, AttachmentRepository>();
         }
 
         public static void AddServices(this IServiceCollection services)
@@ -45,6 +47,8 @@ namespace Expro.DependencyInjections
             services.AddTransient<ICountryService, CountryService>();
             services.AddTransient<IEducationService, EducationService>();
             services.AddTransient<IWorkExperienceService, WorkExperienceService>();
+            services.AddTransient<ILanguageService, LanguageService>();
+            services.AddTransient<IAttachmentService, AttachmentService>();
         }
     }
 }

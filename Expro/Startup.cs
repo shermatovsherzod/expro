@@ -18,6 +18,8 @@ using Expro.Common;
 using Expro.DependencyInjections;
 using Microsoft.Extensions.FileProviders;
 using System.IO;
+using FirebaseAdmin;
+using Google.Apis.Auth.OAuth2;
 
 namespace Expro
 {
@@ -81,6 +83,8 @@ namespace Expro
             services.AddMvc().AddViewLocalization();
             services.AddControllersWithViews().AddRazorRuntimeCompilation();
             services.AddRazorPages();
+
+            ConfigureFirebase();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -121,6 +125,16 @@ namespace Expro
                     pattern: "{controller=Home}/{action=Index}/{id?}");
                 endpoints.MapRazorPages();
             });
+        }
+
+        private void ConfigureFirebase()
+        {
+            AppOptions options = new AppOptions()
+            {
+                Credential = GoogleCredential.FromFile(_env.WebRootPath + "\\firebase\\expro-d7dd0-firebase-adminsdk-zr1rv-9c5c8eda64.json")
+            };
+
+            FirebaseApp.Create(options);
         }
     }
 }

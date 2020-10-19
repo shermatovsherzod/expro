@@ -6,19 +6,18 @@ using Expro.Models;
 
 namespace Expro.ViewModels
 {
-    public class BaseDropdownableDetailsVM
+    public class BaseDropdownableDetailsVM : BaseVM
     {
-        public int ID { get; set; }
         public string Name { get; set; }
 
         public BaseDropdownableDetailsVM() { }
 
         public BaseDropdownableDetailsVM(BaseModelDropdownable model)
+            : base(model)
         {
             if (model == null)
                 return;
 
-            ID = model.ID;
             Name = model.Name;
         }
     }

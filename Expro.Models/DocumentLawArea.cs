@@ -8,7 +8,7 @@ namespace Expro.Models
     public class DocumentLawArea
     {
         [ForeignKey("Document")]
-        public string DocumentID { get; set; }
+        public int DocumentID { get; set; }
         public Document Document { get; set; }
 
         [ForeignKey("LawArea")]
