@@ -48,10 +48,11 @@ namespace Expro.Areas.Identity.Pages.Account
             public string Email { get; set; }
 
             [Required]
+            [Display(Name = "Пароль")]
             [DataType(DataType.Password)]
             public string Password { get; set; }
 
-            [Display(Name = "Remember me?")]
+            [Display(Name = "Запомнить ?")]
             public bool RememberMe { get; set; }
         }
 

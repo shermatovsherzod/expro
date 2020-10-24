@@ -5,42 +5,43 @@
     ViewData["Title"] = "Образование";
 }
 
-<form asp-controller="Profile" asp-action="Education" data-ajax="true" data-ajax-method="POST">
-    <div class="row">
-        <div class="col-md-12">
-            <table class="table">
-                <thead>
-                    <tr>
-                        <th>
-                            Страна
-                        </th>
-                        <th>Город</th>
-                        <th>ВУЗ</th>
-                        <th>Факультет</th>
-                        <th>Год выпуска</th>
-                        <th>Действие</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @{
-                        List<EducationListItemVM> edicationList = ViewData["educationListVM"] as List<EducationListItemVM>;
-                    }
 
-                    @foreach (var item in edicationList)
-                    {
-                        <tr>
-                            <td>@item.Country</td>
-                            <td>@item.City</td>
-                            <td>@item.University</td>
-                            <td>@item.Faculty</td>
-                            <td>@item.GraduationYear</td>
-                            <td><button class="btn btn-danger">Удалить</button></td>
-                        </tr>
-                    }
-                </tbody>
-            </table>
-        </div>
+<div class="row">
+    <div class="col-md-12">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>
+                        Страна
+                    </th>
+                    <th>Город</th>
+                    <th>ВУЗ</th>
+                    <th>Факультет</th>
+                    <th>Год выпуска</th>
+                    <th>Действие</th>
+                </tr>
+            </thead>
+            <tbody>
+                @{
+                    List<EducationListItemVM> edicationList = ViewData["educationListVM"] as List<EducationListItemVM>;
+                }
+
+                @foreach (var item in edicationList)
+                {
+                    <tr>
+                        <td>@item.Country</td>
+                        <td>@item.City</td>
+                        <td>@item.University</td>
+                        <td>@item.Faculty</td>
+                        <td>@item.GraduationYear</td>
+                        <td><button class="btn btn-danger">Удалить</button></td>
+                    </tr>
+                }
+            </tbody>
+        </table>
     </div>
+</div>
+<form asp-controller="Profile" asp-action="Education" data-ajax="true" data-ajax-method="POST">
     <div class="row">
         <div class="col-md-12">
             <b>Добавить образование</b>
@@ -66,33 +67,36 @@
 
     <div class="row">
         <div class="col-md-6">
-            <label>Город</label>
+            <label asp-for="@Model.City"></label>
         </div>
         <div class="col-md-6">
             <p>
-                <input id="city" name="city" type="text" class="form-control" />
+                <input asp-for="@Model.City" class="form-control" />
+                <span asp-validation-for="@Model.City"></span>
             </p>
         </div>
     </div>
 
     <div class="row">
         <div class="col-md-6">
-            <label>ВУЗ</label>
+            <label asp-for="@Model.University"></label>
         </div>
         <div class="col-md-6">
             <p>
-                <input type="text" id="university" name="university" class="form-control" />
+                <input asp-for="@Model.University" class="form-control" />
+                <span asp-validation-for="@Model.University"></span>
             </p>
         </div>
     </div>
 
     <div class="row">
         <div class="col-md-6">
-            <label>Факультет</label>
+            <label asp-for="@Model.Faculty"></label>
         </div>
         <div class="col-md-6">
             <p>
-                <input type="text" id="faculty" name="faculty" class="form-control" />
+                <input asp-for="@Model.Faculty" class="form-control" />
+                <span asp-validation-for="@Model.Faculty"></span>
             </p>
         </div>
     </div>
@@ -100,11 +104,12 @@
 
     <div class="row">
         <div class="col-md-6">
-            <label>Год выпуска</label>
+            <label asp-for="@Model.GraduationYear"></label>
         </div>
         <div class="col-md-6">
             <p>
-                <input type="text" id="graduationyear" name="graduationyear" class="form-control" />
+                <input asp-for="@Model.GraduationYear" class="form-control" />
+                <span asp-validation-for="@Model.GraduationYear"></span>
             </p>
         </div>
     </div>

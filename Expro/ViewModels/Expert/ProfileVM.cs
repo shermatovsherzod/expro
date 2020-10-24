@@ -1,5 +1,6 @@
 ﻿using Expro.Common.Utilities;
 using Expro.Models.Enums;
+using Expro.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -40,15 +41,14 @@ namespace Expro.Models
         //[Remote("ValidateFrom", "VideoRequest", ErrorMessage = "Введите город", AdditionalFields = "TypeID")]
         public string CityOther { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Поле Направление обязательно для заполнения")]
         [Display(Name = "Направление")]
         public List<int> LawAreas { get; set; }
-
-        [Required]
+               
         [Display(Name = "Дата рождения")]
+        [Required(ErrorMessage = "Поле Дата рождения обязательно для заполнения")]
         public string DateOfBirth { get; set; }
-
- 
+              
         [Display(Name = "Пол")]
         public int? GenderID { get; set; }
 
@@ -66,27 +66,6 @@ namespace Expro.Models
             LawAreas = model.UserLawAreas != null ? model.UserLawAreas.Select(r => (int)r.LawAreaID).ToList() : null;
             DateOfBirth = DateTimeUtils.ConvertToString(model.DateOfBirth, "dd/MM/yyyy");
             GenderID = model.GenderID;
-        }
-    }
-
-    public class ExpertProfileContactVM
-    {
-        [Required]
-        [Display(Name = "Email")]
-        public string Email { get; set; }
-
-        [Required]
-        [Display(Name = "PhoneNumber")]
-        public string PhoneNumber { get; set; }
-
-
-        public ExpertProfileContactVM(ApplicationUser model) // : base(model)
-        {
-            if (model == null)
-                return;
-
-            Email = model.Email;
-            PhoneNumber = model.PhoneNumber;
         }
     }
 }

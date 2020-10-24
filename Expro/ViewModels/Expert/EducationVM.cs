@@ -8,13 +8,15 @@ namespace Expro.Models
 {
     public class ExpertProfileEducationFormVM
     {
+        public ExpertProfileEducationFormVM() { }
+
         public int ID { get; set; }
 
         [Required]
         [Display(Name = "Страна")]
         public int CountryID { get; set; }
 
-        //[Required]
+        [Required]
         [Display(Name = "Город")]
         [StringLength(256)]
         public string City { get; set; }      
@@ -33,6 +35,8 @@ namespace Expro.Models
         [Display(Name = "Год окончания")]
         public int GraduationYear { get; set; }
 
+        public string UserID { get; set; }
+
         public ExpertProfileEducationFormVM(Education model) // : base(model)
         {
             if (model == null)
@@ -44,23 +48,24 @@ namespace Expro.Models
             University = model.University;
             Faculty = model.Faculty;
             GraduationYear = model.GraduationYear;
+            UserID = model.UserID;
         }
     }
 
     public class EducationListItemVM
     {
         public int ID { get; set; }
-
-        [Required]
+             
         [Display(Name = "Страна")]
         public string Country { get; set; }
 
-        //[Required]
+        [Required]
+        [Display(Name = "Страна")]
+        public int CountryID { get; set; }
+
+        [Required]
         [Display(Name = "Город")]
         public string City { get; set; }
-
-        [Display(Name = "Другой город")]
-        public string CityOther { get; set; }
 
         [Required]
         [Display(Name = "ВУЗ")]
@@ -73,6 +78,8 @@ namespace Expro.Models
         [Required]
         [Display(Name = "Год окончания")]
         public int GraduationYear { get; set; }
+
+        public string UserID { get; set; }
 
         //public EducationListItemVM(Education model) // : base(model)
         //{

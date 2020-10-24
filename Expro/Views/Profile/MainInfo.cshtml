@@ -104,10 +104,10 @@
         </div>
         <div class="col-md-6">
             <p>
-                <div class="radio">
-                    <input type="radio" name="userGender" value="1"> Мужской&nbsp;&nbsp;&nbsp;
-                    <input type="radio" name="userGender" value="2"> Женский <!--from db-->
-                </div>
+                <select asp-for="@Model.GenderID"
+                        asp-items="@ViewData["gender"] as IEnumerable<SelectListItem>"
+                        class="form-control">
+                </select>             
             </p>
         </div>
     </div>
