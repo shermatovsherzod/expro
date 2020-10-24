@@ -34,7 +34,7 @@
                         <td>@item.University</td>
                         <td>@item.Faculty</td>
                         <td>@item.GraduationYear</td>
-                        <td><button class="btn btn-danger">Удалить</button></td>
+                        <td><button class="btn btn-danger btndelete" data-cid="@item.ID">Удалить</button></td>
                     </tr>
                 }
             </tbody>
@@ -120,3 +120,26 @@
         </div>
     </div>
 </form>
+
+@section Scripts{
+    <script>
+        $('.btndelete').on('click', function () {
+            if (confirm('Вы действительно хотите удалить запись?')) {
+                var id = $(this).data("cid");
+                $.ajax({
+                    type: "POST",
+                    url: '@Url.Action("DeleteEducation", "Profile")',
+                    data:
+                    {
+                        id
+                    },
+                    success: function (res) {
+                        alert(res.responseText);
+                        document.location = '/Profile/Education';
+                    }
+                });
+            }
+          });
+    </script>
+
+}

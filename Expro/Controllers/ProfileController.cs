@@ -150,7 +150,7 @@ namespace Expro.Controllers
         public IActionResult Education(ExpertProfileEducationFormVM vmodel)
         {
             var user = accountUtil.GetCurrentUser(User);
-            ViewData["country"] = _countryService.GetAsSelectList();          
+            ViewData["country"] = _countryService.GetAsSelectList();
 
             if (ModelState.IsValid && user != null)
             {
@@ -163,9 +163,31 @@ namespace Expro.Controllers
                 model.City = vmodel.City;
                 model.UserID = user.ID;
                 _educationService.Add(model, user.ID);
+                return RedirectToAction("Education");
             }
             ViewData["educationListVM"] = GetEducationListByUser(user.ID);
             return View(vmodel);
+        }
+
+
+        [HttpPost]
+        public IActionResult DeleteEducation(int id)
+        {
+            try
+            {
+                var model = _educationService.GetByID(id);
+                var user = accountUtil.GetCurrentUser(User);
+                if (model.UserID == user.ID)
+                {
+                    _educationService.DeletePermanently(model);
+                    return Json(new { success = true, responseText = "Education deleted" });
+                }
+                return Json(new { success = true, responseText = "Education not deleted" });
+            }
+            catch (Exception)
+            {
+                return Json(new { success = true, responseText = "Education not deleted" });
+            }
         }
 
         public List<EducationListItemVM> GetEducationListByUser(string userID)
@@ -178,14 +200,47 @@ namespace Expro.Controllers
                 Faculty = s.Faculty,
                 GraduationYear = s.GraduationYear,
                 ID = s.ID,
-                UserID=s.UserID
+                UserID = s.UserID
             }).ToList();
         }
 
+
         public IActionResult Experience()
         {
-            var user = _userManager.Users.FirstOrDefault(c => c.UserName == "sirius.gml@gmail.com");
-            ViewData["workExperienceListItemVM"] = _workExperienceService.GetListByUserID(user.Id).Select(s => new WorkExperienceListItemVM
+            var user = accountUtil.GetCurrentUser(User);
+            ViewData["country"] = _countryService.GetAsSelectList();
+            ViewData["workExperienceListItemVM"] = GetWorkExperienceListByUser(user.ID);
+            return View();
+        }
+
+
+        [HttpPost]
+        public IActionResult Experience(ExpertProfileWorkExperienceFormVM vmodel)
+        {
+            var user = accountUtil.GetCurrentUser(User);
+            ViewData["country"] = _countryService.GetAsSelectList();
+
+            if (ModelState.IsValid && user != null)
+            {
+                WorkExperience model = new WorkExperience();
+
+                model.CountryID = vmodel.CountryID;
+                model.City = vmodel.City;
+                model.PlaceOfWork = vmodel.PlaceOfWork;
+                model.WorkPeriodFrom = vmodel.WorkPeriodFrom;
+                model.Position = vmodel.Position;
+                model.WorkPeriodTo = vmodel.WorkPeriodTo;
+                model.UserID = user.ID;
+                _workExperienceService.Add(model, user.ID);
+                return RedirectToAction("Experience");
+            }
+            ViewData["workExperienceListItemVM"] = GetEducationListByUser(user.ID);
+            return View(vmodel);
+        }
+
+        public List<WorkExperienceListItemVM> GetWorkExperienceListByUser(string userID)
+        {
+            return _workExperienceService.GetListByUserID(userID).Select(s => new WorkExperienceListItemVM
             {
                 PlaceOfWork = s.PlaceOfWork,
                 Position = s.Position,
@@ -195,14 +250,26 @@ namespace Expro.Controllers
                 Country = s.Country.Name,
                 ID = s.ID
             }).ToList();
-
-            return View();
         }
-        [HttpPost]
-        public IActionResult Experience(string b)
-        {
 
-            return View();
+        [HttpPost]
+        public IActionResult DeleteExperience(int id)
+        {
+            try
+            {
+                var model = _workExperienceService.GetByID(id);
+                var user = accountUtil.GetCurrentUser(User);
+                if (model.UserID == user.ID)
+                {
+                    _workExperienceService.DeletePermanently(model);
+                    return Json(new { success = true, responseText = "Experience deleted" });
+                }
+                return Json(new { success = true, responseText = "Experience not deleted" });
+            }
+            catch (Exception)
+            {
+                return Json(new { success = true, responseText = "Experience not deleted" });
+            }
         }
     }
 }
