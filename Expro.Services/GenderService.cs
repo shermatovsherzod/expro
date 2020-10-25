@@ -25,5 +25,17 @@ namespace Expro.Services
             return result;
         }
 
+        public List<SelectListItem> GetAsSelectListOne(int? selected = null)
+        {
+            var result = GetAll().Select(item => new SelectListItem()
+            {
+                Value = item.ID.ToString(),
+                Text = item.Name.ToString(),
+                Selected = (selected != null && selected == item.ID)
+            }).ToList();
+
+            return result;
+        }
+
     }
 }

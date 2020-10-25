@@ -6,6 +6,7 @@ namespace Expro.Services.Interfaces
 {
     public interface IGenderService : IBaseCRUDService<Gender>
     {
-        IEnumerable<Gender> GetByGenderID(int regionID);       
+        IEnumerable<Gender> GetByGenderID(int regionID);
+        List<SelectListItem> GetAsSelectListOne(int? selected = null);
     }
 }

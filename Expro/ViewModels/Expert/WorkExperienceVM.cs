@@ -9,6 +9,7 @@ namespace Expro.Models
 {
     public class ExpertProfileWorkExperienceFormVM 
     {
+        public ExpertProfileWorkExperienceFormVM() { }
         public int ID { get; set; }
 
         [Required]

@@ -44,6 +44,84 @@ namespace Expro.Utils
         {
             var principal = await base.CreateAsync(user);
 
+            if (!string.IsNullOrWhiteSpace(user.FirstName))
+            {
+                ((ClaimsIdentity)principal.Identity).AddClaims(new[] {
+                    new Claim(CustomClaimTypes.FirstName, user.FirstName)
+                });
+            }
+            if (!string.IsNullOrWhiteSpace(user.LastName))
+            {
+                ((ClaimsIdentity)principal.Identity).AddClaims(new[] {
+                    new Claim(CustomClaimTypes.LastName, user.LastName)
+                });
+            }
+
+            if (!string.IsNullOrWhiteSpace(user.PatronymicName))
+            {
+                ((ClaimsIdentity)principal.Identity).AddClaims(new[] {
+                    new Claim(CustomClaimTypes.PatronymicName, user.PatronymicName)
+                });
+            }
+
+            if (!string.IsNullOrWhiteSpace(user.UserName))
+            {
+                ((ClaimsIdentity)principal.Identity).AddClaims(new[] {
+                    new Claim(CustomClaimTypes.UserName, user.UserName)
+                });
+            }
+
+            if (!string.IsNullOrWhiteSpace(user.Email))
+            {
+                ((ClaimsIdentity)principal.Identity).AddClaims(new[] {
+                    new Claim(CustomClaimTypes.Email, user.Email)
+                });
+            }
+
+            if (!string.IsNullOrWhiteSpace(user.PhoneNumber))
+            {
+                ((ClaimsIdentity)principal.Identity).AddClaims(new[] {
+                    new Claim(CustomClaimTypes.PhoneNumber, user.PhoneNumber)
+                });
+            }
+
+            if (!string.IsNullOrWhiteSpace(user.CityOther))
+            {
+                ((ClaimsIdentity)principal.Identity).AddClaims(new[] {
+                    new Claim(CustomClaimTypes.CityOther, user.CityOther)
+                });
+            }
+
+
+            if (user.DateOfBirth != DateTime.MinValue)
+            {
+                ((ClaimsIdentity)principal.Identity).AddClaims(new[] {
+                    new Claim(CustomClaimTypes.DateOfBirth, user.DateOfBirth.ToString())
+                });
+            }
+
+            if (user.GenderID.GetValueOrDefault(0) != 0)
+            {
+                ((ClaimsIdentity)principal.Identity).AddClaims(new[] {
+                    new Claim(CustomClaimTypes.GenderID, user.GenderID.ToString())
+                });
+            }
+
+            if (user.RegionID.GetValueOrDefault(0) != 0)
+            {
+                ((ClaimsIdentity)principal.Identity).AddClaims(new[] {
+                    new Claim(CustomClaimTypes.RegionID, user.RegionID.ToString())
+                });
+            }
+
+            if (user.CityID.GetValueOrDefault(0) != 0)
+            {
+                ((ClaimsIdentity)principal.Identity).AddClaims(new[] {
+                    new Claim(CustomClaimTypes.CityID, user.CityID.ToString())
+                });
+            }
+
+
             //if (!string.IsNullOrWhiteSpace(user.UserType))
             //{
             //    ((ClaimsIdentity)principal.Identity).AddClaims(new[] {
@@ -62,6 +140,19 @@ namespace Expro.Utils
     {
         public const string UserType = "UserType";
         public const string FirebaseUid = "FirebaseUid";
+
+        public const string UserName = "UserName";
+        public const string Email = "Email";
+        public const string PhoneNumber = "PhoneNumber";
+        public const string DateOfBirth = "DateOfBirth";
+        public const string FirstName = "FirstName";
+        public const string LastName = "LastName";
+        public const string PatronymicName = "PatronymicName";
+        public const string GenderID = "GenderID";
+        public const string CityID = "CityID";
+        public const string CityOther = "CityOther";
+        public const string RegionID = "RegionID";
+
         //public const string EmailConfirmed = "EmailConfirmed";
         //public const string TalentApprovedByAdmin = "TalentApprovedByAdmin";
     }
