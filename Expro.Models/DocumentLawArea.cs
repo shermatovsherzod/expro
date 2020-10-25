@@ -9,10 +9,10 @@ namespace Expro.Models
     {
         [ForeignKey("Document")]
         public int DocumentID { get; set; }
-        public Document Document { get; set; }
+        public virtual Document Document { get; set; }
 
         [ForeignKey("LawArea")]
         public int LawAreaID { get; set; }
-        public LawArea LawArea { get; set; }
+        public virtual LawArea LawArea { get; set; }
     }
 }

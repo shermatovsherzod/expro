@@ -28,6 +28,6 @@ namespace Expro.Models
         public string WorkPeriodTo { get; set; }
 
         public string UserID { get; set; }
-        public ApplicationUser User { get; set; }
+        public virtual ApplicationUser User { get; set; }
     }
 }

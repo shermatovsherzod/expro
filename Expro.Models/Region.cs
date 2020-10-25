@@ -8,6 +8,6 @@ namespace Expro.Models
     public class Region : BaseModelDropdownable
     {
         [InverseProperty("Region")]
-        public ICollection<City> Cities { get; set; }
+        public virtual ICollection<City> Cities { get; set; }
     }
 }

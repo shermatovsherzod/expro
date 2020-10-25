@@ -4,14 +4,16 @@ using Expro.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Expro.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20201024115800_Attachment_addedDisplayName")]
+    partial class Attachment_addedDisplayName
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -355,12 +357,7 @@ namespace Expro.Data.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("ParentID")
-                        .HasColumnType("int");
-
                     b.HasKey("ID");
-
-                    b.HasIndex("ParentID");
 
                     b.ToTable("LawAreas");
                 });
@@ -831,13 +828,6 @@ namespace Expro.Data.Migrations
                     b.HasOne("Expro.Models.ApplicationUser", "User")
                         .WithMany()
                         .HasForeignKey("UserID");
-                });
-
-            modelBuilder.Entity("Expro.Models.LawArea", b =>
-                {
-                    b.HasOne("Expro.Models.LawArea", "Parent")
-                        .WithMany("Children")
-                        .HasForeignKey("ParentID");
                 });
 
             modelBuilder.Entity("Expro.Models.Post", b =>

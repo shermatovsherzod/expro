@@ -9,13 +9,39 @@ using System.Linq;
 
 namespace Expro.ViewModels
 {
-    public class SampleDocumentFreeFormVM : BaseVM
+    public class SampleDocumentFreeCreateVM : BaseVM
     {
         [Required]
         [StringLength(1024)]
         [Display(Name = "Название")]
         public string Title { get; set; }
 
+        public SampleDocumentFreeCreateVM()
+        {
+        }
+
+        public SampleDocumentFreeCreateVM(Document model)
+            : base(model)
+        {
+            if (model == null)
+                return;
+
+            Title = model.Title;
+        }
+
+        public virtual Document ToModel(Document model = null)
+        {
+            if (model == null)
+                model = new Document();
+
+            model.Title = this.Title;
+
+            return model;
+        }
+    }
+
+    public class SampleDocumentFreeEditVM : SampleDocumentFreeCreateVM
+    {
         [Display(Name = "Язык")]
         public int LanguageID { get; set; }
 
@@ -38,18 +64,17 @@ namespace Expro.ViewModels
         //[Remote]
         public DocumentActionTypesEnum ActionType { get; set; } = DocumentActionTypesEnum.saveAsDraft;
 
-        public SampleDocumentFreeFormVM()
+        public SampleDocumentFreeEditVM()
         { 
         }
 
-        public SampleDocumentFreeFormVM(Document model)
+        public SampleDocumentFreeEditVM(Document model)
             : base(model)
         {
             if (model == null)
                 return;
-
-            Title = model.Title;
-            LanguageID = model.LanguageID;
+            
+            LanguageID = model.LanguageID ?? 0;
             LawAreas = model.DocumentLawAreas?
                 .Select(m => m.LawAreaID)
                 .ToList() 
@@ -68,20 +93,18 @@ namespace Expro.ViewModels
             }
         }
 
-        public Document ToModel(Document model = null)
+        public override Document ToModel(Document model = null)
         {
-            if (model == null)
-                model = new Document();
+            var mmodel = base.ToModel(model);
+            //if (model == null)
+            //    model = new Document();
 
-            model.Title = this.Title;
+            //model.Title = this.Title;
             model.LanguageID = this.LanguageID;
             //model.DocumentLawAreas
-            model.Text = null;
-            model.AttachmentID = null;
-            if (DocumentContentType == DocumentContentTypesEnum.file)
-                model.AttachmentID = this.AttachmentID;
-            else
-                model.Text = this.Text;
+            model.ContentType = this.DocumentContentType;
+            //model.AttachmentID = this.AttachmentID;
+            model.Text = this.Text;
 
             return model;
         }

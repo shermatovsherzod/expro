@@ -15,6 +15,8 @@ namespace Expro.Models
         {
             base.OnModelCreating(modelBuilder);
 
+            
+
             modelBuilder.Entity<UserLawArea>()
                 .HasKey(bc => new { bc.UserID, bc.LawAreaID });
             modelBuilder.Entity<UserLawArea>()
@@ -37,6 +39,11 @@ namespace Expro.Models
                 .WithMany(c => c.DocumentLawAreas)
                 .HasForeignKey(bc => bc.LawAreaID);
 
+            modelBuilder.Entity<LawArea>()
+                .HasOne(p => p.Parent)
+                .WithMany(b => b.Children)
+                .OnDelete(DeleteBehavior.ClientSetNull);
+
             //modelBuilder.Entity<Gender>()
             //    .HasMany(c => c.Users)
             //    .WithOne(e => e.Gender);
@@ -45,6 +52,13 @@ namespace Expro.Models
             //    .HasMany(c => c.Users)
             //    .WithOne(e => e.Gender);
         }
+
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            optionsBuilder.UseLazyLoadingProxies();
+        }
+
+
 
         public virtual void Commit()
         {

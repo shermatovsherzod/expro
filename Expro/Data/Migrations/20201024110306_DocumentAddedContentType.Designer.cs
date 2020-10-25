@@ -4,18 +4,20 @@ using Expro.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Expro.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20201024110306_DocumentAddedContentType")]
+    partial class DocumentAddedContentType
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "3.1.9")
+                .HasAnnotation("ProductVersion", "3.1.8")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
@@ -35,16 +37,11 @@ namespace Expro.Data.Migrations
                     b.Property<DateTime>("DateModified")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("DisplayName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(255)")
-                        .HasMaxLength(255);
-
                     b.Property<string>("Extension")
                         .HasColumnType("nvarchar(32)")
                         .HasMaxLength(32);
 
-                    b.Property<string>("FileName")
+                    b.Property<string>("Filename")
                         .IsRequired()
                         .HasColumnType("nvarchar(255)")
                         .HasMaxLength(255);
@@ -355,12 +352,7 @@ namespace Expro.Data.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("ParentID")
-                        .HasColumnType("int");
-
                     b.HasKey("ID");
-
-                    b.HasIndex("ParentID");
 
                     b.ToTable("LawAreas");
                 });
@@ -831,13 +823,6 @@ namespace Expro.Data.Migrations
                     b.HasOne("Expro.Models.ApplicationUser", "User")
                         .WithMany()
                         .HasForeignKey("UserID");
-                });
-
-            modelBuilder.Entity("Expro.Models.LawArea", b =>
-                {
-                    b.HasOne("Expro.Models.LawArea", "Parent")
-                        .WithMany("Children")
-                        .HasForeignKey("ParentID");
                 });
 
             modelBuilder.Entity("Expro.Models.Post", b =>

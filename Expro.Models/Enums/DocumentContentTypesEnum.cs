@@ -6,7 +6,7 @@ namespace Expro.Models.Enums
 {
     public enum DocumentContentTypesEnum
     {
-        file,
-        text
+        file = 1,
+        text = 2
     }
 }

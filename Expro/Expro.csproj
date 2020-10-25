@@ -10,6 +10,14 @@
     <Compile Remove="Data\Migrations\20201007174252_ApplicationUserDeleteGender.Designer.cs" />
     <Compile Remove="Data\Migrations\20201009103742_AttachmentModelAdded.cs" />
     <Compile Remove="Data\Migrations\20201009103742_AttachmentModelAdded.Designer.cs" />
+    <Compile Remove="Data\Migrations\20201024110108_DocumentAddedContentType.cs" />
+    <Compile Remove="Data\Migrations\20201024110108_DocumentAddedContentType.Designer.cs" />
+    <Compile Remove="Data\Migrations\20201024110214_DocumentAddedContentType.cs" />
+    <Compile Remove="Data\Migrations\20201024110214_DocumentAddedContentType.Designer.cs" />
+    <Compile Remove="Data\Migrations\20201025104403_LawArea_addedParent.cs" />
+    <Compile Remove="Data\Migrations\20201025104403_LawArea_addedParent.Designer.cs" />
+    <Compile Remove="Data\Migrations\20201025105648_LawArea_addedParent.cs" />
+    <Compile Remove="Data\Migrations\20201025105648_LawArea_addedParent.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>
@@ -32,6 +40,13 @@
 
   <ItemGroup>
     <Folder Include="Uploads\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="wwwroot\lib\treeselect\css\jquery.bootstrap.treeselect.css.map" />
+    <None Include="wwwroot\lib\treeselect\js\jquery.bootstrap.treeselect.js" />
+    <None Include="wwwroot\lib\treeselect\README.md" />
+    <None Include="wwwroot\lib\treeselect\scss\jquery.bootstrap.treeselect.scss" />
   </ItemGroup>
 
 </Project>

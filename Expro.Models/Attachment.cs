@@ -13,7 +13,11 @@ namespace Expro.Models
 
         [Required]
         [StringLength(255)]
-        public string Filename { get; set; } //"file.ext"
+        public string FileName { get; set; } //"generatedName (without extension)"
+
+        [Required]
+        [StringLength(255)]
+        public string DisplayName { get; set; } //"originalName.ext"
 
         [Required]
         [StringLength(512)]

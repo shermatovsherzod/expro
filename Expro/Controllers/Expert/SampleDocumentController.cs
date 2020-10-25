@@ -14,15 +14,18 @@ namespace Expro.Controllers
         private readonly ILawAreaService LawAreaService;
         private readonly ILanguageService LanguageService;
         private readonly IAttachmentService AttachmentService;
+        private readonly IDocumentService DocumentService;
 
         public SampleDocumentController(
             ILawAreaService lawAreaService,
             ILanguageService languageService,
-            IAttachmentService attachmentService)
+            IAttachmentService attachmentService,
+            IDocumentService documentService)
         {
             LawAreaService = lawAreaService;
             LanguageService = languageService;
             AttachmentService = attachmentService;
+            DocumentService = documentService;
         }
 
         public IActionResult Index()
@@ -32,23 +35,105 @@ namespace Expro.Controllers
 
         public IActionResult Create()
         {
-            ViewData["lawAreas"] = LawAreaService.GetAsSelectList();
-            ViewData["languages"] = LanguageService.GetAsSelectList();
-
-            return View(new SampleDocumentFreeFormVM());
+            return View();
         }
 
         [HttpPost]
-        public IActionResult Create(SampleDocumentFreeFormVM modelVM)
+        public IActionResult Create(SampleDocumentFreeCreateVM modelVM)
         {
-            if (ModelState.IsValid)
+            try
             {
+                if (ModelState.IsValid)
+                {
+                    var curUser = accountUtil.GetCurrentUser(User);
 
+                    var model = modelVM.ToModel();
+                    DocumentService.AddSampleDocument(model, curUser.ID);
+
+                    return RedirectToAction("Edit", new { id = model.ID });
+                }
+            }
+            catch (Exception ex)
+            {
+                ModelState.AddModelError("", "Что-то пошло не так: " + ex.Message);
+            }
+            
+            return View(modelVM);
+        }
+
+        public IActionResult Edit(int id)
+        {
+            var model = DocumentService.GetByID(id);
+            if (model == null)
+                throw new Exception("Документ не найден");
+
+            var modelVM = new SampleDocumentFreeEditVM(model);
+            
+            var selectedLawAreaIDs = model.DocumentLawAreas.Select(m => m.LawAreaID).ToList();
+            ViewData["lawAreas"] = LawAreaService.GetAsIQueryable()
+                .Select(m => new SelectListItemWithParent()
+                {
+                    Value = m.ID.ToString(),
+                    Text = m.Name,
+                    Selected = selectedLawAreaIDs.Contains(m.ID),
+                    ParentValue = m.ParentID.HasValue ? m.ParentID.Value.ToString() : ""
+                }).ToList();
+
+            ViewData["languages"] = LanguageService.GetAsSelectList();
+
+            return View(modelVM);
+        }
+
+        [HttpPost]
+        public IActionResult Edit(SampleDocumentFreeEditVM modelVM)
+        {
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    var modelFromDB = DocumentService.GetByID(modelVM.ID);
+                    if (modelFromDB == null)
+                        throw new Exception("Документ не найден");
+
+                    var curUser = accountUtil.GetCurrentUser(User);
+
+                    if (!DocumentService.BelongsToUser(modelFromDB, curUser.ID))
+                        throw new Exception("Данный документ вам не принадлежит");
+
+                    if (!DocumentService.EditingIsAllowed(modelFromDB))
+                        throw new Exception("Статус документа не позволяет отредактировать его");
+
+
+                    var model = modelVM.ToModel(modelFromDB);
+                    LawAreaService.UpdateDocumentLawAreas(model, modelVM.LawAreas);
+
+                    DocumentService.Update(model, curUser.ID);
+
+                    ViewData["successfullySaved"] = true;
+                }
+                //else
+                //{
+                //    ModelState.AddModelError("Text", "text must be provided");
+                //    ModelState.AddModelError("", "please, provide text");
+                //}
+            }
+            catch (Exception ex)
+            {
+                ModelState.AddModelError("", "Что-то пошло не так: " + ex.Message);
             }
 
-            ViewData["lawAreas"] = LawAreaService.GetAsSelectList();
+            var selectedLawAreaIDs = modelVM.LawAreas;
+            ViewData["lawAreas"] = LawAreaService.GetAsIQueryable()
+                .Select(m => new SelectListItemWithParent()
+                {
+                    Value = m.ID.ToString(),
+                    Text = m.Name,
+                    Selected = selectedLawAreaIDs.Contains(m.ID),
+                    ParentValue = m.ParentID.HasValue ? m.ParentID.Value.ToString() : ""
+                }).ToList();
+
             ViewData["languages"] = LanguageService.GetAsSelectList();
-            
+
             if (modelVM.AttachmentID.HasValue)
             {
                 var attachment = AttachmentService.GetActiveByID(modelVM.AttachmentID.Value);

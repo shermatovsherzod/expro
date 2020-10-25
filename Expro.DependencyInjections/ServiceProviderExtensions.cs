@@ -32,6 +32,7 @@ namespace Expro.DependencyInjections
             services.AddTransient<IWorkExperienceRepository, WorkExperienceRepository>();
             services.AddTransient<ILanguageRepository, LanguageRepository>();
             services.AddTransient<IAttachmentRepository, AttachmentRepository>();
+            services.AddTransient<IDocumentRepository, DocumentRepository>();
         }
 
         public static void AddServices(this IServiceCollection services)
@@ -49,6 +50,7 @@ namespace Expro.DependencyInjections
             services.AddTransient<IWorkExperienceService, WorkExperienceService>();
             services.AddTransient<ILanguageService, LanguageService>();
             services.AddTransient<IAttachmentService, AttachmentService>();
+            services.AddTransient<IDocumentService, DocumentService>();
         }
     }
 }

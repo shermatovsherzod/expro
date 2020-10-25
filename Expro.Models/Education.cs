@@ -22,6 +22,6 @@ namespace Expro.Models
         public string Faculty { get; set; }
         public int GraduationYear { get; set; }
         public string UserID { get; set; }
-        public ApplicationUser User { get; set; }
+        public virtual ApplicationUser User { get; set; }
     }
 }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Expro.Models.Enums;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -17,10 +18,12 @@ namespace Expro.Models
         public string Title { get; set; }
 
         [ForeignKey("Language")]
-        public int LanguageID { get; set; }
+        public int? LanguageID { get; set; }
         public virtual Language Language { get; set; }
 
-        public ICollection<DocumentLawArea> DocumentLawAreas { get; set; }
+        public virtual ICollection<DocumentLawArea> DocumentLawAreas { get; set; }
+
+        public DocumentContentTypesEnum ContentType { get; set; } = DocumentContentTypesEnum.text;
 
         [ForeignKey("Attachment")]
         public int? AttachmentID { get; set; }

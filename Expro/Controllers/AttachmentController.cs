@@ -18,27 +18,18 @@ namespace Expro.Controllers
     public class AttachmentController : BaseController
     {
         private readonly IAttachmentService AttachmentService;
-        //private readonly ICustomerService CustomerService;
-        //private readonly ITalentService TalentService;
-        //private readonly IVideoRequestService VideoRequestService;
-        //private readonly IHangfireService HangfireService;
+        private readonly IDocumentService DocumentService;
 
         //private readonly IHostingEnvironment _env;
 
         public AttachmentController(
             IAttachmentService attachmentService,
-            //ICustomerService customerService,
-            //ITalentService talentService,
-            //IVideoRequestService videoRequestService,
-            //IHangfireService hangfireService,
+            IDocumentService documentService,
             //IHostingEnvironment env,
             ILogger<AttachmentController> logger)
         {
             AttachmentService = attachmentService;
-            //CustomerService = customerService;
-            //TalentService = talentService;
-            //VideoRequestService = videoRequestService;
-            //HangfireService = hangfireService;
+            DocumentService = documentService;
             //_env = env;
             _logger = logger;
         }
@@ -67,15 +58,15 @@ namespace Expro.Controllers
 
         private void AttachFile(Attachment attachment, int id, string fileType, string curUserID)
         {
-            //if (fileType.Equals(Constants.FileTypes.CUSTOMER_AVATAR))
-            //{
-            //    var model = CustomerService.GetByID(id);
-            //    if (model != null)
-            //    {
-            //        model.Avatar = attachment;
-            //        CustomerService.Update(model, curUserID);
-            //    }
-            //}
+            if (fileType.Equals(Constants.FileTypes.DOCUMENT))
+            {
+                var model = DocumentService.GetByID(id);
+                if (model != null)
+                {
+                    model.Attachment = attachment;
+                    DocumentService.Update(model, curUserID);
+                }
+            }
             //else if (fileType.Equals(Constants.FileTypes.TALENT_AVATAR))
             //{
             //    var model = TalentService.GetByID(id);
@@ -85,7 +76,7 @@ namespace Expro.Controllers
             //        TalentService.Update(model, curUserID);
             //    }
             //}
-            
+
             //else if () ...
         }
 
@@ -147,24 +138,21 @@ namespace Expro.Controllers
             {
                 var curUser = accountUtil.GetCurrentUser(User);
 
-                var model = AttachmentService.GetActiveByID(fileID);
+                var model = AttachmentService.GetByID(fileID);
                 if (model == null)
-                    return NotFound();
+                    throw new Exception("Файл не найден в базе");
 
-                string error = "";
-
-                if (objID.HasValue && objID > 0
-                    && !string.IsNullOrWhiteSpace(fileType))
+                if (!objID.HasValue)
                 {
-                    error = DetachFromObj(model, objID.Value, fileType, curUser.ID);
-                    if (string.IsNullOrWhiteSpace(error))
-                        AttachmentService.Delete(model, curUser.ID);
+                    AttachmentService.DeletePermanently(model);
+                }
+                else if (objID > 0 && !string.IsNullOrWhiteSpace(fileType))
+                {
+                    DetachFromObj(model, objID.Value, fileType, curUser.ID);
+                    AttachmentService.Delete(model, curUser.ID);
                 }
                 else
-                    error = "Некоторые входящие данные неверные";
-
-                if (!string.IsNullOrWhiteSpace(error))
-                    throw new Exception(error);
+                    throw new Exception("Некоторые входящие данные неверные");
 
                 return Ok();
             }
@@ -174,23 +162,21 @@ namespace Expro.Controllers
             }
         }
 
-        private string DetachFromObj(Attachment attachment, int objID, string fileType, string curUserID)
+        private void DetachFromObj(Attachment attachment, int objID, string fileType, string curUserID)
         {
-            //if (fileType.Equals(Constants.FileTypes.VIDEO_REQUEST_VIDEO))
-            //{
-            //    var obj = VideoRequestService.GetActiveByID(objID);
-            //    if (obj == null)
-            //        return "Объект не найден";
+            if (fileType.Equals(Constants.FileTypes.DOCUMENT))
+            {
+                var obj = DocumentService.GetActiveByID(objID);
+                if (obj == null)
+                    throw new Exception("Объект не найден");
 
-            //    if (!VideoRequestService.VideoIsAllowedToBeDeleted(obj))
-            //        return "У Вас недостаточно прав для удаления этого видео";
+                if (!DocumentService.AttachedFileIsAllowedToBeDeleted(obj))
+                    throw new Exception("У Вас недостаточно прав для удаления этого файла");
 
-            //    obj.Video = null;
-            //    VideoRequestService.SaveDetachedVideo(obj, curUserID);
-            //}
-            ////else if () ...
-
-            return null;
+                obj.Attachment = null;
+                DocumentService.Update(obj, curUserID);
+            }
+            //else if () ...
         }
 
         //uncomment when needed
