@@ -30,6 +30,7 @@ namespace Expro.Controllers
 
         public IActionResult Index()
         {
+            var curUser = accountUtil.GetCurrentUser(User);
             return View();
         }
 
@@ -107,7 +108,13 @@ namespace Expro.Controllers
                     var model = modelVM.ToModel(modelFromDB);
                     LawAreaService.UpdateDocumentLawAreas(model, modelVM.LawAreas);
 
-                    DocumentService.Update(model, curUser.ID);
+                    if (modelVM.ActionType == DocumentActionTypesEnum.submitForApproval)
+                    {
+                        DocumentService.SubmitForApproval(model, curUser.ID);
+                        modelVM.StatusID = (int)DocumentStatusesEnum.WaitingForApproval;
+                    }
+                    else
+                        DocumentService.Update(model, curUser.ID);
 
                     ViewData["successfullySaved"] = true;
                 }

@@ -9,5 +9,6 @@ namespace Expro.Services.Interfaces
         bool EditingIsAllowed(Document entity);
         bool BelongsToUser(Document entity, string userID);
         bool AttachedFileIsAllowedToBeDeleted(Document entity);
+        void SubmitForApproval(Document entity, string userID);
     }
 }

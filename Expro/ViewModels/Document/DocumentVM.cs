@@ -64,6 +64,8 @@ namespace Expro.ViewModels
         //[Remote]
         public DocumentActionTypesEnum ActionType { get; set; } = DocumentActionTypesEnum.saveAsDraft;
 
+        public int StatusID { get; set; }
+
         public SampleDocumentFreeEditVM()
         { 
         }
@@ -91,6 +93,8 @@ namespace Expro.ViewModels
                 DocumentContentType = DocumentContentTypesEnum.text;
                 Text = model.Text;
             }
+
+            StatusID = model.DocumentStatusID;
         }
 
         public override Document ToModel(Document model = null)
