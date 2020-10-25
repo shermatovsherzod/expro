@@ -16,9 +16,7 @@ namespace Expro.ViewModels
         [Display(Name = "Название")]
         public string Title { get; set; }
 
-        public SampleDocumentFreeCreateVM()
-        {
-        }
+        public SampleDocumentFreeCreateVM() { }
 
         public SampleDocumentFreeCreateVM(Document model)
             : base(model)
@@ -66,9 +64,7 @@ namespace Expro.ViewModels
 
         public int StatusID { get; set; }
 
-        public SampleDocumentFreeEditVM()
-        { 
-        }
+        public SampleDocumentFreeEditVM() { }
 
         public SampleDocumentFreeEditVM(Document model)
             : base(model)
@@ -104,13 +100,55 @@ namespace Expro.ViewModels
             //    model = new Document();
 
             //model.Title = this.Title;
-            model.LanguageID = this.LanguageID;
+            mmodel.LanguageID = this.LanguageID;
             //model.DocumentLawAreas
-            model.ContentType = this.DocumentContentType;
+            mmodel.ContentType = this.DocumentContentType;
             //model.AttachmentID = this.AttachmentID;
-            model.Text = this.Text;
+            mmodel.Text = this.Text;
 
-            return model;
+            return mmodel;
+        }
+    }
+
+    public class SampleDocumentPaidCreateVM : SampleDocumentFreeCreateVM
+    {
+        public SampleDocumentPaidCreateVM() { }
+
+        public SampleDocumentPaidCreateVM(Document model)
+            : base(model)
+        {
+        }
+
+        public override Document ToModel(Document model = null)
+        {
+            var mmodel = base.ToModel(model);
+            return mmodel;
+        }
+    }
+
+    public class SampleDocumentPaidEditVM : SampleDocumentFreeEditVM
+    {
+        [Required]
+        [Display(Name = "Цена")]
+        public int? Price { get; set; }
+
+        public SampleDocumentPaidEditVM() { }
+
+        public SampleDocumentPaidEditVM(Document model)
+            : base(model)
+        {
+            if (model == null)
+                return;
+
+            Price = model.Price;
+        }
+
+        public override Document ToModel(Document model = null)
+        {
+            var mmodel = base.ToModel(model);;
+            mmodel.Price = this.Price;
+
+            return mmodel;
         }
     }
 }

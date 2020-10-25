@@ -9,14 +9,14 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Expro.Controllers
 {
-    public class SampleDocumentController : BaseController
+    public class SampleDocumentPaidController : BaseController
     {
         private readonly ILawAreaService LawAreaService;
         private readonly ILanguageService LanguageService;
         private readonly IAttachmentService AttachmentService;
         private readonly IDocumentService DocumentService;
 
-        public SampleDocumentController(
+        public SampleDocumentPaidController(
             ILawAreaService lawAreaService,
             ILanguageService languageService,
             IAttachmentService attachmentService,
@@ -40,7 +40,7 @@ namespace Expro.Controllers
         }
 
         [HttpPost]
-        public IActionResult Create(SampleDocumentFreeCreateVM modelVM)
+        public IActionResult Create(SampleDocumentPaidCreateVM modelVM)
         {
             try
             {
@@ -68,7 +68,7 @@ namespace Expro.Controllers
             if (model == null)
                 throw new Exception("Документ не найден");
 
-            var modelVM = new SampleDocumentFreeEditVM(model);
+            var modelVM = new SampleDocumentPaidEditVM(model);
             
             var selectedLawAreaIDs = model.DocumentLawAreas.Select(m => m.LawAreaID).ToList();
             ViewData["lawAreas"] = LawAreaService.GetAsIQueryable()
@@ -86,7 +86,7 @@ namespace Expro.Controllers
         }
 
         [HttpPost]
-        public IActionResult Edit(SampleDocumentFreeEditVM modelVM)
+        public IActionResult Edit(SampleDocumentPaidEditVM modelVM)
         {
             try
             {

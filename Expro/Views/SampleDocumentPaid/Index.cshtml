@@ -4,7 +4,7 @@
 @using Expro.ViewModels
 
 @{
-    ViewData["Title"] = "Намунавий хужжат редактировать";
+    ViewData["Title"] = "Намунавий хужжатлар";
 }
 
 <h1>@ViewData["Title"]</h1>
@@ -15,17 +15,10 @@
         Данные успешно сохранены
     </div>
 }
-@if (Model.StatusID == (int)DocumentStatusesEnum.WaitingForApproval)
-{
-    <div class="alert alert-info">
-        Документ отправлен на подтверждение
-    </div>
-}
 <div class="row">
     <div class="col-md-4">
         <form asp-action="Edit">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input asp-for="StatusID" type="hidden" />
             <div class="form-group">
                 <label asp-for="Title" class="control-label"></label>
                 <input asp-for="Title" class="form-control" />
@@ -42,19 +35,19 @@
             <div class="form-group">
                 <label asp-for="LawAreas" class="control-label"></label>
                 @*<select asp-for="LawAreas" multiple class="form-control">
-                        @foreach (var item in ViewData["lawAreas"] as List<SelectListItemWithParent>)
-                        {
-                            string selected = "";
-                            if (item.Selected)
-                            { selected = "selected"; }
+                    @foreach (var item in ViewData["lawAreas"] as List<SelectListItemWithParent>)
+                    {
+                        string selected = "";
+                        if (item.Selected)
+                        { selected = "selected"; }
 
-                            string parentID = "";
-                            if (!string.IsNullOrWhiteSpace(item.ParentValue))
-                            { parentID = item.ParentValue; }
+                        string parentID = "";
+                        if (!string.IsNullOrWhiteSpace(item.ParentValue))
+                        { parentID = item.ParentValue; }
 
-                            <option value="@item.Value" selected="@selected" data-parent="@parentID">@item.Text</option>
-                        }
-                    </select>*@
+                        <option value="@item.Value" selected="@selected" data-parent="@parentID">@item.Text</option>
+                    }
+                </select>*@
 
                 <select asp-for="LawAreas"
                         asp-items="@ViewData["lawAreas"] as IEnumerable<SelectListItem>" multiple
@@ -99,14 +92,12 @@
                 <textarea asp-for="Text" class="form-control"></textarea>
                 <span asp-validation-for="Text" class="text-danger"></span>
             </div>
-            <div class="form-group" id="actionButtonsBox">
+            <div class="form-group">
                 <input asp-for="ActionType" type="hidden" />
                 <button type="submit" class="btn btn-primary" actiontype="@DocumentActionTypesEnum.saveAsDraft">Сохранить как черновик</button>
                 <button type="submit" class="btn btn-primary" actiontype="@DocumentActionTypesEnum.submitForApproval">Отправить на подтверждение</button>
                 <div class="spinner-border spinner" style="display: none;"></div>
             </div>
-
-            @*<div class="alert alert-info" id="alertSubmittedForApproval" style="display: none;">Документ отправлен на подтверждение</div>*@
         </form>
     </div>
 </div>
@@ -131,13 +122,6 @@
         $(document).ready(function () {
             //$('#LawAreas').treeselect();
 
-            var statusID = @Model.StatusID;
-            if (statusID == @((int)DocumentStatusesEnum.WaitingForApproval)) {
-                $("form input, form select, form textarea").attr("readonly", "readonly");
-                $("form #existingFileContainer button").attr("disabled", "disabled");
-                $("#actionButtonsBox").html("");
-                //$("#alertSubmittedForApproval").show();
-            }
 
             $("form button[type=submit]").click(function (ev) {
                 $("form input#ActionType").val($(this).attr("actiontype"));

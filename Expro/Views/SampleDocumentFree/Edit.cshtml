@@ -1,0 +1,337 @@
+﻿@model Expro.ViewModels.SampleDocumentFreeEditVM
+@using Expro.Models.Enums
+@using Expro.Common
+@using Expro.ViewModels
+
+@{
+    ViewData["Title"] = "Намунавий хужжат редактировать";
+}
+
+<h1>@ViewData["Title"]</h1>
+<hr />
+@if (ViewData["successfullySaved"] != null)
+{
+    <div class="alert alert-success">
+        Данные успешно сохранены
+    </div>
+}
+@if (Model.StatusID == (int)DocumentStatusesEnum.WaitingForApproval)
+{
+    <div class="alert alert-info">
+        Документ отправлен на подтверждение
+    </div>
+}
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input asp-for="StatusID" type="hidden" />
+            <div class="form-group">
+                <label asp-for="Title" class="control-label"></label>
+                <input asp-for="Title" class="form-control" />
+                <span asp-validation-for="Title" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="LanguageID" class="control-label"></label>
+                <select asp-for="LanguageID"
+                        asp-items="@ViewData["languages"] as IEnumerable<SelectListItem>"
+                        class="form-control">
+                </select>
+                <span asp-validation-for="LanguageID" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="LawAreas" class="control-label"></label>
+                @*<select asp-for="LawAreas" multiple class="form-control">
+                        @foreach (var item in ViewData["lawAreas"] as List<SelectListItemWithParent>)
+                        {
+                            string selected = "";
+                            if (item.Selected)
+                            { selected = "selected"; }
+
+                            string parentID = "";
+                            if (!string.IsNullOrWhiteSpace(item.ParentValue))
+                            { parentID = item.ParentValue; }
+
+                            <option value="@item.Value" selected="@selected" data-parent="@parentID">@item.Text</option>
+                        }
+                    </select>*@
+
+                <select asp-for="LawAreas"
+                        asp-items="@ViewData["lawAreas"] as IEnumerable<SelectListItem>" multiple
+                        class="form-control">
+                </select>
+                <span asp-validation-for="LawAreas" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input asp-for="DocumentContentType" type="radio" value="@DocumentContentTypesEnum.file">
+                <label asp-for="AttachmentID" class="control-label"></label>
+                <input asp-for="AttachmentID" type="hidden" />
+                @{
+                    string fileInputDisplayStyle = "";
+                    string existingFileContainerDisplayStyle = "";
+
+                    if (Model.AttachmentID.HasValue)
+                    {
+                        fileInputDisplayStyle = "style=display:none;";
+                    }
+                    else
+                    {
+                        existingFileContainerDisplayStyle = "style=display:none;";
+                    }
+                }
+
+                <input type="file" id="fileInput" class="form-control" @fileInputDisplayStyle />
+
+                <div id="existingFileContainer" @existingFileContainerDisplayStyle>
+                    @if (Model.Attachment != null)
+                    {
+                        <button id="deleteFileBtn" type="button" class="btn btn-danger" onclick="DeleteFile(@Model.Attachment.ID, '@Model.Attachment.Path');">X</button>
+                        <a href="@Model.Attachment.Url">@Model.Attachment.DisplayName</a>
+                    }
+                </div>
+
+                <div class="spinner-border spinner" id="fileUploadSpinner" style="display: none;"></div>
+                <span asp-validation-for="AttachmentID" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input asp-for="DocumentContentType" type="radio" value="@DocumentContentTypesEnum.text">
+                <label asp-for="Text" class="control-label"></label>
+                <textarea asp-for="Text" class="form-control"></textarea>
+                <span asp-validation-for="Text" class="text-danger"></span>
+            </div>
+            <div class="form-group" id="actionButtonsBox">
+                <input asp-for="ActionType" type="hidden" />
+                <button type="submit" class="btn btn-primary" actiontype="@DocumentActionTypesEnum.saveAsDraft">Сохранить как черновик</button>
+                <button type="submit" class="btn btn-primary" actiontype="@DocumentActionTypesEnum.submitForApproval">Отправить на подтверждение</button>
+                <div class="spinner-border spinner" style="display: none;"></div>
+            </div>
+
+            @*<div class="alert alert-info" id="alertSubmittedForApproval" style="display: none;">Документ отправлен на подтверждение</div>*@
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+<link href="~/lib/treeselect/css/jquery.bootstrap.treeselect.css" rel="stylesheet" />
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+
+    <script src="~/lib/treeselect/js/jquery.bootstrap.treeselect.js"></script>
+
+    <script>
+        var input;
+        var modelID = @Model.ID;
+        var fileType = "@Constants.FileTypes.DOCUMENT";
+        var spinnerTagID = "fileUploadSpinner";
+
+        $(document).ready(function () {
+            //$('#LawAreas').treeselect();
+
+            var statusID = @Model.StatusID;
+            if (statusID == @((int)DocumentStatusesEnum.WaitingForApproval)) {
+                $("form input, form select, form textarea").attr("readonly", "readonly");
+                $("form #existingFileContainer button").attr("disabled", "disabled");
+                $("#actionButtonsBox").html("");
+                //$("#alertSubmittedForApproval").show();
+            }
+
+            $("form button[type=submit]").click(function (ev) {
+                $("form input#ActionType").val($(this).attr("actiontype"));
+            });
+
+
+            $("#fileInput").change(function () {
+                $("#" + spinnerTagID).show();
+                var input = this;
+                if (!(input.files && input.files[0])) {
+                    $("#" + spinnerTagID).hide();
+                    return;
+                }
+
+                var file = input.files[0];
+                UploadToFirebaseStorage(file);
+            });
+        });
+
+        function UploadToFirebaseStorage(file)
+        {
+            var displayName = file.name;
+            var extension = file.name.split('.')[1];
+
+            // Create a root reference
+            var storageRef = firebase.storage().ref();
+            var uploadTask = storageRef.child('Documents/' + modelID + '.' + extension).put(file);
+
+            // Listen for state changes, errors, and completion of the upload.
+            uploadTask.on(firebase.storage.TaskEvent.STATE_CHANGED, // or 'state_changed'
+                function (snapshot)
+                {
+                    // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
+                    var progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+                    console.log('Upload is ' + progress + '% done');
+                    switch (snapshot.state)
+                    {
+                        case firebase.storage.TaskState.PAUSED: // or 'paused'
+                            console.log('Upload is paused');
+                            break;
+                        case firebase.storage.TaskState.RUNNING: // or 'running'
+                            console.log('Upload is running');
+                            break;
+                    }
+                }, function (error)
+                {
+                    $("#" + spinnerTagID).hide();
+                    console.log(error);
+
+                }, function ()
+                {
+                    // Upload completed successfully, now we can get the download URL
+                    var attachment = {
+                        FileName: "" + modelID,
+                        DisplayName: displayName,
+                        Extension: extension,
+                        Path: "",
+                        Size: 0,
+                        ContentType: "",
+                        DownloadUrl: "",
+                        FileType: fileType,
+                        ModelID: modelID,
+                        @*GUID: "@ViewData["fileGuid"]"*@
+                    };
+                    //console.log(uploadTask.snapshot.ref);
+
+
+                    uploadTask.snapshot.ref.getMetadata().then(function (metaData)
+                    {
+                        //console.log(metaData);
+
+                        //attachment.Filename = metaData.name;
+                        attachment.Path = metaData.fullPath;
+                        attachment.Size = metaData.size;
+                        attachment.ContentType = metaData.contentType;
+
+                        uploadTask.snapshot.ref.getDownloadURL().then(function (downloadURL)
+                        {
+                            attachment.DownloadUrl = downloadURL;
+
+                            //console.log(attachment);
+                            FileAjaxUpload2(input, file, attachment, spinnerTagID);
+                        });
+                    });
+                }
+            );
+        }
+
+        function FileAjaxUpload2(input, file, attachment, spinnerTagID, imgPreviewContainerTagID) {
+            if (file) {
+                $.ajax({
+                    url: "/Attachment/Save",
+                    data: JSON.stringify(attachment),
+                    processData: false,
+                    contentType: "application/json; charset=utf-8",
+                    type: "POST",
+                    //dataType: "json",
+                    beforeSend: function () {
+                        //alert("beforeSend");
+                        //$("#" + spinnerTagID).show();
+                        //$("#imgInp").attr("disabled", "disabled");
+                        $(input).attr("disabled", "disabled");
+                    },
+                    success: function (data) {
+                        //console.log("data: ");
+                        //console.log(data);
+
+                        $("form #AttachmentID").val(data.id);
+
+                        console.log(attachment);
+                        var html = '';
+                        html += "<button id='deleteFileBtn' type='button' class='btn btn-danger' onclick='DeleteFile(" + data.id + ", \"" + attachment.Path + "\");'>X</button>";
+                        html += '<a href="' + attachment.DownloadUrl + '">' + attachment.DisplayName + '</a>';
+                        $("#existingFileContainer").html(html);
+                        $("#existingFileContainer").show();
+                        $("#fileInput").hide();
+
+                        //alert("File uploaded!");
+                    },
+                    error: function (data) {
+                        alert("Error!");
+                    },
+                    complete: function () {
+                        $("#" + spinnerTagID).hide();
+                        $(input).removeAttr("disabled");
+                    }
+                });
+            }
+            else {
+                $("#" + spinnerTagID).hide();
+                $(input).removeAttr("disabled");
+            }
+        }
+
+        function DeleteFile(fileID, filePath) {
+            FileAjaxDelete(fileID, modelID, fileType, spinnerTagID, null, "deleteFileBtn", filePath);
+        }
+
+        function FileAjaxDelete(fileID, modelID, fileType, spinnerTagID, imgPreviewContainerTagID, deleteBtnID, filePath) {
+            if (fileID != undefined) {
+                var formData = new FormData();
+                formData.append("fileID", "" + fileID);
+                formData.append("objID", "" + modelID);
+                formData.append("fileType", fileType);
+
+                $.ajax({
+                    url: "/Attachment/Delete",
+                    data: formData,
+                    processData: false,
+                    contentType: false,
+                    type: "POST",
+                    beforeSend: function () {
+                        //alert("beforeSend");
+                        $("#" + spinnerTagID).show();
+                        //$("#imgInp").attr("disabled", "disabled");
+                        $("#" + deleteBtnID).attr("disabled", "disabled");
+                    },
+                    success: function (data) {
+                        DeleteFromFirebaseStorage(filePath);
+                    },
+                    error: function (data) {
+                        console.log(data);
+                        alert("Ошибка: " + data.responseJSON.errorMessage);
+                        $("#" + spinnerTagID).hide();
+                        $("#" + deleteBtnID).removeAttr("disabled");
+                    },
+                    complete: function () {
+                        //alert("completed");
+                        //$("#" + spinnerTagID).hide();
+                        //$("#imgInp").removeAttr("disabled");
+                        //$("#" + deleteBtnID).removeAttr("disabled");
+                    }
+                });
+            }
+        }
+
+        function DeleteFromFirebaseStorage(filePath) {
+            var storageRef = firebase.storage().ref();
+            // Create a reference to the file to delete
+            var documentRef = storageRef.child(filePath);
+
+            // Delete the file
+            documentRef.delete().then(function () {
+                // File deleted successfully
+                $("#" + spinnerTagID).hide();
+                $("#existingFileContainer").html("");
+                $("#fileInput").show();
+            }).catch(function (error) {
+                // Uh-oh, an error occurred!
+                console.log(error);
+                $("#" + spinnerTagID).hide();
+                $("#existingFileContainer").html("");
+                $("#fileInput").show();
+            });
+        }
+    </script>
+}
