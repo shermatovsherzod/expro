@@ -63,7 +63,7 @@
                 <span asp-validation-for="LawAreas" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input asp-for="DocumentContentType" type="radio" value="@DocumentContentTypesEnum.file">
+                <input asp-for="ContentType" type="radio" value="@DocumentContentTypesEnum.file">
                 <label asp-for="AttachmentID" class="control-label"></label>
                 <input asp-for="AttachmentID" type="hidden" />
                 @{
@@ -94,7 +94,7 @@
                 <span asp-validation-for="AttachmentID" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input asp-for="DocumentContentType" type="radio" value="@DocumentContentTypesEnum.text">
+                <input asp-for="ContentType" type="radio" value="@DocumentContentTypesEnum.text">
                 <label asp-for="Text" class="control-label"></label>
                 <textarea asp-for="Text" class="form-control"></textarea>
                 <span asp-validation-for="Text" class="text-danger"></span>

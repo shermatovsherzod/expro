@@ -1,0 +1,47 @@
+﻿@model IEnumerable<Expro.ViewModels.SampleDocumentListItemForAdminVM>
+@using Expro.ViewModels
+@using Expro.Models.Enums
+
+@{
+    ViewData["Title"] = "Намунавий хужжатлар";
+}
+
+<h1>@ViewData["Title"]</h1>
+<br />
+<table class="table table-striped">
+    <thead>
+        <tr>
+            @{
+                var tmp = new SampleDocumentListItemForAdminVM();
+            }
+            <th>@Html.DisplayNameFor(m => tmp.Title)</th>
+            <th>@Html.DisplayNameFor(m => tmp.Author)</th>
+            <th>@Html.DisplayNameFor(m => tmp.Status)</th>
+            <th>@Html.DisplayNameFor(m => tmp.DateModified)</th>
+            <th>Действия</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.Title</td>
+                <td>@item.Author.FullName</td>
+                @{
+                    string alertClass = "alert ";
+                    if (item.Status.ID == (int)DocumentStatusesEnum.WaitingForApproval)
+                    { alertClass = "alert-warning"; }
+                    else if (item.Status.ID == (int)DocumentStatusesEnum.Approved)
+                    { alertClass = "alert-success"; }
+                    else if (item.Status.ID == (int)DocumentStatusesEnum.Rejected)
+                    { alertClass = "alert-danger"; }
+                }
+                <td class="@alertClass">
+                    @item.Status.Name
+                </td>
+                <td>@item.DateModified</td>
+                <td><a href="/Admin/SampleDocument/Details/@item.ID" class="btn btn-outline-primary">Открыть</a></td>
+            </tr>
+        }
+    </tbody>
+</table>

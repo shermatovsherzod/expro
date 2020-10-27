@@ -10,5 +10,12 @@ namespace Expro.Services.Interfaces
         bool BelongsToUser(Document entity, string userID);
         bool AttachedFileIsAllowedToBeDeleted(Document entity);
         void SubmitForApproval(Document entity, string userID);
+
+        Document GetSampleDocumentByID(int id);
+        bool ApprovingIsAllowed(Document entity);
+        void Approve(Document entity, string userID);
+        bool RejectingIsAllowed(Document entity);
+        void Reject(Document entity, string userID);
+        IQueryable<Document> GetSampleDocumentsForAdmin();
     }
 }

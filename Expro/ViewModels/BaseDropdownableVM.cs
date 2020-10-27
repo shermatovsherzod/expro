@@ -18,6 +18,7 @@ namespace Expro.ViewModels
             if (model == null)
                 return;
 
+            ID = model.ID;
             Name = model.Name;
         }
     }

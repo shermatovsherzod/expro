@@ -34,6 +34,14 @@ namespace Expro.Services
             return entity.DocumentStatusID == (int)DocumentStatusesEnum.Pending;
         }
 
+        bool StatusIsWaitingForApproval(Document entity)
+        {
+            if (entity == null)
+                return false;
+
+            return entity.DocumentStatusID == (int)DocumentStatusesEnum.WaitingForApproval;
+        }
+
         public bool EditingIsAllowed(Document entity)
         {
             return StatusIsPending(entity);
@@ -58,6 +66,52 @@ namespace Expro.Services
             entity.DateSubmittedForApproval = DateTime.Now;
 
             Update(entity, userID);
+        }
+
+        public Document GetSampleDocumentByID(int id)
+        {
+            var model = GetByID(id);
+            if (model != null)
+            {
+                if (model.DocumentTypeID != (int)DocumentTypesEnum.SampleDocument)
+                    model = null;
+            }
+
+            return model;
+        }
+
+        public bool ApprovingIsAllowed(Document entity)
+        {
+            return StatusIsWaitingForApproval(entity);
+        }
+
+        public void Approve(Document entity, string userID)
+        {
+            entity.DocumentStatusID = (int)DocumentStatusesEnum.Approved;
+            entity.DateApproved = DateTime.Now;
+
+            Update(entity, userID);
+        }
+
+        public bool RejectingIsAllowed(Document entity)
+        {
+            return StatusIsWaitingForApproval(entity);
+        }
+
+        public void Reject(Document entity, string userID)
+        {
+            entity.DocumentStatusID = (int)DocumentStatusesEnum.Rejected;
+            entity.DateRejected = DateTime.Now;
+
+            Update(entity, userID);
+        }
+
+        //public IQueryable<Document> 
+
+        public IQueryable<Document> GetSampleDocumentsForAdmin()
+        {
+            return GetAsIQueryable()
+                .Where(m => m.DocumentStatusID != (int)DocumentStatusesEnum.Pending);
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using Expro.Utils;
+﻿using Expro.Models;
+using Expro.Utils;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,6 +14,14 @@ namespace Expro.ViewModels
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string UserName { get; set; }
+
+        public string FullName 
+        {
+            get
+            {
+                return FirstName + " " + LastName;
+            }
+        }
         public string Email { get; set; }
 
         //public string PhoneNumber { get; set; }
@@ -70,6 +79,16 @@ namespace Expro.ViewModels
             //tmpBool = false;
             //bool.TryParse(user.FindFirst(CustomClaimTypes.TalentApprovedByAdmin)?.Value, out tmpBool);
             //TalentApprovedByAdmin = tmpBool;
+        }
+
+        public AppUserVM(ApplicationUser user)
+        {
+            if (user == null)
+                return;
+
+            ID = user.Id;
+            FirstName = user.FirstName;
+            LastName = user.LastName;
         }
     }
 }
