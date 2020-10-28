@@ -24,6 +24,8 @@ namespace Expro.ViewModels
         [Display(Name = "Дата изменения")]
         public string DateModified { get; set; }
 
+        public DocumentPriceTypesEnum PriceType { get; set; }
+
         [Display(Name = "Цена")]
         public string Price { get; set; }
 
@@ -40,6 +42,7 @@ namespace Expro.ViewModels
             else
                 Title = model.Title.Substring(0, 100) + "...";
 
+            PriceType = model.PriceType;
             Price = model.Price.HasValue ?
                 model.Price.Value.ToString(AppData.Configuration.NumberViewStringFormat) : null;
 

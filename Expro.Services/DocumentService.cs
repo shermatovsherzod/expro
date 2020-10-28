@@ -68,6 +68,12 @@ namespace Expro.Services
             Update(entity, userID);
         }
 
+        public IQueryable<Document> GetSampleDocuments()
+        {
+            return GetAsIQueryable()
+                .Where(m => m.DocumentTypeID == (int)DocumentTypesEnum.SampleDocument);
+        }
+
         public Document GetSampleDocumentByID(int id)
         {
             var model = GetByID(id);
@@ -130,6 +136,12 @@ namespace Expro.Services
             }
 
             return model;
+        }
+
+        public IQueryable<Document> GetSampleDocumentsForExpert(string userID)
+        {
+            return GetSampleDocuments()
+                .Where(m => m.CreatedBy == userID);
         }
     }
 }

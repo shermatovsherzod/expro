@@ -18,6 +18,8 @@ namespace Expro.ViewModels
         [Display(Name = "Автор")]
         public AppUserVM Author { get; set; }
 
+        public DocumentPriceTypesEnum PriceType { get; set; }
+
         [Display(Name = "Цена")]
         public string Price { get; set; }
 
@@ -59,6 +61,7 @@ namespace Expro.ViewModels
                     Text = model.Text.Substring(0, 200) + "...";
             }
 
+            PriceType = model.PriceType;
             Price = model.Price.HasValue ?
                 model.Price.Value.ToString(AppData.Configuration.NumberViewStringFormat) : null;
 

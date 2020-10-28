@@ -31,6 +31,7 @@ namespace Expro.Models
 
         public string Text { get; set; }
 
+        public DocumentPriceTypesEnum PriceType { get; set; } = DocumentPriceTypesEnum.Free;
         public int? Price { get; set; } // in soums
 
         [ForeignKey("DocumentStatus")]

@@ -34,6 +34,7 @@ namespace Expro.ViewModels
                 model = new Document();
 
             model.Title = this.Title;
+            model.PriceType = DocumentPriceTypesEnum.Free;
 
             return model;
         }
@@ -123,6 +124,8 @@ namespace Expro.ViewModels
         public override Document ToModel(Document model = null)
         {
             var mmodel = base.ToModel(model);
+            model.PriceType = DocumentPriceTypesEnum.Paid;
+
             return mmodel;
         }
     }
@@ -146,7 +149,7 @@ namespace Expro.ViewModels
 
         public override Document ToModel(Document model = null)
         {
-            var mmodel = base.ToModel(model); ;
+            var mmodel = base.ToModel(model);
             mmodel.Price = this.Price;
 
             return mmodel;
