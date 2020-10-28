@@ -17,5 +17,7 @@ namespace Expro.Services.Interfaces
         bool RejectingIsAllowed(Document entity);
         void Reject(Document entity, string userID);
         IQueryable<Document> GetSampleDocumentsForAdmin();
+        IQueryable<Document> GetSampleDocumentsApproved();
+        Document GetSampleDocumentApprovedByID(int id);
     }
 }

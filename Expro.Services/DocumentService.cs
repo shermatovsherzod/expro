@@ -113,5 +113,23 @@ namespace Expro.Services
             return GetAsIQueryable()
                 .Where(m => m.DocumentStatusID != (int)DocumentStatusesEnum.Pending);
         }
+
+        public IQueryable<Document> GetSampleDocumentsApproved()
+        {
+            return GetAsIQueryable()
+                .Where(m => m.DocumentStatusID == (int)DocumentStatusesEnum.Approved);
+        }
+
+        public Document GetSampleDocumentApprovedByID(int id)
+        {
+            var model = GetSampleDocumentByID(id);
+            if (model != null)
+            {
+                if (model.DocumentStatusID != (int)DocumentStatusesEnum.Approved)
+                    model = null;
+            }
+
+            return model;
+        }
     }
 }

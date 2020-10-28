@@ -154,6 +154,7 @@ namespace Expro.ViewModels
                 .Select(m => new BaseDropdownableDetailsVM(m.LawArea))
                 .ToList();
 
+            Attachment = new AttachmentDetailsVM(model.Attachment);
             if (!string.IsNullOrWhiteSpace(model.Text))
                 Text = model.Text;
 

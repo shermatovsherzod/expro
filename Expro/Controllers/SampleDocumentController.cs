@@ -20,7 +20,7 @@ namespace Expro.Controllers
 
         public IActionResult Index()
         {
-            var documents = DocumentService.GetSampleDocumentsForAdmin().ToList();
+            var documents = DocumentService.GetSampleDocumentsApproved().ToList();
 
             var documentVMs = new List<SampleDocumentListItemForSiteVM>();
             foreach (var item in documents)
@@ -33,7 +33,7 @@ namespace Expro.Controllers
 
         public IActionResult Details(int id)
         {
-            var document = DocumentService.GetSampleDocumentByID(id);
+            var document = DocumentService.GetSampleDocumentApprovedByID(id);
             if (document == null)
                 throw new Exception("Намунавий хужжат не найден");
 
