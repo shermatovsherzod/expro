@@ -7,9 +7,9 @@ using Expro.Services.Interfaces;
 using Expro.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Expro.Areas.Admin.Controllers
+namespace Expro.Areas.Expert.Controllers
 {
-    [Area("Admin")]
+    [Area("Expert")]
     public class SampleDocumentController : BaseController
     {
         private readonly IDocumentService DocumentService;
