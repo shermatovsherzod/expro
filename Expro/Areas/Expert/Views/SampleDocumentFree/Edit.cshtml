@@ -21,6 +21,18 @@
         Документ отправлен на подтверждение
     </div>
 }
+else if (Model.StatusID == (int)DocumentStatusesEnum.Approved)
+{
+    <div class="alert alert-success">
+        Документ подтвержден администратором
+    </div>
+}
+else if (Model.StatusID == (int)DocumentStatusesEnum.Rejected)
+{
+    <div class="alert alert-danger">
+        Документ отменен администратором
+    </div>
+}
 <div class="row">
     <div class="col-md-4">
         <form asp-action="Edit">
@@ -132,7 +144,10 @@
             //$('#LawAreas').treeselect();
 
             var statusID = @Model.StatusID;
-            if (statusID == @((int)DocumentStatusesEnum.WaitingForApproval)) {
+            if (statusID == @((int)DocumentStatusesEnum.WaitingForApproval)
+                || statusID == @((int)DocumentStatusesEnum.Approved)
+                || statusID == @((int)DocumentStatusesEnum.Rejected))
+            {
                 $("form input, form select, form textarea").attr("readonly", "readonly");
                 $("form #existingFileContainer button").attr("disabled", "disabled");
                 $("#actionButtonsBox").html("");

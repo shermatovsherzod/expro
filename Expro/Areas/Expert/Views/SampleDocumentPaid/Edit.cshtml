@@ -21,6 +21,18 @@
         Документ отправлен на подтверждение
     </div>
 }
+else if (Model.StatusID == (int)DocumentStatusesEnum.Approved)
+{
+    <div class="alert alert-success">
+        Документ подтвержден администратором
+    </div>
+}
+else if (Model.StatusID == (int)DocumentStatusesEnum.Rejected)
+{
+    <div class="alert alert-danger">
+        Документ отменен администратором
+    </div>
+}
 <div class="row">
     <div class="col-md-4">
         <form asp-action="Edit">
@@ -42,19 +54,19 @@
             <div class="form-group">
                 <label asp-for="LawAreas" class="control-label"></label>
                 @*<select asp-for="LawAreas" multiple class="form-control">
-                @foreach (var item in ViewData["lawAreas"] as List<SelectListItemWithParent>)
-                {
-                    string selected = "";
-                    if (item.Selected)
-                    { selected = "selected"; }
+                        @foreach (var item in ViewData["lawAreas"] as List<SelectListItemWithParent>)
+                        {
+                            string selected = "";
+                            if (item.Selected)
+                            { selected = "selected"; }
 
-                    string parentID = "";
-                    if (!string.IsNullOrWhiteSpace(item.ParentValue))
-                    { parentID = item.ParentValue; }
+                            string parentID = "";
+                            if (!string.IsNullOrWhiteSpace(item.ParentValue))
+                            { parentID = item.ParentValue; }
 
-                    <option value="@item.Value" selected="@selected" data-parent="@parentID">@item.Text</option>
-                }
-            </select>*@
+                            <option value="@item.Value" selected="@selected" data-parent="@parentID">@item.Text</option>
+                        }
+                    </select>*@
 
                 <select asp-for="LawAreas"
                         asp-items="@ViewData["lawAreas"] as IEnumerable<SelectListItem>" multiple
@@ -133,11 +145,15 @@
         var fileType = "@Constants.FileTypes.DOCUMENT";
         var spinnerTagID = "fileUploadSpinner";
 
-        $(document).ready(function () {
+        $(document).ready(function ()
+        {
             //$('#LawAreas').treeselect();
 
             var statusID = @Model.StatusID;
-            if (statusID == @((int)DocumentStatusesEnum.WaitingForApproval)) {
+            if (statusID == @((int)DocumentStatusesEnum.WaitingForApproval)
+                || statusID == @((int)DocumentStatusesEnum.Approved)
+                || statusID == @((int)DocumentStatusesEnum.Rejected))
+            {
                 $("form input, form select, form textarea").attr("readonly", "readonly");
                 $("form #existingFileContainer button").attr("disabled", "disabled");
                 $("#actionButtonsBox").html("");

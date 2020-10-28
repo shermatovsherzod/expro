@@ -10,46 +10,6 @@ using System.Linq;
 
 namespace Expro.ViewModels
 {
-    //public class SampleDocumentListItemForSiteVM : BaseVM
-    //{
-    //    [Display(Name = "Название")]
-    //    public string Title { get; set; }
-
-    //    [Display(Name = "Автор")]
-    //    public AppUserVM Author { get; set; }
-
-    //    [Display(Name = "Статус")]
-    //    public BaseDropdownableDetailsVM Status { get; set; }
-
-    //    [Display(Name = "Дата изменения")]
-    //    public string DateModified { get; set; }
-
-    //    [Display(Name = "Цена")]
-    //    public string Price { get; set; }
-
-    //    public SampleDocumentListItemForSiteVM() { }
-
-    //    public SampleDocumentListItemForSiteVM(Document model)
-    //        : base(model)
-    //    {
-    //        if (model == null)
-    //            return;
-
-    //        if (model.Title.Length <= 100)
-    //            Title = model.Title;
-    //        else
-    //            Title = model.Title.Substring(0, 100) + "...";
-
-    //        Price = model.Price.HasValue ?
-    //            model.Price.Value.ToString(AppData.Configuration.NumberViewStringFormat) : null;
-
-    //        Status = new BaseDropdownableDetailsVM(model.DocumentStatus);
-    //        Author = new AppUserVM(model.Creator);
-
-    //        DateModified = DateTimeUtils.ConvertToString(model.DateModified);
-    //    }
-    //}
-
     public class SampleDocumentListItemForSiteVM : BaseVM
     {
         [Display(Name = "Название")]
