@@ -21,52 +21,54 @@ namespace Expro.Services
             //this._unitOfWork = unitOfWork;
         }
 
-        public override void Add(T entity, string creatorID)
+        public void Add(T entity, string creatorID)
         {
             OnPreUpdate(entity, creatorID);
-            base.Add(entity, creatorID);
+            base.Add(entity);
         }
 
-        public override void AddCollection(ICollection<T> entities, string creatorID)
+        public void AddCollection(ICollection<T> entities, string creatorID)
         {
             foreach (var item in entities)
             {
                 OnPreUpdate(item, creatorID);
             }
 
-            base.AddCollection(entities, creatorID);
+            base.AddCollection(entities);
         }
 
-        public override void Update(T entity, string modifierID)
+        public void Update(T entity, string modifierID)
         {
             OnPreUpdate(entity, modifierID);
-            base.Update(entity, modifierID);
+            base.Update(entity);
         }
 
-        public override void UpdateCollection(ICollection<T> entities, string modifierID)
+        public void UpdateCollection(ICollection<T> entities, string modifierID)
         {
             foreach (var item in entities)
             {
                 OnPreUpdate(item, modifierID);
             }
             
-            base.UpdateCollection(entities, modifierID);
+            base.UpdateCollection(entities);
         }
 
-        public override void Delete(T entity, string modifierID)
+        public void Delete(T entity, string modifierID)
         {
             entity.IsDeleted = true;
-            Update(entity, modifierID);
+            OnPreUpdate(entity, modifierID);
+
+            Update(entity);
         }
 
-        public override void DeleteCollection(ICollection<T> entities, string modifierID)
+        public void DeleteCollection(ICollection<T> entities, string modifierID)
         {
             foreach (var item in entities)
             {
                 item.IsDeleted = true;
             }
 
-            UpdateCollection(entities, modifierID);
+            UpdateCollection(entities);
         }
 
         //public override void DeletePermanently(T entity)

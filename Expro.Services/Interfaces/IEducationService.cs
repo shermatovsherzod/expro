@@ -3,7 +3,7 @@ using System.Linq;
 
 namespace Expro.Services.Interfaces
 {
-    public interface IEducationService : IBaseCRUDService<Education>
+    public interface IEducationService : IBaseAuthorableService<Education>
     {
         IQueryable<Education> GetListByUserID(string userID);
     }

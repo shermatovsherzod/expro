@@ -1,0 +1,130 @@
+﻿@model Expro.ViewModels.SampleDocumentDetailsForSiteVM
+@using Expro.Models.Enums 
+
+@{
+    ViewData["Title"] = "Намунавий хужжат детали";
+}
+
+<h1>@ViewData["Title"]</h1>
+<hr />
+
+<div>
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Title)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Title)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.NumberOfViews)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.NumberOfViews)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.NumberOfPurchases)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.NumberOfPurchases)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Language)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Language.Name)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Author)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Author.FullName)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.DatePublished)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.DatePublished)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.LawAreas)
+        </dt>
+        <dd class="col-sm-10">
+            @foreach (var lawArea in Model.LawAreas)
+            {
+                <span class="badge badge-primary">@lawArea.Name</span>
+            }
+        </dd>
+
+        @if (Model.PriceType == DocumentPriceTypesEnum.Free)
+        {
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.ContentType)
+            </dt>
+            <dd class="col-sm-10">
+                @if (Model.ContentType == DocumentContentTypesEnum.file)
+                {
+                    <a href="@Model.Attachment.Url">@Model.Attachment.DisplayName</a>
+                }
+                else
+                {
+                    @Html.DisplayFor(model => model.Text)
+                }
+            </dd>
+        }
+        else
+        {
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.ContentType)
+            </dt>
+            <dd class="col-sm-10">
+                @if (Model.ContentType == DocumentContentTypesEnum.file)
+                {
+                    <span>@Model.Attachment.DisplayName</span>
+                }
+                else
+                {
+                    @Html.DisplayFor(model => model.Text)
+                }
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.PriceStr)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.PriceStr) сум
+            </dd>
+        }
+    </dl>
+</div>
+<hr />
+<div class="row">
+    <div class="col-12">
+        @if (Model.PriceType == DocumentPriceTypesEnum.Paid)
+        {
+            if (ViewData["curUserBalance"] != null)
+            {
+                <p><b>Ваш баланс:</b> @ViewData["curUserBalanceStr"] сум</p>
+                if (ViewData["paymentAmount"] == null) //if balance is enough
+                {
+                    <button type="button" class="btn btn-success">Купить</button>
+                }
+                else
+                {
+                    <div class="alert alert-warning">
+                        <p>На вашем балансе недостаточно средств для покупки. Пожалуйста, пополните баланс.</p>
+                        <p><a href="@ViewData["clickPaymentButtonUrl"]" class="btn btn-info">Пополнить баланс на <b>@ViewData["paymentAmount"] сум (CLICK)</b></a></p>
+                    </div>
+                }
+            }
+            //user is unauthorized
+            else
+            {
+
+            }
+        }
+    </div>
+</div>
+<br />
+<div>
+    <a asp-action="Index">Назад</a>
+</div>

@@ -18,18 +18,22 @@ namespace Expro.ViewModels
         [Display(Name = "Автор")]
         public AppUserVM Author { get; set; }
 
-        public DocumentPriceTypesEnum PriceType { get; set; }
-
-        [Display(Name = "Цена")]
-        public string Price { get; set; }
-
         [Display(Name = "Направление")]
         public List<BaseDropdownableDetailsVM> LawAreas { get; set; }
 
+        [Display(Name = "Содержимое")]
         public DocumentContentTypesEnum ContentType { get; set; } = DocumentContentTypesEnum.file;
 
         [Display(Name = "Текст")]
         public string Text { get; set; }
+
+        public DocumentPriceTypesEnum PriceType { get; set; }
+
+        [Display(Name = "Цена")]
+        public int Price { get; set; }
+
+        [Display(Name = "Цена")]
+        public string PriceStr { get; set; }
 
         [Display(Name = "Дата публикации")]
         public string DatePublished { get; set; }
@@ -64,7 +68,8 @@ namespace Expro.ViewModels
             PriceType = model.PriceType;
             if (PriceType == DocumentPriceTypesEnum.Paid)
             {
-                Price = model.Price.HasValue ?
+                Price = model.Price.HasValue ? model.Price.Value : 0;
+                PriceStr = model.Price.HasValue ?
                     model.Price.Value.ToString(AppData.Configuration.NumberViewStringFormat) : "0";
             }
 
@@ -81,6 +86,12 @@ namespace Expro.ViewModels
         [Display(Name = "Файл")]
         public AttachmentDetailsVM Attachment { get; set; }
 
+        [Display(Name = "Просмотры")]
+        public int NumberOfViews { get; set; }
+
+        [Display(Name = "Кол-во загрузок")]
+        public int NumberOfPurchases { get; set; }
+
         public SampleDocumentDetailsForSiteVM() { }
 
         public SampleDocumentDetailsForSiteVM(Document model)
@@ -92,8 +103,20 @@ namespace Expro.ViewModels
             Title = model.Title;
             Language = new BaseDropdownableDetailsVM(model.Language);
             Attachment = new AttachmentDetailsVM(model.Attachment);
+            NumberOfViews = model.NumberOfViews;
+            NumberOfPurchases = model.NumberOfPurchases;
             if (!string.IsNullOrWhiteSpace(model.Text))
-                Text = model.Text;
+            {
+                if (PriceType == DocumentPriceTypesEnum.Free)
+                    Text = model.Text;
+                else
+                {
+                    if (model.Text.Length <= 200)
+                        Text = model.Text;
+                    else
+                        Text = model.Text.Substring(0, 200) + "...";
+                }
+            }
         }
     }
 }

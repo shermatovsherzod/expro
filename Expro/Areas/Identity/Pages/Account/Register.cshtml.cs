@@ -145,5 +145,12 @@ namespace Expro.Areas.Identity.Pages.Account
             // If we got this far, something failed, redisplay form
             return Page();
         }
+
+        //private void AssignAccountNumber(Customer model)
+        //{
+
+        //    if (string.IsNullOrWhiteSpace(model.AccountNumber))
+        //        model.AccountNumber = model.ID.ToString().PadLeft(8, '0');
+        //}
     }
 }

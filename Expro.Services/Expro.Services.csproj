@@ -9,6 +9,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Expro.Common\Expro.Common.csproj" />
     <ProjectReference Include="..\Expro.Data\Expro.Data.csproj" />
     <ProjectReference Include="..\Expro.Models\Expro.Models.csproj" />
   </ItemGroup>

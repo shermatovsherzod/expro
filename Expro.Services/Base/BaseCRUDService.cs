@@ -20,56 +20,43 @@ namespace Expro.Services
             this._unitOfWork = unitOfWork;
         }
 
-        public virtual void Add(T entity, string creatorID)
+        public virtual void Add(T entity)
         {
-            //OnPreUpdate(entity, creatorID);
             _repository.Add(entity);
             Save();
         }
 
-        public virtual void AddCollection(ICollection<T> entities, string creatorID)
+        public virtual void AddCollection(ICollection<T> entities)
         {
-            //foreach (var item in entities)
-            //{
-            //    OnPreUpdate(item, creatorID);
-            //}
-
             _repository.AddCollection(entities);
             Save();
         }
 
-        public virtual void Update(T entity, string modifierID)
+        public virtual void Update(T entity)
         {
-            //OnPreUpdate(entity, modifierID);
             _repository.Update(entity);
             Save();
         }
 
-        public virtual void UpdateCollection(ICollection<T> entities, string modifierID)
+        public virtual void UpdateCollection(ICollection<T> entities)
         {
-            //foreach (var item in entities)
-            //{
-            //    OnPreUpdate(item, modifierID);
-            //}
-
             _repository.UpdateCollection(entities);
             Save();
         }
 
-        public virtual void Delete(T entity, string modifierID)
+        public virtual void Delete(T entity)
         {
-            //entity.IsDeleted = true;
-            Update(entity, modifierID);
+            Update(entity);
         }
 
-        public virtual void DeleteCollection(ICollection<T> entities, string modifierID)
+        public virtual void DeleteCollection(ICollection<T> entities)
         {
             //foreach (var item in entities)
             //{
             //    item.IsDeleted = true;
             //}
 
-            UpdateCollection(entities, modifierID);
+            UpdateCollection(entities);
         }
 
         public virtual void DeletePermanently(T entity)

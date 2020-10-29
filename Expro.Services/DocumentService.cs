@@ -143,5 +143,47 @@ namespace Expro.Services
             return GetSampleDocuments()
                 .Where(m => m.CreatedBy == userID);
         }
+
+        public void IncrementNumberOfViews(Document model)
+        {
+            try
+            {
+                if (model == null)
+                    return;
+
+                int number = model.NumberOfViews;
+                number++;
+                model.NumberOfViews = number;
+
+                Update(model);
+            }
+            catch
+            { }
+        }
+
+        public void IncrementNumberOfPurchases(Document model)
+        {
+            try
+            {
+                if (model == null)
+                    return;
+
+                int number = model.NumberOfPurchases;
+                number++;
+                model.NumberOfPurchases = number;
+
+                Update(model);
+            }
+            catch
+            { }
+        }
+
+        public bool IsFree(Document model)
+        {
+            if (model == null)
+                throw new Exception("Document is null");
+
+            return model.PriceType == DocumentPriceTypesEnum.Free;
+        }
     }
 }

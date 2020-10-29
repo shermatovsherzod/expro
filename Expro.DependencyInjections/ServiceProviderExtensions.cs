@@ -51,6 +51,7 @@ namespace Expro.DependencyInjections
             services.AddTransient<ILanguageService, LanguageService>();
             services.AddTransient<IAttachmentService, AttachmentService>();
             services.AddTransient<IDocumentService, DocumentService>();
+            services.AddTransient<IUserBalanceService, UserBalanceService>();
         }
     }
 }

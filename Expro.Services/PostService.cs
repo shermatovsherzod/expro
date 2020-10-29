@@ -5,7 +5,7 @@ using Expro.Services.Interfaces;
 
 namespace Expro.Services
 {
-    public class PostService : BaseCRUDService<Post>, IPostService
+    public class PostService : BaseAuthorableService<Post>, IPostService
     {
         public PostService(IPostRepository repository,
                            IUnitOfWork unitOfWork)

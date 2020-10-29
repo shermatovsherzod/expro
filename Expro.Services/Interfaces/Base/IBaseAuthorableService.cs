@@ -9,14 +9,14 @@ namespace Expro.Services.Interfaces
     public interface IBaseAuthorableService<T> : IBaseCRUDService<T> 
         where T : BaseModel
     {
-        //void Add(T entity, string creatorID);
-        //void AddCollection(ICollection<T> entities, string creatorID);
+        void Add(T entity, string creatorID);
+        void AddCollection(ICollection<T> entities, string creatorID);
 
-        //void Update(T entity, string modifierID);
-        //void UpdateCollection(ICollection<T> entities, string modifierID);
+        void Update(T entity, string modifierID);
+        void UpdateCollection(ICollection<T> entities, string modifierID);
 
-        //void Delete(T entity, string modifierID);
-        //void DeleteCollection(ICollection<T> entities, string modifierID);
+        void Delete(T entity, string modifierID);
+        void DeleteCollection(ICollection<T> entities, string modifierID);
 
         ////uncomment when it is need
         //void DeletePermanently(T entity, string modifierID);

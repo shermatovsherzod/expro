@@ -20,5 +20,8 @@ namespace Expro.Services.Interfaces
         IQueryable<Document> GetSampleDocumentsApproved();
         Document GetSampleDocumentApprovedByID(int id);
         IQueryable<Document> GetSampleDocumentsForExpert(string userID);
+        void IncrementNumberOfViews(Document model);
+        void IncrementNumberOfPurchases(Document model);
+        bool IsFree(Document model);
     }
 }

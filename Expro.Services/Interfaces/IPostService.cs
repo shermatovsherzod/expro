@@ -2,7 +2,7 @@
 
 namespace Expro.Services.Interfaces
 {
-    public interface IPostService : IBaseCRUDService<Post>
+    public interface IPostService : IBaseAuthorableService<Post>
     {
     }
 }

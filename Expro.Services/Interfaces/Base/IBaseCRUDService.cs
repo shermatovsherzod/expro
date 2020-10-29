@@ -8,14 +8,14 @@ namespace Expro.Services.Interfaces
 {
     public interface IBaseCRUDService<T> where T : BaseModel
     {
-        void Add(T entity, string creatorID);
-        void AddCollection(ICollection<T> entities, string creatorID);
+        void Add(T entity);
+        void AddCollection(ICollection<T> entities);
 
-        void Update(T entity, string modifierID);
-        void UpdateCollection(ICollection<T> entities, string modifierID);
+        void Update(T entity);
+        void UpdateCollection(ICollection<T> entities);
 
-        void Delete(T entity, string modifierID);
-        void DeleteCollection(ICollection<T> entities, string modifierID);
+        void Delete(T entity);
+        void DeleteCollection(ICollection<T> entities);
 
         //uncomment when it is need
         void DeletePermanently(T entity);

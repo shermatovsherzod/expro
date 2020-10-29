@@ -3,7 +3,7 @@ using System.Linq;
 
 namespace Expro.Services.Interfaces
 {
-    public interface IWorkExperienceService : IBaseCRUDService<WorkExperience>
+    public interface IWorkExperienceService : IBaseAuthorableService<WorkExperience>
     {
         IQueryable<WorkExperience> GetListByUserID(string userID);
     }

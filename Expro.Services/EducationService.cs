@@ -7,7 +7,7 @@ using System.Linq;
 
 namespace Expro.Services
 {
-    public class EducationService : BaseCRUDService<Education>, IEducationService
+    public class EducationService : BaseAuthorableService<Education>, IEducationService
     {
         public EducationService(IEducationRepository repository,
                            IUnitOfWork unitOfWork)

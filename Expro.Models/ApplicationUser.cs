@@ -41,6 +41,12 @@ namespace Expro.Models
         [StringLength(256)]
         public string CityOther { get; set; }
 
+        [Required]
+        public int Balance { get; set; }
+
+        [Required]
+        public string AccountNumber { get; set; } //лицевой счет
+
         //==========================================================
         [InverseProperty("Author")]
         public virtual ICollection<Post> PostsAuthored { get; set; }

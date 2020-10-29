@@ -7,7 +7,7 @@ using System.Linq;
 
 namespace Expro.Services
 {
-    public class WorkExperienceService : BaseCRUDService<WorkExperience>, IWorkExperienceService
+    public class WorkExperienceService : BaseAuthorableService<WorkExperience>, IWorkExperienceService
     {
         public WorkExperienceService(IWorkExperienceRepository repository,
                            IUnitOfWork unitOfWork)
