@@ -1,10 +1,10 @@
-﻿@model Expro.ViewModels.SampleDocumentFreeEditVM
+﻿@model Expro.ViewModels.SampleDocumentPaidEditVM
 @using Expro.Models.Enums
 @using Expro.Common
 @using Expro.ViewModels
 
 @{
-    ViewData["Title"] = "Намунавий хужжатлар";
+    ViewData["Title"] = "Пуллик намунавий хужжат редактировать";
 }
 
 <h1>@ViewData["Title"]</h1>
@@ -15,10 +15,29 @@
         Данные успешно сохранены
     </div>
 }
+@if (Model.StatusID == (int)DocumentStatusesEnum.WaitingForApproval)
+{
+    <div class="alert alert-info">
+        Документ отправлен на подтверждение
+    </div>
+}
+else if (Model.StatusID == (int)DocumentStatusesEnum.Approved)
+{
+    <div class="alert alert-success">
+        Документ подтвержден администратором
+    </div>
+}
+else if (Model.StatusID == (int)DocumentStatusesEnum.Rejected)
+{
+    <div class="alert alert-danger">
+        Документ отменен администратором
+    </div>
+}
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="Edit">
+        <form asp-action="EditPaid">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input asp-for="StatusID" type="hidden" />
             <div class="form-group">
                 <label asp-for="Title" class="control-label"></label>
                 <input asp-for="Title" class="form-control" />
@@ -35,19 +54,19 @@
             <div class="form-group">
                 <label asp-for="LawAreas" class="control-label"></label>
                 @*<select asp-for="LawAreas" multiple class="form-control">
-                    @foreach (var item in ViewData["lawAreas"] as List<SelectListItemWithParent>)
-                    {
-                        string selected = "";
-                        if (item.Selected)
-                        { selected = "selected"; }
+                        @foreach (var item in ViewData["lawAreas"] as List<SelectListItemWithParent>)
+                        {
+                            string selected = "";
+                            if (item.Selected)
+                            { selected = "selected"; }
 
-                        string parentID = "";
-                        if (!string.IsNullOrWhiteSpace(item.ParentValue))
-                        { parentID = item.ParentValue; }
+                            string parentID = "";
+                            if (!string.IsNullOrWhiteSpace(item.ParentValue))
+                            { parentID = item.ParentValue; }
 
-                        <option value="@item.Value" selected="@selected" data-parent="@parentID">@item.Text</option>
-                    }
-                </select>*@
+                            <option value="@item.Value" selected="@selected" data-parent="@parentID">@item.Text</option>
+                        }
+                    </select>*@
 
                 <select asp-for="LawAreas"
                         asp-items="@ViewData["lawAreas"] as IEnumerable<SelectListItem>" multiple
@@ -93,11 +112,18 @@
                 <span asp-validation-for="Text" class="text-danger"></span>
             </div>
             <div class="form-group">
+                <label asp-for="Price" class="control-label"></label>
+                <input asp-for="Price" class="form-control" />
+                <span asp-validation-for="Price" class="text-danger"></span>
+            </div>
+            <div class="form-group" id="actionButtonsBox">
                 <input asp-for="ActionType" type="hidden" />
                 <button type="submit" class="btn btn-primary" actiontype="@DocumentActionTypesEnum.saveAsDraft">Сохранить как черновик</button>
                 <button type="submit" class="btn btn-primary" actiontype="@DocumentActionTypesEnum.submitForApproval">Отправить на подтверждение</button>
                 <div class="spinner-border spinner" style="display: none;"></div>
             </div>
+
+            @*<div class="alert alert-info" id="alertSubmittedForApproval" style="display: none;">Документ отправлен на подтверждение</div>*@
         </form>
     </div>
 </div>
@@ -119,9 +145,20 @@
         var fileType = "@Constants.FileTypes.DOCUMENT";
         var spinnerTagID = "fileUploadSpinner";
 
-        $(document).ready(function () {
+        $(document).ready(function ()
+        {
             //$('#LawAreas').treeselect();
 
+            var statusID = @Model.StatusID;
+            if (statusID == @((int)DocumentStatusesEnum.WaitingForApproval)
+                || statusID == @((int)DocumentStatusesEnum.Approved)
+                || statusID == @((int)DocumentStatusesEnum.Rejected))
+            {
+                $("form input, form select, form textarea").attr("readonly", "readonly");
+                $("form #existingFileContainer button").attr("disabled", "disabled");
+                $("#actionButtonsBox").html("");
+                //$("#alertSubmittedForApproval").show();
+            }
 
             $("form button[type=submit]").click(function (ev) {
                 $("form input#ActionType").val($(this).attr("actiontype"));
@@ -231,11 +268,12 @@
 
                         $("form #AttachmentID").val(data.id);
 
-                        console.log(attachment);
+                        //console.log(attachment);
                         var html = '';
                         html += "<button id='deleteFileBtn' type='button' class='btn btn-danger' onclick='DeleteFile(" + data.id + ", \"" + attachment.Path + "\");'>X</button>";
                         html += '<a href="' + attachment.DownloadUrl + '">' + attachment.DisplayName + '</a>';
                         $("#existingFileContainer").html(html);
+                        $("#existingFileContainer").show();
                         $("#fileInput").hide();
 
                         //alert("File uploaded!");

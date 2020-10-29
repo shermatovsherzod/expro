@@ -124,7 +124,7 @@ namespace Expro.ViewModels
         public override Document ToModel(Document model = null)
         {
             var mmodel = base.ToModel(model);
-            model.PriceType = DocumentPriceTypesEnum.Paid;
+            mmodel.PriceType = DocumentPriceTypesEnum.Paid;
 
             return mmodel;
         }
