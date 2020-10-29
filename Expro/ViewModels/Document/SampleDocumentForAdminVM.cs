@@ -43,8 +43,12 @@ namespace Expro.ViewModels
                 Title = model.Title.Substring(0, 100) + "...";
 
             PriceType = model.PriceType;
-            Price = model.Price.HasValue ?
-                model.Price.Value.ToString(AppData.Configuration.NumberViewStringFormat) : null;
+            if (PriceType == DocumentPriceTypesEnum.Paid)
+            {
+                Price = model.Price.HasValue ?
+                    model.Price.Value.ToString(AppData.Configuration.NumberViewStringFormat) : "0";
+            }
+            
 
             Status = new BaseDropdownableDetailsVM(model.DocumentStatus);
             Author = new AppUserVM(model.Creator);

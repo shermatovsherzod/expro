@@ -61,7 +61,35 @@ namespace Expro.Areas.Expert.Controllers
                     var model = modelVM.ToModel();
                     DocumentService.AddSampleDocument(model, curUser.ID);
 
-                    return RedirectToAction("Edit", new { id = model.ID });
+                    return RedirectToAction("EditFree", new { id = model.ID });
+                }
+            }
+            catch (Exception ex)
+            {
+                ModelState.AddModelError("", "Что-то пошло не так: " + ex.Message);
+            }
+
+            return View(modelVM);
+        }
+
+        public IActionResult CreatePaid()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult CreatePaid(SampleDocumentPaidCreateVM modelVM)
+        {
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    var curUser = accountUtil.GetCurrentUser(User);
+
+                    var model = modelVM.ToModel();
+                    DocumentService.AddSampleDocument(model, curUser.ID);
+
+                    return RedirectToAction("EditPaid", new { id = model.ID });
                 }
             }
             catch (Exception ex)
@@ -81,16 +109,8 @@ namespace Expro.Areas.Expert.Controllers
             var modelVM = new SampleDocumentFreeEditVM(model);
 
             var selectedLawAreaIDs = model.DocumentLawAreas.Select(m => m.LawAreaID).ToList();
-            ViewData["lawAreas"] = LawAreaService.GetAsIQueryable()
-                .Select(m => new SelectListItemWithParent()
-                {
-                    Value = m.ID.ToString(),
-                    Text = m.Name,
-                    Selected = selectedLawAreaIDs.Contains(m.ID),
-                    ParentValue = m.ParentID.HasValue ? m.ParentID.Value.ToString() : ""
-                }).ToList();
 
-            ViewData["languages"] = LanguageService.GetAsSelectList();
+            PrepareViewData(selectedLawAreaIDs);
 
             return View(modelVM);
         }
@@ -140,16 +160,8 @@ namespace Expro.Areas.Expert.Controllers
             }
 
             var selectedLawAreaIDs = modelVM.LawAreas;
-            ViewData["lawAreas"] = LawAreaService.GetAsIQueryable()
-                .Select(m => new SelectListItemWithParent()
-                {
-                    Value = m.ID.ToString(),
-                    Text = m.Name,
-                    Selected = selectedLawAreaIDs.Contains(m.ID),
-                    ParentValue = m.ParentID.HasValue ? m.ParentID.Value.ToString() : ""
-                }).ToList();
 
-            ViewData["languages"] = LanguageService.GetAsSelectList();
+            PrepareViewData(selectedLawAreaIDs);
 
             if (modelVM.AttachmentID.HasValue)
             {
@@ -161,8 +173,89 @@ namespace Expro.Areas.Expert.Controllers
             return View(modelVM);
         }
 
+        public IActionResult EditPaid(int id)
+        {
+            var model = DocumentService.GetByID(id);
+            if (model == null)
+                throw new Exception("Документ не найден");
 
+            var modelVM = new SampleDocumentPaidEditVM(model);
 
+            var selectedLawAreaIDs = model.DocumentLawAreas.Select(m => m.LawAreaID).ToList();
+            PrepareViewData(selectedLawAreaIDs);
+
+            return View(modelVM);
+        }
+
+        [HttpPost]
+        public IActionResult EditPaid(SampleDocumentPaidEditVM modelVM)
+        {
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    var modelFromDB = DocumentService.GetByID(modelVM.ID);
+                    if (modelFromDB == null)
+                        throw new Exception("Документ не найден");
+
+                    var curUser = accountUtil.GetCurrentUser(User);
+
+                    if (!DocumentService.BelongsToUser(modelFromDB, curUser.ID))
+                        throw new Exception("Данный документ вам не принадлежит");
+
+                    if (!DocumentService.EditingIsAllowed(modelFromDB))
+                        throw new Exception("Статус документа не позволяет отредактировать его");
+
+                    var model = modelVM.ToModel(modelFromDB);
+                    LawAreaService.UpdateDocumentLawAreas(model, modelVM.LawAreas);
+
+                    if (modelVM.ActionType == DocumentActionTypesEnum.submitForApproval)
+                    {
+                        DocumentService.SubmitForApproval(model, curUser.ID);
+                        modelVM.StatusID = (int)DocumentStatusesEnum.WaitingForApproval;
+                    }
+                    else
+                        DocumentService.Update(model, curUser.ID);
+
+                    ViewData["successfullySaved"] = true;
+                }
+                //else
+                //{
+                //    ModelState.AddModelError("Text", "text must be provided");
+                //    ModelState.AddModelError("", "please, provide text");
+                //}
+            }
+            catch (Exception ex)
+            {
+                ModelState.AddModelError("", "Что-то пошло не так: " + ex.Message);
+            }
+
+            var selectedLawAreaIDs = modelVM.LawAreas;
+            PrepareViewData(selectedLawAreaIDs);
+
+            if (modelVM.AttachmentID.HasValue)
+            {
+                var attachment = AttachmentService.GetActiveByID(modelVM.AttachmentID.Value);
+                if (attachment != null)
+                    modelVM.Attachment = new AttachmentDetailsVM(attachment);
+            }
+
+            return View(modelVM);
+        }
+
+        private void PrepareViewData(List<int> selectedLawAreaIDs)
+        {
+            ViewData["lawAreas"] = LawAreaService.GetAsIQueryable()
+                .Select(m => new SelectListItemWithParent()
+                {
+                    Value = m.ID.ToString(),
+                    Text = m.Name,
+                    Selected = selectedLawAreaIDs.Contains(m.ID),
+                    ParentValue = m.ParentID.HasValue ? m.ParentID.Value.ToString() : ""
+                }).ToList();
+
+            ViewData["languages"] = LanguageService.GetAsSelectList();
+        }
 
         #region Remote validation while creating
         public IActionResult ValidateText(string text, DocumentContentTypesEnum documentContentType)
@@ -193,89 +286,5 @@ namespace Expro.Areas.Expert.Controllers
             return result;
         }
         #endregion
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        public IActionResult Details(int id)
-        {
-            var document = DocumentService.GetSampleDocumentByID(id);
-            if (document == null)
-                throw new Exception("Намунавий хужжат не найден");
-
-            SampleDocumentDetailsForAdminVM documentVM = new SampleDocumentDetailsForAdminVM(document);
-
-            return View(documentVM);
-        }
-
-        [HttpPost]
-        public IActionResult Approve(int id)
-        {
-            try
-            {
-                var document = DocumentService.GetSampleDocumentByID(id);
-                if (document == null)
-                    throw new Exception("Намунавий хужжат не найден");
-
-                var curUser = accountUtil.GetCurrentUser(User);
-
-                if (!DocumentService.ApprovingIsAllowed(document))
-                    throw new Exception("Статус хужжата не позволяет подтвердить его");
-
-                //cancel request/video
-                DocumentService.Approve(document, curUser.ID);
-
-                //cancel hangfire jobs
-                //HangfireService.CancelJob(model.RequestAnswerJobID);
-                //HangfireService.CancelJob(model.VideoJobID);
-
-                return Ok();
-            }
-            catch (Exception ex)
-            {
-                return CustomBadRequest(ex);
-            }
-        }
-
-        [HttpPost]
-        public IActionResult Reject(int id)
-        {
-            try
-            {
-                var document = DocumentService.GetSampleDocumentByID(id);
-                if (document == null)
-                    throw new Exception("Намунавий хужжат не найден");
-
-                var curUser = accountUtil.GetCurrentUser(User);
-
-                if (!DocumentService.RejectingIsAllowed(document))
-                    throw new Exception("Статус хужжата не позволяет отменить его");
-
-                //cancel request/video
-                DocumentService.Reject(document, curUser.ID);
-
-                //cancel hangfire jobs
-                //HangfireService.CancelJob(model.RequestAnswerJobID);
-                //HangfireService.CancelJob(model.VideoJobID);
-
-                return Ok();
-            }
-            catch (Exception ex)
-            {
-                return CustomBadRequest(ex);
-            }
-        }
     }
 }
