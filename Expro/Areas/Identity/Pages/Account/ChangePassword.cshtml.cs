@@ -89,9 +89,17 @@ namespace Expro.Areas.Identity.Pages.Account
 
                 // Upon successfully changing the password refresh sign-in cookie
                 await _signInManager.RefreshSignInAsync(user);
-                return Redirect("~/Profile/MainInfo");
-                return RedirectToPage("PasswordChanged");
 
+                if (user.UserType==(int) UserTypesEnum.Expert)
+                {
+                    return Redirect("~/Profile");
+                }
+                if (user.UserType == (int)UserTypesEnum.SimpleUser)
+                {
+                    return Redirect("~/ProfileUser");
+                }
+
+                return Redirect("~/Home");
             }
 
             // If we got this far, something failed, redisplay form

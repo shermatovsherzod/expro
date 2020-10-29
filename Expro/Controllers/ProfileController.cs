@@ -41,12 +41,8 @@ namespace Expro.Controllers
             _educationService = educationService;
             _workExperienceService = workExperienceService;
         }
-        public IActionResult Index()
-        {
-            return RedirectToAction("MainInfo");
-        }
 
-        public IActionResult MainInfo()
+        public IActionResult Index()
         {
             var currentUserAccount = accountUtil.GetCurrentUser(User);
             var currentUser = _userManager.Users.FirstOrDefault(c => c.UserName == currentUserAccount.UserName);
@@ -62,7 +58,7 @@ namespace Expro.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult> MainInfo(ExpertProfileMainInfoVM vmodel)
+        public async Task<ActionResult> Index(ExpertProfileMainInfoVM vmodel)
         {
             var currentUserAccount = accountUtil.GetCurrentUser(User);
             var user = await _userManager.FindByIdAsync(currentUserAccount.ID);// Users.FirstOrDefault(c => c.UserName == currentUserAccount.UserName);
@@ -119,7 +115,7 @@ namespace Expro.Controllers
 
             if (ModelState.IsValid && user != null)
             {
-                user.Email = vmodel.Email;
+                // user.Email = vmodel.Email;
                 user.PhoneNumber = vmodel.PhoneNumber;
                 IdentityResult result = await _userManager.UpdateAsync(user);
                 if (result.Succeeded)
