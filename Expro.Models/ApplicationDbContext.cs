@@ -78,5 +78,6 @@ namespace Expro.Models
         public DbSet<DocumentType> DocumentTypes { get; set; }
         public DbSet<Language> Languages { get; set; }
         public DbSet<DocumentStatus> DocumentStatuses { get; set; }
+        public DbSet<UserPurchasedDocument> UserPurchasedDocuments { get; set; }
     }
 }

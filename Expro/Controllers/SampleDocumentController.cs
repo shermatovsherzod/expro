@@ -69,7 +69,7 @@ namespace Expro.Controllers
                         {
                             int paymentAmount = documentVM.Price - curUserBalance;
                             string returnUrl = "https://expro.uz/SampleDocument/Details/" + id;
-
+                            ViewData["returnUrl"] = returnUrl;
                             ViewData["paymentAmount"] = paymentAmount;
                             ViewData["paymentAmountStr"] = paymentAmount
                                 .ToString(AppData.Configuration.NumberViewStringFormat)

@@ -47,6 +47,9 @@ namespace Expro.Models
         [Required]
         public string AccountNumber { get; set; } //лицевой счет
 
+        [InverseProperty("User")]
+        public virtual ICollection<UserPurchasedDocument> DocumentsPurchased { get; set; }
+
         //==========================================================
         [InverseProperty("Author")]
         public virtual ICollection<Post> PostsAuthored { get; set; }
