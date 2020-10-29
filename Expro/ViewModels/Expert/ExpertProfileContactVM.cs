@@ -11,9 +11,9 @@ namespace Expro.ViewModels.Expert
     {
         public ExpertProfileContactVM() { }
 
-        [Required]
-        [Display(Name = "Email")]
-        public string Email { get; set; }
+        //[Required]
+        //[Display(Name = "Email")]
+        //public string Email { get; set; }
 
         [Required]
         [Display(Name = "Номер телефона")]
@@ -25,7 +25,7 @@ namespace Expro.ViewModels.Expert
             if (model == null)
                 return;
 
-            Email = model.Email;
+           // Email = model.Email;
             PhoneNumber = model.PhoneNumber;
         }
     }

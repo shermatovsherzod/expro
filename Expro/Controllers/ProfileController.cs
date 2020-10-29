@@ -40,7 +40,7 @@ namespace Expro.Controllers
             _countryService = countryService;
             _educationService = educationService;
             _workExperienceService = workExperienceService;
-        }      
+        }
 
         public IActionResult Index()
         {
@@ -115,7 +115,7 @@ namespace Expro.Controllers
 
             if (ModelState.IsValid && user != null)
             {
-                user.Email = vmodel.Email;
+                // user.Email = vmodel.Email;
                 user.PhoneNumber = vmodel.PhoneNumber;
                 IdentityResult result = await _userManager.UpdateAsync(user);
                 if (result.Succeeded)
