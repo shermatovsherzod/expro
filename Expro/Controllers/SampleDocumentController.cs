@@ -16,15 +16,18 @@ namespace Expro.Controllers
     {
         private readonly IDocumentService DocumentService;
         private readonly IUserBalanceService UserBalanceService;
+        private readonly IUserPurchasedDocumentService UserPurchasedDocumentService;
         private readonly UserManager<ApplicationUser> _userManager;
 
         public SampleDocumentController(
             IDocumentService documentService,
             IUserBalanceService userBalanceService,
+            IUserPurchasedDocumentService userPurchasedDocumentService,
             UserManager<ApplicationUser> userManager)
         {
             DocumentService = documentService;
             UserBalanceService = userBalanceService;
+            UserPurchasedDocumentService = userPurchasedDocumentService;
             _userManager = userManager;
         }
 
@@ -59,29 +62,58 @@ namespace Expro.Controllers
                     ApplicationUser user = await _userManager.GetUserAsync(User);
                     if (user != null)
                     {
-                        int curUserBalance = UserBalanceService.GetBalance(user);
-                        ViewData["curUserBalance"] = curUserBalance;
-                        ViewData["curUserBalanceStr"] = curUserBalance
-                            .ToString(AppData.Configuration.NumberViewStringFormat)
-                            .Trim();
-
-                        if (curUserBalance < documentVM.Price)
+                        if (UserPurchasedDocumentService.UserPurchasedDocumentBefore(user, document))
+                            ViewData["purchasedBefore"] = true;
+                        else
                         {
-                            int paymentAmount = documentVM.Price - curUserBalance;
-                            string returnUrl = "https://expro.uz/SampleDocument/Details/" + id;
-                            ViewData["returnUrl"] = returnUrl;
-                            ViewData["paymentAmount"] = paymentAmount;
-                            ViewData["paymentAmountStr"] = paymentAmount
+                            int curUserBalance = UserBalanceService.GetBalance(user);
+                            ViewData["curUserBalance"] = curUserBalance;
+                            ViewData["curUserBalanceStr"] = curUserBalance
                                 .ToString(AppData.Configuration.NumberViewStringFormat)
                                 .Trim();
-                            ViewData["clickPaymentButtonUrl"] = UserBalanceService
-                                .GenerateClickPaymentButtonUrl(user.AccountNumber, paymentAmount, returnUrl);
+
+                            if (curUserBalance < documentVM.Price)
+                            {
+                                int paymentAmount = documentVM.Price - curUserBalance;
+                                string returnUrl = "https://expro.uz/SampleDocument/Details/" + id;
+                                ViewData["returnUrl"] = returnUrl;
+                                ViewData["paymentAmount"] = paymentAmount;
+                                ViewData["paymentAmountStr"] = paymentAmount
+                                    .ToString(AppData.Configuration.NumberViewStringFormat)
+                                    .Trim();
+                                ViewData["clickPaymentButtonUrl"] = UserBalanceService
+                                    .GenerateClickPaymentButtonUrl(user.AccountNumber, paymentAmount, returnUrl);
+                            }
                         }
                     }
                 }
             }
 
             return View(documentVM);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Purchase(SampleDocumentPurchaseFormVM purchaseFormVM)
+        {
+            //once purchased, redirect to /User/SampleDocument/Details/id
+            var document = DocumentService.GetSampleDocumentApprovedByID(purchaseFormVM.DocumentID);
+            if (document == null)
+                throw new Exception("Намунавий хужжат не найден");
+
+            if (DocumentService.IsFree(document))
+                throw new Exception("Намунавий хужжат бесплатный!");
+
+            ApplicationUser user = await _userManager.GetUserAsync(User);
+            if (user == null)
+                throw new Exception("Вы не авторизованы");
+
+            int curUserBalance = UserBalanceService.GetBalance(user);
+            if (curUserBalance < document.Price)
+                throw new Exception("Недостаточно средств на балансе");
+
+            UserPurchasedDocumentService.Purchase(user, document);
+
+            return Redirect("/User/SampleDocument/Details/" + document.ID);
         }
     }
 }

@@ -17,6 +17,16 @@ namespace Expro.Services
             return user?.Balance ?? 0;
         }
 
+        public void ReplenishBalance(ApplicationUser user, int amount)
+        {
+            user.Balance += amount;
+        }
+
+        public void TakeOffBalance(ApplicationUser user, int amount)
+        {
+            user.Balance -= amount;
+        }
+
         public string GenerateClickPaymentButtonUrl(string accountNumber, int amount, string returnUrl)
         {
             if (string.IsNullOrWhiteSpace(accountNumber))
