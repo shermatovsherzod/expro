@@ -112,6 +112,7 @@ namespace Expro.Controllers
                 throw new Exception("Недостаточно средств на балансе");
 
             UserPurchasedDocumentService.Purchase(user, document);
+            DocumentService.IncrementNumberOfPurchases(document);
 
             return Redirect("/User/SampleDocument/Details/" + document.ID);
         }

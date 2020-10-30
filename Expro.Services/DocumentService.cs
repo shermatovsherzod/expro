@@ -185,5 +185,10 @@ namespace Expro.Services
 
             return model.PriceType == DocumentPriceTypesEnum.Free;
         }
+
+        public IQueryable<Document> GetDocumentsPurchasedByUser(ApplicationUser user)
+        {
+            return user.DocumentsPurchased.Select(m => m.Document).AsQueryable();
+        }
     }
 }
