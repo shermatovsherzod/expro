@@ -15,7 +15,9 @@ namespace Expro.Models
         {
             base.OnModelCreating(modelBuilder);
 
-            
+            modelBuilder.Entity<ApplicationUser>()
+                .HasIndex(u => u.AccountNumber)
+                .IsUnique();
 
             modelBuilder.Entity<UserLawArea>()
                 .HasKey(bc => new { bc.UserID, bc.LawAreaID });

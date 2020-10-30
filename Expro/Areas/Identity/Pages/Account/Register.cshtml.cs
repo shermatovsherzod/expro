@@ -7,6 +7,7 @@ using System.Text.Encodings.Web;
 using System.Threading.Tasks;
 using Expro.Models;
 using Expro.Models.Enums;
+using Expro.Services.Interfaces;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -25,18 +26,20 @@ namespace Expro.Areas.Identity.Pages.Account
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly ILogger<RegisterModel> _logger;
         //private readonly IEmailSender _emailSender;
+        private readonly IUserBalanceService _userBalanceService;
 
         public RegisterModel(
             UserManager<ApplicationUser> userManager,
             SignInManager<ApplicationUser> signInManager,
-            ILogger<RegisterModel> logger
+            ILogger<RegisterModel> logger,
             //IEmailSender emailSender
-            )
+            IUserBalanceService userBalanceService)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _logger = logger;
             //_emailSender = emailSender;
+            _userBalanceService = userBalanceService;
         }
 
         [BindProperty]
@@ -108,6 +111,7 @@ namespace Expro.Areas.Identity.Pages.Account
                     PhoneNumber = Input.PhoneNumber, 
                     UserType = (int)UserTypesEnum.SimpleUser
                 };
+                _userBalanceService.AssignAccountNumber(user);
 
                 var result = await _userManager.CreateAsync(user, Input.Password);
                 if (result.Succeeded)
@@ -145,12 +149,5 @@ namespace Expro.Areas.Identity.Pages.Account
             // If we got this far, something failed, redisplay form
             return Page();
         }
-
-        //private void AssignAccountNumber(Customer model)
-        //{
-
-        //    if (string.IsNullOrWhiteSpace(model.AccountNumber))
-        //        model.AccountNumber = model.ID.ToString().PadLeft(8, '0');
-        //}
     }
 }

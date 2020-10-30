@@ -9,6 +9,7 @@ namespace Expro.Services.Interfaces
         int GetBalance(ApplicationUser user);
         void ReplenishBalance(ApplicationUser user, int amount);
         void TakeOffBalance(ApplicationUser user, int amount);
+        public void AssignAccountNumber(ApplicationUser user);
         string GenerateClickPaymentButtonUrl(string accountNumber, int amount, string returnUrl);
     }
 }

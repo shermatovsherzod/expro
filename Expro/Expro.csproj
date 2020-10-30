@@ -20,6 +20,8 @@
     <Compile Remove="Data\Migrations\20201025105648_LawArea_addedParent.Designer.cs" />
     <Compile Remove="Data\Migrations\20201028180807_Document_addedPriceType.cs" />
     <Compile Remove="Data\Migrations\20201028180807_Document_addedPriceType.Designer.cs" />
+    <Compile Remove="Data\Migrations\20201030182343_ApplicationUser_AccountNumberIsUnique.cs" />
+    <Compile Remove="Data\Migrations\20201030182343_ApplicationUser_AccountNumberIsUnique.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>

@@ -27,6 +27,21 @@ namespace Expro.Services
             user.Balance -= amount;
         }
 
+        public void AssignAccountNumber(ApplicationUser user)
+        {
+            DateTime dateTime = user.DateOfBirth; //must be DateRegistered
+
+            if (string.IsNullOrWhiteSpace(user.AccountNumber))
+                user.AccountNumber =
+                    dateTime.Year
+                    + dateTime.ToString("MM")
+                    + dateTime.ToString("dd")
+                    + dateTime.ToString("HH")
+                    + dateTime.ToString("mm")
+                    + dateTime.ToString("ss")
+                    + dateTime.Millisecond;
+        }
+
         public string GenerateClickPaymentButtonUrl(string accountNumber, int amount, string returnUrl)
         {
             if (string.IsNullOrWhiteSpace(accountNumber))
