@@ -81,6 +81,7 @@ namespace Expro.Services
                         model.DocumentLawAreas.Add(new DocumentLawArea()
                         {
                             LawArea = lawArea,
+                            LawAreaID = lawArea.ID,
                             Document = model
                         });
                     }
@@ -93,6 +94,31 @@ namespace Expro.Services
                         if (lawAreaa != null)
                             model.DocumentLawAreas.Remove(lawAreaa);
                     }
+                }
+            }
+
+            List<DocumentLawArea> parentLawAreasToBeAdded = new List<DocumentLawArea>();
+            foreach (var item in model.DocumentLawAreas)
+            {
+                if (item.LawArea.ParentID.HasValue)
+                {
+                    if (parentLawAreasToBeAdded.FirstOrDefault(m => m.LawAreaID == item.LawArea.ParentID.Value) == null
+                        && model.DocumentLawAreas.FirstOrDefault(m => m.LawAreaID == item.LawArea.ParentID.Value) == null)
+                    {
+                        parentLawAreasToBeAdded.Add(new DocumentLawArea()
+                        {
+                            LawAreaID = item.LawArea.ParentID.Value,
+                            Document = model
+                        });
+                    }
+                }
+            }
+
+            if (parentLawAreasToBeAdded.Count > 0)
+            {
+                foreach (var item in parentLawAreasToBeAdded)
+                {
+                    model.DocumentLawAreas.Add(item);
                 }
             }
         }

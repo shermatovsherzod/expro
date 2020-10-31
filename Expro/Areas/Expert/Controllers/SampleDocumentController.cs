@@ -140,6 +140,7 @@ namespace Expro.Areas.Expert.Controllers
 
                     var model = modelVM.ToModel(modelFromDB);
                     LawAreaService.UpdateDocumentLawAreas(model, modelVM.LawAreas);
+                    modelVM.LawAreas = model.DocumentLawAreas.Select(m => m.LawAreaID).ToList();
 
                     if (modelVM.ActionType == DocumentActionTypesEnum.submitForApproval)
                     {

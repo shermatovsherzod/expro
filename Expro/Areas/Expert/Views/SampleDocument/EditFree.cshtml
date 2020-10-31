@@ -68,10 +68,38 @@ else if (Model.StatusID == (int)DocumentStatusesEnum.Rejected)
                         }
                     </select>*@
 
-                <select asp-for="LawAreas"
+                @*<select asp-for="LawAreas"
                         asp-items="@ViewData["lawAreas"] as IEnumerable<SelectListItem>" multiple
                         class="form-control">
-                </select>
+                </select>*@
+                <div>
+                    <select asp-for="LawAreas"
+                            class="selectpicker"
+                            title="Выберите"
+                            multiple
+                            data-selected-text-format="count > 3">
+                        @{
+                            var items = ViewData["lawAreas"] as List<SelectListItemWithParent>;
+                            var parentItems = items.Where(m => m.ParentValue == "").ToList();
+                            for (int i = 0; i < parentItems.Count; i++)
+                            {
+                                <option value="@parentItems[i].Value" data-content="<b>@parentItems[i].Text</b>">@parentItems[i].Text</option>
+
+                                var childItems = items.Where(m => m.ParentValue == parentItems[i].Value).ToList();
+                                foreach (var childItem in childItems)
+                                {
+                                    <option value="@childItem.Value" data-content="- @childItem.Text">@childItem.Text</option>
+                                }
+
+                                if (i < parentItems.Count - 1)
+                                {
+                                    <option data-divider="true"></option>
+                                }
+                            }
+                        }
+                    </select>
+
+                </div>
                 <span asp-validation-for="LawAreas" class="text-danger"></span>
             </div>
             <div class="form-group">
@@ -128,11 +156,13 @@ else if (Model.StatusID == (int)DocumentStatusesEnum.Rejected)
 </div>
 
 <link href="~/lib/treeselect/css/jquery.bootstrap.treeselect.css" rel="stylesheet" />
+<link href="~/lib/bootstrap-select-1.13.14/css/bootstrap-select.css" rel="stylesheet" />
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 
     <script src="~/lib/treeselect/js/jquery.bootstrap.treeselect.js"></script>
+    <script src="~/lib/bootstrap-select-1.13.14/js/bootstrap-select.js"></script>
 
     <script>
         var input;
@@ -141,7 +171,7 @@ else if (Model.StatusID == (int)DocumentStatusesEnum.Rejected)
         var spinnerTagID = "fileUploadSpinner";
 
         $(document).ready(function () {
-            //$('#LawAreas').treeselect();
+            $('#LawAreas').selectpicker();
 
             var statusID = @Model.StatusID;
             if (statusID == @((int)DocumentStatusesEnum.WaitingForApproval)
