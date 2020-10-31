@@ -1,0 +1,43 @@
+﻿@model IEnumerable<Expro.ViewModels.SampleDocumentListItemForUserVM>
+@using Expro.ViewModels
+@using Expro.Models.Enums
+
+@{
+    ViewData["Title"] = "Намунавий хужжатлар";
+}
+
+<h1>@ViewData["Title"]</h1>
+<br />
+<table class="table table-striped">
+    <thead>
+        <tr>
+            @{
+                var tmp = new SampleDocumentListItemForUserVM();
+            }
+            <th>@Html.DisplayNameFor(m => tmp.Title)</th>
+            <th>@Html.DisplayNameFor(m => tmp.Author)</th>
+            <th>@Html.DisplayNameFor(m => tmp.DatePublished)</th>
+            <th>@Html.DisplayNameFor(m => tmp.Price)</th>
+            <th>Действия</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.Title</td>
+                <td>@item.Author.FullName</td>
+                <td>@item.DatePublished</td>
+                @if (item.PriceType == DocumentPriceTypesEnum.Free)
+                {
+                    <td></td>
+                }
+                else
+                {
+                    <td>@item.Price сум</td>
+                }
+                <td><a href="/User/SampleDocument/Details/@item.ID" class="btn btn-primary">Открыть</a></td>
+            </tr>
+        }
+    </tbody>
+</table>

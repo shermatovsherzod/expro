@@ -30,6 +30,7 @@ namespace Expro.Areas.Identity.Pages.Account
         private readonly IRegionService _regionService;
         private readonly ICityService _cityService;
         //private readonly IEmailSender _emailSender;
+        private readonly IUserBalanceService _userBalanceService;
 
         public RegisterExpertModel(
             UserManager<ApplicationUser> userManager,
@@ -37,10 +38,10 @@ namespace Expro.Areas.Identity.Pages.Account
             ILogger<RegisterModel> logger,
             ILawAreaService lawAreaService,
             IRegionService regionService,
-            ICityService cityService
+            ICityService cityService,
 
             //IEmailSender emailSender
-            )
+            IUserBalanceService userBalanceService)
         {
             _userManager = userManager;
             _signInManager = signInManager;
@@ -49,6 +50,7 @@ namespace Expro.Areas.Identity.Pages.Account
             _lawAreaService = lawAreaService;
             _regionService = regionService;
             _cityService = cityService;
+            _userBalanceService = userBalanceService;
         }
 
         [BindProperty]
@@ -141,7 +143,7 @@ namespace Expro.Areas.Identity.Pages.Account
                     CityID = Input.CityID == 0 ? null : Input.CityID,
                     CityOther = Input.CityID == null ? Input.CityOther : null
                 };
-
+                _userBalanceService.AssignAccountNumber(user);
                 _lawAreaService.UpdateUserLawAreas(user, Input.LawAreas);
 
                 var result = await _userManager.CreateAsync(user, Input.Password);

@@ -18,5 +18,7 @@ namespace Expro.Models
         public virtual Document Document { get; set; }
 
         public DateTime DatePurchased { get; set; }
+
+        public int Price { get; set; }
     }
 }

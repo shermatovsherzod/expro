@@ -119,4 +119,9 @@ namespace Expro.ViewModels
             }
         }
     }
+
+    public class SampleDocumentPurchaseFormVM
+    {
+        public int DocumentID { get; set; }
+    }
 }

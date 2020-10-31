@@ -101,25 +101,37 @@
     <div class="col-12">
         @if (Model.PriceType == DocumentPriceTypesEnum.Paid)
         {
-            if (ViewData["curUserBalance"] != null)
+            if (ViewData["purchasedBefore"] == null)
             {
-                <p><b>Ваш баланс:</b> @ViewData["curUserBalanceStr"] сум</p>
-                if (ViewData["paymentAmount"] == null) //if balance is enough
+                if (ViewData["curUserBalance"] != null)
                 {
-                    <button type="button" class="btn btn-success">Купить</button>
+                    <p><b>Ваш баланс:</b> @ViewData["curUserBalanceStr"] сум</p>
+                    if (ViewData["paymentAmount"] == null) //if balance is enough
+                    {
+                        <form asp-action="Purchase">
+                            <input type="hidden" name="DocumentID" value="@Model.ID" />
+                            <button type="submit" class="btn btn-success">Купить</button>
+                        </form>
+                    }
+                    else
+                    {
+                        <div class="alert alert-warning">
+                            <p>На вашем балансе недостаточно средств для покупки. Пожалуйста, пополните баланс.</p>
+                            <p><a href="@ViewData["clickPaymentButtonUrl"]" class="btn btn-info">Пополнить баланс на <b>@ViewData["paymentAmount"] сум (CLICK)</b></a></p>
+                        </div>
+                    }
                 }
+                //user is unauthorized
                 else
                 {
-                    <div class="alert alert-warning">
-                        <p>На вашем балансе недостаточно средств для покупки. Пожалуйста, пополните баланс.</p>
-                        <p><a href="@ViewData["clickPaymentButtonUrl"]" class="btn btn-info">Пополнить баланс на <b>@ViewData["paymentAmount"] сум (CLICK)</b></a></p>
-                    </div>
+                    <p><a href="/Identity/Account/Login?returnUrl=@ViewData["returnUrl"]">Авторизуйтесь</a>, чтобы купить.</p>
                 }
             }
-            //user is unauthorized
             else
             {
-                <p><a href="/Identity/Account/Login?returnUrl=@ViewData["returnUrl"]">Авторизуйтесь</a>, чтобы купить.</p>
+                <div class="alert alert-success">
+                    <p>Вы уже покупали этот материал. Нажмите <a href="/User/SampleDocument/Details/@Model.ID" class="btn-link">здесь</a>, чтобы посмотреть.</p>
+                </div>
             }
         }
     </div>

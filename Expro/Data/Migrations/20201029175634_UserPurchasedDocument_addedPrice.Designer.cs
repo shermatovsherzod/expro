@@ -4,14 +4,16 @@ using Expro.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Expro.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20201029175634_UserPurchasedDocument_addedPrice")]
+    partial class UserPurchasedDocument_addedPrice
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -735,8 +737,7 @@ namespace Expro.Data.Migrations
 
                     b.Property<string>("AccountNumber")
                         .IsRequired()
-                        .HasColumnType("nvarchar(17)")
-                        .HasMaxLength(17);
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("Balance")
                         .HasColumnType("int");
@@ -773,10 +774,6 @@ namespace Expro.Data.Migrations
 
                     b.Property<int>("UserType")
                         .HasColumnType("int");
-
-                    b.HasIndex("AccountNumber")
-                        .IsUnique()
-                        .HasFilter("[AccountNumber] IS NOT NULL");
 
                     b.HasIndex("CityID");
 

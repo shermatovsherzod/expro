@@ -1,0 +1,37 @@
+﻿@model IEnumerable<Expro.ViewModels.SampleDocumentListItemForSiteVM>
+@using Expro.Models.Enums
+
+@{
+    ViewData["Title"] = "Намунавий хужжатлар";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<div class="row">
+    @foreach (var item in Model)
+    {
+        <div class="col-12">
+            <div class="card" style="margin-top: 10px;">
+                <div class="card-body">
+                    <h3><a href="/SampleDocument/Details/@item.ID">@item.Title</a></h3>
+                    @if (item.ContentType == DocumentContentTypesEnum.file)
+                    {
+                        <p>Есть вложенный файл</p>
+                    }
+                    else
+                    {
+                        <p>@item.Text</p>
+                    }
+                    <p>Дата публикации: @item.DatePublished</p>
+                    <p>Автор: <a href="#">@item.Author.FirstName @item.Author.LastName</a></p>
+                    <p>
+                        @foreach (var lawArea in item.LawAreas)
+                        {
+                            <span class="badge badge-primary">@lawArea.Name</span>
+                        }
+                    </p>
+                </div>
+            </div>
+        </div>
+    }
+</div>

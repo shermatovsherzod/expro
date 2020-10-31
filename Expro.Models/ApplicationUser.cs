@@ -46,6 +46,7 @@ namespace Expro.Models
         public int Balance { get; set; }
 
         [Required]
+        [StringLength(17)]
         public string AccountNumber { get; set; } //лицевой счет
 
         [InverseProperty("User")]
