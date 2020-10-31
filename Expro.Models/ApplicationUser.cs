@@ -22,6 +22,7 @@ namespace Expro.Models
         [StringLength(256)]
         public string PatronymicName { get; set; }
         public DateTime DateOfBirth { get; set; }
+        public DateTime? DateRegistered { get; set; }
         public int UserType { get; set; }
 
         [ForeignKey("Gender")]
