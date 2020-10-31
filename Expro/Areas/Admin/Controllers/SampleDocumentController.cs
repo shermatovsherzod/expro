@@ -13,10 +13,14 @@ namespace Expro.Areas.Admin.Controllers
     public class SampleDocumentController : BaseController
     {
         private readonly IDocumentService DocumentService;
+        private readonly IHangfireService HangfireService;
 
-        public SampleDocumentController(IDocumentService documentService)
+        public SampleDocumentController(
+            IDocumentService documentService,
+            IHangfireService hangfireService)
         {
             DocumentService = documentService;
+            HangfireService = hangfireService;
         }
 
         public IActionResult Index()
@@ -61,8 +65,7 @@ namespace Expro.Areas.Admin.Controllers
                 DocumentService.Approve(document, curUser.ID);
 
                 //cancel hangfire jobs
-                //HangfireService.CancelJob(model.RequestAnswerJobID);
-                //HangfireService.CancelJob(model.VideoJobID);
+                HangfireService.CancelJob(document.RejectionJobID);
 
                 return Ok();
             }
@@ -90,8 +93,7 @@ namespace Expro.Areas.Admin.Controllers
                 DocumentService.Reject(document, curUser.ID);
 
                 //cancel hangfire jobs
-                //HangfireService.CancelJob(model.RequestAnswerJobID);
-                //HangfireService.CancelJob(model.VideoJobID);
+                HangfireService.CancelJob(document.RejectionJobID);
 
                 return Ok();
             }

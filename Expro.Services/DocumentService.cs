@@ -11,6 +11,8 @@ namespace Expro.Services
 {
     public class DocumentService : BaseAuthorableService<Document>, IDocumentService
     {
+        private int tmpPeriodMinutes = 1;
+
         public DocumentService(IDocumentRepository repository,
                            IUnitOfWork unitOfWork)
             : base(repository, unitOfWork)
@@ -64,7 +66,12 @@ namespace Expro.Services
         {
             entity.DocumentStatusID = (int)DocumentStatusesEnum.WaitingForApproval;
             entity.DateSubmittedForApproval = DateTime.Now;
-
+#if DEBUG
+            //tmpPeriodMinutes = 2880;
+            entity.RejectionDeadline = entity.DateSubmittedForApproval.Value.AddMinutes(tmpPeriodMinutes);
+#else
+            entity.CancellationDeadline = RoundToUp(entity.DateSubmittedForApproval.Value.AddMinutes(7 200)); //5 days
+#endif
             Update(entity, userID);
         }
 
@@ -189,6 +196,19 @@ namespace Expro.Services
         public IQueryable<Document> GetDocumentsPurchasedByUser(ApplicationUser user)
         {
             return user.DocumentsPurchased.Select(m => m.Document).AsQueryable();
+        }
+
+        public void RejectionDeadlineReaches(Document model)
+        {
+            if (!RejectingIsAllowed(model))
+                return;
+
+            Reject(model, "634a8718-167d-4b77-98bb-7548340e95b2"); //add botUser
+        }
+
+        private DateTime RoundToUp(DateTime inputDateTime)
+        {
+            return inputDateTime.Date.AddDays(1).AddSeconds(-1);
         }
     }
 }

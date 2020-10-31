@@ -17,17 +17,20 @@ namespace Expro.Areas.Expert.Controllers
         private readonly ILanguageService LanguageService;
         private readonly IAttachmentService AttachmentService;
         private readonly IDocumentService DocumentService;
+        private readonly IHangfireService HangfireService;
 
         public SampleDocumentController(
             ILawAreaService lawAreaService,
             ILanguageService languageService,
             IAttachmentService attachmentService,
-            IDocumentService documentService)
+            IDocumentService documentService,
+            IHangfireService hangfireService)
         {
             LawAreaService = lawAreaService;
             LanguageService = languageService;
             AttachmentService = attachmentService;
             DocumentService = documentService;
+            HangfireService = hangfireService;
         }
 
         public IActionResult Index()
@@ -141,6 +144,9 @@ namespace Expro.Areas.Expert.Controllers
                     if (modelVM.ActionType == DocumentActionTypesEnum.submitForApproval)
                     {
                         DocumentService.SubmitForApproval(model, curUser.ID);
+                        model.RejectionJobID = HangfireService.CreateJobForDocumentRejectionDeadline(model);
+                        DocumentService.Update(model);
+
                         modelVM.StatusID = (int)DocumentStatusesEnum.WaitingForApproval;
                     }
                     else
@@ -212,6 +218,9 @@ namespace Expro.Areas.Expert.Controllers
                     if (modelVM.ActionType == DocumentActionTypesEnum.submitForApproval)
                     {
                         DocumentService.SubmitForApproval(model, curUser.ID);
+                        model.RejectionJobID = HangfireService.CreateJobForDocumentRejectionDeadline(model);
+                        DocumentService.Update(model);
+
                         modelVM.StatusID = (int)DocumentStatusesEnum.WaitingForApproval;
                     }
                     else

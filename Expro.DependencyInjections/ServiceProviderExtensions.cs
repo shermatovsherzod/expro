@@ -54,6 +54,7 @@ namespace Expro.DependencyInjections
             services.AddTransient<IDocumentService, DocumentService>();
             services.AddTransient<IUserBalanceService, UserBalanceService>();
             services.AddTransient<IUserPurchasedDocumentService, UserPurchasedDocumentService>();
+            services.AddTransient<IHangfireService, HangfireService>();
         }
     }
 }

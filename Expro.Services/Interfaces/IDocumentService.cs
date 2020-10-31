@@ -24,5 +24,6 @@ namespace Expro.Services.Interfaces
         void IncrementNumberOfPurchases(Document model);
         bool IsFree(Document model);
         IQueryable<Document> GetDocumentsPurchasedByUser(ApplicationUser user);
+        void RejectionDeadlineReaches(Document document);
     }
 }

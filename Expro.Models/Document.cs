@@ -42,7 +42,8 @@ namespace Expro.Models
         public DateTime? DateApproved { get; set; }
         public DateTime? DateRejected { get; set; }
 
-        public string CancellationJobID { get; set; }
+        public DateTime? RejectionDeadline { get; set; }
+        public string RejectionJobID { get; set; }
 
         public int NumberOfViews { get; set; }
         public int NumberOfPurchases { get; set; }

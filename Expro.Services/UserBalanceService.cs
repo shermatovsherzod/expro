@@ -29,7 +29,7 @@ namespace Expro.Services
 
         public void AssignAccountNumber(ApplicationUser user)
         {
-            DateTime dateTime = user.DateOfBirth; //must be DateRegistered
+            DateTime dateTime = user.DateRegistered;
 
             if (string.IsNullOrWhiteSpace(user.AccountNumber))
                 user.AccountNumber =
