@@ -53,25 +53,6 @@ else if (Model.StatusID == (int)DocumentStatusesEnum.Rejected)
             </div>
             <div class="form-group">
                 <label asp-for="LawAreas" class="control-label"></label>
-                @*<select asp-for="LawAreas" multiple class="form-control">
-                        @foreach (var item in ViewData["lawAreas"] as List<SelectListItemWithParent>)
-                        {
-                            string selected = "";
-                            if (item.Selected)
-                            { selected = "selected"; }
-
-                            string parentID = "";
-                            if (!string.IsNullOrWhiteSpace(item.ParentValue))
-                            { parentID = item.ParentValue; }
-
-                            <option value="@item.Value" selected="@selected" data-parent="@parentID">@item.Text</option>
-                        }
-                    </select>*@
-
-                @*<select asp-for="LawAreas"
-                        asp-items="@ViewData["lawAreas"] as IEnumerable<SelectListItem>" multiple
-                        class="form-control">
-                </select>*@
                 <div>
                     <select asp-for="LawAreas"
                             class="selectpicker"
@@ -98,7 +79,6 @@ else if (Model.StatusID == (int)DocumentStatusesEnum.Rejected)
                             }
                         }
                     </select>
-
                 </div>
                 <span asp-validation-for="LawAreas" class="text-danger"></span>
             </div>
@@ -180,8 +160,9 @@ else if (Model.StatusID == (int)DocumentStatusesEnum.Rejected)
             {
                 $("form input, form select, form textarea").attr("readonly", "readonly");
                 $("form #existingFileContainer button").attr("disabled", "disabled");
+                $('#LawAreas').prop('disabled', true);
+                $('#LawAreas').selectpicker('refresh');
                 $("#actionButtonsBox").html("");
-                //$("#alertSubmittedForApproval").show();
             }
 
             $("form button[type=submit]").click(function (ev) {

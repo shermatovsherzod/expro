@@ -53,25 +53,33 @@ else if (Model.StatusID == (int)DocumentStatusesEnum.Rejected)
             </div>
             <div class="form-group">
                 <label asp-for="LawAreas" class="control-label"></label>
-                @*<select asp-for="LawAreas" multiple class="form-control">
-                        @foreach (var item in ViewData["lawAreas"] as List<SelectListItemWithParent>)
-                        {
-                            string selected = "";
-                            if (item.Selected)
-                            { selected = "selected"; }
+                <div>
+                    <select asp-for="LawAreas"
+                            class="selectpicker"
+                            title="Выберите"
+                            multiple
+                            data-selected-text-format="count > 3">
+                        @{
+                            var items = ViewData["lawAreas"] as List<SelectListItemWithParent>;
+                            var parentItems = items.Where(m => m.ParentValue == "").ToList();
+                            for (int i = 0; i < parentItems.Count; i++)
+                            {
+                                <option value="@parentItems[i].Value" data-content="<b>@parentItems[i].Text</b>">@parentItems[i].Text</option>
 
-                            string parentID = "";
-                            if (!string.IsNullOrWhiteSpace(item.ParentValue))
-                            { parentID = item.ParentValue; }
+                                var childItems = items.Where(m => m.ParentValue == parentItems[i].Value).ToList();
+                                foreach (var childItem in childItems)
+                                {
+                                    <option value="@childItem.Value" data-content="- @childItem.Text">@childItem.Text</option>
+                                }
 
-                            <option value="@item.Value" selected="@selected" data-parent="@parentID">@item.Text</option>
+                                if (i < parentItems.Count - 1)
+                                {
+                                    <option data-divider="true"></option>
+                                }
+                            }
                         }
-                    </select>*@
-
-                <select asp-for="LawAreas"
-                        asp-items="@ViewData["lawAreas"] as IEnumerable<SelectListItem>" multiple
-                        class="form-control">
-                </select>
+                    </select>
+                </div>
                 <span asp-validation-for="LawAreas" class="text-danger"></span>
             </div>
             <div class="form-group">
@@ -133,11 +141,14 @@ else if (Model.StatusID == (int)DocumentStatusesEnum.Rejected)
 </div>
 
 <link href="~/lib/treeselect/css/jquery.bootstrap.treeselect.css" rel="stylesheet" />
+<link href="~/lib/bootstrap-select-1.13.14/css/bootstrap-select.css" rel="stylesheet" />
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 
     <script src="~/lib/treeselect/js/jquery.bootstrap.treeselect.js"></script>
+    <script src="~/lib/treeselect/js/jquery.bootstrap.treeselect.js"></script>
+    <script src="~/lib/bootstrap-select-1.13.14/js/bootstrap-select.js"></script>
 
     <script>
         var input;
@@ -147,7 +158,7 @@ else if (Model.StatusID == (int)DocumentStatusesEnum.Rejected)
 
         $(document).ready(function ()
         {
-            //$('#LawAreas').treeselect();
+            $('#LawAreas').selectpicker();
 
             var statusID = @Model.StatusID;
             if (statusID == @((int)DocumentStatusesEnum.WaitingForApproval)
@@ -156,6 +167,8 @@ else if (Model.StatusID == (int)DocumentStatusesEnum.Rejected)
             {
                 $("form input, form select, form textarea").attr("readonly", "readonly");
                 $("form #existingFileContainer button").attr("disabled", "disabled");
+                $('#LawAreas').prop('disabled', true);
+                $('#LawAreas').selectpicker('refresh');
                 $("#actionButtonsBox").html("");
                 //$("#alertSubmittedForApproval").show();
             }
