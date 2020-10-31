@@ -92,11 +92,15 @@ namespace Expro.Areas.Identity.Pages.Account
 
                 if (user.UserType==(int) UserTypesEnum.Expert)
                 {
-                    return Redirect("~/Profile");
+                    return Redirect("~/Expert/Profile");
                 }
                 if (user.UserType == (int)UserTypesEnum.SimpleUser)
                 {
-                    return Redirect("~/ProfileUser");
+                    return Redirect("~/User/Profile");
+                }
+                if (user.UserType == (int)UserTypesEnum.Admin)
+                {
+                    return Redirect("~/Admin/Profile");
                 }
 
                 return Redirect("~/Home");

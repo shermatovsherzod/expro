@@ -20,7 +20,25 @@ namespace Expro.Controllers
 
         public IActionResult Index()
         {
-            //test github push
+            if (User.Identity.IsAuthenticated)
+            {
+                var userType = User.Claims.FirstOrDefault(c => c.Type == "UserType");
+                if (userType != null)
+                {
+                    if (userType.Value == "Admin")
+                    {
+                        return Redirect("/Admin/Home");
+                    }
+                    else if (userType.Value == "Expert")
+                    {
+                        return Redirect("/Expert/Home");
+                    }
+                    else if (userType.Value == "SimpleUser")
+                    {
+                        return Redirect("/User/Home");
+                    }
+                }
+            }
             return View();
         }
 
