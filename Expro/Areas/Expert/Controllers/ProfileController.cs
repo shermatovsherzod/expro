@@ -2,14 +2,16 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Expro.Controllers;
 using Expro.Models;
 using Expro.Services.Interfaces;
 using Expro.ViewModels.Expert;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Expro.Controllers
+namespace Expro.Areas.Expert.Controllers
 {
+    [Area("Expert")]
     public class ProfileController : BaseController
     {
         private readonly UserManager<ApplicationUser> _userManager;
@@ -61,7 +63,7 @@ namespace Expro.Controllers
         public async Task<ActionResult> Index(ExpertProfileMainInfoVM vmodel)
         {
             var currentUserAccount = accountUtil.GetCurrentUser(User);
-            var user = await _userManager.FindByIdAsync(currentUserAccount.ID);// Users.FirstOrDefault(c => c.UserName == currentUserAccount.UserName);
+            var user = await _userManager.FindByIdAsync(currentUserAccount.ID);
 
             ViewData["country"] = _countryService.GetAsSelectList();
             ViewData["lawAreas"] = _lawAreaService.GetAsSelectList();
@@ -97,7 +99,6 @@ namespace Expro.Controllers
         {
             return DateTime.Now;
         }
-
 
         public IActionResult Contacts()
         {

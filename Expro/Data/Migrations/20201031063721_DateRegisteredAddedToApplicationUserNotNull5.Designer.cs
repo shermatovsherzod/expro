@@ -4,14 +4,16 @@ using Expro.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Expro.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20201031063721_DateRegisteredAddedToApplicationUserNotNull5")]
+    partial class DateRegisteredAddedToApplicationUserNotNull5
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -776,6 +778,9 @@ namespace Expro.Data.Migrations
 
                     b.Property<int>("UserType")
                         .HasColumnType("int");
+
+                    b.Property<string>("test14")
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasIndex("AccountNumber")
                         .IsUnique()

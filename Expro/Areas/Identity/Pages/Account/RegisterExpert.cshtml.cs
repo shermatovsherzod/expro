@@ -142,7 +142,7 @@ namespace Expro.Areas.Identity.Pages.Account
                     RegionID = Input.RegionID,
                     CityID = Input.CityID == 0 ? null : Input.CityID,
                     CityOther = Input.CityID == null ? Input.CityOther : null,
-                    DateRegistered=DateTime.Now
+                    DateRegistered = DateTime.Now
                 };
                 _userBalanceService.AssignAccountNumber(user);
                 _lawAreaService.UpdateUserLawAreas(user, Input.LawAreas);

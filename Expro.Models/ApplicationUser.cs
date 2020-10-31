@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Diagnostics.CodeAnalysis;
 using System.Text;
 
 namespace Expro.Models
@@ -22,7 +23,12 @@ namespace Expro.Models
         [StringLength(256)]
         public string PatronymicName { get; set; }
         public DateTime DateOfBirth { get; set; }
-        public DateTime? DateRegistered { get; set; }
+                
+       
+        public DateTime DateRegistered { get; set; }
+      
+      
+
         public int UserType { get; set; }
 
         [ForeignKey("Gender")]

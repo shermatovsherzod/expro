@@ -1,4 +1,5 @@
 ﻿using Expro.Models;
+using Expro.Models.Enums;
 //using Expro.Models.Enums;
 using Expro.ViewModels;
 using Microsoft.AspNetCore.Identity;
@@ -85,41 +86,58 @@ namespace Expro.Utils
                 });
             }
 
-            if (!string.IsNullOrWhiteSpace(user.CityOther))
+            switch (user.UserType)
             {
-                ((ClaimsIdentity)principal.Identity).AddClaims(new[] {
-                    new Claim(CustomClaimTypes.CityOther, user.CityOther)
-                });
-            }
+                case 1:
+                    ((ClaimsIdentity)principal.Identity).AddClaims(new[] { new Claim(CustomClaimTypes.UserType, "Admin") });
+                    break;
+                case 2:
+                    ((ClaimsIdentity)principal.Identity).AddClaims(new[] { new Claim(CustomClaimTypes.UserType, "Expert") });
+                    break;
+                case 3:
+                    ((ClaimsIdentity)principal.Identity).AddClaims(new[] { new Claim(CustomClaimTypes.UserType, "SimpleUser") });
+                    break;
+                default:
+                    ((ClaimsIdentity)principal.Identity).AddClaims(new[] { new Claim(CustomClaimTypes.UserType, "") });
+                    break;
+            }  
 
 
-            if (user.DateOfBirth != DateTime.MinValue)
-            {
-                ((ClaimsIdentity)principal.Identity).AddClaims(new[] {
-                    new Claim(CustomClaimTypes.DateOfBirth, user.DateOfBirth.ToString())
-                });
-            }
+            //if (!string.IsNullOrWhiteSpace(user.CityOther))
+            //{
+            //    ((ClaimsIdentity)principal.Identity).AddClaims(new[] {
+            //        new Claim(CustomClaimTypes.CityOther, user.CityOther)
+            //    });
+            //}
 
-            if (user.GenderID.GetValueOrDefault(0) != 0)
-            {
-                ((ClaimsIdentity)principal.Identity).AddClaims(new[] {
-                    new Claim(CustomClaimTypes.GenderID, user.GenderID.ToString())
-                });
-            }
 
-            if (user.RegionID.GetValueOrDefault(0) != 0)
-            {
-                ((ClaimsIdentity)principal.Identity).AddClaims(new[] {
-                    new Claim(CustomClaimTypes.RegionID, user.RegionID.ToString())
-                });
-            }
+            //if (user.DateOfBirth != DateTime.MinValue)
+            //{
+            //    ((ClaimsIdentity)principal.Identity).AddClaims(new[] {
+            //        new Claim(CustomClaimTypes.DateOfBirth, user.DateOfBirth.ToString())
+            //    });
+            //}
 
-            if (user.CityID.GetValueOrDefault(0) != 0)
-            {
-                ((ClaimsIdentity)principal.Identity).AddClaims(new[] {
-                    new Claim(CustomClaimTypes.CityID, user.CityID.ToString())
-                });
-            }
+            //if (user.GenderID.GetValueOrDefault(0) != 0)
+            //{
+            //    ((ClaimsIdentity)principal.Identity).AddClaims(new[] {
+            //        new Claim(CustomClaimTypes.GenderID, user.GenderID.ToString())
+            //    });
+            //}
+
+            //if (user.RegionID.GetValueOrDefault(0) != 0)
+            //{
+            //    ((ClaimsIdentity)principal.Identity).AddClaims(new[] {
+            //        new Claim(CustomClaimTypes.RegionID, user.RegionID.ToString())
+            //    });
+            //}
+
+            //if (user.CityID.GetValueOrDefault(0) != 0)
+            //{
+            //    ((ClaimsIdentity)principal.Identity).AddClaims(new[] {
+            //        new Claim(CustomClaimTypes.CityID, user.CityID.ToString())
+            //    });
+            //}
 
 
             //if (!string.IsNullOrWhiteSpace(user.UserType))

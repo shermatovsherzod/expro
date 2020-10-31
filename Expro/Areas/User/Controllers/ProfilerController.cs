@@ -2,15 +2,17 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Expro.Controllers;
 using Expro.Models;
 using Expro.Services.Interfaces;
 using Expro.ViewModels.Expert;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Expro.Controllers
+namespace Expro.Areas.User.Controllers
 {
-    public class ProfileUserController : BaseController
+    [Area("User")]
+    public class ProfileController : BaseController
     {
         private readonly UserManager<ApplicationUser> _userManager;       
         private readonly IRegionService _regionService;
@@ -18,7 +20,7 @@ namespace Expro.Controllers
         private readonly IGenderService _genderService;
         private readonly ICountryService _countryService;
 
-        public ProfileUserController(
+        public ProfileController(
             UserManager<ApplicationUser> userManager,          
             IRegionService regionService,
             ICityService cityService,

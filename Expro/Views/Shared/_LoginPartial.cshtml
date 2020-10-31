@@ -2,25 +2,50 @@
 @inject SignInManager<ApplicationUser> SignInManager
 @inject UserManager<ApplicationUser> UserManager
 
+
+@using Microsoft.AspNetCore.Authorization
+@inject IAuthorizationService AuthorizationService
+
 <ul class="navbar-nav">
-@if (SignInManager.IsSignedIn(User))
-{
+    @if (SignInManager.IsSignedIn(User))
+    {
     <li class="nav-item">
-        <a href="/Profile"  class="nav-link text-dark" title="Manage">Hello @User.Identity.Name!</a>
+        @{
+            var userType = User.Claims.FirstOrDefault(c => c.Type == "UserType");
+            if (userType != null)
+            {
+                if (userType.Value=="Admin")
+                {
+                    <a href="/Admin/Profile" class="nav-link text-dark" title="Manage">Hello @User.Identity.Name!</a>
+                }
+                else if (userType.Value == "Expert")
+                {
+                    <a href="/Expert/Profile" class="nav-link text-dark" title="Manage">Hello @User.Identity.Name!</a>
+                }
+                else if (userType.Value == "SimpleUser")
+                {
+                    <a href="/User/Profile" class="nav-link text-dark" title="Manage">Hello @User.Identity.Name!</a>
+                }
+            }
+        }
+
+
+
+
     </li>
-    <li class="nav-item">
-        <form  class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
-            <button  type="submit" class="nav-link btn btn-link text-dark">Logout</button>
-        </form>
-    </li>
-}
-else
-{
-    <li class="nav-item">
-        <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Register">Register</a>
-    </li>
-    <li class="nav-item">
-        <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Login">Login</a>
-    </li>
-}
+        <li class="nav-item">
+            <form class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
+                <button type="submit" class="nav-link btn btn-link text-dark">Logout</button>
+            </form>
+        </li>
+    }
+    else
+    {
+        <li class="nav-item">
+            <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Register">Register</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Login">Login</a>
+        </li>
+    }
 </ul>
