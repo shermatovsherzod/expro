@@ -48,6 +48,10 @@
   <ItemGroup>
     <Folder Include="Areas\Admin\Data\" />
     <Folder Include="Areas\Admin\Models\" />
+    <Folder Include="Areas\Admin\Data\" />
+    <Folder Include="Areas\Admin\Models\" />
+    <Folder Include="Areas\Expert\Data\" />
+    <Folder Include="Areas\Expert\Models\" />
     <Folder Include="Areas\Expert\Data\" />
     <Folder Include="Areas\Expert\Models\" />
     <Folder Include="Areas\User\Data\" />

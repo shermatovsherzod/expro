@@ -33,6 +33,9 @@ namespace Expro.Models
         [Display(Name = "Регион")]
         public int? RegionID { get; set; }
 
+        [Display(Name = "Регион")]
+        public string Region { get; set; }
+
         [Display(Name = "Город")]
         public int? CityID { get; set; }
 
@@ -48,6 +51,9 @@ namespace Expro.Models
         [Display(Name = "Пол")]
         public int? GenderID { get; set; }
 
+        [Display(Name = "На сайте с:")]
+        public string DateRegistered { get; set; }
+
         public ProfileSimpleUserVM(ApplicationUser model) // : base(model)
         {
             if (model == null)
@@ -61,6 +67,8 @@ namespace Expro.Models
             CityOther = model.CityOther;          
             DateOfBirth = DateTimeUtils.ConvertToString(model.DateOfBirth, "dd/MM/yyyy");
             GenderID = model.GenderID;
+            Region = model.Region != null ? model.Region.Name:"";
+            DateRegistered = DateTimeUtils.ConvertToString(model.DateRegistered, "dd/MM/yyyy");
         }
     }
 }

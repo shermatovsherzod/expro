@@ -21,10 +21,22 @@
                     <partial name="_LoginPartial" />
                     <ul class="navbar-nav flex-grow-1">
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                            <a class="nav-link text-dark" asp-area="User" asp-controller="Home" asp-action="Index">Главная</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                            <a class="nav-link text-dark" asp-area="User" asp-controller="Home" asp-action="">Эксперты</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="User" asp-controller="Home" asp-action="">Вопросы</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="User" asp-controller="Home" asp-action="">Статьи</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="User" asp-controller="Home" asp-action="">FAQ</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="User" asp-controller="Home" asp-action="">Контакты</a>
                         </li>
                     </ul>
                 </div>
@@ -33,7 +45,47 @@
     </header>
     <div class="container">
         <main role="main" class="pb-3">
-            @RenderBody()
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="row mb-1">
+                        <div class="col-md-12">
+                            <div class="list-group">                               
+                                @await Component.InvokeAsync("UserInfo")
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mb-1">
+                        <div class="col-md-12">
+                            <div class="list-group">
+                                @await Component.InvokeAsync("UserDocuments")
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+
+                    @RenderBody()
+
+                </div>
+                <div class="col-md-3">
+                    <div class="row mb-1">
+                        <div class="col-md-12">
+                            <div class="list-group">
+                                @await Component.InvokeAsync("UserBalance")
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row mb-1">
+                        <div class="col-md-12">
+                            <div class="list-group">
+                                @await Component.InvokeAsync("TermsOfUse")
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
         </main>
     </div>
 
