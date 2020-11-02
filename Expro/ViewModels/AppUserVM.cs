@@ -1,4 +1,5 @@
 ﻿using Expro.Models;
+using Expro.Models.Enums;
 using Expro.Utils;
 using System;
 using System.Collections.Generic;
@@ -23,7 +24,8 @@ namespace Expro.ViewModels
             }
         }
         public string Email { get; set; }
-        public string UserType { get; set; }
+        //public string UserType { get; set; }
+        public UserTypesEnum? UserType { get; set; }
 
         //public string PhoneNumber { get; set; }
         //public DateTime DateOfBirth { get; set; }     
@@ -50,7 +52,14 @@ namespace Expro.ViewModels
             LastName = user.FindFirst(CustomClaimTypes.LastName).Value;
             UserName = user.FindFirst(CustomClaimTypes.UserName).Value;
             Email = user.FindFirst(CustomClaimTypes.Email).Value;
-            UserType= user.FindFirst(CustomClaimTypes.UserType).Value;
+            //UserType= user.FindFirst(CustomClaimTypes.UserType).Value;
+            int userTypeInt = 0;
+            var userTypeClaim = user.FindFirst(CustomClaimTypes.UserType);
+            if (userTypeClaim != null && (!string.IsNullOrWhiteSpace(userTypeClaim.Value)))
+                int.TryParse(userTypeClaim.Value, out userTypeInt);
+            if (Enum.IsDefined(typeof(UserTypesEnum), userTypeInt))
+                UserType = (UserTypesEnum)userTypeInt;
+
             //PhoneNumber = user.FindFirst(CustomClaimTypes.PhoneNumber).Value;       
             //PatronymicName = user.FindFirst(CustomClaimTypes.PatronymicName).Value;        
             //CityOther = user.FindFirst(CustomClaimTypes.CityOther).Value;

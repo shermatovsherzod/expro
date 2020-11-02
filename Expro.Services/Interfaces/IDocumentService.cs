@@ -1,4 +1,5 @@
 ﻿using Expro.Models;
+using Expro.Models.Enums;
 using System.Linq;
 
 namespace Expro.Services.Interfaces
@@ -25,5 +26,17 @@ namespace Expro.Services.Interfaces
         bool IsFree(Document model);
         IQueryable<Document> GetDocumentsPurchasedByUser(ApplicationUser user);
         void RejectionDeadlineReaches(Document document);
+
+        IQueryable<Document> Search(
+            int? start,
+            int? length,
+
+            out int recordsTotal,
+            out int recordsFiltered,
+            out string error,
+
+            UserTypesEnum curUserType,
+            int? statusID,
+            DocumentPriceTypesEnum? priceType);
     }
 }

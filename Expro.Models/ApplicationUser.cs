@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using Expro.Models.Enums;
+using Microsoft.AspNetCore.Identity;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -27,9 +28,7 @@ namespace Expro.Models
        
         public DateTime DateRegistered { get; set; }
       
-      
-
-        public int UserType { get; set; }
+        public UserTypesEnum UserType { get; set; }
 
         [ForeignKey("Gender")]
         public int? GenderID { get; set; }

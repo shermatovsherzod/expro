@@ -210,5 +210,59 @@ namespace Expro.Services
         {
             return inputDateTime.Date.AddDays(1).AddSeconds(-1);
         }
+
+        public IQueryable<Document> Search(
+            int? start,
+            int? length,
+
+            out int recordsTotal,
+            out int recordsFiltered,
+            out string error,
+
+            UserTypesEnum curUserType,
+            int? statusID,
+            DocumentPriceTypesEnum? priceType)
+        {
+            recordsTotal = 0;
+            recordsFiltered = 0;
+            error = "";
+
+            try
+            {
+                IQueryable<Document> documents = GetAsIQueryable();
+                recordsTotal = documents.Count();
+
+
+                //if 
+                if (statusID.HasValue)
+                    documents = documents.Where(m => m.DocumentStatusID == statusID.Value);
+
+                if (priceType.HasValue)
+                    documents = documents.Where(m => m.PriceType == priceType.Value);
+
+
+
+                recordsFiltered = documents.Count();
+
+                documents = documents.OrderByDescending(m => m.DateModified);
+                if (start.HasValue && start.Value > 0)
+                    documents = documents.Skip(start.Value);
+                if (length.HasValue && length.Value > 0)
+                    documents = documents.Take(length.Value);
+
+                //IQueryable<VideoRequest> data = videoRequests.Skip(start).Take(length.Value);
+
+                //return documents.OrderByDescending(m => m.DateModified);
+                return documents;
+            }
+            catch (Exception ex)
+            {
+                error += ex.Message;
+                if (ex.InnerException != null)
+                    error += ". Inner exception: " + ex.InnerException.Message;
+
+                return Enumerable.Empty<Document>().AsQueryable();
+            }
+        }
     }
 }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Expro.Controllers;
+using Expro.Models;
 using Expro.Models.Enums;
 using Expro.Services.Interfaces;
 using Expro.ViewModels;
@@ -18,33 +19,109 @@ namespace Expro.Areas.Expert.Controllers
         private readonly IAttachmentService AttachmentService;
         private readonly IDocumentService DocumentService;
         private readonly IHangfireService HangfireService;
+        private readonly IDocumentStatusService DocumentStatusService;
 
         public SampleDocumentController(
             ILawAreaService lawAreaService,
             ILanguageService languageService,
             IAttachmentService attachmentService,
             IDocumentService documentService,
-            IHangfireService hangfireService)
+            IHangfireService hangfireService,
+            IDocumentStatusService documentStatusService)
         {
             LawAreaService = lawAreaService;
             LanguageService = languageService;
             AttachmentService = attachmentService;
             DocumentService = documentService;
             HangfireService = hangfireService;
+            DocumentStatusService = documentStatusService;
         }
 
         public IActionResult Index()
         {
+            //var curUser = accountUtil.GetCurrentUser(User);
+            //var documents = DocumentService.GetSampleDocumentsForExpert(curUser.ID).ToList();
+
+            //var documentVMs = new List<SampleDocumentListItemForExpertVM>();
+            //foreach (var item in documents)
+            //{
+            //    documentVMs.Add(new SampleDocumentListItemForExpertVM(item));
+            //}
+
+            //return View(documentVMs);
+
+            //ViewData["lawAreas"] = LawAreaService.GetAsIQueryable()
+            //    .Select(m => new SelectListItemWithParent()
+            //    {
+            //        Value = m.ID.ToString(),
+            //        Text = m.Name,
+            //        Selected = false,
+            //        ParentValue = m.ParentID.HasValue ? m.ParentID.Value.ToString() : ""
+            //    }).ToList();
+
+            ViewData["statuses"] = DocumentStatusService.GetAsSelectList();
+
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult Search(//SampleDocumentFilterForExpertVM filterVM,
+            int draw, int? start = null, int? length = null,
+            int? statusID = null, DocumentPriceTypesEnum? priceType = null)
+        {
+            int recordsTotal = 0;
+            int recordsFiltered = 0;
+            string error = "";
+
             var curUser = accountUtil.GetCurrentUser(User);
-            var documents = DocumentService.GetSampleDocumentsForExpert(curUser.ID).ToList();
+            //string userID = curUser.ID;
+            //string userType = curUser.Type;
 
-            var documentVMs = new List<SampleDocumentListItemForExpertVM>();
-            foreach (var item in documents)
+            //if (filterVM == null)
+            //    filterVM = new SampleDocumentFilterForExpertVM();
+
+            IQueryable<Document> dataIQueryable = DocumentService.Search(
+                start,
+                length,
+
+                out recordsTotal,
+                out recordsFiltered,
+                out error,
+
+                curUser.UserType.Value,
+                statusID,
+                priceType
+            );
+
+            dynamic data = dataIQueryable
+                .ToList()
+                .Select(m => new SampleDocumentListItemForExpertVM(m))
+                .ToList();
+
+            //dynamic data = null;
+            //if (AccountUtil.IsUserTalent(curUser))
+            //{
+            //    //data = new List<VideoRequestListItemForTalentVM>();
+            //    data = dataIQueryable
+            //        .Select(m => new VideoRequestListItemForTalentVM(m))
+            //        .ToList();
+            //}
+            //else
+            //{
+            //    //data = new List<VideoRequestListItemForTalentVM>();
+            //    data = dataIQueryable
+            //        .Select(m => new VideoRequestListItemForCustomerVM(m))
+            //        .ToList();
+            //}
+
+            return Json(new
             {
-                documentVMs.Add(new SampleDocumentListItemForExpertVM(item));
-            }
-
-            return View(documentVMs);
+                draw = draw,
+                recordsTotal = recordsTotal,
+                recordsFiltered = recordsFiltered,
+                data = data,
+                error = error
+            });
         }
 
         public IActionResult CreateFree()

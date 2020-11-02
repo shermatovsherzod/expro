@@ -6,25 +6,32 @@
 @using Microsoft.AspNetCore.Authorization
 @inject IAuthorizationService AuthorizationService
 
+@using Expro.Models.Enums
+
 <ul class="navbar-nav">
     @if (SignInManager.IsSignedIn(User))
     {
     <li class="nav-item">
         @{
-            var userType = User.Claims.FirstOrDefault(c => c.Type == "UserType");
-            if (userType != null)
+            var userTypeClaim = User.Claims.FirstOrDefault(c => c.Type == "UserType");
+            if (userTypeClaim != null && (!string.IsNullOrWhiteSpace(userTypeClaim.Value)))
             {
-                if (userType.Value=="Admin")
+                int userTypeInt = 0;
+                int.TryParse(userTypeClaim.Value, out userTypeInt);
+                if (Enum.IsDefined(typeof(UserTypesEnum), userTypeInt))
                 {
-                    <a href="/Admin/Profile" class="nav-link text-dark" title="Manage">Hello @User.Identity.Name!</a>
-                }
-                else if (userType.Value == "Expert")
-                {
-                    <a href="/Expert/Profile" class="nav-link text-dark" title="Manage">Hello @User.Identity.Name!</a>
-                }
-                else if (userType.Value == "SimpleUser")
-                {
-                    <a href="/User/Profile" class="nav-link text-dark" title="Manage">Hello @User.Identity.Name!</a>
+                    if ((UserTypesEnum)userTypeInt == UserTypesEnum.Admin)
+                    {
+                        <a href="/Admin/Profile" class="nav-link text-dark" title="Manage">Hello @User.Identity.Name!</a>
+                    }
+                    else if ((UserTypesEnum)userTypeInt == UserTypesEnum.Expert)
+                    {
+                        <a href="/Expert/Profile" class="nav-link text-dark" title="Manage">Hello @User.Identity.Name!</a>
+                    }
+                    else if ((UserTypesEnum)userTypeInt == UserTypesEnum.SimpleUser)
+                    {
+                        <a href="/User/Profile" class="nav-link text-dark" title="Manage">Hello @User.Identity.Name!</a>
+                    }
                 }
             }
         }

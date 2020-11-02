@@ -86,21 +86,25 @@ namespace Expro.Utils
                 });
             }
 
-            switch (user.UserType)
-            {
-                case 1:
-                    ((ClaimsIdentity)principal.Identity).AddClaims(new[] { new Claim(CustomClaimTypes.UserType, "Admin") });
-                    break;
-                case 2:
-                    ((ClaimsIdentity)principal.Identity).AddClaims(new[] { new Claim(CustomClaimTypes.UserType, "Expert") });
-                    break;
-                case 3:
-                    ((ClaimsIdentity)principal.Identity).AddClaims(new[] { new Claim(CustomClaimTypes.UserType, "SimpleUser") });
-                    break;
-                default:
-                    ((ClaimsIdentity)principal.Identity).AddClaims(new[] { new Claim(CustomClaimTypes.UserType, "") });
-                    break;
-            }  
+            ((ClaimsIdentity)principal.Identity).AddClaims(new[] {
+                new Claim(CustomClaimTypes.UserType, ((int)user.UserType).ToString())
+            });
+
+            //switch (user.UserType)
+            //{
+            //    case 1:
+            //        ((ClaimsIdentity)principal.Identity).AddClaims(new[] { new Claim(CustomClaimTypes.UserType, "Admin") });
+            //        break;
+            //    case 2:
+            //        ((ClaimsIdentity)principal.Identity).AddClaims(new[] { new Claim(CustomClaimTypes.UserType, "Expert") });
+            //        break;
+            //    case 3:
+            //        ((ClaimsIdentity)principal.Identity).AddClaims(new[] { new Claim(CustomClaimTypes.UserType, "SimpleUser") });
+            //        break;
+            //    default:
+            //        ((ClaimsIdentity)principal.Identity).AddClaims(new[] { new Claim(CustomClaimTypes.UserType, "") });
+            //        break;
+            //}  
 
 
             //if (!string.IsNullOrWhiteSpace(user.CityOther))

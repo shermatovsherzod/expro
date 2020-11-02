@@ -90,11 +90,11 @@ namespace Expro.Areas.Identity.Pages.Account
                 // Upon successfully changing the password refresh sign-in cookie
                 await _signInManager.RefreshSignInAsync(user);
 
-                if (user.UserType==(int) UserTypesEnum.Expert)
+                if (user.UserType==UserTypesEnum.Expert)
                 {
                     return Redirect("~/Profile");
                 }
-                if (user.UserType == (int)UserTypesEnum.SimpleUser)
+                if (user.UserType == UserTypesEnum.SimpleUser)
                 {
                     return Redirect("~/ProfileUser");
                 }

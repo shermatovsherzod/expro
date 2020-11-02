@@ -138,7 +138,7 @@ namespace Expro.Areas.Identity.Pages.Account
                     LastName = Input.LastName,
                     PatronymicName = Input.PatronymicName,
                     PhoneNumber = Input.PhoneNumber,
-                    UserType = (int)UserTypesEnum.Expert,
+                    UserType = UserTypesEnum.Expert,
                     RegionID = Input.RegionID,
                     CityID = Input.CityID == 0 ? null : Input.CityID,
                     CityOther = Input.CityID == null ? Input.CityOther : null,

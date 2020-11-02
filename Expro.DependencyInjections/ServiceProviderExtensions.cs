@@ -34,6 +34,7 @@ namespace Expro.DependencyInjections
             services.AddTransient<IAttachmentRepository, AttachmentRepository>();
             services.AddTransient<IDocumentRepository, DocumentRepository>();
             services.AddTransient<IUserPurchasedDocumentRepository, UserPurchasedDocumentRepository>();
+            services.AddTransient<IDocumentStatusRepository, DocumentStatusRepository>();
         }
 
         public static void AddServices(this IServiceCollection services)
@@ -55,6 +56,7 @@ namespace Expro.DependencyInjections
             services.AddTransient<IUserBalanceService, UserBalanceService>();
             services.AddTransient<IUserPurchasedDocumentService, UserPurchasedDocumentService>();
             services.AddTransient<IHangfireService, HangfireService>();
+            services.AddTransient<IDocumentStatusService, DocumentStatusService>();
         }
     }
 }

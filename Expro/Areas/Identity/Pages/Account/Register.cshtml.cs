@@ -109,7 +109,7 @@ namespace Expro.Areas.Identity.Pages.Account
                     FirstName = Input.Name,
                     LastName = Input.Surname,
                     PhoneNumber = Input.PhoneNumber,
-                    UserType = (int)UserTypesEnum.SimpleUser,
+                    UserType = UserTypesEnum.SimpleUser,
                     DateRegistered = DateTime.Now
                 };
                 _userBalanceService.AssignAccountNumber(user);
