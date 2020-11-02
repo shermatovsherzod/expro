@@ -37,6 +37,8 @@ namespace Expro.Services.Interfaces
 
             UserTypesEnum curUserType,
             int? statusID,
-            DocumentPriceTypesEnum? priceType);
+            DocumentPriceTypesEnum? priceType,
+            string authorID,
+            ApplicationUser purchaser);
     }
 }

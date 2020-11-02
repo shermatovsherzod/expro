@@ -221,7 +221,9 @@ namespace Expro.Services
 
             UserTypesEnum curUserType,
             int? statusID,
-            DocumentPriceTypesEnum? priceType)
+            DocumentPriceTypesEnum? priceType,
+            string authorID,
+            ApplicationUser purchaser)
         {
             recordsTotal = 0;
             recordsFiltered = 0;
@@ -229,14 +231,21 @@ namespace Expro.Services
 
             try
             {
-                IQueryable<Document> documents = GetAsIQueryable();
+                IQueryable<Document> documents;
+
+                if (curUserType == UserTypesEnum.Admin)
+                    documents = GetSampleDocumentsForAdmin();
+                else if (curUserType == UserTypesEnum.Expert)
+                    documents = GetSampleDocumentsForExpert(authorID);
+                else if (curUserType == UserTypesEnum.SimpleUser)
+                    documents = GetDocumentsPurchasedByUser(purchaser);
+                else
+                    documents = GetSampleDocumentsApproved();
+
                 recordsTotal = documents.Count();
 
-
-                //if 
                 if (statusID.HasValue)
                     documents = documents.Where(m => m.DocumentStatusID == statusID.Value);
-
                 if (priceType.HasValue)
                     documents = documents.Where(m => m.PriceType == priceType.Value);
 

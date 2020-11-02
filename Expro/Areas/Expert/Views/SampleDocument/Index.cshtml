@@ -1,17 +1,17 @@
-﻿@model IEnumerable<Expro.ViewModels.SampleDocumentListItemForExpertVM>
+﻿@*@model IEnumerable<Expro.ViewModels.SampleDocumentListItemForExpertVM>*@
 @using Expro.ViewModels
 @using Expro.Models.Enums
 
 @{
-    ViewData["Title"] = "Намунавий хужжатлар";
+    ViewData["Title"] = "Образцовые документы";
 }
 
 <h1>@ViewData["Title"]</h1>
 <br />
 <div class="row">
     <div class="col-12">
-        <p><a href="/Expert/SampleDocument/CreateFree" class="btn btn-info">Хужжат яратиш</a></p>
-        <p><a href="/Expert/SampleDocument/CreatePaid" class="btn btn-primary">Пуллик Хужжат яратиш</a></p>
+        <p><a href="/Expert/SampleDocument/CreateFree" class="btn btn-info">Добавить новый документ</a></p>
+        <p><a href="/Expert/SampleDocument/CreatePaid" class="btn btn-primary">Добавить новый платный документ</a></p>
     </div>
 </div>
 <br />
@@ -73,37 +73,11 @@
         </tr>
     </thead>
     <tbody>
-        @*@foreach (var item in Model)
-        {
-            <tr>
-                <td>@item.Title</td>
-                <td>@item.Price</td>
-                @{
-                    string alertClass = "alert ";
-                    if (item.Status.ID == (int)DocumentStatusesEnum.WaitingForApproval)
-                    { alertClass = "alert-warning"; }
-                    else if (item.Status.ID == (int)DocumentStatusesEnum.Approved)
-                    { alertClass = "alert-success"; }
-                    else if (item.Status.ID == (int)DocumentStatusesEnum.Rejected)
-                    { alertClass = "alert-danger"; }
-                }
-                <td class="@alertClass">
-                    @item.Status.Name
-                </td>
-                <td>@item.DateModified</td>
-                <td>
-                    @{ 
-                        string editAction = "EditFree";
-                        if (item.PriceType == DocumentPriceTypesEnum.Paid)
-                        { editAction = "EditPaid"; }
-                    }
-                    <a href="/Expert/SampleDocument/@editAction/@item.ID" class="btn btn-outline-primary">Открыть</a>
-                </td>
-            </tr>
-        }*@
     </tbody>
 </table>
+
 <link href="~/lib/DataTables-1.10.22/datatables.css" rel="stylesheet" />
+
 @section Scripts
 {
     <script src="~/lib/DataTables-1.10.22/datatables.js"></script>
@@ -188,7 +162,7 @@
                             if (full.priceType == "@DocumentPriceTypesEnum.Paid")
                                 editAction = "EditPaid";
 
-                            var html = '<a href="/Expert/SampleDocument/' + editAction + '/' + full.id + '" class="btn btn-outline-primary">Открыть</a>';
+                            var html = '<a href="/Expert/SampleDocument/' + editAction + '/' + full.id + '" class="btn btn-outline-primary" target="_blank">Открыть</a>';
                             return html;
                         }
                     }

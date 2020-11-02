@@ -7,6 +7,7 @@ using Expro.Models;
 using Expro.Models.Enums;
 using Expro.Services.Interfaces;
 using Expro.ViewModels;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Expro.Areas.Expert.Controllers
@@ -20,6 +21,7 @@ namespace Expro.Areas.Expert.Controllers
         private readonly IDocumentService DocumentService;
         private readonly IHangfireService HangfireService;
         private readonly IDocumentStatusService DocumentStatusService;
+        private readonly UserManager<ApplicationUser> _userManager;
 
         public SampleDocumentController(
             ILawAreaService lawAreaService,
@@ -27,7 +29,8 @@ namespace Expro.Areas.Expert.Controllers
             IAttachmentService attachmentService,
             IDocumentService documentService,
             IHangfireService hangfireService,
-            IDocumentStatusService documentStatusService)
+            IDocumentStatusService documentStatusService,
+            UserManager<ApplicationUser> userManager)
         {
             LawAreaService = lawAreaService;
             LanguageService = languageService;
@@ -35,6 +38,7 @@ namespace Expro.Areas.Expert.Controllers
             DocumentService = documentService;
             HangfireService = hangfireService;
             DocumentStatusService = documentStatusService;
+            _userManager = userManager;
         }
 
         public IActionResult Index()
@@ -74,11 +78,7 @@ namespace Expro.Areas.Expert.Controllers
             string error = "";
 
             var curUser = accountUtil.GetCurrentUser(User);
-            //string userID = curUser.ID;
-            //string userType = curUser.Type;
-
-            //if (filterVM == null)
-            //    filterVM = new SampleDocumentFilterForExpertVM();
+            //ApplicationUser user = await _userManager.GetUserAsync(User);
 
             IQueryable<Document> dataIQueryable = DocumentService.Search(
                 start,
@@ -90,29 +90,15 @@ namespace Expro.Areas.Expert.Controllers
 
                 curUser.UserType.Value,
                 statusID,
-                priceType
+                priceType,
+                curUser.ID,
+                null
             );
 
             dynamic data = dataIQueryable
                 .ToList()
                 .Select(m => new SampleDocumentListItemForExpertVM(m))
                 .ToList();
-
-            //dynamic data = null;
-            //if (AccountUtil.IsUserTalent(curUser))
-            //{
-            //    //data = new List<VideoRequestListItemForTalentVM>();
-            //    data = dataIQueryable
-            //        .Select(m => new VideoRequestListItemForTalentVM(m))
-            //        .ToList();
-            //}
-            //else
-            //{
-            //    //data = new List<VideoRequestListItemForTalentVM>();
-            //    data = dataIQueryable
-            //        .Select(m => new VideoRequestListItemForCustomerVM(m))
-            //        .ToList();
-            //}
 
             return Json(new
             {
