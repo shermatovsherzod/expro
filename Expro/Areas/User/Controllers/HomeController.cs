@@ -10,9 +10,8 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Expro.Areas.User.Controllers
 {
-
     [Area("User")]
-    public class UserPersonalAreaController : BaseController
+    public class HomeController : BaseController
     {
         public IActionResult Index()
         {

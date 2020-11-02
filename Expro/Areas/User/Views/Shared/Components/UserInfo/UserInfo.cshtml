@@ -1,0 +1,23 @@
+﻿@model Expro.Models.ProfileSimpleUserVM
+@{
+    ViewData["Title"] = "UserInfo";
+}
+<a href="#" class="list-group-item list-group-item-action active">Мой профайл</a>
+<div class="list-group-item text-center">
+    <img alt="Bootstrap Image Preview" class="rounded img-fluid" src="https://www.layoutit.com/img/sports-q-c-140-140-3.jpg" />
+</div>
+<div class="list-group-item">
+    <p class="list-group-item-text text-center">
+        <b>@Model.FirstName @Model.LastName</b>
+        <br />
+        @Model.Region
+    </p>
+    <p class="list-group-item-text text-center">
+        На сайте с: @Model.DateRegistered
+    </p>
+</div>
+@*<div class="list-group-item">
+        <p class="list-group-item-text">
+            Lorem ipsum dolor sit amet
+        </p>
+    </div>*@

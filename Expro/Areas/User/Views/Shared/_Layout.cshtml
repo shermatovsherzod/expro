@@ -21,10 +21,22 @@
                     <partial name="_LoginPartial" />
                     <ul class="navbar-nav flex-grow-1">
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                            <a class="nav-link text-dark" asp-area="User" asp-controller="Home" asp-action="Index">Главная</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                            <a class="nav-link text-dark" asp-area="User" asp-controller="Home" asp-action="">Эксперты</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="User" asp-controller="Home" asp-action="">Вопросы</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="User" asp-controller="Home" asp-action="">Статьи</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="User" asp-controller="Home" asp-action="">FAQ</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="User" asp-controller="Home" asp-action="">Контакты</a>
                         </li>
                     </ul>
                 </div>
@@ -37,38 +49,15 @@
                 <div class="col-md-3">
                     <div class="row mb-1">
                         <div class="col-md-12">
-                            <div class="list-group">
-                                <a href="#" class="list-group-item list-group-item-action active">Мой профайл</a>
-                                <div class="list-group-item text-center">
-                                    <img alt="Bootstrap Image Preview" class="rounded" src="https://www.layoutit.com/img/sports-q-c-140-140-3.jpg" />
-                                </div>
-                                <div class="list-group-item">
-                                    <p class="list-group-item-text">
-                                        Lorem ipsum dolor sit amet
-                                    </p>
-                                </div>
-                                <div class="list-group-item">
-                                    <p class="list-group-item-text">
-                                        Lorem ipsum dolor sit amet
-                                    </p>
-                                </div>
+                            <div class="list-group">                              
+                                @await Component.InvokeAsync("UserInfo")                              
                             </div>
                         </div>
                     </div>
                     <div class="row mb-1">
                         <div class="col-md-12">
                             <div class="list-group">
-                                <a href="#" class="list-group-item list-group-item-action active">Анкета</a>
-                                <div class="list-group-item">
-                                    <p class="list-group-item-text">
-                                        Lorem ipsum dolor sit amet
-                                    </p>
-                                </div>
-                                <div class="list-group-item">
-                                    <p class="list-group-item-text">
-                                        Lorem ipsum dolor sit amet
-                                    </p>
-                                </div>
+                                @await Component.InvokeAsync("UserDocuments")
                             </div>
                         </div>
                     </div>
@@ -82,17 +71,7 @@
                     <div class="row mb-1">
                         <div class="col-md-12">
                             <div class="list-group">
-                                <a href="#" class="list-group-item list-group-item-action active">Баланс</a>
-                                <div class="list-group-item">
-                                    <p class="list-group-item-text">
-                                        Lorem ipsum dolor sit amet
-                                    </p>
-                                </div>
-                                <div class="list-group-item">
-                                    <p class="list-group-item-text">
-                                        Lorem ipsum dolor sit amet
-                                    </p>
-                                </div>
+                                @await Component.InvokeAsync("UserBalance")                              
                             </div>
                         </div>
                     </div>
@@ -100,24 +79,14 @@
                     <div class="row mb-1">
                         <div class="col-md-12">
                             <div class="list-group">
-                                <a href="#" class="list-group-item list-group-item-action active">Правовые документы</a>
-                                <div class="list-group-item">
-                                    <p class="list-group-item-text">
-                                        Lorem ipsum dolor sit amet
-                                    </p>
-                                </div>
-                                <div class="list-group-item">
-                                    <p class="list-group-item-text">
-                                        Lorem ipsum dolor sit amet
-                                    </p>
-                                </div>
+                                @await Component.InvokeAsync("TermsOfUse")                               
                             </div>
                         </div>
                     </div>
                 </div>
-                    </div>
+            </div>
 
-</main>
+        </main>
     </div>
 
     <footer class="border-top footer text-muted">
