@@ -98,7 +98,7 @@ namespace Expro.Areas.Identity.Pages.Account
                 {
                     return Redirect("~/User/Profile");
                 }
-                if (user.UserType == (int)UserTypesEnum.Admin)
+                if (user.UserType == UserTypesEnum.Admin)
                 {
                     return Redirect("~/Admin/Profile");
                 }
