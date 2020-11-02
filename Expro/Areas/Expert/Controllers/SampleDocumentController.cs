@@ -69,7 +69,7 @@ namespace Expro.Areas.Expert.Controllers
         }
 
         [HttpPost]
-        public IActionResult Search(//SampleDocumentFilterForExpertVM filterVM,
+        public IActionResult Search(
             int draw, int? start = null, int? length = null,
             int? statusID = null, DocumentPriceTypesEnum? priceType = null)
         {
