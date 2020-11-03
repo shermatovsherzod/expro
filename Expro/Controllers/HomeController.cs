@@ -25,15 +25,15 @@ namespace Expro.Controllers
                 var userType = User.Claims.FirstOrDefault(c => c.Type == "UserType");
                 if (userType != null)
                 {
-                    if (userType.Value == "Admin")
+                    if (int.Parse(userType.Value) == 1)
                     {
                         return Redirect("/Admin/Home");
                     }
-                    else if (userType.Value == "Expert")
+                    else if (int.Parse(userType.Value) == 2)
                     {
                         return Redirect("/Expert/Home");
                     }
-                    else if (userType.Value == "SimpleUser")
+                    else if (int.Parse(userType.Value) == 3)
                     {
                         return Redirect("/User/Home");
                     }

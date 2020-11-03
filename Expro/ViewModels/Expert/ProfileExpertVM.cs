@@ -9,9 +9,9 @@ using System.Text;
 
 namespace Expro.Models
 {
-    public class ExpertProfileMainInfoVM
+    public class ProfileExpertVM
     {
-        public ExpertProfileMainInfoVM()
+        public ProfileExpertVM()
         {
 
         }
@@ -52,7 +52,10 @@ namespace Expro.Models
         [Display(Name = "Пол")]
         public int? GenderID { get; set; }
 
-        public ExpertProfileMainInfoVM(ApplicationUser model) // : base(model)
+        [Display(Name = "На сайте с:")]
+        public string DateRegistered { get; set; }
+
+        public ProfileExpertVM(ApplicationUser model) // : base(model)
         {
             if (model == null)
                 return;
@@ -66,6 +69,7 @@ namespace Expro.Models
             LawAreas = model.UserLawAreas != null ? model.UserLawAreas.Select(r => (int)r.LawAreaID).ToList() : null;
             DateOfBirth = DateTimeUtils.ConvertToString(model.DateOfBirth, "dd/MM/yyyy");
             GenderID = model.GenderID;
+            DateRegistered = DateTimeUtils.ConvertToString(model.DateRegistered, "dd/MM/yyyy");
         }
     }
 }
