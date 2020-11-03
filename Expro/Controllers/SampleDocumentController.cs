@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Expro.Common;
 using Expro.Controllers;
 using Expro.Models;
+using Expro.Models.Enums;
 using Expro.Services.Interfaces;
 using Expro.ViewModels;
 using Microsoft.AspNetCore.Identity;
@@ -18,17 +19,20 @@ namespace Expro.Controllers
         private readonly IUserBalanceService UserBalanceService;
         private readonly IUserPurchasedDocumentService UserPurchasedDocumentService;
         private readonly UserManager<ApplicationUser> _userManager;
+        private readonly ILawAreaService LawAreaService;
 
         public SampleDocumentController(
             IDocumentService documentService,
             IUserBalanceService userBalanceService,
             IUserPurchasedDocumentService userPurchasedDocumentService,
-            UserManager<ApplicationUser> userManager)
+            UserManager<ApplicationUser> userManager,
+            ILawAreaService lawAreaService)
         {
             DocumentService = documentService;
             UserBalanceService = userBalanceService;
             UserPurchasedDocumentService = userPurchasedDocumentService;
             _userManager = userManager;
+            LawAreaService = lawAreaService;
         }
 
         public IActionResult Index()
@@ -41,7 +45,58 @@ namespace Expro.Controllers
                 documentVMs.Add(new SampleDocumentListItemForSiteVM(item));
             }
 
+            ViewData["lawAreas"] = LawAreaService.GetAsIQueryable()
+                .Select(m => new SelectListItemWithParent()
+                {
+                    Value = m.ID.ToString(),
+                    Text = m.Name,
+                    Selected = false,
+                    ParentValue = m.ParentID.HasValue ? m.ParentID.Value.ToString() : ""
+                }).ToList();
+
             return View(documentVMs);
+        }
+
+        [HttpPost]
+        public IActionResult Search(
+            int draw, int? start = null, int? length = null,
+            int? statusID = null, DocumentPriceTypesEnum? priceType = null)
+        {
+            int recordsTotal = 0;
+            int recordsFiltered = 0;
+            string error = "";
+
+            var curUser = accountUtil.GetCurrentUser(User);
+            //ApplicationUser user = await _userManager.GetUserAsync(User);
+
+            IQueryable<Document> dataIQueryable = DocumentService.Search(
+                start,
+                length,
+
+                out recordsTotal,
+                out recordsFiltered,
+                out error,
+
+                null,
+                statusID,
+                priceType,
+                curUser.ID,
+                null
+            );
+
+            dynamic data = dataIQueryable
+                .ToList()
+                .Select(m => new SampleDocumentListItemForSiteVM(m))
+                .ToList();
+
+            return Json(new
+            {
+                draw = draw,
+                recordsTotal = recordsTotal,
+                recordsFiltered = recordsFiltered,
+                data = data,
+                error = error
+            });
         }
 
         public async Task<IActionResult> Details(int id)

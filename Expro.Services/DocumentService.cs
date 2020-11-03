@@ -11,7 +11,7 @@ namespace Expro.Services
 {
     public class DocumentService : BaseAuthorableService<Document>, IDocumentService
     {
-        private int tmpPeriodMinutes = 1;
+        private int tmpPeriodMinutes = 5;
 
         public DocumentService(IDocumentRepository repository,
                            IUnitOfWork unitOfWork)
@@ -219,7 +219,7 @@ namespace Expro.Services
             out int recordsFiltered,
             out string error,
 
-            UserTypesEnum curUserType,
+            UserTypesEnum? curUserType,
             int? statusID,
             DocumentPriceTypesEnum? priceType,
             string authorID,
@@ -233,12 +233,17 @@ namespace Expro.Services
             {
                 IQueryable<Document> documents;
 
-                if (curUserType == UserTypesEnum.Admin)
-                    documents = GetSampleDocumentsForAdmin();
-                else if (curUserType == UserTypesEnum.Expert)
-                    documents = GetSampleDocumentsForExpert(authorID);
-                else if (curUserType == UserTypesEnum.SimpleUser)
-                    documents = GetDocumentsPurchasedByUser(purchaser);
+                if (curUserType.HasValue)
+                {
+                    if (curUserType == UserTypesEnum.Admin)
+                        documents = GetSampleDocumentsForAdmin();
+                    else if (curUserType == UserTypesEnum.Expert)
+                        documents = GetSampleDocumentsForExpert(authorID);
+                    else if (curUserType == UserTypesEnum.SimpleUser)
+                        documents = GetDocumentsPurchasedByUser(purchaser);
+                    else
+                        documents = GetSampleDocumentsApproved();
+                }
                 else
                     documents = GetSampleDocumentsApproved();
 

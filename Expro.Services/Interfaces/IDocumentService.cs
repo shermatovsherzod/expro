@@ -35,7 +35,7 @@ namespace Expro.Services.Interfaces
             out int recordsFiltered,
             out string error,
 
-            UserTypesEnum curUserType,
+            UserTypesEnum? curUserType,
             int? statusID,
             DocumentPriceTypesEnum? priceType,
             string authorID,

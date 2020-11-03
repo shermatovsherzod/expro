@@ -4,7 +4,7 @@
 @using Expro.ViewModels
 
 @{
-    ViewData["Title"] = "Пуллик намунавий хужжат редактировать";
+    ViewData["Title"] = "Редактировать платный Образцовый документ";
 }
 
 <h1>@ViewData["Title"]</h1>
@@ -34,7 +34,7 @@ else if (Model.StatusID == (int)DocumentStatusesEnum.Rejected)
     </div>
 }
 <div class="row">
-    <div class="col-md-4">
+    <div class="col-md-12">
         <form asp-action="EditPaid">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input asp-for="StatusID" type="hidden" />
@@ -137,7 +137,7 @@ else if (Model.StatusID == (int)DocumentStatusesEnum.Rejected)
 </div>
 
 <div>
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Index">Назад к списку</a>
 </div>
 
 <link href="~/lib/treeselect/css/jquery.bootstrap.treeselect.css" rel="stylesheet" />

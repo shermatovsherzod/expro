@@ -91,13 +91,12 @@ namespace Expro.ViewModels
                 return;
 
             Title = model.Title;
-            Text = model.Text;
             Language = new BaseDropdownableDetailsVM(model.Language);
-
             LawAreas = model.DocumentLawAreas
                 .Select(m => new BaseDropdownableDetailsVM(m.LawArea))
                 .ToList();
 
+            ContentType = model.ContentType;
             Attachment = new AttachmentDetailsVM(model.Attachment);
             if (!string.IsNullOrWhiteSpace(model.Text))
                 Text = model.Text;

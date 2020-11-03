@@ -31,10 +31,12 @@ namespace Expro.ViewModels
         public virtual Document ToModel(Document model = null)
         {
             if (model == null)
+            {
                 model = new Document();
+                model.PriceType = DocumentPriceTypesEnum.Free;
+            }
 
             model.Title = this.Title;
-            model.PriceType = DocumentPriceTypesEnum.Free;
 
             return model;
         }
@@ -151,6 +153,7 @@ namespace Expro.ViewModels
         {
             var mmodel = base.ToModel(model);
             mmodel.Price = this.Price;
+            //model.PriceType = DocumentPriceTypesEnum.Paid;
 
             return mmodel;
         }
