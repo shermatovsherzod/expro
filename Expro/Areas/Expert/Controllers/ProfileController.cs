@@ -55,12 +55,12 @@ namespace Expro.Areas.Expert.Controllers
             ViewData["cities"] = _cityService.GetAsSelectListOne(currentUser.CityID);
             ViewData["gender"] = _genderService.GetAsSelectListOne(currentUser.GenderID);
 
-            var userMainInfo = new ExpertProfileMainInfoVM(currentUser);
+            var userMainInfo = new ProfileExpertVM(currentUser);
             return View(userMainInfo);
         }
 
         [HttpPost]
-        public async Task<ActionResult> Index(ExpertProfileMainInfoVM vmodel)
+        public async Task<ActionResult> Index(ProfileExpertVM vmodel)
         {
             var currentUserAccount = accountUtil.GetCurrentUser(User);
             var user = await _userManager.FindByIdAsync(currentUserAccount.ID);
@@ -83,7 +83,7 @@ namespace Expro.Areas.Expert.Controllers
                 IdentityResult result = await _userManager.UpdateAsync(user);
                 if (result.Succeeded)
                 {
-                    var userMainInfo = new ExpertProfileMainInfoVM(user);
+                    var userMainInfo = new ProfileExpertVM(user);
                     return View(userMainInfo);
                 }
                 else

@@ -1,0 +1,35 @@
+﻿@model IEnumerable<Expro.ViewModels.AppUserVM>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h4>Эксперты</h4>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.FullName)
+            </th>
+            <th>Ответы</th>
+            <th>Рейтинг</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>  
+                <td>
+                    @Html.DisplayFor(modelItem => item.FullName)
+                </td> 
+                <td>
+                    4
+                </td>
+                <td>
+                    6
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

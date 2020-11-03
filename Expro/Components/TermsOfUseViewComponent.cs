@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Expro.Components
 {
-    public class TermsOfUse : ViewComponent
+    public class TermsOfUseViewComponent : ViewComponent
     {
         public IViewComponentResult Invoke()
         {

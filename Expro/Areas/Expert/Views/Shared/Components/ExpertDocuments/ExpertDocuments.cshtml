@@ -1,20 +1,21 @@
 ﻿@model Expro.ViewModels.DocumentsCountVM;
 @{
-    ViewData["Title"] = "UserDocuments";
+    ViewData["Title"] = "ExpertDocuments";
 }
-
 
 <div class="list-group-item">
     <p class="list-group-item-text">
-
-        <a href="#">Мои вопросы<span class="badge badge-pill badge-light">4</span></a>
+        <a href="#">Мои ответы<span class="badge badge-pill badge-light">2</span></a>
+    </p>
+</div>
+<div class="list-group-item">
+    <p class="list-group-item-text">
+        <a href="#">Мои статьи<span class="badge badge-pill badge-light">6</span></a>
     </p>
 </div>
 <div class="list-group-item">
     <p class="list-group-item-text">
         <a href="#">Практические документы<span class="badge badge-pill badge-light">@Model.PracticDocumentCount</span></a>
-
-
     </p>
 </div>
 <div class="list-group-item">

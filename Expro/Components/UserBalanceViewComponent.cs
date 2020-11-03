@@ -10,10 +10,10 @@ using System.Threading.Tasks;
 
 namespace Expro.Components
 {
-    public class UserBalance : ViewComponent
+    public class UserBalanceViewComponent : ViewComponent
     {
         UserManager<ApplicationUser> _userManager;
-        public UserBalance(UserManager<ApplicationUser> userManager)
+        public UserBalanceViewComponent(UserManager<ApplicationUser> userManager)
         {
             _userManager = userManager;
         }
