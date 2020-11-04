@@ -158,7 +158,7 @@ else if (Model.StatusID == (int)DocumentStatusesEnum.Rejected)
                 || statusID == @((int)DocumentStatusesEnum.Approved)
                 || statusID == @((int)DocumentStatusesEnum.Rejected))
             {
-                $("form input, form select, form textarea").attr("readonly", "readonly");
+                $("form input, form select, form textarea").attr("disabled", "disabled");
                 $("form #existingFileContainer button").attr("disabled", "disabled");
                 $('#LawAreas').prop('disabled', true);
                 $('#LawAreas').selectpicker('refresh');

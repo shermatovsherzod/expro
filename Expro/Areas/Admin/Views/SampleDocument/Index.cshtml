@@ -53,42 +53,13 @@
     </div>
 </div>
 
-<table id="list" class="table table-striped" width="100%">
+<table id="list" width="100%">
     <thead>
         <tr>
-            @{
-                var tmp = new SampleDocumentListItemForAdminVM();
-            }
-            <th>@Html.DisplayNameFor(m => tmp.Title)</th>
-            <th>@Html.DisplayNameFor(m => tmp.Author)</th>
-            <th>@Html.DisplayNameFor(m => tmp.Price)</th>
-            <th>@Html.DisplayNameFor(m => tmp.Status)</th>
-            <th>@Html.DisplayNameFor(m => tmp.DateModified)</th>
-            <th>Действия</th>
+            <th></th>
         </tr>
     </thead>
     <tbody>
-        @*@foreach (var item in Model)
-            {
-                <tr>
-                    <td>@item.Title</td>
-                    <td>@item.Author.FullName</td>
-                    @{
-                        string alertClass = "alert ";
-                        if (item.Status.ID == (int)DocumentStatusesEnum.WaitingForApproval)
-                        { alertClass = "alert-warning"; }
-                        else if (item.Status.ID == (int)DocumentStatusesEnum.Approved)
-                        { alertClass = "alert-success"; }
-                        else if (item.Status.ID == (int)DocumentStatusesEnum.Rejected)
-                        { alertClass = "alert-danger"; }
-                    }
-                    <td class="@alertClass">
-                        @item.Status.Name
-                    </td>
-                    <td>@item.DateModified</td>
-                    <td><a href="/Admin/SampleDocument/Details/@item.ID" class="btn btn-outline-primary">Открыть</a></td>
-                </tr>
-            }*@
     </tbody>
 </table>
 
@@ -136,26 +107,60 @@
                 columns: [
                     {
                         "data": 0, //"name": "statusId", "autoWidth": true,
-                        "render": function (data, type, full, meta) { return '' + full.title + ''; }
-                    },
-                    {
-                        "data": 1, //"name": "statusId", "autoWidth": true,
                         "render": function (data, type, full, meta)
                         {
-                            return '' + full.author.fullName + '';
-                        }
-                    },
-                    {
-                        "data": 2, //"name": "statusId", "autoWidth": true,
-                        "render": function (data, type, full, meta)
-                        {
-                            var html = "";
-                            if (full.price != null)
-                                html = "" + full.price;
+                            var html = '';
+                            html += '<div class="card" style="margin-top: 10px;">';
+                            html += '   <div class="card-body">';
+                            html += '       <h3><a href="/Admin/SampleDocument/Details/' + full.id + '">' + full.title + '</a></h3>';
+
+                            html += InsertStatusAlert(full);
+
+                            @*if (full.contentType == '@((int)DocumentContentTypesEnum.file)')
+                                html += '   <p>Есть вложенный файл</p>';
+                            else
+                                html += '   <p>' + full.text + '</p>';*@
+
+                            html += '       <p>Дата изменения: ' + full.dateModified + '</p>';
+                            html += '       <p>Автор: <a href="#">' + full.author.fullName + '</a></p>';
+                            html += '       <p>';
+                            for (var i = 0; i < full.lawAreas.length; i++)
+                            {
+                                html += '       <span class="badge badge-primary">' + full.lawAreas[i].name + '</span>';
+                            }
+                            html += '       </p>';
+                            //console.log(full.title);
+                            //console.log(full.priceType);
+                            if (full.priceType == '@((int)DocumentPriceTypesEnum.Paid)')
+                                html += '   <p>Цена: <b class="text-danger">' + full.priceStr + ' сум</b></p>';
+                            html += '        <a href="/Admin/SampleDocument/Details/' + full.id + '" class="btn btn-outline-primary" target="_blank">Открыть</a>';
+                            html += '   </div>';
+                            html += '</div>';
                             return html;
                         }
-                    },
-                    {
+                    }
+                    //{
+                    //    "data": 0, //"name": "statusId", "autoWidth": true,
+                    //    "render": function (data, type, full, meta) { return '' + full.title + ''; }
+                    //},
+                    //{
+                    //    "data": 1, //"name": "statusId", "autoWidth": true,
+                    //    "render": function (data, type, full, meta)
+                    //    {
+                    //        return '' + full.author.fullName + '';
+                    //    }
+                    //},
+                    //{
+                    //    "data": 2, //"name": "statusId", "autoWidth": true,
+                    //    "render": function (data, type, full, meta)
+                    //    {
+                    //        var html = "";
+                    //        if (full.price != null)
+                    //            html = "" + full.price;
+                    //        return html;
+                    //    }
+                    //},
+                    @*{
                         "data": 3, //"name": "statusId", "autoWidth": true,
                         "render": function (data, type, full, meta)
                         {
@@ -172,19 +177,19 @@
 
                             return html;
                         }
-                    },
-                    {
-                        "data": 4, //"name": "statusId", "autoWidth": true,
-                        "render": function (data, type, full, meta) { return '' + full.dateModified + ''; }
-                    },
-                    {
-                        "data": 5, //"name": "statusId", "autoWidth": true,
-                        "render": function (data, type, full, meta)
-                        {
-                            var html = '<a href="/Admin/SampleDocument/Details/' + full.id + '" class="btn btn-outline-primary" target="_blank">Открыть</a>';
-                            return html;
-                        }
-                    }
+                    },*@
+                    //{
+                    //    "data": 4, //"name": "statusId", "autoWidth": true,
+                    //    "render": function (data, type, full, meta) { return '' + full.dateModified + ''; }
+                    //},
+                    //{
+                    //    "data": 5, //"name": "statusId", "autoWidth": true,
+                    //    "render": function (data, type, full, meta)
+                    //    {
+                    //        var html = '<a href="/Admin/SampleDocument/Details/' + full.id + '" class="btn btn-outline-primary" target="_blank">Открыть</a>';
+                    //        return html;
+                    //    }
+                    //}
                 ]
             });
 
@@ -192,5 +197,20 @@
                 table.draw();
             });
         });
+
+        function InsertStatusAlert(full) {
+            var html = "<div class='alert ";
+            if (full.status.id == "@((int)DocumentStatusesEnum.WaitingForApproval)")
+                html += "alert-warning'>";
+            else if (full.status.id == "@((int)DocumentStatusesEnum.Approved)")
+                html += "alert-success'>";
+            else if (full.status.id == "@((int)DocumentStatusesEnum.Rejected)")
+                html += "alert-danger'>";
+
+            html += full.status.name;
+            html += "</div>";
+
+            return html;
+        }
     </script>
 }

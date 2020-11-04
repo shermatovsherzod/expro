@@ -223,7 +223,8 @@ namespace Expro.Services
             int? statusID,
             DocumentPriceTypesEnum? priceType,
             string authorID,
-            ApplicationUser purchaser)
+            ApplicationUser purchaser,
+            int[] lawAreas)
         {
             recordsTotal = 0;
             recordsFiltered = 0;
@@ -246,6 +247,14 @@ namespace Expro.Services
                 }
                 else
                     documents = GetSampleDocumentsApproved();
+
+                if (lawAreas != null && lawAreas.Length > 0)
+                {
+                    documents = documents
+                        .Where(m => m.DocumentLawAreas
+                            .Select(n => n.LawAreaID)
+                            .Any(n => lawAreas.Contains(n)));
+                }
 
                 recordsTotal = documents.Count();
 

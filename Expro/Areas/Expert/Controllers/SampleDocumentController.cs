@@ -92,6 +92,7 @@ namespace Expro.Areas.Expert.Controllers
                 statusID,
                 priceType,
                 curUser.ID,
+                null,
                 null
             );
 

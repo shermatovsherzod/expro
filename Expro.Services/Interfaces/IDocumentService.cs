@@ -39,6 +39,7 @@ namespace Expro.Services.Interfaces
             int? statusID,
             DocumentPriceTypesEnum? priceType,
             string authorID,
-            ApplicationUser purchaser);
+            ApplicationUser purchaser,
+            int[] lawAreas);
     }
 }

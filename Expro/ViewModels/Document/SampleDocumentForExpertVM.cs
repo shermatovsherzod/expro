@@ -18,13 +18,19 @@ namespace Expro.ViewModels
         [Display(Name = "Статус")]
         public BaseDropdownableDetailsVM Status { get; set; }
 
+        [Display(Name = "Направление")]
+        public List<BaseDropdownableDetailsVM> LawAreas { get; set; }
+
         [Display(Name = "Дата изменения")]
         public string DateModified { get; set; }
 
         public DocumentPriceTypesEnum PriceType { get; set; }
 
         [Display(Name = "Цена")]
-        public string Price { get; set; }
+        public int Price { get; set; }
+
+        [Display(Name = "Цена")]
+        public string PriceStr { get; set; }
 
         public SampleDocumentListItemForExpertVM() { }
 
@@ -42,9 +48,14 @@ namespace Expro.ViewModels
             PriceType = model.PriceType;
             if (PriceType == DocumentPriceTypesEnum.Paid)
             {
-                Price = model.Price.HasValue ?
+                Price = model.Price.HasValue ? model.Price.Value : 0;
+                PriceStr = model.Price.HasValue ?
                     model.Price.Value.ToString(AppData.Configuration.NumberViewStringFormat) : "0";
             }
+
+            LawAreas = model.DocumentLawAreas
+                .Select(m => new BaseDropdownableDetailsVM(m.LawArea))
+                .ToList();
 
             Status = new BaseDropdownableDetailsVM(model.DocumentStatus);
             DateModified = DateTimeUtils.ConvertToString(model.DateModified);
@@ -55,9 +66,6 @@ namespace Expro.ViewModels
     {
         [Display(Name = "Язык")]
         public BaseDropdownableDetailsVM Language { get; set; }
-
-        [Display(Name = "Направление")]
-        public List<BaseDropdownableDetailsVM> LawAreas { get; set; }
 
         public DocumentContentTypesEnum ContentType { get; set; } = DocumentContentTypesEnum.file;
 
@@ -83,10 +91,6 @@ namespace Expro.ViewModels
 
             Title = model.Title;
             Language = new BaseDropdownableDetailsVM(model.Language);
-
-            LawAreas = model.DocumentLawAreas
-                .Select(m => new BaseDropdownableDetailsVM(m.LawArea))
-                .ToList();
 
             ContentType = model.ContentType;
             Attachment = new AttachmentDetailsVM(model.Attachment);

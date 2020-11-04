@@ -18,32 +18,6 @@
 
 <div class="row">
     <div class="col-sm-4">
-        @*Фильтр по направлению: <br />
-        <select id="lawAreas"
-                class="selectpicker"
-                title="Выберите"
-                multiple
-                data-selected-text-format="count > 3">
-            @{
-                var items = ViewData["lawAreas"] as List<SelectListItemWithParent>;
-                var parentItems = items.Where(m => m.ParentValue == "").ToList();
-                for (int i = 0; i < parentItems.Count; i++)
-                {
-                    <option value="@parentItems[i].Value" data-content="<b>@parentItems[i].Text</b>">@parentItems[i].Text</option>
-
-                    var childItems = items.Where(m => m.ParentValue == parentItems[i].Value).ToList();
-                    foreach (var childItem in childItems)
-                    {
-                        <option value="@childItem.Value" data-content="- @childItem.Text">@childItem.Text</option>
-                    }
-
-                    if (i < parentItems.Count - 1)
-                    {
-                        <option data-divider="true"></option>
-                    }
-                }
-            }
-        </select>*@
         Фильтр по статусу: <br />
         <select id="statusDD" asp-items="@ViewData["statuses"] as List<SelectListItem>" class="form-control">
             <option value="">Все</option>
@@ -59,17 +33,17 @@
         <br />
     </div>
 </div>
-<table id="list" class="table table-striped">
+<table id="list" width="100%">
     <thead>
         <tr>
-            @{
+            @*@{
                 var tmp = new SampleDocumentListItemForAdminVM();
             }
             <th>@Html.DisplayNameFor(m => tmp.Title) сум</th>
             <th>@Html.DisplayNameFor(m => tmp.Price)</th>
             <th>@Html.DisplayNameFor(m => tmp.Status)</th>
             <th>@Html.DisplayNameFor(m => tmp.DateModified)</th>
-            <th>Действия</th>
+            <th>Действия</th>*@
         </tr>
     </thead>
     <tbody>
@@ -127,19 +101,63 @@
                 columns: [
                     {
                         "data": 0, //"name": "statusId", "autoWidth": true,
-                        "render": function (data, type, full, meta) { return '' + full.title + ''; }
-                    },
-                    {
-                        "data": 1, //"name": "statusId", "autoWidth": true,
                         "render": function (data, type, full, meta)
                         {
-                            var html = "";
-                            if (full.price != null)
-                                html = "" + full.price;
+                            var html = '';
+                            html += '<div class="card" style="margin-top: 10px;">';
+                            html += '   <div class="card-body">';
+
+                            var editAction = "EditFree";
+                            if (full.priceType == "@((int)DocumentPriceTypesEnum.Paid)")
+                                editAction = "EditPaid";
+
+                            html += '       <h3><a href="/Expert/SampleDocument/Details/' + editAction + '/' + + full.id + '" target="_blank">' + full.title + '</a></h3>';
+
+                            html += InsertStatusAlert(full);
+
+                            @*if (full.contentType == '@((int)DocumentContentTypesEnum.file)')
+                                html += '   <p>Есть вложенный файл</p>';
+                            else
+                                html += '   <p>' + full.text + '</p>';*@
+
+                            html += '       <p>Дата изменения: ' + full.dateModified + '</p>';
+                            //html += '       <p>Автор: <a href="#">' + full.author.fullName + '</a></p>';
+                            html += '       <p>';
+                            for (var i = 0; i < full.lawAreas.length; i++)
+                            {
+                                html += '       <span class="badge badge-primary">' + full.lawAreas[i].name + '</span>';
+                            }
+                            html += '       </p>';
+                            //console.log(full.title);
+                            //console.log(full.priceType);
+                            if (full.priceType == '@((int)DocumentPriceTypesEnum.Paid)')
+                                html += '   <p>Цена: <b class="text-danger">' + full.priceStr + ' сум</b></p>';
+
+                            var editAction = "EditFree";
+                            if (full.priceType == "@((int)DocumentPriceTypesEnum.Paid)")
+                                editAction = "EditPaid";
+
+                            html += '       <a href="/Expert/SampleDocument/' + editAction + '/' + full.id + '" class="btn btn-outline-primary" target="_blank">Открыть</a>';
+                            html += '   </div>';
+                            html += '</div>';
                             return html;
                         }
-                    },
-                    {
+                    }
+                    //{
+                    //    "data": 0, //"name": "statusId", "autoWidth": true,
+                    //    "render": function (data, type, full, meta) { return '' + full.title + ''; }
+                    //},
+                    //{
+                    //    "data": 1, //"name": "statusId", "autoWidth": true,
+                    //    "render": function (data, type, full, meta)
+                    //    {
+                    //        var html = "";
+                    //        if (full.price != null)
+                    //            html = "" + full.price;
+                    //        return html;
+                    //    }
+                    //},
+                    @*{
                         "data": 2, //"name": "statusId", "autoWidth": true,
                         "render": function (data, type, full, meta)
                         {
@@ -156,12 +174,12 @@
 
                             return html;
                         }
-                    },
-                    {
-                        "data": 3, //"name": "statusId", "autoWidth": true,
-                        "render": function (data, type, full, meta) { return '' + full.dateModified + ''; }
-                    },
-                    {
+                    },*@
+                    //{
+                    //    "data": 3, //"name": "statusId", "autoWidth": true,
+                    //    "render": function (data, type, full, meta) { return '' + full.dateModified + ''; }
+                    //},
+                    @*{
                         "data": 4, //"name": "statusId", "autoWidth": true,
                         "render": function (data, type, full, meta)
                         {
@@ -172,7 +190,7 @@
                             var html = '<a href="/Expert/SampleDocument/' + editAction + '/' + full.id + '" class="btn btn-outline-primary" target="_blank">Открыть</a>';
                             return html;
                         }
-                    }
+                    }*@
                 ]
             });
 
@@ -180,5 +198,20 @@
                 table.draw();
             });
         });
+
+        function InsertStatusAlert(full) {
+            var html = "<div class='alert ";
+            if (full.status.id == "@((int)DocumentStatusesEnum.WaitingForApproval)")
+                html += "alert-warning'>";
+            else if (full.status.id == "@((int)DocumentStatusesEnum.Approved)")
+                html += "alert-success'>";
+            else if (full.status.id == "@((int)DocumentStatusesEnum.Rejected)")
+                html += "alert-danger'>";
+
+            html += full.status.name;
+            html += "</div>";
+
+            return html;
+        }
     </script>
 }

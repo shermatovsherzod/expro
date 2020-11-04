@@ -18,31 +18,30 @@ namespace Expro.Areas.User.Controllers
         private readonly IDocumentService DocumentService;
         private readonly IDocumentStatusService DocumentStatusService;
         private readonly UserManager<ApplicationUser> _userManager;
+        private readonly ILawAreaService LawAreaService;
 
         public SampleDocumentController(
             IDocumentService documentService,
             IDocumentStatusService documentStatusService,
-            UserManager<ApplicationUser> userManager)
+            UserManager<ApplicationUser> userManager,
+            ILawAreaService lawAreaService)
         {
             DocumentService = documentService;
             DocumentStatusService = documentStatusService;
             _userManager = userManager;
+            LawAreaService = lawAreaService;
         }
 
         public IActionResult Index()
         {
-            //ApplicationUser user = await _userManager.GetUserAsync(User);
-            //var documents = DocumentService.GetDocumentsPurchasedByUser(user).ToList();
-
-            //var documentVMs = new List<SampleDocumentListItemForUserVM>();
-            //foreach (var item in documents)
-            //{
-            //    documentVMs.Add(new SampleDocumentListItemForUserVM(item));
-            //}
-
-            //return View(documentVMs);
-
-            //ViewData["statuses"] = DocumentStatusService.GetAsSelectList();
+            ViewData["lawAreas"] = LawAreaService.GetAsIQueryable()
+                .Select(m => new SelectListItemWithParent()
+                {
+                    Value = m.ID.ToString(),
+                    Text = m.Name,
+                    Selected = false,
+                    ParentValue = m.ParentID.HasValue ? m.ParentID.Value.ToString() : ""
+                }).ToList();
 
             return View();
         }
@@ -50,7 +49,9 @@ namespace Expro.Areas.User.Controllers
         [HttpPost]
         public async Task<IActionResult> Search(
             int draw, int? start = null, int? length = null,
-            int? statusID = null, DocumentPriceTypesEnum? priceType = null)
+            int? statusID = null, 
+            DocumentPriceTypesEnum? priceType = null,
+            int[] lawAreas = null)
         {
             int recordsTotal = 0;
             int recordsFiltered = 0;
@@ -71,7 +72,8 @@ namespace Expro.Areas.User.Controllers
                 statusID,
                 priceType,
                 curUser.ID,
-                user
+                user,
+                lawAreas
             );
 
             dynamic data = dataIQueryable

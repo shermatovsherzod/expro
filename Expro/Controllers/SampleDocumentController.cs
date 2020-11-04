@@ -37,13 +37,13 @@ namespace Expro.Controllers
 
         public IActionResult Index()
         {
-            var documents = DocumentService.GetSampleDocumentsApproved().ToList();
+            //var documents = DocumentService.GetSampleDocumentsApproved().ToList();
 
-            var documentVMs = new List<SampleDocumentListItemForSiteVM>();
-            foreach (var item in documents)
-            {
-                documentVMs.Add(new SampleDocumentListItemForSiteVM(item));
-            }
+            //var documentVMs = new List<SampleDocumentListItemForSiteVM>();
+            //foreach (var item in documents)
+            //{
+            //    documentVMs.Add(new SampleDocumentListItemForSiteVM(item));
+            //}
 
             ViewData["lawAreas"] = LawAreaService.GetAsIQueryable()
                 .Select(m => new SelectListItemWithParent()
@@ -54,13 +54,15 @@ namespace Expro.Controllers
                     ParentValue = m.ParentID.HasValue ? m.ParentID.Value.ToString() : ""
                 }).ToList();
 
-            return View(documentVMs);
+            return View();
         }
 
         [HttpPost]
         public IActionResult Search(
             int draw, int? start = null, int? length = null,
-            int? statusID = null, DocumentPriceTypesEnum? priceType = null)
+            int? statusID = null, 
+            DocumentPriceTypesEnum? priceType = null,
+            int[] lawAreas = null)
         {
             int recordsTotal = 0;
             int recordsFiltered = 0;
@@ -81,7 +83,8 @@ namespace Expro.Controllers
                 statusID,
                 priceType,
                 curUser.ID,
-                null
+                null,
+                lawAreas
             );
 
             dynamic data = dataIQueryable

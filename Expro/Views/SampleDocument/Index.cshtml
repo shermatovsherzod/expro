@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Expro.ViewModels.SampleDocumentListItemForSiteVM>
+﻿@*@model IEnumerable<Expro.ViewModels.SampleDocumentListItemForSiteVM>*@
 @using Expro.Models.Enums
 @using Expro.ViewModels
 
@@ -7,35 +7,31 @@
 }
 
 <h1>@ViewData["Title"]</h1>
+<br />
 
 <div class="row">
-    <div class="col-sm-4">
-        @*Фильтр по направлению: <br />
-            <select id="lawAreas"
-                    class="selectpicker"
-                    title="Выберите"
-                    multiple
-                    data-selected-text-format="count > 3">
-                @{
-                    var items = ViewData["lawAreas"] as List<SelectListItemWithParent>;
-                    var parentItems = items.Where(m => m.ParentValue == "").ToList();
-                    for (int i = 0; i < parentItems.Count; i++)
-                    {
-                        <option value="@parentItems[i].Value" data-content="<b>@parentItems[i].Text</b>">@parentItems[i].Text</option>
-
-                        var childItems = items.Where(m => m.ParentValue == parentItems[i].Value).ToList();
-                        foreach (var childItem in childItems)
-                        {
-                            <option value="@childItem.Value" data-content="- @childItem.Text">@childItem.Text</option>
+    <div class="col-12">
+        Фильтр по направлению: <br />
+        <div class="row">
+            @{ 
+                var items = ViewData["lawAreas"] as List<SelectListItemWithParent>;
+                var parentItems = items.Where(m => m.ParentValue == "").ToList();
+                for (int i = 0; i < parentItems.Count; i++)
+                {
+                    <div class="col-4">
+                        <label class="btn btn-secondary"><input type="checkbox" name="lawAreasCheckbox" value="@parentItems[i].Value" /> <b>@parentItems[i].Text</b></label><br />
+                        @{
+                            var childItems = items.Where(m => m.ParentValue == parentItems[i].Value).ToList();
+                            foreach (var childItem in childItems)
+                            {
+                                <label class="btn btn-light"><input type="checkbox" name="lawAreasCheckbox" value="@childItem.Value" /> @childItem.Text</label><br />
+                            }
                         }
-
-                        if (i < parentItems.Count - 1)
-                        {
-                            <option data-divider="true"></option>
-                        }
-                    }
+                    </div>
                 }
-            </select>*@
+            }
+        </div>
+
         Фильтр по цене: <br />
         <select id="priceTypeDD" class="form-control">
             <option value="">Все</option>
@@ -81,6 +77,12 @@
                     datatype: "json",
                     data: function (d) {
                         d.priceType = $("#priceTypeDD").val();
+
+                        var lawAreasCheckboxValues = new Array();
+                        $.each($("input[name='lawAreasCheckbox']:checked"), function () {
+                            lawAreasCheckboxValues.push(Number($(this).val()));
+                        });
+                        d.lawAreas = lawAreasCheckboxValues;
                     },
                     //complete: function () {
                     //    StartLoadingImagesAsync();
@@ -119,63 +121,19 @@
                                 html += '       <span class="badge badge-primary">' + full.lawAreas[i].name + '</span>';
                             }
                             html += '       </p>';
-                            console.log(full.title);
-                            console.log(full.priceType);
+                            //console.log(full.title);
+                            //console.log(full.priceType);
                             if (full.priceType == '@((int)DocumentPriceTypesEnum.Paid)')
                                 html += '   <p>Цена: <b class="text-danger">' + full.priceStr + ' сум</b></p>';
                             html += '   </div>';
                             html += '</div>';
                             return html;
                         }
-                    },
-                    @*{
-                        "data": 1, //"name": "statusId", "autoWidth": true,
-                        "render": function (data, type, full, meta)
-                        {
-                            var html = "";
-                            if (full.price != null)
-                                html = "" + full.price;
-                            return html;
-                        }
-                    },
-                    {
-                        "data": 2, //"name": "statusId", "autoWidth": true,
-                        "render": function (data, type, full, meta)
-                        {
-                            var html = "<div class='alert ";
-                            if (full.status.id == "@((int)DocumentStatusesEnum.WaitingForApproval)")
-                                html += "alert-warning'>";
-                            else if (full.status.id == "@((int)DocumentStatusesEnum.Approved)")
-                                html += "alert-success'>";
-                            else if (full.status.id == "@((int)DocumentStatusesEnum.Rejected)")
-                                html += "alert-danger'>";
-
-                            html += full.status.name;
-                            html += "</div>";
-
-                            return html;
-                        }
-                    },
-                    {
-                        "data": 3, //"name": "statusId", "autoWidth": true,
-                        "render": function (data, type, full, meta) { return '' + full.dateModified + ''; }
-                    },
-                    {
-                        "data": 4, //"name": "statusId", "autoWidth": true,
-                        "render": function (data, type, full, meta)
-                        {
-                            var editAction = "EditFree";
-                            if (full.priceType == "@DocumentPriceTypesEnum.Paid")
-                                editAction = "EditPaid";
-
-                            var html = '<a href="/Expert/SampleDocument/' + editAction + '/' + full.id + '" class="btn btn-outline-primary" target="_blank">Открыть</a>';
-                            return html;
-                        }
-                    }*@
+                    }
                 ]
             });
 
-            $("#statusDD, #priceTypeDD").change(function () {
+            $("#statusDD, #priceTypeDD, input[name=lawAreasCheckbox]").change(function () {
                 table.draw();
             });
         });

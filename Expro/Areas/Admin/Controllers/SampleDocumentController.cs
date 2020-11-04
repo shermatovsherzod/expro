@@ -68,6 +68,7 @@ namespace Expro.Areas.Admin.Controllers
                 statusID,
                 priceType,
                 null,
+                null,
                 null
             );
 
