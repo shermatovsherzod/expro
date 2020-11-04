@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Expro.Common.Utilities;
 using Expro.Controllers;
 using Expro.Models;
 using Expro.Services.Interfaces;
@@ -77,7 +78,7 @@ namespace Expro.Areas.Expert.Controllers
                 user.PatronymicName = vmodel.PatronymicName;
                 user.RegionID = vmodel.RegionID;
                 user.CityID = vmodel.CityID;
-                user.DateOfBirth = GetDate(vmodel.DateOfBirth);
+                user.DateOfBirth = DateTimeUtils.ConvertToDateTime(vmodel.DateOfBirth, "dd/MM/yyyy");
                 user.GenderID = vmodel.GenderID;
                 _lawAreaService.UpdateUserLawAreas(user, vmodel.LawAreas);
                 IdentityResult result = await _userManager.UpdateAsync(user);
@@ -93,11 +94,6 @@ namespace Expro.Areas.Expert.Controllers
             }
 
             return View(vmodel);
-        }
-
-        public DateTime GetDate(string dateOfBirth)
-        {
-            return DateTime.Now;
         }
 
         public IActionResult Contacts()

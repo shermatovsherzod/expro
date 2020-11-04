@@ -44,11 +44,11 @@ namespace Expro.Models
         [Required(ErrorMessage = "Поле Направление обязательно для заполнения")]
         [Display(Name = "Направление")]
         public List<int> LawAreas { get; set; }
-               
+
         [Display(Name = "Дата рождения")]
         [Required(ErrorMessage = "Поле Дата рождения обязательно для заполнения")]
         public string DateOfBirth { get; set; }
-              
+
         [Display(Name = "Пол")]
         public int? GenderID { get; set; }
 
@@ -67,7 +67,7 @@ namespace Expro.Models
             CityID = model.CityID;
             CityOther = model.CityOther;
             LawAreas = model.UserLawAreas != null ? model.UserLawAreas.Select(r => (int)r.LawAreaID).ToList() : null;
-            DateOfBirth = DateTimeUtils.ConvertToString(model.DateOfBirth, "dd/MM/yyyy");
+            DateOfBirth = DateTimeUtils.ConvertToString(model.DateOfBirth, "dd/MM/yyyy");// model.DateOfBirth != null ? model.DateOfBirth.ToString() : "";
             GenderID = model.GenderID;
             DateRegistered = DateTimeUtils.ConvertToString(model.DateRegistered, "dd/MM/yyyy");
         }

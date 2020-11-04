@@ -3,6 +3,7 @@
 @{
     Layout = "_LayoutProfile";
     ViewData["Title"] = "Основная информация";
+    <link href="~/lib/Datetimepicker (bootstrap4)/tempusdominus-bootstrap-4.min.css" rel="stylesheet" />
 }
 
 <form id="maininfoform" asp-controller="Profile" asp-action="Index" data-ajax="true" data-ajax-mode="replace" data-ajax-method="POST">
@@ -91,8 +92,8 @@
             <label asp-for="@Model.DateOfBirth"></label>
         </div>
         <div class="col-md-6">
-            <p>
-                <input asp-for="@Model.DateOfBirth" class="form-control" />
+            <p>               
+                <input asp-for="@Model.DateOfBirth" class="form-control datetimepicker-input" data-toggle="datetimepicker" data-target="#DateOfBirth"/>
                 <span asp-validation-for="@Model.DateOfBirth"></span>
             </p>
         </div>
@@ -107,7 +108,7 @@
                 <select asp-for="@Model.GenderID"
                         asp-items="@ViewData["gender"] as IEnumerable<SelectListItem>"
                         class="form-control">
-                </select>             
+                </select>
             </p>
         </div>
     </div>
@@ -119,3 +120,17 @@
     </div>
 </form>
 
+
+@section Scripts
+    {
+    <script src="~/lib/Datetimepicker (bootstrap4)/moment.js"></script>
+    <script src="~/lib/Datetimepicker (bootstrap4)/tempusdominus-bootstrap-4.min.js"></script>
+    <script>
+       
+        $(document).ready(function () {
+            $('#DateOfBirth').datetimepicker({
+                format: 'DD/MM/YYYY'          
+            });
+        });
+    </script>
+}
