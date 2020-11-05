@@ -4,7 +4,8 @@
     Layout = "_LayoutProfile";
     ViewData["Title"] = "Основная информация";
 
-    <link href="~/lib/Gijgo/gijgo.min.css" rel="stylesheet" />   
+    <link href="~/lib/Gijgo/gijgo.min.css" rel="stylesheet" />
+
 }
 
 <form id="maininfoform" asp-controller="Profile" asp-action="Index" data-ajax="true" data-ajax-mode="replace" data-ajax-method="POST">
@@ -94,7 +95,7 @@
         </div>
         <div class="col-md-6">
             <p>
-                <input asp-for="@Model.DateOfBirth" class="form-control" onkeydown="event.preventDefault()"/>
+                <input asp-for="@Model.DateOfBirth" class="form-control" onkeydown="event.preventDefault()" />
                 <span asp-validation-for="@Model.DateOfBirth"></span>
             </p>
         </div>
@@ -122,11 +123,19 @@
     </div>
 </form>
 
-
+<div id="dialog" title="jQuery Dialog" width="400">
+    <div data-role="body">
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+    </div>
+    <div data-role="footer">
+        <button class="gj-button-md" onclick="dialog.close()">OK</button>
+        <button class="gj-button-md" data-role="close">Cancel</button>
+    </div>
+</div>
 @section Scripts
     {
     <script src="~/lib/Gijgo/gijgo.min.js"></script>
-    <script src="~/lib/Gijgo/messages.ru-ru.js"></script>  
+    <script src="~/lib/Gijgo/messages.ru-ru.js"></script>
     <script>
         $('#DateOfBirth').datepicker({
             uiLibrary: 'bootstrap4',
@@ -134,5 +143,12 @@
             locale: 'ru-ru',
         });
     </script>
-
+    <script type="text/javascript">
+        var dialog;
+        $(document).ready(function () {
+            dialog = $("#dialog").dialog({
+                resizable: true
+            });
+        });
+    </script>
 }
