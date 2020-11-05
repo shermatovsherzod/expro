@@ -146,9 +146,10 @@ else if (Model.StatusID == (int)DocumentStatusesEnum.Rejected)
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 
-    <script src="~/lib/treeselect/js/jquery.bootstrap.treeselect.js"></script>
-    <script src="~/lib/treeselect/js/jquery.bootstrap.treeselect.js"></script>
+    @*<script src="~/lib/treeselect/js/jquery.bootstrap.treeselect.js"></script>*@
     <script src="~/lib/bootstrap-select-1.13.14/js/bootstrap-select.js"></script>
+
+    <script src="~/lib/ckeditor_4.15.0_standard/ckeditor/ckeditor.js"></script>
 
     <script>
         var input;
@@ -158,7 +159,8 @@ else if (Model.StatusID == (int)DocumentStatusesEnum.Rejected)
 
         $(document).ready(function ()
         {
-            $('#LawAreas').selectpicker();
+            InitSelectpicker();
+            InitCKEDIOTR();
 
             var statusID = @Model.StatusID;
             if (statusID == @((int)DocumentStatusesEnum.WaitingForApproval)
@@ -190,6 +192,14 @@ else if (Model.StatusID == (int)DocumentStatusesEnum.Rejected)
                 UploadToFirebaseStorage(file);
             });
         });
+
+        function InitCKEDIOTR() {
+            CKEDITOR.replace('Text');
+        }
+
+        function InitSelectpicker() {
+            $('#LawAreas').selectpicker();
+        }
 
         function UploadToFirebaseStorage(file)
         {

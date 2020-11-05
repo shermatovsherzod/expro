@@ -84,7 +84,8 @@
                 }
                 else
                 {
-                    @Html.DisplayFor(model => model.Text)
+                    @Html.Raw(Model.Text)
+                    @*@Html.DisplayFor(model => model.Text)*@
                 }
             </dd>
             <dt class="col-sm-2">

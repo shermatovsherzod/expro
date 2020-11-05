@@ -11,32 +11,6 @@
 
 <div class="row">
     <div class="col-sm-4">
-        @*Фильтр по направлению: <br />
-            <select id="lawAreas"
-                    class="selectpicker"
-                    title="Выберите"
-                    multiple
-                    data-selected-text-format="count > 3">
-                @{
-                    var items = ViewData["lawAreas"] as List<SelectListItemWithParent>;
-                    var parentItems = items.Where(m => m.ParentValue == "").ToList();
-                    for (int i = 0; i < parentItems.Count; i++)
-                    {
-                        <option value="@parentItems[i].Value" data-content="<b>@parentItems[i].Text</b>">@parentItems[i].Text</option>
-
-                        var childItems = items.Where(m => m.ParentValue == parentItems[i].Value).ToList();
-                        foreach (var childItem in childItems)
-                        {
-                            <option value="@childItem.Value" data-content="- @childItem.Text">@childItem.Text</option>
-                        }
-
-                        if (i < parentItems.Count - 1)
-                        {
-                            <option data-divider="true"></option>
-                        }
-                    }
-                }
-            </select>*@
         Фильтр по статусу: <br />
         <select id="statusDD" asp-items="@ViewData["statuses"] as List<SelectListItem>" class="form-control">
             <option value="">Все</option>
