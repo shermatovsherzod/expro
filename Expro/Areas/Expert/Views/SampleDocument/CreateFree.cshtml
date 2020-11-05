@@ -10,7 +10,7 @@
 <hr />
 <div class="row">
     <div class="col-md-12">
-        <form asp-action="CreateFree">
+        <form asp-action="CreateFree" id="createForm">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="Title" class="control-label"></label>
@@ -31,4 +31,25 @@
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+
+<script>
+    $(document).ready(function () {
+        $("#createForm").submit(function () {
+            var isValid = $('#createForm').valid();
+            if (isValid) {
+                ShowFormSpinner();
+                DisableFormElements();
+            }
+        });
+    });
+
+    function ShowFormSpinner() {
+        $("#createForm .spinner").show();
+    }
+
+    function DisableFormElements() {
+        $("form#createForm input").attr("readonly", "readonly");
+        $("form#createForm button").attr("disabled", "disabled");
+    }
+</script>
 }

@@ -109,9 +109,10 @@
                     <p><b>Ваш баланс:</b> @ViewData["curUserBalanceStr"] сум</p>
                     if (ViewData["paymentAmount"] == null) //if balance is enough
                     {
-                        <form asp-action="Purchase">
+                        <form asp-action="Purchase" id="purchaseForm">
                             <input type="hidden" name="DocumentID" value="@Model.ID" />
                             <button type="submit" class="btn btn-success">Купить</button>
+                            <div class="spinner-border spinner" style="display: none;"></div>
                         </form>
                     }
                     else
@@ -137,26 +138,28 @@
         }
     </div>
 </div>
-@*<div class="container">
-    <div class="row">
-        <div class="col-sm-6">
-            <input type="text" class="form-control datetimepicker-input" id="datetimepicker5" data-toggle="datetimepicker" data-target="#datetimepicker5" />
-        </div>
-    </div>
-</div>*@
 <br />
 <div>
     <a asp-action="Index">Назад</a>
 </div>
 
-@*<link href="~/lib/Datetimepicker (bootstrap4)/tempusdominus-bootstrap-4.min.css" rel="stylesheet" />
 @section Scripts
 {
-    <script src="~/lib/Datetimepicker (bootstrap4)/moment.js"></script>
-    <script src="~/lib/Datetimepicker (bootstrap4)/tempusdominus-bootstrap-4.min.js"></script>
     <script>
         $(document).ready(function () {
-            $('#datetimepicker5').datetimepicker();
+            $("form#purchaseForm").submit(function () {
+                ShowFormSpinner();
+                DisableFormElements();
+            });
         });
+
+        function ShowFormSpinner() {
+            $("#purchaseForm .spinner").show();
+        }
+
+        function DisableFormElements() {
+            $("form#purchaseForm input").attr("readonly", "readonly");
+            $("form#purchaseForm button").attr("disabled", "disabled");
+        }
     </script>
-}*@
+}

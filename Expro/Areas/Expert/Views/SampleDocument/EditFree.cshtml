@@ -35,7 +35,7 @@ else if (Model.StatusID == (int)DocumentStatusesEnum.Rejected)
 }
 <div class="row">
     <div class="col-md-12">
-        <form asp-action="EditFree">
+        <form asp-action="EditFree" id="editForm">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input asp-for="StatusID" type="hidden" />
             <div class="form-group">
@@ -154,6 +154,8 @@ else if (Model.StatusID == (int)DocumentStatusesEnum.Rejected)
 
         $(document).ready(function ()
         {
+            InitFormPostSubmissionActions();
+
             InitSelectpicker();
             InitCKEDIOTR();
 
@@ -186,6 +188,28 @@ else if (Model.StatusID == (int)DocumentStatusesEnum.Rejected)
                 UploadToFirebaseStorage(file);
             });
         });
+
+        function InitFormPostSubmissionActions() {
+            $("#editForm").submit(function () {
+                var isValid = $('#editForm').valid();
+                if (isValid) {
+                    ShowFormSpinner();
+                    DisableFormElements();
+                }
+            });
+        }
+
+        function ShowFormSpinner() {
+            $("#editForm #actionButtonsBox .spinner").show();
+        }
+
+        function DisableFormElements() {
+            $("form#editForm input, form#editForm select, form#editForm textarea").attr("readonly", "readonly");
+            $("form#editForm #existingFileContainer button").attr("disabled", "disabled");
+            //$('#LawAreas').prop('disabled', true);
+            $('#LawAreas').selectpicker('refresh');
+            $("form#editForm button").attr("disabled", "disabled");
+        } 
 
         function InitCKEDIOTR() {
             CKEDITOR.replace('Text');

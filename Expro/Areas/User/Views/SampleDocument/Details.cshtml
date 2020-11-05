@@ -38,7 +38,8 @@
                 @Html.DisplayNameFor(model => model.Text)
             </dt>
             <dd class="col-sm-10">
-                @Html.DisplayFor(model => model.Text)
+                @Html.Raw(Model.Text)
+                @*@Html.DisplayFor(model => model.Text)*@
             </dd>
         }
 

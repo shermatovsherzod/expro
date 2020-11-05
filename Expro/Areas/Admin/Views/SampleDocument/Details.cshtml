@@ -27,6 +27,7 @@
             {
                 <div class="alert alert-danger">Намунавий хужжат отменен</div>
             }
+            <div class="spinner-border spinner" style="display: none;"></div>
         </dd>
         <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Title)
@@ -131,6 +132,7 @@
                 //dataType: "json",
                 beforeSend: function (data) {
                     $(".btn").attr("disabled", "disabled");
+                    ShowFormSpinner();
                 },
                 success: function (data) {
                     //alert("success");
@@ -142,9 +144,13 @@
                 },
                 complete: function (data) {
                     //alert("completed");
-                    $(".btn").removeAttr("disabled");
+                    //$(".btn").removeAttr("disabled");
                 }
             });
+        }
+
+        function ShowFormSpinner() {
+            $(".spinner").show();
         }
     </script>
 }

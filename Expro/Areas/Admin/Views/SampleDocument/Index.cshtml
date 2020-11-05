@@ -27,15 +27,19 @@
     </div>
 </div>
 
-<table id="list" width="100%">
-    <thead>
-        <tr>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-    </tbody>
-</table>
+<div id="tableBox">
+    <div class="spinner-border spinner" style="display: none;"></div>
+    <table id="list" width="100%">
+        <thead>
+            <tr>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+        </tbody>
+    </table>
+    <div class="spinner-border spinner" style="display: none;"></div>
+</div>
 
 <link href="~/lib/DataTables-1.10.22/datatables.css" rel="stylesheet" />
 
@@ -166,6 +170,15 @@
                     //}
                 ]
             });
+
+            table
+                .on('preDraw', function () {
+                    $("#tableBox .spinner").show();
+                })
+                .on('draw.dt', function () {
+                    $("#tableBox .spinner").hide();
+                    //console.log('Redraw took at: ' + (new Date().getTime() - startTime) + 'mS');
+                });
 
             $("#statusDD, #priceTypeDD").change(function () {
                 table.draw();

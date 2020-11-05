@@ -145,15 +145,17 @@ namespace Expro.Services
 
         void OnPreUpdate(T entity, string userID)
         {
+            DateTime now = DateTime.Now;
+
             if (entity.ID == 0)
             {
                 entity.CreatedBy = userID;
-                entity.DateCreated = DateTime.Now;
+                entity.DateCreated = now;
                 entity.IsDeleted = false;
             }
 
             entity.ModifiedBy = userID;
-            entity.DateModified = DateTime.Now;
+            entity.DateModified = now;
         }
 
         //void Save()
