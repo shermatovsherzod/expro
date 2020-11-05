@@ -123,15 +123,7 @@
     </div>
 </form>
 
-<div id="dialog" title="jQuery Dialog" width="400">
-    <div data-role="body">
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-    </div>
-    <div data-role="footer">
-        <button class="gj-button-md" onclick="dialog.close()">OK</button>
-        <button class="gj-button-md" data-role="close">Cancel</button>
-    </div>
-</div>
+
 @section Scripts
     {
     <script src="~/lib/Gijgo/gijgo.min.js"></script>
@@ -143,12 +135,5 @@
             locale: 'ru-ru',
         });
     </script>
-    <script type="text/javascript">
-        var dialog;
-        $(document).ready(function () {
-            dialog = $("#dialog").dialog({
-                resizable: true
-            });
-        });
-    </script>
+   
 }
