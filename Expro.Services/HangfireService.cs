@@ -10,11 +10,15 @@ namespace Expro.Services
     public class HangfireService : IHangfireService
     {
         private readonly IDocumentService DocumentService;
+        private readonly IDocumentAdminActionsService DocumentAdminActionsService;
         //private readonly IAttachmentService AttachmentService;
 
-        public HangfireService(IDocumentService documentService)
+        public HangfireService(
+            IDocumentService documentService,
+            IDocumentAdminActionsService documentAdminActionsService)
         {
             DocumentService = documentService;
+            DocumentAdminActionsService = documentAdminActionsService;
         }
 
         public string CreateJobForDocumentRejectionDeadline(Document document)
@@ -31,7 +35,7 @@ namespace Expro.Services
             //try
             //{
             Document document = DocumentService.GetByID(documentID);
-            DocumentService.RejectionDeadlineReaches(document);
+            DocumentAdminActionsService.RejectionDeadlineReaches(document);
             //}
             //catch (Exception ex)
             //{ }

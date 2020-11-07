@@ -15,6 +15,8 @@ namespace Expro.Areas.Expert.Controllers
     [Area("Expert")]
     public class SampleDocumentController : BaseController
     {
+        private readonly ISampleDocumentSearchService SampleDocumentSearchService;
+        private readonly ISampleDocumentService SampleDocumentService;
         private readonly ILawAreaService LawAreaService;
         private readonly ILanguageService LanguageService;
         private readonly IAttachmentService AttachmentService;
@@ -24,6 +26,8 @@ namespace Expro.Areas.Expert.Controllers
         private readonly UserManager<ApplicationUser> _userManager;
 
         public SampleDocumentController(
+            ISampleDocumentSearchService sampleDocumentSearchService,
+            ISampleDocumentService sampleDocumentService,
             ILawAreaService lawAreaService,
             ILanguageService languageService,
             IAttachmentService attachmentService,
@@ -32,6 +36,8 @@ namespace Expro.Areas.Expert.Controllers
             IDocumentStatusService documentStatusService,
             UserManager<ApplicationUser> userManager)
         {
+            SampleDocumentSearchService = sampleDocumentSearchService;
+            SampleDocumentService = sampleDocumentService;
             LawAreaService = lawAreaService;
             LanguageService = languageService;
             AttachmentService = attachmentService;
@@ -43,26 +49,6 @@ namespace Expro.Areas.Expert.Controllers
 
         public IActionResult Index()
         {
-            //var curUser = accountUtil.GetCurrentUser(User);
-            //var documents = DocumentService.GetSampleDocumentsForExpert(curUser.ID).ToList();
-
-            //var documentVMs = new List<SampleDocumentListItemForExpertVM>();
-            //foreach (var item in documents)
-            //{
-            //    documentVMs.Add(new SampleDocumentListItemForExpertVM(item));
-            //}
-
-            //return View(documentVMs);
-
-            //ViewData["lawAreas"] = LawAreaService.GetAsIQueryable()
-            //    .Select(m => new SelectListItemWithParent()
-            //    {
-            //        Value = m.ID.ToString(),
-            //        Text = m.Name,
-            //        Selected = false,
-            //        ParentValue = m.ParentID.HasValue ? m.ParentID.Value.ToString() : ""
-            //    }).ToList();
-
             ViewData["statuses"] = DocumentStatusService.GetAsSelectList();
 
             return View();
@@ -80,7 +66,7 @@ namespace Expro.Areas.Expert.Controllers
             var curUser = accountUtil.GetCurrentUser(User);
             //ApplicationUser user = await _userManager.GetUserAsync(User);
 
-            IQueryable<Document> dataIQueryable = DocumentService.Search(
+            IQueryable<Document> dataIQueryable = SampleDocumentSearchService.Search(
                 start,
                 length,
 
@@ -126,7 +112,7 @@ namespace Expro.Areas.Expert.Controllers
                     var curUser = accountUtil.GetCurrentUser(User);
 
                     var model = modelVM.ToModel();
-                    DocumentService.AddSampleDocument(model, curUser.ID);
+                    DocumentService.Add(model, curUser.ID);
 
                     return RedirectToAction("EditFree", new { id = model.ID });
                 }
@@ -154,7 +140,7 @@ namespace Expro.Areas.Expert.Controllers
                     var curUser = accountUtil.GetCurrentUser(User);
 
                     var model = modelVM.ToModel();
-                    DocumentService.AddSampleDocument(model, curUser.ID);
+                    DocumentService.Add(model, curUser.ID);
 
                     return RedirectToAction("EditPaid", new { id = model.ID });
                 }

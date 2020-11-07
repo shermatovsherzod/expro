@@ -16,20 +16,29 @@ namespace Expro.Areas.User.Controllers
     public class SampleDocumentController : BaseController
     {
         private readonly IDocumentService DocumentService;
+        private readonly ISampleDocumentService SampleDocumentService;
+        private readonly ISampleDocumentSearchService SampleDocumentSearchService;
         private readonly IDocumentStatusService DocumentStatusService;
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly ILawAreaService LawAreaService;
+        private readonly IDocumentCounterService DocumentCounterService;
 
         public SampleDocumentController(
             IDocumentService documentService,
+            ISampleDocumentService sampleDocumentService,
             IDocumentStatusService documentStatusService,
+            ISampleDocumentSearchService sampleDocumentSearchService,
             UserManager<ApplicationUser> userManager,
-            ILawAreaService lawAreaService)
+            ILawAreaService lawAreaService,
+            IDocumentCounterService documentCounterService)
         {
             DocumentService = documentService;
+            SampleDocumentService = sampleDocumentService;
             DocumentStatusService = documentStatusService;
+            SampleDocumentSearchService = sampleDocumentSearchService;
             _userManager = userManager;
             LawAreaService = lawAreaService;
+            DocumentCounterService = documentCounterService;
         }
 
         public IActionResult Index()
@@ -60,7 +69,7 @@ namespace Expro.Areas.User.Controllers
             var curUser = accountUtil.GetCurrentUser(User);
             ApplicationUser user = await _userManager.GetUserAsync(User);
 
-            IQueryable<Document> dataIQueryable = DocumentService.Search(
+            IQueryable<Document> dataIQueryable = SampleDocumentSearchService.Search(
                 start,
                 length,
 
@@ -93,11 +102,11 @@ namespace Expro.Areas.User.Controllers
 
         public IActionResult Details(int id)
         {
-            var document = DocumentService.GetSampleDocumentByID(id);
+            var document = SampleDocumentService.GetByID(id);
             if (document == null)
                 throw new Exception("Намунавий хужжат не найден");
 
-            DocumentService.IncrementNumberOfViews(document);
+            DocumentCounterService.IncrementNumberOfViews(document);
 
             SampleDocumentDetailsForUserVM documentVM = new SampleDocumentDetailsForUserVM(document);
 

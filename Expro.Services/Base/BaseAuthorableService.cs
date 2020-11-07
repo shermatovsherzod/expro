@@ -21,7 +21,7 @@ namespace Expro.Services
             //this._unitOfWork = unitOfWork;
         }
 
-        public void Add(T entity, string creatorID)
+        public virtual void Add(T entity, string creatorID)
         {
             OnPreUpdate(entity, creatorID);
             base.Add(entity);

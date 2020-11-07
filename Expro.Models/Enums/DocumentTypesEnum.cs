@@ -6,8 +6,8 @@ namespace Expro.Models.Enums
 {
     public enum DocumentTypesEnum
     {
-        Article = 1,
+        ArticleDocument = 1,
         SampleDocument = 2,
-        Practice = 3
+        PracticeDocument = 3
     }
 }

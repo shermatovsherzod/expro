@@ -15,17 +15,26 @@ namespace Expro.Areas.Admin.Controllers
     public class SampleDocumentController : BaseController
     {
         private readonly IDocumentService DocumentService;
+        private readonly ISampleDocumentService SampleDocumentService;
+        private readonly ISampleDocumentSearchService SampleDocumentSearchService;
         private readonly IHangfireService HangfireService;
         private readonly IDocumentStatusService DocumentStatusService;
+        private readonly IDocumentAdminActionsService DocumentAdminActionsService;
 
         public SampleDocumentController(
             IDocumentService documentService,
+            ISampleDocumentService sampleDocumentService,
+            ISampleDocumentSearchService sampleDocumentSearchService,
             IHangfireService hangfireService,
-            IDocumentStatusService documentStatusService)
+            IDocumentStatusService documentStatusService,
+            IDocumentAdminActionsService documentAdminActionsService)
         {
             DocumentService = documentService;
+            SampleDocumentService = sampleDocumentService;
+            SampleDocumentSearchService = sampleDocumentSearchService;
             HangfireService = hangfireService;
             DocumentStatusService = documentStatusService;
+            DocumentAdminActionsService = documentAdminActionsService;
         }
 
         public IActionResult Index()
@@ -56,7 +65,7 @@ namespace Expro.Areas.Admin.Controllers
             var curUser = accountUtil.GetCurrentUser(User);
             //ApplicationUser user = await _userManager.GetUserAsync(User);
 
-            IQueryable<Document> dataIQueryable = DocumentService.Search(
+            IQueryable<Document> dataIQueryable = SampleDocumentSearchService.Search(
                 start,
                 length,
 
@@ -89,7 +98,7 @@ namespace Expro.Areas.Admin.Controllers
 
         public IActionResult Details(int id)
         {
-            var document = DocumentService.GetSampleDocumentByID(id);
+            var document = SampleDocumentService.GetByID(id);
             if (document == null)
                 throw new Exception("Намунавий хужжат не найден");
 
@@ -103,17 +112,17 @@ namespace Expro.Areas.Admin.Controllers
         {
             try
             {
-                var document = DocumentService.GetSampleDocumentByID(id);
+                var document = SampleDocumentService.GetByID(id);
                 if (document == null)
                     throw new Exception("Намунавий хужжат не найден");
 
                 var curUser = accountUtil.GetCurrentUser(User);
 
-                if (!DocumentService.ApprovingIsAllowed(document))
+                if (!DocumentAdminActionsService.ApprovingIsAllowed(document))
                     throw new Exception("Статус хужжата не позволяет подтвердить его");
 
                 //cancel request/video
-                DocumentService.Approve(document, curUser.ID);
+                DocumentAdminActionsService.Approve(document, curUser.ID);
 
                 //cancel hangfire jobs
                 HangfireService.CancelJob(document.RejectionJobID);
@@ -131,17 +140,17 @@ namespace Expro.Areas.Admin.Controllers
         {
             try
             {
-                var document = DocumentService.GetSampleDocumentByID(id);
+                var document = SampleDocumentService.GetByID(id);
                 if (document == null)
                     throw new Exception("Намунавий хужжат не найден");
 
                 var curUser = accountUtil.GetCurrentUser(User);
 
-                if (!DocumentService.RejectingIsAllowed(document))
+                if (!DocumentAdminActionsService.RejectingIsAllowed(document))
                     throw new Exception("Статус хужжата не позволяет отменить его");
 
                 //cancel request/video
-                DocumentService.Reject(document, curUser.ID);
+                DocumentAdminActionsService.Reject(document, curUser.ID);
 
                 //cancel hangfire jobs
                 HangfireService.CancelJob(document.RejectionJobID);

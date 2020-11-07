@@ -16,23 +16,29 @@ namespace Expro.Controllers
     public class SampleDocumentController : BaseController
     {
         private readonly IDocumentService DocumentService;
+        private readonly ISampleDocumentSearchService SampleDocumentSearchService;
         private readonly IUserBalanceService UserBalanceService;
         private readonly IUserPurchasedDocumentService UserPurchasedDocumentService;
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly ILawAreaService LawAreaService;
+        private readonly IDocumentCounterService DocumentCounterService;
 
         public SampleDocumentController(
             IDocumentService documentService,
+            ISampleDocumentSearchService sampleDocumentSearchService,
             IUserBalanceService userBalanceService,
             IUserPurchasedDocumentService userPurchasedDocumentService,
             UserManager<ApplicationUser> userManager,
-            ILawAreaService lawAreaService)
+            ILawAreaService lawAreaService,
+            IDocumentCounterService documentCounterService)
         {
             DocumentService = documentService;
+            SampleDocumentSearchService = sampleDocumentSearchService;
             UserBalanceService = userBalanceService;
             UserPurchasedDocumentService = userPurchasedDocumentService;
             _userManager = userManager;
             LawAreaService = lawAreaService;
+            DocumentCounterService = documentCounterService;
         }
 
         public IActionResult Index()
@@ -71,7 +77,7 @@ namespace Expro.Controllers
             var curUser = accountUtil.GetCurrentUser(User);
             //ApplicationUser user = await _userManager.GetUserAsync(User);
 
-            IQueryable<Document> dataIQueryable = DocumentService.Search(
+            IQueryable<Document> dataIQueryable = SampleDocumentSearchService.Search(
                 start,
                 length,
 
@@ -104,11 +110,11 @@ namespace Expro.Controllers
 
         public async Task<IActionResult> Details(int id)
         {
-            var document = DocumentService.GetSampleDocumentApprovedByID(id);
+            var document = DocumentService.GetApprovedByID(id);
             if (document == null)
                 throw new Exception("Намунавий хужжат не найден");
 
-            DocumentService.IncrementNumberOfViews(document);
+            DocumentCounterService.IncrementNumberOfViews(document);
 
             SampleDocumentDetailsForSiteVM documentVM = new SampleDocumentDetailsForSiteVM(document);
 
@@ -154,7 +160,7 @@ namespace Expro.Controllers
         public async Task<IActionResult> Purchase(SampleDocumentPurchaseFormVM purchaseFormVM)
         {
             //once purchased, redirect to /User/SampleDocument/Details/id
-            var document = DocumentService.GetSampleDocumentApprovedByID(purchaseFormVM.DocumentID);
+            var document = DocumentService.GetApprovedByID(purchaseFormVM.DocumentID);
             if (document == null)
                 throw new Exception("Намунавий хужжат не найден");
 
@@ -170,7 +176,7 @@ namespace Expro.Controllers
                 throw new Exception("Недостаточно средств на балансе");
 
             UserPurchasedDocumentService.Purchase(user, document);
-            DocumentService.IncrementNumberOfPurchases(document);
+            DocumentCounterService.IncrementNumberOfPurchases(document);
 
             return Redirect("/User/SampleDocument/Details/" + document.ID);
         }
