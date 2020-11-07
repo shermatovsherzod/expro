@@ -45,7 +45,7 @@ namespace Expro.Areas.Expert.Controllers
             _workExperienceService = workExperienceService;
         }
 
-        public IActionResult Index()
+        public IActionResult Index(string message = "")
         {
             var currentUserAccount = accountUtil.GetCurrentUser(User);
             var currentUser = _userManager.Users.FirstOrDefault(c => c.UserName == currentUserAccount.UserName);
@@ -55,7 +55,7 @@ namespace Expro.Areas.Expert.Controllers
             ViewData["regions"] = _regionService.GetAsSelectListOne(currentUser.RegionID);
             ViewData["cities"] = _cityService.GetAsSelectListOne(currentUser.CityID);
             ViewData["gender"] = _genderService.GetAsSelectListOne(currentUser.GenderID);
-
+            ViewBag.Message = message;
             var userMainInfo = new ProfileExpertVM(currentUser);
             return View(userMainInfo);
         }
@@ -78,14 +78,13 @@ namespace Expro.Areas.Expert.Controllers
                 user.PatronymicName = vmodel.PatronymicName;
                 user.RegionID = vmodel.RegionID;
                 user.CityID = vmodel.CityID;
-                user.DateOfBirth = DateTimeUtils.ConvertToDateTime(vmodel.DateOfBirth, "dd/MM/yyyy");
+                user.DateOfBirth = DateTimeUtils.ConvertToDateTime(vmodel.DateOfBirth, "dd.MM.yyyy");
                 user.GenderID = vmodel.GenderID;
                 _lawAreaService.UpdateUserLawAreas(user, vmodel.LawAreas);
                 IdentityResult result = await _userManager.UpdateAsync(user);
                 if (result.Succeeded)
                 {
-                    var userMainInfo = new ProfileExpertVM(user);
-                    return View(userMainInfo);
+                    return RedirectToAction("Index", new { message = "Изменения сохранены" });
                 }
                 else
                 {
@@ -96,11 +95,12 @@ namespace Expro.Areas.Expert.Controllers
             return View(vmodel);
         }
 
-        public IActionResult Contacts()
+        public IActionResult Contacts(string message = "")
         {
             var currentUserAccount = accountUtil.GetCurrentUser(User);
             var user = _userManager.Users.FirstOrDefault(c => c.UserName == currentUserAccount.UserName);
             var userContactInfo = new ExpertProfileContactVM(user);
+            ViewBag.Message = message;
             return View(userContactInfo);
         }
 
@@ -117,8 +117,7 @@ namespace Expro.Areas.Expert.Controllers
                 IdentityResult result = await _userManager.UpdateAsync(user);
                 if (result.Succeeded)
                 {
-                    var userContactInfo = new ExpertProfileContactVM(user);
-                    return View(userContactInfo);
+                    return RedirectToAction("Contacts", new { message = "Изменения сохранены" });
                 }
                 else
                 {
@@ -135,7 +134,7 @@ namespace Expro.Areas.Expert.Controllers
             var user = accountUtil.GetCurrentUser(User);
             ViewData["country"] = _countryService.GetAsSelectList();
             ViewData["educationListVM"] = GetEducationListByUser(user.ID);
-
+          
             return View();
         }
 
@@ -156,7 +155,7 @@ namespace Expro.Areas.Expert.Controllers
                 model.City = vmodel.City;
                 model.UserID = user.ID;
                 _educationService.Add(model, user.ID);
-                return RedirectToAction("Education");
+                return RedirectToAction("Education");               
             }
             ViewData["educationListVM"] = GetEducationListByUser(user.ID);
             return View(vmodel);
@@ -202,7 +201,7 @@ namespace Expro.Areas.Expert.Controllers
         {
             var user = accountUtil.GetCurrentUser(User);
             ViewData["country"] = _countryService.GetAsSelectList();
-            ViewData["workExperienceListItemVM"] = GetWorkExperienceListByUser(user.ID);
+            ViewData["workExperienceListItemVM"] = GetWorkExperienceListByUser(user.ID);             
             return View();
         }
 
@@ -225,7 +224,7 @@ namespace Expro.Areas.Expert.Controllers
                 model.WorkPeriodTo = vmodel.WorkPeriodTo;
                 model.UserID = user.ID;
                 _workExperienceService.Add(model, user.ID);
-                return RedirectToAction("Experience");
+                return RedirectToAction("Experience");               
             }
             ViewData["workExperienceListItemVM"] = GetEducationListByUser(user.ID);
             return View(vmodel);

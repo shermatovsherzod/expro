@@ -10,6 +10,13 @@
 
 <form id="maininfoform" asp-controller="Profile" asp-action="Index" data-ajax="true" data-ajax-mode="replace" data-ajax-method="POST">
     <div asp-validation-summary="All" class="text-danger"></div>
+    @if (!String.IsNullOrEmpty(ViewBag.Message))
+    {
+        <div class="alert alert-success" role="alert">
+            @ViewBag.Message
+        </div>
+    }
+
     <div class="row">
         <div class="col-md-6">
             <label asp-for="@Model.FirstName"></label>
@@ -135,5 +142,5 @@
             locale: 'ru-ru',
         });
     </script>
-   
+
 }

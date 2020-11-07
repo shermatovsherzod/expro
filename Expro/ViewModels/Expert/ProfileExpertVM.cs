@@ -67,9 +67,9 @@ namespace Expro.Models
             CityID = model.CityID;
             CityOther = model.CityOther;
             LawAreas = model.UserLawAreas != null ? model.UserLawAreas.Select(r => (int)r.LawAreaID).ToList() : null;
-            DateOfBirth = DateTimeUtils.ConvertToString(model.DateOfBirth/*, "dd/MM/yyyy"*/);// model.DateOfBirth != null ? model.DateOfBirth.ToString() : "";
+            DateOfBirth = DateTimeUtils.ConvertToString(model.DateOfBirth);
             GenderID = model.GenderID;
-            DateRegistered = DateTimeUtils.ConvertToString(model.DateRegistered/*, "dd/MM/yyyy"*/);
+            DateRegistered = DateTimeUtils.ConvertToString(model.DateRegistered);
         }
     }
 }

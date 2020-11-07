@@ -43,11 +43,11 @@ namespace Expro.Models
         [StringLength(256)]
         //[Remote("ValidateFrom", "VideoRequest", ErrorMessage = "Введите город", AdditionalFields = "TypeID")]
         public string CityOther { get; set; }
-       
+
         [Display(Name = "Дата рождения")]
         [Required(ErrorMessage = "Поле Дата рождения обязательно для заполнения")]
         public string DateOfBirth { get; set; }
-              
+
         [Display(Name = "Пол")]
         public int? GenderID { get; set; }
 
@@ -64,11 +64,11 @@ namespace Expro.Models
             PatronymicName = model.PatronymicName;
             RegionID = model.RegionID;
             CityID = model.CityID;
-            CityOther = model.CityOther;          
-            DateOfBirth = DateTimeUtils.ConvertToString(model.DateOfBirth, "dd/MM/yyyy");
+            CityOther = model.CityOther;
+            DateOfBirth = DateTimeUtils.ConvertToString(model.DateOfBirth);
             GenderID = model.GenderID;
-            Region = model.Region != null ? model.Region.Name:"";
-            DateRegistered = DateTimeUtils.ConvertToString(model.DateRegistered, "dd/MM/yyyy");
+            Region = model.Region != null ? model.Region.Name : "";
+            DateRegistered = DateTimeUtils.ConvertToString(model.DateRegistered);
         }
     }
 }

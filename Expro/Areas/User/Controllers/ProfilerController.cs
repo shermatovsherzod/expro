@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Expro.Common.Utilities;
 using Expro.Controllers;
 using Expro.Models;
 using Expro.Services.Interfaces;
@@ -35,7 +36,7 @@ namespace Expro.Areas.User.Controllers
             _countryService = countryService;           
         }
 
-        public IActionResult Index()
+        public IActionResult Index(string message = "")
         {
             var currentUserAccount = accountUtil.GetCurrentUser(User);
             var currentUser = _userManager.Users.FirstOrDefault(c => c.UserName == currentUserAccount.UserName);
@@ -44,7 +45,7 @@ namespace Expro.Areas.User.Controllers
             ViewData["regions"] = _regionService.GetAsSelectListOne(currentUser.RegionID);
             ViewData["cities"] = _cityService.GetAsSelectListOne(currentUser.CityID);
             ViewData["gender"] = _genderService.GetAsSelectListOne(currentUser.GenderID);
-
+            ViewBag.Message = message;
             var userMainInfo = new ProfileSimpleUserVM(currentUser);
             return View(userMainInfo);
         }
@@ -66,13 +67,12 @@ namespace Expro.Areas.User.Controllers
                 user.PatronymicName = vmodel.PatronymicName;
                 user.RegionID = vmodel.RegionID;
                 user.CityID = vmodel.CityID;
-                user.DateOfBirth = GetDate(vmodel.DateOfBirth);
+                user.DateOfBirth = DateTimeUtils.ConvertToDateTime(vmodel.DateOfBirth, "dd.MM.yyyy");
                 user.GenderID = vmodel.GenderID;             
                 IdentityResult result = await _userManager.UpdateAsync(user);
                 if (result.Succeeded)
                 {
-                    var userMainInfo = new ProfileSimpleUserVM(user);
-                    return View(userMainInfo);
+                    return RedirectToAction("Index", new { message = "Изменения сохранены" });
                 }
                 else
                 {
@@ -81,11 +81,6 @@ namespace Expro.Areas.User.Controllers
             }
 
             return View(vmodel);
-        }
-
-        public DateTime GetDate(string dateOfBirth)
-        {
-            return DateTime.Now;
         }
     }
 }
