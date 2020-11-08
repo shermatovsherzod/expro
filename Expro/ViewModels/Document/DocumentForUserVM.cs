@@ -10,7 +10,7 @@ using System.Linq;
 
 namespace Expro.ViewModels
 {
-    public class SampleDocumentListItemForAdminVM : BaseVM
+    public class DocumentListItemForUserVM : BaseVM
     {
         [Display(Name = "Название")]
         public string Title { get; set; }
@@ -21,11 +21,11 @@ namespace Expro.ViewModels
         [Display(Name = "Направление")]
         public List<BaseDropdownableDetailsVM> LawAreas { get; set; }
 
-        [Display(Name = "Статус")]
-        public BaseDropdownableDetailsVM Status { get; set; }
+        //[Display(Name = "Статус")]
+        //public BaseDropdownableDetailsVM Status { get; set; }
 
-        [Display(Name = "Дата изменения")]
-        public string DateModified { get; set; }
+        [Display(Name = "Дата публикации")]
+        public string DatePublished { get; set; }
 
         public DocumentPriceTypesEnum PriceType { get; set; }
 
@@ -35,9 +35,9 @@ namespace Expro.ViewModels
         [Display(Name = "Цена")]
         public string PriceStr { get; set; }
 
-        public SampleDocumentListItemForAdminVM() { }
+        public DocumentListItemForUserVM() { }
 
-        public SampleDocumentListItemForAdminVM(Document model)
+        public DocumentListItemForUserVM(Document model)
             : base(model)
         {
             if (model == null)
@@ -48,10 +48,6 @@ namespace Expro.ViewModels
             else
                 Title = model.Title.Substring(0, 100) + "...";
 
-            LawAreas = model.DocumentLawAreas
-                .Select(m => new BaseDropdownableDetailsVM(m.LawArea))
-                .ToList();
-
             PriceType = model.PriceType;
             if (PriceType == DocumentPriceTypesEnum.Paid)
             {
@@ -60,19 +56,23 @@ namespace Expro.ViewModels
                     model.Price.Value.ToString(AppData.Configuration.NumberViewStringFormat) : "0";
             }
 
-            Status = new BaseDropdownableDetailsVM(model.DocumentStatus);
+            //Status = new BaseDropdownableDetailsVM(model.DocumentStatus);
             Author = new AppUserVM(model.Creator);
+            LawAreas = model.DocumentLawAreas
+                .Select(m => new BaseDropdownableDetailsVM(m.LawArea))
+                .ToList();
 
-            DateModified = DateTimeUtils.ConvertToString(model.DateModified);
+            DatePublished = DateTimeUtils.ConvertToString(model.DateApproved);
         }
     }
 
-    public class SampleDocumentDetailsForAdminVM : SampleDocumentListItemForAdminVM
+    public class DocumentDetailsForUserVM : DocumentListItemForUserVM
     {
         [Display(Name = "Язык")]
         public BaseDropdownableDetailsVM Language { get; set; }
 
-        
+        //[Display(Name = "Направление")]
+        //public List<BaseDropdownableDetailsVM> LawAreas { get; set; }
 
         public DocumentContentTypesEnum ContentType { get; set; } = DocumentContentTypesEnum.file;
 
@@ -82,18 +82,9 @@ namespace Expro.ViewModels
         [Display(Name = "Текст")]
         public string Text { get; set; }
 
-        //[Display(Name = "Дата публикации")]
-        //public string DatePublished { get; set; }
+        public DocumentDetailsForUserVM() { }
 
-        [Display(Name = "Дата отправки администратору")]
-        public string DateSubmittedForApproval { get; set; }
-
-        [Display(Name = "Дата ответа администратора")]
-        public string DateAdminResponsed { get; set; }
-
-        public SampleDocumentDetailsForAdminVM() { }
-
-        public SampleDocumentDetailsForAdminVM(Document model)
+        public DocumentDetailsForUserVM(Document model)
             : base(model)
         {
             if (model == null)
@@ -101,25 +92,11 @@ namespace Expro.ViewModels
 
             Title = model.Title;
             Language = new BaseDropdownableDetailsVM(model.Language);
-            
+
             ContentType = model.ContentType;
             Attachment = new AttachmentDetailsVM(model.Attachment);
             if (!string.IsNullOrWhiteSpace(model.Text))
                 Text = model.Text;
-
-            //DatePublished = DateTimeUtils.ConvertToString(model.DateApproved);
-            DateSubmittedForApproval = DateTimeUtils.ConvertToString(model.DateSubmittedForApproval);
-
-            if (model.DocumentStatusID == (int)DocumentStatusesEnum.Approved
-                && model.DateApproved.HasValue)
-            {
-                DateAdminResponsed = DateTimeUtils.ConvertToString(model.DateApproved);
-            }
-            else if (model.DocumentStatusID == (int)DocumentStatusesEnum.Rejected
-                && model.DateRejected.HasValue)
-            {
-                DateAdminResponsed = DateTimeUtils.ConvertToString(model.DateRejected);
-            }
         }
     }
 }

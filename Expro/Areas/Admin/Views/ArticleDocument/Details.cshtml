@@ -2,7 +2,7 @@
 @using Expro.Models.Enums
 
 @{
-    ViewData["Title"] = "Образцовый документ";
+    ViewData["Title"] = "Статья";
 }
 
 <h1>@ViewData["Title"]</h1>
@@ -121,7 +121,7 @@
 
             $.ajax({
                 type: "POST",
-                url: "/Admin/SampleDocument/" + action +"/" + id,
+                url: "/Admin/ArticleDocument/" + action +"/" + id,
                 //data: {
                 //    id: requestID
                 //},

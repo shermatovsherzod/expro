@@ -7,9 +7,8 @@ namespace Expro.ViewModels
 {
     public class DocumentsCountVM
     {
-        public int SampleDocumentCount { get; set; }
-        public int PracticDocumentCount { get; set; }
-
-
+        public int ArticleDocumentsCount { get; set; }
+        public int SampleDocumentsCount { get; set; }
+        public int PracticeDocumentsCount { get; set; }
     }
 }

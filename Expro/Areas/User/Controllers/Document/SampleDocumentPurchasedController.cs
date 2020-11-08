@@ -13,28 +13,22 @@ using Microsoft.AspNetCore.Mvc;
 namespace Expro.Areas.User.Controllers
 {
     [Area("User")]
-    public class SampleDocumentController : BaseController
+    public class SampleDocumentPurchasedController : BaseController
     {
-        private readonly IDocumentService DocumentService;
         private readonly ISampleDocumentService SampleDocumentService;
         private readonly ISampleDocumentSearchService SampleDocumentSearchService;
-        private readonly IDocumentStatusService DocumentStatusService;
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly ILawAreaService LawAreaService;
         private readonly IDocumentCounterService DocumentCounterService;
 
-        public SampleDocumentController(
-            IDocumentService documentService,
+        public SampleDocumentPurchasedController(
             ISampleDocumentService sampleDocumentService,
-            IDocumentStatusService documentStatusService,
             ISampleDocumentSearchService sampleDocumentSearchService,
             UserManager<ApplicationUser> userManager,
             ILawAreaService lawAreaService,
             IDocumentCounterService documentCounterService)
         {
-            DocumentService = documentService;
             SampleDocumentService = sampleDocumentService;
-            DocumentStatusService = documentStatusService;
             SampleDocumentSearchService = sampleDocumentSearchService;
             _userManager = userManager;
             LawAreaService = lawAreaService;
@@ -87,7 +81,7 @@ namespace Expro.Areas.User.Controllers
 
             dynamic data = dataIQueryable
                 .ToList()
-                .Select(m => new SampleDocumentListItemForUserVM(m))
+                .Select(m => new DocumentListItemForUserVM(m))
                 .ToList();
 
             return Json(new
@@ -108,7 +102,7 @@ namespace Expro.Areas.User.Controllers
 
             DocumentCounterService.IncrementNumberOfViews(document);
 
-            SampleDocumentDetailsForUserVM documentVM = new SampleDocumentDetailsForUserVM(document);
+            DocumentDetailsForUserVM documentVM = new DocumentDetailsForUserVM(document);
 
             return View(documentVM);
         }

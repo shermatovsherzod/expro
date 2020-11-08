@@ -13,35 +13,32 @@ using Microsoft.AspNetCore.Mvc;
 namespace Expro.Areas.Expert.Controllers
 {
     [Area("Expert")]
-    public class SampleDocumentController : BaseController
+    public class ArticleDocumentController : BaseController
     {
-        private readonly ISampleDocumentSearchService SampleDocumentSearchService;
-        private readonly ISampleDocumentService SampleDocumentService;
+        private readonly IArticleDocumentSearchService ArticleDocumentSearchService;
         private readonly ILawAreaService LawAreaService;
         private readonly ILanguageService LanguageService;
         private readonly IAttachmentService AttachmentService;
-        private readonly IDocumentService DocumentService;
+        private readonly IArticleDocumentService ArticleDocumentService;
         private readonly IHangfireService HangfireService;
         private readonly IDocumentStatusService DocumentStatusService;
         private readonly UserManager<ApplicationUser> _userManager;
 
-        public SampleDocumentController(
-            ISampleDocumentSearchService sampleDocumentSearchService,
-            ISampleDocumentService sampleDocumentService,
+        public ArticleDocumentController(
+            IArticleDocumentSearchService articleDocumentSearchService,
             ILawAreaService lawAreaService,
             ILanguageService languageService,
             IAttachmentService attachmentService,
-            IDocumentService documentService,
+            IArticleDocumentService articleDocumentService,
             IHangfireService hangfireService,
             IDocumentStatusService documentStatusService,
             UserManager<ApplicationUser> userManager)
         {
-            SampleDocumentSearchService = sampleDocumentSearchService;
-            SampleDocumentService = sampleDocumentService;
+            ArticleDocumentSearchService = articleDocumentSearchService;
             LawAreaService = lawAreaService;
             LanguageService = languageService;
             AttachmentService = attachmentService;
-            DocumentService = documentService;
+            ArticleDocumentService = articleDocumentService;
             HangfireService = hangfireService;
             DocumentStatusService = documentStatusService;
             _userManager = userManager;
@@ -66,7 +63,7 @@ namespace Expro.Areas.Expert.Controllers
             var curUser = accountUtil.GetCurrentUser(User);
             //ApplicationUser user = await _userManager.GetUserAsync(User);
 
-            IQueryable<Document> dataIQueryable = SampleDocumentSearchService.Search(
+            IQueryable<Document> dataIQueryable = ArticleDocumentSearchService.Search(
                 start,
                 length,
 
@@ -84,7 +81,7 @@ namespace Expro.Areas.Expert.Controllers
 
             dynamic data = dataIQueryable
                 .ToList()
-                .Select(m => new SampleDocumentListItemForExpertVM(m))
+                .Select(m => new DocumentListItemForExpertVM(m))
                 .ToList();
 
             return Json(new
@@ -103,7 +100,7 @@ namespace Expro.Areas.Expert.Controllers
         }
 
         [HttpPost]
-        public IActionResult CreateFree(SampleDocumentFreeCreateVM modelVM)
+        public IActionResult CreateFree(DocumentFreeCreateVM modelVM)
         {
             try
             {
@@ -112,7 +109,7 @@ namespace Expro.Areas.Expert.Controllers
                     var curUser = accountUtil.GetCurrentUser(User);
 
                     var model = modelVM.ToModel();
-                    DocumentService.Add(model, curUser.ID);
+                    ArticleDocumentService.Add(model, curUser.ID);
 
                     return RedirectToAction("EditFree", new { id = model.ID });
                 }
@@ -131,7 +128,7 @@ namespace Expro.Areas.Expert.Controllers
         }
 
         [HttpPost]
-        public IActionResult CreatePaid(SampleDocumentPaidCreateVM modelVM)
+        public IActionResult CreatePaid(DocumentPaidCreateVM modelVM)
         {
             try
             {
@@ -140,7 +137,7 @@ namespace Expro.Areas.Expert.Controllers
                     var curUser = accountUtil.GetCurrentUser(User);
 
                     var model = modelVM.ToModel();
-                    DocumentService.Add(model, curUser.ID);
+                    ArticleDocumentService.Add(model, curUser.ID);
 
                     return RedirectToAction("EditPaid", new { id = model.ID });
                 }
@@ -155,11 +152,11 @@ namespace Expro.Areas.Expert.Controllers
 
         public IActionResult EditFree(int id)
         {
-            var model = DocumentService.GetByID(id);
+            var model = ArticleDocumentService.GetByID(id);
             if (model == null)
                 throw new Exception("Документ не найден");
 
-            var modelVM = new SampleDocumentFreeEditVM(model);
+            var modelVM = new DocumentFreeEditVM(model);
 
             var selectedLawAreaIDs = model.DocumentLawAreas.Select(m => m.LawAreaID).ToList();
 
@@ -169,22 +166,22 @@ namespace Expro.Areas.Expert.Controllers
         }
 
         [HttpPost]
-        public IActionResult EditFree(SampleDocumentFreeEditVM modelVM)
+        public IActionResult EditFree(DocumentFreeEditVM modelVM)
         {
             try
             {
                 if (ModelState.IsValid)
                 {
-                    var modelFromDB = DocumentService.GetByID(modelVM.ID);
+                    var modelFromDB = ArticleDocumentService.GetByID(modelVM.ID);
                     if (modelFromDB == null)
                         throw new Exception("Документ не найден");
 
                     var curUser = accountUtil.GetCurrentUser(User);
 
-                    if (!DocumentService.BelongsToUser(modelFromDB, curUser.ID))
+                    if (!ArticleDocumentService.BelongsToUser(modelFromDB, curUser.ID))
                         throw new Exception("Данный документ вам не принадлежит");
 
-                    if (!DocumentService.EditingIsAllowed(modelFromDB))
+                    if (!ArticleDocumentService.EditingIsAllowed(modelFromDB))
                         throw new Exception("Статус документа не позволяет отредактировать его");
 
 
@@ -194,14 +191,14 @@ namespace Expro.Areas.Expert.Controllers
 
                     if (modelVM.ActionType == DocumentActionTypesEnum.submitForApproval)
                     {
-                        DocumentService.SubmitForApproval(model, curUser.ID);
+                        ArticleDocumentService.SubmitForApproval(model, curUser.ID);
                         model.RejectionJobID = HangfireService.CreateJobForDocumentRejectionDeadline(model);
-                        DocumentService.Update(model);
+                        ArticleDocumentService.Update(model);
 
                         modelVM.StatusID = (int)DocumentStatusesEnum.WaitingForApproval;
                     }
                     else
-                        DocumentService.Update(model, curUser.ID);
+                        ArticleDocumentService.Update(model, curUser.ID);
 
                     ViewData["successfullySaved"] = true;
                 }
@@ -232,11 +229,11 @@ namespace Expro.Areas.Expert.Controllers
 
         public IActionResult EditPaid(int id)
         {
-            var model = DocumentService.GetByID(id);
+            var model = ArticleDocumentService.GetByID(id);
             if (model == null)
                 throw new Exception("Документ не найден");
 
-            var modelVM = new SampleDocumentPaidEditVM(model);
+            var modelVM = new DocumentPaidEditVM(model);
 
             var selectedLawAreaIDs = model.DocumentLawAreas.Select(m => m.LawAreaID).ToList();
             PrepareViewData(selectedLawAreaIDs);
@@ -245,22 +242,22 @@ namespace Expro.Areas.Expert.Controllers
         }
 
         [HttpPost]
-        public IActionResult EditPaid(SampleDocumentPaidEditVM modelVM)
+        public IActionResult EditPaid(DocumentPaidEditVM modelVM)
         {
             try
             {
                 if (ModelState.IsValid)
                 {
-                    var modelFromDB = DocumentService.GetByID(modelVM.ID);
+                    var modelFromDB = ArticleDocumentService.GetByID(modelVM.ID);
                     if (modelFromDB == null)
                         throw new Exception("Документ не найден");
 
                     var curUser = accountUtil.GetCurrentUser(User);
 
-                    if (!DocumentService.BelongsToUser(modelFromDB, curUser.ID))
+                    if (!ArticleDocumentService.BelongsToUser(modelFromDB, curUser.ID))
                         throw new Exception("Данный документ вам не принадлежит");
 
-                    if (!DocumentService.EditingIsAllowed(modelFromDB))
+                    if (!ArticleDocumentService.EditingIsAllowed(modelFromDB))
                         throw new Exception("Статус документа не позволяет отредактировать его");
 
                     var model = modelVM.ToModel(modelFromDB);
@@ -269,14 +266,14 @@ namespace Expro.Areas.Expert.Controllers
 
                     if (modelVM.ActionType == DocumentActionTypesEnum.submitForApproval)
                     {
-                        DocumentService.SubmitForApproval(model, curUser.ID);
+                        ArticleDocumentService.SubmitForApproval(model, curUser.ID);
                         model.RejectionJobID = HangfireService.CreateJobForDocumentRejectionDeadline(model);
-                        DocumentService.Update(model);
+                        ArticleDocumentService.Update(model);
 
                         modelVM.StatusID = (int)DocumentStatusesEnum.WaitingForApproval;
                     }
                     else
-                        DocumentService.Update(model, curUser.ID);
+                        ArticleDocumentService.Update(model, curUser.ID);
 
                     ViewData["successfullySaved"] = true;
                 }

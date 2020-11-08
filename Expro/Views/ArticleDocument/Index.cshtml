@@ -1,9 +1,9 @@
-﻿@model IEnumerable<Expro.ViewModels.SampleDocumentListItemForUserVM>
-@using Expro.ViewModels
+﻿@*@model IEnumerable<Expro.ViewModels.ArticleDocumentListItemForSiteVM>*@
 @using Expro.Models.Enums
+@using Expro.ViewModels
 
 @{
-    ViewData["Title"] = "Образцовые документы";
+    ViewData["Title"] = "Статьи";
 }
 
 <h1>@ViewData["Title"]</h1>
@@ -13,7 +13,7 @@
     <div class="col-12">
         Фильтр по направлению: <br />
         <div class="row">
-            @{
+            @{ 
                 var items = ViewData["lawAreas"] as List<SelectListItemWithParent>;
                 var parentItems = items.Where(m => m.ParentValue == "").ToList();
                 for (int i = 0; i < parentItems.Count; i++)
@@ -75,12 +75,11 @@
                 lengthChange: false,
                 ajax:
                 {
-                    url: "/User/SampleDocument/Search",
+                    url: "/ArticleDocument/Search",
                     type: "POST",
                     //contentType: "application/json",
                     datatype: "json",
                     data: function (d) {
-                        //d.statusID = $("#statusDD").val();
                         d.priceType = $("#priceTypeDD").val();
 
                         var lawAreasCheckboxValues = new Array();
@@ -111,12 +110,12 @@
                             var html = '';
                             html += '<div class="card" style="margin-top: 10px;">';
                             html += '   <div class="card-body">';
-                            html += '       <h3><a href="/User/SampleDocument/Details/' + full.id + '">' + full.title + '</a></h3>';
-
-                            @*if (full.contentType == '@((int)DocumentContentTypesEnum.file)')
+                            html += '       <h3><a href="/ArticleDocument/Details/' + full.id + '">' + full.title + '</a></h3>';
+                            
+                            if (full.contentType == '@((int)DocumentContentTypesEnum.file)')
                                 html += '   <p>Есть вложенный файл</p>';
-                            else
-                                html += '   <p>' + full.text + '</p>';*@
+                            //else
+                            //    html += '   <p>' + full.text + '</p>';
 
                             html += '       <p>Дата публикации: ' + full.datePublished + '</p>';
                             html += '       <p>Автор: <a href="#">' + full.author.fullName + '</a></p>';
@@ -130,43 +129,11 @@
                             //console.log(full.priceType);
                             if (full.priceType == '@((int)DocumentPriceTypesEnum.Paid)')
                                 html += '   <p>Цена: <b class="text-danger">' + full.priceStr + ' сум</b></p>';
-                            html += '       <a href="/User/SampleDocument/Details/' + full.id + '" class="btn btn-primary" target="_blank">Открыть</a>';
                             html += '   </div>';
                             html += '</div>';
                             return html;
                         }
                     }
-                    //{
-                    //    "data": 0, //"name": "statusId", "autoWidth": true,
-                    //    "render": function (data, type, full, meta) { return '' + full.title + ''; }
-                    //},
-                    //{
-                    //    "data": 1, //"name": "statusId", "autoWidth": true,
-                    //    "render": function (data, type, full, meta) {
-                    //        return '' + full.author.fullName + '';
-                    //    }
-                    //},
-                    //{
-                    //    "data": 2, //"name": "statusId", "autoWidth": true,
-                    //    "render": function (data, type, full, meta) { return '' + full.datePublished + ''; }
-                    //},
-                    //{
-                    //    "data": 3, //"name": "statusId", "autoWidth": true,
-                    //    "render": function (data, type, full, meta) {
-                    //        var html = "";
-                    //        if (full.price != null)
-                    //            html = "" + full.price;
-                    //        return html;
-                    //    }
-                    //},
-                    //{
-                    //    "data": 4, //"name": "statusId", "autoWidth": true,
-                    //    "render": function (data, type, full, meta)
-                    //    {
-                    //        var html = '<a href="/User/SampleDocument/Details/' + full.id + '" class="btn btn-primary" target="_blank">Открыть</a>';
-                    //        return html;
-                    //    }
-                    //}
                 ]
             });
 
@@ -179,7 +146,7 @@
                     //console.log('Redraw took at: ' + (new Date().getTime() - startTime) + 'mS');
                 });
 
-            $("#priceTypeDD, input[name=lawAreasCheckbox]").change(function () {
+            $("#statusDD, #priceTypeDD, input[name=lawAreasCheckbox]").change(function () {
                 table.draw();
             });
         });

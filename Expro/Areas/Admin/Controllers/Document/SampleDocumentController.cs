@@ -14,7 +14,6 @@ namespace Expro.Areas.Admin.Controllers
     [Area("Admin")]
     public class SampleDocumentController : BaseController
     {
-        private readonly IDocumentService DocumentService;
         private readonly ISampleDocumentService SampleDocumentService;
         private readonly ISampleDocumentSearchService SampleDocumentSearchService;
         private readonly IHangfireService HangfireService;
@@ -22,14 +21,12 @@ namespace Expro.Areas.Admin.Controllers
         private readonly IDocumentAdminActionsService DocumentAdminActionsService;
 
         public SampleDocumentController(
-            IDocumentService documentService,
             ISampleDocumentService sampleDocumentService,
             ISampleDocumentSearchService sampleDocumentSearchService,
             IHangfireService hangfireService,
             IDocumentStatusService documentStatusService,
             IDocumentAdminActionsService documentAdminActionsService)
         {
-            DocumentService = documentService;
             SampleDocumentService = sampleDocumentService;
             SampleDocumentSearchService = sampleDocumentSearchService;
             HangfireService = hangfireService;
@@ -39,16 +36,6 @@ namespace Expro.Areas.Admin.Controllers
 
         public IActionResult Index()
         {
-            //var documents = DocumentService.GetSampleDocumentsForAdmin().ToList();
-
-            //var documentVMs = new List<SampleDocumentListItemForAdminVM>();
-            //foreach (var item in documents)
-            //{
-            //    documentVMs.Add(new SampleDocumentListItemForAdminVM(item));
-            //}
-
-            //return View(documentVMs);
-
             ViewData["statuses"] = DocumentStatusService.GetAsSelectList();
             return View();
         }
@@ -83,7 +70,7 @@ namespace Expro.Areas.Admin.Controllers
 
             dynamic data = dataIQueryable
                 .ToList()
-                .Select(m => new SampleDocumentListItemForAdminVM(m))
+                .Select(m => new DocumentListItemForAdminVM(m))
                 .ToList();
 
             return Json(new
@@ -102,7 +89,7 @@ namespace Expro.Areas.Admin.Controllers
             if (document == null)
                 throw new Exception("Намунавий хужжат не найден");
 
-            SampleDocumentDetailsForAdminVM documentVM = new SampleDocumentDetailsForAdminVM(document);
+            DocumentDetailsForAdminVM documentVM = new DocumentDetailsForAdminVM(document);
 
             return View(documentVM);
         }

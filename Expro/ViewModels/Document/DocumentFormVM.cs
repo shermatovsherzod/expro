@@ -10,16 +10,16 @@ using System.Linq;
 
 namespace Expro.ViewModels
 {
-    public class SampleDocumentFreeCreateVM : BaseVM
+    public class DocumentFreeCreateVM : BaseVM
     {
         [Required]
         [StringLength(1024)]
         [Display(Name = "Название")]
         public string Title { get; set; }
 
-        public SampleDocumentFreeCreateVM() { }
+        public DocumentFreeCreateVM() { }
 
-        public SampleDocumentFreeCreateVM(Document model)
+        public DocumentFreeCreateVM(Document model)
             : base(model)
         {
             if (model == null)
@@ -42,7 +42,7 @@ namespace Expro.ViewModels
         }
     }
 
-    public class SampleDocumentFreeEditVM : SampleDocumentFreeCreateVM
+    public class DocumentFreeEditVM : DocumentFreeCreateVM
     {
         [Display(Name = "Язык")]
         public int LanguageID { get; set; }
@@ -68,9 +68,9 @@ namespace Expro.ViewModels
 
         public int StatusID { get; set; }
 
-        public SampleDocumentFreeEditVM() { }
+        public DocumentFreeEditVM() { }
 
-        public SampleDocumentFreeEditVM(Document model)
+        public DocumentFreeEditVM(Document model)
             : base(model)
         {
             if (model == null)
@@ -114,11 +114,11 @@ namespace Expro.ViewModels
         }
     }
 
-    public class SampleDocumentPaidCreateVM : SampleDocumentFreeCreateVM
+    public class DocumentPaidCreateVM : DocumentFreeCreateVM
     {
-        public SampleDocumentPaidCreateVM() { }
+        public DocumentPaidCreateVM() { }
 
-        public SampleDocumentPaidCreateVM(Document model)
+        public DocumentPaidCreateVM(Document model)
             : base(model)
         {
         }
@@ -132,15 +132,15 @@ namespace Expro.ViewModels
         }
     }
 
-    public class SampleDocumentPaidEditVM : SampleDocumentFreeEditVM
+    public class DocumentPaidEditVM : DocumentFreeEditVM
     {
         [Required]
         [Display(Name = "Цена")]
         public int? Price { get; set; }
 
-        public SampleDocumentPaidEditVM() { }
+        public DocumentPaidEditVM() { }
 
-        public SampleDocumentPaidEditVM(Document model)
+        public DocumentPaidEditVM(Document model)
             : base(model)
         {
             if (model == null)

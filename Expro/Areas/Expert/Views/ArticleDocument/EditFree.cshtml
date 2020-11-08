@@ -1,10 +1,10 @@
-﻿@model Expro.ViewModels.DocumentPaidEditVM
+﻿@model Expro.ViewModels.DocumentFreeEditVM
 @using Expro.Models.Enums
 @using Expro.Common
 @using Expro.ViewModels
 
 @{
-    ViewData["Title"] = "Редактировать платный Образцовый документ";
+    ViewData["Title"] = "Редактировать статью";
 }
 
 <h1>@ViewData["Title"]</h1>
@@ -35,7 +35,7 @@ else if (Model.StatusID == (int)DocumentStatusesEnum.Rejected)
 }
 <div class="row">
     <div class="col-md-12">
-        <form asp-action="EditPaid" id="editForm">
+        <form asp-action="EditFree" id="editForm">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input asp-for="StatusID" type="hidden" />
             <div class="form-group">
@@ -119,11 +119,6 @@ else if (Model.StatusID == (int)DocumentStatusesEnum.Rejected)
                 <textarea asp-for="Text" class="form-control"></textarea>
                 <span asp-validation-for="Text" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="Price" class="control-label"></label>
-                <input asp-for="Price" class="form-control" />
-                <span asp-validation-for="Price" class="text-danger"></span>
-            </div>
             <div class="form-group" id="actionButtonsBox">
                 <input asp-for="ActionType" type="hidden" />
                 <button type="submit" class="btn btn-primary" actiontype="@DocumentActionTypesEnum.saveAsDraft">Сохранить как черновик</button>
@@ -174,7 +169,6 @@ else if (Model.StatusID == (int)DocumentStatusesEnum.Rejected)
                 $('#LawAreas').prop('disabled', true);
                 $('#LawAreas').selectpicker('refresh');
                 $("#actionButtonsBox").html("");
-                //$("#alertSubmittedForApproval").show();
             }
 
             $("form button[type=submit]").click(function (ev) {
@@ -315,7 +309,7 @@ else if (Model.StatusID == (int)DocumentStatusesEnum.Rejected)
 
                         $("form #AttachmentID").val(data.id);
 
-                        //console.log(attachment);
+                        console.log(attachment);
                         var html = '';
                         html += "<button id='deleteFileBtn' type='button' class='btn btn-danger' onclick='DeleteFile(" + data.id + ", \"" + attachment.Path + "\");'>X</button>";
                         html += '<a href="' + attachment.DownloadUrl + '">' + attachment.DisplayName + '</a>';

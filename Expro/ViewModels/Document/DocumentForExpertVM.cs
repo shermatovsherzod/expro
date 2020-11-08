@@ -10,22 +10,19 @@ using System.Linq;
 
 namespace Expro.ViewModels
 {
-    public class SampleDocumentListItemForUserVM : BaseVM
+    public class DocumentListItemForExpertVM : BaseVM
     {
         [Display(Name = "Название")]
         public string Title { get; set; }
 
-        [Display(Name = "Автор")]
-        public AppUserVM Author { get; set; }
+        [Display(Name = "Статус")]
+        public BaseDropdownableDetailsVM Status { get; set; }
 
         [Display(Name = "Направление")]
         public List<BaseDropdownableDetailsVM> LawAreas { get; set; }
 
-        //[Display(Name = "Статус")]
-        //public BaseDropdownableDetailsVM Status { get; set; }
-
-        [Display(Name = "Дата публикации")]
-        public string DatePublished { get; set; }
+        [Display(Name = "Дата изменения")]
+        public string DateModified { get; set; }
 
         public DocumentPriceTypesEnum PriceType { get; set; }
 
@@ -35,9 +32,9 @@ namespace Expro.ViewModels
         [Display(Name = "Цена")]
         public string PriceStr { get; set; }
 
-        public SampleDocumentListItemForUserVM() { }
+        public DocumentListItemForExpertVM() { }
 
-        public SampleDocumentListItemForUserVM(Document model)
+        public DocumentListItemForExpertVM(Document model)
             : base(model)
         {
             if (model == null)
@@ -56,23 +53,19 @@ namespace Expro.ViewModels
                     model.Price.Value.ToString(AppData.Configuration.NumberViewStringFormat) : "0";
             }
 
-            //Status = new BaseDropdownableDetailsVM(model.DocumentStatus);
-            Author = new AppUserVM(model.Creator);
             LawAreas = model.DocumentLawAreas
                 .Select(m => new BaseDropdownableDetailsVM(m.LawArea))
                 .ToList();
 
-            DatePublished = DateTimeUtils.ConvertToString(model.DateApproved);
+            Status = new BaseDropdownableDetailsVM(model.DocumentStatus);
+            DateModified = DateTimeUtils.ConvertToString(model.DateModified);
         }
     }
 
-    public class SampleDocumentDetailsForUserVM : SampleDocumentListItemForUserVM
+    public class DocumentDetailsForExpertVM : DocumentListItemForExpertVM
     {
         [Display(Name = "Язык")]
         public BaseDropdownableDetailsVM Language { get; set; }
-
-        //[Display(Name = "Направление")]
-        //public List<BaseDropdownableDetailsVM> LawAreas { get; set; }
 
         public DocumentContentTypesEnum ContentType { get; set; } = DocumentContentTypesEnum.file;
 
@@ -82,9 +75,15 @@ namespace Expro.ViewModels
         [Display(Name = "Текст")]
         public string Text { get; set; }
 
-        public SampleDocumentDetailsForUserVM() { }
+        //[Display(Name = "Дата отправки администратору")]
+        //public string DateSubmittedForApproval { get; set; }
 
-        public SampleDocumentDetailsForUserVM(Document model)
+        //[Display(Name = "Дата ответа администратора")]
+        //public string DateAdminResponsed { get; set; }
+
+        public DocumentDetailsForExpertVM() { }
+
+        public DocumentDetailsForExpertVM(Document model)
             : base(model)
         {
             if (model == null)
@@ -95,8 +94,22 @@ namespace Expro.ViewModels
 
             ContentType = model.ContentType;
             Attachment = new AttachmentDetailsVM(model.Attachment);
+
             if (!string.IsNullOrWhiteSpace(model.Text))
                 Text = model.Text;
+
+            //DateSubmittedForApproval = DateTimeUtils.ConvertToString(model.DateSubmittedForApproval);
+
+            //if (model.DocumentStatusID == (int)DocumentStatusesEnum.Approved
+            //    && model.DateApproved.HasValue)
+            //{
+            //    DateAdminResponsed = DateTimeUtils.ConvertToString(model.DateApproved);
+            //}
+            //else if (model.DocumentStatusID == (int)DocumentStatusesEnum.Rejected
+            //    && model.DateRejected.HasValue)
+            //{
+            //    DateAdminResponsed = DateTimeUtils.ConvertToString(model.DateRejected);
+            //}
         }
     }
 }

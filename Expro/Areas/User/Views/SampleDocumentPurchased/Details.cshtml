@@ -1,4 +1,4 @@
-﻿@model Expro.ViewModels.SampleDocumentDetailsForUserVM
+﻿@model Expro.ViewModels.DocumentDetailsForUserVM
 @using Expro.Models.Enums
 
 @{
@@ -47,7 +47,7 @@
             @Html.DisplayNameFor(model => model.Price)
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Price) сум
+            @Html.DisplayFor(model => model.PriceStr) сум
         </dd>
         <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.DatePublished)

@@ -13,27 +13,27 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Expro.Controllers
 {
-    public class SampleDocumentController : BaseController
+    public class ArticleDocumentController : BaseController
     {
-        private readonly IDocumentService DocumentService;
-        private readonly ISampleDocumentSearchService SampleDocumentSearchService;
+        private readonly IArticleDocumentService ArticleDocumentService;
+        private readonly IArticleDocumentSearchService ArticleDocumentSearchService;
         private readonly IUserBalanceService UserBalanceService;
         private readonly IUserPurchasedDocumentService UserPurchasedDocumentService;
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly ILawAreaService LawAreaService;
         private readonly IDocumentCounterService DocumentCounterService;
 
-        public SampleDocumentController(
-            IDocumentService documentService,
-            ISampleDocumentSearchService sampleDocumentSearchService,
+        public ArticleDocumentController(
+            IArticleDocumentService articleDocumentService,
+            IArticleDocumentSearchService articleDocumentSearchService,
             IUserBalanceService userBalanceService,
             IUserPurchasedDocumentService userPurchasedDocumentService,
             UserManager<ApplicationUser> userManager,
             ILawAreaService lawAreaService,
             IDocumentCounterService documentCounterService)
         {
-            DocumentService = documentService;
-            SampleDocumentSearchService = sampleDocumentSearchService;
+            ArticleDocumentService = articleDocumentService;
+            ArticleDocumentSearchService = articleDocumentSearchService;
             UserBalanceService = userBalanceService;
             UserPurchasedDocumentService = userPurchasedDocumentService;
             _userManager = userManager;
@@ -43,14 +43,6 @@ namespace Expro.Controllers
 
         public IActionResult Index()
         {
-            //var documents = DocumentService.GetSampleDocumentsApproved().ToList();
-
-            //var documentVMs = new List<SampleDocumentListItemForSiteVM>();
-            //foreach (var item in documents)
-            //{
-            //    documentVMs.Add(new SampleDocumentListItemForSiteVM(item));
-            //}
-
             ViewData["lawAreas"] = LawAreaService.GetAsIQueryable()
                 .Select(m => new SelectListItemWithParent()
                 {
@@ -77,7 +69,7 @@ namespace Expro.Controllers
             var curUser = accountUtil.GetCurrentUser(User);
             //ApplicationUser user = await _userManager.GetUserAsync(User);
 
-            IQueryable<Document> dataIQueryable = SampleDocumentSearchService.Search(
+            IQueryable<Document> dataIQueryable = ArticleDocumentSearchService.Search(
                 start,
                 length,
 
@@ -95,7 +87,7 @@ namespace Expro.Controllers
 
             dynamic data = dataIQueryable
                 .ToList()
-                .Select(m => new SampleDocumentListItemForSiteVM(m))
+                .Select(m => new DocumentListItemForSiteVM(m))
                 .ToList();
 
             return Json(new
@@ -110,15 +102,15 @@ namespace Expro.Controllers
 
         public async Task<IActionResult> Details(int id)
         {
-            var document = DocumentService.GetApprovedByID(id);
+            var document = ArticleDocumentService.GetApprovedByID(id);
             if (document == null)
                 throw new Exception("Намунавий хужжат не найден");
 
             DocumentCounterService.IncrementNumberOfViews(document);
 
-            SampleDocumentDetailsForSiteVM documentVM = new SampleDocumentDetailsForSiteVM(document);
+            DocumentDetailsForSiteVM documentVM = new DocumentDetailsForSiteVM(document);
 
-            if (!DocumentService.IsFree(document))
+            if (!ArticleDocumentService.IsFree(document))
             {
                 var curUser = accountUtil.GetCurrentUser(User);
                 if (curUser != null)
@@ -139,7 +131,7 @@ namespace Expro.Controllers
                             if (curUserBalance < documentVM.Price)
                             {
                                 int paymentAmount = documentVM.Price - curUserBalance;
-                                string returnUrl = "https://expro.uz/SampleDocument/Details/" + id;
+                                string returnUrl = "https://expro.uz/ArticleDocument/Details/" + id;
                                 ViewData["returnUrl"] = returnUrl;
                                 ViewData["paymentAmount"] = paymentAmount;
                                 ViewData["paymentAmountStr"] = paymentAmount
@@ -157,14 +149,14 @@ namespace Expro.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Purchase(SampleDocumentPurchaseFormVM purchaseFormVM)
+        public async Task<IActionResult> Purchase(DocumentPurchaseFormVM purchaseFormVM)
         {
-            //once purchased, redirect to /User/SampleDocument/Details/id
-            var document = DocumentService.GetApprovedByID(purchaseFormVM.DocumentID);
+            //once purchased, redirect to /User/ArticleDocument/Details/id
+            var document = ArticleDocumentService.GetApprovedByID(purchaseFormVM.DocumentID);
             if (document == null)
                 throw new Exception("Намунавий хужжат не найден");
 
-            if (DocumentService.IsFree(document))
+            if (ArticleDocumentService.IsFree(document))
                 throw new Exception("Намунавий хужжат бесплатный!");
 
             ApplicationUser user = await _userManager.GetUserAsync(User);
@@ -178,7 +170,7 @@ namespace Expro.Controllers
             UserPurchasedDocumentService.Purchase(user, document);
             DocumentCounterService.IncrementNumberOfPurchases(document);
 
-            return Redirect("/User/SampleDocument/Details/" + document.ID);
+            return Redirect("/User/ArticleDocument/Details/" + document.ID);
         }
     }
 }

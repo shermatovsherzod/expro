@@ -10,7 +10,7 @@ using System.Linq;
 
 namespace Expro.ViewModels
 {
-    public class SampleDocumentListItemForSiteVM : BaseVM
+    public class DocumentListItemForSiteVM : BaseVM
     {
         [Display(Name = "Название")]
         public string Title { get; set; }
@@ -38,9 +38,9 @@ namespace Expro.ViewModels
         [Display(Name = "Дата публикации")]
         public string DatePublished { get; set; }
 
-        public SampleDocumentListItemForSiteVM() { }
+        public DocumentListItemForSiteVM() { }
 
-        public SampleDocumentListItemForSiteVM(Document model)
+        public DocumentListItemForSiteVM(Document model)
             : base(model)
         {
             if (model == null)
@@ -78,7 +78,7 @@ namespace Expro.ViewModels
         }
     }
 
-    public class SampleDocumentDetailsForSiteVM : SampleDocumentListItemForSiteVM
+    public class DocumentDetailsForSiteVM : DocumentListItemForSiteVM
     {
         [Display(Name = "Язык")]
         public BaseDropdownableDetailsVM Language { get; set; }
@@ -92,9 +92,9 @@ namespace Expro.ViewModels
         [Display(Name = "Кол-во загрузок")]
         public int NumberOfPurchases { get; set; }
 
-        public SampleDocumentDetailsForSiteVM() { }
+        public DocumentDetailsForSiteVM() { }
 
-        public SampleDocumentDetailsForSiteVM(Document model)
+        public DocumentDetailsForSiteVM(Document model)
             : base(model)
         {
             if (model == null)
@@ -120,7 +120,7 @@ namespace Expro.ViewModels
         }
     }
 
-    public class SampleDocumentPurchaseFormVM
+    public class DocumentPurchaseFormVM
     {
         public int DocumentID { get; set; }
     }

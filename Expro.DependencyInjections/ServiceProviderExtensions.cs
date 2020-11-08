@@ -65,6 +65,8 @@ namespace Expro.DependencyInjections
             services.AddTransient<IArticleDocumentSearchService, ArticleDocumentSearchService>();
             services.AddTransient<IDocumentAdminActionsService, DocumentAdminActionsService>();
             services.AddTransient<IDocumentCounterService, DocumentCounterService>();
+            services.AddTransient<IPracticeDocumentService, PracticeDocumentService>();
+            services.AddTransient<IPracticeDocumentSearchService, PracticeDocumentSearchService>();
         }
     }
 }

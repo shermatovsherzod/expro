@@ -31,8 +31,8 @@ namespace Expro.Components
             var currentUser = _userManager.Users.FirstOrDefault(c => c.UserName == currentUserAccount.UserName);
             DocumentsCountVM vmodel = new DocumentsCountVM();
 
-            vmodel.SampleDocumentCount = _documentService.GetAsIQueryable().Count(c => c.CreatedBy == currentUser.Id && c.DocumentTypeID == 2); //Намунавий хужжат 2
-            vmodel.PracticDocumentCount = _documentService.GetAsIQueryable().Count(c => c.CreatedBy == currentUser.Id && c.DocumentTypeID == 3); //Амалиёт 3
+            vmodel.SampleDocumentsCount = _documentService.GetAsIQueryable().Count(c => c.CreatedBy == currentUser.Id && c.DocumentTypeID == 2); //Намунавий хужжат 2
+            vmodel.PracticeDocumentsCount = _documentService.GetAsIQueryable().Count(c => c.CreatedBy == currentUser.Id && c.DocumentTypeID == 3); //Амалиёт 3
 
             return View("UserDocuments", vmodel);
         }

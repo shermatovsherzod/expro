@@ -27,4 +27,13 @@ namespace Expro.Services
 
         }
     }
+
+    public class PracticeDocumentSearchService : DocumentSearchService, IPracticeDocumentSearchService
+    {
+        public PracticeDocumentSearchService(IPracticeDocumentService practiceDocumentService)
+            : base(practiceDocumentService)
+        {
+
+        }
+    }
 }

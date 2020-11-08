@@ -29,4 +29,14 @@ namespace Expro.Services
             _documentType = DocumentTypesEnum.ArticleDocument;
         }
     }
+
+    public class PracticeDocumentService : DocumentService, IPracticeDocumentService
+    {
+        public PracticeDocumentService(IDocumentRepository repository,
+                           IUnitOfWork unitOfWork)
+            : base(repository, unitOfWork)
+        {
+            _documentType = DocumentTypesEnum.PracticeDocument;
+        }
+    }
 }
