@@ -68,7 +68,8 @@
                 }
                 else
                 {
-                    @Html.DisplayFor(model => model.Text)
+                    @Html.Raw(Model.Text)
+                    @*@Html.DisplayFor(model => model.Text)*@
                 }
             </dd>
         }
@@ -132,7 +133,7 @@
             else
             {
                 <div class="alert alert-success">
-                    <p>Вы уже покупали этот материал. Нажмите <a href="/User/SampleDocument/Details/@Model.ID" class="btn-link">здесь</a>, чтобы посмотреть.</p>
+                    <p>Вы уже покупали этот материал. Нажмите <a href="/User/ArticleDocument/Details/@Model.ID" class="btn-link">здесь</a>, чтобы посмотреть.</p>
                 </div>
             }
         }

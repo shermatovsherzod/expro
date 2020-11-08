@@ -13,27 +13,27 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Expro.Controllers
 {
-    public class SampleDocumentController : BaseController
+    public class PracticeDocumentController : BaseController
     {
-        private readonly ISampleDocumentService SampleDocumentService;
-        private readonly ISampleDocumentSearchService SampleDocumentSearchService;
+        private readonly IPracticeDocumentService PracticeDocumentService;
+        private readonly IPracticeDocumentSearchService PracticeDocumentSearchService;
         private readonly IUserBalanceService UserBalanceService;
         private readonly IUserPurchasedDocumentService UserPurchasedDocumentService;
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly ILawAreaService LawAreaService;
         private readonly IDocumentCounterService DocumentCounterService;
 
-        public SampleDocumentController(
-            ISampleDocumentService sampleDocumentService,
-            ISampleDocumentSearchService sampleDocumentSearchService,
+        public PracticeDocumentController(
+            IPracticeDocumentService practiceDocumentService,
+            IPracticeDocumentSearchService practiceDocumentSearchService,
             IUserBalanceService userBalanceService,
             IUserPurchasedDocumentService userPurchasedDocumentService,
             UserManager<ApplicationUser> userManager,
             ILawAreaService lawAreaService,
             IDocumentCounterService documentCounterService)
         {
-            SampleDocumentService = sampleDocumentService;
-            SampleDocumentSearchService = sampleDocumentSearchService;
+            PracticeDocumentService = practiceDocumentService;
+            PracticeDocumentSearchService = practiceDocumentSearchService;
             UserBalanceService = userBalanceService;
             UserPurchasedDocumentService = userPurchasedDocumentService;
             _userManager = userManager;
@@ -69,7 +69,7 @@ namespace Expro.Controllers
             var curUser = accountUtil.GetCurrentUser(User);
             //ApplicationUser user = await _userManager.GetUserAsync(User);
 
-            IQueryable<Document> dataIQueryable = SampleDocumentSearchService.Search(
+            IQueryable<Document> dataIQueryable = PracticeDocumentSearchService.Search(
                 start,
                 length,
 
@@ -102,7 +102,7 @@ namespace Expro.Controllers
 
         public async Task<IActionResult> Details(int id)
         {
-            var document = SampleDocumentService.GetApprovedByID(id);
+            var document = PracticeDocumentService.GetApprovedByID(id);
             if (document == null)
                 throw new Exception("Намунавий хужжат не найден");
 
@@ -110,7 +110,7 @@ namespace Expro.Controllers
 
             DocumentDetailsForSiteVM documentVM = new DocumentDetailsForSiteVM(document);
 
-            if (!SampleDocumentService.IsFree(document))
+            if (!PracticeDocumentService.IsFree(document))
             {
                 var curUser = accountUtil.GetCurrentUser(User);
                 if (curUser != null)
@@ -131,7 +131,7 @@ namespace Expro.Controllers
                             if (curUserBalance < documentVM.Price)
                             {
                                 int paymentAmount = documentVM.Price - curUserBalance;
-                                string returnUrl = "https://expro.uz/SampleDocument/Details/" + id;
+                                string returnUrl = "https://expro.uz/PracticeDocument/Details/" + id;
                                 ViewData["returnUrl"] = returnUrl;
                                 ViewData["paymentAmount"] = paymentAmount;
                                 ViewData["paymentAmountStr"] = paymentAmount
@@ -151,12 +151,12 @@ namespace Expro.Controllers
         [HttpPost]
         public async Task<IActionResult> Purchase(DocumentPurchaseFormVM purchaseFormVM)
         {
-            //once purchased, redirect to /User/SampleDocument/Details/id
-            var document = SampleDocumentService.GetApprovedByID(purchaseFormVM.DocumentID);
+            //once purchased, redirect to /User/PracticeDocument/Details/id
+            var document = PracticeDocumentService.GetApprovedByID(purchaseFormVM.DocumentID);
             if (document == null)
                 throw new Exception("Намунавий хужжат не найден");
 
-            if (SampleDocumentService.IsFree(document))
+            if (PracticeDocumentService.IsFree(document))
                 throw new Exception("Намунавий хужжат бесплатный!");
 
             ApplicationUser user = await _userManager.GetUserAsync(User);
@@ -170,7 +170,7 @@ namespace Expro.Controllers
             UserPurchasedDocumentService.Purchase(user, document);
             DocumentCounterService.IncrementNumberOfPurchases(document);
 
-            return Redirect("/User/SampleDocument/Details/" + document.ID);
+            return Redirect("/User/PracticeDocumentPurchased/Details/" + document.ID);
         }
     }
 }

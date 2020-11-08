@@ -170,7 +170,7 @@ namespace Expro.Controllers
             UserPurchasedDocumentService.Purchase(user, document);
             DocumentCounterService.IncrementNumberOfPurchases(document);
 
-            return Redirect("/User/ArticleDocument/Details/" + document.ID);
+            return Redirect("/User/ArticleDocumentPurchased/Details/" + document.ID);
         }
     }
 }

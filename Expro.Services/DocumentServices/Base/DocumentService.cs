@@ -42,11 +42,19 @@ namespace Expro.Services
             var model = base.GetByID(id);
             if (model != null)
             {
+                if (DocumentTypeIsNotDefined())
+                    return model;
+
                 if (model.DocumentTypeID != (int)_documentType)
                     model = null;
             }
 
             return model;
+        }
+
+        bool DocumentTypeIsNotDefined()
+        {
+            return (int)_documentType == 0;
         }
 
         bool StatusIsPending(Document entity)

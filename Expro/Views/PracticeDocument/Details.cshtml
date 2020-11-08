@@ -2,7 +2,7 @@
 @using Expro.Models.Enums 
 
 @{
-    ViewData["Title"] = "Образцовый документ - детали";
+    ViewData["Title"] = "Практический документ - детали";
 }
 
 <h1>@ViewData["Title"]</h1>
@@ -133,7 +133,7 @@
             else
             {
                 <div class="alert alert-success">
-                    <p>Вы уже покупали этот материал. Нажмите <a href="/User/SampleDocument/Details/@Model.ID" class="btn-link">здесь</a>, чтобы посмотреть.</p>
+                    <p>Вы уже покупали этот материал. Нажмите <a href="/User/PracticeDocument/Details/@Model.ID" class="btn-link">здесь</a>, чтобы посмотреть.</p>
                 </div>
             }
         }
