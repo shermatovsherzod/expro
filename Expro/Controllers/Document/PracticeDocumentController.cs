@@ -119,7 +119,10 @@ namespace Expro.Controllers
                     if (user != null)
                     {
                         if (UserPurchasedDocumentService.UserPurchasedDocumentBefore(user, document))
+                        {
                             ViewData["purchasedBefore"] = true;
+                            ViewData["curUserArea"] = curUser.UserArea;
+                        }
                         else
                         {
                             int curUserBalance = UserBalanceService.GetBalance(user);
@@ -170,7 +173,9 @@ namespace Expro.Controllers
             UserPurchasedDocumentService.Purchase(user, document);
             DocumentCounterService.IncrementNumberOfPurchases(document);
 
-            return Redirect("/User/PracticeDocumentPurchased/Details/" + document.ID);
+            var curUser = accountUtil.GetCurrentUser(User);
+
+            return Redirect("/" + curUser.UserArea.Value.ToString() + "/PracticeDocumentPurchased/Details/" + document.ID);
         }
     }
 }
