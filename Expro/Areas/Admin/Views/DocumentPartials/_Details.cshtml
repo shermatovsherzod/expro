@@ -1,0 +1,91 @@
+﻿@model Expro.ViewModels.DocumentDetailsForAdminVM
+@using Expro.Models.Enums
+
+<div>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            Действия:
+        </dt>
+        <dd class="col-sm-10">
+            @if (Model.Status.ID == (int)DocumentStatusesEnum.WaitingForApproval)
+            {
+                <button type="button" class="btn btn-success" onclick="Approve(@Model.ID);">Подтвердить</button>
+                <button type="button" class="btn btn-danger" onclick="Reject(@Model.ID);">Отменить</button>
+            }
+            else if (Model.Status.ID == (int)DocumentStatusesEnum.Approved)
+            {
+                <div class="alert alert-success">@ViewData["ApprovedStatusAlertText"]</div>
+            }
+            else if (Model.Status.ID == (int)DocumentStatusesEnum.Rejected)
+            {
+                <div class="alert alert-danger">@ViewData["RejectedStatusAlertText"]</div>
+            }
+            <div class="spinner-border spinner" style="display: none;"></div>
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Title)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Title)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Language)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Language.Name)
+        </dd>
+
+        @if (Model.ContentType == DocumentContentTypesEnum.file)
+        {
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Attachment)
+            </dt>
+            <dd class="col-sm-10">
+                <a href="@Model.Attachment.Url">@Model.Attachment.DisplayName</a>
+            </dd>
+        }
+        else
+        {
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Text)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.Raw(Model.Text)
+            </dd>
+        }
+
+        @if (Model.PriceType == DocumentPriceTypesEnum.Paid)
+        {
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Price)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.PriceStr) сум
+            </dd>
+        }
+
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.DateSubmittedForApproval)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.DateSubmittedForApproval)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.DateAdminResponsed)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.DateAdminResponsed)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Author)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Author.FirstName) @Html.DisplayFor(model => model.Author.LastName)
+        </dd>
+
+    </dl>
+</div>
+<div>
+    <a asp-action="Index">Назад к списку</a>
+</div>
