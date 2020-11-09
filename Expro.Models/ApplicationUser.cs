@@ -47,6 +47,15 @@ namespace Expro.Models
         [StringLength(256)]
         public string CityOther { get; set; }
 
+        [StringLength(256)]
+        public string WebSite { get; set; }
+
+        [StringLength(256)]
+        public string Fax { get; set; }
+
+        [StringLength(2000)]
+        public string AboutMe { get; set; }
+
         [Required]
         public int Balance { get; set; }
 

@@ -19,6 +19,14 @@ namespace Expro.ViewModels.Expert
         [Display(Name = "Номер телефона")]
         public string PhoneNumber { get; set; }
 
+        
+        [Display(Name = "Факс")]
+        public string Fax { get; set; }
+
+        [Required]
+        [Display(Name = "Веб сайт")]
+        public string WebSite { get; set; }
+
 
         public ExpertProfileContactVM(ApplicationUser model) // : base(model)
         {
@@ -27,6 +35,8 @@ namespace Expro.ViewModels.Expert
 
            // Email = model.Email;
             PhoneNumber = model.PhoneNumber;
+            Fax = model.Fax;
+            WebSite = model.WebSite;
         }
     }
 }

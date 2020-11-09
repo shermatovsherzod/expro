@@ -114,6 +114,8 @@ namespace Expro.Areas.Expert.Controllers
             {
                 // user.Email = vmodel.Email;
                 user.PhoneNumber = vmodel.PhoneNumber;
+                user.Fax = vmodel.Fax;
+                user.WebSite = vmodel.WebSite;
                 IdentityResult result = await _userManager.UpdateAsync(user);
                 if (result.Succeeded)
                 {
@@ -263,5 +265,39 @@ namespace Expro.Areas.Expert.Controllers
                 return Json(new { success = true, responseText = "Experience not deleted" });
             }
         }
+
+
+        public IActionResult AboutMe(string message = "")
+        {
+            var currentUserAccount = accountUtil.GetCurrentUser(User);
+            var user = _userManager.Users.FirstOrDefault(c => c.UserName == currentUserAccount.UserName);
+            var userAboutMeInfo = new ExpertProfileAboutMeVM(user);
+            ViewBag.Message = message;
+            return View(userAboutMeInfo);
+        }
+
+        [HttpPost]
+        public async Task<ActionResult> AboutMe(ExpertProfileAboutMeVM vmodel)
+        {
+            var currentUserAccount = accountUtil.GetCurrentUser(User);
+            var user = await _userManager.FindByIdAsync(currentUserAccount.ID);
+
+            if (ModelState.IsValid && user != null)
+            {                
+                user.AboutMe = vmodel.AboutMe;               
+                IdentityResult result = await _userManager.UpdateAsync(user);
+                if (result.Succeeded)
+                {
+                    return RedirectToAction("AboutMe", new { message = "Изменения сохранены" });
+                }
+                else
+                {
+                    return View(vmodel);
+                }
+            }
+
+            return View(vmodel);
+        }
+
     }
 }

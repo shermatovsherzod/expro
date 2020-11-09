@@ -1,0 +1,32 @@
+﻿@model Expro.ViewModels.Expert.ExpertProfileAboutMeVM
+
+@{
+    Layout = "_LayoutProfile";
+    ViewData["Title"] = "Обо мне";
+}
+
+    <form asp-controller="Profile" asp-action="AboutMe" data-ajax="true" data-ajax-method="POST">
+        @if (!String.IsNullOrEmpty(ViewBag.Message))
+        {
+            <div class="alert alert-success" role="alert">
+                @ViewBag.Message
+            </div>
+        }       
+        <div class="row">
+            <div class="col-md-2">
+                <label asp-for="@Model.AboutMe"></label>
+            </div>
+            <div class="col-md-10">
+                <p>
+                    <textarea asp-for="@Model.AboutMe" class="form-control"></textarea>
+                    <span asp-validation-for="@Model.AboutMe"></span>
+                </p>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12 text-right">
+                <button type="submit" class="btn btn-primary">Сохранить</button>
+            </div>
+        </div>
+    </form>
