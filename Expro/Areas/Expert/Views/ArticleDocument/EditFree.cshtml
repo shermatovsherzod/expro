@@ -82,7 +82,7 @@ else if (Model.StatusID == (int)DocumentStatusesEnum.Rejected)
                 </div>
                 <span asp-validation-for="LawAreas" class="text-danger"></span>
             </div>
-            <div class="form-group">
+            @*<div class="form-group">
                 <input asp-for="ContentType" type="radio" value="@DocumentContentTypesEnum.file">
                 <label asp-for="AttachmentID" class="control-label"></label>
                 <input asp-for="AttachmentID" type="hidden" />
@@ -112,9 +112,9 @@ else if (Model.StatusID == (int)DocumentStatusesEnum.Rejected)
 
                 <div class="spinner-border spinner" id="fileUploadSpinner" style="display: none;"></div>
                 <span asp-validation-for="AttachmentID" class="text-danger"></span>
-            </div>
+            </div>*@
             <div class="form-group">
-                <input asp-for="ContentType" type="radio" value="@DocumentContentTypesEnum.text">
+                <input asp-for="ContentType" type="hidden" value="@DocumentContentTypesEnum.text">
                 <label asp-for="Text" class="control-label"></label>
                 <textarea asp-for="Text" class="form-control"></textarea>
                 <span asp-validation-for="Text" class="text-danger"></span>

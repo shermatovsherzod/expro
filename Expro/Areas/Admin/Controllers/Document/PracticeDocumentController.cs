@@ -12,13 +12,13 @@ using Microsoft.AspNetCore.Mvc;
 namespace Expro.Areas.Admin.Controllers
 {
     [Area("Admin")]
-    public class PracticeDocumentController : BaseController
+    public class PracticeDocumentController : BaseDocumentController
     {
-        private readonly IPracticeDocumentService PracticeDocumentService;
-        private readonly IPracticeDocumentSearchService PracticeDocumentSearchService;
-        private readonly IHangfireService HangfireService;
-        private readonly IDocumentStatusService DocumentStatusService;
-        private readonly IDocumentAdminActionsService DocumentAdminActionsService;
+        //private readonly IPracticeDocumentService PracticeDocumentService;
+        //private readonly IPracticeDocumentSearchService PracticeDocumentSearchService;
+        //private readonly IHangfireService HangfireService;
+        //private readonly IDocumentStatusService DocumentStatusService;
+        //private readonly IDocumentAdminActionsService DocumentAdminActionsService;
 
         public PracticeDocumentController(
             IPracticeDocumentService practiceDocumentService,
@@ -26,128 +26,142 @@ namespace Expro.Areas.Admin.Controllers
             IHangfireService hangfireService,
             IDocumentStatusService documentStatusService,
             IDocumentAdminActionsService documentAdminActionsService)
+            : base(
+                  practiceDocumentService,
+                  documentStatusService,
+                  practiceDocumentSearchService,
+                  documentAdminActionsService,
+                  hangfireService)
         {
-            PracticeDocumentService = practiceDocumentService;
-            PracticeDocumentSearchService = practiceDocumentSearchService;
-            HangfireService = hangfireService;
-            DocumentStatusService = documentStatusService;
-            DocumentAdminActionsService = documentAdminActionsService;
+            //PracticeDocumentService = practiceDocumentService;
+            //PracticeDocumentSearchService = practiceDocumentSearchService;
+            //HangfireService = hangfireService;
+            //DocumentStatusService = documentStatusService;
+            //DocumentAdminActionsService = documentAdminActionsService;
+
+            ErrorDocumentNotFound = "Практический документ не найден";
+
         }
 
-        public IActionResult Index()
+        public override IActionResult Index()
         {
-            ViewData["statuses"] = DocumentStatusService.GetAsSelectList();
-            return View();
+            return base.Index();
+            //ViewData["statuses"] = DocumentStatusService.GetAsSelectList();
+            //return View();
         }
 
         [HttpPost]
-        public IActionResult Search(
+        public override IActionResult Search(
             int draw, int? start = null, int? length = null,
             int? statusID = null, DocumentPriceTypesEnum? priceType = null)
         {
-            int recordsTotal = 0;
-            int recordsFiltered = 0;
-            string error = "";
+            return base.Search(draw, start, length, statusID, priceType);
+            //int recordsTotal = 0;
+            //int recordsFiltered = 0;
+            //string error = "";
 
-            var curUser = accountUtil.GetCurrentUser(User);
-            //ApplicationUser user = await _userManager.GetUserAsync(User);
+            //var curUser = accountUtil.GetCurrentUser(User);
+            ////ApplicationUser user = await _userManager.GetUserAsync(User);
 
-            IQueryable<Document> dataIQueryable = PracticeDocumentSearchService.Search(
-                start,
-                length,
+            //IQueryable<Document> dataIQueryable = PracticeDocumentSearchService.Search(
+            //    start,
+            //    length,
 
-                out recordsTotal,
-                out recordsFiltered,
-                out error,
+            //    out recordsTotal,
+            //    out recordsFiltered,
+            //    out error,
 
-                curUser.UserType.Value,
-                statusID,
-                priceType,
-                null,
-                null,
-                null
-            );
+            //    curUser.UserType.Value,
+            //    statusID,
+            //    priceType,
+            //    null,
+            //    null,
+            //    null
+            //);
 
-            dynamic data = dataIQueryable
-                .ToList()
-                .Select(m => new DocumentListItemForAdminVM(m))
-                .ToList();
+            //dynamic data = dataIQueryable
+            //    .ToList()
+            //    .Select(m => new DocumentListItemForAdminVM(m))
+            //    .ToList();
 
-            return Json(new
-            {
-                draw = draw,
-                recordsTotal = recordsTotal,
-                recordsFiltered = recordsFiltered,
-                data = data,
-                error = error
-            });
+            //return Json(new
+            //{
+            //    draw = draw,
+            //    recordsTotal = recordsTotal,
+            //    recordsFiltered = recordsFiltered,
+            //    data = data,
+            //    error = error
+            //});
         }
 
-        public IActionResult Details(int id)
+        public override IActionResult Details(int id)
         {
-            var document = PracticeDocumentService.GetByID(id);
-            if (document == null)
-                throw new Exception("Намунавий хужжат не найден");
+            return base.Details(id);
+            //var document = PracticeDocumentService.GetByID(id);
+            //if (document == null)
+            //    throw new Exception("Намунавий хужжат не найден");
 
-            DocumentDetailsForAdminVM documentVM = new DocumentDetailsForAdminVM(document);
+            //DocumentDetailsForAdminVM documentVM = new DocumentDetailsForAdminVM(document);
 
-            return View(documentVM);
-        }
-
-        [HttpPost]
-        public IActionResult Approve(int id)
-        {
-            try
-            {
-                var document = PracticeDocumentService.GetByID(id);
-                if (document == null)
-                    throw new Exception("Намунавий хужжат не найден");
-
-                var curUser = accountUtil.GetCurrentUser(User);
-
-                if (!DocumentAdminActionsService.ApprovingIsAllowed(document))
-                    throw new Exception("Статус хужжата не позволяет подтвердить его");
-
-                //cancel request/video
-                DocumentAdminActionsService.Approve(document, curUser.ID);
-
-                //cancel hangfire jobs
-                HangfireService.CancelJob(document.RejectionJobID);
-
-                return Ok();
-            }
-            catch (Exception ex)
-            {
-                return CustomBadRequest(ex);
-            }
+            //return View(documentVM);
         }
 
         [HttpPost]
-        public IActionResult Reject(int id)
+        public override IActionResult Approve(int id)
         {
-            try
-            {
-                var document = PracticeDocumentService.GetByID(id);
-                if (document == null)
-                    throw new Exception("Намунавий хужжат не найден");
+            return base.Approve(id);
+            //try
+            //{
+            //    var document = PracticeDocumentService.GetByID(id);
+            //    if (document == null)
+            //        throw new Exception("Намунавий хужжат не найден");
 
-                var curUser = accountUtil.GetCurrentUser(User);
+            //    var curUser = accountUtil.GetCurrentUser(User);
 
-                if (!DocumentAdminActionsService.RejectingIsAllowed(document))
-                    throw new Exception("Статус хужжата не позволяет отменить его");
+            //    if (!DocumentAdminActionsService.ApprovingIsAllowed(document))
+            //        throw new Exception("Статус хужжата не позволяет подтвердить его");
 
-                //cancel request/video
-                DocumentAdminActionsService.Reject(document, curUser.ID);
+            //    //cancel request/video
+            //    DocumentAdminActionsService.Approve(document, curUser.ID);
 
-                //cancel hangfire jobs
-                HangfireService.CancelJob(document.RejectionJobID);
+            //    //cancel hangfire jobs
+            //    HangfireService.CancelJob(document.RejectionJobID);
 
-                return Ok();
-            }
-            catch (Exception ex)
-            {
-                return CustomBadRequest(ex);
-            }
+            //    return Ok();
+            //}
+            //catch (Exception ex)
+            //{
+            //    return CustomBadRequest(ex);
+            //}
+        }
+
+        [HttpPost]
+        public override IActionResult Reject(int id)
+        {
+            return base.Reject(id);
+            //try
+            //{
+            //    var document = PracticeDocumentService.GetByID(id);
+            //    if (document == null)
+            //        throw new Exception("Намунавий хужжат не найден");
+
+            //    var curUser = accountUtil.GetCurrentUser(User);
+
+            //    if (!DocumentAdminActionsService.RejectingIsAllowed(document))
+            //        throw new Exception("Статус хужжата не позволяет отменить его");
+
+            //    //cancel request/video
+            //    DocumentAdminActionsService.Reject(document, curUser.ID);
+
+            //    //cancel hangfire jobs
+            //    HangfireService.CancelJob(document.RejectionJobID);
+
+            //    return Ok();
+            //}
+            //catch (Exception ex)
+            //{
+            //    return CustomBadRequest(ex);
+            //}
         }
     }
 }

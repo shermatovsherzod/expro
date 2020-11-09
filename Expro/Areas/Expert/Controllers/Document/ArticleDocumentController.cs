@@ -172,6 +172,8 @@ namespace Expro.Areas.Expert.Controllers
             {
                 if (ModelState.IsValid)
                 {
+                    modelVM.ContentType = DocumentContentTypesEnum.text;
+
                     var modelFromDB = ArticleDocumentService.GetByID(modelVM.ID);
                     if (modelFromDB == null)
                         throw new Exception("Документ не найден");
@@ -248,6 +250,8 @@ namespace Expro.Areas.Expert.Controllers
             {
                 if (ModelState.IsValid)
                 {
+                    modelVM.ContentType = DocumentContentTypesEnum.text;
+
                     var modelFromDB = ArticleDocumentService.GetByID(modelVM.ID);
                     if (modelFromDB == null)
                         throw new Exception("Документ не найден");
