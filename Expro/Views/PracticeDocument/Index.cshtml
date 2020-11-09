@@ -1,154 +1,26 @@
-﻿@*@model IEnumerable<Expro.ViewModels.PracticeDocumentListItemForSiteVM>*@
-@using Expro.Models.Enums
+﻿@using Expro.Models.Enums
 @using Expro.ViewModels
 
 @{
     ViewData["Title"] = "Практические документы";
+    ViewData["DocumentType"] = DocumentTypesEnum.PracticeDocument;
 }
 
 <h1>@ViewData["Title"]</h1>
 <br />
 
-<div class="row">
-    <div class="col-12">
-        Фильтр по направлению: <br />
-        <div class="row">
-            @{ 
-                var items = ViewData["lawAreas"] as List<SelectListItemWithParent>;
-                var parentItems = items.Where(m => m.ParentValue == "").ToList();
-                for (int i = 0; i < parentItems.Count; i++)
-                {
-                    <div class="col-4">
-                        <label class="btn btn-secondary"><input type="checkbox" name="lawAreasCheckbox" value="@parentItems[i].Value" /> <b>@parentItems[i].Text</b></label><br />
-                        @{
-                            var childItems = items.Where(m => m.ParentValue == parentItems[i].Value).ToList();
-                            foreach (var childItem in childItems)
-                            {
-                                <label class="btn btn-light"><input type="checkbox" name="lawAreasCheckbox" value="@childItem.Value" /> @childItem.Text</label><br />
-                            }
-                        }
-                    </div>
-                }
-            }
-        </div>
-
-        Фильтр по цене: <br />
-        <select id="priceTypeDD" class="form-control">
-            <option value="">Все</option>
-            <option value="@DocumentPriceTypesEnum.Free">Бесплатные</option>
-            <option value="@DocumentPriceTypesEnum.Paid">Платные</option>
-        </select>
-        <br />
-    </div>
-</div>
-
-<div id="tableBox">
-    <div class="spinner-border spinner" style="display: none;"></div>
-    <table id="list" width="100%">
-        <thead>
-            <tr>
-                <th></th>
-            </tr>
-        </thead>
-        <tbody>
-        </tbody>
-    </table>
-    <div class="spinner-border spinner" style="display: none;"></div>
-</div>
+@await Html.PartialAsync("/Views/DocumentPartials/_Index.cshtml")
 
 <link href="~/lib/DataTables-1.10.22/datatables.css" rel="stylesheet" />
 
 @section Scripts
 {
     <script src="~/lib/DataTables-1.10.22/datatables.js"></script>
+    <script src="~/js/Site/Index.js"></script>
     <script>
-        var table;
-
-        $(document).ready(function () {
-            table = $("table#list").DataTable({
-                searching: false,
-                ordering: false,
-                processing: true,
-                serverSide: true,
-                lengthChange: false,
-                scrollX: true,
-                lengthChange: false,
-                ajax:
-                {
-                    url: "/PracticeDocument/Search",
-                    type: "POST",
-                    //contentType: "application/json",
-                    datatype: "json",
-                    data: function (d) {
-                        d.priceType = $("#priceTypeDD").val();
-
-                        var lawAreasCheckboxValues = new Array();
-                        $.each($("input[name='lawAreasCheckbox']:checked"), function () {
-                            lawAreasCheckboxValues.push(Number($(this).val()));
-                        });
-                        d.lawAreas = lawAreasCheckboxValues;
-                    },
-                    //complete: function () {
-                    //    StartLoadingImagesAsync();
-                    //}
-                },
-                //columnDefs: [
-                //    {
-                //        "targets": [2],
-                //        "visible": false,
-                //    },
-                //    //{
-                //    //    "targets": [2],
-                //    //    "visible": false
-                //    //}
-                //],
-                columns: [
-                    {
-                        "data": 0, //"name": "statusId", "autoWidth": true,
-                        "render": function (data, type, full, meta)
-                        {
-                            var html = '';
-                            html += '<div class="card" style="margin-top: 10px;">';
-                            html += '   <div class="card-body">';
-                            html += '       <h3><a href="/PracticeDocument/Details/' + full.id + '">' + full.title + '</a></h3>';
-                            
-                            if (full.contentType == '@((int)DocumentContentTypesEnum.file)')
-                                html += '   <p>Есть вложенный файл</p>';
-                            //else
-                            //    html += '   <p>' + full.text + '</p>';
-
-                            html += '       <p>Дата публикации: ' + full.datePublished + '</p>';
-                            html += '       <p>Автор: <a href="#">' + full.author.fullName + '</a></p>';
-                            html += '       <p>';
-                            for (var i = 0; i < full.lawAreas.length; i++)
-                            {
-                                html += '       <span class="badge badge-primary">' + full.lawAreas[i].name + '</span>';
-                            }
-                            html += '       </p>';
-                            //console.log(full.title);
-                            //console.log(full.priceType);
-                            if (full.priceType == '@((int)DocumentPriceTypesEnum.Paid)')
-                                html += '   <p>Цена: <b class="text-danger">' + full.priceStr + ' сум</b></p>';
-                            html += '   </div>';
-                            html += '</div>';
-                            return html;
-                        }
-                    }
-                ]
-            });
-
-            table
-                .on('preDraw', function () {
-                    $("#tableBox .spinner").show();
-                })
-                .on('draw.dt', function () {
-                    $("#tableBox .spinner").hide();
-                    //console.log('Redraw took at: ' + (new Date().getTime() - startTime) + 'mS');
-                });
-
-            $("#statusDD, #priceTypeDD, input[name=lawAreasCheckbox]").change(function () {
-                table.draw();
-            });
-        });
+        SetVariables(
+            "@ViewData["DocumentType"]",
+            @((int)DocumentContentTypesEnum.file),
+            @((int)DocumentPriceTypesEnum.Paid));
     </script>
 }

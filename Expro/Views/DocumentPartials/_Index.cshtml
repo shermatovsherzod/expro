@@ -1,0 +1,49 @@
+﻿@using Expro.Models.Enums
+@using Expro.ViewModels
+
+<div class="row">
+    <div class="col-12">
+        Фильтр по направлению: <br />
+        <div class="row">
+            @{ 
+                var items = ViewData["lawAreas"] as List<SelectListItemWithParent>;
+                var parentItems = items.Where(m => m.ParentValue == "").ToList();
+                for (int i = 0; i < parentItems.Count; i++)
+                {
+                    <div class="col-4">
+                        <label class="btn btn-secondary"><input type="checkbox" name="lawAreasCheckbox" value="@parentItems[i].Value" /> <b>@parentItems[i].Text</b></label><br />
+                        @{
+                            var childItems = items.Where(m => m.ParentValue == parentItems[i].Value).ToList();
+                            foreach (var childItem in childItems)
+                            {
+                                <label class="btn btn-light"><input type="checkbox" name="lawAreasCheckbox" value="@childItem.Value" /> @childItem.Text</label><br />
+                            }
+                        }
+                    </div>
+                }
+            }
+        </div>
+
+        Фильтр по цене: <br />
+        <select id="priceTypeDD" class="form-control">
+            <option value="">Все</option>
+            <option value="@DocumentPriceTypesEnum.Free">Бесплатные</option>
+            <option value="@DocumentPriceTypesEnum.Paid">Платные</option>
+        </select>
+        <br />
+    </div>
+</div>
+
+<div id="tableBox">
+    <div class="spinner-border spinner" style="display: none;"></div>
+    <table id="list" width="100%">
+        <thead>
+            <tr>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+        </tbody>
+    </table>
+    <div class="spinner-border spinner" style="display: none;"></div>
+</div>
