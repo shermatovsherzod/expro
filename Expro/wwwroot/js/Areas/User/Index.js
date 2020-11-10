@@ -5,8 +5,7 @@ var documentPriceTypePaid = 0;
 function SetVariables(
     documentTypeName,
     documentContentTypesEnumFile,
-    documentPriceTypesEnumPaid)
-{
+    documentPriceTypesEnumPaid) {
     documentType = documentTypeName;
     documentContentTypeFile = documentContentTypesEnumFile;
     documentPriceTypePaid = documentPriceTypesEnumPaid;
@@ -25,11 +24,12 @@ $(document).ready(function () {
         lengthChange: false,
         ajax:
         {
-            url: "/" + documentType + "/Search",
+            url: "/User/" + documentType + "Purchased/Search",
             type: "POST",
             //contentType: "application/json",
             datatype: "json",
             data: function (d) {
+                //d.statusID = $("#statusDD").val();
                 d.priceType = $("#priceTypeDD").val();
 
                 var lawAreasCheckboxValues = new Array();
@@ -42,16 +42,6 @@ $(document).ready(function () {
             //    StartLoadingImagesAsync();
             //}
         },
-        //columnDefs: [
-        //    {
-        //        "targets": [2],
-        //        "visible": false,
-        //    },
-        //    //{
-        //    //    "targets": [2],
-        //    //    "visible": false
-        //    //}
-        //],
         columns: [
             {
                 "data": 0, //"name": "statusId", "autoWidth": true,
@@ -59,24 +49,23 @@ $(document).ready(function () {
                     var html = '';
                     html += '<div class="card" style="margin-top: 10px;">';
                     html += '   <div class="card-body">';
-                    html += '       <h3><a href="/' + documentType + '/Details/' + full.id + '" target="_blank">' + full.title + '</a></h3>';
+                    html += '       <h3><a href="/User/' + documentType + 'Purchased/Details/' + full.id + '" target="_blank">' + full.title + '</a></h3>';
 
-                    if (full.contentType == documentContentTypeFile)
-                        html += '   <p>Есть вложенный файл</p>';
+                    //if (full.contentType == documentContentTypeFile)
+                    //    html += '   <p>Есть вложенный файл</p>';
                     //else
                     //    html += '   <p>' + full.text + '</p>';
 
-                    html += '       <p>Дата публикации: ' + full.datePublished + '</p>';
+                        html += '       <p>Дата публикации: ' + full.datePublished + '</p>';
                     html += '       <p>Автор: <a href="#">' + full.author.fullName + '</a></p>';
                     html += '       <p>';
                     for (var i = 0; i < full.lawAreas.length; i++) {
                         html += '       <span class="badge badge-primary">' + full.lawAreas[i].name + '</span>';
                     }
                     html += '       </p>';
-                    //console.log(full.title);
-                    //console.log(full.priceType);
                     if (full.priceType == documentPriceTypePaid)
                         html += '   <p>Цена: <b class="text-danger">' + full.priceStr + ' сум</b></p>';
+                    html += '       <a href="/User/' + documentType + 'Purchased/Details/' + full.id + '" class="btn btn-primary" target="_blank">Открыть</a>';
                     html += '   </div>';
                     html += '</div>';
                     return html;
@@ -94,7 +83,7 @@ $(document).ready(function () {
             //console.log('Redraw took at: ' + (new Date().getTime() - startTime) + 'mS');
         });
 
-    $("#statusDD, #priceTypeDD, input[name=lawAreasCheckbox]").change(function () {
+    $("#priceTypeDD, input[name=lawAreasCheckbox]").change(function () {
         table.draw();
     });
 });

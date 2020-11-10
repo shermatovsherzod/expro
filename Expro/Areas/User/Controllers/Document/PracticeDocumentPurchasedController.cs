@@ -13,98 +13,42 @@ using Microsoft.AspNetCore.Mvc;
 namespace Expro.Areas.User.Controllers
 {
     [Area("User")]
-    public class PracticeDocumentPurchasedController : BaseController
+    public class PracticeDocumentPurchasedController : BaseDocumentPurchasedController
     {
-        private readonly IPracticeDocumentService PracticeDocumentService;
-        private readonly IPracticeDocumentSearchService PracticeDocumentSearchService;
-        private readonly UserManager<ApplicationUser> _userManager;
-        private readonly ILawAreaService LawAreaService;
-        private readonly IDocumentCounterService DocumentCounterService;
-
         public PracticeDocumentPurchasedController(
             IPracticeDocumentService practiceDocumentService,
             IPracticeDocumentSearchService practiceDocumentSearchService,
             UserManager<ApplicationUser> userManager,
             ILawAreaService lawAreaService,
             IDocumentCounterService documentCounterService)
+            : base(
+                  practiceDocumentService,
+                  practiceDocumentSearchService,
+                  userManager,
+                  lawAreaService,
+                  documentCounterService)
         {
-            PracticeDocumentService = practiceDocumentService;
-            PracticeDocumentSearchService = practiceDocumentSearchService;
-            _userManager = userManager;
-            LawAreaService = lawAreaService;
-            DocumentCounterService = documentCounterService;
+            ErrorDocumentNotFound = "Практический документ не найден";
         }
 
-        public IActionResult Index()
+        public override IActionResult Index()
         {
-            ViewData["lawAreas"] = LawAreaService.GetAsIQueryable()
-                .Select(m => new SelectListItemWithParent()
-                {
-                    Value = m.ID.ToString(),
-                    Text = m.Name,
-                    Selected = false,
-                    ParentValue = m.ParentID.HasValue ? m.ParentID.Value.ToString() : ""
-                }).ToList();
-
-            return View();
+            return base.Index();
         }
 
         [HttpPost]
-        public async Task<IActionResult> Search(
+        public override async Task<IActionResult> Search(
             int draw, int? start = null, int? length = null,
             int? statusID = null, 
             DocumentPriceTypesEnum? priceType = null,
             int[] lawAreas = null)
         {
-            int recordsTotal = 0;
-            int recordsFiltered = 0;
-            string error = "";
-
-            var curUser = accountUtil.GetCurrentUser(User);
-            ApplicationUser user = await _userManager.GetUserAsync(User);
-
-            IQueryable<Document> dataIQueryable = PracticeDocumentSearchService.Search(
-                start,
-                length,
-
-                out recordsTotal,
-                out recordsFiltered,
-                out error,
-
-                curUser.UserType.Value,
-                statusID,
-                priceType,
-                curUser.ID,
-                user,
-                lawAreas
-            );
-
-            dynamic data = dataIQueryable
-                .ToList()
-                .Select(m => new DocumentListItemForUserVM(m))
-                .ToList();
-
-            return Json(new
-            {
-                draw = draw,
-                recordsTotal = recordsTotal,
-                recordsFiltered = recordsFiltered,
-                data = data,
-                error = error
-            });
+            return await base.Search(draw, start, length, statusID, priceType, lawAreas);
         }
 
-        public IActionResult Details(int id)
+        public override IActionResult Details(int id)
         {
-            var document = PracticeDocumentService.GetByID(id);
-            if (document == null)
-                throw new Exception("Намунавий хужжат не найден");
-
-            DocumentCounterService.IncrementNumberOfViews(document);
-
-            DocumentDetailsForUserVM documentVM = new DocumentDetailsForUserVM(document);
-
-            return View(documentVM);
+            return base.Details(id);
         }
     }
 }
