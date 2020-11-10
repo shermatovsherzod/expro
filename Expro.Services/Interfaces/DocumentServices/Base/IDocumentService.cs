@@ -6,6 +6,8 @@ namespace Expro.Services.Interfaces
 {
     public interface IDocumentService : IBaseAuthorableService<Document>
     {
+        Document GetFreeByID(int id);
+        Document GetPaidByID(int id);
         bool EditingIsAllowed(Document entity);
         bool BelongsToUser(Document entity, string userID);
         bool AttachedFileIsAllowedToBeDeleted(Document entity);

@@ -52,6 +52,30 @@ namespace Expro.Services
             return model;
         }
 
+        public Document GetFreeByID(int id)
+        {
+            var model = GetByID(id);
+            if (model != null)
+            {
+                if (model.PriceType != DocumentPriceTypesEnum.Free)
+                    model = null;
+            }
+
+            return model;
+        }
+
+        public Document GetPaidByID(int id)
+        {
+            var model = GetByID(id);
+            if (model != null)
+            {
+                if (model.PriceType != DocumentPriceTypesEnum.Paid)
+                    model = null;
+            }
+
+            return model;
+        }
+
         bool DocumentTypeIsNotDefined()
         {
             return (int)_documentType == 0;
