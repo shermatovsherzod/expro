@@ -4,12 +4,13 @@
 @{
     ViewData["Title"] = "Практические документы";
     ViewData["DocumentType"] = DocumentTypesEnum.PracticeDocument;
+    ViewData["Area"] = UserAreasEnum.User;
 }
 
 <h1>@ViewData["Title"]</h1>
 <br />
 
-@await Html.PartialAsync("/Areas/User/Views/DocumentPartials/_Index.cshtml")
+@await Html.PartialAsync("/Views/Shared/DocumentPurchasedPartials/_Index.cshtml")
 
 <link href="~/lib/DataTables-1.10.22/datatables.css" rel="stylesheet" />
 
@@ -20,6 +21,7 @@
     <script>
         SetVariables(
             "@ViewData["DocumentType"]",
+            "@ViewData["Area"]",
             @((int)DocumentContentTypesEnum.file),
             @((int)DocumentPriceTypesEnum.Paid));
     </script>

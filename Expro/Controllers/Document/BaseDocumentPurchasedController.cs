@@ -10,9 +10,8 @@ using Expro.ViewModels;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Expro.Areas.User.Controllers
+namespace Expro.Controllers
 {
-    //[Area("User")]
     public class BaseDocumentPurchasedController : BaseController
     {
         private readonly IDocumentService DocumentService;
@@ -22,6 +21,7 @@ namespace Expro.Areas.User.Controllers
         private readonly IDocumentCounterService DocumentCounterService;
 
         protected string ErrorDocumentNotFound = "Документ не найден";
+        //protected UserAreasEnum Area;
 
         public BaseDocumentPurchasedController(
             IDocumentService documentService,
@@ -47,6 +47,8 @@ namespace Expro.Areas.User.Controllers
                     Selected = false,
                     ParentValue = m.ParentID.HasValue ? m.ParentID.Value.ToString() : ""
                 }).ToList();
+
+            //ViewData["area"] = Area;
 
             return View();
         }

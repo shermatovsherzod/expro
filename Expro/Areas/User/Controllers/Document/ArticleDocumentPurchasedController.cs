@@ -29,6 +29,7 @@ namespace Expro.Areas.User.Controllers
                   documentCounterService)
         {
             ErrorDocumentNotFound = "Статья не найдена";
+            //Area = UserAreasEnum.User;
         }
 
         public override IActionResult Index()

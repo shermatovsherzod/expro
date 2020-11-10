@@ -46,7 +46,9 @@ namespace Expro.Services
 
                 if (curUserType.HasValue)
                 {
-                    if (curUserType == UserTypesEnum.Admin)
+                    if (purchaser != null)
+                        documents = DocumentService.GetAllPurchasedByUser(purchaser);
+                    else if (curUserType == UserTypesEnum.Admin)
                         documents = DocumentService.GetAllForAdmin();
                     else if (curUserType == UserTypesEnum.Expert)
                         documents = DocumentService.GetAllByCreator(authorID);

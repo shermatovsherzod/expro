@@ -1,12 +1,16 @@
 ﻿var documentType = "";
+var area = "";
 var documentContentTypeFile = 0;
 var documentPriceTypePaid = 0;
 
 function SetVariables(
     documentTypeName,
+    areaName,
     documentContentTypesEnumFile,
-    documentPriceTypesEnumPaid) {
+    documentPriceTypesEnumPaid)
+{
     documentType = documentTypeName;
+    area = areaName;
     documentContentTypeFile = documentContentTypesEnumFile;
     documentPriceTypePaid = documentPriceTypesEnumPaid;
 }
@@ -24,7 +28,7 @@ $(document).ready(function () {
         lengthChange: false,
         ajax:
         {
-            url: "/User/" + documentType + "Purchased/Search",
+            url: "/" + area + "/" + documentType + "Purchased/Search",
             type: "POST",
             //contentType: "application/json",
             datatype: "json",
@@ -49,7 +53,7 @@ $(document).ready(function () {
                     var html = '';
                     html += '<div class="card" style="margin-top: 10px;">';
                     html += '   <div class="card-body">';
-                    html += '       <h3><a href="/User/' + documentType + 'Purchased/Details/' + full.id + '" target="_blank">' + full.title + '</a></h3>';
+                    html += '       <h3><a href="/' + area + '/' + documentType + 'Purchased/Details/' + full.id + '" target="_blank">' + full.title + '</a></h3>';
 
                     //if (full.contentType == documentContentTypeFile)
                     //    html += '   <p>Есть вложенный файл</p>';
@@ -65,7 +69,7 @@ $(document).ready(function () {
                     html += '       </p>';
                     if (full.priceType == documentPriceTypePaid)
                         html += '   <p>Цена: <b class="text-danger">' + full.priceStr + ' сум</b></p>';
-                    html += '       <a href="/User/' + documentType + 'Purchased/Details/' + full.id + '" class="btn btn-primary" target="_blank">Открыть</a>';
+                    html += '       <a href="/' + area + '/' + documentType + 'Purchased/Details/' + full.id + '" class="btn btn-primary" target="_blank">Открыть</a>';
                     html += '   </div>';
                     html += '</div>';
                     return html;

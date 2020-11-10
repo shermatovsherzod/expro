@@ -4,22 +4,24 @@
 @{
     ViewData["Title"] = "Статьи";
     ViewData["DocumentType"] = DocumentTypesEnum.ArticleDocument;
+    ViewData["Area"] = UserAreasEnum.User;
 }
 
 <h1>@ViewData["Title"]</h1>
 <br />
 
-@await Html.PartialAsync("/Areas/User/Views/DocumentPartials/_Index.cshtml")
+@await Html.PartialAsync("/Views/Shared/DocumentPurchasedPartials/_Index.cshtml")
 
 <link href="~/lib/DataTables-1.10.22/datatables.css" rel="stylesheet" />
 
 @section Scripts
 {
     <script src="~/lib/DataTables-1.10.22/datatables.js"></script>
-    <script src="~/js/Areas/User/Index.js"></script>
+    <script src="~/js/Shared/DocumentPurchased/Index.js"></script>
     <script>
         SetVariables(
             "@ViewData["DocumentType"]",
+            "@ViewData["Area"]",
             @((int)DocumentContentTypesEnum.file),
             @((int)DocumentPriceTypesEnum.Paid));
     </script>
