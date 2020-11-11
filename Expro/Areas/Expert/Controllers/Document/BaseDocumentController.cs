@@ -76,7 +76,6 @@ namespace Expro.Areas.Expert.Controllers
             );
 
             dynamic data = dataIQueryable
-                .ToList()
                 .Select(m => new DocumentListItemForExpertVM(m))
                 .ToList();
 

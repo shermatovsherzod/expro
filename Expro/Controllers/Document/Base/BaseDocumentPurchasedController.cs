@@ -54,7 +54,7 @@ namespace Expro.Controllers
         }
 
         [HttpPost]
-        public virtual async Task<IActionResult> Search(
+        public virtual IActionResult Search(
             int draw, int? start = null, int? length = null,
             int? statusID = null, 
             DocumentPriceTypesEnum? priceType = null,
@@ -65,7 +65,7 @@ namespace Expro.Controllers
             string error = "";
 
             var curUser = accountUtil.GetCurrentUser(User);
-            ApplicationUser user = await _userManager.GetUserAsync(User);
+            //ApplicationUser user = await _userManager.GetUserAsync(User);
 
             IQueryable<Document> dataIQueryable = DocumentSearchService.Search(
                 start,
@@ -79,12 +79,11 @@ namespace Expro.Controllers
                 statusID,
                 priceType,
                 curUser.ID,
-                user,
+                curUser.ID,
                 lawAreas
             );
 
             dynamic data = dataIQueryable
-                .ToList()
                 .Select(m => new DocumentListItemForUserVM(m))
                 .ToList();
 

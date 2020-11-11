@@ -17,6 +17,6 @@ namespace Expro.Services.Interfaces
         Document GetApprovedByID(int id);
         IQueryable<Document> GetAllByCreator(string userID);
         bool IsFree(Document model);
-        IQueryable<Document> GetAllPurchasedByUser(ApplicationUser user);
+        IQueryable<Document> GetAllPurchasedByUser(string purchasedUserID);
     }
 }

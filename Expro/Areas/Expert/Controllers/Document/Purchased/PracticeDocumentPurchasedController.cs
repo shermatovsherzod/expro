@@ -37,13 +37,13 @@ namespace Expro.Areas.Expert.Controllers
         }
 
         [HttpPost]
-        public override async Task<IActionResult> Search(
+        public override IActionResult Search(
             int draw, int? start = null, int? length = null,
             int? statusID = null,
             DocumentPriceTypesEnum? priceType = null,
             int[] lawAreas = null)
         {
-            return await base.Search(draw, start, length, statusID, priceType, lawAreas);
+            return base.Search(draw, start, length, statusID, priceType, lawAreas);
         }
 
         public override IActionResult Details(int id)

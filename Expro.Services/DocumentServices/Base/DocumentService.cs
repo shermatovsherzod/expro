@@ -12,6 +12,7 @@ namespace Expro.Services
 {
     public class DocumentService : BaseAuthorableService<Document>, IDocumentService
     {
+        private IDocumentRepository _documentRepository;
         protected int _tmpPeriodMinutes = 5;
 
         public DocumentTypesEnum _documentType;
@@ -20,6 +21,7 @@ namespace Expro.Services
                            IUnitOfWork unitOfWork)
             : base(repository, unitOfWork)
         {
+            _documentRepository = repository;
         }
 
         public override void Add(Document entity, string creatorID)
@@ -37,9 +39,16 @@ namespace Expro.Services
                 .Where(m => m.DocumentTypeID == (int)_documentType);
         }
 
+        public IQueryable<Document> GetManyWithRelatedDataAsIQueryable()
+        {
+            return _documentRepository.GetManyWithRelatedDataAsIQueryable()
+                .Where(m => m.DocumentTypeID == (int)_documentType);
+        }
+
         public override Document GetByID(int id)
         {
-            var model = base.GetByID(id);
+            //var model = base.GetByID(id);
+            var model = _documentRepository.GeWithRelatedDataByID(id);
             if (model != null)
             {
                 if (DocumentTypeIsNotDefined())
@@ -122,13 +131,13 @@ namespace Expro.Services
 
         public IQueryable<Document> GetAllForAdmin()
         {
-            return GetAsIQueryable()
+            return GetManyWithRelatedDataAsIQueryable()
                 .Where(m => m.DocumentStatusID != (int)DocumentStatusesEnum.Pending);
         }
 
         public IQueryable<Document> GetAllApproved()
         {
-            return GetAsIQueryable()
+            return GetManyWithRelatedDataAsIQueryable()
                 .Where(m => m.DocumentStatusID == (int)DocumentStatusesEnum.Approved);
         }
 
@@ -146,7 +155,7 @@ namespace Expro.Services
 
         public IQueryable<Document> GetAllByCreator(string userID)
         {
-            return GetAsIQueryable()
+            return GetManyWithRelatedDataAsIQueryable()
                 .Where(m => m.CreatedBy == userID);
         }
 
@@ -158,11 +167,14 @@ namespace Expro.Services
             return model.PriceType == DocumentPriceTypesEnum.Free;
         }
 
-        public IQueryable<Document> GetAllPurchasedByUser(ApplicationUser user)
+        public IQueryable<Document> GetAllPurchasedByUser(string purchasedUserID /*ApplicationUser userID*/)
         {
-            return user.DocumentsPurchased
-                .Where(m => m.Document.DocumentTypeID == (int)_documentType)
-                .Select(m => m.Document).AsQueryable();
+            return GetManyWithRelatedDataAsIQueryable()
+                .Where(m => m.DocumentTypeID == (int)_documentType
+                    && m.UsersPurchasedThisDocument.Select(n => n.UserID).Contains(purchasedUserID));
+            //return user.DocumentsPurchased
+            //    .Where(m => m.Document.DocumentTypeID == (int)_documentType)
+            //    .Select(m => m.Document).AsQueryable();
         }
 
         private DateTime RoundToUp(DateTime inputDateTime)

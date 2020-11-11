@@ -72,7 +72,6 @@ namespace Expro.Areas.Admin.Controllers
             );
 
             dynamic data = dataIQueryable
-                .ToList()
                 .Select(m => new DocumentListItemForAdminVM(m))
                 .ToList();
 

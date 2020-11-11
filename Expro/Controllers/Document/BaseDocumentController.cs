@@ -89,7 +89,6 @@ namespace Expro.Controllers
             );
 
             dynamic data = dataIQueryable
-                .ToList()
                 .Select(m => new DocumentListItemForSiteVM(m))
                 .ToList();
 

@@ -33,7 +33,7 @@ namespace Expro.Services
             int? statusID,
             DocumentPriceTypesEnum? priceType,
             string authorID,
-            ApplicationUser purchaser,
+            string purchasedUserID,
             int[] lawAreas)
         {
             recordsTotal = 0;
@@ -46,14 +46,14 @@ namespace Expro.Services
 
                 if (curUserType.HasValue)
                 {
-                    if (purchaser != null)
-                        documents = DocumentService.GetAllPurchasedByUser(purchaser);
+                    if (!string.IsNullOrWhiteSpace(purchasedUserID))
+                        documents = DocumentService.GetAllPurchasedByUser(purchasedUserID);
                     else if (curUserType == UserTypesEnum.Admin)
                         documents = DocumentService.GetAllForAdmin();
                     else if (curUserType == UserTypesEnum.Expert)
                         documents = DocumentService.GetAllByCreator(authorID);
                     else if (curUserType == UserTypesEnum.SimpleUser)
-                        documents = DocumentService.GetAllPurchasedByUser(purchaser);
+                        documents = DocumentService.GetAllPurchasedByUser(purchasedUserID);
                     else
                         documents = DocumentService.GetAllApproved();
                 }
