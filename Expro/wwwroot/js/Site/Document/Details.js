@@ -1,5 +1,8 @@
 ﻿$(document).ready(function () {
     $("form#purchaseForm").submit(function () {
+        if (!confirm("Вы уверены, что хотите купить?"))
+            return false;
+
         ShowFormSpinner();
         DisableFormElements();
     });

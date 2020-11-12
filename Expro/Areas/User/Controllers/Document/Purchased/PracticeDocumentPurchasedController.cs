@@ -13,22 +13,22 @@ using Microsoft.AspNetCore.Mvc;
 namespace Expro.Areas.User.Controllers
 {
     [Area("User")]
-    public class SampleDocumentPurchasedController : BaseDocumentPurchasedController
+    public class PracticeDocumentPurchasedController : BaseDocumentPurchasedController
     {
-        public SampleDocumentPurchasedController(
-            ISampleDocumentService sampleDocumentService,
-            ISampleDocumentSearchService sampleDocumentSearchService,
+        public PracticeDocumentPurchasedController(
+            IPracticeDocumentService practiceDocumentService,
+            IPracticeDocumentSearchService practiceDocumentSearchService,
             UserManager<ApplicationUser> userManager,
             ILawAreaService lawAreaService,
             IDocumentCounterService documentCounterService)
             : base(
-                  sampleDocumentService,
-                  sampleDocumentSearchService,
+                  practiceDocumentService,
+                  practiceDocumentSearchService,
                   userManager,
                   lawAreaService,
                   documentCounterService)
         {
-            ErrorDocumentNotFound = "Образцовый документ не найден";
+            ErrorDocumentNotFound = "Практический документ не найден";
         }
 
         public override IActionResult Index()
@@ -37,13 +37,13 @@ namespace Expro.Areas.User.Controllers
         }
 
         [HttpPost]
-        public override async Task<IActionResult> Search(
+        public override IActionResult Search(
             int draw, int? start = null, int? length = null,
             int? statusID = null, 
             DocumentPriceTypesEnum? priceType = null,
             int[] lawAreas = null)
         {
-            return await base.Search(draw, start, length, statusID, priceType, lawAreas);
+            return base.Search(draw, start, length, statusID, priceType, lawAreas);
         }
 
         public override IActionResult Details(int id)

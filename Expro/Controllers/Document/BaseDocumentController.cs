@@ -89,7 +89,6 @@ namespace Expro.Controllers
             );
 
             dynamic data = dataIQueryable
-                .ToList()
                 .Select(m => new DocumentListItemForSiteVM(m))
                 .ToList();
 
@@ -157,7 +156,6 @@ namespace Expro.Controllers
         [HttpPost]
         public virtual async Task<IActionResult> Purchase(DocumentPurchaseFormVM purchaseFormVM)
         {
-            //once purchased, redirect to /User/ArticleDocument/Details/id
             var document = DocumentService.GetApprovedByID(purchaseFormVM.DocumentID);
             if (document == null)
                 throw new Exception(ErrorDocumentNotFound);

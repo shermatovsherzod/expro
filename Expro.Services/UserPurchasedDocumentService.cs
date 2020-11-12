@@ -34,6 +34,7 @@ namespace Expro.Services
             };
 
             UserBalanceService.TakeOffBalance(user, model.Price);
+            UserBalanceService.ReplenishBalance(document.Creator, model.Price);
 
             Add(model);
         }

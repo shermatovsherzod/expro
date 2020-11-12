@@ -47,5 +47,8 @@ namespace Expro.Models
 
         public int NumberOfViews { get; set; }
         public int NumberOfPurchases { get; set; }
+
+        [InverseProperty("Document")]
+        public virtual ICollection<UserPurchasedDocument> UsersPurchasedThisDocument { get; set; }
     }
 }
