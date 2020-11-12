@@ -21,9 +21,7 @@
 </div>
 <div class="list-group-item">
     <p class="list-group-item-text">
-        <div class="alert alert-danger" role="alert">
-            Профайл не подтвержден
-        </div>
+        @await Component.InvokeAsync("ExpertStatus")
     </p>
 </div>
 <div class="list-group-item">

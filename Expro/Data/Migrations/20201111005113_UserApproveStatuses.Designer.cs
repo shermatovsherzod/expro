@@ -4,14 +4,16 @@ using Expro.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Expro.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20201111005113_UserApproveStatuses")]
+    partial class UserApproveStatuses
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -745,7 +747,7 @@ namespace Expro.Data.Migrations
                         .HasColumnType("nvarchar(17)")
                         .HasMaxLength(17);
 
-                    b.Property<int>("ApproveStatus")
+                    b.Property<int?>("ApproveStatus")
                         .HasColumnType("int");
 
                     b.Property<int>("Balance")

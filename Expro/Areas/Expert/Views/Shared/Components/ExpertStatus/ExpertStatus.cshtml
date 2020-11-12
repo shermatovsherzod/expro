@@ -1,0 +1,22 @@
+﻿@model string
+@{
+    ViewData["Title"] = "Статус эксперта";
+}
+
+@Html.Raw(Model)
+
+<script>
+    function confirmationRequest() {
+        $.ajax({
+            type: "POST",
+            url: "/Expert/Home/ConfirmationRequest/",
+            success: function () {
+                window.location.reload();
+            },
+            error: function () {
+                alert('Ошибка');
+            }
+        });
+    }
+
+</script>

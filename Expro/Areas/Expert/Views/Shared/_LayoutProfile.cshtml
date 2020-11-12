@@ -21,22 +21,22 @@
                     <partial name="_LoginPartial" />
                     <ul class="navbar-nav flex-grow-1">
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="User" asp-controller="Home" asp-action="Index">Главная</a>
+                            <a class="nav-link text-dark" asp-area="Expert" asp-controller="Home" asp-action="Index">Главная</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="User" asp-controller="ExpertsList" asp-action="Index">Эксперты</a>
+                            <a class="nav-link text-dark" asp-area="Expert" asp-controller="ExpertsList" asp-action="Index">Эксперты</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="User" asp-controller="Home" asp-action="">Вопросы</a>
+                            <a class="nav-link text-dark" asp-area="Expert" asp-controller="Home" asp-action="">Вопросы</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="User" asp-controller="Home" asp-action="">Статьи</a>
+                            <a class="nav-link text-dark" asp-area="Expert" asp-controller="Home" asp-action="">Статьи</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="User" asp-controller="Home" asp-action="">FAQ</a>
+                            <a class="nav-link text-dark" asp-area="Expert" asp-controller="Home" asp-action="">FAQ</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="User" asp-controller="Home" asp-action="">Контакты</a>
+                            <a class="nav-link text-dark" asp-area="Expert" asp-controller="Home" asp-action="">Контакты</a>
                         </li>
                     </ul>
                 </div>
@@ -55,6 +55,11 @@
                                 Изменить
                                 <input type="file" name="file" />
                             </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12  text-center">
+                                @await Component.InvokeAsync("ExpertStatus")
+                            </div>                           
                         </div>
                     </div>
                     <div class="col-md-8">
@@ -85,7 +90,7 @@
                             </ul>
                         </div>
                     </div>
-                    
+
                 </div>
                 <div class="row">
                     <div class="col-md-4">
@@ -107,12 +112,8 @@
                     </div>
                 </div>
                 <hr />
-                <div class="row">
-                    <div class="col-md-12 text-right">
-                        <button type="button" class="btn btn-success">Отправить заявку на подтверждение профайла</button>
-                    </div>
-                </div>
-            </div>          
+              
+            </div>
         </main>
     </div>
 
@@ -123,7 +124,7 @@
     </footer>
 
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>  
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
     @RenderSection("Scripts", required: false)
 </body>

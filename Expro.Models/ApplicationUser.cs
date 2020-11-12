@@ -56,6 +56,12 @@ namespace Expro.Models
         [StringLength(2000)]
         public string AboutMe { get; set; }
 
+        public DateTime? DateSubmittedForApproval { get; set; }
+        public DateTime? DateApproved { get; set; }
+        public DateTime? DateRejected { get; set; }
+
+        public int ApproveStatus { get; set; }
+
         [Required]
         public int Balance { get; set; }
 
