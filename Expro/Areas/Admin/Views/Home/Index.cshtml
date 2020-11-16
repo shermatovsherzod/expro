@@ -1,7 +1,19 @@
 ﻿
 @{
     ViewData["Title"] = "Index";
+
 }
 
-<h1>Admin home</h1>
 
+
+
+@section Scripts{
+    <script>
+        $(document).ready(function () {
+            $('.button-left').click(function () {
+                $('.sidebar').toggleClass('fliph');
+            });
+
+        });
+    </script>
+}

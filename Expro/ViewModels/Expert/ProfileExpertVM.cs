@@ -15,6 +15,7 @@ namespace Expro.Models
         {
 
         }
+        public string Id { get; set; }
 
         [Required]
         [Display(Name = "Имя")]
@@ -55,11 +56,25 @@ namespace Expro.Models
         [Display(Name = "На сайте с:")]
         public string DateRegistered { get; set; }
 
+
+
+        [Display(Name = "Статус")]
+        public int ApproveStatus { get; set; }
+
+        [Display(Name = "Дата подтверждения статуса")]
+        public DateTime? DateApproved { get; set; }
+
+        [Display(Name = "Дата отклонения статуса")]
+        public DateTime? DateRejected { get; set; }
+
+        [Display(Name = "Дата отправления статуса на подтверждение")]
+        public DateTime? DateSubmittedForApproval { get; set; }
+
         public ProfileExpertVM(ApplicationUser model) // : base(model)
         {
             if (model == null)
                 return;
-
+            Id = model.Id;
             FirstName = model.FirstName;
             LastName = model.LastName;
             PatronymicName = model.PatronymicName;
@@ -70,6 +85,10 @@ namespace Expro.Models
             DateOfBirth = DateTimeUtils.ConvertToString(model.DateOfBirth);
             GenderID = model.GenderID;
             DateRegistered = DateTimeUtils.ConvertToString(model.DateRegistered);
+            ApproveStatus = model.ApproveStatus;
+            DateApproved = model.DateApproved;
+            DateRejected = model.DateRejected;
+            DateSubmittedForApproval = model.DateSubmittedForApproval;
         }
     }
 }

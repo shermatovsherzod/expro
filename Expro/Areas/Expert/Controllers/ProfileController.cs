@@ -299,5 +299,11 @@ namespace Expro.Areas.Expert.Controllers
             return View(vmodel);
         }
 
+        public IActionResult Photo()
+        {
+           
+            return View();
+        }
+
     }
 }

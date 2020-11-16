@@ -4,14 +4,16 @@ using Expro.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Expro.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20201111043733_UserApproveStatusesRemoveNull")]
+    partial class UserApproveStatusesRemoveNull
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -108,59 +110,6 @@ namespace Expro.Data.Migrations
                     b.HasIndex("RegionID");
 
                     b.ToTable("Cities");
-                });
-
-            modelBuilder.Entity("Expro.Models.ClickTransaction", b =>
-                {
-                    b.Property<int>("ID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<float>("Amount")
-                        .HasColumnType("real");
-
-                    b.Property<int>("ClickPaydocID")
-                        .HasColumnType("int");
-
-                    b.Property<int>("ClickTransID")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime?>("DateCancelled")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime?>("DateSuccess")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("Error")
-                        .HasColumnType("int");
-
-                    b.Property<string>("ErrorNote")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("MerchantTransID")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("ServiceID")
-                        .HasColumnType("int");
-
-                    b.Property<string>("SignString")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("SignTime")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("StatusID")
-                        .HasColumnType("int");
-
-                    b.Property<string>("UserID")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.HasKey("ID");
-
-                    b.HasIndex("UserID");
-
-                    b.ToTable("ClickTransactions");
                 });
 
             modelBuilder.Entity("Expro.Models.Country", b =>
@@ -892,13 +841,6 @@ namespace Expro.Data.Migrations
                         .HasForeignKey("RegionID");
                 });
 
-            modelBuilder.Entity("Expro.Models.ClickTransaction", b =>
-                {
-                    b.HasOne("Expro.Models.ApplicationUser", "User")
-                        .WithMany()
-                        .HasForeignKey("UserID");
-                });
-
             modelBuilder.Entity("Expro.Models.Document", b =>
                 {
                     b.HasOne("Expro.Models.Attachment", "Attachment")
@@ -1006,7 +948,7 @@ namespace Expro.Data.Migrations
             modelBuilder.Entity("Expro.Models.UserPurchasedDocument", b =>
                 {
                     b.HasOne("Expro.Models.Document", "Document")
-                        .WithMany("UsersPurchasedThisDocument")
+                        .WithMany()
                         .HasForeignKey("DocumentID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
