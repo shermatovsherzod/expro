@@ -15,6 +15,7 @@ namespace Expro.Models
         {
 
         }
+        public string Id { get; set; }
 
         [Required]
         [Display(Name = "Имя")]
@@ -73,7 +74,7 @@ namespace Expro.Models
         {
             if (model == null)
                 return;
-
+            Id = model.Id;
             FirstName = model.FirstName;
             LastName = model.LastName;
             PatronymicName = model.PatronymicName;

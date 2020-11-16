@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" />
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
+    <link href="~/css/admin.css" rel="stylesheet" />
 </head>
 <body>
     <header>
@@ -21,21 +22,104 @@
                     <partial name="_LoginPartial" />
                     <ul class="navbar-nav flex-grow-1">
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                            <a class="nav-link text-dark" asp-area="Admin" asp-controller="Home" asp-action="Index">Home</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                            <a class="nav-link text-dark" asp-area="Admin" asp-controller="Home" asp-action="Privacy">Privacy</a>
                         </li>
                     </ul>
                 </div>
             </div>
         </nav>
     </header>
-    <div class="container-fluid">
-        <main role="main" class="pb-3">
+
+    <div class="row">
+        <div class="col-md-2">
+            <div class="main">
+                <aside>
+                    <div class="sidebar left ">
+                        <div class="user-panel">
+                            <div class="pull-left image">
+                                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS52y5aInsxSm31CvHOFHWujqUx_wWTS9iM6s7BAm21oEN_RiGoog" class="rounded-circle" alt="User Image" />
+
+                            </div>
+                            <div class="pull-left info">
+                                <p>bootstrap develop</p>
+                                <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
+                            </div>
+                        </div>
+                        <ul class="list-sidebar bg-defoult">
+                            <li>
+                                <a href="#" data-toggle="collapse" data-target="#dashboard" class="collapsed active"> <i class="fa fa-th-large"></i> <span class="nav-label"> Эксперты </span> <span class="fa fa-chevron-left pull-right"></span> </a>
+                                <ul class="sub-menu collapse" id="dashboard">
+                                    <li class="active"><a href="/Admin/ExpertsList">Эксперты в ожидании</a></li>
+                                    <li><a href="#">General</a></li>
+                                    <li><a href="#">Buttons</a></li>
+                                    <li><a href="#">Tabs & Accordions</a></li>
+                                    <li><a href="#">Typography</a></li>
+                                    <li><a href="#">FontAwesome</a></li>
+                                    <li><a href="#">Slider</a></li>
+                                    <li><a href="#">Panels</a></li>
+                                    <li><a href="#">Widgets</a></li>
+                                    <li><a href="#">Bootstrap Model</a></li>
+                                </ul>
+                            </li>
+                            <li> <a href="#"><i class="fa fa-diamond"></i> <span class="nav-label">Layouts</span></a> </li>
+                            <li>
+                                <a href="#" data-toggle="collapse" data-target="#products" class="collapsed active"> <i class="fa fa-bar-chart-o"></i> <span class="nav-label">Graphs</span> <span class="fa fa-chevron-left pull-right"></span> </a>
+                                <ul class="sub-menu collapse" id="products">
+                                    <li class="active"><a href="#">CSS3 Animation</a></li>
+                                    <li><a href="#">General</a></li>
+                                    <li><a href="#">Buttons</a></li>
+                                    <li><a href="#">Tabs & Accordions</a></li>
+                                    <li><a href="#">Typography</a></li>
+                                    <li><a href="#">FontAwesome</a></li>
+                                    <li><a href="#">Slider</a></li>
+                                    <li><a href="#">Panels</a></li>
+                                    <li><a href="#">Widgets</a></li>
+                                    <li><a href="#">Bootstrap Model</a></li>
+                                </ul>
+                            </li>
+                            <li> <a href="#"><i class="fa fa-laptop"></i> <span class="nav-label">Grid options</span></a> </li>
+                            <li>
+                                <a href="#" data-toggle="collapse" data-target="#tables" class="collapsed active"><i class="fa fa-table"></i> <span class="nav-label">Tables</span><span class="fa fa-chevron-left pull-right"></span></a>
+                                <ul class="sub-menu collapse" id="tables">
+                                    <li><a href=""> Static Tables</a></li>
+                                    <li><a href=""> Data Tables</a></li>
+                                    <li><a href=""> Foo Tables</a></li>
+                                    <li><a href=""> jqGrid</a></li>
+                                </ul>
+                            </li>
+                            <li>
+                                <a href="#" data-toggle="collapse" data-target="#e-commerce" class="collapsed active"><i class="fa fa-shopping-cart"></i> <span class="nav-label">E-commerce</span><span class="fa fa-chevron-left pull-right"></span></a>
+                                <ul class="sub-menu collapse" id="e-commerce">
+                                    <li><a href=""> Products grid</a></li>
+                                    <li><a href=""> Products list</a></li>
+                                    <li><a href="">Product edit</a></li>
+                                    <li><a href=""> Product detail</a></li>
+                                    <li><a href="">Cart</a></li>
+                                    <li><a href=""> Orders</a></li>
+                                    <li><a href=""> Credit Card form</a> </li>
+                                </ul>
+                            </li>
+                            <li> <a href=""><i class="fa fa-pie-chart"></i> <span class="nav-label">Metrics</span> </a></li>
+                            <li> <a href="#"><i class="fa fa-files-o"></i> <span class="nav-label">Other Pages</span></a> </li>
+                            <li> <a href="#"><i class="fa fa-files-o"></i> <span class="nav-label">Other Pages</span></a> </li>
+                            <li> <a href="#"><i class="fa fa-files-o"></i> <span class="nav-label">Other Pages</span></a> </li>
+                            <li> <a href="#"><i class="fa fa-files-o"></i> <span class="nav-label">Other Pages</span></a> </li>
+                            <li> <a href="#"><i class="fa fa-files-o"></i> <span class="nav-label">Other Pages</span></a> </li>
+                        </ul>
+                    </div>
+                </aside>
+            </div>
+        </div>
+        <div class="col-md-10">
             @RenderBody()
-        </main>
+        </div>
     </div>
+
+
+
 
     <footer class="border-top footer text-muted">
         <div class="container text-center">

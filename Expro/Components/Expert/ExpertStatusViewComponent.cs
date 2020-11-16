@@ -33,22 +33,22 @@ namespace Expro.Components
             switch (currentUser.ApproveStatus)
             {
                 //не запрашивал подтверждение аккаунта
-                case (int)ExpertApproveStatus.NotApproved:
+                case (int)ExpertApproveStatusEnum.NotApproved:
                     result = "<a id='confirmationRequest' onclick='confirmationRequest()' href='#' class='btn btn-success'>Отправить заявку на подтверждение профайла</a>";
                     break;
 
                 //запросил подтверждение но не подтверждено
-                case (int)ExpertApproveStatus.WaitingForApproval:
+                case (int)ExpertApproveStatusEnum.WaitingForApproval:
                     result = "<div class='alert alert-info' role='alert'>Ожидание подтверждения аккаунта</div>";
                     break;
 
                 //аккаунт подтвержден
-                case (int)ExpertApproveStatus.Approved:
+                case (int)ExpertApproveStatusEnum.Approved:
                     result = "<div class='alert alert-success' role='alert'>Аккаунт подтвержден</div>";
                     break;
 
                 //аккаунту отказано
-                case (int)ExpertApproveStatus.Rejected:
+                case (int)ExpertApproveStatusEnum.Rejected:
                     result = "<a  id='confirmationRequest' onclick='confirmationRequest()' href='#' class='btn btn-danger'>Отказано. Проверьте свои данные и заново отправьте заявку на подтверждение профайла</a>";
                     break;
                 default:

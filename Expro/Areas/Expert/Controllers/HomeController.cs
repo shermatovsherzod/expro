@@ -32,9 +32,9 @@ namespace Expro.Areas.Expert.Controllers
             AccountUtil accountUtil = new AccountUtil();
             var currentUserAccount = accountUtil.GetCurrentUser(this.HttpContext.User);
             var user = _userManager.Users.FirstOrDefault(c => c.UserName == currentUserAccount.UserName);
-            if ((user.ApproveStatus == (int)ExpertApproveStatus.NotApproved) || (user.ApproveStatus == (int)ExpertApproveStatus.Rejected))
+            if ((user.ApproveStatus == (int)ExpertApproveStatusEnum.NotApproved) || (user.ApproveStatus == (int)ExpertApproveStatusEnum.Rejected))
             {
-                user.ApproveStatus = (int)ExpertApproveStatus.WaitingForApproval;
+                user.ApproveStatus = (int)ExpertApproveStatusEnum.WaitingForApproval;
                 user.DateSubmittedForApproval = DateTime.Now;
                 IdentityResult result = await _userManager.UpdateAsync(user);
                 return Json(new { success = true });

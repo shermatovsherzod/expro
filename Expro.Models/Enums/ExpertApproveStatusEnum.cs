@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Expro.Models.Enums
 {
-    public enum ExpertApproveStatus
+    public enum ExpertApproveStatusEnum
     {
         NotApproved = 1,
         WaitingForApproval = 2,
