@@ -22,10 +22,10 @@
 
             <tbody>
                 @{
-                    List<WorkExperienceListItemVM> edicationList = ViewData["workExperienceListItemVM"] as List<WorkExperienceListItemVM>;
+                    List<WorkExperienceListItemVM> workExperienceList = ViewData["workExperienceListItemVM"] as List<WorkExperienceListItemVM>;
                 }
 
-                @foreach (var item in edicationList)
+                @foreach (var item in workExperienceList)
                 {
                     <tr>
                         <td>@item.Country</td>

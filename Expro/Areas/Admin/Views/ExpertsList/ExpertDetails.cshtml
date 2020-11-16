@@ -1,46 +1,64 @@
 ﻿@model ProfileExpertVM
 @{
     ViewData["Title"] = "ExpertDetails";
-    <link href="~/css/expertdetail.css" rel="stylesheet" />
 }
 
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-2">
+            <img src="http://placehold.it/122x122" alt="" class="img-responsive" />
+            <ul class="nav nav-pills">
+                <li class="nav-item">
+                    <div class="row">
+                        <div class="col-md-4"><a href="#"><i class="fas fa-comment-alt"></i></a></div>
+                        <div class="col-md-4"><a href="#"><i class="fas fa-thumbs-up"></i></a></div>
+                        <div class="col-md-4"><a href="#"><i class="fas fa-eye"></i></a></div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+        <div class="col-md-8">
+            <h4>
+                @Model.FirstName @Model.PatronymicName @Model.LastName <span class="daysago pull-right" style="font-size:14px!important;color: #92929A !important;font-weight: normal !important;">На сайте с: @Model.DateRegistered</span>
+            </h4>
+            <div class="row">
+                <div class="col-md-4">@Html.LabelFor(c => c.AboutMe)</div>
+                <div class="col-md-8">@Html.DisplayFor(c => c.AboutMe)</div>
+            </div>
+        </div>
+        <div class="col-md-2">
+        </div>
+    </div>
+</div>
 <div class="container">
+    <hr />
     <div class="row">
         <div class="col-md-12">
-            <div class="expert-data">
-                <div class="expert-pic pull-left">
-                    <span class="expert-like"><a href="#"><i class="fas fa-comment-alt"></i></a></span>
-                    <span class="expert-share"><a href="#"><i class="fas fa-thumbs-up"></i></a></span>
-                    <span class="expert-plus"><a href="#"><i class="fas fa-eye"></i></a></span>
-                    <a href="#">
-                        <img src="http://placehold.it/122x122" alt="" class="img-responsive" />
-                    </a>
+            <h4>Основная информация</h4>
+        </div>
+        <div class="col-md-12">
+            <div class="row"><div class="col-md-3">@Html.LabelFor(c => c.Id)</div><div class="col-md-9">@Html.DisplayFor(c => c.Id)</div></div>
+            <div class="row"><div class="col-md-3">@Html.LabelFor(c => c.UserName)</div><div class="col-md-9">@Html.DisplayFor(c => c.UserName)</div></div>
+            <div class="row"><div class="col-md-3">@Html.LabelFor(c => c.Email)</div><div class="col-md-9">@Html.DisplayFor(c => c.Email)</div></div>
+            <div class="row"><div class="col-md-3">@Html.LabelFor(c => c.PhoneNumber)</div><div class="col-md-9">@Html.DisplayFor(c => c.PhoneNumber)</div></div>
+            <div class="row"><div class="col-md-3">@Html.LabelFor(c => c.DateOfBirth)</div><div class="col-md-9">@Html.DisplayFor(c => c.DateOfBirth)</div></div>
+            <div class="row"><div class="col-md-3">@Html.LabelFor(c => c.GenderStr)</div><div class="col-md-9">@Html.DisplayFor(c => c.GenderStr)</div></div>
+            <div class="row"><div class="col-md-3">@Html.LabelFor(c => c.RegionStr)</div><div class="col-md-9">@Html.DisplayFor(c => c.RegionStr)</div></div>
+            <div class="row"><div class="col-md-3">@Html.LabelFor(c => c.CityStr)</div><div class="col-md-9">@Html.DisplayFor(c => c.CityStr)</div></div>
+            <div class="row"><div class="col-md-3">@Html.LabelFor(c => c.CityOther)</div><div class="col-md-9">@Html.DisplayFor(c => c.CityOther)</div></div>
 
-                </div>
-                <div class="expert-prfle">
-                    <div class="art-title">
-                        @Model.FirstName @Model.LastName  <span class="daysago pull-right" style="font-size:12px!important;color: #92929A !important;font-weight: normal !important;">5 Days Ago</span>
-                        <span class="expert-sub"><span class="byname">Обо мне</span> </span>
-                    </div>
-                    <div class="counter-tab">
-                        <div class="counter_comnt"><i class="fas fa-comment-alt"></i> 53</div>
-                        <div class="counter_ply"><i class="fas fa-thumbs-up"></i>46</div>
-                        <div class="counter_like"><i class="fas fa-eye"></i>76</div>
-                    </div>
-                </div>
-                <div class="bot-links">
-                    <a href="#">Sit amet</a>
-                    <a href="#">Amet</a>
-                    <a href="#">Lorem</a>
-                    <a href="#">Ipsum dolor</a>
-                    <a href="#">Lorem</a>
-                    <a href="#">Amet</a>
-                    <a href="#">Sit amet</a>
-                    <a href="#">Ipsum dolor</a>
-                    <a href="#">Lorem</a>
-                    <a href="#">Ipsum dolor sit</a>
-                </div>
-            </div>
+            <div class="row"><div class="col-md-3">@Html.LabelFor(c => c.LawAreaStr)</div><div class="col-md-9">@Html.DisplayFor(c => c.LawAreaStr)</div></div>
+            <div class="row"><div class="col-md-3">@Html.LabelFor(c => c.AccountNumber)</div><div class="col-md-9">@Html.DisplayFor(c => c.AccountNumber)</div></div>
+            <div class="row"><div class="col-md-3">@Html.LabelFor(c => c.Balance)</div><div class="col-md-9">@Html.DisplayFor(c => c.Balance)</div></div>
+            <div class="row"><div class="col-md-3">@Html.LabelFor(c => c.DateRegistered)</div><div class="col-md-9">@Html.DisplayFor(c => c.DateRegistered)</div></div>
+            <div class="row"><div class="col-md-3">@Html.LabelFor(c => c.Fax)</div><div class="col-md-9">@Html.DisplayFor(c => c.Fax)</div></div>
+            <div class="row"><div class="col-md-3">@Html.LabelFor(c => c.WebSite)</div><div class="col-md-9">@Html.DisplayFor(c => c.WebSite)</div></div>
+            <div class="row"><div class="col-md-3">@Html.LabelFor(c => c.ApproveStatusStr)</div><div class="col-md-9">@Html.DisplayFor(c => c.ApproveStatusStr)</div></div>
+            <div class="row"><div class="col-md-3">@Html.LabelFor(c => c.DateApproved)</div><div class="col-md-9">@Html.DisplayFor(c => c.DateApproved)</div></div>
+            <div class="row"><div class="col-md-3">@Html.LabelFor(c => c.DateRejected)</div><div class="col-md-9">@Html.DisplayFor(c => c.DateRejected)</div></div>
+            <div class="row"><div class="col-md-3">@Html.LabelFor(c => c.DateSubmittedForApproval)</div><div class="col-md-9">@Html.DisplayFor(c => c.DateSubmittedForApproval)</div></div>
+
+
         </div>
     </div>
     <hr />
@@ -52,64 +70,31 @@
             <table class="table">
                 <thead>
                     <tr>
-                        <th>
-                            #
-                        </th>
-                        <th>
-                            Product
-                        </th>
-                        <th>
-                            Payment Taken
-                        </th>
-                        <th>
-                            Status
-                        </th>
+                        <th>Страна</th>
+                        <th>Город</th>
+                        <th>Место работы</th>
+                        <th>Должность</th>
+                        <th>Период</th>
+                        <th>Диплом</th>
                     </tr>
                 </thead>
-                <tbody>
-                    <tr>
-                        <td>
-                            1
-                        </td>
-                        <td>
-                            TB - Monthly
-                        </td>
-                        <td>
-                            01/04/2012
-                        </td>
-                        <td>
-                            Default
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            1
-                        </td>
-                        <td>
-                            TB - Monthly
-                        </td>
-                        <td>
-                            01/04/2012
-                        </td>
-                        <td>
-                            Default
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            1
-                        </td>
-                        <td>
-                            TB - Monthly
-                        </td>
-                        <td>
-                            01/04/2012
-                        </td>
-                        <td>
-                            Default
-                        </td>
-                    </tr>
 
+                <tbody>
+                    @{
+                        List<WorkExperienceListItemVM> workExperienceList = ViewData["workExperienceListItemVM"] as List<WorkExperienceListItemVM>;
+                    }
+
+                    @foreach (var item in workExperienceList)
+                    {
+                        <tr>
+                            <td>@item.Country</td>
+                            <td>@item.City</td>
+                            <td>@item.PlaceOfWork</td>
+                            <td>@item.Position</td>
+                            <td>@item.WorkPeriodFrom - @item.WorkPeriodTo</td>
+                            <td></td>
+                        </tr>
+                    }
                 </tbody>
             </table>
         </div>
@@ -125,68 +110,79 @@
                 <thead>
                     <tr>
                         <th>
-                            #
+                            Страна
                         </th>
-                        <th>
-                            Product
-                        </th>
-                        <th>
-                            Payment Taken
-                        </th>
-                        <th>
-                            Status
-                        </th>
+                        <th>Город</th>
+                        <th>ВУЗ</th>
+                        <th>Факультет</th>
+                        <th>Год выпуска</th>
+
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td>
-                            1
-                        </td>
-                        <td>
-                            TB - Monthly
-                        </td>
-                        <td>
-                            01/04/2012
-                        </td>
-                        <td>
-                            Default
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            1
-                        </td>
-                        <td>
-                            TB - Monthly
-                        </td>
-                        <td>
-                            01/04/2012
-                        </td>
-                        <td>
-                            Default
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            1
-                        </td>
-                        <td>
-                            TB - Monthly
-                        </td>
-                        <td>
-                            01/04/2012
-                        </td>
-                        <td>
-                            Default
-                        </td>
-                    </tr>
+                    @{
+                        List<EducationListItemVM> edicationList = ViewData["educationListVM"] as List<EducationListItemVM>;
+                    }
 
+                    @foreach (var item in edicationList)
+                    {
+                        <tr>
+                            <td>@item.Country</td>
+                            <td>@item.City</td>
+                            <td>@item.University</td>
+                            <td>@item.Faculty</td>
+                            <td>@item.GraduationYear</td>
+                        </tr>
+                    }
                 </tbody>
             </table>
         </div>
     </div>
     <div class="row">
-        <button class="btn btn-success">Подтвердить</button>&nbsp;&nbsp;&nbsp;<button class="btn btn-danger">Отказать</button>
+        <button class="btn btn-success" onclick='approveRequest()'>Подтвердить</button>&nbsp;&nbsp;&nbsp;<button class="btn btn-danger" onclick='rejectRequest()'>Отказать</button>
     </div>
 </div>
+<br />
+<br />
+<br />
+<br />
+
+@section Scripts{
+
+    <script>
+        function approveRequest() {
+            var _url = "/Admin/ExpertsList/Approve/" + "@Model.Id";
+
+            $.ajax({
+                type: "POST",
+                url: _url,
+                success: function () {
+                    window.location.reload();
+                    alert("Эксперт подтвержден")
+                },
+                error: function () {
+                    alert('Ошибка');
+                }
+            });
+        }
+
+    </script>
+
+    <script>
+        function rejectRequest() {
+            var _url = "/Admin/ExpertsList/Reject/" + "@Model.Id";
+
+            $.ajax({
+                type: "POST",
+                url: _url,
+                success: function () {
+                    window.location.reload();
+                    alert("Эксперту отказано")
+                },
+                error: function () {
+                    alert('Ошибка');
+                }
+            });
+        }
+    </script>
+}

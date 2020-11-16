@@ -34,8 +34,14 @@ namespace Expro.Models
         [Display(Name = "Регион")]
         public int? RegionID { get; set; }
 
+        [Display(Name = "Регион")]
+        public string RegionStr { get; set; }
+
         [Display(Name = "Город")]
         public int? CityID { get; set; }
+
+        [Display(Name = "Город")]
+        public string CityStr { get; set; }
 
         [Display(Name = "Другой город")]
         [StringLength(256)]
@@ -53,13 +59,21 @@ namespace Expro.Models
         [Display(Name = "Пол")]
         public int? GenderID { get; set; }
 
+        [Display(Name = "Пол")]
+        public string GenderStr { get; set; }
+
         [Display(Name = "На сайте с:")]
         public string DateRegistered { get; set; }
 
-
+        [Display(Name = "Обо мне")]
+        public string AboutMe { get; set; }
 
         [Display(Name = "Статус")]
         public int ApproveStatus { get; set; }
+
+        [Display(Name = "Статус")]
+        public string ApproveStatusStr { get; set; }
+
 
         [Display(Name = "Дата подтверждения статуса")]
         public DateTime? DateApproved { get; set; }
@@ -69,6 +83,32 @@ namespace Expro.Models
 
         [Display(Name = "Дата отправления статуса на подтверждение")]
         public DateTime? DateSubmittedForApproval { get; set; }
+
+
+        [Display(Name = "Имя пользователя")]
+        public string UserName { get; set; }
+
+        [Display(Name = "Емейл")]
+        public string Email { get; set; }
+
+        [Display(Name = "Номер телефона")]
+        public string PhoneNumber { get; set; }
+
+        [Display(Name = "Счет")]
+        public string AccountNumber { get; set; }
+
+        [Display(Name = "Баланс")]
+        public int Balance { get; set; }
+
+        [Display(Name = "Факс")]
+        public string Fax { get; set; }
+
+        [Display(Name = "Сайт")]
+        public string WebSite { get; set; }
+
+        [Display(Name = "Направление")]
+        public string LawAreaStr { get; set; }
+
 
         public ProfileExpertVM(ApplicationUser model) // : base(model)
         {
@@ -84,11 +124,47 @@ namespace Expro.Models
             LawAreas = model.UserLawAreas != null ? model.UserLawAreas.Select(r => (int)r.LawAreaID).ToList() : null;
             DateOfBirth = DateTimeUtils.ConvertToString(model.DateOfBirth);
             GenderID = model.GenderID;
+            GenderStr = model.GenderID != null ? model.Gender.Name : "";
             DateRegistered = DateTimeUtils.ConvertToString(model.DateRegistered);
             ApproveStatus = model.ApproveStatus;
             DateApproved = model.DateApproved;
             DateRejected = model.DateRejected;
             DateSubmittedForApproval = model.DateSubmittedForApproval;
+            AboutMe = model.AboutMe;
+            UserName = model.UserName;
+            Email = model.Email;
+            PhoneNumber = model.PhoneNumber;
+            AccountNumber = model.AccountNumber;
+            Balance = model.Balance;
+            Fax = model.Fax;
+            WebSite = model.WebSite;
+            RegionStr = model.RegionID != null ? model.Region.Name : "";
+            CityStr = model.CityID != null ? model.City.Name : "";
+
+            switch (model.ApproveStatus)
+            {
+                case ((int)ExpertApproveStatusEnum.Approved):
+                    ApproveStatusStr = "Подтвержден";
+                    break;
+                case ((int)ExpertApproveStatusEnum.NotApproved):
+                    ApproveStatusStr = "Не подтвержден";
+                    break;
+                case ((int)ExpertApproveStatusEnum.Rejected):
+                    ApproveStatusStr = "Отказано";
+                    break;
+                case ((int)ExpertApproveStatusEnum.WaitingForApproval):
+                    ApproveStatusStr = "Ожидание подтверждения";
+                    break;
+                default:
+                    break;
+            }
+
+            LawAreaStr = "";
+            foreach (var item in model.UserLawAreas)
+            {
+                LawAreaStr = LawAreaStr + item.LawArea.Name+ "; ";
+            }
+
         }
     }
 }
