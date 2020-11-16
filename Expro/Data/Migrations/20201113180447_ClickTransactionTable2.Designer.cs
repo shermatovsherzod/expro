@@ -4,14 +4,16 @@ using Expro.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Expro.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20201113180447_ClickTransactionTable2")]
+    partial class ClickTransactionTable2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -798,9 +800,6 @@ namespace Expro.Data.Migrations
                         .HasColumnType("nvarchar(17)")
                         .HasMaxLength(17);
 
-                    b.Property<int>("ApproveStatus")
-                        .HasColumnType("int");
-
                     b.Property<int>("Balance")
                         .HasColumnType("int");
 
@@ -811,19 +810,10 @@ namespace Expro.Data.Migrations
                         .HasColumnType("nvarchar(256)")
                         .HasMaxLength(256);
 
-                    b.Property<DateTime?>("DateApproved")
-                        .HasColumnType("datetime2");
-
                     b.Property<DateTime>("DateOfBirth")
                         .HasColumnType("datetime2");
 
                     b.Property<DateTime>("DateRegistered")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime?>("DateRejected")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime?>("DateSubmittedForApproval")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Fax")

@@ -35,6 +35,7 @@ namespace Expro.DependencyInjections
             services.AddTransient<IDocumentRepository, DocumentRepository>();
             services.AddTransient<IUserPurchasedDocumentRepository, UserPurchasedDocumentRepository>();
             services.AddTransient<IDocumentStatusRepository, DocumentStatusRepository>();
+            services.AddTransient<IClickTransactionRepository, ClickTransactionRepository>();
         }
 
         public static void AddServices(this IServiceCollection services)
@@ -57,7 +58,6 @@ namespace Expro.DependencyInjections
             services.AddTransient<IUserPurchasedDocumentService, UserPurchasedDocumentService>();
             services.AddTransient<IHangfireService, HangfireService>();
             services.AddTransient<IDocumentStatusService, DocumentStatusService>();
-
             services.AddTransient<ISampleDocumentService, SampleDocumentService>();
             services.AddTransient<IArticleDocumentService, ArticleDocumentService>();
             services.AddTransient<IDocumentSearchService, DocumentSearchService>();
@@ -67,6 +67,7 @@ namespace Expro.DependencyInjections
             services.AddTransient<IDocumentCounterService, DocumentCounterService>();
             services.AddTransient<IPracticeDocumentService, PracticeDocumentService>();
             services.AddTransient<IPracticeDocumentSearchService, PracticeDocumentSearchService>();
+            services.AddTransient<IClickTransactionService, ClickTransactionService>();
         }
     }
 }
