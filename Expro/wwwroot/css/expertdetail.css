@@ -1,0 +1,106 @@
+﻿.art-title {
+    color: #231f20;
+    font-size: 20px;
+    font-weight: 700;
+}
+
+.expert-data {
+    width: 100%;
+    padding-bottom: 25px;
+}
+
+.expert-pic {
+    width: 130px;
+    position: relative;
+}
+
+.expert-pic span a {
+    color: #fff;
+    font-size: 16px;
+    display: none;
+}
+
+.expert-pic span.expert-like {
+    position: absolute;
+    left: 11%;
+    bottom: 10px;
+}
+
+.expert-pic span.expert-share {
+    position: absolute;
+    left: 46%;
+    bottom: 10px;
+}
+
+.expert-pic span.expert-plus {
+    position: absolute;
+    right: 9%;
+    bottom: 10px;
+}
+
+.expert-prfle {
+    /*width: 63%;*/
+}
+
+.expert-prfle span.expert-sub {
+    font-size: 15px;
+    color: #bbb;
+    float: left;
+    width: 100%;
+    font-weight: normal;
+    padding: 5px 0;
+}
+
+.expert-prfle span.expert-sub span.byname {
+    font-weight: 700;
+    color: #aaa;
+}
+
+    .expert-prfle span.expert-sub span.daysago {
+        float: right !important;
+        font-size: 12px !important;
+        color: #bbb !important;
+        font-weight: normal !important;
+    }
+
+.counter-tab {
+    float: left;
+    width: 100%;
+    padding-top: 45px;
+}
+
+    .counter-tab div {
+        float: left;
+        margin-right:20px;
+        /*width: 33%;*/
+        color: #aaa;
+        /*font-size: 12px;*/
+    }
+
+.bot-links {
+    float: left;
+    width: 100%;
+    padding-top: 10px;
+}
+
+    .bot-links a {
+        display: inline-block;
+        padding: 5px;
+        background: #ccc;
+        font-size: 12px;
+        margin-bottom: 5px;
+        color: #9c9c9c;
+        text-decoration: none;
+    }
+
+span.play-icon {
+    position: absolute;
+    left: 31%;
+    top: 32%;
+    display: none;
+}
+
+.expert-pic:hover img.play-icon, .expert-pic:hover span a {
+    display: block;
+}
+
