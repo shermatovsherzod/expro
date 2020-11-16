@@ -59,7 +59,7 @@
                         <div class="row">
                             <div class="col-md-12  text-center">
                                 @await Component.InvokeAsync("ExpertStatus")
-                            </div>                           
+                            </div>
                         </div>
                     </div>
                     <div class="col-md-8">
@@ -115,7 +115,7 @@
                     </div>
                 </div>
                 <hr />
-              
+
             </div>
         </main>
     </div>
@@ -129,6 +129,9 @@
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
+
+    <partial name="_FirebaseConfig" />
+
     @RenderSection("Scripts", required: false)
 </body>
 </html>

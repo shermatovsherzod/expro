@@ -301,8 +301,12 @@ namespace Expro.Areas.Expert.Controllers
 
         public IActionResult Photo()
         {
-           
-            return View();
+            var currentUserAccount = accountUtil.GetCurrentUser(User);
+            var user = _userManager.Users.FirstOrDefault(c => c.UserName == currentUserAccount.UserName);
+
+            var photoEditVM = new ExpertProfileAvatarVM(user);
+
+            return View(photoEditVM);
         }
 
     }

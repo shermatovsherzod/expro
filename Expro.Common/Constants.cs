@@ -10,7 +10,7 @@ namespace Expro.Common
         public static class FileTypes
         {
             public static readonly string DOCUMENT = "document";
-            //public static readonly string CUSTOMER_AVATAR = "customer_avatar";
+            public static readonly string USER_AVATAR = "user_avatar";
             //public static readonly string TALENT_AVATAR = "talent_avatar";
             //public static readonly string TALENT_INTRO_VIDEO = "talent_intro_video";
             //public static readonly string VIDEO_REQUEST_VIDEO = "video_request_video";

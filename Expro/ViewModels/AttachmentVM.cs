@@ -44,7 +44,8 @@ namespace Expro.ViewModels
         public string ContentType { get; set; } //"image/jpeg"
         public string DownloadUrl { get; set; } //"https://gerlgnenr.com?param1=val1&param2=val2..."
         public string FileType { get; set; } //Constants.FileTypes.VIDEO_REQUEST_VIDEO
-        public int? ModelID { get; set; }
+        //public int? ModelID { get; set; }
+        public object ModelID { get; set; }
         public string GUID { get; set; }
 
         public Attachment ToModel()

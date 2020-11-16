@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Threading.Tasks;
 using Expro.Common;
 using Expro.Models;
 using Expro.Services.Interfaces;
@@ -9,6 +10,7 @@ using Expro.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 
@@ -19,6 +21,7 @@ namespace Expro.Controllers
     {
         private readonly IAttachmentService AttachmentService;
         private readonly IDocumentService DocumentService;
+        private readonly UserManager<ApplicationUser> _userManager;
 
         //private readonly IHostingEnvironment _env;
 
@@ -26,17 +29,19 @@ namespace Expro.Controllers
             IAttachmentService attachmentService,
             IDocumentService documentService,
             //IHostingEnvironment env,
+            UserManager<ApplicationUser> userManager,
             ILogger<AttachmentController> logger)
         {
             AttachmentService = attachmentService;
             DocumentService = documentService;
             //_env = env;
+            _userManager = userManager;
             _logger = logger;
         }
 
         //ajax
         [HttpPost]
-        public IActionResult Save([FromBody] UploadFileVM uploadFileVM)
+        public async Task<IActionResult> Save([FromBody] UploadFileVM uploadFileVM)
         {
             try
             {
@@ -45,8 +50,11 @@ namespace Expro.Controllers
                 Attachment attachment = uploadFileVM.ToModel();
                 AttachmentService.Add(attachment, curUser.ID);
 
-                if (uploadFileVM.ModelID.HasValue && uploadFileVM.ModelID.Value > 0)
-                    AttachFile(attachment, uploadFileVM.ModelID.Value, uploadFileVM.FileType, curUser.ID);
+                if (uploadFileVM.ModelID != null)
+                    await AttachFile(attachment, uploadFileVM.ModelID, uploadFileVM.FileType, curUser.ID);
+
+                //if (uploadFileVM.ModelID.HasValue && uploadFileVM.ModelID.Value > 0)
+                //    AttachFile(attachment, uploadFileVM.ModelID.Value, uploadFileVM.FileType, curUser.ID);
 
                 return Ok(new { id = attachment.ID });
             }
@@ -56,17 +64,37 @@ namespace Expro.Controllers
             }
         }
 
-        private void AttachFile(Attachment attachment, int id, string fileType, string curUserID)
+        private async Task AttachFile(Attachment attachment, object id, string fileType, string curUserID)
         {
-            if (fileType.Equals(Constants.FileTypes.DOCUMENT))
+            string modelIDString = id.ToString();
+            int modelIDInt = 0;
+            int.TryParse(modelIDString, out modelIDInt);
+
+            if (modelIDInt > 0)
             {
-                var model = DocumentService.GetByID(id);
-                if (model != null)
+                if (fileType.Equals(Constants.FileTypes.DOCUMENT))
                 {
-                    model.Attachment = attachment;
-                    DocumentService.Update(model, curUserID);
+                    var model = DocumentService.GetByID(modelIDInt);
+                    if (model != null)
+                    {
+                        model.Attachment = attachment;
+                        DocumentService.Update(model, curUserID);
+                    }
                 }
             }
+            else
+            {
+                if (fileType.Equals(Constants.FileTypes.USER_AVATAR))
+                {
+                    var user = await _userManager.FindByIdAsync(modelIDString);
+                    if (user != null)
+                    {
+                        user.Avatar = attachment;
+                        await _userManager.UpdateAsync(user);
+                    }
+                }
+            }
+            
             //else if (fileType.Equals(Constants.FileTypes.TALENT_AVATAR))
             //{
             //    var model = TalentService.GetByID(id);
@@ -185,5 +213,26 @@ namespace Expro.Controllers
         //{
         //    return Json(new { });
         //}
+
+        public static bool IsNumericType(object o)
+        {
+            switch (Type.GetTypeCode(o.GetType()))
+            {
+                case TypeCode.Byte:
+                case TypeCode.SByte:
+                case TypeCode.UInt16:
+                case TypeCode.UInt32:
+                case TypeCode.UInt64:
+                case TypeCode.Int16:
+                case TypeCode.Int32:
+                case TypeCode.Int64:
+                case TypeCode.Decimal:
+                case TypeCode.Double:
+                case TypeCode.Single:
+                    return true;
+                default:
+                    return false;
+            }
+        }
     }
 }

@@ -262,7 +262,6 @@ else if (Model.StatusID == (int)DocumentStatusesEnum.Rejected)
                         DownloadUrl: "",
                         FileType: fileType,
                         ModelID: modelID,
-                        @*GUID: "@ViewData["fileGuid"]"*@
                     };
                     //console.log(uploadTask.snapshot.ref);
 
@@ -288,8 +287,10 @@ else if (Model.StatusID == (int)DocumentStatusesEnum.Rejected)
             );
         }
 
-        function FileAjaxUpload2(input, file, attachment, spinnerTagID, imgPreviewContainerTagID) {
-            if (file) {
+        function FileAjaxUpload2(input, file, attachment, spinnerTagID, imgPreviewContainerTagID)
+        {
+            if (file)
+            {
                 $.ajax({
                     url: "/Attachment/Save",
                     data: JSON.stringify(attachment),

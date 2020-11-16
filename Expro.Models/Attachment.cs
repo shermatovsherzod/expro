@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
 
 namespace Expro.Models
@@ -33,5 +34,8 @@ namespace Expro.Models
         public string MimeType { get; set; } //"image/jpeg"
 
         public string UrlParameters { get; set; } //"param1=val1&param2=val2..."
+
+        [InverseProperty("Avatar")]
+        public virtual ICollection<ApplicationUser> UsersUsingThisAvatar { get; set; }
     }
 }

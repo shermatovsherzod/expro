@@ -72,6 +72,13 @@ namespace Expro.Models
         [InverseProperty("User")]
         public virtual ICollection<UserPurchasedDocument> DocumentsPurchased { get; set; }
 
+        [ForeignKey("Avatar")]
+        public int? AvatarID { get; set; }
+        public virtual Attachment Avatar { get; set; }
+
+        [InverseProperty("Creator")]
+        public virtual ICollection<Attachment> CreatedAttachments { get; set; }
+
         //==========================================================
         [InverseProperty("Author")]
         public virtual ICollection<Post> PostsAuthored { get; set; }

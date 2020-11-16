@@ -46,6 +46,13 @@ namespace Expro.Models
                 .WithMany(b => b.Children)
                 .OnDelete(DeleteBehavior.ClientSetNull);
 
+            //modelBuilder.Entity<ApplicationUser>()
+            //    .HasOne(e => e.Avatar)
+            //    .WithMany(c => c.UsersUsingThisAvatar);
+            //modelBuilder.Entity<Attachment>()
+            //    .HasMany(e => e.UsersUsingThisAvatar)
+            //    .WithOne(c => c.Avatar);
+
             //modelBuilder.Entity<Gender>()
             //    .HasMany(c => c.Users)
             //    .WithOne(e => e.Gender);
