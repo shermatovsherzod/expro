@@ -50,7 +50,7 @@
     </div>
 
     <div class="row">
-        <div class="col-md-6">
+        <div class="col-md-3">
             <label>Страна</label>
         </div>
         <div class="col-md-6">
@@ -63,10 +63,11 @@
                 <span asp-validation-for="@Model.CountryID" class="text-danger"></span>
             </p>
         </div>
+        <div class="col-md-3"></div>
     </div>
 
     <div class="row">
-        <div class="col-md-6">
+        <div class="col-md-3">
             <label asp-for="@Model.City"></label>
         </div>
         <div class="col-md-6">
@@ -75,10 +76,11 @@
                 <span asp-validation-for="@Model.City"></span>
             </p>
         </div>
+        <div class="col-md-3"></div>
     </div>
 
     <div class="row">
-        <div class="col-md-6">
+        <div class="col-md-3">
             <label asp-for="@Model.University"></label>
         </div>
         <div class="col-md-6">
@@ -87,10 +89,11 @@
                 <span asp-validation-for="@Model.University"></span>
             </p>
         </div>
+        <div class="col-md-3"></div>
     </div>
 
     <div class="row">
-        <div class="col-md-6">
+        <div class="col-md-3">
             <label asp-for="@Model.Faculty"></label>
         </div>
         <div class="col-md-6">
@@ -99,11 +102,12 @@
                 <span asp-validation-for="@Model.Faculty"></span>
             </p>
         </div>
+        <div class="col-md-3"></div>
     </div>
 
 
     <div class="row">
-        <div class="col-md-6">
+        <div class="col-md-3">
             <label asp-for="@Model.GraduationYear"></label>
         </div>
         <div class="col-md-6">
@@ -112,12 +116,14 @@
                 <span asp-validation-for="@Model.GraduationYear"></span>
             </p>
         </div>
+        <div class="col-md-3"></div>
     </div>
 
     <div class="row">
-        <div class="col-md-12 text-right">
+        <div class="col-md-9 text-right">
             <button type="submit" class="btn btn-primary">Добавить</button>
         </div>
+        <div class="col-md-3"></div>
     </div>
 </form>
 
