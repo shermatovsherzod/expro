@@ -43,18 +43,14 @@
             </div>
         </nav>
     </header>
-    <div class="container">
+    <div class="container-fluid">
         <main role="main" class="pb-3">
 
-            <div class="container emp-profile">
+            <div class="">
                 <div class="row">
-                    <div class="col-md-4">
+                    <div class="col-md-2">
                         <div class="profile-img">
-                            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS52y5aInsxSm31CvHOFHWujqUx_wWTS9iM6s7BAm21oEN_RiGoog" alt="" />
-                            <div class="file btn btn-lg btn-primary">
-                                Изменить
-                                <input type="file" name="file" />
-                            </div>
+                            @await Component.InvokeAsync("ExpertPhoto")
                         </div>
                         <div class="row">
                             <div class="col-md-12  text-center">
@@ -62,7 +58,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-8">
+                    <div class="col-md-10">
                         <div class="profile-head">
                             <h5>
                                 @*@Model.FirstName @Model.LastName*@
@@ -96,7 +92,7 @@
 
                 </div>
                 <div class="row">
-                    <div class="col-md-4">
+                    <div class="col-md-2">
                         <div class="profile-work">
                             <p>WORK LINK</p>
                             <a href="">Website Link</a><br />
@@ -110,7 +106,7 @@
                             <a href="">PHP, .Net</a><br />
                         </div>
                     </div>
-                    <div class="col-md-8">
+                    <div class="col-md-10">
                         @RenderBody()
                     </div>
                 </div>
