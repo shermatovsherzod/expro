@@ -122,7 +122,7 @@ namespace Expro.Services
             entity.DateSubmittedForApproval = DateTime.Now;
 #if DEBUG
             //tmpPeriodMinutes = 2880;
-            entity.RejectionDeadline = entity.DateSubmittedForApproval.Value.AddMinutes(_tmpPeriodMinutes);
+            entity.RejectionDeadline = RoundToUp(entity.DateSubmittedForApproval.Value.AddMinutes(_tmpPeriodMinutes));
 #else
             entity.CancellationDeadline = RoundToUp(entity.DateSubmittedForApproval.Value.AddMinutes(7 200)); //5 days
 #endif
