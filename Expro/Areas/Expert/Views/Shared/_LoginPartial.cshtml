@@ -16,7 +16,7 @@
                 }
                 else if (int.Parse(userType.Value) == 2)
                 {
-                    <a href="/Expert/Profile" class="nav-link text-dark" title="Manage">Hello @User.Identity.Name!</a>
+                    <a href="/Expert/ExpertProfileMainInfo" class="nav-link text-dark" title="Manage">Hello @User.Identity.Name!</a>
                 }
                 else if (int.Parse(userType.Value) == 3)
                 {
@@ -24,7 +24,7 @@
                 }
             }
         }
-        @*<a href="/Profile"  class="nav-link text-dark" title="Manage">Hello @User.Identity.Name!</a>*@
+   
     </li>
     <li class="nav-item">
         <form  class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">

@@ -77,18 +77,18 @@ namespace Expro.Areas.Admin.Controllers.Experts
         }
 
         public IActionResult ExpertDetails(string id)
-        {
+        {           
             var expert = _userManager.Users.FirstOrDefault(c => c.Id == id);
             if (expert != null)
             {
-                ProfileExpertVM vmodel = new ProfileExpertVM(expert);
+                ProfileExpertFullInfoVM vmodel = new ProfileExpertFullInfoVM(expert);
 
                 ViewData["educationListVM"] = GetEducationListByUser(expert.Id);
                 ViewData["workExperienceListItemVM"] = GetWorkExperienceListByUser(expert.Id);
               
                 return View(vmodel);
             }
-            return RedirectToAction("Index");
+            throw new Exception("Эксперт не найден");          
         }
 
         public List<WorkExperienceListItemVM> GetWorkExperienceListByUser(string userID)

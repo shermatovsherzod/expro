@@ -1,0 +1,151 @@
+﻿@model Expro.ViewModels.ExpertProfileEducationEditVM
+
+@{
+    Layout = "_LayoutProfile";
+    ViewData["Title"] = "Образование";
+}
+
+
+<div class="row">
+    <div class="col-md-12">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>
+                        Страна
+                    </th>
+                    <th>Город</th>
+                    <th>ВУЗ</th>
+                    <th>Факультет</th>
+                    <th>Год выпуска</th>
+                    <th>Действие</th>
+                </tr>
+            </thead>
+            <tbody>
+                @{
+                    List<EducationListItemVM> edicationList = ViewData["educationListVM"] as List<EducationListItemVM>;
+                }
+
+                @foreach (var item in edicationList)
+                {
+                <tr>
+                    <td>@item.Country</td>
+                    <td>@item.City</td>
+                    <td>@item.University</td>
+                    <td>@item.Faculty</td>
+                    <td>@item.GraduationYear</td>
+                    <td><button class="btn btn-danger btndelete" data-cid="@item.ID">Удалить</button></td>
+                </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+<form asp-controller="ExpertProfileEducation" asp-action="Index" data-ajax="true" data-ajax-method="POST">
+    <div class="row">
+        <div class="col-md-12">
+            <b>Добавить образование</b>
+            <br /> <br />
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-3">
+            <label>Страна</label>
+        </div>
+        <div class="col-md-6">
+            <p>
+                <select asp-for="@Model.CountryID"
+                        asp-items="@ViewData["country"] as IEnumerable<SelectListItem>"
+                        class="form-control">
+                    <option disabled selected>--- Выбрать страну ---</option>
+                </select>
+                <span asp-validation-for="@Model.CountryID" class="text-danger"></span>
+            </p>
+        </div>
+        <div class="col-md-3"></div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-3">
+            <label asp-for="@Model.City"></label>
+        </div>
+        <div class="col-md-6">
+            <p>
+                <input asp-for="@Model.City" class="form-control" />
+                <span asp-validation-for="@Model.City"></span>
+            </p>
+        </div>
+        <div class="col-md-3"></div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-3">
+            <label asp-for="@Model.University"></label>
+        </div>
+        <div class="col-md-6">
+            <p>
+                <input asp-for="@Model.University" class="form-control" />
+                <span asp-validation-for="@Model.University"></span>
+            </p>
+        </div>
+        <div class="col-md-3"></div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-3">
+            <label asp-for="@Model.Faculty"></label>
+        </div>
+        <div class="col-md-6">
+            <p>
+                <input asp-for="@Model.Faculty" class="form-control" />
+                <span asp-validation-for="@Model.Faculty"></span>
+            </p>
+        </div>
+        <div class="col-md-3"></div>
+    </div>
+
+
+    <div class="row">
+        <div class="col-md-3">
+            <label asp-for="@Model.GraduationYear"></label>
+        </div>
+        <div class="col-md-6">
+            <p>
+                <input asp-for="@Model.GraduationYear" class="form-control" />
+                <span asp-validation-for="@Model.GraduationYear"></span>
+            </p>
+        </div>
+        <div class="col-md-3"></div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-9 text-right">
+            <button type="submit" class="btn btn-primary">Добавить</button>
+        </div>
+        <div class="col-md-3"></div>
+    </div>
+</form>
+
+@section Scripts{
+    <script>
+        $('.btndelete').on('click', function () {
+            if (confirm('Вы действительно хотите удалить запись?')) {
+                var id = $(this).data("cid");
+                $.ajax({
+                    type: "POST",
+                    url: '@Url.Action("DeleteEducation", "ExpertProfileEducation")',
+                    data:
+                    {
+                        id
+                    },
+                    success: function (res) {
+                        alert(res.responseText);
+                        document.location = '/Profile/Education';
+                    }
+                });
+            }
+          });
+    </script>
+
+}

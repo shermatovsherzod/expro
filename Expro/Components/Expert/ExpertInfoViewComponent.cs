@@ -24,7 +24,7 @@ namespace Expro.Components
             AccountUtil accountUtil = new AccountUtil();
             var currentUserAccount = accountUtil.GetCurrentUser(this.HttpContext.User);
             var currentUser = _userManager.Users.FirstOrDefault(c => c.UserName == currentUserAccount.UserName);
-            ProfileExpertVM vmodel = new ProfileExpertVM(currentUser);
+            ProfileExpertFullInfoVM vmodel = new ProfileExpertFullInfoVM(currentUser);
 
             return View("ExpertInfo", vmodel);
         }

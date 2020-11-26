@@ -3,6 +3,7 @@ using Expro.Models.Enums;
 using Expro.Utils;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
@@ -12,7 +13,15 @@ namespace Expro.ViewModels
     public class AppUserVM
     {
         public string ID { get; set; }
+
+        [Required]
+        [Display(Name = "Имя")]
+        [StringLength(256)]
         public string FirstName { get; set; }
+
+        [Required]
+        [Display(Name = "Фамилия")]
+        [StringLength(256)]
         public string LastName { get; set; }
         public string UserName { get; set; }
 
@@ -119,6 +128,23 @@ namespace Expro.ViewModels
             ID = user.Id;
             FirstName = user.FirstName;
             LastName = user.LastName;
+        }
+    }
+
+    public class ExpertDetailsVM : AppUserVM
+    {
+        public string AboutMe { get; set; }
+        //...
+
+        public ExpertDetailsVM() { }
+        
+        public ExpertDetailsVM(ApplicationUser user)
+            : base(user)
+        {
+            if (user == null)
+                return;
+
+            AboutMe = user.AboutMe;
         }
     }
 }
