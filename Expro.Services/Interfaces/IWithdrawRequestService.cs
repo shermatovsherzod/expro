@@ -16,10 +16,13 @@ namespace Expro.Services.Interfaces
             out string error,
 
             UserTypesEnum curUserType,
+            UserTypesEnum? filteredUserType,
             int? statusID,
             string authorID);
         bool UserHasNotEnoughtMoneyForWithdrawal(int balance);
         int GetMinimalAmountInBalanceForWithdrawal();
+        bool IsCompleted(WithdrawRequest model);
+        void MarkAsCompleted(WithdrawRequest model, string adminID);
         //Document GetFreeByID(int id);
         //Document GetPaidByID(int id);
         //bool EditingIsAllowed(Document entity);

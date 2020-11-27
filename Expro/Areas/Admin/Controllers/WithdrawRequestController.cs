@@ -10,9 +10,9 @@ using Expro.ViewModels;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Expro.Areas.Expert.Controllers
+namespace Expro.Areas.Admin.Controllers
 {
-    [Area("Expert")]
+    [Area("Admin")]
     public class WithdrawRequestController : BaseController
     {
         private readonly IWithdrawRequestService WithdrawRequestService;
@@ -35,7 +35,6 @@ namespace Expro.Areas.Expert.Controllers
         public IActionResult Index(bool? successfullyCreated)
         {
             ViewData["statuses"] = WithdrawRequestStatusService.GetAsSelectList();
-            ViewData["successfullyCreated"] = successfullyCreated;
 
             return View();
         }
@@ -43,7 +42,7 @@ namespace Expro.Areas.Expert.Controllers
         [HttpPost]
         public virtual IActionResult Search(
             int draw, int? start = null, int? length = null,
-            int? statusID = null)
+            int? statusID = null, UserTypesEnum? userType = null)
         {
             int recordsTotal = 0;
             int recordsFiltered = 0;
@@ -60,13 +59,13 @@ namespace Expro.Areas.Expert.Controllers
                 out error,
 
                 curUser.UserType.Value,
-                null,
+                userType,
                 statusID,
                 curUser.ID
             );
 
             dynamic data = dataIQueryable
-                .Select(m => new WithdrawRequestListItemForExpertVM(m))
+                .Select(m => new WithdrawRequestListItemForAdminVM(m))
                 .ToList();
 
             return Json(new
@@ -79,54 +78,28 @@ namespace Expro.Areas.Expert.Controllers
             });
         }
 
-        public async Task<IActionResult> Create()
-        {
-            ApplicationUser user = await _userManager.GetUserAsync(User);
-            
-            int userBalance = UserBalanceService.GetBalance(user);
-            if (WithdrawRequestService.UserHasNotEnoughtMoneyForWithdrawal(userBalance))
-            {
-                ViewData["userHasNotEnoughtMoneyForWithdrawal"] = true;
-                ViewData["minimalAmountInBalanceForWithdrawal"] =
-                    WithdrawRequestService.GetMinimalAmountInBalanceForWithdrawal();
-            }
-            ViewData["userBalance"] = userBalance;
-
-            return View();
-        }
-
         [HttpPost]
-        public async Task<IActionResult> Create(WithdrawRequestCreateVM modelVM)
+        public virtual IActionResult MarkAsCompleted(int id)
         {
-            ApplicationUser user = await _userManager.GetUserAsync(User);
-
             try
             {
-                if (ModelState.IsValid)
-                {
-                    var curUser = accountUtil.GetCurrentUser(User);
-                    int userBalance = UserBalanceService.GetBalance(user);
+                var request = WithdrawRequestService.GetByID(id);
+                if (request == null)
+                    throw new Exception("Запрос не найден");
 
-                    if (WithdrawRequestService.UserHasNotEnoughtMoneyForWithdrawal(userBalance))
-                        throw new Exception("Ваш баланс не позволяет подать заявку на вывод средств");
+                var curUser = accountUtil.GetCurrentUser(User);
 
-                    if (UserBalanceService.BalanceIsLessThan(user, modelVM.Amount))
-                        throw new Exception("На Вашем балансе недостаточно средство для снятия суммы " + modelVM.Amount);
+                if (WithdrawRequestService.IsCompleted(request))
+                    throw new Exception("Запрос ранее уже был выполнен");
 
-                    var model = modelVM.ToModel();
-                    WithdrawRequestService.Add(model, user);
+                WithdrawRequestService.MarkAsCompleted(request, curUser.ID);
 
-                    return RedirectToAction("Index", new { successfullyCreated = true });
-                }
+                return Ok();
             }
             catch (Exception ex)
             {
-                ModelState.AddModelError("", "Что-то пошло не так: " + ex.Message);
+                return CustomBadRequest(ex);
             }
-
-            ViewData["userBalance"] = UserBalanceService.GetBalance(user);
-
-            return View(modelVM);
         }
     }
 }

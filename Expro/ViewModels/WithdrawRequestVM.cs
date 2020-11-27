@@ -1,12 +1,7 @@
 ﻿using Expro.Common;
 using Expro.Common.Utilities;
 using Expro.Models;
-using Expro.Models.Enums;
-using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
 
 namespace Expro.ViewModels
 {
@@ -69,6 +64,19 @@ namespace Expro.ViewModels
             Status = new BaseDropdownableDetailsVM(model.Status);
             DateCreated = DateTimeUtils.ConvertToString(model.DateCreated);
             DateCompleted = DateTimeUtils.ConvertToString(model.DateCompleted);
+        }
+    }
+
+    public class WithdrawRequestListItemForAdminVM : WithdrawRequestListItemForExpertVM
+    {
+        public AppUserVM User { get; set; }
+
+        public WithdrawRequestListItemForAdminVM() { }
+
+        public WithdrawRequestListItemForAdminVM(WithdrawRequest model)
+            : base(model)
+        {
+            User = new AppUserVM(model.Creator);
         }
     }
 }

@@ -8,23 +8,19 @@
 <h1>@ViewData["Title"]</h1>
 <br />
 
-@if (ViewData["successfullyCreated"] != null)
-{
-    <div class="alert alert-success">Запрос успешно отправлен</div>
-}
-
-<div class="row">
-    <div class="col-12">
-        <p><a href="/Expert/WithdrawRequest/Create" class="btn btn-info">Добавить новый запрос</a></p>
-    </div>
-</div>
-<br />
-
 <div class="row">
     <div class="col-sm-4" id="filtersBox">
         Фильтр по статусу: <br />
         <select id="statusDD" asp-items="@ViewData["statuses"] as List<SelectListItem>" class="form-control">
             <option value="">Все</option>
+        </select>
+        <br />
+
+        Фильтр по типу пользователя: <br />
+        <select id="userTypeDD" class="form-control">
+            <option value="">Все</option>
+            <option value="@UserTypesEnum.Expert">Эксперты</option>
+            <option value="@UserTypesEnum.SimpleUser">Обычные пользователи</option>
         </select>
         <br />
     </div>
@@ -36,13 +32,15 @@
         <thead>
             <tr>
                 @{
-                    var listItem = new WithdrawRequestListItemForExpertVM();
+                    var listItem = new WithdrawRequestListItemForAdminVM();
                 }
                 <th>@Html.DisplayNameFor(model => listItem.ID)</th>
+                <th>@Html.DisplayNameFor(model => listItem.User.FullName)</th>
                 <th>@Html.DisplayNameFor(model => listItem.Amount)</th>
                 <th>@Html.DisplayNameFor(model => listItem.DateCreated)</th>
                 <th>@Html.DisplayNameFor(model => listItem.Status)</th>
                 @*<th>@Html.DisplayNameFor(model => listItem.DateCompleted)</th>*@
+                <th></th>
             </tr>
         </thead>
         <tbody>
@@ -70,13 +68,13 @@
                 lengthChange: false,
                 ajax:
                 {
-                    url: "/Expert/WithdrawRequest/Search",
+                    url: "/Admin/WithdrawRequest/Search",
                     type: "POST",
                     //contentType: "application/json",
                     datatype: "json",
                     data: function (d) {
                         d.statusID = $("#statusDD").val();
-                        //d.priceType = $("#priceTypeDD").val();
+                        d.userType = $("#userTypeDD").val();
                     },
                     //complete: function () {
                     //    StartLoadingImagesAsync();
@@ -103,25 +101,30 @@
                     {
                         "data": 1, //"name": "statusId", "autoWidth": true,
                         "render": function (data, type, full, meta) {
-                            return '' + full.amountStr + ' сум';
+                            return full.user.fullName;
                         }
                     },
                     {
                         "data": 2, //"name": "statusId", "autoWidth": true,
                         "render": function (data, type, full, meta) {
+                            return '' + full.amountStr + ' сум';
+                        }
+                    },
+                    {
+                        "data": 3, //"name": "statusId", "autoWidth": true,
+                        "render": function (data, type, full, meta) {
                             return '' + full.dateCreated + '';
                         }
                     },
-
                     {
-                        "data": 3, //"name": "statusId", "autoWidth": true,
+                        "data": 4, //"name": "statusId", "autoWidth": true,
                         "render": function (data, type, full, meta)
                         {
                             return '' + InsertStatusAlert(full) + '';
                         }
                     },
                     //{
-                    //    "data": 4, //"name": "statusId", "autoWidth": true,
+                    //    "data": 5, //"name": "statusId", "autoWidth": true,
                     //    "render": function (data, type, full, meta) {
                     //        var html = "";
                     //        if (full.dateCompleted != null)
@@ -129,7 +132,21 @@
 
                     //        return html;
                     //    }
-                    //}
+                    //},
+                    {
+                        "data": 5, //"name": "statusId", "autoWidth": true,
+                        "render": function (data, type, full, meta) {
+                            var html = "";
+
+                            if (full.status.id == "@((int)WithdrawRequestStatusesEnum.Pending)") {
+                                html += "<button type='button' class='btn btn-primary' onclick='MarkAsCompleted(this, " + full.id + ")'>";
+                                html += "Выполнить";
+                                html += "</button>";
+                            }
+
+                            return html;
+                        }
+                    },
                 ]
             });
 
@@ -142,13 +159,13 @@
                     //console.log('Redraw took at: ' + (new Date().getTime() - startTime) + 'mS');
                 });
 
-            $("#statusDD, #priceTypeDD").change(function () {
+            $("#statusDD, #userTypeDD").change(function () {
                 table.draw();
             });
         });
 
         function InsertStatusAlert(full) {
-            var html = "<div class='alert ";
+            var html = "<div id='statusAlert_" + full.id + "' class='alert ";
             if (full.status.id == "@((int)WithdrawRequestStatusesEnum.Pending)")
                 html += "alert-secondary'>";
             else if (full.status.id == "@((int)WithdrawRequestStatusesEnum.Completed)")
@@ -162,6 +179,52 @@
             html += "</div>";
 
             return html;
+        }
+
+        function MarkAsCompleted(button, id) {
+            var confirmationText = "Вы уверены, что хотите отметить как Выполнено?";
+
+            if (!confirm(confirmationText))
+                return;
+
+            $.ajax({
+                type: "POST",
+                url: "/Admin/WithdrawRequest/MarkAsCompleted/" + id,
+                //data: {
+                //    id: requestID
+                //},
+                //data: JSON.stringify({
+                //    id: requestID
+                //}),
+                contentType: "application/json; charset=utf-8",
+                //dataType: "json",
+                beforeSend: function (data) {
+                    $(".btn").attr("disabled", "disabled");
+                },
+                success: function (data) {
+                    //alert("success");
+                    //alert(data);
+                    //location.reload();
+
+                    //var html = "<div class='alert alert-success";
+                    //html += "Выполнено";
+                    //html += "</div>";
+
+                    $(button).remove();
+                    $("div#statusAlert_" + id)
+                        .removeClass("alert-secondary")
+                        .addClass("alert-success")
+                        .text("Выполнено");
+                },
+                error: function (data) {
+                    console.log(data);
+                    alert("Ошибка: " + data.responseJSON.errorMessage);
+                },
+                complete: function (data) {
+                    //alert("completed");
+                    $(".btn").removeAttr("disabled");
+                }
+            });
         }
     </script>
 }

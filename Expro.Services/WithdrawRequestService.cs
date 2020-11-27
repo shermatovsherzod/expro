@@ -62,6 +62,7 @@ namespace Expro.Services
             out string error,
 
             UserTypesEnum curUserType,
+            UserTypesEnum? filteredUserType,
             int? statusID,
             string authorID)
         {
@@ -82,6 +83,9 @@ namespace Expro.Services
 
                 if (statusID.HasValue)
                     requests = requests.Where(m => m.StatusID == statusID.Value);
+
+                if (filteredUserType.HasValue)
+                    requests = requests.Where(m => m.Creator.UserType == filteredUserType.Value);
 
                 recordsFiltered = requests.Count();
 
@@ -112,6 +116,19 @@ namespace Expro.Services
         public int GetMinimalAmountInBalanceForWithdrawal()
         {
             return MinimalAmountInBalanceForWithdrawal;
+        }
+
+        public bool IsCompleted(WithdrawRequest model)
+        {
+            return model.StatusID == (int)WithdrawRequestStatusesEnum.Completed;
+        }
+
+        public void MarkAsCompleted(WithdrawRequest model, string adminID)
+        {
+            model.StatusID = (int)WithdrawRequestStatusesEnum.Completed;
+            model.DateCompleted = DateTime.Now;
+
+            Update(model, adminID);
         }
     }
 }
