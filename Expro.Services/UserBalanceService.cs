@@ -27,6 +27,11 @@ namespace Expro.Services
             user.Balance -= amount;
         }
 
+        public bool BalanceIsLessThan(ApplicationUser user, int amount)
+        {
+            return user.Balance < amount;
+        }
+
         public void AssignAccountNumber(ApplicationUser user)
         {
             DateTime dateTime = user.DateRegistered;

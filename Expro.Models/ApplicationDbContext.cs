@@ -89,5 +89,7 @@ namespace Expro.Models
         public DbSet<DocumentStatus> DocumentStatuses { get; set; }
         public DbSet<UserPurchasedDocument> UserPurchasedDocuments { get; set; }
         public DbSet<ClickTransaction> ClickTransactions { get; set; }
+        public DbSet<WithdrawRequest> WithdrawRequests { get; set; }
+        public DbSet<WithdrawRequestStatus> WithdrawRequestStatuses { get; set; }
     }
 }
