@@ -2,5 +2,10 @@
 @{
     ViewData["Title"] = "Статус эксперта";
 }
-
-<img src="@Model.Avatar.Url" alt="Avatar" class="img-thumbnail" style="max-width:150px;">
+<div class="container-fluid no-padding">
+    <div class="row">
+        <div class="col-md-12">
+            <img src="@Model.Avatar.Url" alt="Avatar" class="img-thumbnail responsive">
+        </div>
+    </div>
+</div>

@@ -6,7 +6,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
 
 namespace Expro.Models
-{
+{    
     public class Document : BaseModelAuthorable
     {
         [ForeignKey("DocumentType")]

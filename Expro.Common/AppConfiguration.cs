@@ -19,6 +19,10 @@ namespace Expro.Common
         public int WebsiteCommission { get; set; }
         public int PaymentSystemCommission { get; set; }
         public string NumberViewStringFormat { get; set; }
+
+        /// <summary>
+        /// dd.MM.yyyy
+        /// </summary>
         public string DateViewStringFormat { get; set; }
         public string DateTextViewStringFormat { get; set; }
         public string DateDbViewStringFormat { get; set; }

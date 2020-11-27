@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Expro.Common;
 using Expro.Common.Utilities;
 using Expro.Controllers;
 using Expro.Models;
@@ -56,12 +57,12 @@ namespace Expro.Areas.Expert.Controllers
             ViewData["cities"] = _cityService.GetAsSelectListOne(currentUser.CityID);
             ViewData["gender"] = _genderService.GetAsSelectListOne(currentUser.GenderID);
             ViewBag.Message = message;
-            var userMainInfo = new ProfileExpertVM(currentUser);
+            var userMainInfo = new ProfileExpertFullInfoVM(currentUser);
             return View(userMainInfo);
         }
 
         [HttpPost]
-        public async Task<ActionResult> Index(ProfileExpertVM vmodel)
+        public async Task<ActionResult> Index(ProfileExpertFullInfoVM vmodel)
         {
             var currentUserAccount = accountUtil.GetCurrentUser(User);
             var user = await _userManager.FindByIdAsync(currentUserAccount.ID);
@@ -78,7 +79,7 @@ namespace Expro.Areas.Expert.Controllers
                 user.PatronymicName = vmodel.PatronymicName;
                 user.RegionID = vmodel.RegionID;
                 user.CityID = vmodel.CityID;
-                user.DateOfBirth = DateTimeUtils.ConvertToDateTime(vmodel.DateOfBirth, "dd.MM.yyyy");
+                user.DateOfBirth = DateTimeUtils.ConvertToDateTime(vmodel.DateOfBirth, AppData.Configuration.DateViewStringFormat); // "dd.MM.yyyy");
                 user.GenderID = vmodel.GenderID;
                 _lawAreaService.UpdateUserLawAreas(user, vmodel.LawAreas);
                 IdentityResult result = await _userManager.UpdateAsync(user);

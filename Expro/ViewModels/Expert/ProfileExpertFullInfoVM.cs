@@ -9,9 +9,9 @@ using System.Text;
 
 namespace Expro.Models
 {
-    public class ProfileExpertVM
+    public class ProfileExpertFullInfoVM
     {
-        public ProfileExpertVM()
+        public ProfileExpertFullInfoVM()
         {
 
         }
@@ -110,7 +110,7 @@ namespace Expro.Models
         public string LawAreaStr { get; set; }
 
 
-        public ProfileExpertVM(ApplicationUser model) // : base(model)
+        public ProfileExpertFullInfoVM(ApplicationUser model) // : base(model)
         {
             if (model == null)
                 return;

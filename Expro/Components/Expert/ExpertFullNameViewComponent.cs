@@ -10,11 +10,10 @@ using System.Threading.Tasks;
 
 namespace Expro.Components
 {
-    public class ExpertInfoViewComponent : ViewComponent
+    public class ExpertFullNameViewComponent : ViewComponent
     {
         UserManager<ApplicationUser> _userManager;
-
-        public ExpertInfoViewComponent(UserManager<ApplicationUser> userManager)
+        public ExpertFullNameViewComponent(UserManager<ApplicationUser> userManager)
         {
             _userManager = userManager;
         }
@@ -24,10 +23,8 @@ namespace Expro.Components
             AccountUtil accountUtil = new AccountUtil();
             var currentUserAccount = accountUtil.GetCurrentUser(this.HttpContext.User);
             var currentUser = _userManager.Users.FirstOrDefault(c => c.UserName == currentUserAccount.UserName);
-            ProfileExpertFullInfoVM vmodel = new ProfileExpertFullInfoVM(currentUser);
-
-            return View("ExpertInfo", vmodel);
+            ExpertFullNameVM vmodel = new ExpertFullNameVM(currentUser);
+            return View("ExpertFullName", vmodel);
         }
-
     }
 }
