@@ -1,0 +1,44 @@
+﻿@using Expro.ViewModels
+@using Expro.Models.Enums
+
+@if (ViewData["successfullyCreated"] != null)
+{
+    <div class="alert alert-success">Запрос успешно отправлен</div>
+}
+
+<div class="row">
+    <div class="col-12">
+        <p><a href="/@ViewData["Area"]/WithdrawRequest/Create" class="btn btn-info">Добавить новый запрос</a></p>
+    </div>
+</div>
+<br />
+
+<div class="row">
+    <div class="col-sm-4" id="filtersBox">
+        Фильтр по статусу: <br />
+        <select id="statusDD" asp-items="@ViewData["statuses"] as List<SelectListItem>" class="form-control">
+            <option value="">Все</option>
+        </select>
+        <br />
+    </div>
+</div>
+
+<div id="tableBox">
+    <div class="spinner-border spinner" style="display: none;"></div>
+    <table id="list" width="100%" class="table">
+        <thead>
+            <tr>
+                @{
+                    var listItem = new WithdrawRequestListItemForExpertAndUserVM();
+                }
+                <th>@Html.DisplayNameFor(model => listItem.ID)</th>
+                <th>@Html.DisplayNameFor(model => listItem.Amount)</th>
+                <th>@Html.DisplayNameFor(model => listItem.DateCreated)</th>
+                <th>@Html.DisplayNameFor(model => listItem.Status)</th>
+            </tr>
+        </thead>
+        <tbody>
+        </tbody>
+    </table>
+    <div class="spinner-border spinner" style="display: none;"></div>
+</div>

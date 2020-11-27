@@ -33,7 +33,7 @@ namespace Expro.ViewModels
         }
     }
 
-    public class WithdrawRequestListItemForExpertVM : BaseVM
+    public class WithdrawRequestListItemForExpertAndUserVM : BaseVM
     {
         [Display(Name = "Сумма")]
         public int Amount { get; set; }
@@ -50,9 +50,9 @@ namespace Expro.ViewModels
         [Display(Name = "Дата выполнения")]
         public string DateCompleted { get; set; }
 
-        public WithdrawRequestListItemForExpertVM() { }
+        public WithdrawRequestListItemForExpertAndUserVM() { }
 
-        public WithdrawRequestListItemForExpertVM(WithdrawRequest model)
+        public WithdrawRequestListItemForExpertAndUserVM(WithdrawRequest model)
             : base(model)
         {
             if (model == null)
@@ -67,7 +67,7 @@ namespace Expro.ViewModels
         }
     }
 
-    public class WithdrawRequestListItemForAdminVM : WithdrawRequestListItemForExpertVM
+    public class WithdrawRequestListItemForAdminVM : WithdrawRequestListItemForExpertAndUserVM
     {
         public AppUserVM User { get; set; }
 

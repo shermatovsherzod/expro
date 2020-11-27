@@ -20,6 +20,7 @@ namespace Expro.Services.Interfaces
             int? statusID,
             string authorID);
         bool UserHasNotEnoughtMoneyForWithdrawal(int balance);
+        bool AmountIsLessThanMinimum(int amount);
         int GetMinimalAmountInBalanceForWithdrawal();
         bool IsCompleted(WithdrawRequest model);
         void MarkAsCompleted(WithdrawRequest model, string adminID);

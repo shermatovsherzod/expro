@@ -113,6 +113,11 @@ namespace Expro.Services
             return balance < MinimalAmountInBalanceForWithdrawal;
         }
 
+        public bool AmountIsLessThanMinimum(int amount)
+        {
+            return amount < MinimalAmountInBalanceForWithdrawal;
+        }
+
         public int GetMinimalAmountInBalanceForWithdrawal()
         {
             return MinimalAmountInBalanceForWithdrawal;

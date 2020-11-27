@@ -10,9 +10,9 @@ using Expro.ViewModels;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Expro.Areas.Expert.Controllers
+namespace Expro.Areas.User.Controllers
 {
-    [Area("Expert")]
+    [Area("User")]
     public class WithdrawRequestController : BaseWithdrawRequestController
     {
         public WithdrawRequestController(
