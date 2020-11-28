@@ -25,6 +25,7 @@ namespace Expro.ViewModels
         public string LastName { get; set; }
         public string UserName { get; set; }
 
+        [Display(Name = "Имя")]
         public string FullName 
         {
             get
@@ -128,6 +129,7 @@ namespace Expro.ViewModels
             ID = user.Id;
             FirstName = user.FirstName;
             LastName = user.LastName;
+            UserType = user.UserType;
         }
     }
 
