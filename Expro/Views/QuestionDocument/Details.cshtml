@@ -1,0 +1,16 @@
+﻿@model Expro.ViewModels.DocumentDetailsForSiteVM
+@using Expro.Models.Enums
+
+@{
+    ViewData["Title"] = "Вопрос - детали";
+    ViewData["DocumentType"] = DocumentTypesEnum.QuestionDocument;
+}
+
+<h1>@ViewData["Title"]</h1>
+<hr />
+
+@await Html.PartialAsync("/Views/DocumentPartials/_Details.cshtml", Model)
+
+@section Scripts {
+    <script src="~/js/Site/Document/Details.js"></script>
+}
