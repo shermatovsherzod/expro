@@ -15,4 +15,8 @@ namespace Expro.Services.Interfaces
     public interface IPracticeDocumentSearchService : IDocumentSearchService
     {
     }
+
+    public interface IQuestionDocumentSearchService : IDocumentSearchService
+    {
+    }
 }

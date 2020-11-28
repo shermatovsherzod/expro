@@ -12,7 +12,7 @@ namespace Expro.Services
 {
     public class DocumentSearchService : IDocumentSearchService//DocumentService, ISampleDocumentService
     {
-        private IDocumentService DocumentService;
+        protected IDocumentService DocumentService;
 
         public DocumentSearchService() { }
 
@@ -21,7 +21,7 @@ namespace Expro.Services
             DocumentService = documentService;
         }
 
-        public IQueryable<Document> Search(
+        public virtual IQueryable<Document> Search(
             int? start,
             int? length,
 
@@ -60,32 +60,14 @@ namespace Expro.Services
                 else
                     documents = DocumentService.GetAllApproved();
 
-                if (lawAreas != null && lawAreas.Length > 0)
-                {
-                    documents = documents
-                        .Where(m => m.DocumentLawAreas
-                            .Select(n => n.LawAreaID)
-                            .Any(n => lawAreas.Contains(n)));
-                }
-
                 recordsTotal = documents.Count();
 
-                if (statusID.HasValue)
-                    documents = documents.Where(m => m.DocumentStatusID == statusID.Value);
-                if (priceType.HasValue)
-                    documents = documents.Where(m => m.PriceType == priceType.Value);
-
-
+                documents = ApplyFilters(documents, lawAreas, statusID, priceType);
 
                 recordsFiltered = documents.Count();
 
-                documents = documents.OrderByDescending(m => m.DateModified);
-                if (start.HasValue && start.Value > 0)
-                    documents = documents.Skip(start.Value);
-                if (length.HasValue && length.Value > 0)
-                    documents = documents.Take(length.Value);
+                documents = ApplyOrder(documents, start, length);
 
-                //return documents.OrderByDescending(m => m.DateModified);
                 return documents;
             }
             catch (Exception ex)
@@ -96,6 +78,42 @@ namespace Expro.Services
 
                 return Enumerable.Empty<Document>().AsQueryable();
             }
+        }
+
+        protected IQueryable<Document> ApplyFilters(
+            IQueryable<Document> documents,
+            int[] lawAreas,
+            int? statusID,
+            DocumentPriceTypesEnum? priceType)
+        {
+            if (lawAreas != null && lawAreas.Length > 0)
+            {
+                documents = documents
+                    .Where(m => m.DocumentLawAreas
+                        .Select(n => n.LawAreaID)
+                        .Any(n => lawAreas.Contains(n)));
+            }
+
+            if (statusID.HasValue)
+                documents = documents.Where(m => m.DocumentStatusID == statusID.Value);
+            if (priceType.HasValue)
+                documents = documents.Where(m => m.PriceType == priceType.Value);
+
+            return documents;
+        }
+
+        protected IQueryable<Document> ApplyOrder(
+            IQueryable<Document> documents,
+            int? start,
+            int? length)
+        {
+            documents = documents.OrderByDescending(m => m.DateModified);
+            if (start.HasValue && start.Value > 0)
+                documents = documents.Skip(start.Value);
+            if (length.HasValue && length.Value > 0)
+                documents = documents.Take(length.Value);
+
+            return documents;
         }
     }
 }
