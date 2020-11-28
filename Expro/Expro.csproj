@@ -63,6 +63,7 @@
     <Folder Include="Areas\User\Models\" />
     <Folder Include="Uploads\" />
     <Folder Include="wwwroot\lib\Gijgo\" />
+    <Folder Include="wwwroot\lib\yearpicker\" />
   </ItemGroup>
 
   <ItemGroup>

@@ -15,9 +15,19 @@ namespace Expro.Services
         {
         }
 
-        public IQueryable<ExpertEducation> GetListByUserID(string createdBy)
+        public IQueryable<ExpertEducation> GetExpertEducationsByCreatorID(string createdBy)
         {
             return _repository.GetAsIQueryable().Where(c => c.CreatedBy == createdBy);
+        }
+
+        public bool EducationBelongsToUser(ExpertEducation model, string userID)
+        {
+            if (model.CreatedBy == userID)
+            {
+                _repository.Delete(model);
+                return true;
+            }
+            return false;
         }
     }
 }
