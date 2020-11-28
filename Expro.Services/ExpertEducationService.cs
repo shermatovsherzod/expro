@@ -7,17 +7,17 @@ using System.Linq;
 
 namespace Expro.Services
 {
-    public class EducationService : BaseAuthorableService<Education>, IEducationService
+    public class ExpertEducationService : BaseAuthorableService<ExpertEducation>, IExpertEducationService
     {
-        public EducationService(IEducationRepository repository,
+        public ExpertEducationService(IExpertEducationRepository repository,
                            IUnitOfWork unitOfWork)
             : base(repository, unitOfWork)
         {
         }
 
-        public IQueryable<Education> GetListByUserID(string userID)
+        public IQueryable<ExpertEducation> GetListByUserID(string createdBy)
         {
-            return _repository.GetAsIQueryable().Where(c => c.UserID == userID);
+            return _repository.GetAsIQueryable().Where(c => c.CreatedBy == createdBy);
         }
     }
 }

@@ -17,17 +17,17 @@ namespace Expro.Areas.Expert.Controllers.ExpertProfile
     public class ExpertProfileEducationController : BaseController
     {
         private readonly UserManager<ApplicationUser> _userManager;
-        private readonly IEducationService _educationService;
+        private readonly IExpertEducationService _expertEducationService;
         private readonly ICountryService _countryService;
 
         public ExpertProfileEducationController(
-              UserManager<ApplicationUser> userManager,           
-              IEducationService educationService   ,
+              UserManager<ApplicationUser> userManager,
+              IExpertEducationService expertEducationService,
                ICountryService countryService
               )
         {
-            _userManager = userManager;           
-            _educationService = educationService;
+            _userManager = userManager;
+            _expertEducationService = expertEducationService;
             _countryService = countryService;
 
 
@@ -40,7 +40,7 @@ namespace Expro.Areas.Expert.Controllers.ExpertProfile
             ViewData["educationListVM"] = GetEducationListByUser(user.ID);
 
             return View();
-            
+
         }
 
 
@@ -52,9 +52,9 @@ namespace Expro.Areas.Expert.Controllers.ExpertProfile
 
             if (ModelState.IsValid && user != null)
             {
-                Education model = new Education();               
-                PropertyCopier.CopyTo(vmodel, model);               
-                _educationService.Add(model, user.ID);
+                ExpertEducation model = new ExpertEducation();
+                PropertyCopier.CopyTo(vmodel, model);
+                _expertEducationService.Add(model, user.ID);
                 return RedirectToAction("Education");
             }
             ViewData["educationListVM"] = GetEducationListByUser(user.ID);
@@ -67,11 +67,11 @@ namespace Expro.Areas.Expert.Controllers.ExpertProfile
         {
             try
             {
-                var model = _educationService.GetByID(id);
+                var model = _expertEducationService.GetByID(id);
                 var user = accountUtil.GetCurrentUser(User);
-                if (model.UserID == user.ID)
+                if (model.CreatedBy == user.ID)
                 {
-                    _educationService.DeletePermanently(model);
+                    _expertEducationService.DeletePermanently(model);
                     return Json(new { success = true, responseText = "Education deleted" });
                 }
                 return Json(new { success = true, responseText = "Education not deleted" });
@@ -84,7 +84,7 @@ namespace Expro.Areas.Expert.Controllers.ExpertProfile
 
         public List<EducationListItemVM> GetEducationListByUser(string userID)
         {
-            return _educationService.GetListByUserID(userID).Select(s => new EducationListItemVM
+            return _expertEducationService.GetListByUserID(userID).Select(s => new EducationListItemVM
             {
                 University = s.University,
                 City = s.City,
@@ -92,7 +92,7 @@ namespace Expro.Areas.Expert.Controllers.ExpertProfile
                 Faculty = s.Faculty,
                 GraduationYear = s.GraduationYear,
                 ID = s.ID,
-                UserID = s.UserID
+                UserID = s.CreatedBy
             }).ToList();
         }
     }

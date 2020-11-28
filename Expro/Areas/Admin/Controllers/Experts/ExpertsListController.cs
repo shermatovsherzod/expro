@@ -19,16 +19,16 @@ namespace Expro.Areas.Admin.Controllers.Experts
     {
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly IWorkExperienceService _workExperienceService;
-        private readonly IEducationService _educationService;
+       // private readonly IEducationService _educationService;
         public ExpertsListController(
               UserManager<ApplicationUser> userManager,
-              IWorkExperienceService workExperienceService,
-               IEducationService educationService
+              IWorkExperienceService workExperienceService
+         //      IEducationService educationService
             )
         {
             _userManager = userManager;
             _workExperienceService = workExperienceService;
-            _educationService = educationService;
+         //   _educationService = educationService;
 
         }
 
@@ -107,16 +107,18 @@ namespace Expro.Areas.Admin.Controllers.Experts
 
         public List<EducationListItemVM> GetEducationListByUser(string userID)
         {
-            return _educationService.GetListByUserID(userID).Select(s => new EducationListItemVM
-            {
-                University = s.University,
-                City = s.City,
-                Country = s.Country.Name,
-                Faculty = s.Faculty,
-                GraduationYear = s.GraduationYear,
-                ID = s.ID,
-                UserID = s.UserID
-            }).ToList();
+            //return _educationService.GetListByUserID(userID).Select(s => new EducationListItemVM
+            //{
+            //    University = s.University,
+            //    City = s.City,
+            //    Country = s.Country.Name,
+            //    Faculty = s.Faculty,
+            //    GraduationYear = s.GraduationYear,
+            //    ID = s.ID,
+            //    UserID = s.CreatedBy
+            //}).ToList();
+
+            return null;
         }
 
         [HttpPost]

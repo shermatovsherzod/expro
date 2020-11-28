@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Expro.Data.Repository.Interfaces
 {
-    public interface IEducationRepository : IBaseCRUDRepository<Education>
+    public interface IExpertEducationRepository : IBaseCRUDRepository<ExpertEducation>
     {
     }
 }

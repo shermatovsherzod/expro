@@ -4,14 +4,16 @@ using Expro.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Expro.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20201126152852_UserIDRemovedFromEducation4")]
+    partial class UserIDRemovedFromEducation4
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -315,7 +317,7 @@ namespace Expro.Data.Migrations
                     b.ToTable("DocumentTypes");
                 });
 
-            modelBuilder.Entity("Expro.Models.ExpertEducation", b =>
+            modelBuilder.Entity("Expro.Models.Education", b =>
                 {
                     b.Property<int>("ID")
                         .ValueGeneratedOnAdd()
@@ -363,7 +365,7 @@ namespace Expro.Data.Migrations
 
                     b.HasIndex("ModifiedBy");
 
-                    b.ToTable("ExpertEducations");
+                    b.ToTable("Educations");
                 });
 
             modelBuilder.Entity("Expro.Models.Gender", b =>
@@ -945,7 +947,7 @@ namespace Expro.Data.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("Expro.Models.ExpertEducation", b =>
+            modelBuilder.Entity("Expro.Models.Education", b =>
                 {
                     b.HasOne("Expro.Models.Country", "Country")
                         .WithMany()

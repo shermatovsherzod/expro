@@ -4,14 +4,16 @@ using Expro.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Expro.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20201127052743_removeUserIDFromEducation8")]
+    partial class removeUserIDFromEducation8
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -315,7 +317,7 @@ namespace Expro.Data.Migrations
                     b.ToTable("DocumentTypes");
                 });
 
-            modelBuilder.Entity("Expro.Models.ExpertEducation", b =>
+            modelBuilder.Entity("Expro.Models.Education", b =>
                 {
                     b.Property<int>("ID")
                         .ValueGeneratedOnAdd()
@@ -355,6 +357,9 @@ namespace Expro.Data.Migrations
                         .HasColumnType("nvarchar(256)")
                         .HasMaxLength(256);
 
+                    b.Property<string>("UserID")
+                        .HasColumnType("nvarchar(450)");
+
                     b.HasKey("ID");
 
                     b.HasIndex("CountryID");
@@ -363,7 +368,9 @@ namespace Expro.Data.Migrations
 
                     b.HasIndex("ModifiedBy");
 
-                    b.ToTable("ExpertEducations");
+                    b.HasIndex("UserID");
+
+                    b.ToTable("Educations");
                 });
 
             modelBuilder.Entity("Expro.Models.Gender", b =>
@@ -945,7 +952,7 @@ namespace Expro.Data.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("Expro.Models.ExpertEducation", b =>
+            modelBuilder.Entity("Expro.Models.Education", b =>
                 {
                     b.HasOne("Expro.Models.Country", "Country")
                         .WithMany()
@@ -960,6 +967,10 @@ namespace Expro.Data.Migrations
                     b.HasOne("Expro.Models.ApplicationUser", "Modifier")
                         .WithMany()
                         .HasForeignKey("ModifiedBy");
+
+                    b.HasOne("Expro.Models.ApplicationUser", "User")
+                        .WithMany()
+                        .HasForeignKey("UserID");
                 });
 
             modelBuilder.Entity("Expro.Models.LawArea", b =>

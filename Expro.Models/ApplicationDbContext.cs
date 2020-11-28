@@ -81,7 +81,7 @@ namespace Expro.Models
         public DbSet<Region> Regions { get; set; }
         public DbSet<City> Cities { get; set; }
         public DbSet<Attachment> Attachments{ get; set; }
-        public DbSet<Education> Educations { get; set; }
+        public DbSet<ExpertEducation> ExpertEducations { get; set; }
         public DbSet<WorkExperience> WorkExperiences { get; set; }
         public DbSet<Document> Documents { get; set; }
         public DbSet<DocumentType> DocumentTypes { get; set; }

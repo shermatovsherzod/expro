@@ -37,19 +37,19 @@ namespace Expro.Models
 
         public string UserID { get; set; }
 
-        public ExpertProfileEducationFormVM(Education model) // : base(model)
-        {
-            if (model == null)
-                return;
+        //public ExpertProfileEducationFormVM(Education model) // : base(model)
+        //{
+        //    if (model == null)
+        //        return;
 
-            ID = model.ID;
-            CountryID = model.ID;
-            City = model.City;            
-            University = model.University;
-            Faculty = model.Faculty;
-            GraduationYear = model.GraduationYear;
-            UserID = model.UserID;
-        }
+        //    ID = model.ID;
+        //    CountryID = model.ID;
+        //    City = model.City;            
+        //    University = model.University;
+        //    Faculty = model.Faculty;
+        //    GraduationYear = model.GraduationYear;
+        //    UserID = model.CreatedBy;
+        //}
     }
 
     public class EducationListItemVM

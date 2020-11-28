@@ -6,7 +6,7 @@ using System.Text;
 
 namespace Expro.Models
 {
-    public class Education : BaseModelAuthorable
+    public class ExpertEducation : BaseModelAuthorable
     {
         [ForeignKey("Country")]
         public int CountryID { get; set; }
@@ -20,8 +20,6 @@ namespace Expro.Models
 
         [StringLength(256)]
         public string Faculty { get; set; }
-        public int GraduationYear { get; set; }
-        public string UserID { get; set; }
-        public virtual ApplicationUser User { get; set; }
+        public int GraduationYear { get; set; }      
     }
 }

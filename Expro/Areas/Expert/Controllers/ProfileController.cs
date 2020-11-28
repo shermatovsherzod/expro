@@ -22,7 +22,7 @@ namespace Expro.Areas.Expert.Controllers
         private readonly ICityService _cityService;
         private readonly IGenderService _genderService;
         private readonly ICountryService _countryService;
-        private readonly IEducationService _educationService;
+        private readonly IExpertEducationService _expertEducationService;
         private readonly IWorkExperienceService _workExperienceService;
 
         public ProfileController(
@@ -32,7 +32,7 @@ namespace Expro.Areas.Expert.Controllers
               ICityService cityService,
               IGenderService genderService,
               ICountryService countryService,
-              IEducationService educationService,
+         //     IEducationService educationService,
               IWorkExperienceService workExperienceService
               )
         {
@@ -42,7 +42,7 @@ namespace Expro.Areas.Expert.Controllers
             _cityService = cityService;
             _genderService = genderService;
             _countryService = countryService;
-            _educationService = educationService;
+         //   _educationService = educationService;
             _workExperienceService = workExperienceService;
         }
 
@@ -149,15 +149,15 @@ namespace Expro.Areas.Expert.Controllers
 
             if (ModelState.IsValid && user != null)
             {
-                Education model = new Education();
+                //Education model = new Education();
 
-                model.CountryID = vmodel.CountryID;
-                model.University = vmodel.University;
-                model.Faculty = vmodel.Faculty;
-                model.GraduationYear = vmodel.GraduationYear;
-                model.City = vmodel.City;
-                model.UserID = user.ID;
-                _educationService.Add(model, user.ID);
+                //model.CountryID = vmodel.CountryID;
+                //model.University = vmodel.University;
+                //model.Faculty = vmodel.Faculty;
+                //model.GraduationYear = vmodel.GraduationYear;
+                //model.City = vmodel.City;
+                //model.CreatedBy = user.ID;
+                //_educationService.Add(model, user.ID);
                 return RedirectToAction("Education");               
             }
             ViewData["educationListVM"] = GetEducationListByUser(user.ID);
@@ -170,13 +170,13 @@ namespace Expro.Areas.Expert.Controllers
         {
             try
             {
-                var model = _educationService.GetByID(id);
-                var user = accountUtil.GetCurrentUser(User);
-                if (model.UserID == user.ID)
-                {
-                    _educationService.DeletePermanently(model);
-                    return Json(new { success = true, responseText = "Education deleted" });
-                }
+                //var model = _educationService.GetByID(id);
+                //var user = accountUtil.GetCurrentUser(User);
+                //if (model.CreatedBy == user.ID)
+                //{
+                //    _educationService.DeletePermanently(model);
+                //    return Json(new { success = true, responseText = "Education deleted" });
+                //}
                 return Json(new { success = true, responseText = "Education not deleted" });
             }
             catch (Exception)
@@ -187,16 +187,17 @@ namespace Expro.Areas.Expert.Controllers
 
         public List<EducationListItemVM> GetEducationListByUser(string userID)
         {
-            return _educationService.GetListByUserID(userID).Select(s => new EducationListItemVM
-            {
-                University = s.University,
-                City = s.City,
-                Country = s.Country.Name,
-                Faculty = s.Faculty,
-                GraduationYear = s.GraduationYear,
-                ID = s.ID,
-                UserID = s.UserID
-            }).ToList();
+            //return _educationService.GetListByUserID(userID).Select(s => new EducationListItemVM
+            //{
+            //    University = s.University,
+            //    City = s.City,
+            //    Country = s.Country.Name,
+            //    Faculty = s.Faculty,
+            //    GraduationYear = s.GraduationYear,
+            //    ID = s.ID,
+            //    UserID = s.CreatedBy
+            //}).ToList();
+            return null;
         }
 
 

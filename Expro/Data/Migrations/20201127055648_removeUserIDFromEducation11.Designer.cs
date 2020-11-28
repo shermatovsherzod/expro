@@ -4,14 +4,16 @@ using Expro.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Expro.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20201127055648_removeUserIDFromEducation11")]
+    partial class removeUserIDFromEducation11
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -313,57 +315,6 @@ namespace Expro.Data.Migrations
                     b.HasKey("ID");
 
                     b.ToTable("DocumentTypes");
-                });
-
-            modelBuilder.Entity("Expro.Models.ExpertEducation", b =>
-                {
-                    b.Property<int>("ID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("City")
-                        .HasColumnType("nvarchar(256)")
-                        .HasMaxLength(256);
-
-                    b.Property<int>("CountryID")
-                        .HasColumnType("int");
-
-                    b.Property<string>("CreatedBy")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<DateTime>("DateCreated")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime>("DateModified")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Faculty")
-                        .HasColumnType("nvarchar(256)")
-                        .HasMaxLength(256);
-
-                    b.Property<int>("GraduationYear")
-                        .HasColumnType("int");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("ModifiedBy")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("University")
-                        .HasColumnType("nvarchar(256)")
-                        .HasMaxLength(256);
-
-                    b.HasKey("ID");
-
-                    b.HasIndex("CountryID");
-
-                    b.HasIndex("CreatedBy");
-
-                    b.HasIndex("ModifiedBy");
-
-                    b.ToTable("ExpertEducations");
                 });
 
             modelBuilder.Entity("Expro.Models.Gender", b =>
@@ -943,23 +894,6 @@ namespace Expro.Data.Migrations
                         .HasForeignKey("LawAreaID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-                });
-
-            modelBuilder.Entity("Expro.Models.ExpertEducation", b =>
-                {
-                    b.HasOne("Expro.Models.Country", "Country")
-                        .WithMany()
-                        .HasForeignKey("CountryID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Expro.Models.ApplicationUser", "Creator")
-                        .WithMany()
-                        .HasForeignKey("CreatedBy");
-
-                    b.HasOne("Expro.Models.ApplicationUser", "Modifier")
-                        .WithMany()
-                        .HasForeignKey("ModifiedBy");
                 });
 
             modelBuilder.Entity("Expro.Models.LawArea", b =>

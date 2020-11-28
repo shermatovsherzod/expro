@@ -24,6 +24,8 @@
     <Compile Remove="Data\Migrations\20201030182343_ApplicationUser_AccountNumberIsUnique.Designer.cs" />
     <Compile Remove="Data\Migrations\20201116163838_User_addedAvatar2.cs" />
     <Compile Remove="Data\Migrations\20201116163838_User_addedAvatar2.Designer.cs" />
+    <Compile Remove="Data\Migrations\20201127061823_addEducationTable13.cs" />
+    <Compile Remove="Data\Migrations\20201127061823_addEducationTable13.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>

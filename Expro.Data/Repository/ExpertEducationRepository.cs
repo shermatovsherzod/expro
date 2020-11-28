@@ -4,9 +4,9 @@ using Expro.Models;
 
 namespace Expro.Data.Repository
 {
-    public class EducationRepository : BaseCRUDRepository<Education>, IEducationRepository
+    public class ExpertEducationRepository : BaseCRUDRepository<ExpertEducation>, IExpertEducationRepository
     {
-        public EducationRepository(IDatabaseFactory databaseFactory)
+        public ExpertEducationRepository(IDatabaseFactory databaseFactory)
             : base(databaseFactory)
         {
         }
