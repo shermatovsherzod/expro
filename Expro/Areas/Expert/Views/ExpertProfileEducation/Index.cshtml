@@ -3,11 +3,30 @@
 @{
     Layout = "_LayoutProfile";
     ViewData["Title"] = "Образование";
+    <link href="~/lib/yearpicker/yearpicker.css" rel="stylesheet" />
 }
-
 
 <div class="row">
     <div class="col-md-12">
+        @if ((bool)ViewBag.Message)
+        {
+            <div class="alert alert-success" role="alert">
+                Изменения сохранены
+            </div>
+        }
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-9"></div>
+    <div class="col-md-3">
+        <button type="button" data-toggle="modal" class="btn btn-primary form-control" data-target="#modalwindow">Добавить образование</button>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        <br />
         <table class="table">
             <thead>
                 <tr>
@@ -23,111 +42,140 @@
             </thead>
             <tbody>
                 @{
-                    List<EducationListItemVM> edicationList = ViewData["educationListVM"] as List<EducationListItemVM>;
+                    List<Expro.ViewModels.ExpertProfileEducationDetailsVM> edicationList = ViewData["expertEducationListVM"] as List<Expro.ViewModels.ExpertProfileEducationDetailsVM>;
                 }
 
                 @foreach (var item in edicationList)
                 {
-                <tr>
-                    <td>@item.Country</td>
-                    <td>@item.City</td>
-                    <td>@item.University</td>
-                    <td>@item.Faculty</td>
-                    <td>@item.GraduationYear</td>
-                    <td><button class="btn btn-danger btndelete" data-cid="@item.ID">Удалить</button></td>
-                </tr>
+                    <tr>
+                        <td>@item.Country</td>
+                        <td>@item.City</td>
+                        <td>@item.University</td>
+                        <td>@item.Faculty</td>
+                        <td>@item.GraduationYear</td>
+                        <td><button class="btn btn-danger btndelete" data-cid="@item.ID">Удалить</button></td>
+                    </tr>
                 }
             </tbody>
         </table>
     </div>
 </div>
-<form asp-controller="ExpertProfileEducation" asp-action="Index" data-ajax="true" data-ajax-method="POST">
-    <div class="row">
-        <div class="col-md-12">
-            <b>Добавить образование</b>
-            <br /> <br />
-        </div>
-    </div>
-
-    <div class="row">
-        <div class="col-md-3">
-            <label>Страна</label>
-        </div>
-        <div class="col-md-6">
-            <p>
-                <select asp-for="@Model.CountryID"
-                        asp-items="@ViewData["country"] as IEnumerable<SelectListItem>"
-                        class="form-control">
-                    <option disabled selected>--- Выбрать страну ---</option>
-                </select>
-                <span asp-validation-for="@Model.CountryID" class="text-danger"></span>
-            </p>
-        </div>
-        <div class="col-md-3"></div>
-    </div>
-
-    <div class="row">
-        <div class="col-md-3">
-            <label asp-for="@Model.City"></label>
-        </div>
-        <div class="col-md-6">
-            <p>
-                <input asp-for="@Model.City" class="form-control" />
-                <span asp-validation-for="@Model.City"></span>
-            </p>
-        </div>
-        <div class="col-md-3"></div>
-    </div>
-
-    <div class="row">
-        <div class="col-md-3">
-            <label asp-for="@Model.University"></label>
-        </div>
-        <div class="col-md-6">
-            <p>
-                <input asp-for="@Model.University" class="form-control" />
-                <span asp-validation-for="@Model.University"></span>
-            </p>
-        </div>
-        <div class="col-md-3"></div>
-    </div>
-
-    <div class="row">
-        <div class="col-md-3">
-            <label asp-for="@Model.Faculty"></label>
-        </div>
-        <div class="col-md-6">
-            <p>
-                <input asp-for="@Model.Faculty" class="form-control" />
-                <span asp-validation-for="@Model.Faculty"></span>
-            </p>
-        </div>
-        <div class="col-md-3"></div>
-    </div>
 
 
-    <div class="row">
-        <div class="col-md-3">
-            <label asp-for="@Model.GraduationYear"></label>
-        </div>
-        <div class="col-md-6">
-            <p>
-                <input asp-for="@Model.GraduationYear" class="form-control" />
-                <span asp-validation-for="@Model.GraduationYear"></span>
-            </p>
-        </div>
-        <div class="col-md-3"></div>
-    </div>
+<!-- Modal -->
+<div id="modalwindow" tabindex="-1" class="modal fade" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Добавить образование</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
 
-    <div class="row">
-        <div class="col-md-9 text-right">
-            <button type="submit" class="btn btn-primary">Добавить</button>
+            <form asp-controller="ExpertProfileEducation" asp-action="Index" data-ajax="true" data-ajax-method="POST">
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-3">
+                            <label>Страна</label>
+                        </div>
+                        <div class="col-md-9">
+                            <p>
+                                <select asp-for="@Model.CountryID"
+                                        asp-items="@ViewData["country"] as IEnumerable<SelectListItem>"
+                                        class="form-control">
+                                    <option disabled selected>--- Выбрать страну ---</option>
+                                </select>
+                                <span asp-validation-for="@Model.CountryID" class="text-danger"></span>
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-3">
+                            <label asp-for="@Model.City"></label>
+                        </div>
+                        <div class="col-md-9">
+                            <p>
+                                <input asp-for="@Model.City" class="form-control" />
+                                <span asp-validation-for="@Model.City"></span>
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-3">
+                            <label asp-for="@Model.University"></label>
+                        </div>
+                        <div class="col-md-9">
+                            <p>
+                                <input asp-for="@Model.University" class="form-control" />
+                                <span asp-validation-for="@Model.University"></span>
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-3">
+                            <label asp-for="@Model.Faculty"></label>
+                        </div>
+                        <div class="col-md-9">
+                            <p>
+                                <input asp-for="@Model.Faculty" class="form-control" />
+                                <span asp-validation-for="@Model.Faculty"></span>
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-3">
+                            <label asp-for="@Model.GraduationYear"></label>
+                        </div>
+                        <div class="col-md-9">
+                            <p>
+                                <input type="text" asp-for="@Model.GraduationYear" class="form-control yearpicker" onkeydown="event.preventDefault()" />
+                                <span asp-validation-for="@Model.GraduationYear"></span>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-success">Добавить</button>
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Закрыть</button>
+                </div>
+            </form>
         </div>
-        <div class="col-md-3"></div>
     </div>
-</form>
+</div>
+
+
 
 @section Scripts{
+    <script src="~/lib/yearpicker/yearpicker.js"></script>
+
+    <script>
+        $('.yearpicker').yearpicker();
+    </script>
+
+    <script>
+        $(document).ready(function () {
+            if ($('.validation-summary-errors').length) {
+                $('#modalwindow').modal('show');
+            }
+        });
+
+        $('.modal').on('hidden.bs.modal', function (e) {
+            $(".modal-body input").val("");
+            $('#CountryID').val('');
+        });
+
+        $(".modal").on('shown.bs.modal', function () {
+            $(".modal-body input").val("");
+            $('#CountryID').val('');
+        });
+    </script>
+
     <script>
         $('.btndelete').on('click', function () {
             if (confirm('Вы действительно хотите удалить запись?')) {
@@ -139,9 +187,13 @@
                     {
                         id
                     },
-                    success: function (res) {
-                        alert(res.responseText);
-                        document.location = '/Profile/Education';
+                    success: function (data) {                       
+                        document.location = '/Expert/ExpertProfileEducation/Index';
+                    },
+                    error: function (data) {
+                        alert("Error!");
+                    },
+                    complete: function (data) {
                     }
                 });
             }

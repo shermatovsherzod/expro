@@ -28,7 +28,7 @@ namespace Expro.DependencyInjections
             services.AddTransient<ICityRepository, CityRepository>();
             services.AddTransient<IGenderRepository, GenderRepository>();
             services.AddTransient<ICountryRepository, CountryRepository>();
-           // services.AddTransient<IEducationRepository, EducationRepository>();
+            services.AddTransient<IExpertEducationRepository, ExpertEducationRepository>();
             services.AddTransient<IWorkExperienceRepository, WorkExperienceRepository>();
             services.AddTransient<ILanguageRepository, LanguageRepository>();
             services.AddTransient<IAttachmentRepository, AttachmentRepository>();
@@ -52,7 +52,7 @@ namespace Expro.DependencyInjections
             services.AddTransient<ICityService, CityService>();
             services.AddTransient<IGenderService, GenderService>();
             services.AddTransient<ICountryService, CountryService>();
-          //  services.AddTransient<IEducationService, EducationService>();
+            services.AddTransient<IExpertEducationService, ExpertEducationService>();
             services.AddTransient<IWorkExperienceService, WorkExperienceService>();
             services.AddTransient<ILanguageService, LanguageService>();
             services.AddTransient<IAttachmentService, AttachmentService>();

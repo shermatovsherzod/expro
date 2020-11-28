@@ -36,18 +36,18 @@ namespace Expro.ViewModels
         [Display(Name = "Год окончания")]
         public int GraduationYear { get; set; }
 
-        //public ExpertProfileEducationEditVM(Education model)
-        //{
-        //    if (model == null)
-        //        return;
-            
-        //    ID = model.ID;
-        //    CountryID = model.ID;
-        //    City = model.City;            
-        //    University = model.University;
-        //    Faculty = model.Faculty;
-        //    GraduationYear = model.GraduationYear;           
-        //}
+        public ExpertProfileEducationEditVM(ExpertEducation model)
+        {
+            if (model == null)
+                return;
+
+            ID = model.ID;
+            CountryID = model.CountryID;
+            City = model.City;
+            University = model.University;
+            Faculty = model.Faculty;
+            GraduationYear = model.GraduationYear;
+        }
     }
 
 }

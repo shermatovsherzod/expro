@@ -29,38 +29,37 @@ namespace Expro.Areas.Expert.Controllers.ExpertProfile
             _userManager = userManager;
             _expertEducationService = expertEducationService;
             _countryService = countryService;
-
-
         }
 
         public IActionResult Index()
         {
             var user = accountUtil.GetCurrentUser(User);
-            ViewData["country"] = _countryService.GetAsSelectList();
-            ViewData["educationListVM"] = GetEducationListByUser(user.ID);
-
+            GetEducationViewData(user);
+            ViewBag.Message = false;
             return View();
-
         }
-
 
         [HttpPost]
         public IActionResult Index(ExpertProfileEducationEditVM vmodel)
         {
             var user = accountUtil.GetCurrentUser(User);
-            ViewData["country"] = _countryService.GetAsSelectList();
-
             if (ModelState.IsValid && user != null)
             {
                 ExpertEducation model = new ExpertEducation();
                 PropertyCopier.CopyTo(vmodel, model);
                 _expertEducationService.Add(model, user.ID);
-                return RedirectToAction("Education");
+                GetEducationViewData(user);
+                ViewBag.Message = true;
+                return View();
             }
-            ViewData["educationListVM"] = GetEducationListByUser(user.ID);
             return View(vmodel);
         }
 
+        private void GetEducationViewData(AppUserVM user)
+        {
+            ViewData["country"] = _countryService.GetAsSelectList();
+            ViewData["expertEducationListVM"] = new ExpertProfileEducationDetailsVM().GetListOfExpertProfileEducationDetailsVM(_expertEducationService.GetExpertEducationsByCreatorID(user.ID));
+        }
 
         [HttpPost]
         public IActionResult DeleteEducation(int id)
@@ -69,31 +68,17 @@ namespace Expro.Areas.Expert.Controllers.ExpertProfile
             {
                 var model = _expertEducationService.GetByID(id);
                 var user = accountUtil.GetCurrentUser(User);
-                if (model.CreatedBy == user.ID)
+                if (_expertEducationService.EducationBelongsToUser(model, user.ID))
                 {
                     _expertEducationService.DeletePermanently(model);
-                    return Json(new { success = true, responseText = "Education deleted" });
-                }
-                return Json(new { success = true, responseText = "Education not deleted" });
+                    return Ok();                    
+                }              
+                throw new Exception("Что то пошло не так. Образование не удалено");
             }
-            catch (Exception)
-            {
-                return Json(new { success = true, responseText = "Education not deleted" });
+            catch (Exception ex)
+            {                
+                return CustomBadRequest(ex);               
             }
-        }
-
-        public List<EducationListItemVM> GetEducationListByUser(string userID)
-        {
-            return _expertEducationService.GetListByUserID(userID).Select(s => new EducationListItemVM
-            {
-                University = s.University,
-                City = s.City,
-                Country = s.Country.Name,
-                Faculty = s.Faculty,
-                GraduationYear = s.GraduationYear,
-                ID = s.ID,
-                UserID = s.CreatedBy
-            }).ToList();
         }
     }
 }
