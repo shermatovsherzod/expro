@@ -4,14 +4,16 @@ using Expro.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Expro.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20201128175019_CommentLikeModel_added2")]
+    partial class CommentLikeModel_added2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -701,6 +703,9 @@ namespace Expro.Data.Migrations
                         .HasColumnType("nvarchar(256)")
                         .HasMaxLength(256);
 
+                    b.Property<string>("UserID")
+                        .HasColumnType("nvarchar(450)");
+
                     b.Property<string>("WorkPeriodFrom")
                         .HasColumnType("nvarchar(100)")
                         .HasMaxLength(100);
@@ -716,6 +721,8 @@ namespace Expro.Data.Migrations
                     b.HasIndex("CreatedBy");
 
                     b.HasIndex("ModifiedBy");
+
+                    b.HasIndex("UserID");
 
                     b.ToTable("WorkExperiences");
                 });
@@ -1229,6 +1236,10 @@ namespace Expro.Data.Migrations
                     b.HasOne("Expro.Models.ApplicationUser", "Modifier")
                         .WithMany()
                         .HasForeignKey("ModifiedBy");
+
+                    b.HasOne("Expro.Models.ApplicationUser", "User")
+                        .WithMany()
+                        .HasForeignKey("UserID");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

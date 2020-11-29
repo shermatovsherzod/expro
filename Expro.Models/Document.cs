@@ -50,5 +50,8 @@ namespace Expro.Models
 
         [InverseProperty("Document")]
         public virtual ICollection<UserPurchasedDocument> UsersPurchasedThisDocument { get; set; }
+
+        [InverseProperty("Document")]
+        public virtual ICollection<DocumentComment> DocumentComments { get; set; }
     }
 }

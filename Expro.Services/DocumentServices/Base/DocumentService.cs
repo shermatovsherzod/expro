@@ -66,7 +66,7 @@ namespace Expro.Services
             var model = GetByID(id);
             if (model != null)
             {
-                if (model.PriceType != DocumentPriceTypesEnum.Free)
+                if (!IsFree(model))
                     model = null;
             }
 

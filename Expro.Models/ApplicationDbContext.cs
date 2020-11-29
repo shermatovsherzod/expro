@@ -91,5 +91,8 @@ namespace Expro.Models
         public DbSet<ClickTransaction> ClickTransactions { get; set; }
         public DbSet<WithdrawRequest> WithdrawRequests { get; set; }
         public DbSet<WithdrawRequestStatus> WithdrawRequestStatuses { get; set; }
+        public DbSet<Comment> Comments { get; set; }
+        public DbSet<DocumentComment> DocumentComments { get; set; }
+        public DbSet<CommentLike> CommentLikes { get; set; }
     }
 }

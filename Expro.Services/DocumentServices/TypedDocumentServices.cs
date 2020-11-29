@@ -39,4 +39,14 @@ namespace Expro.Services
             _documentType = DocumentTypesEnum.PracticeDocument;
         }
     }
+
+    public class QuestionDocumentService : DocumentService, IQuestionDocumentService
+    {
+        public QuestionDocumentService(IDocumentRepository repository,
+                           IUnitOfWork unitOfWork)
+            : base(repository, unitOfWork)
+        {
+            _documentType = DocumentTypesEnum.QuestionDocument;
+        }
+    }
 }

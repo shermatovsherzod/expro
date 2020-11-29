@@ -38,6 +38,7 @@ namespace Expro.DependencyInjections
             services.AddTransient<IClickTransactionRepository, ClickTransactionRepository>();
             services.AddTransient<IWithdrawRequestRepository, WithdrawRequestRepository>();
             services.AddTransient<IWithdrawRequestStatusRepository, WithdrawRequestStatusRepository>();
+            services.AddTransient<IWithdrawRequestStatusRepository, WithdrawRequestStatusRepository>();
         }
 
         public static void AddServices(this IServiceCollection services)
@@ -72,6 +73,8 @@ namespace Expro.DependencyInjections
             services.AddTransient<IClickTransactionService, ClickTransactionService>();
             services.AddTransient<IWithdrawRequestService, WithdrawRequestService>();
             services.AddTransient<IWithdrawRequestStatusService, WithdrawRequestStatusService>();
+            services.AddTransient<IQuestionDocumentService, QuestionDocumentService>();
+            services.AddTransient<IQuestionDocumentSearchService, QuestionDocumentSearchService>();
         }
     }
 }
