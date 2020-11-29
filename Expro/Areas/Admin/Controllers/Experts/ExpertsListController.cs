@@ -93,7 +93,7 @@ namespace Expro.Areas.Admin.Controllers.Experts
 
         public List<WorkExperienceListItemVM> GetWorkExperienceListByUser(string userID)
         {
-            return _workExperienceService.GetListByUserID(userID).Select(s => new WorkExperienceListItemVM
+            return _workExperienceService.GetExpertWorkExperienceByCreatorID(userID).Select(s => new WorkExperienceListItemVM
             {
                 PlaceOfWork = s.PlaceOfWork,
                 Position = s.Position,

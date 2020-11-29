@@ -2,7 +2,7 @@
 @using Expro.Common
 
 @{
-    ViewData["Title"] = "Photo";
+    ViewData["Title"] = "Фото";
     Layout = "_LayoutProfile";
 }
 
@@ -10,7 +10,7 @@
     <div class="col-sm-6">
         <img id="imgContainer" src="@Model.Avatar.Url" alt="Avatar" class="img-thumbnail">
         <br />
-        <input type='file' id="imgInp" accept="image/*" class="form-control"/>
+        <input type='file' id="imgInp" accept="image/*" class="form-control" />
         <div class="spinner-border spinner" id="spinner" style="display: none;"></div>
     </div>
 </div>

@@ -10,20 +10,20 @@ using Microsoft.AspNetCore.Mvc;
 namespace Expro.Areas.Expert.Controllers.ExpertProfile
 {
     [Area("Expert")]
-    public class ExpertProfileEducationController : BaseController
+    public class ExpertProfileWorkExperienceController : BaseController
     {
         private readonly UserManager<ApplicationUser> _userManager;
-        private readonly IExpertEducationService _expertEducationService;
+        private readonly IWorkExperienceService _workExperienceService;
         private readonly ICountryService _countryService;
 
-        public ExpertProfileEducationController(
+        public ExpertProfileWorkExperienceController(
               UserManager<ApplicationUser> userManager,
-              IExpertEducationService expertEducationService,
+              IWorkExperienceService workExperienceService,
                ICountryService countryService
               )
         {
             _userManager = userManager;
-            _expertEducationService = expertEducationService;
+            _workExperienceService = workExperienceService;
             _countryService = countryService;
         }
 
@@ -36,14 +36,14 @@ namespace Expro.Areas.Expert.Controllers.ExpertProfile
         }
 
         [HttpPost]
-        public IActionResult Index(ExpertProfileEducationEditVM vmodel)
+        public IActionResult Index(ExpertProfileWorkExperienceEditVM vmodel)
         {
             var user = accountUtil.GetCurrentUser(User);
             if (ModelState.IsValid && user != null)
             {
-                ExpertEducation model = new ExpertEducation();
+                WorkExperience model = new WorkExperience();
                 PropertyCopier.CopyTo(vmodel, model);
-                _expertEducationService.Add(model, user.ID);
+                _workExperienceService.Add(model, user.ID);
                 GetEducationViewData(user);
                 ViewBag.Message = true;
                 return View();
@@ -54,26 +54,26 @@ namespace Expro.Areas.Expert.Controllers.ExpertProfile
         private void GetEducationViewData(AppUserVM user)
         {
             ViewData["country"] = _countryService.GetAsSelectList();
-            ViewData["expertEducationListVM"] = new ExpertProfileEducationDetailsVM().GetListOfExpertProfileEducationDetailsVM(_expertEducationService.GetExpertEducationsByCreatorID(user.ID));
+            ViewData["workExperienceEducationListVM"] = new ExpertProfileWorkExperienceDetailsVM().GetListOfExpertProfileWorkExperienceDetailsVM(_workExperienceService.GetExpertWorkExperienceByCreatorID(user.ID));
         }
 
         [HttpPost]
-        public IActionResult DeleteEducation(int id)
+        public IActionResult DeleteWorkExperience(int id)
         {
             try
             {
-                var model = _expertEducationService.GetByID(id);
+                var model = _workExperienceService.GetByID(id);
                 var user = accountUtil.GetCurrentUser(User);
-                if (_expertEducationService.EducationBelongsToUser(model, user.ID))
+                if (_workExperienceService.WorkExperienceBelongsToUser(model, user.ID))
                 {
-                    _expertEducationService.DeletePermanently(model);
-                    return Ok();                    
-                }              
-                throw new Exception("Что то пошло не так. Образование не удалено");
+                    _workExperienceService.DeletePermanently(model);
+                    return Ok();
+                }
+                throw new Exception("Что то пошло не так. Опыт не удален");
             }
             catch (Exception ex)
-            {                
-                return CustomBadRequest(ex);               
+            {
+                return CustomBadRequest(ex);
             }
         }
     }

@@ -16,9 +16,19 @@ namespace Expro.Services
         {
         }
 
-        public IQueryable<WorkExperience> GetListByUserID(string userID)
+        public IQueryable<WorkExperience> GetExpertWorkExperienceByCreatorID(string userID)
         {
-            return _repository.GetAsIQueryable().Where(c => c.UserID == userID);
+            return _repository.GetAsIQueryable().Where(c => c.CreatedBy == userID);
+        }
+
+        public bool WorkExperienceBelongsToUser(WorkExperience model, string userID)
+        {
+            if (model.CreatedBy == userID)
+            {
+                _repository.Delete(model);
+                return true;
+            }
+            return false;
         }
     }
 }
