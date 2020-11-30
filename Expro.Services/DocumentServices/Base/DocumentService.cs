@@ -153,6 +153,34 @@ namespace Expro.Services
             return model;
         }
 
+        private Document GeWithCommentsByID(int id)
+        {
+            var model = _documentRepository.GeWithCommentsByID(id);
+            if (model != null)
+            {
+                if (DocumentTypeIsNotDefined())
+                    return model;
+
+                if (model.DocumentTypeID != (int)_documentType)
+                    model = null;
+            }
+
+            return model;
+        }
+
+        public Document GetApprovedWithCommentsByID(int id)
+        {
+            var model = GeWithCommentsByID(id);
+
+            if (model != null)
+            {
+                if (model.DocumentStatusID != (int)DocumentStatusesEnum.Approved)
+                    model = null;
+            }
+
+            return model;
+        }
+
         public IQueryable<Document> GetAllByCreator(string userID)
         {
             return GetManyWithRelatedDataAsIQueryable()

@@ -15,13 +15,13 @@ namespace Expro.Controllers
 {
     public class BaseDocumentController : BaseController
     {
-        private readonly IDocumentService DocumentService;
+        protected readonly IDocumentService DocumentService;
         private readonly IDocumentSearchService DocumentSearchService;
         private readonly IUserBalanceService UserBalanceService;
         private readonly IUserPurchasedDocumentService UserPurchasedDocumentService;
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly ILawAreaService LawAreaService;
-        private readonly IDocumentCounterService DocumentCounterService;
+        protected readonly IDocumentCounterService DocumentCounterService;
 
         protected string DocumentType = "";
         protected string ErrorDocumentNotFound = "Документ не найден";
