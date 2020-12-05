@@ -34,7 +34,7 @@ namespace Expro.Components
             {
                 //не запрашивал подтверждение аккаунта
                 case (int)ExpertApproveStatusEnum.NotApproved:
-                    result = "<a id='confirmationRequest' onclick='confirmationRequest()' href='#' class='btn btn-success'>Отправить заявку на подтверждение профайла</a>";
+                    result = "<a onclick='profileConfirmationRequestByExpert()' href='#' class='btn btn-success'>Не подтвержден. Отправить заявку на подтверждение профайла</a>";
                     break;
 
                 //запросил подтверждение но не подтверждено
@@ -49,7 +49,7 @@ namespace Expro.Components
 
                 //аккаунту отказано
                 case (int)ExpertApproveStatusEnum.Rejected:
-                    result = "<a  id='confirmationRequest' onclick='confirmationRequest()' href='#' class='btn btn-danger'>Отказано. Проверьте свои данные и заново отправьте заявку на подтверждение профайла</a>";
+                    result = "<a onclick='profileConfirmationRequestByExpert()' href='#' class='btn btn-danger'>Отказано. Проверьте свои данные и заново отправьте заявку на подтверждение профайла</a>";
                     break;
                 default:
                     break;

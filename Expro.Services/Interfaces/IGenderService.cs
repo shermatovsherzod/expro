@@ -4,9 +4,8 @@ using System.Collections.Generic;
 
 namespace Expro.Services.Interfaces
 {
-    public interface IGenderService : IBaseCRUDService<Gender>
+    public interface IGenderService : IBaseDropdownableService<Gender>
     {
-        IEnumerable<Gender> GetByGenderID(int regionID);
-        List<SelectListItem> GetAsSelectListOne(int? selected = null);
+        IEnumerable<Gender> GetByGenderID(int regionID);     
     }
 }

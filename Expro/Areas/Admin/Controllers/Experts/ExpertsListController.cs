@@ -19,16 +19,20 @@ namespace Expro.Areas.Admin.Controllers.Experts
     {
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly IWorkExperienceService _workExperienceService;
-       // private readonly IEducationService _educationService;
+
+        private readonly IUserStatusService _userStatusService;
+        // private readonly IEducationService _educationService;
         public ExpertsListController(
               UserManager<ApplicationUser> userManager,
-              IWorkExperienceService workExperienceService
-         //      IEducationService educationService
+              IWorkExperienceService workExperienceService,
+              IUserStatusService userStatusService
+            //      IEducationService educationService
             )
         {
             _userManager = userManager;
             _workExperienceService = workExperienceService;
-         //   _educationService = educationService;
+            _userStatusService = userStatusService;
+            //   _educationService = educationService;
 
         }
 
@@ -77,7 +81,7 @@ namespace Expro.Areas.Admin.Controllers.Experts
         }
 
         public IActionResult ExpertDetails(string id)
-        {           
+        {
             var expert = _userManager.Users.FirstOrDefault(c => c.Id == id);
             if (expert != null)
             {
@@ -85,10 +89,10 @@ namespace Expro.Areas.Admin.Controllers.Experts
 
                 ViewData["educationListVM"] = GetEducationListByUser(expert.Id);
                 ViewData["workExperienceListItemVM"] = GetWorkExperienceListByUser(expert.Id);
-              
+
                 return View(vmodel);
             }
-            throw new Exception("Эксперт не найден");          
+            throw new Exception("Эксперт не найден");
         }
 
         public List<WorkExperienceListItemVM> GetWorkExperienceListByUser(string userID)
@@ -124,30 +128,17 @@ namespace Expro.Areas.Admin.Controllers.Experts
         [HttpPost]
         public async Task<ActionResult> Approve(string id)
         {
-            var expert = _userManager.Users.FirstOrDefault(c => c.Id == id);
-            if (expert != null)
-            {
-                expert.ApproveStatus = (int)ExpertApproveStatusEnum.Approved;
-                expert.DateApproved = DateTime.Now;
-                IdentityResult result = await _userManager.UpdateAsync(expert);
+            if (await _userStatusService.Approve(id))
                 return Json(new { success = true });
-            }
-            return Json(new { error = true });
+            throw new Exception("Пользователь не подтвержден");
         }
-
 
         [HttpPost]
         public async Task<ActionResult> Reject(string id)
         {
-            var expert = _userManager.Users.FirstOrDefault(c => c.Id == id);
-            if (expert != null)
-            {
-                expert.ApproveStatus = (int)ExpertApproveStatusEnum.Rejected;
-                expert.DateRejected = DateTime.Now;
-                IdentityResult result = await _userManager.UpdateAsync(expert);
+            if (await _userStatusService.Reject(id))
                 return Json(new { success = true });
-            }
-            return Json(new { error = true });
+            throw new Exception("Пользователю не отказано");
         }
 
     }

@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Expro.Controllers;
 using Expro.Models;
 using Expro.Models.Enums;
+using Expro.Services.Interfaces;
 using Expro.Utils;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -15,11 +16,14 @@ namespace Expro.Areas.Expert.Controllers
     public class HomeController : BaseController
     {
         private readonly UserManager<ApplicationUser> _userManager;
+        private readonly IUserStatusService _userStatusService;
         public HomeController(
-            UserManager<ApplicationUser> userManager
+            UserManager<ApplicationUser> userManager,
+            IUserStatusService userStatusService
             )
         {
             _userManager = userManager;
+            _userStatusService = userStatusService;
         }
         public IActionResult Index()
         {
@@ -27,20 +31,22 @@ namespace Expro.Areas.Expert.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult> ConfirmationRequest()
+        public async Task<ActionResult> ProfileConfirmationRequestByExpert()
         {
             AccountUtil accountUtil = new AccountUtil();
             var currentUserAccount = accountUtil.GetCurrentUser(this.HttpContext.User);
             var user = _userManager.Users.FirstOrDefault(c => c.UserName == currentUserAccount.UserName);
-            if ((user.ApproveStatus == (int)ExpertApproveStatusEnum.NotApproved) || (user.ApproveStatus == (int)ExpertApproveStatusEnum.Rejected))
+            if (user == null)
             {
-                user.ApproveStatus = (int)ExpertApproveStatusEnum.WaitingForApproval;
-                user.DateSubmittedForApproval = DateTime.Now;
-                IdentityResult result = await _userManager.UpdateAsync(user);
+                throw new Exception("Пользователь не найден");
+            }
+
+            if (((user.ApproveStatus == (int)ExpertApproveStatusEnum.NotApproved) || (user.ApproveStatus == (int)ExpertApproveStatusEnum.Rejected)) && await _userStatusService.ProfileConfirmationRequestByExpert(user.Id))
+            {
                 return Json(new { success = true });
             }
-            return Json(new { error = true });
-          
+
+            throw new Exception("Ошибка. Что то пошло не так.");
         }
     }
 }

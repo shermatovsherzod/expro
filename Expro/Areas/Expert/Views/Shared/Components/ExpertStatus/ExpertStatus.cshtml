@@ -6,10 +6,10 @@
 @Html.Raw(Model)
 
 <script>
-    function confirmationRequest() {
+    function profileConfirmationRequestByExpert() {
         $.ajax({
             type: "POST",
-            url: "/Expert/Home/ConfirmationRequest/",
+            url: "/Expert/Home/ProfileConfirmationRequestByExpert/",
             success: function () {
                 window.location.reload();
             },
