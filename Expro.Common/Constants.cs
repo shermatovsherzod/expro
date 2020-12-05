@@ -11,10 +11,12 @@ namespace Expro.Common
         {
             public static readonly string DOCUMENT = "document";
             public static readonly string USER_AVATAR = "user_avatar";
-            //public static readonly string TALENT_AVATAR = "talent_avatar";
-            //public static readonly string TALENT_INTRO_VIDEO = "talent_intro_video";
-            //public static readonly string VIDEO_REQUEST_VIDEO = "video_request_video";
-            //public static readonly string VIDEO_REQUEST_PAYMENT_SCREENSHOT = "video_request_payment_screenshot";
+            public static readonly string COMMENT = "comment";
+        }
+
+        public static class CommentTypes
+        {
+            public static readonly string DOCUMENT = "document";
         }
 
         public static class CLICK

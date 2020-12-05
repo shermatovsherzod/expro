@@ -53,7 +53,15 @@ namespace Expro.Controllers
 
         public override async Task<IActionResult> Details(int id)
         {
-            return await base.Details(id);
+            var document = DocumentService.GetApprovedWithCommentsByID(id);
+            if (document == null)
+                throw new Exception(ErrorDocumentNotFound);
+
+            DocumentCounterService.IncrementNumberOfViews(document);
+
+            QuestionDetailsForSiteVM documentVM = new QuestionDetailsForSiteVM(document);
+
+            return View(documentVM);
         }
 
         //[HttpPost]

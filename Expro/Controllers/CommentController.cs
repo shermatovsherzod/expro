@@ -17,26 +17,23 @@ using Microsoft.Extensions.Logging;
 namespace Expro.Controllers
 {
     [Authorize]
-    public class AttachmentController : BaseController
+    public class CommentController : BaseController
     {
-        private readonly IAttachmentService AttachmentService;
-        private readonly IDocumentService DocumentService;
         private readonly ICommentService CommentService;
+        private readonly IDocumentService DocumentService;
         private readonly UserManager<ApplicationUser> _userManager;
 
         //private readonly IHostingEnvironment _env;
 
-        public AttachmentController(
-            IAttachmentService attachmentService,
-            IDocumentService documentService,
+        public CommentController(
             ICommentService commentService,
+            IDocumentService documentService,
             //IHostingEnvironment env,
             UserManager<ApplicationUser> userManager,
             ILogger<AttachmentController> logger)
         {
-            AttachmentService = attachmentService;
-            DocumentService = documentService;
             CommentService = commentService;
+            DocumentService = documentService;
             //_env = env;
             _userManager = userManager;
             _logger = logger;
@@ -44,22 +41,19 @@ namespace Expro.Controllers
 
         //ajax
         [HttpPost]
-        public async Task<IActionResult> Save([FromBody] UploadFileVM uploadFileVM)
+        public async Task<IActionResult> Save(/*[FromBody]*/ CommentCreateVM commentCreateVM)
         {
             try
             {
                 var curUser = accountUtil.GetCurrentUser(User);
 
-                Attachment attachment = uploadFileVM.ToModel();
-                AttachmentService.Add(attachment, curUser.ID);
+                Comment comment = commentCreateVM.ToModel();
+                CommentService.Add(comment, curUser.ID);
 
-                if (uploadFileVM.ModelID != null)
-                    await AttachFile(attachment, uploadFileVM.ModelID, uploadFileVM.FileType, curUser.ID);
+                if (commentCreateVM.ObjectID != null)
+                    await AttachComment(comment, commentCreateVM.ObjectID, commentCreateVM.CommentType, curUser.ID);
 
-                //if (uploadFileVM.ModelID.HasValue && uploadFileVM.ModelID.Value > 0)
-                //    AttachFile(attachment, uploadFileVM.ModelID.Value, uploadFileVM.FileType, curUser.ID);
-
-                return Ok(new { id = attachment.ID });
+                return Ok(new { id = comment.ID });
             }
             catch (Exception ex)
             {
@@ -67,7 +61,7 @@ namespace Expro.Controllers
             }
         }
 
-        private async Task AttachFile(Attachment attachment, object id, string fileType, string curUserID)
+        private async Task AttachComment(Comment comment, object id, string commentType, string curUserID)
         {
             string modelIDString = id.ToString();
             int modelIDInt = 0;
@@ -75,36 +69,31 @@ namespace Expro.Controllers
 
             if (modelIDInt > 0)
             {
-                if (fileType.Equals(Constants.FileTypes.DOCUMENT))
+                if (commentType.Equals(Constants.CommentTypes.DOCUMENT))
                 {
                     var model = DocumentService.GetByID(modelIDInt);
                     if (model != null)
                     {
-                        model.Attachment = attachment;
+                        model.DocumentComments.Add(new DocumentComment()
+                        {
+                            Comment = comment,
+                            IsAnswer = false
+                        });
                         DocumentService.Update(model, curUserID);
-                    }
-                }
-                else if (fileType.Equals(Constants.FileTypes.COMMENT))
-                {
-                    var model = CommentService.GetByID(modelIDInt);
-                    if (model != null)
-                    {
-                        model.Attachment = attachment;
-                        CommentService.Update(model, curUserID);
                     }
                 }
             }
             else
             {
-                if (fileType.Equals(Constants.FileTypes.USER_AVATAR))
-                {
-                    var user = await _userManager.FindByIdAsync(modelIDString);
-                    if (user != null)
-                    {
-                        user.Avatar = attachment;
-                        await _userManager.UpdateAsync(user);
-                    }
-                }
+                //if (commentType.Equals(Constants.FileTypes.USER_AVATAR))
+                //{
+                //    var user = await _userManager.FindByIdAsync(modelIDString);
+                //    if (user != null)
+                //    {
+                //        user.Avatar = attachment;
+                //        await _userManager.UpdateAsync(user);
+                //    }
+                //}
             }
             
             //else if (fileType.Equals(Constants.FileTypes.TALENT_AVATAR))
@@ -171,36 +160,36 @@ namespace Expro.Controllers
         //}
 
         //ajax
-        [HttpPost]
-        public IActionResult Delete(int fileID, int? objID, string fileType)
-        {
-            try
-            {
-                var curUser = accountUtil.GetCurrentUser(User);
+        //[HttpPost]
+        //public IActionResult Delete(int fileID, int? objID, string fileType)
+        //{
+        //    try
+        //    {
+        //        var curUser = accountUtil.GetCurrentUser(User);
 
-                var model = AttachmentService.GetByID(fileID);
-                if (model == null)
-                    throw new Exception("Файл не найден в базе");
+        //        var model = CommentService.GetByID(fileID);
+        //        if (model == null)
+        //            throw new Exception("Файл не найден в базе");
 
-                if (!objID.HasValue)
-                {
-                    AttachmentService.DeletePermanently(model);
-                }
-                else if (objID > 0 && !string.IsNullOrWhiteSpace(fileType))
-                {
-                    DetachFromObj(model, objID.Value, fileType, curUser.ID);
-                    AttachmentService.Delete(model, curUser.ID);
-                }
-                else
-                    throw new Exception("Некоторые входящие данные неверные");
+        //        if (!objID.HasValue)
+        //        {
+        //            CommentService.DeletePermanently(model);
+        //        }
+        //        else if (objID > 0 && !string.IsNullOrWhiteSpace(fileType))
+        //        {
+        //            DetachFromObj(model, objID.Value, fileType, curUser.ID);
+        //            CommentService.Delete(model, curUser.ID);
+        //        }
+        //        else
+        //            throw new Exception("Некоторые входящие данные неверные");
 
-                return Ok();
-            }
-            catch (Exception ex)
-            {
-                return CustomBadRequest(ex);
-            }
-        }
+        //        return Ok();
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        return CustomBadRequest(ex);
+        //    }
+        //}
 
         private void DetachFromObj(Attachment attachment, int objID, string fileType, string curUserID)
         {
