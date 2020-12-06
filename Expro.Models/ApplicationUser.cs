@@ -60,7 +60,11 @@ namespace Expro.Models
         public DateTime? DateApproved { get; set; }
         public DateTime? DateRejected { get; set; }
 
-        public int ApproveStatus { get; set; }
+        public string RejectedReasonText{ get; set; }
+
+        [ForeignKey("UserStatus")]
+        public int UserStatusID { get; set; }
+        public virtual UserStatus UserStatus { get; set; }
 
         [Required]
         public int Balance { get; set; }

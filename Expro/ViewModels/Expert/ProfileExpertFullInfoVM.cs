@@ -1,13 +1,12 @@
 ﻿using Expro.Common.Utilities;
+using Expro.Models;
 using Expro.Models.Enums;
-using Expro.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
-using System.Text;
 
-namespace Expro.Models
+namespace Expro.ViewModels
 {
     public class ProfileExpertFullInfoVM
     {
@@ -45,12 +44,8 @@ namespace Expro.Models
 
         [Display(Name = "Другой город")]
         [StringLength(256)]
-        //[Remote("ValidateFrom", "VideoRequest", ErrorMessage = "Введите город", AdditionalFields = "TypeID")]
-        public string CityOther { get; set; }
-
-        [Required(ErrorMessage = "Поле Направление обязательно для заполнения")]
-        [Display(Name = "Направление")]
-        public List<int> LawAreas { get; set; }
+      
+        public string CityOther { get; set; }       
 
         [Display(Name = "Дата рождения")]
         [Required(ErrorMessage = "Поле Дата рождения обязательно для заполнения")]
@@ -69,11 +64,10 @@ namespace Expro.Models
         public string AboutMe { get; set; }
 
         [Display(Name = "Статус")]
-        public int ApproveStatus { get; set; }
+        public int UserStatusID { get; set; }
 
         [Display(Name = "Статус")]
-        public string ApproveStatusStr { get; set; }
-
+        public string UserStatusStr { get; set; }
 
         [Display(Name = "Дата подтверждения статуса")]
         public DateTime? DateApproved { get; set; }
@@ -83,7 +77,6 @@ namespace Expro.Models
 
         [Display(Name = "Дата отправления статуса на подтверждение")]
         public DateTime? DateSubmittedForApproval { get; set; }
-
 
         [Display(Name = "Имя пользователя")]
         public string UserName { get; set; }
@@ -106,8 +99,12 @@ namespace Expro.Models
         [Display(Name = "Сайт")]
         public string WebSite { get; set; }
 
+        [Required(ErrorMessage = "Поле Направление обязательно для заполнения")]
         [Display(Name = "Направление")]
-        public string LawAreaStr { get; set; }
+        public List<int> LawAreas { get; set; }
+
+        [Display(Name = "Направление")]
+        public List<string> LawAreasName { get; set; }
 
 
         public ProfileExpertFullInfoVM(ApplicationUser model) // : base(model)
@@ -120,13 +117,13 @@ namespace Expro.Models
             PatronymicName = model.PatronymicName;
             RegionID = model.RegionID;
             CityID = model.CityID;
-            CityOther = model.CityOther;
-            LawAreas = model.UserLawAreas != null ? model.UserLawAreas.Select(r => (int)r.LawAreaID).ToList() : null;
+            CityOther = model.CityOther;            
             DateOfBirth = DateTimeUtils.ConvertToString(model.DateOfBirth);
             GenderID = model.GenderID;
             GenderStr = model.GenderID != null ? model.Gender.Name : "";
             DateRegistered = DateTimeUtils.ConvertToString(model.DateRegistered);
-            ApproveStatus = model.ApproveStatus;
+            UserStatusID = model.UserStatusID;
+            UserStatusStr = model.UserStatus.Name;
             DateApproved = model.DateApproved;
             DateRejected = model.DateRejected;
             DateSubmittedForApproval = model.DateSubmittedForApproval;
@@ -140,31 +137,8 @@ namespace Expro.Models
             WebSite = model.WebSite;
             RegionStr = model.RegionID != null ? model.Region.Name : "";
             CityStr = model.CityID != null ? model.City.Name : "";
-
-            switch (model.ApproveStatus)
-            {
-                case ((int)ExpertApproveStatusEnum.Approved):
-                    ApproveStatusStr = "Подтвержден";
-                    break;
-                case ((int)ExpertApproveStatusEnum.NotApproved):
-                    ApproveStatusStr = "Не подтвержден";
-                    break;
-                case ((int)ExpertApproveStatusEnum.Rejected):
-                    ApproveStatusStr = "Отказано";
-                    break;
-                case ((int)ExpertApproveStatusEnum.WaitingForApproval):
-                    ApproveStatusStr = "Ожидание подтверждения";
-                    break;
-                default:
-                    break;
-            }
-
-            LawAreaStr = "";
-            foreach (var item in model.UserLawAreas)
-            {
-                LawAreaStr = LawAreaStr + item.LawArea.Name+ "; ";
-            }
-
+            LawAreas = model.UserLawAreas != null ? model.UserLawAreas.Select(r => (int)r.LawAreaID).ToList() : null;
+            LawAreasName = model.UserLawAreas != null ? model.UserLawAreas.Select(c => c.LawArea.Name).ToList():null;
         }
     }
 }

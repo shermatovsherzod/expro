@@ -4,14 +4,16 @@ using Expro.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Expro.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20201206031924_userstatusescorrected")]
+    partial class userstatusescorrected
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -1009,7 +1011,7 @@ namespace Expro.Data.Migrations
                     b.Property<string>("RejectedReasonText")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("UserStatusID")
+                    b.Property<int?>("UserStatusID")
                         .HasColumnType("int");
 
                     b.Property<int>("UserType")
@@ -1326,9 +1328,7 @@ namespace Expro.Data.Migrations
 
                     b.HasOne("Expro.Models.UserStatus", "UserStatus")
                         .WithMany()
-                        .HasForeignKey("UserStatusID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("UserStatusID");
                 });
 #pragma warning restore 612, 618
         }

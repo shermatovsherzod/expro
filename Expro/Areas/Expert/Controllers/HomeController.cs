@@ -41,7 +41,7 @@ namespace Expro.Areas.Expert.Controllers
                 throw new Exception("Пользователь не найден");
             }
 
-            if (((user.ApproveStatus == (int)ExpertApproveStatusEnum.NotApproved) || (user.ApproveStatus == (int)ExpertApproveStatusEnum.Rejected)) && await _userStatusService.ProfileConfirmationRequestByExpert(user.Id))
+            if (((user.UserStatusID == (int)ExpertApproveStatusEnum.NotApproved) || (user.UserStatusID == (int)ExpertApproveStatusEnum.Rejected)) && await _userStatusService.ProfileConfirmationRequestByExpert(user.Id))
             {
                 return Json(new { success = true });
             }

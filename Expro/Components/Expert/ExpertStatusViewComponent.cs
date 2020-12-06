@@ -1,5 +1,6 @@
 ﻿using Expro.Models;
 using Expro.Models.Enums;
+using Expro.Services.Interfaces;
 using Expro.Utils;
 using Expro.ViewModels;
 using Microsoft.AspNetCore.Html;
@@ -16,10 +17,12 @@ namespace Expro.Components
     public class ExpertStatusViewComponent : ViewComponent
     {
         UserManager<ApplicationUser> _userManager;
+        private readonly IUserStatusService _userStatusService;
 
-        public ExpertStatusViewComponent(UserManager<ApplicationUser> userManager)
+        public ExpertStatusViewComponent(UserManager<ApplicationUser> userManager, IUserStatusService userStatusService)
         {
             _userManager = userManager;
+            _userStatusService = userStatusService;
         }
 
         public IViewComponentResult Invoke()
@@ -28,35 +31,14 @@ namespace Expro.Components
             var currentUserAccount = accountUtil.GetCurrentUser(this.HttpContext.User);
             var currentUser = _userManager.Users.FirstOrDefault(c => c.UserName == currentUserAccount.UserName);
 
-            string result = "";
-
-            switch (currentUser.ApproveStatus)
+            if (currentUser == null)
             {
-                //не запрашивал подтверждение аккаунта
-                case (int)ExpertApproveStatusEnum.NotApproved:
-                    result = "<a onclick='profileConfirmationRequestByExpert()' href='#' class='btn btn-success'>Не подтвержден. Отправить заявку на подтверждение профайла</a>";
-                    break;
-
-                //запросил подтверждение но не подтверждено
-                case (int)ExpertApproveStatusEnum.WaitingForApproval:
-                    result = "<div class='alert alert-info' role='alert'>Ожидание подтверждения аккаунта</div>";
-                    break;
-
-                //аккаунт подтвержден
-                case (int)ExpertApproveStatusEnum.Approved:
-                    result = "<div class='alert alert-success' role='alert'>Аккаунт подтвержден</div>";
-                    break;
-
-                //аккаунту отказано
-                case (int)ExpertApproveStatusEnum.Rejected:
-                    result = "<a onclick='profileConfirmationRequestByExpert()' href='#' class='btn btn-danger'>Отказано. Проверьте свои данные и заново отправьте заявку на подтверждение профайла</a>";
-                    break;
-                default:
-                    break;
+                throw new Exception("Пользователь не найден");
             }
+            ExpertStatusVM vmodel = new ExpertStatusVM(currentUser);
 
-            return View("ExpertStatus", result);
-            
+            return View("ExpertStatus", vmodel);
+
         }
 
     }

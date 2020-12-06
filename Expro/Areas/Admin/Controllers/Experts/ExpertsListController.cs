@@ -19,23 +19,21 @@ namespace Expro.Areas.Admin.Controllers.Experts
     {
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly IWorkExperienceService _workExperienceService;
-
-        private readonly IUserStatusService _userStatusService;
-        // private readonly IEducationService _educationService;
+        private readonly IExpertEducationService _expertEducationService;
+        private readonly IUserStatusService _userStatusService;    
+        
         public ExpertsListController(
               UserManager<ApplicationUser> userManager,
               IWorkExperienceService workExperienceService,
-              IUserStatusService userStatusService
-            //      IEducationService educationService
+              IUserStatusService userStatusService,
+              IExpertEducationService expertEducationService
             )
         {
             _userManager = userManager;
             _workExperienceService = workExperienceService;
             _userStatusService = userStatusService;
-            //   _educationService = educationService;
-
+            _expertEducationService= expertEducationService;
         }
-
 
         public IActionResult Index()
         {
@@ -87,42 +85,12 @@ namespace Expro.Areas.Admin.Controllers.Experts
             {
                 ProfileExpertFullInfoVM vmodel = new ProfileExpertFullInfoVM(expert);
 
-                ViewData["educationListVM"] = GetEducationListByUser(expert.Id);
-                ViewData["workExperienceListItemVM"] = GetWorkExperienceListByUser(expert.Id);
-
+                ViewData["expertEducationListVM"] = new ExpertProfileEducationDetailsVM().GetListOfExpertProfileEducationDetailsVM(_expertEducationService.GetExpertEducationsByCreatorID(expert.Id));
+              
+                ViewData["workExperienceEducationListVM"] = new ExpertProfileWorkExperienceDetailsVM().GetListOfExpertProfileWorkExperienceDetailsVM(_workExperienceService.GetExpertWorkExperienceByCreatorID(expert.Id));
                 return View(vmodel);
             }
             throw new Exception("Эксперт не найден");
-        }
-
-        public List<WorkExperienceListItemVM> GetWorkExperienceListByUser(string userID)
-        {
-            return _workExperienceService.GetExpertWorkExperienceByCreatorID(userID).Select(s => new WorkExperienceListItemVM
-            {
-                PlaceOfWork = s.PlaceOfWork,
-                Position = s.Position,
-                WorkPeriodFrom = s.WorkPeriodFrom,
-                WorkPeriodTo = s.WorkPeriodTo,
-                City = s.City,
-                Country = s.Country.Name,
-                ID = s.ID
-            }).ToList();
-        }
-
-        public List<EducationListItemVM> GetEducationListByUser(string userID)
-        {
-            //return _educationService.GetListByUserID(userID).Select(s => new EducationListItemVM
-            //{
-            //    University = s.University,
-            //    City = s.City,
-            //    Country = s.Country.Name,
-            //    Faculty = s.Faculty,
-            //    GraduationYear = s.GraduationYear,
-            //    ID = s.ID,
-            //    UserID = s.CreatedBy
-            //}).ToList();
-
-            return null;
         }
 
         [HttpPost]

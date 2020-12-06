@@ -6,6 +6,6 @@ namespace Expro.Models
 {
     public class UserStatus : BaseModelDropdownable
     {
-
+        public string Description { get; set; }
     }
 }

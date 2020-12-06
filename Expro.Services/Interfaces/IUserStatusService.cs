@@ -8,7 +8,7 @@ namespace Expro.Services.Interfaces
 {
     public interface IUserStatusService
     {
-        UserStatus GetUserStatus(ApplicationUser user);
+        string GetUserStatusText(string userID);
         Task<bool> Approve(string userID);
         Task<bool> Reject(string userID);
         Task<bool> ProfileConfirmationRequestByExpert(string userID);
