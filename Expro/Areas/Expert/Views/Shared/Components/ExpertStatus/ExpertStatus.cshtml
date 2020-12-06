@@ -1,15 +1,41 @@
-﻿@model string
+﻿@model Expro.ViewModels.ExpertStatusVM
+@using Expro.Models.Enums;
 @{
     ViewData["Title"] = "Статус эксперта";
 }
 
-@Html.Raw(Model)
+@*@Html.Raw(Model)*@
+
+@if (Model.UserStatusID == (int)ExpertApproveStatusEnum.NotApproved)
+{
+    <div class='alert alert-danger' role='alert'>@Model.UserStatusDescription</div>
+    <button class="btn btn-primary" onclick="profileConfirmationRequestByExpert()">Запросить подтверждение</button>
+}
+
+@if (Model.UserStatusID == (int)ExpertApproveStatusEnum.WaitingForApproval)
+{
+    <div class='alert alert-info' role='alert'>@Model.UserStatusDescription</div>   
+}
+
+@if (Model.UserStatusID == (int)ExpertApproveStatusEnum.Approved)
+{
+    <div class='alert alert-success' role='alert'>@Model.UserStatusDescription</div>
+   
+}
+
+@if (Model.UserStatusID == (int)ExpertApproveStatusEnum.Rejected)
+{
+    <div class='alert alert-danger' role='alert'>@Model.UserStatusDescription</div>
+    <button class="btn btn-primary" onclick="profileConfirmationRequestByExpert()">Запросить подтверждение</button>
+}
+
+
 
 <script>
-    function confirmationRequest() {
+    function profileConfirmationRequestByExpert() {
         $.ajax({
             type: "POST",
-            url: "/Expert/Home/ConfirmationRequest/",
+            url: "/Expert/Home/ProfileConfirmationRequestByExpert/",
             success: function () {
                 window.location.reload();
             },

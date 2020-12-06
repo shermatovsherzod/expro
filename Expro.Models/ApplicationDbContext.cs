@@ -94,6 +94,7 @@ namespace Expro.Models
         public DbSet<Comment> Comments { get; set; }
         //public DbSet<DocumentComment> DocumentComments { get; set; }
         public DbSet<CommentLike> CommentLikes { get; set; }
+        public DbSet<UserStatus> UserStatuses { get; set; }
         public DbSet<DocumentAnswer> DocumentAnswers { get; set; }
         public DbSet<DocumentAnswerLike> DocumentAnswerLikes { get; set; }
     }

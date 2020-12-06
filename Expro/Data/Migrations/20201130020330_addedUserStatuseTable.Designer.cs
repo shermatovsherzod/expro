@@ -4,14 +4,16 @@ using Expro.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Expro.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20201130020330_addedUserStatuseTable")]
+    partial class addedUserStatuseTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -188,9 +190,6 @@ namespace Expro.Data.Migrations
                     b.Property<string>("ModifiedBy")
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<int?>("ParentID")
-                        .HasColumnType("int");
-
                     b.Property<string>("Text")
                         .HasColumnType("nvarchar(max)");
 
@@ -201,8 +200,6 @@ namespace Expro.Data.Migrations
                     b.HasIndex("CreatedBy");
 
                     b.HasIndex("ModifiedBy");
-
-                    b.HasIndex("ParentID");
 
                     b.ToTable("Comments");
                 });
@@ -337,51 +334,7 @@ namespace Expro.Data.Migrations
                     b.ToTable("Documents");
                 });
 
-            modelBuilder.Entity("Expro.Models.DocumentAnswer", b =>
-                {
-                    b.Property<int>("ID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int?>("AttachmentID")
-                        .HasColumnType("int");
-
-                    b.Property<string>("CreatedBy")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<DateTime>("DateCreated")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime>("DateModified")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("DocumentID")
-                        .HasColumnType("int");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("ModifiedBy")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("Text")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("ID");
-
-                    b.HasIndex("AttachmentID");
-
-                    b.HasIndex("CreatedBy");
-
-                    b.HasIndex("DocumentID");
-
-                    b.HasIndex("ModifiedBy");
-
-                    b.ToTable("DocumentAnswers");
-                });
-
-            modelBuilder.Entity("Expro.Models.DocumentAnswerComment", b =>
+            modelBuilder.Entity("Expro.Models.DocumentComment", b =>
                 {
                     b.Property<int>("ID")
                         .ValueGeneratedOnAdd()
@@ -391,41 +344,19 @@ namespace Expro.Data.Migrations
                     b.Property<int>("CommentID")
                         .HasColumnType("int");
 
-                    b.Property<int>("DocumentAnswerID")
+                    b.Property<int>("DocumentID")
                         .HasColumnType("int");
+
+                    b.Property<bool>("IsAnswer")
+                        .HasColumnType("bit");
 
                     b.HasKey("ID");
 
                     b.HasIndex("CommentID");
 
-                    b.HasIndex("DocumentAnswerID");
+                    b.HasIndex("DocumentID");
 
-                    b.ToTable("DocumentAnswerComment");
-                });
-
-            modelBuilder.Entity("Expro.Models.DocumentAnswerLike", b =>
-                {
-                    b.Property<int>("ID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int>("DocumentAnswerID")
-                        .HasColumnType("int");
-
-                    b.Property<bool>("IsPositive")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("UserID")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.HasKey("ID");
-
-                    b.HasIndex("DocumentAnswerID");
-
-                    b.HasIndex("UserID");
-
-                    b.ToTable("DocumentAnswerLikes");
+                    b.ToTable("DocumentComments");
                 });
 
             modelBuilder.Entity("Expro.Models.DocumentLawArea", b =>
@@ -683,9 +614,6 @@ namespace Expro.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("Description")
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -1025,6 +953,9 @@ namespace Expro.Data.Migrations
                         .HasColumnType("nvarchar(17)")
                         .HasMaxLength(17);
 
+                    b.Property<int>("ApproveStatus")
+                        .HasColumnType("int");
+
                     b.Property<int?>("AvatarID")
                         .HasColumnType("int");
 
@@ -1077,12 +1008,6 @@ namespace Expro.Data.Migrations
                     b.Property<int?>("RegionID")
                         .HasColumnType("int");
 
-                    b.Property<string>("RejectedReasonText")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("UserStatusID")
-                        .HasColumnType("int");
-
                     b.Property<int>("UserType")
                         .HasColumnType("int");
 
@@ -1101,8 +1026,6 @@ namespace Expro.Data.Migrations
                     b.HasIndex("GenderID");
 
                     b.HasIndex("RegionID");
-
-                    b.HasIndex("UserStatusID");
 
                     b.HasDiscriminator().HasValue("ApplicationUser");
                 });
@@ -1149,10 +1072,6 @@ namespace Expro.Data.Migrations
                     b.HasOne("Expro.Models.ApplicationUser", "Modifier")
                         .WithMany()
                         .HasForeignKey("ModifiedBy");
-
-                    b.HasOne("Expro.Models.Comment", "ParentComment")
-                        .WithMany()
-                        .HasForeignKey("ParentID");
                 });
 
             modelBuilder.Entity("Expro.Models.CommentLike", b =>
@@ -1199,53 +1118,19 @@ namespace Expro.Data.Migrations
                         .HasForeignKey("ModifiedBy");
                 });
 
-            modelBuilder.Entity("Expro.Models.DocumentAnswer", b =>
-                {
-                    b.HasOne("Expro.Models.Attachment", "Attachment")
-                        .WithMany()
-                        .HasForeignKey("AttachmentID");
-
-                    b.HasOne("Expro.Models.ApplicationUser", "Creator")
-                        .WithMany()
-                        .HasForeignKey("CreatedBy");
-
-                    b.HasOne("Expro.Models.Document", "Document")
-                        .WithMany("Answers")
-                        .HasForeignKey("DocumentID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Expro.Models.ApplicationUser", "Modifier")
-                        .WithMany()
-                        .HasForeignKey("ModifiedBy");
-                });
-
-            modelBuilder.Entity("Expro.Models.DocumentAnswerComment", b =>
+            modelBuilder.Entity("Expro.Models.DocumentComment", b =>
                 {
                     b.HasOne("Expro.Models.Comment", "Comment")
-                        .WithMany("DocumentAnswerComments")
+                        .WithMany("DocumentComments")
                         .HasForeignKey("CommentID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Expro.Models.DocumentAnswer", "DocumentAnswer")
-                        .WithMany("Comments")
-                        .HasForeignKey("DocumentAnswerID")
+                    b.HasOne("Expro.Models.Document", "Document")
+                        .WithMany("DocumentComments")
+                        .HasForeignKey("DocumentID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-                });
-
-            modelBuilder.Entity("Expro.Models.DocumentAnswerLike", b =>
-                {
-                    b.HasOne("Expro.Models.DocumentAnswer", "DocumentAnswer")
-                        .WithMany("Likes")
-                        .HasForeignKey("DocumentAnswerID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Expro.Models.ApplicationUser", "User")
-                        .WithMany()
-                        .HasForeignKey("UserID");
                 });
 
             modelBuilder.Entity("Expro.Models.DocumentLawArea", b =>
@@ -1432,12 +1317,6 @@ namespace Expro.Data.Migrations
                     b.HasOne("Expro.Models.Region", "Region")
                         .WithMany()
                         .HasForeignKey("RegionID");
-
-                    b.HasOne("Expro.Models.UserStatus", "UserStatus")
-                        .WithMany()
-                        .HasForeignKey("UserStatusID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }

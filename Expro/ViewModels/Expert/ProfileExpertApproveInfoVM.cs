@@ -31,7 +31,7 @@ namespace Expro.Models
         public string DateRegistered { get; set; }
 
         [Display(Name = "Статус")]
-        public int ApproveStatus { get; set; }
+        public int UserStatusID { get; set; }
 
         [Display(Name = "Дата подтверждения статуса")]
         public DateTime? DateApproved { get; set; }
@@ -50,7 +50,7 @@ namespace Expro.Models
             FirstName = model.FirstName;
             LastName = model.LastName;          
             DateRegistered = DateTimeUtils.ConvertToString(model.DateRegistered);
-            ApproveStatus = model.ApproveStatus;
+            UserStatusID = model.UserStatusID;
             DateApproved = model.DateApproved;
             DateRejected = model.DateRejected;
             DateSubmittedForApproval = model.DateSubmittedForApproval;

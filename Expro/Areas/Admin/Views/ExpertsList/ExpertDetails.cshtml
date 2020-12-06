@@ -1,4 +1,4 @@
-﻿@model ProfileExpertFullInfoVM
+﻿@model Expro.ViewModels.ProfileExpertFullInfoVM
 @{
     ViewData["Title"] = "ExpertDetails";
 }
@@ -47,13 +47,27 @@
             <div class="row"><div class="col-md-3">@Html.LabelFor(c => c.CityStr)</div><div class="col-md-9">@Html.DisplayFor(c => c.CityStr)</div></div>
             <div class="row"><div class="col-md-3">@Html.LabelFor(c => c.CityOther)</div><div class="col-md-9">@Html.DisplayFor(c => c.CityOther)</div></div>
 
-            <div class="row"><div class="col-md-3">@Html.LabelFor(c => c.LawAreaStr)</div><div class="col-md-9">@Html.DisplayFor(c => c.LawAreaStr)</div></div>
+            <div class="row">
+                <div class="col-md-3">@Html.LabelFor(c => c.LawAreasName)</div><div class="col-md-9">
+                    @{
+                        string lawareas = "";
+                        if (Model.LawAreasName != null)
+                        {
+                            foreach (var item in Model.LawAreasName)
+                            {
+                                lawareas =lawareas+ item + "; ";
+                            }
+                        }
+                    }
+                    @lawareas
+                </div>
+            </div>
             <div class="row"><div class="col-md-3">@Html.LabelFor(c => c.AccountNumber)</div><div class="col-md-9">@Html.DisplayFor(c => c.AccountNumber)</div></div>
             <div class="row"><div class="col-md-3">@Html.LabelFor(c => c.Balance)</div><div class="col-md-9">@Html.DisplayFor(c => c.Balance)</div></div>
             <div class="row"><div class="col-md-3">@Html.LabelFor(c => c.DateRegistered)</div><div class="col-md-9">@Html.DisplayFor(c => c.DateRegistered)</div></div>
             <div class="row"><div class="col-md-3">@Html.LabelFor(c => c.Fax)</div><div class="col-md-9">@Html.DisplayFor(c => c.Fax)</div></div>
             <div class="row"><div class="col-md-3">@Html.LabelFor(c => c.WebSite)</div><div class="col-md-9">@Html.DisplayFor(c => c.WebSite)</div></div>
-            <div class="row"><div class="col-md-3">@Html.LabelFor(c => c.ApproveStatusStr)</div><div class="col-md-9">@Html.DisplayFor(c => c.ApproveStatusStr)</div></div>
+            <div class="row"><div class="col-md-3">@Html.LabelFor(c => c.UserStatusStr)</div><div class="col-md-9">@Html.DisplayFor(c => c.UserStatusStr)</div></div>
             <div class="row"><div class="col-md-3">@Html.LabelFor(c => c.DateApproved)</div><div class="col-md-9">@Html.DisplayFor(c => c.DateApproved)</div></div>
             <div class="row"><div class="col-md-3">@Html.LabelFor(c => c.DateRejected)</div><div class="col-md-9">@Html.DisplayFor(c => c.DateRejected)</div></div>
             <div class="row"><div class="col-md-3">@Html.LabelFor(c => c.DateSubmittedForApproval)</div><div class="col-md-9">@Html.DisplayFor(c => c.DateSubmittedForApproval)</div></div>
@@ -81,19 +95,22 @@
 
                 <tbody>
                     @{
-                        List<WorkExperienceListItemVM> workExperienceList = ViewData["workExperienceListItemVM"] as List<WorkExperienceListItemVM>;
+                        List<WorkExperienceListItemVM> workExperienceList = ViewData["workExperienceEducationListVM"] as List<WorkExperienceListItemVM>;
                     }
 
-                    @foreach (var item in workExperienceList)
+                    @if (workExperienceList != null)
                     {
-                        <tr>
-                            <td>@item.Country</td>
-                            <td>@item.City</td>
-                            <td>@item.PlaceOfWork</td>
-                            <td>@item.Position</td>
-                            <td>@item.WorkPeriodFrom - @item.WorkPeriodTo</td>
-                            <td></td>
-                        </tr>
+                        foreach (var item in workExperienceList)
+                        {
+                            <tr>
+                                <td>@item.Country</td>
+                                <td>@item.City</td>
+                                <td>@item.PlaceOfWork</td>
+                                <td>@item.Position</td>
+                                <td>@item.WorkPeriodFrom - @item.WorkPeriodTo</td>
+                                <td></td>
+                            </tr>
+                        }
                     }
                 </tbody>
             </table>
@@ -121,18 +138,21 @@
                 </thead>
                 <tbody>
                     @{
-                        List<EducationListItemVM> edicationList = ViewData["educationListVM"] as List<EducationListItemVM>;
+                        List<EducationListItemVM> edicationList = ViewData["expertEducationListVM"] as List<EducationListItemVM>;
                     }
-
-                    @foreach (var item in edicationList)
+                    @if (edicationList != null)
                     {
-                        <tr>
-                            <td>@item.Country</td>
-                            <td>@item.City</td>
-                            <td>@item.University</td>
-                            <td>@item.Faculty</td>
-                            <td>@item.GraduationYear</td>
-                        </tr>
+
+                        foreach (var item in edicationList)
+                        {
+                            <tr>
+                                <td>@item.Country</td>
+                                <td>@item.City</td>
+                                <td>@item.University</td>
+                                <td>@item.Faculty</td>
+                                <td>@item.GraduationYear</td>
+                            </tr>
+                        }
                     }
                 </tbody>
             </table>

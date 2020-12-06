@@ -1,4 +1,5 @@
 ﻿using Expro.Common.Utilities;
+using Expro.Models;
 using Expro.Models.Enums;
 using Expro.ViewModels;
 using System;
@@ -7,7 +8,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 
-namespace Expro.Models
+namespace Expro.ViewModels
 {
     public class ExpertStatusVM
     {
@@ -17,7 +18,9 @@ namespace Expro.Models
         }
 
         [Display(Name = "Статус")]
-        public int ApproveStatus { get; set; }
+        public int UserStatusID { get; set; }
+        public string UserStatusName { get; set; }
+        public string UserStatusDescription { get; set; }
 
         [Display(Name = "Дата подтверждения статуса")]
         public DateTime? DateApproved { get; set; }
@@ -32,11 +35,13 @@ namespace Expro.Models
         {
             if (model == null)
                 return;
-                      
-            ApproveStatus = model.ApproveStatus;
+
+            UserStatusID = model.UserStatusID;
             DateApproved = model.DateApproved;
             DateRejected = model.DateRejected;
             DateSubmittedForApproval = model.DateSubmittedForApproval;
+            UserStatusName = model.UserStatus.Name;
+            UserStatusDescription = model.UserStatus.Description;
         }
     }
 }
