@@ -29,15 +29,21 @@ namespace Expro.Data.Repository
                 .FirstOrDefault(m => m.ID == id);
         }
 
-        public Document GeWithCommentsByID(int id)
+        public Document GeWithAnswersAndCommentsByID(int id)
         {
             return GetManyWithRelatedDataAsIQueryable()
-                .Include(m => m.DocumentComments)
-                    .ThenInclude(m => m.Comment)
-                        .ThenInclude(m => m.Attachment)
-                .Include(m => m.DocumentComments)
-                    .ThenInclude(m => m.Comment)
-                        .ThenInclude(m => m.Creator)
+                .Include(m => m.Answers)
+                    .ThenInclude(m => m.Creator)
+                .Include(m => m.Answers)
+                    .ThenInclude(m => m.Attachment)
+                .Include(m => m.Answers)
+                    .ThenInclude(m => m.Comments)
+                        .ThenInclude(m => m.Comment)
+                            .ThenInclude(m => m.Creator)
+                .Include(m => m.Answers)
+                    .ThenInclude(m => m.Comments)
+                        .ThenInclude(m => m.Comment)
+                            .ThenInclude(m => m.Attachment)
                 .Include(m => m.Attachment)
                 .FirstOrDefault(m => m.ID == id);
         }

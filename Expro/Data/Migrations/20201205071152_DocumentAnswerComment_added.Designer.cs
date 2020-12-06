@@ -4,14 +4,16 @@ using Expro.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Expro.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20201205071152_DocumentAnswerComment_added")]
+    partial class DocumentAnswerComment_added
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -188,9 +190,6 @@ namespace Expro.Data.Migrations
                     b.Property<string>("ModifiedBy")
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<int?>("ParentID")
-                        .HasColumnType("int");
-
                     b.Property<string>("Text")
                         .HasColumnType("nvarchar(max)");
 
@@ -201,8 +200,6 @@ namespace Expro.Data.Migrations
                     b.HasIndex("CreatedBy");
 
                     b.HasIndex("ModifiedBy");
-
-                    b.HasIndex("ParentID");
 
                     b.ToTable("Comments");
                 });
@@ -412,9 +409,6 @@ namespace Expro.Data.Migrations
 
                     b.Property<int>("DocumentAnswerID")
                         .HasColumnType("int");
-
-                    b.Property<bool>("IsPositive")
-                        .HasColumnType("bit");
 
                     b.Property<string>("UserID")
                         .HasColumnType("nvarchar(450)");
@@ -1125,10 +1119,6 @@ namespace Expro.Data.Migrations
                     b.HasOne("Expro.Models.ApplicationUser", "Modifier")
                         .WithMany()
                         .HasForeignKey("ModifiedBy");
-
-                    b.HasOne("Expro.Models.Comment", "ParentComment")
-                        .WithMany()
-                        .HasForeignKey("ParentID");
                 });
 
             modelBuilder.Entity("Expro.Models.CommentLike", b =>
@@ -1205,7 +1195,7 @@ namespace Expro.Data.Migrations
                         .IsRequired();
 
                     b.HasOne("Expro.Models.DocumentAnswer", "DocumentAnswer")
-                        .WithMany("Comments")
+                        .WithMany()
                         .HasForeignKey("DocumentAnswerID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();

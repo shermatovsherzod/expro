@@ -4,14 +4,16 @@ using Expro.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Expro.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20201205073542_DocumentAnswerLike_addedIsPositive")]
+    partial class DocumentAnswerLike_addedIsPositive
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -188,9 +190,6 @@ namespace Expro.Data.Migrations
                     b.Property<string>("ModifiedBy")
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<int?>("ParentID")
-                        .HasColumnType("int");
-
                     b.Property<string>("Text")
                         .HasColumnType("nvarchar(max)");
 
@@ -201,8 +200,6 @@ namespace Expro.Data.Migrations
                     b.HasIndex("CreatedBy");
 
                     b.HasIndex("ModifiedBy");
-
-                    b.HasIndex("ParentID");
 
                     b.ToTable("Comments");
                 });
@@ -1125,10 +1122,6 @@ namespace Expro.Data.Migrations
                     b.HasOne("Expro.Models.ApplicationUser", "Modifier")
                         .WithMany()
                         .HasForeignKey("ModifiedBy");
-
-                    b.HasOne("Expro.Models.Comment", "ParentComment")
-                        .WithMany()
-                        .HasForeignKey("ParentID");
                 });
 
             modelBuilder.Entity("Expro.Models.CommentLike", b =>

@@ -153,9 +153,9 @@ namespace Expro.Services
             return model;
         }
 
-        private Document GeWithCommentsByID(int id)
+        private Document GeWithAnswersAndCommentsByID(int id)
         {
-            var model = _documentRepository.GeWithCommentsByID(id);
+            var model = _documentRepository.GeWithAnswersAndCommentsByID(id);
             if (model != null)
             {
                 if (DocumentTypeIsNotDefined())
@@ -168,9 +168,9 @@ namespace Expro.Services
             return model;
         }
 
-        public Document GetApprovedWithCommentsByID(int id)
+        public Document GetApprovedWithAnswersAndCommentsByID(int id)
         {
-            var model = GeWithCommentsByID(id);
+            var model = GeWithAnswersAndCommentsByID(id);
 
             if (model != null)
             {

@@ -74,12 +74,12 @@ namespace Expro.Controllers
                     var model = DocumentService.GetByID(modelIDInt);
                     if (model != null)
                     {
-                        model.DocumentComments.Add(new DocumentComment()
-                        {
-                            Comment = comment,
-                            IsAnswer = false
-                        });
-                        DocumentService.Update(model, curUserID);
+                        //model.DocumentComments.Add(new DocumentComment()
+                        //{
+                        //    Comment = comment,
+                        //    IsAnswer = false
+                        //});
+                        //DocumentService.Update(model, curUserID);
                     }
                 }
             }

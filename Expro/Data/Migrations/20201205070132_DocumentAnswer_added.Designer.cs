@@ -4,14 +4,16 @@ using Expro.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Expro.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20201205070132_DocumentAnswer_added")]
+    partial class DocumentAnswer_added
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -188,9 +190,6 @@ namespace Expro.Data.Migrations
                     b.Property<string>("ModifiedBy")
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<int?>("ParentID")
-                        .HasColumnType("int");
-
                     b.Property<string>("Text")
                         .HasColumnType("nvarchar(max)");
 
@@ -201,8 +200,6 @@ namespace Expro.Data.Migrations
                     b.HasIndex("CreatedBy");
 
                     b.HasIndex("ModifiedBy");
-
-                    b.HasIndex("ParentID");
 
                     b.ToTable("Comments");
                 });
@@ -379,53 +376,6 @@ namespace Expro.Data.Migrations
                     b.HasIndex("ModifiedBy");
 
                     b.ToTable("DocumentAnswers");
-                });
-
-            modelBuilder.Entity("Expro.Models.DocumentAnswerComment", b =>
-                {
-                    b.Property<int>("ID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int>("CommentID")
-                        .HasColumnType("int");
-
-                    b.Property<int>("DocumentAnswerID")
-                        .HasColumnType("int");
-
-                    b.HasKey("ID");
-
-                    b.HasIndex("CommentID");
-
-                    b.HasIndex("DocumentAnswerID");
-
-                    b.ToTable("DocumentAnswerComment");
-                });
-
-            modelBuilder.Entity("Expro.Models.DocumentAnswerLike", b =>
-                {
-                    b.Property<int>("ID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int>("DocumentAnswerID")
-                        .HasColumnType("int");
-
-                    b.Property<bool>("IsPositive")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("UserID")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.HasKey("ID");
-
-                    b.HasIndex("DocumentAnswerID");
-
-                    b.HasIndex("UserID");
-
-                    b.ToTable("DocumentAnswerLikes");
                 });
 
             modelBuilder.Entity("Expro.Models.DocumentLawArea", b =>
@@ -1125,10 +1075,6 @@ namespace Expro.Data.Migrations
                     b.HasOne("Expro.Models.ApplicationUser", "Modifier")
                         .WithMany()
                         .HasForeignKey("ModifiedBy");
-
-                    b.HasOne("Expro.Models.Comment", "ParentComment")
-                        .WithMany()
-                        .HasForeignKey("ParentID");
                 });
 
             modelBuilder.Entity("Expro.Models.CommentLike", b =>
@@ -1186,7 +1132,7 @@ namespace Expro.Data.Migrations
                         .HasForeignKey("CreatedBy");
 
                     b.HasOne("Expro.Models.Document", "Document")
-                        .WithMany("Answers")
+                        .WithMany()
                         .HasForeignKey("DocumentID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -1194,34 +1140,6 @@ namespace Expro.Data.Migrations
                     b.HasOne("Expro.Models.ApplicationUser", "Modifier")
                         .WithMany()
                         .HasForeignKey("ModifiedBy");
-                });
-
-            modelBuilder.Entity("Expro.Models.DocumentAnswerComment", b =>
-                {
-                    b.HasOne("Expro.Models.Comment", "Comment")
-                        .WithMany("DocumentAnswerComments")
-                        .HasForeignKey("CommentID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Expro.Models.DocumentAnswer", "DocumentAnswer")
-                        .WithMany("Comments")
-                        .HasForeignKey("DocumentAnswerID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("Expro.Models.DocumentAnswerLike", b =>
-                {
-                    b.HasOne("Expro.Models.DocumentAnswer", "DocumentAnswer")
-                        .WithMany("Likes")
-                        .HasForeignKey("DocumentAnswerID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Expro.Models.ApplicationUser", "User")
-                        .WithMany()
-                        .HasForeignKey("UserID");
                 });
 
             modelBuilder.Entity("Expro.Models.DocumentLawArea", b =>

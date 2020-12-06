@@ -15,6 +15,8 @@ namespace Expro.Controllers
 {
     public class QuestionDocumentController : BaseDocumentController
     {
+        private readonly IDocumentAnswerService DocumentAnswerService;
+
         public QuestionDocumentController(
             IQuestionDocumentService questionDocumentService,
             IQuestionDocumentSearchService questionDocumentSearchService,
@@ -22,7 +24,8 @@ namespace Expro.Controllers
             IUserPurchasedDocumentService userPurchasedDocumentService,
             UserManager<ApplicationUser> userManager,
             ILawAreaService lawAreaService,
-            IDocumentCounterService documentCounterService)
+            IDocumentCounterService documentCounterService,
+            IDocumentAnswerService documentAnswerService)
             : base(
                   questionDocumentService,
                   questionDocumentSearchService,
@@ -34,6 +37,8 @@ namespace Expro.Controllers
         {
             DocumentType = DocumentTypesEnum.SampleDocument.ToString();
             ErrorDocumentNotFound = "Образцовый документ не найден";
+
+            DocumentAnswerService = documentAnswerService;
         }
 
         public override IActionResult Index()
@@ -51,9 +56,9 @@ namespace Expro.Controllers
             return base.Search(draw, start, length, statusID, priceType, lawAreas);
         }
 
-        public override async Task<IActionResult> Details(int id)
+        public async override Task<IActionResult> Details(int id)
         {
-            var document = DocumentService.GetApprovedWithCommentsByID(id);
+            var document = DocumentService.GetApprovedWithAnswersAndCommentsByID(id);
             if (document == null)
                 throw new Exception(ErrorDocumentNotFound);
 
@@ -62,6 +67,28 @@ namespace Expro.Controllers
             QuestionDetailsForSiteVM documentVM = new QuestionDetailsForSiteVM(document);
 
             return View(documentVM);
+        }
+
+        //ajax
+        [HttpPost]
+        public IActionResult AddAnswer(/*[FromBody]*/ QuestionAnswerCreateVM answerCreateVM)
+        {
+            try
+            {
+                var curUser = accountUtil.GetCurrentUser(User);
+                var document = DocumentService.GetApprovedByID(answerCreateVM.DocumentID);
+                if (document == null)
+                    throw new Exception("Вопрос не найден");
+
+                DocumentAnswer answer = answerCreateVM.ToModel();
+                DocumentAnswerService.Add(answer, curUser.ID);
+
+                return Ok(new { id = answer.ID });
+            }
+            catch (Exception ex)
+            {
+                return CustomBadRequest(ex);
+            }
         }
 
         //[HttpPost]

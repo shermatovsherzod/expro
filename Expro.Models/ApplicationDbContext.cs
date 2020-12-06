@@ -92,7 +92,9 @@ namespace Expro.Models
         public DbSet<WithdrawRequest> WithdrawRequests { get; set; }
         public DbSet<WithdrawRequestStatus> WithdrawRequestStatuses { get; set; }
         public DbSet<Comment> Comments { get; set; }
-        public DbSet<DocumentComment> DocumentComments { get; set; }
+        //public DbSet<DocumentComment> DocumentComments { get; set; }
         public DbSet<CommentLike> CommentLikes { get; set; }
+        public DbSet<DocumentAnswer> DocumentAnswers { get; set; }
+        public DbSet<DocumentAnswerLike> DocumentAnswerLikes { get; set; }
     }
 }

@@ -8,27 +8,26 @@ using Expro.Models;
 
 namespace Expro.ViewModels
 {
-    public class CommentCreateVM
+    public class QuestionAnswerCreateVM
     {
-        public int? ObjectID { get; set; }
+        public int DocumentID { get; set; }
 
         [Required]
         public string Text { get; set; }
 
-        public string CommentType { get; set; }
-
-        public Comment ToModel()
+        public DocumentAnswer ToModel()
         {
-            Comment comment = new Comment()
+            DocumentAnswer answer = new DocumentAnswer()
             {
-                Text = this.Text
+                Text = this.Text,
+                DocumentID = this.DocumentID
             };
 
-            return comment;
+            return answer;
         }
     }
 
-    public class CommentDetailsVM : BaseVM
+    public class QuestionAnswerDetailsVM : BaseVM
     {
         public string Text { get; set; }
 
@@ -44,24 +43,52 @@ namespace Expro.ViewModels
         public int PositiveLikesCount { get; set; }
         public int NegativeLikesCount { get; set; }
 
-        public int DepthLevel { get; set; }
-        public int? ParentID { get; set; }
+        public List<CommentDetailsVM> Comments { get; set; }
 
-        public CommentDetailsVM() { }
+        public QuestionAnswerDetailsVM() { }
 
-        public CommentDetailsVM(Comment model)
+        public QuestionAnswerDetailsVM(DocumentAnswer model)
             : base(model)
         {
             if (model == null)
                 return;
 
             Text = model.Text;
-            ParentID = model.ParentID;
             Attachment = new AttachmentDetailsVM(model.Attachment);
             Author = new AppUserVM(model.Creator);
             DatePublished = DateTimeUtils.ConvertToString(model.DateCreated);
             PositiveLikesCount = model.Likes.Count(m => m.IsPositive);
             NegativeLikesCount = model.Likes.Count - PositiveLikesCount;
+            
+            Comments = new List<CommentDetailsVM>();
+            //var allComments = model.Comments.Select(m => m.Comment).ToList();
+            //var rootComments = allComments.Where(m => !m.ParentID.HasValue);
+            //Stack<CommentDetailsVM> commentsStack = new Stack<CommentDetailsVM>();
+            
+
+
+
+
+            foreach (var item in model.Comments)
+            {
+                Comments.Add(new CommentDetailsVM(item.Comment));
+            }
         }
     }
+
+    //public class CommentLikeVM : BaseVM
+    //{
+
+
+    //    public CommentLikeVM() { }
+
+    //    public CommentLikeVM(CommentLike model)
+    //        : base(model)
+    //    {
+    //        if (model == null)
+    //            return;
+
+
+    //    }
+    //}
 }

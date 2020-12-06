@@ -15,7 +15,9 @@ namespace Expro.ViewModels
         [Display(Name = "Файл")]
         public AttachmentDetailsVM Attachment { get; set; }
 
-        public List<CommentDetailsVM> Comments { get; set; }
+        //public List<CommentDetailsVM> Comments { get; set; }
+        public List<QuestionAnswerDetailsVM> Answers { get; set; }
+        
 
         public QuestionDetailsForSiteVM() { }
 
@@ -29,10 +31,16 @@ namespace Expro.ViewModels
             Text = model.Text;
             Attachment = new AttachmentDetailsVM(model.Attachment);
 
-            Comments = new List<CommentDetailsVM>();
-            foreach (var item in model.DocumentComments)
+            //Comments = new List<CommentDetailsVM>();
+            //foreach (var item in model.DocumentComments)
+            //{
+            //    Comments.Add(new CommentDetailsVM(item.Comment));
+            //}
+
+            Answers = new List<QuestionAnswerDetailsVM>();
+            foreach (var item in model.Answers)
             {
-                Comments.Add(new CommentDetailsVM(item.Comment));
+                Answers.Add(new QuestionAnswerDetailsVM(item));
             }
         }
     }
