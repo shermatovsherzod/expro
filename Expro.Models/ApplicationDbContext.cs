@@ -46,6 +46,17 @@ namespace Expro.Models
                 .WithMany(b => b.Children)
                 .OnDelete(DeleteBehavior.ClientSetNull);
 
+            modelBuilder.Entity<DocumentAnswerComment>()
+                .HasKey(bc => new { bc.DocumentAnswerID, bc.CommentID});
+            modelBuilder.Entity<DocumentAnswerComment>()
+                .HasOne(bc => bc.DocumentAnswer)
+                .WithMany(b => b.Comments)
+                .HasForeignKey(bc => bc.DocumentAnswerID);
+            modelBuilder.Entity<DocumentAnswerComment>()
+                .HasOne(bc => bc.Comment)
+                .WithMany(c => c.DocumentAnswerComments)
+                .HasForeignKey(bc => bc.CommentID);
+
             modelBuilder.Entity<CompanyLawArea>()
                 .HasKey(bc => new { bc.CompanyID, bc.LawAreaID });
             modelBuilder.Entity<CompanyLawArea>()

@@ -17,6 +17,7 @@ namespace Expro.Common
         public static class CommentTypes
         {
             public static readonly string DOCUMENT = "document";
+            public static readonly string DOCUMENT_ANSWER = "document_answer";
         }
 
         public static class CLICK

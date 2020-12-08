@@ -17,9 +17,9 @@ namespace Expro.Controllers
     {
         protected readonly IDocumentService DocumentService;
         private readonly IDocumentSearchService DocumentSearchService;
-        private readonly IUserBalanceService UserBalanceService;
+        protected readonly IUserBalanceService UserBalanceService;
         private readonly IUserPurchasedDocumentService UserPurchasedDocumentService;
-        private readonly UserManager<ApplicationUser> _userManager;
+        protected readonly UserManager<ApplicationUser> _userManager;
         private readonly ILawAreaService LawAreaService;
         protected readonly IDocumentCounterService DocumentCounterService;
 

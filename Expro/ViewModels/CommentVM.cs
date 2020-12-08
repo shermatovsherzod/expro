@@ -11,8 +11,10 @@ namespace Expro.ViewModels
     public class CommentCreateVM
     {
         public int? ObjectID { get; set; }
+        public int? ParentID { get; set; }
 
         [Required]
+        [Display(Name = "Текст комментария")]
         public string Text { get; set; }
 
         public string CommentType { get; set; }
@@ -21,7 +23,8 @@ namespace Expro.ViewModels
         {
             Comment comment = new Comment()
             {
-                Text = this.Text
+                Text = this.Text,
+                ParentID = this.ParentID
             };
 
             return comment;

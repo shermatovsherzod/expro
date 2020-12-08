@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Expro.Models
 {
-    public class DocumentAnswerComment : BaseModel
+    public class DocumentAnswerComment// : BaseModel
     {
         [ForeignKey("DocumentAnswer")]
         public int DocumentAnswerID { get; set; }

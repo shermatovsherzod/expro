@@ -23,6 +23,7 @@ namespace Expro.Areas.User.Controllers
         private readonly IHangfireService HangfireService;
         private readonly IDocumentStatusService DocumentStatusService;
         private readonly IUserBalanceService UserBalanceService;
+        private readonly UserManager<ApplicationUser> _userManager;
 
         public QuestionDocumentController(
             IQuestionDocumentSearchService questionDocumentSearchService,
@@ -32,7 +33,8 @@ namespace Expro.Areas.User.Controllers
             IQuestionDocumentService questionDocumentService,
             IHangfireService hangfireService,
             IDocumentStatusService documentStatusService,
-            IUserBalanceService userBalanceService)
+            IUserBalanceService userBalanceService,
+            UserManager<ApplicationUser> userManager)
         {
             QuestionDocumentSearchService = questionDocumentSearchService;
             LawAreaService = lawAreaService;
@@ -42,6 +44,7 @@ namespace Expro.Areas.User.Controllers
             HangfireService = hangfireService;
             DocumentStatusService = documentStatusService;
             UserBalanceService = userBalanceService;
+            _userManager = userManager;
         }
 
         public IActionResult Index()
@@ -164,11 +167,11 @@ namespace Expro.Areas.User.Controllers
         }
 
         [HttpPost]
-        public IActionResult EditFree(QuestionFreeEditVM modelVM)
+        public async Task<IActionResult> EditFree(QuestionFreeEditVM modelVM)
         {
             //modelVM.ContentType = DocumentContentTypesEnum.text;
 
-            return EditSharedPost(modelVM, DocumentPriceTypesEnum.Free);
+            return await EditSharedPost(modelVM, DocumentPriceTypesEnum.Free);
         }
 
 
@@ -187,14 +190,14 @@ namespace Expro.Areas.User.Controllers
         }
 
         [HttpPost]
-        public IActionResult EditPaid(QuestionPaidEditVM modelVM)
+        public async Task<IActionResult> EditPaid(QuestionPaidEditVM modelVM)
         {
             //modelVM.ContentType = DocumentContentTypesEnum.text;
 
-            return EditSharedPost(modelVM, DocumentPriceTypesEnum.Paid);
+            return await EditSharedPost(modelVM, DocumentPriceTypesEnum.Paid);
         }
 
-        private IActionResult EditSharedPost(QuestionFreeEditVM modelVM, DocumentPriceTypesEnum priceType)
+        private async Task<IActionResult> EditSharedPost(QuestionFreeEditVM modelVM, DocumentPriceTypesEnum priceType)
         {
             try
             {
@@ -217,31 +220,22 @@ namespace Expro.Areas.User.Controllers
                     if (!QuestionDocumentService.EditingIsAllowed(modelFromDB))
                         throw new Exception("Статус вопроса не позволяет отредактировать его");
 
-                    //if (modelVM.ContentType == DocumentContentTypesEnum.file)
-                    //{
-                    //    if (!modelVM.AttachmentID.HasValue)
-                    //    {
-                    //        ModelState.AddModelError("AttachmentID", "Загрузите файл");
-                    //        throw new Exception("Загрузите файл");
-                    //    }
-                    //}
-                    //else
-                    //{
-                    //    if (string.IsNullOrWhiteSpace(modelVM.Text))
-                    //    {
-                    //        ModelState.AddModelError("Text", "Наберите текст");
-                    //        throw new Exception("Наберите текст");
-                    //    }
-                    //}
-
                     var model = modelVM.ToModel(modelFromDB);
                     LawAreaService.UpdateDocumentLawAreas(model, modelVM.LawAreas);
                     modelVM.LawAreas = model.DocumentLawAreas.Select(m => m.LawAreaID).ToList();
 
                     if (modelVM.ActionType == DocumentActionTypesEnum.submitForApproval)
                     {
+                        ApplicationUser curAppUser = await _userManager.GetUserAsync(User);
+                        int curUserBalance = UserBalanceService.GetBalance(curAppUser);
+                        if (curUserBalance < model.Price)
+                            throw new Exception("На Вашем балансе недостаточно средств");
+
                         QuestionDocumentService.SubmitForApproval(model, curUser.ID);
-                        //UserBalanceService.TakeOffBalance()
+
+                        if (priceType == DocumentPriceTypesEnum.Paid)
+                            UserBalanceService.TakeOffBalance(curAppUser, model.Price.Value);
+
                         model.RejectionJobID = HangfireService.CreateJobForDocumentRejectionDeadline(model);
                         QuestionDocumentService.Update(model);
 

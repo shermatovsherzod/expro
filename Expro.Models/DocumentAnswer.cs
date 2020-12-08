@@ -19,10 +19,13 @@ namespace Expro.Models
         public int DocumentID { get; set; }
         public virtual Document Document { get; set; }
 
+        public int? PaidFee { get; set; }
+
         [InverseProperty("DocumentAnswer")]
         public virtual ICollection<DocumentAnswerComment> Comments { get; set; }
 
         [InverseProperty("DocumentAnswer")]
         public virtual ICollection<DocumentAnswerLike> Likes { get; set; }
+
     }
 }

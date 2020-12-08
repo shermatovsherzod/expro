@@ -38,6 +38,22 @@ namespace Expro.ViewModels
         public UserTypesEnum? UserType { get; set; }
         public UserAreasEnum? UserArea { get; set; }
 
+        public bool IsExpert
+        {
+            get
+            {
+                return UserType.HasValue && UserType.Value == UserTypesEnum.Expert;
+            }
+        }
+
+        public bool IsAdmin
+        {
+            get
+            {
+                return UserType.HasValue && UserType.Value == UserTypesEnum.Admin;
+            }
+        }
+
         //public string PhoneNumber { get; set; }
         //public DateTime DateOfBirth { get; set; }     
         //public string PatronymicName { get; set; }

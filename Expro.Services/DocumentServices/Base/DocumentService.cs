@@ -13,7 +13,7 @@ namespace Expro.Services
     public class DocumentService : BaseAuthorableService<Document>, IDocumentService
     {
         private IDocumentRepository _documentRepository;
-        protected int _tmpPeriodMinutes = 5;
+        protected int _tmpPeriodMinutes = 2;
 
         public DocumentTypesEnum _documentType;
 
@@ -122,7 +122,7 @@ namespace Expro.Services
             entity.DateSubmittedForApproval = DateTime.Now;
 #if DEBUG
             //tmpPeriodMinutes = 2880;
-            entity.RejectionDeadline = RoundToUp(entity.DateSubmittedForApproval.Value.AddMinutes(_tmpPeriodMinutes));
+            entity.RejectionDeadline = entity.DateSubmittedForApproval.Value.AddMinutes(_tmpPeriodMinutes);
 #else
             entity.CancellationDeadline = RoundToUp(entity.DateSubmittedForApproval.Value.AddMinutes(7 200)); //5 days
 #endif
@@ -205,7 +205,7 @@ namespace Expro.Services
             //    .Select(m => m.Document).AsQueryable();
         }
 
-        private DateTime RoundToUp(DateTime inputDateTime)
+        public DateTime RoundToUp(DateTime inputDateTime)
         {
             return inputDateTime.Date.AddDays(1).AddSeconds(-1);
         }

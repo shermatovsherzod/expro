@@ -1,5 +1,6 @@
 ﻿using Expro.Models;
 using Expro.Models.Enums;
+using System;
 using System.Linq;
 
 namespace Expro.Services.Interfaces
@@ -19,5 +20,6 @@ namespace Expro.Services.Interfaces
         IQueryable<Document> GetAllByCreator(string userID);
         bool IsFree(Document model);
         IQueryable<Document> GetAllPurchasedByUser(string purchasedUserID);
+        DateTime RoundToUp(DateTime inputDateTime);
     }
 }

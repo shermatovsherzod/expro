@@ -3,7 +3,7 @@
 
 @{
     //string targetContainerID = ViewData["targetContainerID"].ToString();
-    int objectID = int.Parse(ViewData["objectID"].ToString());
+    //int objectID = int.Parse(ViewData["objectID"].ToString());
     string commentType = ViewData["commentType"].ToString();
 }
 
@@ -16,7 +16,7 @@
     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
     <div class="form-group">
         <label asp-for="Text" class="control-label"></label>
-        <textarea asp-for="Text" class="form-control"></textarea>
+        <textarea asp-for="Text" id="commentText" class="form-control ckeditorEditMode"></textarea>
         <span asp-validation-for="Text" class="text-danger"></span>
     </div>
     <div class="form-group">
@@ -30,18 +30,29 @@
 </form>
 
 <script>
+    var commentObjectID = null;
+    var parentCommentdID = null;
     var input;
     var commentID = 0;
     var fileType = "@Constants.FileTypes.COMMENT";
 
+    function SetCommentObjectID(objectID, parentID) {
+        if (objectID != undefined && objectID > 0)
+            commentObjectID = objectID;
+
+        if (parentID != undefined && parentID > 0)
+            parentCommentdID = parentID;
+    }
+
     function SubmitCommentForm() {
         var isValid = $('#addCommentForm').valid();
         if (isValid) {
-            ShowFormSpinner();
-            DisableFormElements();
+            ShowCommentFormSpinner();
+            DisableCommentFormElements();
 
             $('#addCommentForm')
-                .append("<input type='hidden' name='ObjectID' value='@objectID' />")
+                .append("<input type='hidden' name='ObjectID' value='" + commentObjectID + "' />")
+                .append("<input type='hidden' name='ParentID' value='" + parentCommentdID + "' />")
                 .append("<input type='hidden' name='CommentType' value='@commentType' />");
 
             return true;
@@ -50,11 +61,11 @@
             return false;
     }
 
-    function ShowFormSpinner() {
+    function ShowCommentFormSpinner() {
         $("#addCommentForm .spinner").show();
     }
 
-    function DisableFormElements() {
+    function DisableCommentFormElements() {
         $("#addCommentForm input").attr("readonly", "readonly");
         $("#addCommentForm textarea").attr("readonly", "readonly");
         $("#addCommentForm button").attr("disabled", "disabled");
@@ -76,8 +87,10 @@
         console.log(input);
         if (!(input.files && input.files[0])) {
             //$("#" + spinnerTagID).hide();
-            alert("no file is selected");
-            location.reload();
+            //alert("no file is selected");
+
+            CompleteSavingComment();
+            //location.reload();
         }
         else {
             var file = input.files[0];
@@ -173,7 +186,8 @@
                     $(input).attr("disabled", "disabled");
                 },
                 success: function (data) {
-                    location.reload();
+                    CompleteSavingComment();
+                    //location.reload();
                     //alert("File uploaded!");
                 },
                 error: function (data) {
@@ -191,5 +205,15 @@
             $("#addCommentForm .spinner").hide();
             $(input).removeAttr("disabled");
         }
+    }
+
+    function CompleteSavingComment() {
+        //$("#addCommentForm .spinner").hide();
+        //$(input).removeAttr("disabled");
+        $("#addCommentForm #Text").val("");
+        $("#addCommentForm #attachment").val("");
+
+
+        location.reload();
     }
 </script>

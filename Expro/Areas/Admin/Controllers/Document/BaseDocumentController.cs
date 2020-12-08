@@ -14,11 +14,11 @@ namespace Expro.Areas.Admin.Controllers
     //[Area("Admin")]
     public class BaseDocumentController : BaseController
     {
-        private readonly IDocumentService DocumentService;
+        protected readonly IDocumentService DocumentService;
         private readonly IDocumentStatusService DocumentStatusService;
         private readonly IDocumentSearchService DocumentSearchService;
-        private readonly IDocumentAdminActionsService DocumentAdminActionsService;
-        private readonly IHangfireService HangfireService;
+        protected readonly IDocumentAdminActionsService DocumentAdminActionsService;
+        protected readonly IHangfireService HangfireService;
 
         protected string ErrorDocumentNotFound = "Документ не найден";
         protected string ErrorUnableToConfirmDocument = "Статус документа не позволяет подтвердить его";

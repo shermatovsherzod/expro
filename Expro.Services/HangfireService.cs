@@ -1,4 +1,5 @@
 ﻿using Expro.Models;
+using Expro.Models.Enums;
 using Expro.Services.Interfaces;
 using Hangfire;
 using System;
@@ -11,14 +12,19 @@ namespace Expro.Services
     {
         private readonly IDocumentService DocumentService;
         private readonly IDocumentAdminActionsService DocumentAdminActionsService;
-        //private readonly IAttachmentService AttachmentService;
+        private readonly IQuestionDocumentAdminActionsService QuestionDocumentAdminActionsService;
+        private readonly IUserBalanceService UserBalanceService;
 
         public HangfireService(
             IDocumentService documentService,
-            IDocumentAdminActionsService documentAdminActionsService)
+            IDocumentAdminActionsService documentAdminActionsService,
+            IQuestionDocumentAdminActionsService questionDocumentAdminActionsService,
+            IUserBalanceService userBalanceService)
         {
             DocumentService = documentService;
             DocumentAdminActionsService = documentAdminActionsService;
+            QuestionDocumentAdminActionsService = questionDocumentAdminActionsService;
+            UserBalanceService = userBalanceService;
         }
 
         public string CreateJobForDocumentRejectionDeadline(Document document)
@@ -35,7 +41,35 @@ namespace Expro.Services
             //try
             //{
             Document document = DocumentService.GetByID(documentID);
+
+            if (document.PriceType == DocumentPriceTypesEnum.Paid)
+                UserBalanceService.ReplenishBalance(document.Creator, document.Price.Value);
+
             DocumentAdminActionsService.RejectionDeadlineReaches(document);
+            //}
+            //catch (Exception ex)
+            //{ }
+        }
+
+        public string CreateJobForQuestionDocumentCompletionDeadline(Document document)
+        {
+            string jobID = BackgroundJob.Schedule(() =>
+                QuestionDocumentCompletionDeadlineReaches(document.ID),
+                new DateTimeOffset(document.QuestionCompletionDeadline.Value));
+
+            return jobID;
+        }
+
+        public void QuestionDocumentCompletionDeadlineReaches(int documentID)
+        {
+            //try
+            //{
+            Document document = DocumentService.GetByID(documentID);
+
+            if (document.PriceType == DocumentPriceTypesEnum.Paid)
+                UserBalanceService.ReplenishBalance(document.Creator, document.Price.Value);
+
+            QuestionDocumentAdminActionsService.CompletionDeadlineReaches(document);
             //}
             //catch (Exception ex)
             //{ }

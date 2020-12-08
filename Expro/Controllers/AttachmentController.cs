@@ -54,7 +54,7 @@ namespace Expro.Controllers
                 AttachmentService.Add(attachment, curUser.ID);
 
                 if (uploadFileVM.ModelID != null)
-                    await AttachFile(attachment, uploadFileVM.ModelID, uploadFileVM.FileType, curUser.ID);
+                    await AttachFile(attachment, uploadFileVM.ModelID, uploadFileVM.FileType);
 
                 //if (uploadFileVM.ModelID.HasValue && uploadFileVM.ModelID.Value > 0)
                 //    AttachFile(attachment, uploadFileVM.ModelID.Value, uploadFileVM.FileType, curUser.ID);
@@ -67,7 +67,7 @@ namespace Expro.Controllers
             }
         }
 
-        private async Task AttachFile(Attachment attachment, object id, string fileType, string curUserID)
+        private async Task AttachFile(Attachment attachment, object id, string fileType)
         {
             string modelIDString = id.ToString();
             int modelIDInt = 0;
@@ -81,7 +81,7 @@ namespace Expro.Controllers
                     if (model != null)
                     {
                         model.Attachment = attachment;
-                        DocumentService.Update(model, curUserID);
+                        DocumentService.Update(model);
                     }
                 }
                 else if (fileType.Equals(Constants.FileTypes.COMMENT))
@@ -90,7 +90,7 @@ namespace Expro.Controllers
                     if (model != null)
                     {
                         model.Attachment = attachment;
-                        CommentService.Update(model, curUserID);
+                        CommentService.Update(model);
                     }
                 }
             }

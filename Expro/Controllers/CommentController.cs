@@ -21,6 +21,7 @@ namespace Expro.Controllers
     {
         private readonly ICommentService CommentService;
         private readonly IDocumentService DocumentService;
+        private readonly IDocumentAnswerService DocumentAnswerService;
         private readonly UserManager<ApplicationUser> _userManager;
 
         //private readonly IHostingEnvironment _env;
@@ -28,12 +29,14 @@ namespace Expro.Controllers
         public CommentController(
             ICommentService commentService,
             IDocumentService documentService,
+            IDocumentAnswerService documentAnswerService,
             //IHostingEnvironment env,
             UserManager<ApplicationUser> userManager,
             ILogger<AttachmentController> logger)
         {
             CommentService = commentService;
             DocumentService = documentService;
+            DocumentAnswerService = documentAnswerService;
             //_env = env;
             _userManager = userManager;
             _logger = logger;
@@ -51,7 +54,7 @@ namespace Expro.Controllers
                 CommentService.Add(comment, curUser.ID);
 
                 if (commentCreateVM.ObjectID != null)
-                    await AttachComment(comment, commentCreateVM.ObjectID, commentCreateVM.CommentType, curUser.ID);
+                    await AttachComment(comment, commentCreateVM.ObjectID, commentCreateVM.CommentType);
 
                 return Ok(new { id = comment.ID });
             }
@@ -61,7 +64,7 @@ namespace Expro.Controllers
             }
         }
 
-        private async Task AttachComment(Comment comment, object id, string commentType, string curUserID)
+        private async Task AttachComment(Comment comment, object id, string commentType)
         {
             string modelIDString = id.ToString();
             int modelIDInt = 0;
@@ -79,7 +82,19 @@ namespace Expro.Controllers
                         //    Comment = comment,
                         //    IsAnswer = false
                         //});
-                        //DocumentService.Update(model, curUserID);
+                        //DocumentService.Update(model);
+                    }
+                }
+                if (commentType.Equals(Constants.CommentTypes.DOCUMENT_ANSWER))
+                {
+                    var model = DocumentAnswerService.GetByID(modelIDInt);
+                    if (model != null)
+                    {
+                        model.Comments.Add(new DocumentAnswerComment()
+                        {
+                            Comment = comment
+                        });
+                        DocumentAnswerService.Update(model);
                     }
                 }
             }

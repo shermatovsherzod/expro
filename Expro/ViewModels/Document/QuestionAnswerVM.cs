@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
+using Expro.Common;
 using Expro.Common.Utilities;
 using Expro.Models;
 
@@ -13,6 +14,7 @@ namespace Expro.ViewModels
         public int DocumentID { get; set; }
 
         [Required]
+        [Display(Name = "Текст ответа")]
         public string Text { get; set; }
 
         public DocumentAnswer ToModel()
@@ -45,6 +47,9 @@ namespace Expro.ViewModels
 
         public List<CommentDetailsVM> Comments { get; set; }
 
+        public int? PaidFee { get; set; }
+        public string PaidFeeStr { get; set; }
+
         public QuestionAnswerDetailsVM() { }
 
         public QuestionAnswerDetailsVM(DocumentAnswer model)
@@ -61,34 +66,26 @@ namespace Expro.ViewModels
             NegativeLikesCount = model.Likes.Count - PositiveLikesCount;
             
             Comments = new List<CommentDetailsVM>();
-            //var allComments = model.Comments.Select(m => m.Comment).ToList();
-            //var rootComments = allComments.Where(m => !m.ParentID.HasValue);
-            //Stack<CommentDetailsVM> commentsStack = new Stack<CommentDetailsVM>();
-            
-
-
-
-
             foreach (var item in model.Comments)
             {
                 Comments.Add(new CommentDetailsVM(item.Comment));
             }
+
+            PaidFee = model.PaidFee;
+            if (PaidFee.HasValue)
+                PaidFeeStr = model.PaidFee.Value.ToString(AppData.Configuration.NumberViewStringFormat);
         }
     }
 
-    //public class CommentLikeVM : BaseVM
-    //{
+    public class QuestionFeeDistributionVM
+    {
+        public int QuestionDocumentID { get; set; }
+        public List<DistributedQuestionAnswerVM> Answers { get; set; }
+    }
 
-
-    //    public CommentLikeVM() { }
-
-    //    public CommentLikeVM(CommentLike model)
-    //        : base(model)
-    //    {
-    //        if (model == null)
-    //            return;
-
-
-    //    }
-    //}
+    public class DistributedQuestionAnswerVM
+    {
+        public int AnswerID { get; set; }
+        public int Percentage { get; set; }
+    }
 }

@@ -41,12 +41,16 @@ namespace Expro.Models
         public DateTime? DateSubmittedForApproval { get; set; }
         public DateTime? DateApproved { get; set; }
         public DateTime? DateRejected { get; set; }
-
         public DateTime? RejectionDeadline { get; set; }
         public string RejectionJobID { get; set; }
 
         public int NumberOfViews { get; set; }
         public int NumberOfPurchases { get; set; }
+
+        public DateTime? QuestionCompletionDeadline { get; set; }
+        public string QuestionCompletionJobID { get; set; }
+        public bool? QuestionIsCompleted { get; set; }
+        public DateTime? DateQuestionCompleted { get; set; }
 
         [InverseProperty("Document")]
         public virtual ICollection<UserPurchasedDocument> UsersPurchasedThisDocument { get; set; }
