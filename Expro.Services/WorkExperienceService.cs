@@ -24,8 +24,7 @@ namespace Expro.Services
         public bool WorkExperienceBelongsToUser(WorkExperience model, string userID)
         {
             if (model.CreatedBy == userID)
-            {
-                _repository.Delete(model);
+            {              
                 return true;
             }
             return false;

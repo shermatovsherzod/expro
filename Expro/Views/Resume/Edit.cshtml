@@ -1,0 +1,207 @@
+﻿@model ResumeEditVM
+@using Expro.ViewModels
+@{
+    ViewData["Title"] = "Редактирование резюме";
+    <link href="~/lib/Gijgo/gijgo.min.css" rel="stylesheet" />
+}
+
+<h4>Редактирование резюме</h4>
+<hr />
+
+<form asp-controller="Resume" asp-action="Edit" data-ajax="true" data-ajax-method="POST">
+    <div class="row">
+        <div class="col-md-3">
+            <label asp-for="@Model.LastName"></label>
+        </div>
+        <div class="col-md-9">
+            <p>
+                <input asp-for="@Model.LastName" class="form-control" />
+                <span asp-validation-for="@Model.LastName"></span>
+            </p>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-3">
+            <label asp-for="@Model.FirstName"></label>
+        </div>
+        <div class="col-md-9">
+            <p>
+                <input asp-for="@Model.FirstName" class="form-control" />
+                <span asp-validation-for="@Model.FirstName"></span>
+            </p>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-3">
+            <label asp-for="@Model.PatronymicName"></label>
+        </div>
+        <div class="col-md-9">
+            <p>
+                <input asp-for="@Model.PatronymicName" class="form-control" />
+                <span asp-validation-for="@Model.PatronymicName"></span>
+            </p>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-3">
+            <label asp-for="@Model.DateOfBirth"></label>
+        </div>
+        <div class="col-md-6">
+            <p>
+                <input asp-for="@Model.DateOfBirth" class="form-control" onkeydown="event.preventDefault()" />
+                <span asp-validation-for="@Model.DateOfBirth"></span>
+            </p>
+        </div>
+        <div class="col-md-3"></div>
+    </div>
+
+
+    <div class="row">
+        <div class="col-md-3">
+            <label asp-for="@Model.RegionID"></label>
+        </div>
+        <div class="col-md-9">
+            <p>
+                <select asp-for="@Model.RegionID"
+                        asp-items="@ViewData["regions"] as IEnumerable<SelectListItem>"
+                        class="form-control">
+                    <option disabled selected>--- Выбрать регион ---</option>
+                </select>
+                <span asp-validation-for="@Model.RegionID" class="text-danger"></span>
+            </p>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-3">
+            <label asp-for="@Model.CityID"></label>
+        </div>
+        <div class="col-md-9">
+            <p>
+                <select asp-for="@Model.CityID"
+                        asp-items="@ViewData["cities"] as IEnumerable<SelectListItem>"
+                        class="form-control">
+                    <option disabled selected>--- Выбрать город ---</option>
+                </select>
+                <span asp-validation-for="@Model.CityID" class="text-danger"></span>
+            </p>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-3">
+            <label asp-for="@Model.CityOther"></label>
+        </div>
+        <div class="col-md-9">
+            <p>
+                <input asp-for="@Model.CityOther" class="form-control" />
+                <span asp-validation-for="@Model.CityOther" class="text-danger"></span>
+            </p>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-3">
+            <label asp-for="@Model.Contact"></label>
+        </div>
+        <div class="col-md-9">
+            <p>
+                <textarea asp-for="@Model.Contact" class="form-control"></textarea>
+                <span asp-validation-for="@Model.Contact" class="text-danger"></span>
+            </p>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-3">
+            <label asp-for="@Model.Education"></label>
+        </div>
+        <div class="col-md-9">
+            <p>
+                <textarea asp-for="@Model.Education" class="form-control"></textarea>
+                <span asp-validation-for="@Model.Education" class="text-danger"></span>
+            </p>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-3">
+            <label asp-for="@Model.GraduationDate"></label>
+        </div>
+        <div class="col-md-6">
+            <p>
+                <input asp-for="@Model.GraduationDate" class="form-control" onkeydown="event.preventDefault()" />
+                <span asp-validation-for="@Model.GraduationDate"></span>
+            </p>
+        </div>
+        <div class="col-md-3"></div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-3">
+            <label asp-for="@Model.WorkExperience"></label>
+        </div>
+        <div class="col-md-9">
+            <p>
+                <input asp-for="@Model.WorkExperience" class="form-control" />
+                <span asp-validation-for="@Model.WorkExperience"></span>
+            </p>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-3">
+            <label asp-for="@Model.Languages"></label>
+        </div>
+        <div class="col-md-9">
+            <p>
+                <input asp-for="@Model.Languages" class="form-control" />
+                <span asp-validation-for="@Model.Languages"></span>
+            </p>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-3">
+            <label asp-for="@Model.OtherInfo"></label>
+        </div>
+        <div class="col-md-9">
+            <p>
+                <textarea asp-for="@Model.OtherInfo" class="form-control"></textarea>
+                <span asp-validation-for="@Model.OtherInfo" class="text-danger"></span>
+            </p>
+        </div>
+    </div>
+
+
+    <button type="submit" class="btn btn-success">Сохранить</button>
+
+</form>
+
+
+<div>
+    <a asp-action="Index">Вернутся к списку</a>
+</div>
+
+@section Scripts
+    {
+    <script src="~/lib/Gijgo/gijgo.min.js"></script>
+    <script src="~/lib/Gijgo/messages.ru-ru.js"></script>
+    <script>
+        $('#DateOfBirth').datepicker({
+            uiLibrary: 'bootstrap4',
+            format: 'dd.mm.yyyy',
+            locale: 'ru-ru',
+        });
+
+        $('#GraduationDate').datepicker({
+            uiLibrary: 'bootstrap4',
+            format: 'dd.mm.yyyy',
+            locale: 'ru-ru',
+        });
+    </script>
+
+}

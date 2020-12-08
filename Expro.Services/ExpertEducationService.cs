@@ -23,8 +23,7 @@ namespace Expro.Services
         public bool EducationBelongsToUser(ExpertEducation model, string userID)
         {
             if (model.CreatedBy == userID)
-            {
-                _repository.Delete(model);
+            {               
                 return true;
             }
             return false;

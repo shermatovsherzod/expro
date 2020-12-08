@@ -46,6 +46,17 @@ namespace Expro.Models
                 .WithMany(b => b.Children)
                 .OnDelete(DeleteBehavior.ClientSetNull);
 
+            modelBuilder.Entity<CompanyLawArea>()
+                .HasKey(bc => new { bc.CompanyID, bc.LawAreaID });
+            modelBuilder.Entity<CompanyLawArea>()
+                .HasOne(bc => bc.Company)
+                .WithMany(b => b.CompanyLawAreas)
+                .HasForeignKey(bc => bc.CompanyID);
+            modelBuilder.Entity<CompanyLawArea>()
+                .HasOne(bc => bc.LawArea)
+                .WithMany(c => c.CompanyLawAreas)
+                .HasForeignKey(bc => bc.LawAreaID);
+
             //modelBuilder.Entity<ApplicationUser>()
             //    .HasOne(e => e.Avatar)
             //    .WithMany(c => c.UsersUsingThisAvatar);
@@ -64,7 +75,7 @@ namespace Expro.Models
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseLazyLoadingProxies();
+            optionsBuilder.UseLazyLoadingProxies();            
         }
 
 
@@ -97,5 +108,11 @@ namespace Expro.Models
         public DbSet<UserStatus> UserStatuses { get; set; }
         public DbSet<DocumentAnswer> DocumentAnswers { get; set; }
         public DbSet<DocumentAnswerLike> DocumentAnswerLikes { get; set; }
+        public DbSet<Company> Companies { get; set; }
+        public DbSet<CompanyStatus> CompanyStatuses { get; set; }
+        public DbSet<Resume> Resumes { get; set; }
+        public DbSet<ResumeStatus> ResumeStatuses { get; set; }
+        public DbSet<Vacancy> Vacancies { get; set; }
+        public DbSet<VacancyStatus> VacancyStatuses { get; set; }
     }
 }

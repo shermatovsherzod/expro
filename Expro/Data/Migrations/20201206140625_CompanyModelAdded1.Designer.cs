@@ -4,14 +4,16 @@ using Expro.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Expro.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20201206140625_CompanyModelAdded1")]
+    partial class CompanyModelAdded1
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -323,21 +325,6 @@ namespace Expro.Data.Migrations
                     b.HasIndex("RegionID");
 
                     b.ToTable("Companies");
-                });
-
-            modelBuilder.Entity("Expro.Models.CompanyLawArea", b =>
-                {
-                    b.Property<int>("CompanyID")
-                        .HasColumnType("int");
-
-                    b.Property<int>("LawAreaID")
-                        .HasColumnType("int");
-
-                    b.HasKey("CompanyID", "LawAreaID");
-
-                    b.HasIndex("LawAreaID");
-
-                    b.ToTable("CompanyLawArea");
                 });
 
             modelBuilder.Entity("Expro.Models.CompanyStatus", b =>
@@ -689,6 +676,9 @@ namespace Expro.Data.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<int?>("CompanyID")
+                        .HasColumnType("int");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -697,6 +687,8 @@ namespace Expro.Data.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("ID");
+
+                    b.HasIndex("CompanyID");
 
                     b.HasIndex("ParentID");
 
@@ -756,126 +748,6 @@ namespace Expro.Data.Migrations
                     b.HasKey("ID");
 
                     b.ToTable("Regions");
-                });
-
-            modelBuilder.Entity("Expro.Models.Resume", b =>
-                {
-                    b.Property<int>("ID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int?>("CityID")
-                        .HasColumnType("int");
-
-                    b.Property<string>("CityOther")
-                        .HasColumnType("nvarchar(256)")
-                        .HasMaxLength(256);
-
-                    b.Property<string>("Contact")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(400)")
-                        .HasMaxLength(400);
-
-                    b.Property<string>("CreatedBy")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<DateTime?>("DateApproved")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime>("DateCreated")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime>("DateModified")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime>("DateOfBirth")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime?>("DateRejected")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime?>("DateSubmittedForApproval")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Education")
-                        .HasColumnType("nvarchar(256)")
-                        .HasMaxLength(256);
-
-                    b.Property<string>("FirstName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(100)")
-                        .HasMaxLength(100);
-
-                    b.Property<DateTime?>("GraduationDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("Languages")
-                        .HasColumnType("nvarchar(256)")
-                        .HasMaxLength(256);
-
-                    b.Property<string>("LastName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(100)")
-                        .HasMaxLength(100);
-
-                    b.Property<string>("ModifiedBy")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("OtherInfo")
-                        .HasColumnType("nvarchar(256)")
-                        .HasMaxLength(256);
-
-                    b.Property<string>("PatronymicName")
-                        .HasColumnType("nvarchar(100)")
-                        .HasMaxLength(100);
-
-                    b.Property<int?>("RegionID")
-                        .HasColumnType("int");
-
-                    b.Property<string>("RejectedReasonText")
-                        .HasColumnType("nvarchar(256)")
-                        .HasMaxLength(256);
-
-                    b.Property<int>("ResumeStatusID")
-                        .HasColumnType("int");
-
-                    b.Property<string>("WorkExperience")
-                        .HasColumnType("nvarchar(256)")
-                        .HasMaxLength(256);
-
-                    b.HasKey("ID");
-
-                    b.HasIndex("CityID");
-
-                    b.HasIndex("CreatedBy");
-
-                    b.HasIndex("ModifiedBy");
-
-                    b.HasIndex("RegionID");
-
-                    b.HasIndex("ResumeStatusID");
-
-                    b.ToTable("Resumes");
-                });
-
-            modelBuilder.Entity("Expro.Models.ResumeStatus", b =>
-                {
-                    b.Property<int>("ID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("ID");
-
-                    b.ToTable("ResumeStatuses");
                 });
 
             modelBuilder.Entity("Expro.Models.UserLawArea", b =>
@@ -938,112 +810,6 @@ namespace Expro.Data.Migrations
                     b.HasKey("ID");
 
                     b.ToTable("UserStatuses");
-                });
-
-            modelBuilder.Entity("Expro.Models.Vacancy", b =>
-                {
-                    b.Property<int>("ID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int?>("CityID")
-                        .HasColumnType("int");
-
-                    b.Property<string>("CityOther")
-                        .HasColumnType("nvarchar(256)")
-                        .HasMaxLength(256);
-
-                    b.Property<string>("Company")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(400)")
-                        .HasMaxLength(400);
-
-                    b.Property<string>("Contacts")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(1000)")
-                        .HasMaxLength(1000);
-
-                    b.Property<string>("CreatedBy")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<DateTime?>("DateApproved")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime>("DateCreated")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime>("DateModified")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime?>("DateRejected")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime?>("DateSubmittedForApproval")
-                        .HasColumnType("datetime2");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("ModifiedBy")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("Position")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(400)")
-                        .HasMaxLength(400);
-
-                    b.Property<int?>("RegionID")
-                        .HasColumnType("int");
-
-                    b.Property<string>("RejectedReasonText")
-                        .HasColumnType("nvarchar(256)")
-                        .HasMaxLength(256);
-
-                    b.Property<string>("Requirements")
-                        .HasColumnType("nvarchar(2000)")
-                        .HasMaxLength(2000);
-
-                    b.Property<string>("Responsibility")
-                        .HasColumnType("nvarchar(2000)")
-                        .HasMaxLength(2000);
-
-                    b.Property<string>("Salary")
-                        .HasColumnType("nvarchar(256)")
-                        .HasMaxLength(256);
-
-                    b.Property<int>("VacancyStatusID")
-                        .HasColumnType("int");
-
-                    b.HasKey("ID");
-
-                    b.HasIndex("CityID");
-
-                    b.HasIndex("CreatedBy");
-
-                    b.HasIndex("ModifiedBy");
-
-                    b.HasIndex("RegionID");
-
-                    b.HasIndex("VacancyStatusID");
-
-                    b.ToTable("Vacancies");
-                });
-
-            modelBuilder.Entity("Expro.Models.VacancyStatus", b =>
-                {
-                    b.Property<int>("ID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("ID");
-
-                    b.ToTable("VacancyStatuses");
                 });
 
             modelBuilder.Entity("Expro.Models.WithdrawRequest", b =>
@@ -1547,21 +1313,6 @@ namespace Expro.Data.Migrations
                         .HasForeignKey("RegionID");
                 });
 
-            modelBuilder.Entity("Expro.Models.CompanyLawArea", b =>
-                {
-                    b.HasOne("Expro.Models.Company", "Company")
-                        .WithMany("CompanyLawAreas")
-                        .HasForeignKey("CompanyID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Expro.Models.LawArea", "LawArea")
-                        .WithMany("CompanyLawAreas")
-                        .HasForeignKey("LawAreaID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
             modelBuilder.Entity("Expro.Models.Document", b =>
                 {
                     b.HasOne("Expro.Models.Attachment", "Attachment")
@@ -1676,6 +1427,10 @@ namespace Expro.Data.Migrations
 
             modelBuilder.Entity("Expro.Models.LawArea", b =>
                 {
+                    b.HasOne("Expro.Models.Company", null)
+                        .WithMany("CompanyLawAreas")
+                        .HasForeignKey("CompanyID");
+
                     b.HasOne("Expro.Models.LawArea", "Parent")
                         .WithMany("Children")
                         .HasForeignKey("ParentID");
@@ -1694,31 +1449,6 @@ namespace Expro.Data.Migrations
                     b.HasOne("Expro.Models.ApplicationUser", "Modifier")
                         .WithMany()
                         .HasForeignKey("ModifiedBy");
-                });
-
-            modelBuilder.Entity("Expro.Models.Resume", b =>
-                {
-                    b.HasOne("Expro.Models.City", "City")
-                        .WithMany()
-                        .HasForeignKey("CityID");
-
-                    b.HasOne("Expro.Models.ApplicationUser", "Creator")
-                        .WithMany()
-                        .HasForeignKey("CreatedBy");
-
-                    b.HasOne("Expro.Models.ApplicationUser", "Modifier")
-                        .WithMany()
-                        .HasForeignKey("ModifiedBy");
-
-                    b.HasOne("Expro.Models.Region", "Region")
-                        .WithMany()
-                        .HasForeignKey("RegionID");
-
-                    b.HasOne("Expro.Models.ResumeStatus", "ResumeStatus")
-                        .WithMany()
-                        .HasForeignKey("ResumeStatusID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
                 });
 
             modelBuilder.Entity("Expro.Models.UserLawArea", b =>
@@ -1747,31 +1477,6 @@ namespace Expro.Data.Migrations
                     b.HasOne("Expro.Models.ApplicationUser", "User")
                         .WithMany("DocumentsPurchased")
                         .HasForeignKey("UserID");
-                });
-
-            modelBuilder.Entity("Expro.Models.Vacancy", b =>
-                {
-                    b.HasOne("Expro.Models.City", "City")
-                        .WithMany()
-                        .HasForeignKey("CityID");
-
-                    b.HasOne("Expro.Models.ApplicationUser", "Creator")
-                        .WithMany()
-                        .HasForeignKey("CreatedBy");
-
-                    b.HasOne("Expro.Models.ApplicationUser", "Modifier")
-                        .WithMany()
-                        .HasForeignKey("ModifiedBy");
-
-                    b.HasOne("Expro.Models.Region", "Region")
-                        .WithMany()
-                        .HasForeignKey("RegionID");
-
-                    b.HasOne("Expro.Models.VacancyStatus", "VacancyStatus")
-                        .WithMany()
-                        .HasForeignKey("VacancyStatusID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
                 });
 
             modelBuilder.Entity("Expro.Models.WithdrawRequest", b =>
