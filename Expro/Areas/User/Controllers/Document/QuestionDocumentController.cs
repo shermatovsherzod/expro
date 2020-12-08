@@ -226,8 +226,12 @@ namespace Expro.Areas.User.Controllers
 
                     if (modelVM.ActionType == DocumentActionTypesEnum.submitForApproval)
                     {
-                        QuestionDocumentService.SubmitForApproval(model, curUser.ID);
                         ApplicationUser curAppUser = await _userManager.GetUserAsync(User);
+                        int curUserBalance = UserBalanceService.GetBalance(curAppUser);
+                        if (curUserBalance < model.Price)
+                            throw new Exception("На Вашем балансе недостаточно средств");
+
+                        QuestionDocumentService.SubmitForApproval(model, curUser.ID);
 
                         if (priceType == DocumentPriceTypesEnum.Paid)
                             UserBalanceService.TakeOffBalance(curAppUser, model.Price.Value);
