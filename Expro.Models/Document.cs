@@ -48,6 +48,9 @@ namespace Expro.Models
         public int NumberOfViews { get; set; }
         public int NumberOfPurchases { get; set; }
 
+        public bool? QuestionIsCompleted { get; set; }
+        public DateTime? DateQuestionCompleted { get; set; }
+
         [InverseProperty("Document")]
         public virtual ICollection<UserPurchasedDocument> UsersPurchasedThisDocument { get; set; }
 

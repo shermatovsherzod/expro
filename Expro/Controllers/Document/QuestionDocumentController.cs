@@ -66,10 +66,29 @@ namespace Expro.Controllers
 
             QuestionDetailsForSiteVM documentVM = new QuestionDetailsForSiteVM(document);
 
+            bool curUserIsAllowedToAnswer = false;
+            bool curUserIsAllowedToComment = false;
+
+            if (User.Identity.IsAuthenticated)
+            {
+                var curUser = accountUtil.GetCurrentUser(User);
+                if (curUser.IsExpert)
+                {
+                    curUserIsAllowedToAnswer = true;
+                    curUserIsAllowedToComment = true;
+                }
+                else if(DocumentService.BelongsToUser(document, curUser.ID))
+                    curUserIsAllowedToComment = true;
+            }
+
+            ViewData["curUserIsAllowedToAnswer"] = curUserIsAllowedToAnswer;
+            ViewData["curUserIsAllowedToComment"] = curUserIsAllowedToComment;
+
             return View(documentVM);
         }
 
         //ajax
+        //expertPolicy
         [HttpPost]
         public IActionResult AddAnswer(/*[FromBody]*/ QuestionAnswerCreateVM answerCreateVM)
         {
@@ -84,6 +103,66 @@ namespace Expro.Controllers
                 DocumentAnswerService.Add(answer, curUser.ID);
 
                 return Ok(new { id = answer.ID });
+            }
+            catch (Exception ex)
+            {
+                return CustomBadRequest(ex);
+            }
+        }
+
+        //ajax
+        [HttpPost]
+        public IActionResult SaveDistribution([FromBody] QuestionFeeDistributionVM distributedAnswers)
+        {
+            try
+            {
+                var question = DocumentService.GetByID(distributedAnswers.QuestionDocumentID);
+                if (question == null)
+                    throw new Exception("Вопрос не найден");
+
+                if (question.PriceType != DocumentPriceTypesEnum.Paid
+                    || !question.Price.HasValue)
+                {
+                    throw new Exception("Вопрос не имеет гонорара");
+                }
+
+                if (distributedAnswers == null 
+                    || distributedAnswers.Answers == null
+                    || distributedAnswers.Answers.Count == 0)
+                {
+                    throw new Exception("Выберите хотя бы один ответ");
+                }
+
+                var percentages = distributedAnswers.Answers
+                    .Select(m => m.Percentage)
+                    .ToList();
+                if (!DocumentAnswerService.DistributionIsCorrect(percentages))
+                    throw new Exception("Суммарно должно быть 100%");
+
+                foreach (var item in distributedAnswers.Answers)
+                {
+                    var answer = DocumentAnswerService.GetByID(item.AnswerID);
+                    if (answer == null)
+                        throw new Exception("Что-то не то с выбранными ответами");
+
+                    answer.PaidFee = DocumentAnswerService.CalculatePaidFee(question.Price.Value, item.Percentage);
+                }
+
+                var curUser = accountUtil.GetCurrentUser(User);
+                DocumentService.CompleteQuestion(question, curUser.ID);
+
+
+                //var curUser = accountUtil.GetCurrentUser(User);
+                //var document = DocumentService.GetApprovedByID(answerCreateVM.DocumentID);
+                //if (document == null)
+                //    throw new Exception("Вопрос не найден");
+
+                //DocumentAnswer answer = answerCreateVM.ToModel();
+                //DocumentAnswerService.Add(answer, curUser.ID);
+
+                //return Ok(new { id = answer.ID });
+
+                return Ok(new { successMessage = "Гонорар успешно распределен" });
             }
             catch (Exception ex)
             {

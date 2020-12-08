@@ -1,4 +1,4 @@
-﻿@model Expro.ViewModels.QuestionAnswerCreateVM
+﻿@model IEnumerable<Expro.ViewModels.QuestionAnswerDetailsVM>
 @using Expro.Common
 
 @{
@@ -6,29 +6,135 @@
     int documentID = int.Parse(ViewData["objectID"].ToString());
 }
 
-<form asp-action="AddAnswer" asp-controller="QuestionDocument" id="addAnswerForm" onsubmit="SubmitAnswerForm()"
-      data-ajax="true"
-      data-ajax-method="POST"
-      data-ajax-error="AnswerPostError"
-      data-ajax-success="AnswerPostSuccess"
-      data-ajax-complete="AnswerPostCompleted">
-    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-    <div class="form-group">
-        <label asp-for="Text" class="control-label"></label>
-        <textarea asp-for="Text" id="answerText" class="form-control ckeditorEditMode"></textarea>
-        <span asp-validation-for="Text" class="text-danger"></span>
+<!-- The Modal -->
+<div class="modal" id="moneyDistributionModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h4 class="modal-title">@*Modal Heading*@</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+
+            <!-- Modal body -->
+            <div class="modal-body">
+                <table class="table table-bordered table-hover">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            @*<th>Ответ</th>*@
+                            <th>Эксперт</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @{
+                            int i = 1;
+                        }
+                        @foreach (var answer in Model)
+                        {
+                            <tr id="answerForDistribution_@answer.ID">
+                                <td>@i</td>
+                                @*<td></td>*@
+                                <td>@answer.Author.FullName</td>
+                                <td>
+                                    <select class="form-control" data-answerid="@answer.ID">
+                                        <option></option>
+                                        <option value="50">50%</option>
+                                        <option value="100">100%</option>
+                                    </select>
+                                </td>
+                            </tr>
+
+                            i++;
+                        }
+                    </tbody>
+                </table>
+                <br />
+                <div class="alert alert-danger errorMessage" style="display: none;"></div>
+                <div class="alert alert-success successMessage" style="display: none;"></div>
+            </div>
+
+            <!-- Modal footer -->
+            <div class="modal-footer">
+                <div class="spinner-border spinner" style="display: none;"></div>
+                <button type="button" class="btn btn-primary" onclick="SubmitDistribution();">Ок</button>
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Отмена</button>
+            </div>
+
+        </div>
     </div>
-    <div class="form-group">
-        <label for="attachmentID" class="control-label"></label>
-        <input type="file" id="addAnswerFormAttachment" class="form-control" />
-    </div>
-    <div class="form-group">
-        <button type="submit" class="btn btn-primary">Отправить</button>
-        <div class="spinner-border spinner" style="display: none;"></div>
-    </div>
-</form>
+</div>
 
 <script>
+    function SubmitDistribution() {
+        var distributionData = [];
+
+        var distributionRows = $("#moneyDistributionModal table tbody tr select");
+        for (var i = 0; i < distributionRows.length; i++) {
+            var percentage = $(distributionRows[i]).val();
+            if (percentage == undefined || percentage == "")
+                continue;
+
+            distributionData.push({
+                AnswerID: $(distributionRows[i]).data("answerid"),
+                Percentage: Number(percentage)
+            });
+        }
+
+        SubmitDistributionDataViaAjax(distributionData);
+    }
+
+    function SubmitDistributionDataViaAjax(distributionData) {
+        var data = {
+            QuestionDocumentID: @documentID,
+            Answers: distributionData
+        };
+
+        $.ajax({
+            url: "/QuestionDocument/SaveDistribution",
+            data: JSON.stringify(data),
+            processData: false,
+            contentType: "application/json; charset=utf-8",
+            type: "POST",
+            //dataType: "json",
+            beforeSend: function () {
+                $(".errorMessage, .successMessage").hide().text("");
+                $("#moneyDistributionModal .spinner").show();
+                $("button").attr("disabled", "disabled");
+            },
+            success: function (data) {
+                $("#moneyDistributionModal .successMessage")
+                    .text(data.successMessage)
+                    .show();
+                
+                location.reload();
+                //alert("File uploaded!");
+            },
+            error: function (data) {
+                $("#moneyDistributionModal .errorMessage")
+                    .text(data.responseJSON.errorMessage)
+                    .show();
+                $("#moneyDistributionModal .spinner").hide();
+                $("button").removeAttr("disabled");
+            },
+            complete: function () {
+                //$("#" + spinnerTagID).hide();
+                //$(input).removeAttr("disabled");
+            }
+        });
+    }
+
+
+
+
+
+
+
+
+
+
     var input;
     var answerID = 0;
 
@@ -190,3 +296,4 @@
         }
     }
 </script>
+

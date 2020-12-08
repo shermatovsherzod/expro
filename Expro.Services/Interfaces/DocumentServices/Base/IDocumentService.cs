@@ -19,5 +19,7 @@ namespace Expro.Services.Interfaces
         IQueryable<Document> GetAllByCreator(string userID);
         bool IsFree(Document model);
         IQueryable<Document> GetAllPurchasedByUser(string purchasedUserID);
+
+        void CompleteQuestion(Document question, string userID);
     }
 }

@@ -336,6 +336,7 @@
     <None Include="wwwroot\lib\ckeditor_4.15.0_standard\ckeditor\plugins\a11yhelp\dialogs\lang\zh-cn.js" />
     <None Include="wwwroot\lib\ckeditor_4.15.0_standard\ckeditor\plugins\a11yhelp\dialogs\lang\zh.js" />
     <None Include="wwwroot\lib\ckeditor_4.15.0_standard\ckeditor\plugins\about\dialogs\about.js" />
+    <None Include="wwwroot\lib\ckeditor_4.15.0_standard\ckeditor\plugins\autogrow\plugin.js" />
     <None Include="wwwroot\lib\ckeditor_4.15.0_standard\ckeditor\plugins\clipboard\dialogs\paste.js" />
     <None Include="wwwroot\lib\ckeditor_4.15.0_standard\ckeditor\plugins\dialog\dialogDefinition.js" />
     <None Include="wwwroot\lib\ckeditor_4.15.0_standard\ckeditor\plugins\image\dialogs\image.js" />

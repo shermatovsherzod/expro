@@ -4,14 +4,16 @@ using Expro.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Expro.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20201206081804_DocumentAnswerComment_removedID")]
+    partial class DocumentAnswerComment_removedID
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -273,9 +275,6 @@ namespace Expro.Data.Migrations
                     b.Property<DateTime>("DateModified")
                         .HasColumnType("datetime2");
 
-                    b.Property<DateTime?>("DateQuestionCompleted")
-                        .HasColumnType("datetime2");
-
                     b.Property<DateTime?>("DateRejected")
                         .HasColumnType("datetime2");
 
@@ -308,9 +307,6 @@ namespace Expro.Data.Migrations
 
                     b.Property<int>("PriceType")
                         .HasColumnType("int");
-
-                    b.Property<bool?>("QuestionIsCompleted")
-                        .HasColumnType("bit");
 
                     b.Property<DateTime?>("RejectionDeadline")
                         .HasColumnType("datetime2");
@@ -370,9 +366,6 @@ namespace Expro.Data.Migrations
 
                     b.Property<string>("ModifiedBy")
                         .HasColumnType("nvarchar(450)");
-
-                    b.Property<int?>("PaidFee")
-                        .HasColumnType("int");
 
                     b.Property<string>("Text")
                         .HasColumnType("nvarchar(max)");

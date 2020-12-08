@@ -13,8 +13,12 @@
 @await Html.PartialAsync("/Areas/Admin/Views/DocumentPartials/_Details.cshtml", Model)
 
 @section Scripts {
+    <script src="~/lib/ckeditor_4.15.0_standard/ckeditor/ckeditor.js"></script>
     <script src="~/js/Areas/Admin/Document/Details.js"></script>
     <script>
         SetDocumentType("@ViewData["DocumentType"]");
+
+        CKEDITOR.config.readOnly = true;
+        CKEDITOR.replace('Text')
     </script>
 }

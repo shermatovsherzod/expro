@@ -1,11 +1,13 @@
 ﻿@model Expro.ViewModels.QuestionDetailsForSiteVM
-@using Expro.ViewModels 
+@using Expro.ViewModels
 @using Expro.Models.Enums
 @using Expro.Common
 
 @{
     ViewData["Title"] = "Вопрос - детали";
     //ViewData["DocumentType"] = DocumentTypesEnum.QuestionDocument;
+    bool? curUserIsAllowedToAnswer = ViewData["curUserIsAllowedToAnswer"] as bool?;
+    bool? curUserIsAllowedToComment = ViewData["curUserIsAllowedToComment"] as bool?;
 }
 
 <h1>@ViewData["Title"]</h1>
@@ -71,27 +73,39 @@
 <hr />
 <h3>Ответы</h3>
 <div class="row" id="answers">
-    <div class="col-12">
-        <button data-toggle="collapse" data-target="#addAnswerContainer">Написать ответ</button>
+    <div class="col-12" style="margin-bottom: 20px; margin-top: 20px;">
+        <button class="btn btn-info" data-toggle="modal" data-target="#moneyDistributionModal">Распределить гонорар</button>
     </div>
+
+    @if (curUserIsAllowedToAnswer.Value)
+    {
+        <div class="col-12" style="margin-bottom: 20px; margin-top: 20px;">
+            <button class="btn btn-success" data-toggle="collapse" data-target="#addAnswerContainer">Написать ответ</button>
+        </div>
+    }
+
     @if (Model.Answers.Count > 0)
     {
         foreach (var answer in Model.Answers)
         {
             <div class="col-12">
-                <div class="card" style="margin-bottom: 20px;">
-                    <div class="card-header">@answer.Author.FullName @answer.DatePublished</div>
+                <div class="card bg-light text-dark" style="margin-bottom: 20px;">
+                    <div class="card-header">Ответ от @answer.Author.FullName @answer.DatePublished</div>
                     <div class="card-body">
-                        <p>@Html.Raw(answer.Text)</p>
+                        <textarea class="editorViewMode" id="answerText_@answer.ID">@Html.Raw(answer.Text)</textarea>
                         @if (answer.Attachment.ID > 0)
                         {
                             <p><a href="@answer.Attachment.Url">@answer.Attachment.DisplayName</a></p>
                             <br />
                         }
                         <p>Лайки: @answer.PositiveLikesCount, Дислайки: @answer.NegativeLikesCount</p>
+                        @if (curUserIsAllowedToComment.Value)
+                        {
+                            <p><button class="btn btn-link" data-toggle="collapse" data-target="#addCommentContainer" onclick="SetCommentObjectID(@answer.ID);">Комментировать</button></p>
+                        }
                     </div>
                     <div class="card-footer">
-                        @{ 
+                        @{
                             Stack<CommentDetailsVM> commentsStack = new Stack<CommentDetailsVM>();
 
                             var rootComments = answer.Comments.Where(m => !m.ParentID.HasValue).OrderByDescending(m => m.ID).ToList();
@@ -110,8 +124,23 @@
                                 paddingInt = currentComment.DepthLevel * 20;
                                 string paddingStr = paddingInt + "px";
 
-                                <div style="padding-left: @paddingStr">
-                                    <p>@Html.Raw(currentComment.Text)</p>
+                                <div style="padding-left: @paddingStr; margin-bottom: 20px;">
+                                    <div class="card">
+                                        <div class="card-header">@currentComment.Author.FullName @currentComment.DatePublished</div>
+                                        <div class="card-body">
+                                            <textarea class="editorViewMode" id="commentText_@currentComment.ID">@Html.Raw(currentComment.Text)</textarea>
+                                            @*<p>@Html.Raw(currentComment.Text)</p>*@
+                                            @if (currentComment.Attachment.ID > 0)
+                                            {
+                                                <p><a href="@currentComment.Attachment.Url">@currentComment.Attachment.DisplayName</a></p>
+                                                <br />
+                                            }
+                                            @if (curUserIsAllowedToComment.Value)
+                                            {
+                                                <p><button class="btn btn-link" data-toggle="collapse" data-target="#addCommentContainer" onclick="SetCommentObjectID(@answer.ID, @currentComment.ID);">Комментировать</button></p>
+                                            }
+                                        </div>
+                                    </div>
                                 </div>
 
                                 var children = answer.Comments.Where(m => m.ParentID == currentComment.ID).OrderByDescending(m => m.ID).ToList();
@@ -124,42 +153,112 @@
                                     }
                                 }
                             }
-                        } 
+                        }
                     </div>
                 </div>
             </div>
-                                }
-                            }
-                            else
-                            {
-        <p>Пока ничего нет</p>
-                            }
+        }
+
+        if (curUserIsAllowedToAnswer.Value)
+        {
+            <div class="col-12" style="margin-bottom: 20px; margin-top: 20px;">
+                <button class="btn btn-success" data-toggle="collapse" data-target="#addAnswerContainer">Написать ответ</button>
+            </div>
+        }
+    }
+    else
+    {
+        <p><small>Ответов нет</small></p>
+    }
 </div>
 
 @{
     ViewData["objectID"] = Model.ID;
-    <div id="addAnswerContainer" class="collapse">
-        @{ await Html.RenderPartialAsync("_AnswerCreateFormPartial", new Expro.ViewModels.QuestionAnswerCreateVM()); }
-    </div>
+    if (curUserIsAllowedToAnswer.Value)
+    {
+        <div id="addAnswerContainer" class="collapse">
+            @{ await Html.RenderPartialAsync("_AnswerCreateFormPartial", new Expro.ViewModels.QuestionAnswerCreateVM()); }
+        </div>
+    }
 
-    
+    if (curUserIsAllowedToComment.Value)
+    {
+        ViewData["commentType"] = Constants.CommentTypes.DOCUMENT_ANSWER;
+        <div id="addCommentContainer" class="collapse">
+            @{ await Html.RenderPartialAsync("_CommentCreateFormPartial", new Expro.ViewModels.CommentCreateVM()); }
+        </div>
+    }
 
-    ////ViewData["targetContainerID"] = "comments";
-    //ViewData["objectID"] = Model.ID;
-    //ViewData["commentType"] = Constants.CommentTypes.DOCUMENT;
-
-    //await Html.RenderPartialAsync("_CommentCreateFormPartial", new Expro.ViewModels.CommentCreateVM());
+    await Html.RenderPartialAsync("_MoneyDistributionFormPartial", Model.Answers);
 }
 
 <div>
     <a asp-action="Index">Назад</a>
 </div>
 
+<style>
+    /*.cke_reset {
+        border: none !important;
+    }*/
+
+    #answers .cke_reset .cke_top, 
+    #answers .cke_reset .cke_bottom {
+        display: none !important;
+    }
+</style>
+
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-@*<script>
-    $(document).ready(function () {
 
-    });
-</script>*@
+    <script src="~/lib/ckeditor_4.15.0_standard/ckeditor/ckeditor.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            InitCollapsibleItems();
+            InitCKEDITORForView();
+            InitCKEDITOR();
+        });
+
+        function InitCollapsibleItems() {
+            $(".collapse#addAnswerContainer").on('shown.bs.collapse', function () {
+                $([document.documentElement, document.body]).animate({
+                    scrollTop: $(".collapse#addAnswerContainer").offset().top
+                }, 500);
+            });
+
+            $(".collapse#addCommentContainer").on('shown.bs.collapse', function () {
+                $([document.documentElement, document.body]).animate({
+                    scrollTop: $(".collapse#addCommentContainer").offset().top
+                }, 500);
+            });
+        }
+
+        function InitCKEDITORForView() {
+            var configViewMode =
+            {
+                extraPlugins: 'autogrow',
+                autoGrow_minHeight: 1,
+                autoGrow_maxHeight: 100000,
+                autoGrow_onStartup: true,
+                readOnly: true
+            }
+
+            $('.editorViewMode').each(function (e) {
+                CKEDITOR.replace(this.id, configViewMode );
+            });
+
+            //CKEDITOR.config.extraPlugins = 'autogrow';
+            //CKEDITOR.config.autoGrow_minHeight = 50;
+            //CKEDITOR.config.autoGrow_maxHeight = 100000;
+            //CKEDITOR.config.autoGrow_onStartup = true;
+            //CKEDITOR.config.readOnly = true;
+        }
+
+        function InitCKEDITOR() {
+            $('.ckeditorEditMode').each(function (e) {
+                CKEDITOR.replace(this.id);
+            });
+            
+        }
+    </script>
 }

@@ -209,5 +209,13 @@ namespace Expro.Services
         {
             return inputDateTime.Date.AddDays(1).AddSeconds(-1);
         }
+
+        public void CompleteQuestion(Document question, string userID)
+        {
+            question.QuestionIsCompleted = true;
+            question.DateQuestionCompleted = DateTime.Now;
+
+            Update(question, userID);
+        }
     }
 }

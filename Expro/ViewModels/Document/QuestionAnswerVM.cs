@@ -13,6 +13,7 @@ namespace Expro.ViewModels
         public int DocumentID { get; set; }
 
         [Required]
+        [Display(Name = "Текст ответа")]
         public string Text { get; set; }
 
         public DocumentAnswer ToModel()
@@ -76,19 +77,15 @@ namespace Expro.ViewModels
         }
     }
 
-    //public class CommentLikeVM : BaseVM
-    //{
+    public class QuestionFeeDistributionVM
+    {
+        public int QuestionDocumentID { get; set; }
+        public List<DistributedQuestionAnswerVM> Answers { get; set; }
+    }
 
-
-    //    public CommentLikeVM() { }
-
-    //    public CommentLikeVM(CommentLike model)
-    //        : base(model)
-    //    {
-    //        if (model == null)
-    //            return;
-
-
-    //    }
-    //}
+    public class DistributedQuestionAnswerVM
+    {
+        public int AnswerID { get; set; }
+        public int Percentage { get; set; }
+    }
 }
