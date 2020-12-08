@@ -16,7 +16,7 @@ namespace Expro.Services
     //public class DocumentAdminActionsService : 
     public class DocumentAdminActionsService : IDocumentAdminActionsService
     {
-        private IDocumentService DocumentService;
+        protected IDocumentService DocumentService;
 
         public DocumentAdminActionsService() { }
 
@@ -38,7 +38,7 @@ namespace Expro.Services
             return StatusIsWaitingForApproval(entity);
         }
 
-        public void Approve(Document entity, string userID)
+        public virtual void Approve(Document entity, string userID)
         {
             entity.DocumentStatusID = (int)DocumentStatusesEnum.Approved;
             entity.DateApproved = DateTime.Now;
@@ -65,6 +65,39 @@ namespace Expro.Services
                 return;
 
             Reject(model, "634a8718-167d-4b77-98bb-7548340e95b2"); //add botUser
+        }
+    }
+
+    public class QuestionDocumentAdminActionsService : DocumentAdminActionsService, IQuestionDocumentAdminActionsService
+    {
+        protected IQuestionDocumentService QuestionDocumentService;
+
+        public QuestionDocumentAdminActionsService() { }
+
+        public QuestionDocumentAdminActionsService(IQuestionDocumentService questionDocumentService)
+            : base (questionDocumentService)
+        {
+            QuestionDocumentService = questionDocumentService;
+        }
+
+        public override void Approve(Document entity, string userID)
+        {
+            base.Approve(entity, userID);
+
+#if DEBUG
+            entity.QuestionCompletionDeadline = entity.DateApproved.Value.AddMinutes(2);
+#else
+            entity.QuestionCompletionDeadline = DocumentService.RoundToUp(entity.DateApproved.Value.AddMinutes(7200)); //5 days
+#endif
+            DocumentService.Update(entity, userID);
+        }
+
+        public void CompletionDeadlineReaches(Document document)
+        {
+            if (QuestionDocumentService.IsCompleted(document))
+                return;
+
+            QuestionDocumentService.Complete(document, "634a8718-167d-4b77-98bb-7548340e95b2"); //add botUser
         }
     }
 }

@@ -11,14 +11,17 @@ namespace Expro.Services
     {
         private readonly IDocumentService DocumentService;
         private readonly IDocumentAdminActionsService DocumentAdminActionsService;
+        private readonly IQuestionDocumentAdminActionsService QuestionDocumentAdminActionsService;
         //private readonly IAttachmentService AttachmentService;
 
         public HangfireService(
             IDocumentService documentService,
-            IDocumentAdminActionsService documentAdminActionsService)
+            IDocumentAdminActionsService documentAdminActionsService,
+            IQuestionDocumentAdminActionsService questionDocumentAdminActionsService)
         {
             DocumentService = documentService;
             DocumentAdminActionsService = documentAdminActionsService;
+            QuestionDocumentAdminActionsService = questionDocumentAdminActionsService;
         }
 
         public string CreateJobForDocumentRejectionDeadline(Document document)
@@ -36,6 +39,26 @@ namespace Expro.Services
             //{
             Document document = DocumentService.GetByID(documentID);
             DocumentAdminActionsService.RejectionDeadlineReaches(document);
+            //}
+            //catch (Exception ex)
+            //{ }
+        }
+
+        public string CreateJobForQuestionDocumentCompletionDeadline(Document document)
+        {
+            string jobID = BackgroundJob.Schedule(() =>
+                QuestionDocumentCompletionDeadlineReaches(document.ID),
+                new DateTimeOffset(document.QuestionCompletionDeadline.Value));
+
+            return jobID;
+        }
+
+        public void QuestionDocumentCompletionDeadlineReaches(int documentID)
+        {
+            //try
+            //{
+            Document document = DocumentService.GetByID(documentID);
+            QuestionDocumentAdminActionsService.CompletionDeadlineReaches(document);
             //}
             //catch (Exception ex)
             //{ }

@@ -17,7 +17,9 @@ namespace Expro.ViewModels
 
         //public List<CommentDetailsVM> Comments { get; set; }
         public List<QuestionAnswerDetailsVM> Answers { get; set; }
-        
+
+        public bool IsCompleted { get; set; }
+        public bool FeeIsDistributed { get; set; }
 
         public QuestionDetailsForSiteVM() { }
 
@@ -42,6 +44,9 @@ namespace Expro.ViewModels
             {
                 Answers.Add(new QuestionAnswerDetailsVM(item));
             }
+
+            IsCompleted = model.QuestionIsCompleted ?? false;
+            FeeIsDistributed = Answers.Any(m => m.PaidFee.HasValue);
         }
     }
 }

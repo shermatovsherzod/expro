@@ -46,6 +46,14 @@ namespace Expro.ViewModels
             }
         }
 
+        public bool IsAdmin
+        {
+            get
+            {
+                return UserType.HasValue && UserType.Value == UserTypesEnum.Admin;
+            }
+        }
+
         //public string PhoneNumber { get; set; }
         //public DateTime DateOfBirth { get; set; }     
         //public string PatronymicName { get; set; }

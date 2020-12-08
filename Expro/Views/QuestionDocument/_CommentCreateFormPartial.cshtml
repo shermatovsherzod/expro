@@ -47,8 +47,8 @@
     function SubmitCommentForm() {
         var isValid = $('#addCommentForm').valid();
         if (isValid) {
-            ShowFormSpinner();
-            DisableFormElements();
+            ShowCommentFormSpinner();
+            DisableCommentFormElements();
 
             $('#addCommentForm')
                 .append("<input type='hidden' name='ObjectID' value='" + commentObjectID + "' />")
@@ -61,11 +61,11 @@
             return false;
     }
 
-    function ShowFormSpinner() {
+    function ShowCommentFormSpinner() {
         $("#addCommentForm .spinner").show();
     }
 
-    function DisableFormElements() {
+    function DisableCommentFormElements() {
         $("#addCommentForm input").attr("readonly", "readonly");
         $("#addCommentForm textarea").attr("readonly", "readonly");
         $("#addCommentForm button").attr("disabled", "disabled");

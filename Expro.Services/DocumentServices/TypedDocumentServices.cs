@@ -42,11 +42,40 @@ namespace Expro.Services
 
     public class QuestionDocumentService : DocumentService, IQuestionDocumentService
     {
+
         public QuestionDocumentService(IDocumentRepository repository,
                            IUnitOfWork unitOfWork)
             : base(repository, unitOfWork)
         {
             _documentType = DocumentTypesEnum.QuestionDocument;
+        }
+
+        public void Complete(Document question, string userID)
+        {
+            question.QuestionIsCompleted = true;
+            question.DateQuestionCompleted = DateTime.Now;
+
+            Update(question, userID);
+        }
+
+        public bool AdminIsAllowedToComplete(Document question)
+        {
+            var now = DateTime.Now;
+
+            if (!question.DateApproved.HasValue)
+                return false;
+
+            //if (question.DateApproved.Value.AddDays(3) > now)
+            if (question.DateApproved.Value.AddMinutes(5) > now)
+                return true;
+
+            return false;
+        }
+
+        public bool IsCompleted(Document question)
+        {
+            return question.QuestionIsCompleted.HasValue ? 
+                question.QuestionIsCompleted.Value : false;
         }
     }
 }

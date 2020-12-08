@@ -35,8 +35,8 @@
     function SubmitAnswerForm() {
         var isValid = $('#addAnswerForm').valid();
         if (isValid) {
-            ShowFormSpinner();
-            DisableFormElements();
+            ShowAnswerFormSpinner();
+            DisableAnswerFormElements();
 
             $('#addAnswerForm')
                 .append("<input type='hidden' name='DocumentID' value='@documentID' />");
@@ -47,11 +47,11 @@
             return false;
     }
 
-    function ShowFormSpinner() {
+    function ShowAnswerFormSpinner() {
         $("#addAnswerForm .spinner").show();
     }
 
-    function DisableFormElements() {
+    function DisableAnswerFormElements() {
         $("#addAnswerForm input").attr("readonly", "readonly");
         $("#addAnswerForm textarea").attr("readonly", "readonly");
         $("#addAnswerForm button").attr("disabled", "disabled");

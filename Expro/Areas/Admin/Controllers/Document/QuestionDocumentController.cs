@@ -14,20 +14,24 @@ namespace Expro.Areas.Admin.Controllers
     [Area("Admin")]
     public class QuestionDocumentController : BaseDocumentController
     {
+        private readonly IQuestionDocumentAdminActionsService QuestionDocumentAdminActionsService;
+
         public QuestionDocumentController(
             IQuestionDocumentService questionDocumentService,
             IQuestionDocumentSearchService questionDocumentSearchService,
             IHangfireService hangfireService,
             IDocumentStatusService documentStatusService,
-            IDocumentAdminActionsService documentAdminActionsService)
+            IQuestionDocumentAdminActionsService questionDocumentAdminActionsService)
             : base(
                   questionDocumentService,
                   documentStatusService,
                   questionDocumentSearchService,
-                  documentAdminActionsService,
+                  questionDocumentAdminActionsService,
                   hangfireService)
         {
             ErrorDocumentNotFound = "Вопрос не найден";
+
+            QuestionDocumentAdminActionsService = questionDocumentAdminActionsService;
         }
 
         public override IActionResult Index()
@@ -51,7 +55,32 @@ namespace Expro.Areas.Admin.Controllers
         [HttpPost]
         public override IActionResult Approve(int id)
         {
-            return base.Approve(id);
+            //return base.Approve(id);
+            try
+            {
+                var document = DocumentService.GetByID(id);
+                if (document == null)
+                    throw new Exception(ErrorDocumentNotFound);
+
+                var curUser = accountUtil.GetCurrentUser(User);
+
+                if (!DocumentAdminActionsService.ApprovingIsAllowed(document))
+                    throw new Exception(ErrorUnableToConfirmDocument);
+
+                //cancel request/video
+                QuestionDocumentAdminActionsService.Approve(document, curUser.ID);
+                document.QuestionCompletionJobID = HangfireService.CreateJobForQuestionDocumentCompletionDeadline(document);
+                DocumentService.Update(document);
+
+                //cancel hangfire jobs
+                HangfireService.CancelJob(document.RejectionJobID);
+
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return CustomBadRequest(ex);
+            }
         }
 
         [HttpPost]
