@@ -66,7 +66,7 @@ namespace Expro.Services
                 return false;
 
             //if (question.DateApproved.Value.AddDays(3) > now)
-            if (question.DateApproved.Value.AddMinutes(5) > now)
+            if (question.DateApproved.Value.AddMinutes(1) > now)
                 return true;
 
             return false;

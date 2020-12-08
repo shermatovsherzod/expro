@@ -7,6 +7,7 @@ using Expro.Models;
 using Expro.Models.Enums;
 using Expro.Services.Interfaces;
 using Expro.ViewModels;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Expro.Areas.Admin.Controllers
@@ -15,13 +16,17 @@ namespace Expro.Areas.Admin.Controllers
     public class QuestionDocumentController : BaseDocumentController
     {
         private readonly IQuestionDocumentAdminActionsService QuestionDocumentAdminActionsService;
+        private readonly IUserBalanceService UserBalanceService;
+        private readonly UserManager<ApplicationUser> _userManager;
 
         public QuestionDocumentController(
             IQuestionDocumentService questionDocumentService,
             IQuestionDocumentSearchService questionDocumentSearchService,
             IHangfireService hangfireService,
             IDocumentStatusService documentStatusService,
-            IQuestionDocumentAdminActionsService questionDocumentAdminActionsService)
+            IQuestionDocumentAdminActionsService questionDocumentAdminActionsService,
+            IUserBalanceService userBalanceService,
+            UserManager<ApplicationUser> userManager)
             : base(
                   questionDocumentService,
                   documentStatusService,
@@ -32,6 +37,8 @@ namespace Expro.Areas.Admin.Controllers
             ErrorDocumentNotFound = "Вопрос не найден";
 
             QuestionDocumentAdminActionsService = questionDocumentAdminActionsService;
+            UserBalanceService = userBalanceService;
+            _userManager = userManager;
         }
 
         public override IActionResult Index()
@@ -67,7 +74,6 @@ namespace Expro.Areas.Admin.Controllers
                 if (!DocumentAdminActionsService.ApprovingIsAllowed(document))
                     throw new Exception(ErrorUnableToConfirmDocument);
 
-                //cancel request/video
                 QuestionDocumentAdminActionsService.Approve(document, curUser.ID);
                 document.QuestionCompletionJobID = HangfireService.CreateJobForQuestionDocumentCompletionDeadline(document);
                 DocumentService.Update(document);
@@ -86,7 +92,33 @@ namespace Expro.Areas.Admin.Controllers
         [HttpPost]
         public override IActionResult Reject(int id)
         {
-            return base.Reject(id);
+            //return base.Reject(id);
+            try
+            {
+                var document = DocumentService.GetByID(id);
+                if (document == null)
+                    throw new Exception(ErrorDocumentNotFound);
+
+                var curUser = accountUtil.GetCurrentUser(User);
+
+                if (!DocumentAdminActionsService.RejectingIsAllowed(document))
+                    throw new Exception(ErrorUnableToConfirmDocument);
+
+                if (document.PriceType == DocumentPriceTypesEnum.Paid)
+                {
+                    UserBalanceService.ReplenishBalance(document.Creator, document.Price.Value);
+                }
+                
+                DocumentAdminActionsService.Reject(document, curUser.ID);
+                
+                HangfireService.CancelJob(document.RejectionJobID);
+
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return CustomBadRequest(ex);
+            }
         }
     }
 }

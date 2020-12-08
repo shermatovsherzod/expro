@@ -17,6 +17,7 @@ namespace Expro.Controllers
     {
         private readonly IDocumentAnswerService DocumentAnswerService;
         private readonly IQuestionDocumentService QuestionDocumentService;
+        private readonly IHangfireService HangfireService;
 
         public QuestionDocumentController(
             IQuestionDocumentService questionDocumentService,
@@ -26,7 +27,8 @@ namespace Expro.Controllers
             UserManager<ApplicationUser> userManager,
             ILawAreaService lawAreaService,
             IDocumentCounterService documentCounterService,
-            IDocumentAnswerService documentAnswerService)
+            IDocumentAnswerService documentAnswerService,
+            IHangfireService hangfireService)
             : base(
                   questionDocumentService,
                   questionDocumentSearchService,
@@ -41,6 +43,7 @@ namespace Expro.Controllers
 
             QuestionDocumentService = questionDocumentService;
             DocumentAnswerService = documentAnswerService;
+            HangfireService = hangfireService;
         }
 
         public override IActionResult Index()
@@ -71,7 +74,7 @@ namespace Expro.Controllers
             bool curUserIsAllowedToAnswer = false;
             bool curUserIsAllowedToComment = false;
             bool curUserIsAllowedToDistributeFee = false;
-            bool curUserIsAdmin = false;
+            bool curUserIsAllowedToComplete = false;
 
             if (User.Identity.IsAuthenticated)
             {
@@ -88,15 +91,15 @@ namespace Expro.Controllers
                 }
                 else if (curUser.IsAdmin)
                 {
-                    curUserIsAdmin = true;
-                    curUserIsAllowedToDistributeFee = QuestionDocumentService.AdminIsAllowedToComplete(document);
+                    curUserIsAllowedToComplete = QuestionDocumentService.AdminIsAllowedToComplete(document);
+                    curUserIsAllowedToDistributeFee = true;
                 }
             }
 
             ViewData["curUserIsAllowedToAnswer"] = curUserIsAllowedToAnswer;
             ViewData["curUserIsAllowedToComment"] = curUserIsAllowedToComment;
             ViewData["curUserIsAllowedToDistributeFee"] = curUserIsAllowedToDistributeFee;
-            ViewData["curUserIsAdmin"] = curUserIsAdmin;
+            ViewData["curUserIsAllowedToComplete"] = curUserIsAllowedToComplete;
 
             return View(documentVM);
         }
@@ -169,6 +172,7 @@ namespace Expro.Controllers
 
                 var curUser = accountUtil.GetCurrentUser(User);
                 QuestionDocumentService.Complete(question, curUser.ID);
+                HangfireService.CancelJob(question.QuestionCompletionJobID);
 
                 return Ok(new { successMessage = "Гонорар успешно распределен" });
             }
@@ -199,6 +203,7 @@ namespace Expro.Controllers
 
                 var curUser = accountUtil.GetCurrentUser(User);
                 QuestionDocumentService.Complete(question, curUser.ID);
+                HangfireService.CancelJob(question.QuestionCompletionJobID);
 
                 return Ok(new { successMessage = "Гонорар успешно распределен" });
             }

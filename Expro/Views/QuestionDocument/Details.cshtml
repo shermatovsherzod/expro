@@ -9,7 +9,7 @@
     bool? curUserIsAllowedToAnswer = ViewData["curUserIsAllowedToAnswer"] as bool?;
     bool? curUserIsAllowedToComment = ViewData["curUserIsAllowedToComment"] as bool?;
     bool? curUserIsAllowedToDistributeFee = ViewData["curUserIsAllowedToDistributeFee"] as bool?;
-    bool? curUserIsAdmin = ViewData["curUserIsAdmin"] as bool?;
+    bool? curUserIsAllowedToComplete = ViewData["curUserIsAllowedToComplete"] as bool?;
 }
 
 <h1>@ViewData["Title"]</h1>
@@ -99,14 +99,14 @@
                 <div class="col-12" style="margin-bottom: 20px; margin-top: 20px;">
                     <button class="btn btn-info" data-toggle="modal" data-target="#moneyDistributionModal">Распределить гонорар</button>
                 </div>
+            }
 
-                if (curUserIsAdmin.Value)
-                {
-                    <div class="col-12" style="margin-bottom: 20px; margin-top: 20px;">
-                        <button class="btn btn-danger" id="closeQuestionBtn" onclick="CloseQuestion();">Закрыть вопрос</button>
-                        <div class="spinner-border spinner" style="display: none;"></div>
-                    </div>
-                }
+            if (curUserIsAllowedToComplete.Value)
+            {
+                <div class="col-12" style="margin-bottom: 20px; margin-top: 20px;">
+                    <button class="btn btn-danger" id="closeQuestionBtn" onclick="CloseQuestion();">Закрыть вопрос</button>
+                    <div class="spinner-border spinner" style="display: none;"></div>
+                </div>
             }
         }
 
