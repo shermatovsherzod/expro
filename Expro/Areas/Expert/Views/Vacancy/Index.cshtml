@@ -8,7 +8,7 @@
 
 <div class="row">
     <div class="col-md-12">
-        <a href="/Vacancy/Create" class="btn btn-primary">Добавить вакансию</a>
+        @Html.ActionLink("Добавить вакансию", "Create", "Vacancy", null, new { @class = "btn btn-primary" })
     </div>
 </div>
 
@@ -31,15 +31,15 @@
 
                 @foreach (var item in _list)
                 {
-                <tr>
-                    <td>@item.Company</td>
-                    <td>@item.Position</td>
-                    <td>
-                        <a href="/Vacancy/Details/@item.ID"><i class="fas fa-eye"></i></a>
-                        <a href="/Vacancy/Edit/@item.ID"><i class="fas fa-pencil-alt"></i></a>
-                        <a href="/Vacancy/Delete/@item.ID"><i class="far fa-trash-alt"></i></a>
-                    </td>
-                </tr>
+                    <tr>
+                        <td>@item.Company</td>
+                        <td>@item.Position</td>
+                        <td>
+                            <a href="/Expert/Vacancy/Details/@item.ID"><i class="fas fa-eye"></i></a>
+                            <a href="/Expert/Vacancy/Edit/@item.ID"><i class="fas fa-pencil-alt"></i></a>
+                            <a href="/Expert/Vacancy/Delete/@item.ID"><i class="far fa-trash-alt"></i></a>
+                        </td>
+                    </tr>
                 }
             </tbody>
         </table>

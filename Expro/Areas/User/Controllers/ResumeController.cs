@@ -10,8 +10,9 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System.Linq;
 
-namespace Expro.Controllers
+namespace Expro.Areas.User.Controllers
 {
+    [Area("User")]
     public class ResumeController : BaseController
     {      
         private readonly IResumeService _resumeService;        

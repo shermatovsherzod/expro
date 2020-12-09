@@ -10,8 +10,9 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System.Linq;
 
-namespace Expro.Controllers
+namespace Expro.Areas.Expert.Controllers
 {
+    [Area("Expert")]
     public class CompaniesController : BaseController
     {
         private readonly UserManager<ApplicationUser> _userManager;

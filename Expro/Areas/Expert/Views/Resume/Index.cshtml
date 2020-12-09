@@ -8,7 +8,7 @@
 
 <div class="row">
     <div class="col-md-12">
-        <a href="/Resume/Create" class="btn btn-primary">Добавить резюме</a>
+        @Html.ActionLink("Добавить резюме", "Create", "Resume", null, new { @class = "btn btn-primary" })     
     </div>
 </div>
 
@@ -34,9 +34,9 @@
                         <td>@item.LastName @item.FirstName @item.PatronymicName </td>
 
                         <td>
-                            <a href="/Resume/Details/@item.ID"><i class="fas fa-eye"></i></a>
-                            <a href="/Resume/Edit/@item.ID"><i class="fas fa-pencil-alt"></i></a>
-                            <a href="/Resume/Delete/@item.ID"><i class="far fa-trash-alt"></i></a>
+                            <a href="/Expert/Resume/Details/@item.ID"><i class="fas fa-eye"></i></a>
+                            <a href="/Expert/Resume/Edit/@item.ID"><i class="fas fa-pencil-alt"></i></a>
+                            <a href="/Expert/Resume/Delete/@item.ID"><i class="far fa-trash-alt"></i></a>
                         </td>
                     </tr>
                 }
