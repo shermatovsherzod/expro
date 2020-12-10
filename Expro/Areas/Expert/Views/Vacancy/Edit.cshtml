@@ -1,0 +1,139 @@
+﻿@model VacancyEditVM
+@using Expro.ViewModels
+@{
+    ViewData["Title"] = "Редактирование вакансии";
+}
+
+<h4>Редактирование вакансии</h4>
+<hr />
+
+<form asp-controller="Vacancy" asp-action="Edit" data-ajax="true" data-ajax-method="POST">
+    <div class="row">
+        <div class="col-md-3">
+            <label asp-for="@Model.Company"></label>
+        </div>
+        <div class="col-md-9">
+            <p>
+                <input asp-for="@Model.Company" class="form-control" />
+                <span asp-validation-for="@Model.Company"></span>
+            </p>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-3">
+            <label asp-for="@Model.RegionID"></label>
+        </div>
+        <div class="col-md-9">
+            <p>
+                <select asp-for="@Model.RegionID"
+                        asp-items="@ViewData["regions"] as IEnumerable<SelectListItem>"
+                        class="form-control">
+                    <option disabled selected>--- Выбрать регион ---</option>
+                </select>
+                <span asp-validation-for="@Model.RegionID" class="text-danger"></span>
+            </p>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-3">
+            <label asp-for="@Model.CityID"></label>
+        </div>
+        <div class="col-md-9">
+            <p>
+                <select asp-for="@Model.CityID"
+                        asp-items="@ViewData["cities"] as IEnumerable<SelectListItem>"
+                        class="form-control">
+                    <option disabled selected>--- Выбрать город ---</option>
+                </select>
+                <span asp-validation-for="@Model.CityID" class="text-danger"></span>
+            </p>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-3">
+            <label asp-for="@Model.CityOther"></label>
+        </div>
+        <div class="col-md-9">
+            <p>
+                <input asp-for="@Model.CityOther" class="form-control" />
+                <span asp-validation-for="@Model.CityOther" class="text-danger"></span>
+            </p>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-3">
+            <label asp-for="@Model.Position"></label>
+        </div>
+        <div class="col-md-9">
+            <p>
+                <textarea asp-for="@Model.Position" class="form-control"></textarea>
+                <span asp-validation-for="@Model.Position"></span>
+            </p>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-3">
+            <label asp-for="@Model.Responsibility"></label>
+        </div>
+        <div class="col-md-9">
+            <p>
+                <textarea asp-for="@Model.Responsibility" class="form-control"></textarea>
+                <span asp-validation-for="@Model.Responsibility"></span>
+            </p>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-3">
+            <label asp-for="@Model.Requirements"></label>
+        </div>
+        <div class="col-md-9">
+            <p>
+                <textarea asp-for="@Model.Requirements" class="form-control"></textarea>
+                <span asp-validation-for="@Model.Requirements"></span>
+            </p>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-3">
+            <label asp-for="@Model.Salary"></label>
+        </div>
+        <div class="col-md-9">
+            <p>
+                <textarea asp-for="@Model.Salary" class="form-control"></textarea>
+                <span asp-validation-for="@Model.Salary"></span>
+            </p>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-3">
+            <label asp-for="@Model.Contacts"></label>
+        </div>
+        <div class="col-md-9">
+            <p>
+                <textarea asp-for="@Model.Contacts" class="form-control"></textarea>
+                <span asp-validation-for="@Model.Contacts"></span>
+            </p>
+        </div>
+    </div>
+
+
+    <button type="submit" class="btn btn-success">Сохранить</button>
+
+</form>
+
+
+<div>
+    <a asp-action="Index">Вернутся к списку</a>
+</div>
+
+@section Scripts{
+
+}
