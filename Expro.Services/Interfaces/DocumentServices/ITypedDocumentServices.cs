@@ -18,6 +18,7 @@ namespace Expro.Services.Interfaces
 
     public interface IQuestionDocumentService : IDocumentService
     {
+        void CompleteWithDistribution(Document question, string userID);
         void Complete(Document question, string userID);
         bool AdminIsAllowedToComplete(Document question);
         bool IsCompleted(Document question);

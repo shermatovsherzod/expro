@@ -16,4 +16,34 @@ namespace Expro.Services
         {
         }
     }
+
+    public class QuestionStatusService : DocumentStatusService, IQuestionStatusService
+    {
+        public QuestionStatusService(IDocumentStatusRepository repository,
+                           IUnitOfWork unitOfWork)
+            : base(repository, unitOfWork)
+        {
+        }
+
+        public override List<SelectListItem> GetAsSelectList(int[] selected = null, bool includeOther = false)
+        {
+            var result = base.GetAsSelectList(selected, includeOther);
+
+            result.Add(new SelectListItem()
+            {
+                Value = "100",
+                Text = "Вопрос решен",
+                Selected = false
+            });
+
+            result.Add(new SelectListItem()
+            {
+                Value = "200",
+                Text = "Вопрос завершен",
+                Selected = false
+            });
+
+            return result;
+        }
+    }
 }

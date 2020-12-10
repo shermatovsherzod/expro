@@ -82,6 +82,7 @@ namespace Expro.DependencyInjections
             services.AddTransient<IUserStatusService, UserStatusService>();
             services.AddTransient<ICommentService, CommentService>();
             services.AddTransient<IDocumentAnswerService, DocumentAnswerService>();
+            services.AddTransient<IQuestionStatusService, QuestionStatusService>();
         }
     }
 }

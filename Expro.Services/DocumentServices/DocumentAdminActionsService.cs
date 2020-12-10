@@ -85,7 +85,7 @@ namespace Expro.Services
             base.Approve(entity, userID);
 
 #if DEBUG
-            entity.QuestionCompletionDeadline = entity.DateApproved.Value.AddMinutes(2);
+            entity.QuestionCompletionDeadline = entity.DateApproved.Value.AddMinutes(20);
 #else
             entity.QuestionCompletionDeadline = DocumentService.RoundToUp(entity.DateApproved.Value.AddMinutes(7200)); //5 days
 #endif

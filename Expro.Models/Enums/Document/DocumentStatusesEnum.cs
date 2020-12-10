@@ -9,6 +9,8 @@ namespace Expro.Models.Enums
         Pending = 1,
         WaitingForApproval = 2,
         Approved = 3,
-        Rejected = 4
+        Rejected = 4,
+        QuestionCompletedWithFeeDistribution = 100,
+        QuestionCompleted = 200
     }
 }

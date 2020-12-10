@@ -95,18 +95,21 @@
                             html += '<div class="card" style="margin-top: 10px;">';
                             html += '   <div class="card-body">';
 
-                            var editAction = "EditFree";
-                            if (full.priceType == "@((int)DocumentPriceTypesEnum.Paid)")
-                                editAction = "EditPaid";
+                            var url = '';
+                            if (full.status.id == "@((int)DocumentStatusesEnum.Approved)") {
+                                url = "/QuestionDocument/Details/" + full.id;
+                            }
+                            else {
+                                var editAction = "EditFree";
+                                if (full.priceType == "@((int)DocumentPriceTypesEnum.Paid)")
+                                    editAction = "EditPaid";
+                                url = "/User/QuestionDocument/" + editAction + "/" + full.id;
+                            }
 
-                            html += '       <h3><a href="/User/QuestionDocument/' + editAction + '/' + + full.id + '" target="_blank">' + full.title + '</a></h3>';
+                            html += '       <h3><a href="' + url + '" target="_blank">' + full.title + '</a></h3>';
 
                             html += InsertStatusAlert(full);
-
-                            @*if (full.contentType == '@((int)DocumentContentTypesEnum.file)')
-                                html += '   <p>Есть вложенный файл</p>';
-                            else
-                                html += '   <p>' + full.text + '</p>';*@
+                            html += InsertCompletenessStatus(full);
 
                             html += '       <p>Дата изменения: ' + full.dateModified + '</p>';
                             //html += '       <p>Автор: <a href="#">' + full.author.fullName + '</a></p>';
@@ -125,60 +128,12 @@
                             if (full.priceType == "@((int)DocumentPriceTypesEnum.Paid)")
                                 editAction = "EditPaid";
 
-                            html += '       <a href="/User/QuestionDocument/' + editAction + '/' + full.id + '" class="btn btn-outline-primary" target="_blank">Открыть</a>';
+                            html += '       <a href="' + url + '" class="btn btn-outline-primary" target="_blank">Открыть</a>';
                             html += '   </div>';
                             html += '</div>';
                             return html;
                         }
                     }
-                    //{
-                    //    "data": 0, //"name": "statusId", "autoWidth": true,
-                    //    "render": function (data, type, full, meta) { return '' + full.title + ''; }
-                    //},
-                    //{
-                    //    "data": 1, //"name": "statusId", "autoWidth": true,
-                    //    "render": function (data, type, full, meta)
-                    //    {
-                    //        var html = "";
-                    //        if (full.price != null)
-                    //            html = "" + full.price;
-                    //        return html;
-                    //    }
-                    //},
-                    @*{
-                        "data": 2, //"name": "statusId", "autoWidth": true,
-                        "render": function (data, type, full, meta)
-                        {
-                            var html = "<div class='alert ";
-                            if (full.status.id == "@((int)DocumentStatusesEnum.WaitingForApproval)")
-                                html += "alert-warning'>";
-                            else if (full.status.id == "@((int)DocumentStatusesEnum.Approved)")
-                                html += "alert-success'>";
-                            else if (full.status.id == "@((int)DocumentStatusesEnum.Rejected)")
-                                html += "alert-danger'>";
-
-                            html += full.status.name;
-                            html += "</div>";
-
-                            return html;
-                        }
-                    },*@
-                    //{
-                    //    "data": 3, //"name": "statusId", "autoWidth": true,
-                    //    "render": function (data, type, full, meta) { return '' + full.dateModified + ''; }
-                    //},
-                    @*{
-                        "data": 4, //"name": "statusId", "autoWidth": true,
-                        "render": function (data, type, full, meta)
-                        {
-                            var editAction = "EditFree";
-                            if (full.priceType == "@DocumentPriceTypesEnum.Paid")
-                                editAction = "EditPaid";
-
-                            var html = '<a href="/Expert/PracticeDocument/' + editAction + '/' + full.id + '" class="btn btn-outline-primary" target="_blank">Открыть</a>';
-                            return html;
-                        }
-                    }*@
                 ]
             });
 
@@ -209,6 +164,18 @@
 
             html += full.status.name;
             html += "</div>";
+
+            return html;
+        }
+
+        function InsertCompletenessStatus(full) {
+            var html = "";
+            if (full.isCompleted) {
+                if (full.feeIsDistributed)
+                    html = "<div class='alert alert-success'>Вопрос решен</div>";
+                else
+                    html = "<div class='alert alert-warning'>Вопрос закрыт</div>";
+            }
 
             return html;
         }

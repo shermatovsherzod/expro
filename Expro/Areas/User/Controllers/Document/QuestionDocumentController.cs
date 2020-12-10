@@ -21,7 +21,7 @@ namespace Expro.Areas.User.Controllers
         private readonly IAttachmentService AttachmentService;
         private readonly IQuestionDocumentService QuestionDocumentService;
         private readonly IHangfireService HangfireService;
-        private readonly IDocumentStatusService DocumentStatusService;
+        private readonly IQuestionStatusService QuestionStatusService;
         private readonly IUserBalanceService UserBalanceService;
         private readonly UserManager<ApplicationUser> _userManager;
 
@@ -32,7 +32,7 @@ namespace Expro.Areas.User.Controllers
             IAttachmentService attachmentService,
             IQuestionDocumentService questionDocumentService,
             IHangfireService hangfireService,
-            IDocumentStatusService documentStatusService,
+            IQuestionStatusService questionStatusService,
             IUserBalanceService userBalanceService,
             UserManager<ApplicationUser> userManager)
         {
@@ -42,14 +42,14 @@ namespace Expro.Areas.User.Controllers
             AttachmentService = attachmentService;
             QuestionDocumentService = questionDocumentService;
             HangfireService = hangfireService;
-            DocumentStatusService = documentStatusService;
+            QuestionStatusService = questionStatusService;
             UserBalanceService = userBalanceService;
             _userManager = userManager;
         }
 
         public IActionResult Index()
         {
-            ViewData["statuses"] = DocumentStatusService.GetAsSelectList();
+            ViewData["statuses"] = QuestionStatusService.GetAsSelectList();
 
             return View();
         }
@@ -82,7 +82,7 @@ namespace Expro.Areas.User.Controllers
             );
 
             dynamic data = dataIQueryable
-                .Select(m => new DocumentListItemForExpertVM(m))
+                .Select(m => new QuestionListItemForUserVM(m))
                 .ToList();
 
             return Json(new

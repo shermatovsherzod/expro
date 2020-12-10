@@ -46,7 +46,7 @@ namespace Expro.ViewModels
             }
 
             IsCompleted = model.QuestionIsCompleted ?? false;
-            FeeIsDistributed = Answers.Any(m => m.PaidFee.HasValue);
+            FeeIsDistributed = model.QuestionFeeIsDistributed ?? false;
         }
     }
 }

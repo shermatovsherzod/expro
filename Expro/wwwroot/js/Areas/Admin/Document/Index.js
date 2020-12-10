@@ -5,16 +5,20 @@ var documentStatuses =
     approved: 0,
     rejected: 0
 };
-var documentStatusWaitingForApproval = 0;
-var documentStatusApproved = 0;
-var documentStatusRejected = 0;
+//var documentStatusWaitingForApproval = 0;
+//var documentStatusApproved = 0;
+//var documentStatusRejected = 0;
+
+var documentPriceTypePaid = 0;
 
 function SetVariables(
     documentTypeName,
-    documentStatusesEnum)
+    documentStatusesEnum,
+    documentPriceTypesEnumPaid)
 {
     documentType = documentTypeName;
     documentStatuses = documentStatusesEnum;
+    documentPriceTypePaid = documentPriceTypesEnumPaid;
 }
 
 var table;
@@ -53,7 +57,7 @@ $(document).ready(function () {
 
                     html += InsertStatusAlert(full);
 
-                    //if (full.contentType == '@((int)DocumentContentTypesEnum.file)')
+                    //if (full.contentType == documentPriceTypePaid)
                     //    html += '   <p>Есть вложенный файл</p>';
                     //else
                     //    html += '   <p>' + full.text + '</p>';
@@ -67,7 +71,7 @@ $(document).ready(function () {
                     html += '       </p>';
                     //console.log(full.title);
                     //console.log(full.priceType);
-                    if (full.priceType == '@((int)DocumentPriceTypesEnum.Paid)')
+                    if (full.priceType == documentPriceTypePaid)
                         html += '   <p>Цена: <b class="text-danger">' + full.priceStr + ' сум</b></p>';
                     html += '        <a href="/Admin/' + documentType + '/Details/' + full.id + '" class="btn btn-outline-primary" target="_blank">Открыть</a>';
                     html += '   </div>';

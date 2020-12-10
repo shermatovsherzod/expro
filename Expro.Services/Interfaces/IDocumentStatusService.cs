@@ -7,4 +7,8 @@ namespace Expro.Services.Interfaces
     public interface IDocumentStatusService : IBaseDropdownableService<DocumentStatus>
     {
     }
+
+    public interface IQuestionStatusService : IDocumentStatusService
+    {
+    }
 }

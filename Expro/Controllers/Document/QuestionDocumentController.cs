@@ -171,7 +171,7 @@ namespace Expro.Controllers
                 }
 
                 var curUser = accountUtil.GetCurrentUser(User);
-                QuestionDocumentService.Complete(question, curUser.ID);
+                QuestionDocumentService.CompleteWithDistribution(question, curUser.ID);
                 HangfireService.CancelJob(question.QuestionCompletionJobID);
 
                 return Ok(new { successMessage = "Гонорар успешно распределен" });

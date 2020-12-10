@@ -15,6 +15,7 @@ namespace Expro.Areas.Admin.Controllers
     [Area("Admin")]
     public class QuestionDocumentController : BaseDocumentController
     {
+        private readonly IQuestionDocumentSearchService QuestionDocumentSearchService;
         private readonly IQuestionDocumentAdminActionsService QuestionDocumentAdminActionsService;
         private readonly IUserBalanceService UserBalanceService;
         private readonly UserManager<ApplicationUser> _userManager;
@@ -23,7 +24,7 @@ namespace Expro.Areas.Admin.Controllers
             IQuestionDocumentService questionDocumentService,
             IQuestionDocumentSearchService questionDocumentSearchService,
             IHangfireService hangfireService,
-            IDocumentStatusService documentStatusService,
+            IQuestionStatusService documentStatusService,
             IQuestionDocumentAdminActionsService questionDocumentAdminActionsService,
             IUserBalanceService userBalanceService,
             UserManager<ApplicationUser> userManager)
@@ -39,6 +40,7 @@ namespace Expro.Areas.Admin.Controllers
             QuestionDocumentAdminActionsService = questionDocumentAdminActionsService;
             UserBalanceService = userBalanceService;
             _userManager = userManager;
+            QuestionDocumentSearchService = questionDocumentSearchService;
         }
 
         public override IActionResult Index()
@@ -51,7 +53,41 @@ namespace Expro.Areas.Admin.Controllers
             int draw, int? start = null, int? length = null,
             int? statusID = null, DocumentPriceTypesEnum? priceType = null)
         {
-            return base.Search(draw, start, length, statusID, priceType);
+            //return base.Search(draw, start, length, statusID, priceType);
+            int recordsTotal = 0;
+            int recordsFiltered = 0;
+            string error = "";
+
+            var curUser = accountUtil.GetCurrentUser(User);
+
+            IQueryable<Document> dataIQueryable = QuestionDocumentSearchService.Search(
+                start,
+                length,
+
+                out recordsTotal,
+                out recordsFiltered,
+                out error,
+
+                curUser.UserType.Value,
+                statusID,
+                priceType,
+                curUser.ID,
+                null,
+                null
+            );
+
+            dynamic data = dataIQueryable
+                .Select(m => new QuestionListItemForAdminVM(m))
+                .ToList();
+
+            return Json(new
+            {
+                draw = draw,
+                recordsTotal = recordsTotal,
+                recordsFiltered = recordsFiltered,
+                data = data,
+                error = error
+            });
         }
 
         public override IActionResult Details(int id)

@@ -50,6 +50,12 @@ namespace Expro.Services
             _documentType = DocumentTypesEnum.QuestionDocument;
         }
 
+        public void CompleteWithDistribution(Document question, string userID)
+        {
+            question.QuestionFeeIsDistributed = true;
+            Complete(question, userID);
+        }
+
         public void Complete(Document question, string userID)
         {
             question.QuestionIsCompleted = true;
@@ -66,7 +72,7 @@ namespace Expro.Services
                 return false;
 
             //if (question.DateApproved.Value.AddDays(3) > now)
-            if (question.DateApproved.Value.AddMinutes(1) > now)
+            if (question.DateApproved.Value.AddMinutes(10) > now)
                 return true;
 
             return false;

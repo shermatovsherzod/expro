@@ -95,7 +95,24 @@ namespace Expro.Services
             }
 
             if (statusID.HasValue)
-                documents = documents.Where(m => m.DocumentStatusID == statusID.Value);
+            {
+                if (statusID.Value == (int)DocumentStatusesEnum.QuestionCompleted)
+                {
+                    documents = documents
+                        .Where(m => m.DocumentStatusID == (int)DocumentStatusesEnum.Approved
+                            && m.QuestionIsCompleted == true);
+                }
+                else if (statusID.Value == (int)DocumentStatusesEnum.QuestionCompletedWithFeeDistribution)
+                {
+                    documents = documents
+                        .Where(m => m.DocumentStatusID == (int)DocumentStatusesEnum.Approved
+                            && m.QuestionIsCompleted == true
+                            && m.QuestionFeeIsDistributed == true);
+                }
+                else
+                    documents = documents.Where(m => m.DocumentStatusID == statusID.Value);
+            }
+                
             if (priceType.HasValue)
                 documents = documents.Where(m => m.PriceType == priceType.Value);
 

@@ -50,6 +50,7 @@ namespace Expro.Models
         public DateTime? QuestionCompletionDeadline { get; set; }
         public string QuestionCompletionJobID { get; set; }
         public bool? QuestionIsCompleted { get; set; }
+        public bool? QuestionFeeIsDistributed { get; set; }
         public DateTime? DateQuestionCompleted { get; set; }
 
         [InverseProperty("Document")]

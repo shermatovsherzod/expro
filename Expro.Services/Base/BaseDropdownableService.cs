@@ -19,7 +19,7 @@ namespace Expro.Services
             this._unitOfWork = unitOfWork;
         }
        
-        public List<SelectListItem> GetAsSelectList(int[] selected = null, bool includeOther = false)//false berasiz i vsyo
+        public virtual List<SelectListItem> GetAsSelectList(int[] selected = null, bool includeOther = false)//false berasiz i vsyo
         {
             var result = GetAll().Select(item => new SelectListItem()
             {
@@ -41,7 +41,7 @@ namespace Expro.Services
             return result;
         }
 
-        public List<SelectListItem> GetAsSelectListOne(int? selected = null, bool includeOther = false)
+        public virtual List<SelectListItem> GetAsSelectListOne(int? selected = null, bool includeOther = false)
         {
             var result = GetAll().Select(item => new SelectListItem()
             {
