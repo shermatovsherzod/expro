@@ -28,24 +28,5 @@ namespace Expro.Data.Repository
                 .Include(m => m.Attachment)
                 .FirstOrDefault(m => m.ID == id);
         }
-
-        public Document GeWithAnswersAndCommentsByID(int id)
-        {
-            return GetManyWithRelatedDataAsIQueryable()
-                .Include(m => m.Answers)
-                    .ThenInclude(m => m.Creator)
-                .Include(m => m.Answers)
-                    .ThenInclude(m => m.Attachment)
-                .Include(m => m.Answers)
-                    .ThenInclude(m => m.Comments)
-                        .ThenInclude(m => m.Comment)
-                            .ThenInclude(m => m.Creator)
-                .Include(m => m.Answers)
-                    .ThenInclude(m => m.Comments)
-                        .ThenInclude(m => m.Comment)
-                            .ThenInclude(m => m.Attachment)
-                .Include(m => m.Attachment)
-                .FirstOrDefault(m => m.ID == id);
-        }
     }
 }

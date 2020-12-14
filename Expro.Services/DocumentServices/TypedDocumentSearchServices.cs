@@ -37,78 +37,78 @@ namespace Expro.Services
         }
     }
 
-    public class QuestionDocumentSearchService : DocumentSearchService, IQuestionDocumentSearchService
-    {
-        public QuestionDocumentSearchService(IQuestionDocumentService questionDocumentService)
-            : base(questionDocumentService)
-        {
+    //public class QuestionDocumentSearchService : DocumentSearchService, IQuestionDocumentSearchService
+    //{
+    //    public QuestionDocumentSearchService(IQuestionDocumentService questionDocumentService)
+    //        : base(questionDocumentService)
+    //    {
 
-        }
+    //    }
 
-        public override IQueryable<Document> Search(
-            int? start,
-            int? length,
+    //    public override IQueryable<Document> Search(
+    //        int? start,
+    //        int? length,
 
-            out int recordsTotal,
-            out int recordsFiltered,
-            out string error,
+    //        out int recordsTotal,
+    //        out int recordsFiltered,
+    //        out string error,
 
-            UserTypesEnum? curUserType,
-            int? statusID,
-            DocumentPriceTypesEnum? priceType,
-            string authorID,
-            string purchasedUserID,
-            int[] lawAreas)
-        {
-            recordsTotal = 0;
-            recordsFiltered = 0;
-            error = "";
+    //        UserTypesEnum? curUserType,
+    //        int? statusID,
+    //        DocumentPriceTypesEnum? priceType,
+    //        string authorID,
+    //        string purchasedUserID,
+    //        int[] lawAreas)
+    //    {
+    //        recordsTotal = 0;
+    //        recordsFiltered = 0;
+    //        error = "";
 
-            try
-            {
-                IQueryable<Document> documents;
+    //        try
+    //        {
+    //            IQueryable<Document> documents;
 
-                if (curUserType.HasValue)
-                {
-                    //if (!string.IsNullOrWhiteSpace(purchasedUserID))
-                    //    documents = DocumentService.GetAllPurchasedByUser(purchasedUserID);
-                    //else if (curUserType == UserTypesEnum.Admin)
-                    //    documents = DocumentService.GetAllForAdmin();
-                    //else if (curUserType == UserTypesEnum.Expert)
-                    //    documents = DocumentService.GetAllByCreator(authorID);
-                    //else if (curUserType == UserTypesEnum.SimpleUser)
-                    //    documents = DocumentService.GetAllPurchasedByUser(purchasedUserID);
-                    //else
-                    //    documents = DocumentService.GetAllApproved();
+    //            if (curUserType.HasValue)
+    //            {
+    //                //if (!string.IsNullOrWhiteSpace(purchasedUserID))
+    //                //    documents = DocumentService.GetAllPurchasedByUser(purchasedUserID);
+    //                //else if (curUserType == UserTypesEnum.Admin)
+    //                //    documents = DocumentService.GetAllForAdmin();
+    //                //else if (curUserType == UserTypesEnum.Expert)
+    //                //    documents = DocumentService.GetAllByCreator(authorID);
+    //                //else if (curUserType == UserTypesEnum.SimpleUser)
+    //                //    documents = DocumentService.GetAllPurchasedByUser(purchasedUserID);
+    //                //else
+    //                //    documents = DocumentService.GetAllApproved();
 
-                    if (curUserType == UserTypesEnum.Admin)
-                        documents = DocumentService.GetAllForAdmin();
-                    else if (curUserType == UserTypesEnum.SimpleUser)
-                        documents = DocumentService.GetAllByCreator(authorID);
-                    else
-                        documents = DocumentService.GetAllApproved();
-                }
-                else
-                    documents = DocumentService.GetAllApproved();
+    //                if (curUserType == UserTypesEnum.Admin)
+    //                    documents = DocumentService.GetAllForAdmin();
+    //                else if (curUserType == UserTypesEnum.SimpleUser)
+    //                    documents = DocumentService.GetAllByCreator(authorID);
+    //                else
+    //                    documents = DocumentService.GetAllApproved();
+    //            }
+    //            else
+    //                documents = DocumentService.GetAllApproved();
 
-                recordsTotal = documents.Count();
+    //            recordsTotal = documents.Count();
 
-                documents = ApplyFilters(documents, lawAreas, statusID, priceType);
+    //            documents = ApplyFilters(documents, lawAreas, statusID, priceType);
 
-                recordsFiltered = documents.Count();
+    //            recordsFiltered = documents.Count();
 
-                documents = ApplyOrder(documents, start, length);
+    //            documents = ApplyOrder(documents, start, length);
 
-                return documents;
-            }
-            catch (Exception ex)
-            {
-                error += ex.Message;
-                if (ex.InnerException != null)
-                    error += ". Inner exception: " + ex.InnerException.Message;
+    //            return documents;
+    //        }
+    //        catch (Exception ex)
+    //        {
+    //            error += ex.Message;
+    //            if (ex.InnerException != null)
+    //                error += ". Inner exception: " + ex.InnerException.Message;
 
-                return Enumerable.Empty<Document>().AsQueryable();
-            }
-        }
-    }
+    //            return Enumerable.Empty<Document>().AsQueryable();
+    //        }
+    //    }
+    //}
 }

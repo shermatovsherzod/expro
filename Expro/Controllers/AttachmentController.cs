@@ -21,6 +21,7 @@ namespace Expro.Controllers
     {
         private readonly IAttachmentService AttachmentService;
         private readonly IDocumentService DocumentService;
+        private readonly IQuestionService QuestionService;
         private readonly ICommentService CommentService;
         private readonly UserManager<ApplicationUser> _userManager;
 
@@ -29,6 +30,7 @@ namespace Expro.Controllers
         public AttachmentController(
             IAttachmentService attachmentService,
             IDocumentService documentService,
+            IQuestionService questionService,
             ICommentService commentService,
             //IHostingEnvironment env,
             UserManager<ApplicationUser> userManager,
@@ -36,6 +38,7 @@ namespace Expro.Controllers
         {
             AttachmentService = attachmentService;
             DocumentService = documentService;
+            QuestionService = questionService;
             CommentService = commentService;
             //_env = env;
             _userManager = userManager;
@@ -82,6 +85,15 @@ namespace Expro.Controllers
                     {
                         model.Attachment = attachment;
                         DocumentService.Update(model);
+                    }
+                }
+                else if (fileType.Equals(Constants.FileTypes.QUESTION))
+                {
+                    var model = QuestionService.GetByID(modelIDInt);
+                    if (model != null)
+                    {
+                        model.Attachment = attachment;
+                        QuestionService.Update(model);
                     }
                 }
                 else if (fileType.Equals(Constants.FileTypes.COMMENT))
@@ -225,26 +237,5 @@ namespace Expro.Controllers
         //{
         //    return Json(new { });
         //}
-
-        public static bool IsNumericType(object o)
-        {
-            switch (Type.GetTypeCode(o.GetType()))
-            {
-                case TypeCode.Byte:
-                case TypeCode.SByte:
-                case TypeCode.UInt16:
-                case TypeCode.UInt32:
-                case TypeCode.UInt64:
-                case TypeCode.Int16:
-                case TypeCode.Int32:
-                case TypeCode.Int64:
-                case TypeCode.Decimal:
-                case TypeCode.Double:
-                case TypeCode.Single:
-                    return true;
-                default:
-                    return false;
-            }
-        }
     }
 }

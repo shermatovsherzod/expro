@@ -46,17 +46,6 @@ namespace Expro.Models
                 .WithMany(b => b.Children)
                 .OnDelete(DeleteBehavior.ClientSetNull);
 
-            modelBuilder.Entity<DocumentAnswerComment>()
-                .HasKey(bc => new { bc.DocumentAnswerID, bc.CommentID});
-            modelBuilder.Entity<DocumentAnswerComment>()
-                .HasOne(bc => bc.DocumentAnswer)
-                .WithMany(b => b.Comments)
-                .HasForeignKey(bc => bc.DocumentAnswerID);
-            modelBuilder.Entity<DocumentAnswerComment>()
-                .HasOne(bc => bc.Comment)
-                .WithMany(c => c.DocumentAnswerComments)
-                .HasForeignKey(bc => bc.CommentID);
-
             modelBuilder.Entity<CompanyLawArea>()
                 .HasKey(bc => new { bc.CompanyID, bc.LawAreaID });
             modelBuilder.Entity<CompanyLawArea>()
@@ -67,6 +56,28 @@ namespace Expro.Models
                 .HasOne(bc => bc.LawArea)
                 .WithMany(c => c.CompanyLawAreas)
                 .HasForeignKey(bc => bc.LawAreaID);
+
+            modelBuilder.Entity<QuestionLawArea>()
+                .HasKey(bc => new { bc.QuestionID, bc.LawAreaID });
+            modelBuilder.Entity<QuestionLawArea>()
+                .HasOne(bc => bc.Question)
+                .WithMany(b => b.QuestionLawAreas)
+                .HasForeignKey(bc => bc.QuestionID);
+            modelBuilder.Entity<QuestionLawArea>()
+                .HasOne(bc => bc.LawArea)
+                .WithMany(c => c.QuestionLawAreas)
+                .HasForeignKey(bc => bc.LawAreaID);
+
+            modelBuilder.Entity<QuestionAnswerComment>()
+                .HasKey(bc => new { bc.QuestionAnswerID, bc.CommentID });
+            modelBuilder.Entity<QuestionAnswerComment>()
+                .HasOne(bc => bc.QuestionAnswer)
+                .WithMany(b => b.Comments)
+                .HasForeignKey(bc => bc.QuestionAnswerID);
+            modelBuilder.Entity<QuestionAnswerComment>()
+                .HasOne(bc => bc.Comment)
+                .WithMany(c => c.QuestionAnswerComments)
+                .HasForeignKey(bc => bc.CommentID);
 
             //modelBuilder.Entity<ApplicationUser>()
             //    .HasOne(e => e.Avatar)
@@ -88,8 +99,6 @@ namespace Expro.Models
         {
             optionsBuilder.UseLazyLoadingProxies();            
         }
-
-
 
         public virtual void Commit()
         {
@@ -114,11 +123,10 @@ namespace Expro.Models
         public DbSet<WithdrawRequest> WithdrawRequests { get; set; }
         public DbSet<WithdrawRequestStatus> WithdrawRequestStatuses { get; set; }
         public DbSet<Comment> Comments { get; set; }
-        //public DbSet<DocumentComment> DocumentComments { get; set; }
         public DbSet<CommentLike> CommentLikes { get; set; }
         public DbSet<UserStatus> UserStatuses { get; set; }
-        public DbSet<DocumentAnswer> DocumentAnswers { get; set; }
-        public DbSet<DocumentAnswerLike> DocumentAnswerLikes { get; set; }
+        public DbSet<QuestionAnswer> QuestionAnswers { get; set; }
+        public DbSet<QuestionAnswerLike> QuestionAnswerLikes { get; set; }
         public DbSet<Company> Companies { get; set; }
         public DbSet<CompanyStatus> CompanyStatuses { get; set; }
         public DbSet<Resume> Resumes { get; set; }

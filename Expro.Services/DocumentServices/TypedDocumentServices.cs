@@ -40,48 +40,48 @@ namespace Expro.Services
         }
     }
 
-    public class QuestionDocumentService : DocumentService, IQuestionDocumentService
-    {
+    //public class QuestionDocumentService : DocumentService, IQuestionDocumentService
+    //{
 
-        public QuestionDocumentService(IDocumentRepository repository,
-                           IUnitOfWork unitOfWork)
-            : base(repository, unitOfWork)
-        {
-            _documentType = DocumentTypesEnum.QuestionDocument;
-        }
+    //    public QuestionDocumentService(IDocumentRepository repository,
+    //                       IUnitOfWork unitOfWork)
+    //        : base(repository, unitOfWork)
+    //    {
+    //        _documentType = DocumentTypesEnum.QuestionDocument;
+    //    }
 
-        public void CompleteWithDistribution(Document question, string userID)
-        {
-            question.QuestionFeeIsDistributed = true;
-            Complete(question, userID);
-        }
+    //    public void CompleteWithDistribution(Document question, string userID)
+    //    {
+    //        question.QuestionFeeIsDistributed = true;
+    //        Complete(question, userID);
+    //    }
 
-        public void Complete(Document question, string userID)
-        {
-            question.QuestionIsCompleted = true;
-            question.DateQuestionCompleted = DateTime.Now;
+    //    public void Complete(Document question, string userID)
+    //    {
+    //        question.QuestionIsCompleted = true;
+    //        question.DateQuestionCompleted = DateTime.Now;
 
-            Update(question, userID);
-        }
+    //        Update(question, userID);
+    //    }
 
-        public bool AdminIsAllowedToComplete(Document question)
-        {
-            var now = DateTime.Now;
+    //    public bool AdminIsAllowedToComplete(Document question)
+    //    {
+    //        var now = DateTime.Now;
 
-            if (!question.DateApproved.HasValue)
-                return false;
+    //        if (!question.DateApproved.HasValue)
+    //            return false;
 
-            //if (question.DateApproved.Value.AddDays(3) > now)
-            if (question.DateApproved.Value.AddMinutes(10) > now)
-                return true;
+    //        if (question.DateApproved.Value.AddDays(1) > now)
+    //        //if (question.DateApproved.Value.AddMinutes(10) > now)
+    //            return true;
 
-            return false;
-        }
+    //        return false;
+    //    }
 
-        public bool IsCompleted(Document question)
-        {
-            return question.QuestionIsCompleted.HasValue ? 
-                question.QuestionIsCompleted.Value : false;
-        }
-    }
+    //    public bool IsCompleted(Document question)
+    //    {
+    //        return question.QuestionIsCompleted.HasValue ? 
+    //            question.QuestionIsCompleted.Value : false;
+    //    }
+    //}
 }

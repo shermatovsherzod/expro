@@ -16,5 +16,6 @@ namespace Expro.Models
         public virtual ICollection<UserLawArea> UserLawAreas { get; set; }
         public virtual ICollection<DocumentLawArea> DocumentLawAreas { get; set; }
         public virtual ICollection<CompanyLawArea> CompanyLawAreas { get; set; }
+        public virtual ICollection<QuestionLawArea> QuestionLawAreas { get; set; }
     }
 }

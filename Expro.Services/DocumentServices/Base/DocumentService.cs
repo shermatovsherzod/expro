@@ -153,33 +153,33 @@ namespace Expro.Services
             return model;
         }
 
-        private Document GeWithAnswersAndCommentsByID(int id)
-        {
-            var model = _documentRepository.GeWithAnswersAndCommentsByID(id);
-            if (model != null)
-            {
-                if (DocumentTypeIsNotDefined())
-                    return model;
+        //private Document GeWithAnswersAndCommentsByID(int id)
+        //{
+        //    var model = _documentRepository.GeWithAnswersAndCommentsByID(id);
+        //    if (model != null)
+        //    {
+        //        if (DocumentTypeIsNotDefined())
+        //            return model;
 
-                if (model.DocumentTypeID != (int)_documentType)
-                    model = null;
-            }
+        //        if (model.DocumentTypeID != (int)_documentType)
+        //            model = null;
+        //    }
 
-            return model;
-        }
+        //    return model;
+        //}
 
-        public Document GetApprovedWithAnswersAndCommentsByID(int id)
-        {
-            var model = GeWithAnswersAndCommentsByID(id);
+        //public Document GetApprovedWithAnswersAndCommentsByID(int id)
+        //{
+        //    var model = GeWithAnswersAndCommentsByID(id);
 
-            if (model != null)
-            {
-                if (model.DocumentStatusID != (int)DocumentStatusesEnum.Approved)
-                    model = null;
-            }
+        //    if (model != null)
+        //    {
+        //        if (model.DocumentStatusID != (int)DocumentStatusesEnum.Approved)
+        //            model = null;
+        //    }
 
-            return model;
-        }
+        //    return model;
+        //}
 
         public IQueryable<Document> GetAllByCreator(string userID)
         {

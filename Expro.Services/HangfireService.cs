@@ -11,19 +11,22 @@ namespace Expro.Services
     public class HangfireService : IHangfireService
     {
         private readonly IDocumentService DocumentService;
+        private readonly IQuestionService QuestionService;
         private readonly IDocumentAdminActionsService DocumentAdminActionsService;
-        private readonly IQuestionDocumentAdminActionsService QuestionDocumentAdminActionsService;
+        private readonly IQuestionAdminActionsService QuestionAdminActionsService;
         private readonly IUserBalanceService UserBalanceService;
 
         public HangfireService(
             IDocumentService documentService,
+            IQuestionService questionService,
             IDocumentAdminActionsService documentAdminActionsService,
-            IQuestionDocumentAdminActionsService questionDocumentAdminActionsService,
+            IQuestionAdminActionsService questionAdminActionsService,
             IUserBalanceService userBalanceService)
         {
             DocumentService = documentService;
+            QuestionService = questionService;
             DocumentAdminActionsService = documentAdminActionsService;
-            QuestionDocumentAdminActionsService = questionDocumentAdminActionsService;
+            QuestionAdminActionsService = questionAdminActionsService;
             UserBalanceService = userBalanceService;
         }
 
@@ -42,8 +45,8 @@ namespace Expro.Services
             //{
             Document document = DocumentService.GetByID(documentID);
 
-            if (document.PriceType == DocumentPriceTypesEnum.Paid)
-                UserBalanceService.ReplenishBalance(document.Creator, document.Price.Value);
+            //if (document.PriceType == DocumentPriceTypesEnum.Paid)
+            //    UserBalanceService.ReplenishBalance(document.Creator, document.Price.Value);
 
             DocumentAdminActionsService.RejectionDeadlineReaches(document);
             //}
@@ -51,11 +54,35 @@ namespace Expro.Services
             //{ }
         }
 
-        public string CreateJobForQuestionDocumentCompletionDeadline(Document document)
+        public string CreateJobForQuestionRejectionDeadline(Question question)
         {
             string jobID = BackgroundJob.Schedule(() =>
-                QuestionDocumentCompletionDeadlineReaches(document.ID),
-                new DateTimeOffset(document.QuestionCompletionDeadline.Value));
+                QuestionRejectionDeadlineReaches(question.ID),
+                new DateTimeOffset(question.RejectionDeadline.Value));
+
+            return jobID;
+        }
+
+        public void QuestionRejectionDeadlineReaches(int questionID)
+        {
+            //try
+            //{
+            Question question = QuestionService.GetByID(questionID);
+
+            if (question.PriceType == DocumentPriceTypesEnum.Paid)
+                UserBalanceService.ReplenishBalance(question.Creator, question.Price.Value);
+
+            QuestionAdminActionsService.RejectionDeadlineReaches(question);
+            //}
+            //catch (Exception ex)
+            //{ }
+        }
+
+        public string CreateJobForQuestionCompletionDeadline(Question question)
+        {
+            string jobID = BackgroundJob.Schedule(() =>
+                QuestionDocumentCompletionDeadlineReaches(question.ID),
+                new DateTimeOffset(question.QuestionCompletionDeadline.Value));
 
             return jobID;
         }
@@ -64,12 +91,12 @@ namespace Expro.Services
         {
             //try
             //{
-            Document document = DocumentService.GetByID(documentID);
+            Question question = QuestionService.GetByID(documentID);
 
-            if (document.PriceType == DocumentPriceTypesEnum.Paid)
-                UserBalanceService.ReplenishBalance(document.Creator, document.Price.Value);
+            if (question.PriceType == DocumentPriceTypesEnum.Paid)
+                UserBalanceService.ReplenishBalance(question.Creator, question.Price.Value);
 
-            QuestionDocumentAdminActionsService.CompletionDeadlineReaches(document);
+            QuestionAdminActionsService.CompletionDeadlineReaches(question);
             //}
             //catch (Exception ex)
             //{ }
@@ -81,39 +108,11 @@ namespace Expro.Services
             {
                 //try
                 //{
-                    BackgroundJob.Delete(jobID);
+                BackgroundJob.Delete(jobID);
                 //}
                 //catch
                 //{ }
             }
         }
-
-        //public void CreateTaskForConvertingVideo(int attachmentID, string userID)
-        //{
-        //    try
-        //    {
-        //        BackgroundJob.Enqueue(() => StartConvertingVideo(attachmentID, userID));
-        //    }
-        //    catch (Exception ex)
-        //    { }
-        //}
-
-        //public void StartConvertingVideo(int attachmentID, string userID)
-        //{
-        //    try
-        //    {
-        //        Attachment attachment = AttachmentService.GetByID(attachmentID);
-        //        string newVideoName = FileManagement.ConvertVideoToMp4(attachment.Path, attachment.GUID + "." + attachment.Extension);
-        //        FileManagement.DeleteFile(attachment.Path + "/" + attachment.GUID + "." + attachment.Extension);
-
-        //        string[] tmp = newVideoName.Split('.');
-        //        attachment.GUID = tmp[0];
-        //        attachment.Extension = tmp[1];
-
-        //        AttachmentService.Update(attachment, userID);
-        //    }
-        //    catch (Exception ex)
-        //    { }
-        //}
     }
 }

@@ -476,93 +476,6 @@ namespace Expro.Data.Migrations
                     b.ToTable("Documents");
                 });
 
-            modelBuilder.Entity("Expro.Models.DocumentAnswer", b =>
-                {
-                    b.Property<int>("ID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int?>("AttachmentID")
-                        .HasColumnType("int");
-
-                    b.Property<string>("CreatedBy")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<DateTime>("DateCreated")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime>("DateModified")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("DocumentID")
-                        .HasColumnType("int");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("ModifiedBy")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<int?>("PaidFee")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Text")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("ID");
-
-                    b.HasIndex("AttachmentID");
-
-                    b.HasIndex("CreatedBy");
-
-                    b.HasIndex("DocumentID");
-
-                    b.HasIndex("ModifiedBy");
-
-                    b.ToTable("DocumentAnswers");
-                });
-
-            modelBuilder.Entity("Expro.Models.DocumentAnswerComment", b =>
-                {
-                    b.Property<int>("DocumentAnswerID")
-                        .HasColumnType("int");
-
-                    b.Property<int>("CommentID")
-                        .HasColumnType("int");
-
-                    b.HasKey("DocumentAnswerID", "CommentID");
-
-                    b.HasIndex("CommentID");
-
-                    b.ToTable("DocumentAnswerComment");
-                });
-
-            modelBuilder.Entity("Expro.Models.DocumentAnswerLike", b =>
-                {
-                    b.Property<int>("ID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int>("DocumentAnswerID")
-                        .HasColumnType("int");
-
-                    b.Property<bool>("IsPositive")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("UserID")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.HasKey("ID");
-
-                    b.HasIndex("DocumentAnswerID");
-
-                    b.HasIndex("UserID");
-
-                    b.ToTable("DocumentAnswerLikes");
-                });
-
             modelBuilder.Entity("Expro.Models.DocumentLawArea", b =>
                 {
                     b.Property<int>("DocumentID")
@@ -751,6 +664,199 @@ namespace Expro.Data.Migrations
                     b.HasIndex("ModifiedBy");
 
                     b.ToTable("Posts");
+                });
+
+            modelBuilder.Entity("Expro.Models.Question", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int?>("AttachmentID")
+                        .HasColumnType("int");
+
+                    b.Property<string>("CreatedBy")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<DateTime?>("DateApproved")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("DateCreated")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("DateModified")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("DateQuestionCompleted")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("DateRejected")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("DateSubmittedForApproval")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("DocumentStatusID")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("ModifiedBy")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<int>("NumberOfPurchases")
+                        .HasColumnType("int");
+
+                    b.Property<int>("NumberOfViews")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("Price")
+                        .HasColumnType("int");
+
+                    b.Property<int>("PriceType")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime?>("QuestionCompletionDeadline")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("QuestionCompletionJobID")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool?>("QuestionFeeIsDistributed")
+                        .HasColumnType("bit");
+
+                    b.Property<bool?>("QuestionIsCompleted")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime?>("RejectionDeadline")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("RejectionJobID")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Text")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(1024)")
+                        .HasMaxLength(1024);
+
+                    b.HasKey("ID");
+
+                    b.HasIndex("AttachmentID");
+
+                    b.HasIndex("CreatedBy");
+
+                    b.HasIndex("DocumentStatusID");
+
+                    b.HasIndex("ModifiedBy");
+
+                    b.ToTable("Question");
+                });
+
+            modelBuilder.Entity("Expro.Models.QuestionAnswer", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int?>("AttachmentID")
+                        .HasColumnType("int");
+
+                    b.Property<string>("CreatedBy")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<DateTime>("DateCreated")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("DateModified")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("ModifiedBy")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<int?>("PaidFee")
+                        .HasColumnType("int");
+
+                    b.Property<int>("QuestionID")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Text")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("ID");
+
+                    b.HasIndex("AttachmentID");
+
+                    b.HasIndex("CreatedBy");
+
+                    b.HasIndex("ModifiedBy");
+
+                    b.HasIndex("QuestionID");
+
+                    b.ToTable("QuestionAnswers");
+                });
+
+            modelBuilder.Entity("Expro.Models.QuestionAnswerComment", b =>
+                {
+                    b.Property<int>("QuestionAnswerID")
+                        .HasColumnType("int");
+
+                    b.Property<int>("CommentID")
+                        .HasColumnType("int");
+
+                    b.HasKey("QuestionAnswerID", "CommentID");
+
+                    b.HasIndex("CommentID");
+
+                    b.ToTable("QuestionAnswerComment");
+                });
+
+            modelBuilder.Entity("Expro.Models.QuestionAnswerLike", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<bool>("IsPositive")
+                        .HasColumnType("bit");
+
+                    b.Property<int>("QuestionAnswerID")
+                        .HasColumnType("int");
+
+                    b.Property<string>("UserID")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("ID");
+
+                    b.HasIndex("QuestionAnswerID");
+
+                    b.HasIndex("UserID");
+
+                    b.ToTable("QuestionAnswerLikes");
+                });
+
+            modelBuilder.Entity("Expro.Models.QuestionLawArea", b =>
+                {
+                    b.Property<int>("QuestionID")
+                        .HasColumnType("int");
+
+                    b.Property<int>("LawAreaID")
+                        .HasColumnType("int");
+
+                    b.HasKey("QuestionID", "LawAreaID");
+
+                    b.HasIndex("LawAreaID");
+
+                    b.ToTable("QuestionLawArea");
                 });
 
             modelBuilder.Entity("Expro.Models.Region", b =>
@@ -1604,55 +1710,6 @@ namespace Expro.Data.Migrations
                         .HasForeignKey("ModifiedBy");
                 });
 
-            modelBuilder.Entity("Expro.Models.DocumentAnswer", b =>
-                {
-                    b.HasOne("Expro.Models.Attachment", "Attachment")
-                        .WithMany()
-                        .HasForeignKey("AttachmentID");
-
-                    b.HasOne("Expro.Models.ApplicationUser", "Creator")
-                        .WithMany()
-                        .HasForeignKey("CreatedBy");
-
-                    b.HasOne("Expro.Models.Document", "Document")
-                        .WithMany("Answers")
-                        .HasForeignKey("DocumentID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Expro.Models.ApplicationUser", "Modifier")
-                        .WithMany()
-                        .HasForeignKey("ModifiedBy");
-                });
-
-            modelBuilder.Entity("Expro.Models.DocumentAnswerComment", b =>
-                {
-                    b.HasOne("Expro.Models.Comment", "Comment")
-                        .WithMany("DocumentAnswerComments")
-                        .HasForeignKey("CommentID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Expro.Models.DocumentAnswer", "DocumentAnswer")
-                        .WithMany("Comments")
-                        .HasForeignKey("DocumentAnswerID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("Expro.Models.DocumentAnswerLike", b =>
-                {
-                    b.HasOne("Expro.Models.DocumentAnswer", "DocumentAnswer")
-                        .WithMany("Likes")
-                        .HasForeignKey("DocumentAnswerID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Expro.Models.ApplicationUser", "User")
-                        .WithMany()
-                        .HasForeignKey("UserID");
-                });
-
             modelBuilder.Entity("Expro.Models.DocumentLawArea", b =>
                 {
                     b.HasOne("Expro.Models.Document", "Document")
@@ -1705,6 +1762,91 @@ namespace Expro.Data.Migrations
                     b.HasOne("Expro.Models.ApplicationUser", "Modifier")
                         .WithMany()
                         .HasForeignKey("ModifiedBy");
+                });
+
+            modelBuilder.Entity("Expro.Models.Question", b =>
+                {
+                    b.HasOne("Expro.Models.Attachment", "Attachment")
+                        .WithMany()
+                        .HasForeignKey("AttachmentID");
+
+                    b.HasOne("Expro.Models.ApplicationUser", "Creator")
+                        .WithMany()
+                        .HasForeignKey("CreatedBy");
+
+                    b.HasOne("Expro.Models.DocumentStatus", "DocumentStatus")
+                        .WithMany()
+                        .HasForeignKey("DocumentStatusID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Expro.Models.ApplicationUser", "Modifier")
+                        .WithMany()
+                        .HasForeignKey("ModifiedBy");
+                });
+
+            modelBuilder.Entity("Expro.Models.QuestionAnswer", b =>
+                {
+                    b.HasOne("Expro.Models.Attachment", "Attachment")
+                        .WithMany()
+                        .HasForeignKey("AttachmentID");
+
+                    b.HasOne("Expro.Models.ApplicationUser", "Creator")
+                        .WithMany()
+                        .HasForeignKey("CreatedBy");
+
+                    b.HasOne("Expro.Models.ApplicationUser", "Modifier")
+                        .WithMany()
+                        .HasForeignKey("ModifiedBy");
+
+                    b.HasOne("Expro.Models.Question", "Question")
+                        .WithMany("Answers")
+                        .HasForeignKey("QuestionID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Expro.Models.QuestionAnswerComment", b =>
+                {
+                    b.HasOne("Expro.Models.Comment", "Comment")
+                        .WithMany("QuestionAnswerComments")
+                        .HasForeignKey("CommentID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Expro.Models.QuestionAnswer", "QuestionAnswer")
+                        .WithMany("Comments")
+                        .HasForeignKey("QuestionAnswerID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Expro.Models.QuestionAnswerLike", b =>
+                {
+                    b.HasOne("Expro.Models.QuestionAnswer", "QuestionAnswer")
+                        .WithMany("Likes")
+                        .HasForeignKey("QuestionAnswerID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Expro.Models.ApplicationUser", "User")
+                        .WithMany()
+                        .HasForeignKey("UserID");
+                });
+
+            modelBuilder.Entity("Expro.Models.QuestionLawArea", b =>
+                {
+                    b.HasOne("Expro.Models.LawArea", "LawArea")
+                        .WithMany("QuestionLawAreas")
+                        .HasForeignKey("LawAreaID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Expro.Models.Question", "Question")
+                        .WithMany("QuestionLawAreas")
+                        .HasForeignKey("QuestionID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("Expro.Models.Resume", b =>

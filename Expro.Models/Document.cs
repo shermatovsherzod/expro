@@ -7,7 +7,7 @@ using System.Text;
 
 namespace Expro.Models
 {    
-    public class Document : BaseModelAuthorable
+    public class Document : BaseModelApprovableByAdmin
     {
         [ForeignKey("DocumentType")]
         public int DocumentTypeID { get; set; }
@@ -34,15 +34,15 @@ namespace Expro.Models
         public DocumentPriceTypesEnum PriceType { get; set; } = DocumentPriceTypesEnum.Free;
         public int? Price { get; set; } // in soums
 
-        [ForeignKey("DocumentStatus")]
-        public int DocumentStatusID { get; set; }
-        public virtual DocumentStatus DocumentStatus { get; set; }
+        //[ForeignKey("DocumentStatus")]
+        //public int DocumentStatusID { get; set; }
+        //public virtual DocumentStatus DocumentStatus { get; set; }
 
-        public DateTime? DateSubmittedForApproval { get; set; }
-        public DateTime? DateApproved { get; set; }
-        public DateTime? DateRejected { get; set; }
-        public DateTime? RejectionDeadline { get; set; }
-        public string RejectionJobID { get; set; }
+        //public DateTime? DateSubmittedForApproval { get; set; }
+        //public DateTime? DateApproved { get; set; }
+        //public DateTime? DateRejected { get; set; }
+        //public DateTime? RejectionDeadline { get; set; }
+        //public string RejectionJobID { get; set; }
 
         public int NumberOfViews { get; set; }
         public int NumberOfPurchases { get; set; }
@@ -55,11 +55,5 @@ namespace Expro.Models
 
         [InverseProperty("Document")]
         public virtual ICollection<UserPurchasedDocument> UsersPurchasedThisDocument { get; set; }
-
-        //[InverseProperty("Document")]
-        //public virtual ICollection<DocumentComment> DocumentComments { get; set; }
-
-        [InverseProperty("Document")]
-        public virtual ICollection<DocumentAnswer> Answers { get; set; }
     }
 }

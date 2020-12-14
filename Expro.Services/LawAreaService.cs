@@ -123,6 +123,73 @@ namespace Expro.Services
             }
         }
 
+        public void UpdateQuestionLawAreas(Question model, List<int> selectedLawAreas)
+        {
+            if (selectedLawAreas == null || selectedLawAreas.Count == 0)
+            {
+                model.QuestionLawAreas = new List<QuestionLawArea>();
+                return;
+            }
+
+            HashSet<int> selectedCategoriesHS = new HashSet<int>(selectedLawAreas);
+            if (model.QuestionLawAreas == null)
+                model.QuestionLawAreas = new List<QuestionLawArea>();
+
+            HashSet<int> talentLawAreas = new HashSet<int>(model.QuestionLawAreas
+                .Select(m => m.LawAreaID));
+
+            List<LawArea> allLawAreas = GetAll().ToList();
+            foreach (var lawArea in allLawAreas)
+            {
+                if (selectedCategoriesHS.Contains(lawArea.ID))
+                {
+                    if (!talentLawAreas.Contains(lawArea.ID))
+                    {
+                        model.QuestionLawAreas.Add(new QuestionLawArea()
+                        {
+                            LawArea = lawArea,
+                            LawAreaID = lawArea.ID,
+                            Question = model
+                        });
+                    }
+                }
+                else
+                {
+                    if (talentLawAreas.Contains(lawArea.ID))
+                    {
+                        var lawAreaa = model.QuestionLawAreas.FirstOrDefault(m => m.LawAreaID == lawArea.ID);
+                        if (lawAreaa != null)
+                            model.QuestionLawAreas.Remove(lawAreaa);
+                    }
+                }
+            }
+
+            List<QuestionLawArea> parentLawAreasToBeAdded = new List<QuestionLawArea>();
+            foreach (var item in model.QuestionLawAreas)
+            {
+                if (item.LawArea.ParentID.HasValue)
+                {
+                    if (parentLawAreasToBeAdded.FirstOrDefault(m => m.LawAreaID == item.LawArea.ParentID.Value) == null
+                        && model.QuestionLawAreas.FirstOrDefault(m => m.LawAreaID == item.LawArea.ParentID.Value) == null)
+                    {
+                        parentLawAreasToBeAdded.Add(new QuestionLawArea()
+                        {
+                            LawAreaID = item.LawArea.ParentID.Value,
+                            Question = model
+                        });
+                    }
+                }
+            }
+
+            if (parentLawAreasToBeAdded.Count > 0)
+            {
+                foreach (var item in parentLawAreasToBeAdded)
+                {
+                    model.QuestionLawAreas.Add(item);
+                }
+            }
+        }
+
         public void UpdateCompanyLawAreas(Company model, List<int> selectedLawAreas)
         {
             if (selectedLawAreas == null || selectedLawAreas.Count == 0)

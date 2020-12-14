@@ -7,6 +7,7 @@ namespace Expro.Services.Interfaces
     {
         void UpdateUserLawAreas(ApplicationUser model, List<int> selectedLawAreas);
         void UpdateDocumentLawAreas(Document model, List<int> selectedLawAreas);
+        void UpdateQuestionLawAreas(Question model, List<int> selectedLawAreas);
         void UpdateCompanyLawAreas(Company model, List<int> selectedLawAreas);
     }
 }

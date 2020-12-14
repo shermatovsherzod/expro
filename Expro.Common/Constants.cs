@@ -10,14 +10,15 @@ namespace Expro.Common
         public static class FileTypes
         {
             public static readonly string DOCUMENT = "document";
+            public static readonly string QUESTION = "question";
             public static readonly string USER_AVATAR = "user_avatar";
             public static readonly string COMMENT = "comment";
         }
 
         public static class CommentTypes
         {
-            public static readonly string DOCUMENT = "document";
-            public static readonly string DOCUMENT_ANSWER = "document_answer";
+            //public static readonly string QUESTION = "question";
+            public static readonly string QUESTION_ANSWER = "question_answer";
         }
 
         public static class CLICK

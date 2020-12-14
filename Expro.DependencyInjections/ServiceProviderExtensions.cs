@@ -41,10 +41,11 @@ namespace Expro.DependencyInjections
             services.AddTransient<IWithdrawRequestStatusRepository, WithdrawRequestStatusRepository>();
             services.AddTransient<ICommentRepository, CommentRepository>();
             services.AddTransient<IUserStatusRepository, UserStatusRepository>();
-            services.AddTransient<IDocumentAnswerRepository, DocumentAnswerRepository>();
+            services.AddTransient<IQuestionAnswerRepository, QuestionAnswerRepository>();
             services.AddTransient<ICompanyRepository, CompanyRepository>();
             services.AddTransient<IVacancyRepository, VacancyRepository>();
             services.AddTransient<IResumeRepository, ResumeRepository>();
+            services.AddTransient<IQuestionRepository, QuestionRepository>();
         }
 
         public static void AddServices(this IServiceCollection services)
@@ -73,22 +74,23 @@ namespace Expro.DependencyInjections
             services.AddTransient<ISampleDocumentSearchService, SampleDocumentSearchService>();
             services.AddTransient<IArticleDocumentSearchService, ArticleDocumentSearchService>();
             services.AddTransient<IDocumentAdminActionsService, DocumentAdminActionsService>();
-            services.AddTransient<IQuestionDocumentAdminActionsService, QuestionDocumentAdminActionsService>();
+            services.AddTransient<IQuestionAdminActionsService, QuestionAdminActionsService>();
             services.AddTransient<IDocumentCounterService, DocumentCounterService>();
             services.AddTransient<IPracticeDocumentService, PracticeDocumentService>();
             services.AddTransient<IPracticeDocumentSearchService, PracticeDocumentSearchService>();
             services.AddTransient<IClickTransactionService, ClickTransactionService>();
             services.AddTransient<IWithdrawRequestService, WithdrawRequestService>();
             services.AddTransient<IWithdrawRequestStatusService, WithdrawRequestStatusService>();
-            services.AddTransient<IQuestionDocumentService, QuestionDocumentService>();
-            services.AddTransient<IQuestionDocumentSearchService, QuestionDocumentSearchService>();
+            services.AddTransient<IQuestionService, QuestionService>();
+            services.AddTransient<IQuestionSearchService, QuestionSearchService>();
             services.AddTransient<IUserStatusService, UserStatusService>();
             services.AddTransient<ICommentService, CommentService>();
-            services.AddTransient<IDocumentAnswerService, DocumentAnswerService>();
+            services.AddTransient<IQuestionAnswerService, QuestionAnswerService>();
             services.AddTransient<ICompanyService, CompanyService>();
             services.AddTransient<IVacancyService, VacancyService>();
             services.AddTransient<IResumeService, ResumeService>();
             services.AddTransient<IQuestionStatusService, QuestionStatusService>();
+            services.AddTransient<IQuestionCounterService, QuestionCounterService>();
         }
     }
 }

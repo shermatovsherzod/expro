@@ -21,7 +21,7 @@ namespace Expro.Controllers
     {
         private readonly ICommentService CommentService;
         private readonly IDocumentService DocumentService;
-        private readonly IDocumentAnswerService DocumentAnswerService;
+        private readonly IQuestionAnswerService QuestionAnswerService;
         private readonly UserManager<ApplicationUser> _userManager;
 
         //private readonly IHostingEnvironment _env;
@@ -29,14 +29,14 @@ namespace Expro.Controllers
         public CommentController(
             ICommentService commentService,
             IDocumentService documentService,
-            IDocumentAnswerService documentAnswerService,
+            IQuestionAnswerService questionAnswerService,
             //IHostingEnvironment env,
             UserManager<ApplicationUser> userManager,
             ILogger<AttachmentController> logger)
         {
             CommentService = commentService;
             DocumentService = documentService;
-            DocumentAnswerService = documentAnswerService;
+            QuestionAnswerService = questionAnswerService;
             //_env = env;
             _userManager = userManager;
             _logger = logger;
@@ -44,7 +44,7 @@ namespace Expro.Controllers
 
         //ajax
         [HttpPost]
-        public async Task<IActionResult> Save(/*[FromBody]*/ CommentCreateVM commentCreateVM)
+        public IActionResult Save(/*[FromBody]*/ CommentCreateVM commentCreateVM)
         {
             try
             {
@@ -54,7 +54,7 @@ namespace Expro.Controllers
                 CommentService.Add(comment, curUser.ID);
 
                 if (commentCreateVM.ObjectID != null)
-                    await AttachComment(comment, commentCreateVM.ObjectID, commentCreateVM.CommentType);
+                    AttachComment(comment, commentCreateVM.ObjectID, commentCreateVM.CommentType);
 
                 return Ok(new { id = comment.ID });
             }
@@ -64,7 +64,7 @@ namespace Expro.Controllers
             }
         }
 
-        private async Task AttachComment(Comment comment, object id, string commentType)
+        private void AttachComment(Comment comment, object id, string commentType)
         {
             string modelIDString = id.ToString();
             int modelIDInt = 0;
@@ -72,29 +72,29 @@ namespace Expro.Controllers
 
             if (modelIDInt > 0)
             {
-                if (commentType.Equals(Constants.CommentTypes.DOCUMENT))
+                //if (commentType.Equals(Constants.CommentTypes.QUESTION))
+                //{
+                //    var model = DocumentService.GetByID(modelIDInt);
+                //    if (model != null)
+                //    {
+                //        //model.DocumentComments.Add(new DocumentComment()
+                //        //{
+                //        //    Comment = comment,
+                //        //    IsAnswer = false
+                //        //});
+                //        //DocumentService.Update(model);
+                //    }
+                //}
+                if (commentType.Equals(Constants.CommentTypes.QUESTION_ANSWER))
                 {
-                    var model = DocumentService.GetByID(modelIDInt);
+                    var model = QuestionAnswerService.GetByID(modelIDInt);
                     if (model != null)
                     {
-                        //model.DocumentComments.Add(new DocumentComment()
-                        //{
-                        //    Comment = comment,
-                        //    IsAnswer = false
-                        //});
-                        //DocumentService.Update(model);
-                    }
-                }
-                if (commentType.Equals(Constants.CommentTypes.DOCUMENT_ANSWER))
-                {
-                    var model = DocumentAnswerService.GetByID(modelIDInt);
-                    if (model != null)
-                    {
-                        model.Comments.Add(new DocumentAnswerComment()
+                        model.Comments.Add(new QuestionAnswerComment()
                         {
                             Comment = comment
                         });
-                        DocumentAnswerService.Update(model);
+                        QuestionAnswerService.Update(model);
                     }
                 }
             }
@@ -221,34 +221,6 @@ namespace Expro.Controllers
                 DocumentService.Update(obj, curUserID);
             }
             //else if () ...
-        }
-
-        //uncomment when needed
-        //[HttpPost]
-        //public JsonResult UploadMultiple(List<IFormFile> files)
-        //{
-        //    return Json(new { });
-        //}
-
-        public static bool IsNumericType(object o)
-        {
-            switch (Type.GetTypeCode(o.GetType()))
-            {
-                case TypeCode.Byte:
-                case TypeCode.SByte:
-                case TypeCode.UInt16:
-                case TypeCode.UInt32:
-                case TypeCode.UInt64:
-                case TypeCode.Int16:
-                case TypeCode.Int32:
-                case TypeCode.Int64:
-                case TypeCode.Decimal:
-                case TypeCode.Double:
-                case TypeCode.Single:
-                    return true;
-                default:
-                    return false;
-            }
         }
     }
 }

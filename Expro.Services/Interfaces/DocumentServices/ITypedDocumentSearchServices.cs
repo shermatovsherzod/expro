@@ -16,7 +16,7 @@ namespace Expro.Services.Interfaces
     {
     }
 
-    public interface IQuestionDocumentSearchService : IDocumentSearchService
-    {
-    }
+    //public interface IQuestionDocumentSearchService : IDocumentSearchService
+    //{
+    //}
 }

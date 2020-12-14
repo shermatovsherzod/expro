@@ -8,7 +8,8 @@ namespace Expro.Services.Interfaces
     public interface IHangfireService
     {
         string CreateJobForDocumentRejectionDeadline(Document document);
-        string CreateJobForQuestionDocumentCompletionDeadline(Document document);
+        string CreateJobForQuestionRejectionDeadline(Question document);
+        string CreateJobForQuestionCompletionDeadline(Question document);
 
         void CancelJob(string jobID);
     }

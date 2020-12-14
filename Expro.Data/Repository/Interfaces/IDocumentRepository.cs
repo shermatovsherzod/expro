@@ -7,6 +7,5 @@ namespace Expro.Data.Repository.Interfaces
     {
         IQueryable<Document> GetManyWithRelatedDataAsIQueryable();
         Document GeWithRelatedDataByID(int id);
-        Document GeWithAnswersAndCommentsByID(int id);
     }
 }

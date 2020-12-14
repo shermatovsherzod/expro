@@ -16,7 +16,7 @@ namespace Expro.Services.Interfaces
         IQueryable<Document> GetAllForAdmin();
         IQueryable<Document> GetAllApproved();
         Document GetApprovedByID(int id);
-        Document GetApprovedWithAnswersAndCommentsByID(int id);
+        //Document GetApprovedWithAnswersAndCommentsByID(int id);
         IQueryable<Document> GetAllByCreator(string userID);
         bool IsFree(Document model);
         IQueryable<Document> GetAllPurchasedByUser(string purchasedUserID);
