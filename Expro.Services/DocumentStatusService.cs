@@ -43,6 +43,13 @@ namespace Expro.Services
                 Selected = false
             });
 
+            result.Add(new SelectListItem()
+            {
+                Value = "300",
+                Text = "Вопрос открыт",
+                Selected = false
+            });
+
             return result;
         }
     }

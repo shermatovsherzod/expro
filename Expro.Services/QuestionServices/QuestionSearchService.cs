@@ -33,7 +33,7 @@ namespace Expro.Services
             int? statusID,
             DocumentPriceTypesEnum? priceType,
             string authorID,
-            string purchasedUserID,
+            string answeredUserID,
             int[] lawAreas)
         {
             recordsTotal = 0;
@@ -42,40 +42,31 @@ namespace Expro.Services
 
             try
             {
-                IQueryable<Question> documents;
+                IQueryable<Question> questions;
 
                 if (curUserType.HasValue)
                 {
-                    //if (!string.IsNullOrWhiteSpace(purchasedUserID))
-                    //    documents = DocumentService.GetAllPurchasedByUser(purchasedUserID);
-                    //else if (curUserType == UserTypesEnum.Admin)
-                    //    documents = DocumentService.GetAllForAdmin();
-                    //else if (curUserType == UserTypesEnum.Expert)
-                    //    documents = DocumentService.GetAllByCreator(authorID);
-                    //else if (curUserType == UserTypesEnum.SimpleUser)
-                    //    documents = DocumentService.GetAllPurchasedByUser(purchasedUserID);
-                    //else
-                    //    documents = DocumentService.GetAllApproved();
-
                     if (curUserType == UserTypesEnum.Admin)
-                        documents = QuestionService.GetAllForAdmin();
+                        questions = QuestionService.GetAllForAdmin();
                     else if (curUserType == UserTypesEnum.SimpleUser)
-                        documents = QuestionService.GetAllByCreator(authorID);
+                        questions = QuestionService.GetAllByCreator(authorID);
+                    else if (curUserType == UserTypesEnum.Expert)
+                        questions = QuestionService.GetAllAnsweredByUser(answeredUserID);
                     else
-                        documents = QuestionService.GetAllApproved();
+                        questions = QuestionService.GetAllApproved();
                 }
                 else
-                    documents = QuestionService.GetAllApproved();
+                    questions = QuestionService.GetAllApproved();
 
-                recordsTotal = documents.Count();
+                recordsTotal = questions.Count();
 
-                documents = ApplyFilters(documents, lawAreas, statusID, priceType);
+                questions = ApplyFilters(questions, lawAreas, statusID, priceType);
 
-                recordsFiltered = documents.Count();
+                recordsFiltered = questions.Count();
 
-                documents = ApplyOrder(documents, start, length);
+                questions = ApplyOrder(questions, start, length);
 
-                return documents;
+                return questions;
             }
             catch (Exception ex)
             {
@@ -115,6 +106,12 @@ namespace Expro.Services
                         .Where(m => m.DocumentStatusID == (int)DocumentStatusesEnum.Approved
                             && m.QuestionIsCompleted == true
                             && m.QuestionFeeIsDistributed == true);
+                }
+                else if (statusID.Value == (int)DocumentStatusesEnum.QuestionOpen)
+                {
+                    questions = questions
+                        .Where(m => m.DocumentStatusID == (int)DocumentStatusesEnum.Approved
+                            && (!m.QuestionIsCompleted.HasValue || m.QuestionIsCompleted == false));
                 }
                 else
                     questions = questions.Where(m => m.DocumentStatusID == statusID.Value);

@@ -76,7 +76,7 @@ namespace Expro.Controllers
                 out error,
 
                 curUser.UserType.Value,
-                statusID,
+                (int)DocumentStatusesEnum.Approved,//statusID,
                 priceType,
                 curUser.ID,
                 curUser.ID,

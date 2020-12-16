@@ -7,7 +7,7 @@ using System.Text;
 namespace Expro.Services.Interfaces
 {
     public interface IBaseAuthorableService<T> : IBaseCRUDService<T> 
-        where T : BaseModel
+        where T : BaseModelAuthorable
     {
         void Add(T entity, string creatorID);
         void AddCollection(ICollection<T> entities, string creatorID);

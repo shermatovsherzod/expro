@@ -11,6 +11,7 @@ namespace Expro.Models.Enums
         Approved = 3,
         Rejected = 4,
         QuestionCompletedWithFeeDistribution = 100,
-        QuestionCompleted = 200
+        QuestionCompleted = 200,
+        QuestionOpen = 300,
     }
 }

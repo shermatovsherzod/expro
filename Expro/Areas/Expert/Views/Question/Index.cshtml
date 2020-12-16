@@ -1,0 +1,162 @@
+﻿@using Expro.ViewModels
+@using Expro.Models.Enums
+
+@{
+    ViewData["Title"] = "Вопросы";
+    //ViewData["DocumentType"] = DocumentTypesEnum.QuestionDocument;
+}
+
+<h1>@ViewData["Title"]</h1>
+<br />
+
+<div class="row">
+    <div class="col-sm-4">
+        Фильтр по статусу: <br />
+        <select id="statusDD" asp-items="@ViewData["statuses"] as List<SelectListItem>" class="form-control">
+            <option value="">Все</option>
+        </select>
+        <br />
+
+        Фильтр по цене: <br />
+        <select id="priceTypeDD" class="form-control">
+            <option value="">Все</option>
+            <option value="@DocumentPriceTypesEnum.Free">Бесплатные</option>
+            <option value="@DocumentPriceTypesEnum.Paid">Платные</option>
+        </select>
+        <br />
+    </div>
+</div>
+
+<div id="tableBox">
+    <div class="spinner-border spinner" style="display: none;"></div>
+    <table id="list" width="100%">
+        <thead>
+            <tr>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+        </tbody>
+    </table>
+    <div class="spinner-border spinner" style="display: none;"></div>
+</div>
+
+<link href="~/lib/DataTables-1.10.22/datatables.css" rel="stylesheet" />
+
+@section Scripts
+{
+    <script src="~/lib/DataTables-1.10.22/datatables.js"></script>
+    <script>
+        var documentType = "";
+        var documentPriceTypePaid = 0;
+
+        function SetVariables(documentPriceTypesEnumPaid)
+        {
+            documentPriceTypePaid = documentPriceTypesEnumPaid;
+        }
+
+        var table;
+
+        $(document).ready(function () {
+            table = $("table#list").DataTable({
+                searching: false,
+                ordering: false,
+                processing: true,
+                serverSide: true,
+                lengthChange: false,
+                scrollX: true,
+                lengthChange: false,
+                ajax:
+                {
+                    url: "/Expert/Question/Search",
+                    type: "POST",
+                    //contentType: "application/json",
+                    datatype: "json",
+                    data: function (d) {
+                        d.statusID = $("#statusDD").val();
+                        d.priceType = $("#priceTypeDD").val();
+                    },
+                    //complete: function () {
+                    //    StartLoadingImagesAsync();
+                    //}
+                },
+                columns: [
+                    {
+                        "data": 0, //"name": "statusId", "autoWidth": true,
+                        "render": function (data, type, full, meta) {
+                            var html = '';
+                            html += '<div class="card" style="margin-top: 10px;">';
+                            html += '   <div class="card-body">';
+
+                            var url = "/Question/Details/" + full.id;
+
+                            html += '       <h3><a href="' + url + '">' + full.title + '</a></h3>';
+
+                            //html += InsertStatusAlert(full);
+                            html += InsertCompletenessStatus(full);
+
+                            html += '       <p>Дата изменения: ' + full.dateModified + '</p>';
+                            html += '       <p>Автор: <a href="#">' + full.author.fullName + '</a></p>';
+                            html += '       <p>';
+                            for (var i = 0; i < full.lawAreas.length; i++) {
+                                html += '       <span class="badge badge-primary">' + full.lawAreas[i].name + '</span>';
+                            }
+                            html += '       </p>';
+                            //console.log(full.title);
+                            //console.log(full.priceType);
+                            if (full.priceType == documentPriceTypePaid)
+                                html += '   <p>Цена: <b class="text-danger">' + full.priceStr + ' сум</b></p>';
+                            html += '        <a href="' + url + '" class="btn btn-outline-primary" target="_blank">Открыть</a>';
+                            html += '   </div>';
+                            html += '</div>';
+                            return html;
+                        }
+                    }
+                ]
+            });
+
+            table
+                .on('preDraw', function () {
+                    $("#tableBox .spinner").show();
+                })
+                .on('draw.dt', function () {
+                    $("#tableBox .spinner").hide();
+                    //console.log('Redraw took at: ' + (new Date().getTime() - startTime) + 'mS');
+                });
+
+            $("#statusDD, #priceTypeDD").change(function () {
+                table.draw();
+            });
+        });
+
+        //function InsertStatusAlert(full) {
+        //    var html = "<div class='alert ";
+        //    if (full.status.id == documentStatuses.waitingForApproval)
+        //        html += "alert-warning'>";
+        //    else if (full.status.id == documentStatuses.approved)
+        //        html += "alert-success'>";
+        //    else if (full.status.id == documentStatuses.rejected)
+        //        html += "alert-danger'>";
+
+        //    html += full.status.name;
+        //    html += "</div>";
+
+        //    return html;
+        //}
+
+        function InsertCompletenessStatus(full) {
+            var html = "";
+            if (full.isCompleted) {
+                if (full.feeIsDistributed)
+                    html = "<div class='alert alert-success'>Вопрос решен</div>";
+                else
+                    html = "<div class='alert alert-warning'>Вопрос закрыт</div>";
+            }
+
+            return html;
+        }
+    </script>
+    <script>
+        SetVariables(@((int)DocumentPriceTypesEnum.Paid));
+    </script>
+}

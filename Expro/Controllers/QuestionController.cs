@@ -69,7 +69,6 @@ namespace Expro.Controllers
             string error = "";
 
             var curUser = accountUtil.GetCurrentUser(User);
-            //ApplicationUser user = await _userManager.GetUserAsync(User);
 
             IQueryable<Question> dataIQueryable = QuestionSearchService.Search(
                 start,
@@ -80,9 +79,9 @@ namespace Expro.Controllers
                 out error,
 
                 null,
-                statusID,
+                (int)DocumentStatusesEnum.Approved,
                 priceType,
-                curUser.ID,
+                null,
                 null,
                 lawAreas
             );
@@ -171,6 +170,7 @@ namespace Expro.Controllers
         }
 
         //ajax
+        //adminAndUserPolicy
         [HttpPost]
         public IActionResult SaveDistribution([FromBody] QuestionFeeDistributionVM distributedAnswers)
         {

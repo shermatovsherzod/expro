@@ -10,9 +10,9 @@ using Expro.ViewModels;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Expro.Areas.Admin.Controllers
+namespace Expro.Areas.Expert.Controllers
 {
-    [Area("Admin")]
+    [Area("Expert")]
     public class QuestionController : BaseController
     {
         private readonly IQuestionSearchService QuestionSearchService;
@@ -70,12 +70,12 @@ namespace Expro.Areas.Admin.Controllers
                 statusID,
                 priceType,
                 null,
-                null,
+                curUser.ID,
                 null
             );
 
             dynamic data = dataIQueryable
-                .Select(m => new QuestionListItemForAdminVM(m))
+                .Select(m => new QuestionListItemForExpertVM(m))
                 .ToList();
 
             return Json(new
@@ -86,77 +86,6 @@ namespace Expro.Areas.Admin.Controllers
                 data = data,
                 error = error
             });
-        }
-
-        public IActionResult Details(int id)
-        {
-            var question = QuestionService.GetByID(id);
-            if (question == null)
-                throw new Exception("Вопрос не найден");
-
-            QuestionDetailsForAdminVM documentVM = new QuestionDetailsForAdminVM(question);
-
-            return View(documentVM);
-        }
-
-        [HttpPost]
-        public IActionResult Approve(int id)
-        {
-            try
-            {
-                var question = QuestionService.GetByID(id);
-                if (question == null)
-                    throw new Exception("Вопрос не найден");
-
-                var curUser = accountUtil.GetCurrentUser(User);
-
-                if (!QuestionAdminActionsService.ApprovingIsAllowed(question))
-                    throw new Exception("Статус вопроса не позволяет подтвердить его");
-
-                QuestionAdminActionsService.Approve(question, curUser.ID);
-                question.QuestionCompletionJobID = HangfireService.CreateJobForQuestionCompletionDeadline(question);
-                QuestionService.Update(question);
-
-                //cancel hangfire jobs
-                HangfireService.CancelJob(question.RejectionJobID);
-
-                return Ok();
-            }
-            catch (Exception ex)
-            {
-                return CustomBadRequest(ex);
-            }
-        }
-
-        [HttpPost]
-        public IActionResult Reject(int id)
-        {
-            try
-            {
-                var document = QuestionService.GetByID(id);
-                if (document == null)
-                    throw new Exception("Документ не найден");
-
-                var curUser = accountUtil.GetCurrentUser(User);
-
-                if (!QuestionAdminActionsService.RejectingIsAllowed(document))
-                    throw new Exception("Статус вопроса не позволяет подтвердить его");
-
-                if (document.PriceType == DocumentPriceTypesEnum.Paid)
-                {
-                    UserBalanceService.ReplenishBalance(document.Creator, document.Price.Value);
-                }
-
-                QuestionAdminActionsService.Reject(document, curUser.ID);
-                
-                HangfireService.CancelJob(document.RejectionJobID);
-
-                return Ok();
-            }
-            catch (Exception ex)
-            {
-                return CustomBadRequest(ex);
-            }
         }
     }
 }

@@ -157,8 +157,8 @@ namespace Expro.Services
         {
             return GetManyWithRelatedDataAsIQueryable()
                 .Where(m => m.Answers
-                        .Select(n => n.CreatedBy)
-                        .Contains(answeredUserID));
+                    .Select(n => n.CreatedBy)
+                    .Contains(answeredUserID));
         }
 
         public DateTime RoundToUp(DateTime inputDateTime)
