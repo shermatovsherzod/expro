@@ -102,13 +102,15 @@ namespace Expro.Controllers
 
         public IActionResult Details(int id)
         {
+            var curUser = accountUtil.GetCurrentUser(User);
+
             var question = QuestionService.GetApprovedWithAnswersAndCommentsByID(id);
             if (question == null)
                 throw new Exception("Вопрос не найден");
 
             QuestionCounterService.IncrementNumberOfViews(question);
 
-            QuestionDetailsForSiteVM documentVM = new QuestionDetailsForSiteVM(question);
+            QuestionDetailsForSiteVM documentVM = new QuestionDetailsForSiteVM(question, curUser.ID);
 
             bool curUserIsAllowedToAnswer = false;
             bool curUserIsAllowedToComment = false;
@@ -117,7 +119,6 @@ namespace Expro.Controllers
 
             if (User.Identity.IsAuthenticated)
             {
-                var curUser = accountUtil.GetCurrentUser(User);
                 if (curUser.IsExpert)
                 {
                     curUserIsAllowedToAnswer = true;
@@ -139,6 +140,7 @@ namespace Expro.Controllers
             ViewData["curUserIsAllowedToComment"] = curUserIsAllowedToComment;
             ViewData["curUserIsAllowedToDistributeFee"] = curUserIsAllowedToDistributeFee;
             ViewData["curUserIsAllowedToComplete"] = curUserIsAllowedToComplete;
+            ViewData["curPageUrl"] = Request.Path.Value;
 
             return View(documentVM);
         }
@@ -246,6 +248,27 @@ namespace Expro.Controllers
                 HangfireService.CancelJob(question.QuestionCompletionJobID);
 
                 return Ok(new { successMessage = "Гонорар успешно распределен" });
+            }
+            catch (Exception ex)
+            {
+                return CustomBadRequest(ex);
+            }
+        }
+
+        //authorize
+        public IActionResult SaveLike([FromBody] QuestionAnswerLikeCreateVM like)
+        {
+            try
+            {
+                var questionAnswer = QuestionAnswerService.GetByID(like.QuestionAnswerID);
+                if (questionAnswer == null)
+                    throw new Exception("Ответ не найден");
+
+                var curUser = accountUtil.GetCurrentUser(User);
+
+                QuestionAnswerService.AddLike(questionAnswer, curUser.ID, like.IsPositive);
+
+                return Ok();
             }
             catch (Exception ex)
             {

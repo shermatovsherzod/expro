@@ -50,9 +50,11 @@ namespace Expro.ViewModels
         public int? PaidFee { get; set; }
         public string PaidFeeStr { get; set; }
 
+        public bool? ViewerUserHasLikeOrDislike { get; set; }
+
         public QuestionAnswerDetailsVM() { }
 
-        public QuestionAnswerDetailsVM(QuestionAnswer model)
+        public QuestionAnswerDetailsVM(QuestionAnswer model, string viewerUserID = null)
             : base(model)
         {
             if (model == null)
@@ -74,6 +76,8 @@ namespace Expro.ViewModels
             PaidFee = model.PaidFee;
             if (PaidFee.HasValue)
                 PaidFeeStr = model.PaidFee.Value.ToString(AppData.Configuration.NumberViewStringFormat);
+
+            ViewerUserHasLikeOrDislike = model.Likes.FirstOrDefault()?.IsPositive;
         }
     }
 

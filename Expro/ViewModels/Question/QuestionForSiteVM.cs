@@ -86,7 +86,7 @@ namespace Expro.ViewModels
 
         public QuestionDetailsForSiteVM() { }
 
-        public QuestionDetailsForSiteVM(Question model)
+        public QuestionDetailsForSiteVM(Question model, string viewerUserID = null)
             : base(model)
         {
             if (model == null)
@@ -99,7 +99,7 @@ namespace Expro.ViewModels
             Answers = new List<QuestionAnswerDetailsVM>();
             foreach (var item in model.Answers)
             {
-                Answers.Add(new QuestionAnswerDetailsVM(item));
+                Answers.Add(new QuestionAnswerDetailsVM(item, viewerUserID));
             }
 
             IsCompleted = model.QuestionIsCompleted ?? false;

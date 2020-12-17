@@ -139,7 +139,39 @@
                             <p><a href="@answer.Attachment.Url">@answer.Attachment.DisplayName</a></p>
                             <br />
                         }
-                        <p>Лайки: @answer.PositiveLikesCount, Дислайки: @answer.NegativeLikesCount</p>
+
+                        @if (User.Identity.IsAuthenticated)
+                        {
+                            <div id="likesInfoBox_@answer.ID">
+                                @{ 
+                                    string likeIconTextColor = "text-dark";
+                                    if (answer.ViewerUserHasLikeOrDislike.HasValue
+                                       && answer.ViewerUserHasLikeOrDislike.Value == true)
+                                    {
+                                        likeIconTextColor = "text-info";
+                                    }
+                                    <span><a href="javascript:void(0)" class="@likeIconTextColor" onclick="Like(@answer.ID)">Лайки</a>: @answer.PositiveLikesCount, </span>
+
+                                    string dislikeIconTextColor = "text-dark";
+                                    if (answer.ViewerUserHasLikeOrDislike.HasValue
+                                       && answer.ViewerUserHasLikeOrDislike.Value == false)
+                                    {
+                                        dislikeIconTextColor = "text-info";
+                                    }
+                                    <span><a href="javascript:void(0)" class="@dislikeIconTextColor" onclick="Dislike(@answer.ID)">Дислайки</a>: @answer.NegativeLikesCount</span>
+                                }
+
+                                <div class="spinner-border spinner" style="display: none;"></div>
+                            </div>
+                        }
+                        else
+                        {
+                            <div>
+                                <a href="javascript:void(0)" data-toggle="popover" data-trigger="focus" @*title="Popover Header"*@ data-html="true" data-content="<a href='/Identity/Account/Login?returnUrl=@ViewData["curPageUrl"]'>Войдите</a>, чтобы лайкнуть">Лайки</a>: @answer.PositiveLikesCount, 
+                                <a href="javascript:void(0)" data-toggle="popover" data-trigger="focus" @*title="Popover Header"*@ data-html="true" data-content="Some <a href='/Identity/Account/Login?returnUrl=@ViewData["curPageUrl"]'>Войдите</a>, чтобы дислайкнуть">Дислайки</a>: @answer.NegativeLikesCount
+                            </div>
+                        }
+
                         @if (curUserIsAllowedToComment.Value && !Model.IsCompleted)
                         {
                             <p><button class="btn btn-link" data-toggle="collapse" data-target="#addCommentContainer" onclick="SetCommentObjectID(@answer.ID);">Комментировать</button></p>
@@ -261,6 +293,7 @@
             InitCollapsibleItems();
             InitCKEDITORForView();
             InitCKEDITOR();
+            InitPopover();
         });
 
         function InitCollapsibleItems() {
@@ -333,6 +366,59 @@
                     //$(input).removeAttr("disabled");
                 }
             });
+        }
+
+        function InitPopover() {
+            $(document).ready(function () {
+                $('[data-toggle="popover"]').popover();
+            });
+        }
+    </script>
+
+    <script>
+        function Like(answerID, isLike) {
+            var isPositive = true;
+            if (isLike == false)
+                isPositive = false;
+
+            var likeData = {
+                QuestionAnswerID: answerID,
+                IsPositive: isPositive
+            };
+
+            $.ajax({
+                url: "/Question/SaveLike",
+                data: JSON.stringify(likeData),
+                processData: false,
+                contentType: "application/json; charset=utf-8",
+                type: "POST",
+                //dataType: "json",
+                beforeSend: function () {
+                    //$(".errorMessage, .successMessage").hide().text("");
+                    $("#likesInfoBox_" + answerID + " .spinner").show();
+                    $("#likesInfoBox_" + answerID + " a").attr("disabled", "disabled");
+                },
+                success: function (data) {
+                    //$("#moneyDistributionModal .successMessage")
+                    //    .text(data.successMessage)
+                    //    .show();
+
+                    location.reload();
+                    //alert("File uploaded!");
+                },
+                error: function (data) {
+                    $("#likesInfoBox_" + answerID + " .spinner").hide();
+                    $("#likesInfoBox_" + answerID + " a").removeAttr("disabled");
+                },
+                complete: function () {
+                    //$("#" + spinnerTagID).hide();
+                    //$(input).removeAttr("disabled");
+                }
+            });
+        }
+
+        function Dislike(answerID) {
+            Like(answerID, false);
         }
     </script>
 }

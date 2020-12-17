@@ -34,6 +34,8 @@ namespace Expro.Data.Repository
                 .Include(m => m.Answers)
                     .ThenInclude(m => m.Creator)
                 .Include(m => m.Answers)
+                    .ThenInclude(m => m.Likes)
+                .Include(m => m.Answers)
                     .ThenInclude(m => m.Attachment)
                 .Include(m => m.Answers)
                     .ThenInclude(m => m.Comments)

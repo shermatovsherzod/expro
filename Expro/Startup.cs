@@ -81,9 +81,9 @@ namespace Expro
 
             var webRoot = _env.ContentRootPath;
 
-            services.AddSingleton<IFileProvider>(
-              new PhysicalFileProvider(
-                Path.Combine(webRoot, "Uploads")));
+            //services.AddSingleton<IFileProvider>(
+            //  new PhysicalFileProvider(
+            //    Path.Combine(webRoot, "Uploads")));
 
             services.AddMvc().AddViewLocalization();
             services.AddControllersWithViews().AddRazorRuntimeCompilation();
