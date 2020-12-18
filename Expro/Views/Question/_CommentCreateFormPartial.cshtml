@@ -34,7 +34,7 @@
     var parentCommentdID = null;
     var input;
     var commentID = 0;
-    var fileType = "@Constants.FileTypes.COMMENT";
+    //var fileType = "@Constants.FileTypes.COMMENT";
 
     function SetCommentObjectID(objectID, parentID) {
         if (objectID != undefined && objectID > 0)
@@ -143,7 +143,7 @@
                     Size: 0,
                     ContentType: "",
                     DownloadUrl: "",
-                    FileType: fileType,
+                    FileType: "@Constants.FileTypes.COMMENT",
                     ModelID: commentID
                 };
                 //console.log(uploadTask.snapshot.ref);

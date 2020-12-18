@@ -36,6 +36,7 @@
                 }
                 <th>@Html.DisplayNameFor(model => listItem.ID)</th>
                 <th>@Html.DisplayNameFor(model => listItem.User.FullName)</th>
+                <th>@Html.DisplayNameFor(model => listItem.User.UserType)</th>
                 <th>@Html.DisplayNameFor(model => listItem.Amount)</th>
                 <th>@Html.DisplayNameFor(model => listItem.DateCreated)</th>
                 <th>@Html.DisplayNameFor(model => listItem.Status)</th>
@@ -107,17 +108,28 @@
                     {
                         "data": 2, //"name": "statusId", "autoWidth": true,
                         "render": function (data, type, full, meta) {
-                            return '' + full.amountStr + ' сум';
+                            if (full.user.userType == 2)
+                                return "Эксперт";
+                            else if (full.user.userType == 3)
+                                return "Пользователь";
+                            else
+                                return "-";
                         }
                     },
                     {
                         "data": 3, //"name": "statusId", "autoWidth": true,
                         "render": function (data, type, full, meta) {
-                            return '' + full.dateCreated + '';
+                            return '' + full.amountStr + ' сум';
                         }
                     },
                     {
                         "data": 4, //"name": "statusId", "autoWidth": true,
+                        "render": function (data, type, full, meta) {
+                            return '' + full.dateCreated + '';
+                        }
+                    },
+                    {
+                        "data": 5, //"name": "statusId", "autoWidth": true,
                         "render": function (data, type, full, meta)
                         {
                             return '' + InsertStatusAlert(full) + '';

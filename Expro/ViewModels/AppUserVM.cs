@@ -35,6 +35,8 @@ namespace Expro.ViewModels
         }
         public string Email { get; set; }
         //public string UserType { get; set; }
+
+        [Display(Name = "Пользователь")]
         public UserTypesEnum? UserType { get; set; }
         public UserAreasEnum? UserArea { get; set; }
 

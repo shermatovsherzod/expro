@@ -252,11 +252,11 @@
         <div id="addAnswerContainer" class="collapse">
             @{ await Html.RenderPartialAsync("_AnswerCreateFormPartial", new Expro.ViewModels.QuestionAnswerCreateVM()); }
         </div>
-                }
+    }
 
-                if (curUserIsAllowedToComment.Value)
-                {
-                    ViewData["commentType"] = Constants.CommentTypes.QUESTION_ANSWER;
+    if (curUserIsAllowedToComment.Value)
+    {
+        ViewData["commentType"] = Constants.CommentTypes.QUESTION_ANSWER;
         <div id="addCommentContainer" class="collapse">
             @{ await Html.RenderPartialAsync("_CommentCreateFormPartial", new Expro.ViewModels.CommentCreateVM()); }
         </div>

@@ -132,7 +132,7 @@ namespace Expro.Controllers
                 else if (curUser.IsAdmin)
                 {
                     curUserIsAllowedToComplete = QuestionService.AdminIsAllowedToComplete(question);
-                    curUserIsAllowedToDistributeFee = true;
+                    curUserIsAllowedToDistributeFee = curUserIsAllowedToComplete;
                 }
             }
 

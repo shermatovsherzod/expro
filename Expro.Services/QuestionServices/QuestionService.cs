@@ -187,8 +187,8 @@ namespace Expro.Services
             if (!question.DateApproved.HasValue)
                 return false;
 
-            if (question.DateApproved.Value.AddDays(1) > now)
-                //if (question.DateApproved.Value.AddMinutes(10) > now)
+            if (question.DateApproved.Value.AddDays(1) < now)
+                //if (question.DateApproved.Value.AddMinutes(10) < now)
                 return true;
 
             return false;
