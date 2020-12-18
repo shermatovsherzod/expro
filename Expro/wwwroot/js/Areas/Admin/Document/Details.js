@@ -55,3 +55,18 @@ function ResponseToDocument(id, action) {
 function ShowFormSpinner() {
     $(".spinner").show();
 }
+
+function InitCKEDITORForView() {
+    var configViewMode =
+    {
+        extraPlugins: 'autogrow',
+        autoGrow_minHeight: 1,
+        autoGrow_maxHeight: 100000,
+        autoGrow_onStartup: true,
+        readOnly: true
+    }
+
+    $('.editorViewMode').each(function (e) {
+        CKEDITOR.replace(this.id, configViewMode);
+    });
+}

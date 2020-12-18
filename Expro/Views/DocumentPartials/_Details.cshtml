@@ -61,7 +61,8 @@
                 }
                 else
                 {
-                    @Html.Raw(Model.Text)
+                    <textarea class="editorViewMode" asp-for="Text"></textarea>
+                    @*@Html.Raw(Model.Text)*@
                     @*@Html.DisplayFor(model => model.Text)*@
                 }
             </dd>
@@ -136,3 +137,10 @@
 <div>
     <a asp-action="Index">Назад</a>
 </div>
+
+<style>
+    .cke_reset .cke_top,
+    .cke_reset .cke_bottom {
+        display: none !important;
+    }
+</style>
