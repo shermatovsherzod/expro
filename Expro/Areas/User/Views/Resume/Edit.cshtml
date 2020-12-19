@@ -3,6 +3,7 @@
 @{
     ViewData["Title"] = "Редактирование резюме";
     <link href="~/lib/Gijgo/gijgo.min.css" rel="stylesheet" />
+    int? cityID = Model?.CityID;
 }
 
 <h4>Редактирование резюме</h4>
@@ -16,7 +17,7 @@
         <div class="col-md-9">
             <p>
                 <input asp-for="@Model.LastName" class="form-control" />
-                <span asp-validation-for="@Model.LastName"></span>
+                <span asp-validation-for="@Model.LastName" class="text-danger"></span>
             </p>
         </div>
     </div>
@@ -28,7 +29,7 @@
         <div class="col-md-9">
             <p>
                 <input asp-for="@Model.FirstName" class="form-control" />
-                <span asp-validation-for="@Model.FirstName"></span>
+                <span asp-validation-for="@Model.FirstName" class="text-danger"></span>
             </p>
         </div>
     </div>
@@ -40,7 +41,7 @@
         <div class="col-md-9">
             <p>
                 <input asp-for="@Model.PatronymicName" class="form-control" />
-                <span asp-validation-for="@Model.PatronymicName"></span>
+                <span asp-validation-for="@Model.PatronymicName" class="text-danger"></span>
             </p>
         </div>
     </div>
@@ -52,7 +53,7 @@
         <div class="col-md-6">
             <p>
                 <input asp-for="@Model.DateOfBirth" class="form-control" onkeydown="event.preventDefault()" />
-                <span asp-validation-for="@Model.DateOfBirth"></span>
+                <span asp-validation-for="@Model.DateOfBirth" class="text-danger"></span>
             </p>
         </div>
         <div class="col-md-3"></div>
@@ -134,7 +135,7 @@
         <div class="col-md-6">
             <p>
                 <input asp-for="@Model.GraduationDate" class="form-control" onkeydown="event.preventDefault()" />
-                <span asp-validation-for="@Model.GraduationDate"></span>
+                <span asp-validation-for="@Model.GraduationDate" class="text-danger"></span>
             </p>
         </div>
         <div class="col-md-3"></div>
@@ -147,7 +148,7 @@
         <div class="col-md-9">
             <p>
                 <input asp-for="@Model.WorkExperience" class="form-control" />
-                <span asp-validation-for="@Model.WorkExperience"></span>
+                <span asp-validation-for="@Model.WorkExperience" class="text-danger"></span>
             </p>
         </div>
     </div>
@@ -159,7 +160,7 @@
         <div class="col-md-9">
             <p>
                 <input asp-for="@Model.Languages" class="form-control" />
-                <span asp-validation-for="@Model.Languages"></span>
+                <span asp-validation-for="@Model.Languages" class="text-danger"></span>
             </p>
         </div>
     </div>
@@ -203,5 +204,61 @@
             locale: 'ru-ru',
         });
     </script>
+    <script>
+        $(document).ready(function () {
+            var cityID = Number("@cityID");
+            if (cityID != "0")
+                $("#CityOther").attr('disabled', 'disabled');
 
+            $('#RegionID').change(function () {
+                var selectedRegion = $("#RegionID").val();
+                LoadCitiesByRegion(selectedRegion);
+            });
+
+            $('#CityID').change(function () {
+                var selectedCity = $("#CityID").val();
+                $("#CityOther").val('');
+                if (selectedCity === "0") {
+                    $("#CityOther").removeAttr('disabled');
+                }
+                else {
+                    $("#CityOther").attr('disabled', 'disabled');
+                }
+            });
+
+            LoadCitiesByRegion($("#RegionID").val(), cityID);
+        });
+
+        function LoadCitiesByRegion(regionID, selectedCityID) {
+            if (selectedCityID == undefined || (isNaN(selectedCityID)))
+                selectedCityID = null;
+
+            $.ajax({
+                type: "GET",
+                url: "/City/GetByRegionIDAsSelectList",
+                data: {
+                    regionID: regionID,
+                    selected: selectedCityID
+                },
+                contentType: "application/json; charset=utf-8",
+                //dataType: "json",
+                success: function (data) {
+                    $("#CityID").empty().append($("<option>").text("--- Выбрать город ---").attr('disabled', 'disabled').attr('selected', 'selected'));
+                    $.each(data,
+                        function (i, item) {
+                            var isSelected = "";
+                            if (item.selected == true)
+                                isSelected = "selected='selected'";
+
+                            $("#CityID")
+                                .append("<option value='" + item.value + "' " + isSelected + ">" + item.text + "</option>");
+
+                        });
+                },
+                error: function (data) {
+                    console.log(data);
+                }
+            });
+        }
+    </script>
 }
