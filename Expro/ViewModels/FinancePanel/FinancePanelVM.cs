@@ -32,19 +32,29 @@ namespace Expro.ViewModels
             BalanceStr = Balance.ToString(AppData.Configuration.NumberViewStringFormat);
 
             Expenses = new List<ExpenseVM>();
-            foreach (var item in documentsPurchased)
+            if (documentsPurchased != null && documentsPurchased.Count > 0)
             {
-                Expenses.Add(new ExpenseVM(item));
+                foreach (var item in documentsPurchased)
+                {
+                    Expenses.Add(new ExpenseVM(item));
+                }
             }
-            foreach (var item in questions)
+            
+            if (questions != null && questions.Count > 0)
             {
-                Expenses.Add(new ExpenseVM(item));
+                foreach (var item in questions)
+                {
+                    Expenses.Add(new ExpenseVM(item));
+                }
             }
 
             Withdrawals = new List<WithdrawalVM>();
-            foreach (var item in withdrawRequests)
+            if (withdrawRequests != null && withdrawRequests.Count > 0)
             {
-                Withdrawals.Add(new WithdrawalVM(item));
+                foreach (var item in withdrawRequests)
+                {
+                    Withdrawals.Add(new WithdrawalVM(item));
+                }
             }
         }
     }
@@ -68,9 +78,12 @@ namespace Expro.ViewModels
                   withdrawRequests)
         {
             Transactions = new List<TransactionVM>();
-            foreach (var item in clickTransactions)
+            if (clickTransactions != null && clickTransactions.Count > 0)
             {
-                Transactions.Add(new TransactionVM(item));
+                foreach (var item in clickTransactions)
+                {
+                    Transactions.Add(new TransactionVM(item));
+                }
             }
         }
     }
@@ -95,13 +108,20 @@ namespace Expro.ViewModels
                   withdrawRequests)
         {
             Incomes = new List<IncomeVM>();
-            foreach (var item in documentsSold)
+            if (documentsSold != null && documentsSold.Count > 0)
             {
-                Incomes.Add(new IncomeVM(item));
+                foreach (var item in documentsSold)
+                {
+                    Incomes.Add(new IncomeVM(item));
+                }
             }
-            foreach (var item in questionAnswers)
+            
+            if (questionAnswers != null && questionAnswers.Count > 0)
             {
-                Incomes.Add(new IncomeVM(item));
+                foreach (var item in questionAnswers)
+                {
+                    Incomes.Add(new IncomeVM(item));
+                }
             }
         }
     }

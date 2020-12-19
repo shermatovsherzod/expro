@@ -10,13 +10,17 @@ namespace Expro.Services
 {
     public class QuestionAnswerService : BaseAuthorableService<QuestionAnswer>, IQuestionAnswerService
     {
-        private IQuestionAnswerLikeRepository _likeRepository;
+        private readonly IQuestionAnswerLikeRepository _likeRepository;
+        private readonly IQuestionAnswerRepository _questionAnswerRepository;
+
         public QuestionAnswerService(IQuestionAnswerRepository repository,
                            IUnitOfWork unitOfWork,
-                           IQuestionAnswerLikeRepository likeRepository)
+                           IQuestionAnswerLikeRepository likeRepository,
+                           IQuestionAnswerRepository questionAnswerRepository)
             : base(repository, unitOfWork)
         {
             _likeRepository = likeRepository;
+            _questionAnswerRepository = questionAnswerRepository;
         }
 
         public bool DistributionIsCorrect(List<int> percentages)
@@ -51,6 +55,14 @@ namespace Expro.Services
                 
 
             Update(questionAnswer);
+        }
+
+        public IQueryable<QuestionAnswer> GetManyPaidByAnswerer(string answererID)
+        {
+            return _questionAnswerRepository
+                .GetManyWithRelatedDataAsIQueryable()
+                .Where(m => m.CreatedBy == answererID
+                    && m.PaidFee.HasValue);
         }
     }
 }

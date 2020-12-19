@@ -1,0 +1,108 @@
+﻿@model Expro.ViewModels.ExpertFinancePanelVM
+
+@{
+    ViewData["Title"] = "Финансы";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<div class="alert alert-primary">
+    <h4>@Html.DisplayNameFor(m => m.Balance):</h4>
+    <p>@Model.BalanceStr сум</p>
+</div>
+
+<h4>@Html.DisplayNameFor(m => m.Incomes)</h4>
+@if (Model.Incomes.Count > 0)
+{
+    var firstItem = Model.Incomes.First();
+
+    <table class="table table-sm thead-dark table-bordered table-striped">
+        <thead>
+            <tr>
+                <th>@Html.DisplayNameFor(m => firstItem.DateTimeStr)</th>
+                <th>@Html.DisplayNameFor(m => firstItem.PurchaseObject)</th>
+                <th>@Html.DisplayNameFor(m => firstItem.PurchaseObjectPurchaser)</th>
+                <th>@Html.DisplayNameFor(m => firstItem.Amount)</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.Incomes)
+            {
+                <tr>
+                    <td>@item.DateTimeStr</td>
+                    <td>@item.PurchaseObject</td>
+                    <td>@item.PurchaseObjectPurchaser.FullName</td>
+                    <td><span class="text-success">@item.AmountStr</span></td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <p>Нет пополнений</p>
+}
+
+<h4>@Html.DisplayNameFor(m => m.Expenses)</h4>
+@if (Model.Expenses.Count > 0)
+{
+    var firstItem = Model.Expenses.First();
+
+    <table class="table table-sm thead-dark table-bordered table-striped">
+        <thead>
+            <tr>
+                <th>@Html.DisplayNameFor(m => firstItem.DateTimeStr)</th>
+                <th>@Html.DisplayNameFor(m => firstItem.PurchaseObject)</th>
+                <th>@Html.DisplayNameFor(m => firstItem.PurchaseObjectAuthor)</th>
+                <th>@Html.DisplayNameFor(m => firstItem.Amount)</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.Expenses)
+            {
+                <tr>
+                    <td>@item.DateTimeStr</td>
+                    <td>@item.PurchaseObject</td>
+                    @{ 
+                        string purchaseObjectAuthorFullName = item.PurchaseObjectAuthor?.FullName;
+                    }
+                    <td>@purchaseObjectAuthorFullName</td>
+                    <td><span class="text-danger">@item.AmountStr</span></td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <p>Нет расходов</p>
+}
+
+<h4>@Html.DisplayNameFor(m => m.Withdrawals)</h4>
+@if (Model.Withdrawals.Count > 0)
+{
+    var firstItem = Model.Withdrawals.First();
+
+    <table class="table table-sm thead-dark table-bordered table-striped">
+        <thead>
+            <tr>
+                <th>@Html.DisplayNameFor(m => firstItem.DateTimeStr)</th>
+                @*<th>@Html.DisplayNameFor(m => firstItem.Status)</th>*@
+                <th>@Html.DisplayNameFor(m => firstItem.Amount)</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.Withdrawals)
+            {
+                <tr>
+                    <td>@item.DateTimeStr</td>
+                    <td><span class="text-primary">@item.AmountStr</span></td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <p>Нет выводов средств</p>
+}

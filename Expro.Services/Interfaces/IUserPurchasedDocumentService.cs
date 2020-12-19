@@ -10,5 +10,6 @@ namespace Expro.Services.Interfaces
         void Purchase(ApplicationUser user, Document document);
         bool UserPurchasedDocumentBefore(ApplicationUser user, Document document);
         IQueryable<UserPurchasedDocument> GetPurchasesByUser(string userID);
+        IQueryable<UserPurchasedDocument> GetSalesByUser(string userID);
     }
 }

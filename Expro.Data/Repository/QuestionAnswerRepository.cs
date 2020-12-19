@@ -12,5 +12,11 @@ namespace Expro.Data.Repository
             : base(databaseFactory)
         {
         }
+
+        public IQueryable<QuestionAnswer> GetManyWithRelatedDataAsIQueryable()
+        {
+            return DbSet
+                .Include(m => m.Question).ThenInclude(m => m.Creator);
+        }
     }
 }

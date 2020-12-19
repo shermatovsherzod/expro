@@ -11,7 +11,7 @@ namespace Expro.Services
     public class UserPurchasedDocumentService : BaseCRUDService<UserPurchasedDocument>, IUserPurchasedDocumentService
     {
         private readonly IUserBalanceService UserBalanceService;
-        private IUserPurchasedDocumentRepository _userPurchasedDocumentRepository;
+        private readonly IUserPurchasedDocumentRepository _userPurchasedDocumentRepository;
 
         public UserPurchasedDocumentService(IUserPurchasedDocumentRepository repository,
                            IUnitOfWork unitOfWork,
@@ -52,6 +52,13 @@ namespace Expro.Services
             return _userPurchasedDocumentRepository
                 .GetManyWithRelatedDataAsIQueryable()
                 .Where(m => m.UserID == userID);
+        }
+
+        public IQueryable<UserPurchasedDocument> GetSalesByUser(string userID)
+        {
+            return _userPurchasedDocumentRepository
+                .GetManyWithRelatedDataAsIQueryable()
+                .Where(m => m.Document.CreatedBy == userID);
         }
     }
 }

@@ -9,9 +9,9 @@ using Expro.ViewModels;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Expro.Areas.User.Controllers
+namespace Expro.Areas.Expert.Controllers
 {
-    [Area("User")]
+    [Area("Expert")]
     public class FinancePanelController : BaseController
     {
         private readonly IUserBalanceService UserBalanceService;
@@ -20,6 +20,7 @@ namespace Expro.Areas.User.Controllers
         private readonly IQuestionService QuestionService;
         private readonly IWithdrawRequestService WithdrawRequestService;
         private readonly IClickTransactionService ClickTransactionService;
+        private readonly IQuestionAnswerService QuestionAnswerService;
 
         public FinancePanelController(
             IUserBalanceService userBalanceService,
@@ -27,7 +28,8 @@ namespace Expro.Areas.User.Controllers
             IUserPurchasedDocumentService userPurchasedDocumentService,
             IQuestionService questionService,
             IWithdrawRequestService withdrawRequestService,
-            IClickTransactionService clickTransactionService)
+            IClickTransactionService clickTransactionService,
+            IQuestionAnswerService questionAnswerService)
         {
             UserBalanceService = userBalanceService;
             _userManager = userManager;
@@ -35,6 +37,7 @@ namespace Expro.Areas.User.Controllers
             QuestionService = questionService;
             WithdrawRequestService = withdrawRequestService;
             ClickTransactionService = clickTransactionService;
+            QuestionAnswerService = questionAnswerService;
         }
 
         public async Task<IActionResult> Index()
@@ -44,16 +47,18 @@ namespace Expro.Areas.User.Controllers
             int userBalance = UserBalanceService.GetBalance(user);
 
             var userPurchases = UserPurchasedDocumentService.GetPurchasesByUser(curUser.ID);
-            var userQuestionsWithFeeDistributed = QuestionService.GetAllWhereFeeIsDistributedByCreator(curUser.ID);
             var userWithdrawRequests = WithdrawRequestService.GetAllByCreator(curUser.ID);
-            var clickTransactions = ClickTransactionService.GetAllByCreator(curUser.ID);
+            //var userQuestionsWithFeeDistributed = QuestionService.GetAllWhereFeeIsDistributedByCreator(curUser.ID);
+            var userDocumentsSold = UserPurchasedDocumentService.GetSalesByUser(curUser.ID);
+            var userPaidAnswers = QuestionAnswerService.GetManyPaidByAnswerer(curUser.ID);
 
-            UserFinancePanelVM financePanelVM = new UserFinancePanelVM(
+            ExpertFinancePanelVM financePanelVM = new ExpertFinancePanelVM(
                 userBalance,
                 userPurchases.ToList(),
-                userQuestionsWithFeeDistributed.ToList(),
+                null,
                 userWithdrawRequests.ToList(),
-                clickTransactions.ToList());
+                userDocumentsSold.ToList(),
+                userPaidAnswers.ToList());
 
             return View(financePanelVM);
         }

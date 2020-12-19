@@ -17,7 +17,8 @@ namespace Expro.Data.Repository
         {
             return DbSet
                 .Include(m => m.Document).ThenInclude(m => m.DocumentType)
-                .Include(m => m.Document).ThenInclude(m => m.Creator);
+                .Include(m => m.Document).ThenInclude(m => m.Creator)
+                .Include(m => m.User);
         }
     }
 }
