@@ -4,6 +4,7 @@ using Expro.Models;
 using Expro.Models.Enums;
 using Expro.Services.Interfaces;
 using System;
+using System.Linq;
 
 namespace Expro.Services
 {
@@ -39,6 +40,12 @@ namespace Expro.Services
         public bool IsTransactionCancelled(ClickTransaction transaction)
         {
             return transaction.StatusID == (int)ClickTransactionStatusEnum.CANCELLED;
+        }
+
+        public IQueryable<ClickTransaction> GetAllByCreator(string userID)
+        {
+            return GetAsIQueryable()
+                .Where(m => m.UserID == userID);
         }
     }
 }

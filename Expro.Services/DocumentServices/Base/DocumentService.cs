@@ -153,34 +153,6 @@ namespace Expro.Services
             return model;
         }
 
-        //private Document GeWithAnswersAndCommentsByID(int id)
-        //{
-        //    var model = _documentRepository.GeWithAnswersAndCommentsByID(id);
-        //    if (model != null)
-        //    {
-        //        if (DocumentTypeIsNotDefined())
-        //            return model;
-
-        //        if (model.DocumentTypeID != (int)_documentType)
-        //            model = null;
-        //    }
-
-        //    return model;
-        //}
-
-        //public Document GetApprovedWithAnswersAndCommentsByID(int id)
-        //{
-        //    var model = GeWithAnswersAndCommentsByID(id);
-
-        //    if (model != null)
-        //    {
-        //        if (model.DocumentStatusID != (int)DocumentStatusesEnum.Approved)
-        //            model = null;
-        //    }
-
-        //    return model;
-        //}
-
         public IQueryable<Document> GetAllByCreator(string userID)
         {
             return GetManyWithRelatedDataAsIQueryable()
@@ -200,9 +172,6 @@ namespace Expro.Services
             return GetManyWithRelatedDataAsIQueryable()
                 .Where(m => m.DocumentTypeID == (int)_documentType
                     && m.UsersPurchasedThisDocument.Select(n => n.UserID).Contains(purchasedUserID));
-            //return user.DocumentsPurchased
-            //    .Where(m => m.Document.DocumentTypeID == (int)_documentType)
-            //    .Select(m => m.Document).AsQueryable();
         }
 
         public DateTime RoundToUp(DateTime inputDateTime)

@@ -24,9 +24,17 @@ namespace Expro.Common
         /// dd.MM.yyyy
         /// </summary>
         public string DateViewStringFormat { get; set; }
+        /// <summary>
+        /// HH:mm
+        /// </summary>
+        public string TimeViewStringFormat { get; set; }
+        /// <summary>
+        /// dd.MM.yyyy HH:mm
+        /// </summary>
+        public string DateTimeViewStringFormat { get; set; }
+        
         public string DateTextViewStringFormat { get; set; }
         public string DateDbViewStringFormat { get; set; }
-        public string TimeViewStringFormat { get; set; }
 
         public string TokenValidAudience { get; set; }
         public string TokenValidIssuer { get; set; }

@@ -25,5 +25,6 @@ namespace Expro.Services.Interfaces
         void Complete(Question question, string userID);
         bool AdminIsAllowedToComplete(Question question);
         bool IsCompleted(Question question);
+        IQueryable<Question> GetAllWhereFeeIsDistributedByCreator(string creatorID);
     }
 }

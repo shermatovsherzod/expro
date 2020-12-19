@@ -199,5 +199,12 @@ namespace Expro.Services
             return question.QuestionIsCompleted.HasValue ?
                 question.QuestionIsCompleted.Value : false;
         }
+
+        public IQueryable<Question> GetAllWhereFeeIsDistributedByCreator(string creatorID)
+        {
+            return GetAsIQueryable()
+                .Where(m => m.CreatedBy == creatorID 
+                    && m.QuestionFeeIsDistributed == true);
+        }
     }
 }
