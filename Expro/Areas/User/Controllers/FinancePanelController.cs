@@ -49,6 +49,7 @@ namespace Expro.Areas.User.Controllers
             var clickTransactions = ClickTransactionService.GetAllByCreator(curUser.ID);
 
             UserFinancePanelVM financePanelVM = new UserFinancePanelVM(
+                user,
                 userBalance,
                 userPurchases.ToList(),
                 userQuestionsWithFeeDistributed.ToList(),

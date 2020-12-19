@@ -53,6 +53,7 @@ namespace Expro.Areas.Expert.Controllers
             var userPaidAnswers = QuestionAnswerService.GetManyPaidByAnswerer(curUser.ID);
 
             ExpertFinancePanelVM financePanelVM = new ExpertFinancePanelVM(
+                user,
                 userBalance,
                 userPurchases.ToList(),
                 null,

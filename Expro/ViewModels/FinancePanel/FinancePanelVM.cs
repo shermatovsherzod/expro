@@ -10,6 +10,8 @@ namespace Expro.ViewModels
 {
     public class FinancePanelVM
     {
+        public AppUserVM User { get; set; }
+        public string UserFullName { get;set; }
         [Display(Name = "Баланс")]
         public int Balance { get; set; }
         public string BalanceStr { get; set; }
@@ -23,11 +25,13 @@ namespace Expro.ViewModels
         public FinancePanelVM() { }
 
         public FinancePanelVM(
+            ApplicationUser user,
             int balance,
             List<UserPurchasedDocument> documentsPurchased,
             List<Question> questions,
             List<WithdrawRequest> withdrawRequests)
         {
+            User = new AppUserVM(user);
             Balance = balance;
             BalanceStr = Balance.ToString(AppData.Configuration.NumberViewStringFormat);
 
@@ -66,12 +70,14 @@ namespace Expro.ViewModels
 
         public UserFinancePanelVM() { }
         public UserFinancePanelVM(
+            ApplicationUser user,
             int balance, 
             List<UserPurchasedDocument> documentsPurchased,
             List<Question> questions,
             List<WithdrawRequest> withdrawRequests,
             List<ClickTransaction> clickTransactions)
             : base(
+                  user,
                   balance,
                   documentsPurchased,
                   questions,
@@ -95,6 +101,7 @@ namespace Expro.ViewModels
 
         public ExpertFinancePanelVM() { }
         public ExpertFinancePanelVM(
+            ApplicationUser user,
             int balance,
             List<UserPurchasedDocument> documentsPurchased,
             List<Question> questions,
@@ -102,6 +109,7 @@ namespace Expro.ViewModels
             List<UserPurchasedDocument> documentsSold,
             List<QuestionAnswer> questionAnswers)
             : base(
+                  user,
                   balance,
                   documentsPurchased,
                   questions,

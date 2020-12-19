@@ -1,0 +1,38 @@
+﻿@model IEnumerable<Expro.ViewModels.AppUserVM>
+
+@{
+    ViewData["Title"] = "Финансы";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+@if (Model.Count() > 0)
+{
+    var firstItem = Model.First();
+
+    <table class="table table-sm thead-dark table-bordered table-striped">
+        <thead>
+            <tr>
+                <th>@Html.DisplayNameFor(m => firstItem.FullName)</th>
+                <th>@Html.DisplayNameFor(m => firstItem.UserType)</th>
+                <th>@Html.DisplayNameFor(m => firstItem.Balance)</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.FullName</td>
+                    <td>@item.UserType</td>
+                    <td>@item.Balance</td>
+                    <td><a class="btn btn-info" href="/Admin/FinancePanel/Details?userID=@item.ID">Детали</a></td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <p>Нет пользователей</p>
+}

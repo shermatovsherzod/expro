@@ -1,0 +1,11 @@
+﻿@model Expro.ViewModels.UserFinancePanelVM
+
+@{
+    ViewData["Title"] = "Финансы";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+@await Html.PartialAsync("/Views/Shared/FinancePanelPartials/_DetailsOfUser.cshtml", Model)
+
+<p><a asp-action="Index">Назад</a></p>

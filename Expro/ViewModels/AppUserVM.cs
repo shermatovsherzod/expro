@@ -56,6 +56,9 @@ namespace Expro.ViewModels
             }
         }
 
+        [Display(Name = "Баланс")]
+        public int Balance { get; set; }
+
         //public string PhoneNumber { get; set; }
         //public DateTime DateOfBirth { get; set; }     
         //public string PatronymicName { get; set; }
@@ -148,6 +151,7 @@ namespace Expro.ViewModels
             FirstName = user.FirstName;
             LastName = user.LastName;
             UserType = user.UserType;
+            Balance = user.Balance;
         }
     }
 
