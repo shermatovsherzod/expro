@@ -2,6 +2,7 @@
 @using Expro.ViewModels
 @{
     ViewData["Title"] = "Редактирование вакансии";
+    int? cityID = Model?.CityID;
 }
 
 <h4>Редактирование вакансии</h4>
@@ -15,7 +16,7 @@
         <div class="col-md-9">
             <p>
                 <input asp-for="@Model.Company" class="form-control" />
-                <span asp-validation-for="@Model.Company"></span>
+                <span asp-validation-for="@Model.Company" class="text-danger"></span>
             </p>
         </div>
     </div>
@@ -71,7 +72,7 @@
         <div class="col-md-9">
             <p>
                 <textarea asp-for="@Model.Position" class="form-control"></textarea>
-                <span asp-validation-for="@Model.Position"></span>
+                <span asp-validation-for="@Model.Position" class="text-danger"></span>
             </p>
         </div>
     </div>
@@ -83,7 +84,7 @@
         <div class="col-md-9">
             <p>
                 <textarea asp-for="@Model.Responsibility" class="form-control"></textarea>
-                <span asp-validation-for="@Model.Responsibility"></span>
+                <span asp-validation-for="@Model.Responsibility" class="text-danger"></span>
             </p>
         </div>
     </div>
@@ -95,7 +96,7 @@
         <div class="col-md-9">
             <p>
                 <textarea asp-for="@Model.Requirements" class="form-control"></textarea>
-                <span asp-validation-for="@Model.Requirements"></span>
+                <span asp-validation-for="@Model.Requirements" class="text-danger"></span>
             </p>
         </div>
     </div>
@@ -107,7 +108,7 @@
         <div class="col-md-9">
             <p>
                 <textarea asp-for="@Model.Salary" class="form-control"></textarea>
-                <span asp-validation-for="@Model.Salary"></span>
+                <span asp-validation-for="@Model.Salary" class="text-danger"></span>
             </p>
         </div>
     </div>
@@ -119,7 +120,7 @@
         <div class="col-md-9">
             <p>
                 <textarea asp-for="@Model.Contacts" class="form-control"></textarea>
-                <span asp-validation-for="@Model.Contacts"></span>
+                <span asp-validation-for="@Model.Contacts" class="text-danger"></span>
             </p>
         </div>
     </div>
@@ -135,5 +136,61 @@
 </div>
 
 @section Scripts{
+    <script>
+        $(document).ready(function () {
+            var cityID = Number("@cityID");
+            if (cityID != "0")
+                $("#CityOther").attr('disabled', 'disabled');
 
+            $('#RegionID').change(function () {
+                var selectedRegion = $("#RegionID").val();
+                LoadCitiesByRegion(selectedRegion);
+            });
+
+            $('#CityID').change(function () {
+                var selectedCity = $("#CityID").val();
+                $("#CityOther").val('');
+                if (selectedCity === "0") {
+                    $("#CityOther").removeAttr('disabled');
+                }
+                else {
+                    $("#CityOther").attr('disabled', 'disabled');
+                }
+            });
+
+            LoadCitiesByRegion($("#RegionID").val(), cityID);
+        });
+
+        function LoadCitiesByRegion(regionID, selectedCityID) {
+            if (selectedCityID == undefined || (isNaN(selectedCityID)))
+                selectedCityID = null;
+
+            $.ajax({
+                type: "GET",
+                url: "/City/GetByRegionIDAsSelectList",
+                data: {
+                    regionID: regionID,
+                    selected: selectedCityID
+                },
+                contentType: "application/json; charset=utf-8",
+                //dataType: "json",
+                success: function (data) {
+                    $("#CityID").empty().append($("<option>").text("--- Выбрать город ---").attr('disabled', 'disabled').attr('selected', 'selected'));
+                    $.each(data,
+                        function (i, item) {
+                            var isSelected = "";
+                            if (item.selected == true)
+                                isSelected = "selected='selected'";
+
+                            $("#CityID")
+                                .append("<option value='" + item.value + "' " + isSelected + ">" + item.text + "</option>");
+
+                        });
+                },
+                error: function (data) {
+                    console.log(data);
+                }
+            });
+        }
+    </script>
 }

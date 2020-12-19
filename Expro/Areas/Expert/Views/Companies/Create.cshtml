@@ -5,6 +5,7 @@
     ViewData["Title"] = "Добавить компанию";
     <link href="~/lib/treeselect/css/jquery.bootstrap.treeselect.css" rel="stylesheet" />
     <link href="~/lib/bootstrap-select-1.13.14/css/bootstrap-select.css" rel="stylesheet" />
+    int? cityID = Model?.CityID;
 }
 <style>
     .bootstrap-select {
@@ -25,7 +26,7 @@
         <div class="col-md-9">
             <p>
                 <input asp-for="@Model.CompanyName" class="form-control" />
-                <span asp-validation-for="@Model.CompanyName"></span>
+                <span asp-validation-for="@Model.CompanyName" class="text-danger"></span>
             </p>
         </div>
     </div>
@@ -37,7 +38,7 @@
         <div class="col-md-9">
             <p>
                 <textarea asp-for="@Model.CompanyDescription" class="form-control"></textarea>
-                <span asp-validation-for="@Model.CompanyDescription"></span>
+                <span asp-validation-for="@Model.CompanyDescription" class="text-danger"></span>
             </p>
         </div>
     </div>
@@ -184,5 +185,63 @@
 @section Scripts{
     <script src="~/lib/bootstrap-select-1.13.14/js/bootstrap-select.js"></script>
     <script src="~/lib/bootstrap-select-1.13.14/js/i18n/defaults-ru_RU.js"></script>
+    <script>
+        $(document).ready(function () {
+            var cityID = Number("@cityID");
+            if (cityID != "0")
+                $("#CityOther").attr('disabled', 'disabled');
+
+            $('#RegionID').change(function () {
+                var selectedRegion = $("#RegionID").val();
+                LoadCitiesByRegion(selectedRegion);
+            });
+
+            $('#CityID').change(function () {
+                var selectedCity = $("#CityID").val();
+                $("#CityOther").val('');
+                if (selectedCity === "0") {
+                    $("#CityOther").removeAttr('disabled');
+                }
+                else {
+                    $("#CityOther").attr('disabled', 'disabled');
+                }
+            });
+
+            LoadCitiesByRegion($("#RegionID").val(), cityID);
+        });
+
+        function LoadCitiesByRegion(regionID, selectedCityID) {
+            if (selectedCityID == undefined || (isNaN(selectedCityID)))
+                selectedCityID = null;
+
+            $.ajax({
+                type: "GET",
+                url: "/City/GetByRegionIDAsSelectList",
+                data: {
+                    regionID: regionID,
+                    selected: selectedCityID
+                },
+                contentType: "application/json; charset=utf-8",
+                //dataType: "json",
+                success: function (data) {
+                    $("#CityID").empty().append($("<option>").text("--- Выбрать город ---").attr('disabled', 'disabled').attr('selected', 'selected'));
+                    $.each(data,
+                        function (i, item) {
+                            var isSelected = "";
+                            if (item.selected == true)
+                                isSelected = "selected='selected'";
+
+                            $("#CityID")
+                                .append("<option value='" + item.value + "' " + isSelected + ">" + item.text + "</option>");
+
+                        });
+                },
+                error: function (data) {
+                    console.log(data);
+                }
+            });
+        }
+    </script>
+
 }
 
