@@ -92,9 +92,13 @@ namespace Expro.ViewModels
         [Display(Name = "Кол-во загрузок")]
         public int NumberOfPurchases { get; set; }
 
+        public int PositiveLikesCount { get; set; }
+        public int NegativeLikesCount { get; set; }
+        public bool? ViewerUserHasLikeOrDislike { get; set; }
+
         public DocumentDetailsForSiteVM() { }
 
-        public DocumentDetailsForSiteVM(Document model)
+        public DocumentDetailsForSiteVM(Document model, string viewerUserID = null)
             : base(model)
         {
             if (model == null)
@@ -117,6 +121,13 @@ namespace Expro.ViewModels
                         Text = model.Text.Substring(0, 200) + "...";
                 }
             }
+
+            PositiveLikesCount = model.DocumentLikes.Where(m => m.Like.IsPositive).Count();
+            NegativeLikesCount = model.DocumentLikes.Count - PositiveLikesCount;
+
+            ViewerUserHasLikeOrDislike = model.DocumentLikes
+                .Where(m => m.Like.CreatedBy == viewerUserID)
+                .FirstOrDefault()?.Like.IsPositive;
         }
     }
 

@@ -10,7 +10,7 @@
 <form asp-action="Save" asp-controller="Comment" id="addCommentForm" onsubmit="SubmitCommentForm()"
       data-ajax="true"
       data-ajax-method="POST"
-      data-ajax-error="CommentPostError"
+      data-ajax-failure="CommentPostFailure"
       data-ajax-success="CommentPostSuccess"
       data-ajax-complete="CommentPostCompleted">
     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
@@ -32,7 +32,7 @@
 <script>
     var commentObjectID = null;
     var parentCommentdID = null;
-    var input;
+    var commentFileinput;
     var commentID = 0;
     //var fileType = "@Constants.FileTypes.COMMENT";
 
@@ -71,7 +71,7 @@
         $("#addCommentForm button").attr("disabled", "disabled");
     }
 
-    function CommentPostError(data) {
+    function CommentPostFailure(data) {
         console.log(data);
         alert("error");
         $("#addCommentForm .spinner").hide();
@@ -82,10 +82,10 @@
         commentID = data.id;
         //alert("success");
 
-        input = document.getElementById('attachment')
-        //input = $("#addCommentForm input#attachment");
-        console.log(input);
-        if (!(input.files && input.files[0])) {
+        commentFileinput = document.getElementById('attachment')
+        //commentFileinput = $("#addCommentForm input#attachment");
+        console.log(commentFileinput);
+        if (!(commentFileinput.files && commentFileinput.files[0])) {
             //$("#" + spinnerTagID).hide();
             //alert("no file is selected");
 
@@ -93,7 +93,7 @@
             //location.reload();
         }
         else {
-            var file = input.files[0];
+            var file = commentFileinput.files[0];
             UploadToFirebaseStorage(file);
         }
     }
@@ -163,7 +163,7 @@
                         attachment.DownloadUrl = downloadURL;
 
                         //console.log(attachment);
-                        FileAjaxUpload2(input, file, attachment);
+                        FileAjaxUpload2(commentFileinput, file, attachment);
                     });
                 });
             }

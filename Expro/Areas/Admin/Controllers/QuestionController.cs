@@ -114,8 +114,11 @@ namespace Expro.Areas.Admin.Controllers
                     throw new Exception("Статус вопроса не позволяет подтвердить его");
 
                 QuestionAdminActionsService.Approve(question, curUser.ID);
-                question.QuestionCompletionJobID = HangfireService.CreateJobForQuestionCompletionDeadline(question);
-                QuestionService.Update(question);
+                if (question.PriceType == DocumentPriceTypesEnum.Paid)
+                {
+                    question.QuestionCompletionJobID = HangfireService.CreateJobForQuestionCompletionDeadline(question);
+                    QuestionService.Update(question);
+                }
 
                 //cancel hangfire jobs
                 HangfireService.CancelJob(question.RejectionJobID);

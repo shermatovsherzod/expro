@@ -3,7 +3,7 @@ using System.Linq;
 
 namespace Expro.Data.Repository.Interfaces
 {
-    public interface IQuestionAnswerLikeRepository : IBaseCRUDRepository<QuestionAnswerLike>
-    {
-    }
+    //public interface IQuestionAnswerLikeRepository : IBaseCRUDRepository<QuestionAnswerLike>
+    //{
+    //}
 }

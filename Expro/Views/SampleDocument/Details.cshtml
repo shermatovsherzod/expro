@@ -1,5 +1,6 @@
 ﻿@model Expro.ViewModels.DocumentDetailsForSiteVM
 @using Expro.Models.Enums
+@using Expro.Common
 
 @{
     ViewData["Title"] = "Образцовый документ - детали";
@@ -14,4 +15,7 @@
 @section Scripts {
     <script src="~/lib/ckeditor_4.15.0_standard/ckeditor/ckeditor.js"></script>
     <script src="~/js/Site/Document/Details.js"></script>
+    <script>
+        SetLikeType("@Constants.LikeTypes.DOCUMENT");
+    </script>
 }

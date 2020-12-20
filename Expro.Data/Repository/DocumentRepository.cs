@@ -26,6 +26,8 @@ namespace Expro.Data.Repository
             return GetManyWithRelatedDataAsIQueryable()
                 .Include(m => m.Language)
                 .Include(m => m.Attachment)
+                .Include(m => m.DocumentLikes)
+                    .ThenInclude(m => m.Like)
                 .FirstOrDefault(m => m.ID == id);
         }
     }

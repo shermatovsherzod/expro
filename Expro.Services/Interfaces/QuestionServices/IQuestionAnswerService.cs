@@ -10,7 +10,7 @@ namespace Expro.Services.Interfaces
     {
         bool DistributionIsCorrect(List<int> percentages);
         int CalculatePaidFee(int questionFee, int percentage);
-        void AddLike(QuestionAnswer questionAnswer, string userID, bool isPositive);
+        //void AddLike(QuestionAnswer questionAnswer, string userID, bool isPositive);
         IQueryable<QuestionAnswer> GetManyPaidByAnswerer(string answererID);
     }
 }

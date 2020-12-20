@@ -4,14 +4,16 @@ using Expro.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Expro.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20201220072652_Like_tableAdded")]
+    partial class Like_tableAdded
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -192,7 +194,6 @@ namespace Expro.Data.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("Text")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("ID");
@@ -206,6 +207,31 @@ namespace Expro.Data.Migrations
                     b.HasIndex("ParentID");
 
                     b.ToTable("Comments");
+                });
+
+            modelBuilder.Entity("Expro.Models.CommentLike", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("CommentID")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("IsPositive")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("UserID")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("ID");
+
+                    b.HasIndex("CommentID");
+
+                    b.HasIndex("UserID");
+
+                    b.ToTable("CommentLikes");
                 });
 
             modelBuilder.Entity("Expro.Models.Company", b =>
@@ -814,7 +840,6 @@ namespace Expro.Data.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("Text")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("ID");
@@ -847,17 +872,27 @@ namespace Expro.Data.Migrations
 
             modelBuilder.Entity("Expro.Models.QuestionAnswerLike", b =>
                 {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<bool>("IsPositive")
+                        .HasColumnType("bit");
+
                     b.Property<int>("QuestionAnswerID")
                         .HasColumnType("int");
 
-                    b.Property<int>("LikeID")
-                        .HasColumnType("int");
+                    b.Property<string>("UserID")
+                        .HasColumnType("nvarchar(450)");
 
-                    b.HasKey("QuestionAnswerID", "LikeID");
+                    b.HasKey("ID");
 
-                    b.HasIndex("LikeID");
+                    b.HasIndex("QuestionAnswerID");
 
-                    b.ToTable("QuestionAnswerLike");
+                    b.HasIndex("UserID");
+
+                    b.ToTable("QuestionAnswerLikes");
                 });
 
             modelBuilder.Entity("Expro.Models.QuestionLawArea", b =>
@@ -1638,6 +1673,19 @@ namespace Expro.Data.Migrations
                         .HasForeignKey("ParentID");
                 });
 
+            modelBuilder.Entity("Expro.Models.CommentLike", b =>
+                {
+                    b.HasOne("Expro.Models.Comment", "Comment")
+                        .WithMany("Likes")
+                        .HasForeignKey("CommentID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Expro.Models.ApplicationUser", "User")
+                        .WithMany()
+                        .HasForeignKey("UserID");
+                });
+
             modelBuilder.Entity("Expro.Models.Company", b =>
                 {
                     b.HasOne("Expro.Models.City", "City")
@@ -1852,17 +1900,15 @@ namespace Expro.Data.Migrations
 
             modelBuilder.Entity("Expro.Models.QuestionAnswerLike", b =>
                 {
-                    b.HasOne("Expro.Models.Like", "Like")
-                        .WithMany("QuestionAnswerLikes")
-                        .HasForeignKey("LikeID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("Expro.Models.QuestionAnswer", "QuestionAnswer")
-                        .WithMany("QuestionAnswerLikes")
+                        .WithMany("Likes")
                         .HasForeignKey("QuestionAnswerID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.HasOne("Expro.Models.ApplicationUser", "User")
+                        .WithMany()
+                        .HasForeignKey("UserID");
                 });
 
             modelBuilder.Entity("Expro.Models.QuestionLawArea", b =>

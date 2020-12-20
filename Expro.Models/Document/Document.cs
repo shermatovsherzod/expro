@@ -55,5 +55,8 @@ namespace Expro.Models
 
         [InverseProperty("Document")]
         public virtual ICollection<UserPurchasedDocument> UsersPurchasedThisDocument { get; set; }
+        
+        [InverseProperty("Document")]
+        public virtual ICollection<DocumentLike> DocumentLikes { get; set; }
     }
 }

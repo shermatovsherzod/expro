@@ -64,9 +64,9 @@ namespace Expro.ViewModels
             Attachment = new AttachmentDetailsVM(model.Attachment);
             Author = new AppUserVM(model.Creator);
             DatePublished = DateTimeUtils.ConvertToString(model.DateCreated);
-            PositiveLikesCount = model.Likes.Count(m => m.IsPositive);
-            NegativeLikesCount = model.Likes.Count - PositiveLikesCount;
-            
+            PositiveLikesCount = model.QuestionAnswerLikes.Where(m => m.Like.IsPositive).Count();
+            NegativeLikesCount = model.QuestionAnswerLikes.Count - PositiveLikesCount;
+
             Comments = new List<CommentDetailsVM>();
             foreach (var item in model.Comments)
             {
@@ -77,7 +77,9 @@ namespace Expro.ViewModels
             if (PaidFee.HasValue)
                 PaidFeeStr = model.PaidFee.Value.ToString(AppData.Configuration.NumberViewStringFormat);
 
-            ViewerUserHasLikeOrDislike = model.Likes.FirstOrDefault()?.IsPositive;
+            ViewerUserHasLikeOrDislike = model.QuestionAnswerLikes
+                .Where(m => m.Like.CreatedBy == viewerUserID)
+                .FirstOrDefault()?.Like.IsPositive;
         }
     }
 

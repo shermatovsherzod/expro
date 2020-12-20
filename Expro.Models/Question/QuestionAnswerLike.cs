@@ -5,16 +5,14 @@ using System.Text;
 
 namespace Expro.Models
 {
-    public class QuestionAnswerLike : BaseModel
+    public class QuestionAnswerLike
     {
         [ForeignKey("QuestionAnswer")]
         public int QuestionAnswerID { get; set; }
         public virtual QuestionAnswer QuestionAnswer { get; set; }
 
-        [ForeignKey("User")]
-        public string UserID { get; set; }
-        public virtual ApplicationUser User { get; set; }
-
-        public bool IsPositive { get; set; }
+        [ForeignKey("Like")]
+        public int LikeID { get; set; }
+        public virtual Like Like { get; set; }
     }
 }

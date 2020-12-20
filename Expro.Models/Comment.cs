@@ -8,14 +8,15 @@ namespace Expro.Models
 {
     public class Comment : BaseModelAuthorable
     {
+        [Required]
         public string Text { get; set; }
 
         [ForeignKey("Attachment")]
         public int? AttachmentID { get; set; }
         public virtual Attachment Attachment { get; set; }
 
-        [InverseProperty("Comment")]
-        public virtual ICollection<CommentLike> Likes { get; set; }
+        //[InverseProperty("Comment")]
+        //public virtual ICollection<CommentLike> Likes { get; set; }
 
         [ForeignKey("ParentComment")]
         public int? ParentID { get; set; }

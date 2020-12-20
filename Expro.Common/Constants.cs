@@ -22,6 +22,12 @@ namespace Expro.Common
             public static readonly string QUESTION_ANSWER = "question_answer";
         }
 
+        public static class LikeTypes
+        {
+            public static readonly string DOCUMENT = "document";
+            public static readonly string QUESTION_ANSWER = "question_answer";
+        }
+
         public static class CLICK
         {
             public static class SETTINGS

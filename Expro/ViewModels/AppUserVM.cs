@@ -1,4 +1,5 @@
-﻿using Expro.Models;
+﻿using Expro.Common;
+using Expro.Models;
 using Expro.Models.Enums;
 using Expro.Utils;
 using System;
@@ -58,6 +59,7 @@ namespace Expro.ViewModels
 
         [Display(Name = "Баланс")]
         public int Balance { get; set; }
+        public string BalanceStr { get; set; }
 
         //public string PhoneNumber { get; set; }
         //public DateTime DateOfBirth { get; set; }     
@@ -152,6 +154,7 @@ namespace Expro.ViewModels
             LastName = user.LastName;
             UserType = user.UserType;
             Balance = user.Balance;
+            BalanceStr = Balance.ToString(AppData.Configuration.NumberViewStringFormat);
         }
     }
 
