@@ -93,6 +93,7 @@ namespace Expro.DependencyInjections
             services.AddTransient<IQuestionStatusService, QuestionStatusService>();
             services.AddTransient<IQuestionCounterService, QuestionCounterService>();
             services.AddTransient<ILikeService, LikeService>();
+            services.AddTransient<IUserService, UserService>();
         }
     }
 }

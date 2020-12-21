@@ -25,6 +25,7 @@ namespace Expro.Controllers
         private readonly IQuestionAnswerService QuestionAnswerService;
         private readonly ICommentService CommentService;
         private readonly UserManager<ApplicationUser> _userManager;
+        private readonly IUserService _userService;
 
         //private readonly IHostingEnvironment _env;
 
@@ -36,7 +37,8 @@ namespace Expro.Controllers
             ICommentService commentService,
             //IHostingEnvironment env,
             UserManager<ApplicationUser> userManager,
-            ILogger<AttachmentController> logger)
+            ILogger<AttachmentController> logger,
+            IUserService userService)
         {
             AttachmentService = attachmentService;
             DocumentService = documentService;
@@ -46,6 +48,7 @@ namespace Expro.Controllers
             //_env = env;
             _userManager = userManager;
             _logger = logger;
+            _userService = userService;
         }
 
         //ajax
@@ -123,6 +126,7 @@ namespace Expro.Controllers
                 if (fileType.Equals(Constants.FileTypes.USER_AVATAR))
                 {
                     var user = await _userManager.FindByIdAsync(modelIDString);
+                    //var user = _userService.GetByID(modelIDString);
                     if (user != null)
                     {
                         user.Avatar = attachment;
