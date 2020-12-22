@@ -82,6 +82,9 @@ namespace Expro.Models
         [InverseProperty("Creator")]
         public virtual ICollection<Attachment> CreatedAttachments { get; set; }
 
+        public bool? IsOnline { get; set; }
+        public DateTime? DateLastSeen { get; set; }
+
         //==========================================================
         [InverseProperty("Author")]
         public virtual ICollection<Post> PostsAuthored { get; set; }

@@ -58,8 +58,8 @@
                 <div class="col-md-3">
                     <div class="row mb-1">
                         <div class="col-md-12">
-                            <div class="list-group">                              
-                                @await Component.InvokeAsync("UserInfo")                              
+                            <div class="list-group">
+                                @await Component.InvokeAsync("UserInfo")
                             </div>
                         </div>
                     </div>
@@ -80,7 +80,7 @@
                     <div class="row mb-1">
                         <div class="col-md-12">
                             <div class="list-group">
-                                @await Component.InvokeAsync("UserBalance")                              
+                                @await Component.InvokeAsync("UserBalance")
                             </div>
                         </div>
                     </div>
@@ -88,7 +88,7 @@
                     <div class="row mb-1">
                         <div class="col-md-12">
                             <div class="list-group">
-                                @await Component.InvokeAsync("TermsOfUse")                               
+                                @await Component.InvokeAsync("TermsOfUse")
                             </div>
                         </div>
                     </div>
@@ -109,6 +109,9 @@
     <script src="~/js/site.js" asp-append-version="true"></script>
 
     <partial name="_FirebaseConfig" />
+
+    <script src="~/js/signalr/dist/browser/signalr.js"></script>
+    <script src="~/js/Site/userTrackerHub_signalr.js"></script>
 
     @RenderSection("Scripts", required: false)
 </body>

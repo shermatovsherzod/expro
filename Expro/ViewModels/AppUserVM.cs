@@ -61,6 +61,9 @@ namespace Expro.ViewModels
         public int Balance { get; set; }
         public string BalanceStr { get; set; }
 
+        public bool IsOnline { get; set; }
+        public DateTime? DateLastSeen { get; set; }
+
         //public string PhoneNumber { get; set; }
         //public DateTime DateOfBirth { get; set; }     
         //public string PatronymicName { get; set; }
@@ -155,6 +158,8 @@ namespace Expro.ViewModels
             UserType = user.UserType;
             Balance = user.Balance;
             BalanceStr = Balance.ToString(AppData.Configuration.NumberViewStringFormat);
+            IsOnline = user.IsOnline ?? false;
+            DateLastSeen = user.DateLastSeen;
         }
     }
 

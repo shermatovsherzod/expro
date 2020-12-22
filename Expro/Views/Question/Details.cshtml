@@ -131,7 +131,10 @@
                             feeStr = "Получен гонорар: " + answer.PaidFeeStr + " сум";
                         }
                     }
-                    <div class="card-header"><span class="text-success">@feeStr</span> @answer.Author.FullName @answer.DatePublished</div>
+                    @{ 
+                        string isOnline = answer.Author.IsOnline ? "(онлайн)" : "";
+                    }
+                    <div class="card-header"><span class="text-success">@feeStr</span> @answer.Author.FullName <span class="text-success">@isOnline</span> @answer.DatePublished</div>
                     <div class="card-body">
                         <textarea class="editorViewMode" id="answerText_@answer.ID">@Html.Raw(answer.Text)</textarea>
                         @if (answer.Attachment.ID > 0)
