@@ -25,6 +25,7 @@ using Hangfire;
 using Hangfire.SqlServer;
 using Expro.Filters;
 using Hangfire.Dashboard;
+using Expro.Hubs;
 
 namespace Expro
 {
@@ -110,6 +111,8 @@ namespace Expro
 
             // Add the processing server as IHostedService
             services.AddHangfireServer();
+
+            services.AddSignalR();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -165,7 +168,11 @@ namespace Expro
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
+                
                 endpoints.MapRazorPages();
+
+                //endpoints.MapHub<ChatHub>("/chathub");
+                endpoints.MapHub<UserTrackerHub>("/usertrackerhub");
             });
 
             app.UseHangfireServer();

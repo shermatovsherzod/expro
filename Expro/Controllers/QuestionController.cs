@@ -152,18 +152,24 @@ namespace Expro.Controllers
         {
             try
             {
-                var curUser = accountUtil.GetCurrentUser(User);
-                var document = QuestionService.GetApprovedByID(answerCreateVM.QuestionID);
-                if (document == null)
-                    throw new Exception("Вопрос не найден");
+                if (ModelState.IsValid)
+                {
+                    var curUser = accountUtil.GetCurrentUser(User);
+                    var document = QuestionService.GetApprovedByID(answerCreateVM.QuestionID);
+                    if (document == null)
+                        throw new Exception("Вопрос не найден");
 
-                if (QuestionService.IsCompleted(document))
-                    throw new Exception("Вопрос уже завершен");
+                    if (QuestionService.IsCompleted(document))
+                        throw new Exception("Вопрос уже завершен");
 
-                QuestionAnswer answer = answerCreateVM.ToModel();
-                QuestionAnswerService.Add(answer, curUser.ID);
+                    QuestionAnswer answer = answerCreateVM.ToModel();
+                    QuestionAnswerService.Add(answer, curUser.ID);
 
-                return Ok(new { id = answer.ID });
+                    return Ok(new { id = answer.ID });
+                }
+                else
+                    throw new Exception("Неверные данные");
+                    //return BadRequest(ModelState);
             }
             catch (Exception ex)
             {
@@ -255,25 +261,25 @@ namespace Expro.Controllers
             }
         }
 
-        //authorize
-        public IActionResult SaveLike([FromBody] QuestionAnswerLikeCreateVM like)
-        {
-            try
-            {
-                var questionAnswer = QuestionAnswerService.GetByID(like.QuestionAnswerID);
-                if (questionAnswer == null)
-                    throw new Exception("Ответ не найден");
+        ////authorize
+        //public IActionResult SaveLike([FromBody] QuestionAnswerLikeCreateVM like)
+        //{
+        //    try
+        //    {
+        //        var questionAnswer = QuestionAnswerService.GetByID(like.QuestionAnswerID);
+        //        if (questionAnswer == null)
+        //            throw new Exception("Ответ не найден");
 
-                var curUser = accountUtil.GetCurrentUser(User);
+        //        var curUser = accountUtil.GetCurrentUser(User);
 
-                QuestionAnswerService.AddLike(questionAnswer, curUser.ID, like.IsPositive);
+        //        QuestionAnswerService.AddLike(questionAnswer, curUser.ID, like.IsPositive);
 
-                return Ok();
-            }
-            catch (Exception ex)
-            {
-                return CustomBadRequest(ex);
-            }
-        }
+        //        return Ok();
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        return CustomBadRequest(ex);
+        //    }
+        //}
     }
 }

@@ -79,6 +79,28 @@ namespace Expro.Models
                 .WithMany(c => c.QuestionAnswerComments)
                 .HasForeignKey(bc => bc.CommentID);
 
+            modelBuilder.Entity<DocumentLike>()
+                .HasKey(bc => new { bc.DocumentID, bc.LikeID });
+            modelBuilder.Entity<DocumentLike>()
+                .HasOne(bc => bc.Document)
+                .WithMany(b => b.DocumentLikes)
+                .HasForeignKey(bc => bc.DocumentID);
+            modelBuilder.Entity<DocumentLike>()
+                .HasOne(bc => bc.Like)
+                .WithMany(c => c.DocumentLikes)
+                .HasForeignKey(bc => bc.LikeID);
+
+            modelBuilder.Entity<QuestionAnswerLike>()
+                .HasKey(bc => new { bc.QuestionAnswerID, bc.LikeID });
+            modelBuilder.Entity<QuestionAnswerLike>()
+                .HasOne(bc => bc.QuestionAnswer)
+                .WithMany(b => b.QuestionAnswerLikes)
+                .HasForeignKey(bc => bc.QuestionAnswerID);
+            modelBuilder.Entity<QuestionAnswerLike>()
+                .HasOne(bc => bc.Like)
+                .WithMany(c => c.QuestionAnswerLikes)
+                .HasForeignKey(bc => bc.LikeID);
+
             //modelBuilder.Entity<ApplicationUser>()
             //    .HasOne(e => e.Avatar)
             //    .WithMany(c => c.UsersUsingThisAvatar);
@@ -123,15 +145,15 @@ namespace Expro.Models
         public DbSet<WithdrawRequest> WithdrawRequests { get; set; }
         public DbSet<WithdrawRequestStatus> WithdrawRequestStatuses { get; set; }
         public DbSet<Comment> Comments { get; set; }
-        public DbSet<CommentLike> CommentLikes { get; set; }
         public DbSet<UserStatus> UserStatuses { get; set; }
         public DbSet<QuestionAnswer> QuestionAnswers { get; set; }
-        public DbSet<QuestionAnswerLike> QuestionAnswerLikes { get; set; }
+        //public DbSet<QuestionAnswerLike> QuestionAnswerLikes { get; set; }
         public DbSet<Company> Companies { get; set; }
         public DbSet<CompanyStatus> CompanyStatuses { get; set; }
         public DbSet<Resume> Resumes { get; set; }
         public DbSet<ResumeStatus> ResumeStatuses { get; set; }
         public DbSet<Vacancy> Vacancies { get; set; }
         public DbSet<VacancyStatus> VacancyStatuses { get; set; }
+        public DbSet<Like> Likes { get; set; }
     }
 }

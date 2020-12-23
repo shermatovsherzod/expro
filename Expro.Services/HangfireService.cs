@@ -94,9 +94,12 @@ namespace Expro.Services
             Question question = QuestionService.GetByID(documentID);
 
             if (question.PriceType == DocumentPriceTypesEnum.Paid)
+            {
                 UserBalanceService.ReplenishBalance(question.Creator, question.Price.Value);
-
-            QuestionAdminActionsService.CompletionDeadlineReaches(question);
+                QuestionAdminActionsService.CompletionDeadlineReaches(question);
+            }
+                
+            
             //}
             //catch (Exception ex)
             //{ }

@@ -9,15 +9,12 @@ namespace Expro.Models
 {
     public class QuestionAnswer : BaseModelAuthorable
     {
+        [Required]
         public string Text { get; set; }
 
         [ForeignKey("Attachment")]
         public int? AttachmentID { get; set; }
         public virtual Attachment Attachment { get; set; }
-
-        //[ForeignKey("Document")]
-        //public int DocumentID { get; set; }
-        //public virtual Document Document { get; set; }
 
         [ForeignKey("Question")]
         public int QuestionID { get; set; }
@@ -29,7 +26,6 @@ namespace Expro.Models
         public virtual ICollection<QuestionAnswerComment> Comments { get; set; }
 
         [InverseProperty("QuestionAnswer")]
-        public virtual ICollection<QuestionAnswerLike> Likes { get; set; }
-
+        public virtual ICollection<QuestionAnswerLike> QuestionAnswerLikes { get; set; }
     }
 }

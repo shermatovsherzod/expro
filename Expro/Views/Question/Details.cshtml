@@ -131,7 +131,10 @@
                             feeStr = "Получен гонорар: " + answer.PaidFeeStr + " сум";
                         }
                     }
-                    <div class="card-header"><span class="text-success">@feeStr</span> @answer.Author.FullName @answer.DatePublished</div>
+                    @{ 
+                        string isOnline = answer.Author.IsOnline ? "(онлайн)" : "";
+                    }
+                    <div class="card-header"><span class="text-success">@feeStr</span> @answer.Author.FullName <span class="text-success">@isOnline</span> @answer.DatePublished</div>
                     <div class="card-body">
                         <textarea class="editorViewMode" id="answerText_@answer.ID">@Html.Raw(answer.Text)</textarea>
                         @if (answer.Attachment.ID > 0)
@@ -143,7 +146,26 @@
                         @if (User.Identity.IsAuthenticated)
                         {
                             <div id="likesInfoBox_@answer.ID">
-                                @{ 
+                                @if (answer.ViewerUserHasLikeOrDislike.HasValue)
+                                {
+                                    if (answer.ViewerUserHasLikeOrDislike.Value == true)
+                                    {
+                                        <span><a href="javascript:void(0)" class="text-info">Лайки</a>: @answer.PositiveLikesCount, </span>
+                                        <span><a href="javascript:void(0)" class="text-dark">Дислайки</a>: @answer.NegativeLikesCount</span>
+                                    }
+                                    else
+                                    {
+                                        <span><a href="javascript:void(0)" class="text-dark">Лайки</a>: @answer.PositiveLikesCount, </span>
+                                        <span><a href="javascript:void(0)" class="text-info">Дислайки</a>: @answer.NegativeLikesCount</span>
+                                    }
+                                }
+                                else
+                                {
+                                    <span><a href="javascript:void(0)" class="text-dark" onclick="Like(@answer.ID)">Лайки</a>: @answer.PositiveLikesCount, </span>
+                                    <span><a href="javascript:void(0)" class="text-dark" onclick="Dislike(@answer.ID)">Дислайки</a>: @answer.NegativeLikesCount</span>
+                                }
+
+                                @*@{ 
                                     string likeIconTextColor = "text-dark";
                                     if (answer.ViewerUserHasLikeOrDislike.HasValue
                                        && answer.ViewerUserHasLikeOrDislike.Value == true)
@@ -159,7 +181,7 @@
                                         dislikeIconTextColor = "text-info";
                                     }
                                     <span><a href="javascript:void(0)" class="@dislikeIconTextColor" onclick="Dislike(@answer.ID)">Дислайки</a>: @answer.NegativeLikesCount</span>
-                                }
+                                }*@
 
                                 <div class="spinner-border spinner" style="display: none;"></div>
                             </div>
@@ -382,12 +404,13 @@
                 isPositive = false;
 
             var likeData = {
-                QuestionAnswerID: answerID,
-                IsPositive: isPositive
+                ObjectID: answerID,
+                IsPositive: isPositive,
+                LikeType: "@Constants.LikeTypes.QUESTION_ANSWER"
             };
 
             $.ajax({
-                url: "/Question/SaveLike",
+                url: "/Like/Save",
                 data: JSON.stringify(likeData),
                 processData: false,
                 contentType: "application/json; charset=utf-8",

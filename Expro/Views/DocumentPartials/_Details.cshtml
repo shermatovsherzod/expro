@@ -91,6 +91,27 @@
             </dd>
         }
     </dl>
+    <div id="likesInfoBox">
+        @if (Model.ViewerUserHasLikeOrDislike.HasValue)
+        {
+            if (Model.ViewerUserHasLikeOrDislike.Value == true)
+            {
+                <span><a href="javascript:void(0)" class="text-info">Лайки</a>: @Model.PositiveLikesCount, </span>
+                <span><a href="javascript:void(0)" class="text-dark">Дислайки</a>: @Model.NegativeLikesCount</span>
+            }
+            else
+            {
+                <span><a href="javascript:void(0)" class="text-dark">Лайки</a>: @Model.PositiveLikesCount, </span>
+                <span><a href="javascript:void(0)" class="text-info">Дислайки</a>: @Model.NegativeLikesCount</span>
+            }
+        }
+        else
+        {
+            <span><a href="javascript:void(0)" class="text-dark" onclick="Like(@Model.ID)">Лайки</a>: @Model.PositiveLikesCount, </span>
+            <span><a href="javascript:void(0)" class="text-dark" onclick="Dislike(@Model.ID)">Дислайки</a>: @Model.NegativeLikesCount</span>
+        }
+        <div class="spinner-border spinner" style="display: none;"></div>
+    </div>
 </div>
 <hr />
 <div class="row">

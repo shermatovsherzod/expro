@@ -192,6 +192,7 @@ namespace Expro.Data.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("Text")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("ID");
@@ -205,31 +206,6 @@ namespace Expro.Data.Migrations
                     b.HasIndex("ParentID");
 
                     b.ToTable("Comments");
-                });
-
-            modelBuilder.Entity("Expro.Models.CommentLike", b =>
-                {
-                    b.Property<int>("ID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int>("CommentID")
-                        .HasColumnType("int");
-
-                    b.Property<bool>("IsPositive")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("UserID")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.HasKey("ID");
-
-                    b.HasIndex("CommentID");
-
-                    b.HasIndex("UserID");
-
-                    b.ToTable("CommentLikes");
                 });
 
             modelBuilder.Entity("Expro.Models.Company", b =>
@@ -491,6 +467,21 @@ namespace Expro.Data.Migrations
                     b.ToTable("DocumentLawArea");
                 });
 
+            modelBuilder.Entity("Expro.Models.DocumentLike", b =>
+                {
+                    b.Property<int>("DocumentID")
+                        .HasColumnType("int");
+
+                    b.Property<int>("LikeID")
+                        .HasColumnType("int");
+
+                    b.HasKey("DocumentID", "LikeID");
+
+                    b.HasIndex("LikeID");
+
+                    b.ToTable("DocumentLike");
+                });
+
             modelBuilder.Entity("Expro.Models.DocumentStatus", b =>
                 {
                     b.Property<int>("ID")
@@ -625,6 +616,40 @@ namespace Expro.Data.Migrations
                     b.HasIndex("ParentID");
 
                     b.ToTable("LawAreas");
+                });
+
+            modelBuilder.Entity("Expro.Models.Like", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("CreatedBy")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<DateTime>("DateCreated")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("DateModified")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IsPositive")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("ModifiedBy")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("ID");
+
+                    b.HasIndex("CreatedBy");
+
+                    b.HasIndex("ModifiedBy");
+
+                    b.ToTable("Likes");
                 });
 
             modelBuilder.Entity("Expro.Models.Post", b =>
@@ -789,6 +814,7 @@ namespace Expro.Data.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("Text")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("ID");
@@ -821,27 +847,17 @@ namespace Expro.Data.Migrations
 
             modelBuilder.Entity("Expro.Models.QuestionAnswerLike", b =>
                 {
-                    b.Property<int>("ID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<bool>("IsPositive")
-                        .HasColumnType("bit");
-
                     b.Property<int>("QuestionAnswerID")
                         .HasColumnType("int");
 
-                    b.Property<string>("UserID")
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<int>("LikeID")
+                        .HasColumnType("int");
 
-                    b.HasKey("ID");
+                    b.HasKey("QuestionAnswerID", "LikeID");
 
-                    b.HasIndex("QuestionAnswerID");
+                    b.HasIndex("LikeID");
 
-                    b.HasIndex("UserID");
-
-                    b.ToTable("QuestionAnswerLikes");
+                    b.ToTable("QuestionAnswerLike");
                 });
 
             modelBuilder.Entity("Expro.Models.QuestionLawArea", b =>
@@ -1508,6 +1524,9 @@ namespace Expro.Data.Migrations
                     b.Property<DateTime?>("DateApproved")
                         .HasColumnType("datetime2");
 
+                    b.Property<DateTime?>("DateLastSeen")
+                        .HasColumnType("datetime2");
+
                     b.Property<DateTime>("DateOfBirth")
                         .HasColumnType("datetime2");
 
@@ -1531,6 +1550,9 @@ namespace Expro.Data.Migrations
 
                     b.Property<int?>("GenderID")
                         .HasColumnType("int");
+
+                    b.Property<bool?>("IsOnline")
+                        .HasColumnType("bit");
 
                     b.Property<string>("LastName")
                         .IsRequired()
@@ -1620,19 +1642,6 @@ namespace Expro.Data.Migrations
                     b.HasOne("Expro.Models.Comment", "ParentComment")
                         .WithMany()
                         .HasForeignKey("ParentID");
-                });
-
-            modelBuilder.Entity("Expro.Models.CommentLike", b =>
-                {
-                    b.HasOne("Expro.Models.Comment", "Comment")
-                        .WithMany("Likes")
-                        .HasForeignKey("CommentID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Expro.Models.ApplicationUser", "User")
-                        .WithMany()
-                        .HasForeignKey("UserID");
                 });
 
             modelBuilder.Entity("Expro.Models.Company", b =>
@@ -1725,6 +1734,21 @@ namespace Expro.Data.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("Expro.Models.DocumentLike", b =>
+                {
+                    b.HasOne("Expro.Models.Document", "Document")
+                        .WithMany("DocumentLikes")
+                        .HasForeignKey("DocumentID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Expro.Models.Like", "Like")
+                        .WithMany("DocumentLikes")
+                        .HasForeignKey("LikeID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
             modelBuilder.Entity("Expro.Models.ExpertEducation", b =>
                 {
                     b.HasOne("Expro.Models.Country", "Country")
@@ -1747,6 +1771,17 @@ namespace Expro.Data.Migrations
                     b.HasOne("Expro.Models.LawArea", "Parent")
                         .WithMany("Children")
                         .HasForeignKey("ParentID");
+                });
+
+            modelBuilder.Entity("Expro.Models.Like", b =>
+                {
+                    b.HasOne("Expro.Models.ApplicationUser", "Creator")
+                        .WithMany()
+                        .HasForeignKey("CreatedBy");
+
+                    b.HasOne("Expro.Models.ApplicationUser", "Modifier")
+                        .WithMany()
+                        .HasForeignKey("ModifiedBy");
                 });
 
             modelBuilder.Entity("Expro.Models.Post", b =>
@@ -1823,15 +1858,17 @@ namespace Expro.Data.Migrations
 
             modelBuilder.Entity("Expro.Models.QuestionAnswerLike", b =>
                 {
-                    b.HasOne("Expro.Models.QuestionAnswer", "QuestionAnswer")
-                        .WithMany("Likes")
-                        .HasForeignKey("QuestionAnswerID")
+                    b.HasOne("Expro.Models.Like", "Like")
+                        .WithMany("QuestionAnswerLikes")
+                        .HasForeignKey("LikeID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Expro.Models.ApplicationUser", "User")
-                        .WithMany()
-                        .HasForeignKey("UserID");
+                    b.HasOne("Expro.Models.QuestionAnswer", "QuestionAnswer")
+                        .WithMany("QuestionAnswerLikes")
+                        .HasForeignKey("QuestionAnswerID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("Expro.Models.QuestionLawArea", b =>

@@ -44,8 +44,8 @@ namespace Expro.ViewModels
         [Display(Name = "Дата")]
         public string DatePublished { get; set; }
 
-        public int PositiveLikesCount { get; set; }
-        public int NegativeLikesCount { get; set; }
+        //public int PositiveLikesCount { get; set; }
+        //public int NegativeLikesCount { get; set; }
 
         public int DepthLevel { get; set; }
         public int? ParentID { get; set; }
@@ -63,8 +63,8 @@ namespace Expro.ViewModels
             Attachment = new AttachmentDetailsVM(model.Attachment);
             Author = new AppUserVM(model.Creator);
             DatePublished = DateTimeUtils.ConvertToString(model.DateCreated);
-            PositiveLikesCount = model.Likes.Count(m => m.IsPositive);
-            NegativeLikesCount = model.Likes.Count - PositiveLikesCount;
+            //PositiveLikesCount = model.Likes.Count(m => m.IsPositive);
+            //NegativeLikesCount = model.Likes.Count - PositiveLikesCount;
         }
     }
 }

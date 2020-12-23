@@ -110,12 +110,12 @@ namespace Expro.Controllers
 
             DocumentCounterService.IncrementNumberOfViews(document);
 
-            DocumentDetailsForSiteVM documentVM = new DocumentDetailsForSiteVM(document);
+            var curUser = accountUtil.GetCurrentUser(User);
+            DocumentDetailsForSiteVM documentVM = new DocumentDetailsForSiteVM(document, curUser.ID);
 
             if (!DocumentService.IsFree(document))
             {
-                var curUser = accountUtil.GetCurrentUser(User);
-                if (curUser != null)
+                if (curUser.ID != null)
                 {
                     ApplicationUser user = await _userManager.GetUserAsync(User);
                     if (user != null)

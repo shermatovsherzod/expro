@@ -9,7 +9,7 @@
 <form asp-action="AddAnswer" asp-controller="Question" id="addAnswerForm" onsubmit="SubmitAnswerForm()"
       data-ajax="true"
       data-ajax-method="POST"
-      data-ajax-error="AnswerPostError"
+      data-ajax-failure="AnswerPostFailure"
       data-ajax-success="AnswerPostSuccess"
       data-ajax-complete="AnswerPostCompleted">
     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
@@ -29,17 +29,22 @@
 </form>
 
 <script>
-    var input;
+    var questionFileInput;
     var answerID = 0;
 
     function SubmitAnswerForm() {
         var isValid = $('#addAnswerForm').valid();
         if (isValid) {
-            ShowAnswerFormSpinner();
+            $("#addAnswerForm .spinner").show();
+
             DisableAnswerFormElements();
 
-            $('#addAnswerForm')
-                .append("<input type='hidden' name='QuestionID' value='@documentID' />");
+            if ($("#addAnswerForm input[name=QuestionID]").length)
+                $("#addAnswerForm input[name=QuestionID]").val(@documentID);
+            else {
+                $('#addAnswerForm')
+                    .append("<input type='hidden' name='QuestionID' value='@documentID' />");
+            }
 
             return true;
         }
@@ -48,7 +53,7 @@
     }
 
     function ShowAnswerFormSpinner() {
-        $("#addAnswerForm .spinner").show();
+        
     }
 
     function DisableAnswerFormElements() {
@@ -57,33 +62,35 @@
         $("#addAnswerForm button").attr("disabled", "disabled");
     }
 
-    function AnswerPostError(data) {
-        console.log(data);
-        alert("error");
+    function AnswerPostFailure(data) {
+        alert("Ошибка: " + data.responseJSON.errorMessage);
+        //console.log(data);
         $("#addAnswerForm .spinner").hide();
     }
 
     function AnswerPostSuccess(data) {
+        alert("success");
         console.log(data);
         answerID = data.id;
         //alert("success");
 
-        input = document.getElementById('addAnswerFormAttachment')
-        //input = $("#addAnswerForm input#attachment");
-        console.log(input);
-        if (!(input.files && input.files[0])) {
+        questionFileInput = document.getElementById('addAnswerFormAttachment')
+        //questionFileInput = $("#addAnswerForm input#attachment");
+        console.log(questionFileInput);
+        if (!(questionFileInput.files && questionFileInput.files[0])) {
             //$("#" + spinnerTagID).hide();
             //alert("no file is selected");
             location.reload();
         }
         else {
-            var file = input.files[0];
+            var file = questionFileInput.files[0];
             UploadToFirebaseStorageAnswerFile(file);
         }
     }
 
     function AnswerPostCompleted(data) {
-        console.log(data);
+        //alert("completed");
+        //console.log(data);
         //alert("completed");
         //$("#addAnswerForm .spinner").hide();
     }
@@ -147,7 +154,7 @@
                         attachment.DownloadUrl = downloadURL;
 
                         //console.log(attachment);
-                        FileAjaxUpload(input, file, attachment);
+                        FileAjaxUpload(questionFileInput, file, attachment);
                     });
                 });
             }
