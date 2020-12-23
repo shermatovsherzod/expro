@@ -3,7 +3,7 @@
 @{
     Layout = "_Layout";
     ViewData["Title"] = "Добавить резюме";
-    @*<link href="~/lib/Gijgo/gijgo.min.css" rel="stylesheet" />*@
+    <link href="~/lib/Gijgo/gijgo.min.css" rel="stylesheet" />
     int? cityID = Model?.CityID;
 }
 
@@ -191,29 +191,20 @@
 
 @section Scripts
     {
-    @*<script src="~/lib/Gijgo/gijgo.min.js"></script>
-    <script src="~/lib/Gijgo/messages.ru-ru.js"></script>*@
+    <script src="~/lib/Gijgo/gijgo.min.js"></script>
+    <script src="~/lib/Gijgo/messages.ru-ru.js"></script>
     <script>
+        $('#DateOfBirth').datepicker({
+            uiLibrary: 'bootstrap4',
+            format: 'dd.mm.yyyy',
+            locale: 'ru-ru',
+        });
 
-        // $('#DateOfBirth').datepicker({           
-        //    format: 'dd.mm.yyyy'            
-        //});
-
-        //$('#GraduationDate').datepicker({            
-        //    format: 'dd.mm.yyyy'            
-        //});
-
-        //$('#DateOfBirth').datepicker({
-        //    uiLibrary: 'bootstrap4',
-        //    format: 'dd.mm.yyyy',
-        //    locale: 'ru-ru',
-        //});
-
-        //$('#GraduationDate').datepicker({
-        //    uiLibrary: 'bootstrap4',
-        //    format: 'dd.mm.yyyy',
-        //    locale: 'ru-ru',
-        //});
+        $('#GraduationDate').datepicker({
+            uiLibrary: 'bootstrap4',
+            format: 'dd.mm.yyyy',
+            locale: 'ru-ru',
+        });
     </script>
 
     <script>

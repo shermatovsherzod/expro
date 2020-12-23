@@ -1,6 +1,7 @@
 ﻿using Expro.Data.Infrastructure;
 using Expro.Data.Repository.Interfaces;
 using Expro.Models;
+using Expro.Models.Enums;
 using Expro.Services.Interfaces;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,6 +11,7 @@ namespace Expro.Services
 {
     public class VacancyService : BaseAuthorableService<Vacancy>, IVacancyService
     {
+
         public VacancyService(IVacancyRepository repository,
                            IUnitOfWork unitOfWork)
             : base(repository, unitOfWork)
@@ -19,6 +21,16 @@ namespace Expro.Services
         public IQueryable<Vacancy> GetVacancyByCreatorID(string userID)
         {
             return _repository.GetAsIQueryable().Where(c => c.CreatedBy == userID);
+        }
+
+        public IQueryable<Vacancy> GetAllForAdmin()
+        {
+            return _repository.GetAsIQueryable();
+        }
+
+        public IQueryable<Vacancy> GetAllApproved()
+        {
+            return _repository.GetAsIQueryable().Where(c => c.VacancyStatusID == (int)VacancyStatusEnum.Approved);
         }
 
         public bool VacancyBelongsToUser(Vacancy model, string userID)

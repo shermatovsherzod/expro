@@ -39,6 +39,9 @@ namespace Expro.ViewModels
         [Display(Name = "Контакты")]
         public string Contacts { get; set; }
 
+        [Display(Name = "Статус")]
+        public int Status { get; set; }
+
         public VacancyDetailsVM(Vacancy model)
         {
             if (model == null)
@@ -54,6 +57,7 @@ namespace Expro.ViewModels
             Requirements = model.Requirements;
             Salary = model.Salary;
             Contacts = model.Contacts;
+            Status = model.VacancyStatusID;
         }
 
         public List<VacancyDetailsVM> GetListOfVacancyDetailsVM(IQueryable<Vacancy> models)

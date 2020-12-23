@@ -8,5 +8,7 @@ namespace Expro.Services.Interfaces
         IQueryable<Vacancy> GetVacancyByCreatorID(string userID);
         bool VacancyBelongsToUser(Vacancy model, string userID);
         bool VacancyBelongsToUser(int modelID, string userID);
+        IQueryable<Vacancy> GetAllForAdmin();
+        IQueryable<Vacancy> GetAllApproved();
     }
 }
