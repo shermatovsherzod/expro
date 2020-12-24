@@ -47,7 +47,7 @@ namespace Expro.DependencyInjections
             services.AddTransient<IResumeRepository, ResumeRepository>();
             services.AddTransient<IQuestionRepository, QuestionRepository>();
             services.AddTransient<ILikeRepository, LikeRepository>();
-            services.AddTransient<IQuestionAnswerLikeRepository, QuestionAnswerLikeRepository>();
+            //services.AddTransient<IQuestionAnswerLikeRepository, QuestionAnswerLikeRepository>();
             services.AddTransient<IVacancyStatusRepository, VacancyStatusRepository>();
         }
 
@@ -98,7 +98,7 @@ namespace Expro.DependencyInjections
             services.AddTransient<IUserService, UserService>();
             services.AddTransient<IVacancyStatusService, VacancyStatusService>();
             services.AddTransient<IVacancySearchService, VacancySearchService>();
-            services.AddTransient < IVacancyAdminActionsService, VacancyAdminActionsService>();
+            services.AddTransient<IVacancyAdminActionsService, VacancyAdminActionsService>();
         }
     }
 }
