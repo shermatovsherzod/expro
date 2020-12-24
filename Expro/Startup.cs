@@ -26,6 +26,7 @@ using Hangfire.SqlServer;
 using Expro.Filters;
 using Hangfire.Dashboard;
 using Expro.Hubs;
+using System.Globalization;
 
 namespace Expro
 {
@@ -86,7 +87,6 @@ namespace Expro
             //  new PhysicalFileProvider(
             //    Path.Combine(webRoot, "Uploads")));
 
-            services.AddMvc().AddViewLocalization();
             services.AddControllersWithViews().AddRazorRuntimeCompilation();
             services.AddRazorPages();
 
@@ -113,6 +113,21 @@ namespace Expro
             services.AddHangfireServer();
 
             services.AddSignalR();
+
+            services.AddMvc()
+                .AddViewLocalization();
+            //.AddViewLocalization(Microsoft.AspNetCore.Mvc.Razor.LanguageViewLocationExpanderFormat.Suffix, opts => { opts.ResourcesPath = "Resources"; }); ;
+
+            services.Configure<RequestLocalizationOptions>(options =>
+            {
+                var cultures = new List<CultureInfo> {
+                    new CultureInfo("ru"),
+                    new CultureInfo("fr")
+                };
+                options.DefaultRequestCulture = new Microsoft.AspNetCore.Localization.RequestCulture("ru");
+                options.SupportedCultures = cultures;
+                options.SupportedUICultures = cultures;
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -151,6 +166,8 @@ namespace Expro
             app.UseAuthentication();
             app.UseAuthorization();
 
+            app.UseRequestLocalization(app.ApplicationServices.GetRequiredService<IOptions<RequestLocalizationOptions>>().Value);
+
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(
@@ -181,6 +198,8 @@ namespace Expro
                 Authorization = new[] { new HangfireAuthorizationFilter() },
                 IsReadOnlyFunc = (DashboardContext context) => true
             });
+
+            
 
             ////both variants work
             //BackgroundJob.Enqueue(() => Console.WriteLine("Hello world from Hangfire 1!"));

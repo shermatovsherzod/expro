@@ -43,7 +43,8 @@ namespace Expro.Areas.Identity.Pages.Account
 
         public class InputModel
         {
-            [Required]
+            [Required(ErrorMessageResourceType = typeof(Resources.ResourceTexts), ErrorMessageResourceName = "ErrorRequiredField")]
+            [Display(Name = "Email", ResourceType = typeof(Resources.ResourceTexts))]
             [EmailAddress]
             public string Email { get; set; }
 

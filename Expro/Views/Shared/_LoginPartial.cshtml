@@ -9,37 +9,40 @@
 @using Expro.Models.Enums
 
 <ul class="navbar-nav">
+    <li class="nav-item">
+        @await Html.PartialAsync("_CulturePartial")
+    </li>
     @if (SignInManager.IsSignedIn(User))
     {
-    <li class="nav-item">
-        @{
-            var userTypeClaim = User.Claims.FirstOrDefault(c => c.Type == "UserType");
-            if (userTypeClaim != null && (!string.IsNullOrWhiteSpace(userTypeClaim.Value)))
-            {
-                int userTypeInt = 0;
-                int.TryParse(userTypeClaim.Value, out userTypeInt);
-                if (Enum.IsDefined(typeof(UserTypesEnum), userTypeInt))
+        <li class="nav-item">
+            @{
+                var userTypeClaim = User.Claims.FirstOrDefault(c => c.Type == "UserType");
+                if (userTypeClaim != null && (!string.IsNullOrWhiteSpace(userTypeClaim.Value)))
                 {
-                    if ((UserTypesEnum)userTypeInt == UserTypesEnum.Admin)
+                    int userTypeInt = 0;
+                    int.TryParse(userTypeClaim.Value, out userTypeInt);
+                    if (Enum.IsDefined(typeof(UserTypesEnum), userTypeInt))
                     {
-                        <a href="/Admin/Profile" class="nav-link text-dark" title="Manage">Hello @User.Identity.Name!</a>
-                    }
-                    else if ((UserTypesEnum)userTypeInt == UserTypesEnum.Expert)
-                    {
-                        <a href="/Expert/Profile" class="nav-link text-dark" title="Manage">Hello @User.Identity.Name!</a>
-                    }
-                    else if ((UserTypesEnum)userTypeInt == UserTypesEnum.SimpleUser)
-                    {
-                        <a href="/User/Profile" class="nav-link text-dark" title="Manage">Hello @User.Identity.Name!</a>
+                        if ((UserTypesEnum)userTypeInt == UserTypesEnum.Admin)
+                        {
+                            <a href="/Admin/Profile" class="nav-link text-dark" title="Manage">Hello @User.Identity.Name!</a>
+                        }
+                        else if ((UserTypesEnum)userTypeInt == UserTypesEnum.Expert)
+                        {
+                            <a href="/Expert/Profile" class="nav-link text-dark" title="Manage">Hello @User.Identity.Name!</a>
+                        }
+                        else if ((UserTypesEnum)userTypeInt == UserTypesEnum.SimpleUser)
+                        {
+                            <a href="/User/Profile" class="nav-link text-dark" title="Manage">Hello @User.Identity.Name!</a>
+                        }
                     }
                 }
             }
-        }
 
 
 
 
-    </li>
+        </li>
         <li class="nav-item">
             <form class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
                 <button type="submit" class="nav-link btn btn-link text-dark">Logout</button>
