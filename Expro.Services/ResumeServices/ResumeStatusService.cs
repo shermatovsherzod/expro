@@ -8,7 +8,7 @@ using System.Linq;
 
 namespace Expro.Services
 {
-    public class ResumeStatusService : BaseDropdownableService<ResumeStatus>, IVacancyStatusService
+    public class ResumeStatusService : BaseDropdownableService<ResumeStatus>, IResumeStatusService
     {
         public ResumeStatusService(IResumeStatusRepository repository,
                            IUnitOfWork unitOfWork)

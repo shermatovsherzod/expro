@@ -51,6 +51,9 @@ namespace Expro.ViewModels
         [Display(Name = "Дополнительная информация")]
         public string OtherInfo { get; set; }
 
+        [Display(Name = "Статус")]
+        public int Status { get; set; }
+
         public ResumeDetailsVM(Resume model)
         {
             if (model == null)
@@ -69,7 +72,7 @@ namespace Expro.ViewModels
             WorkExperience = model.WorkExperience;
             Languages = model.Languages;
             OtherInfo = model.OtherInfo;
-
+            Status = model.ResumeStatusID;
         }
 
         public List<ResumeDetailsVM> GetListOfResumeDetailsVM(IQueryable<Resume> models)
