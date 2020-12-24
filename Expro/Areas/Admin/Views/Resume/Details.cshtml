@@ -1,0 +1,176 @@
+﻿@model Expro.ViewModels.ResumeDetailsVM
+@using Expro.Models.Enums
+@{
+    ViewData["Title"] = "Details";
+    ViewData["ApprovedStatusAlertText"] = "Резюме подтверждено";
+    ViewData["RejectedStatusAlertText"] = "Резюме отменен";
+}
+
+<div>
+    <h4>Резюме</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.ID)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.ID)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.FirstName)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.FirstName)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.LastName)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.LastName)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.PatronymicName)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.PatronymicName)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Contact)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Contact)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.DateOfBirth)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.DateOfBirth)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Region)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Region)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.City)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.City)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.CityOther)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.CityOther)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Education)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Education)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.GraduationDate)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.GraduationDate)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.WorkExperience)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.WorkExperience)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Languages)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Languages)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.OtherInfo)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.OtherInfo)
+        </dd>
+
+        <dt class="col-sm-2">
+            Действия:
+        </dt>
+        <dd class="col-sm-10">
+            @if (Model.Status == (int)ResumeStatusEnum.WaitingForApproval)
+            {
+                <button type="button" class="btn btn-success" onclick="Approve(@Model.ID);">Подтвердить</button>
+                <button type="button" class="btn btn-danger" onclick="Reject(@Model.ID);">Отменить</button>
+            }
+            else if (Model.Status == (int)ResumeStatusEnum.Approved)
+            {
+                <div class="alert alert-success">@ViewData["ApprovedStatusAlertText"]</div>
+            }
+            else if (Model.Status == (int)ResumeStatusEnum.Rejected)
+            {
+                <div class="alert alert-danger">@ViewData["RejectedStatusAlertText"]</div>
+            }
+            <div class="spinner-border spinner" style="display: none;"></div>
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+
+<script>
+    function Approve(id) {
+
+        if (confirm("Вы уверены, что хотите подтвердить?")) {
+            $.ajax({
+                type: "POST",
+                url: "/Admin/Resume/Approve/" + id,               
+                contentType: "application/json; charset=utf-8",                
+                beforeSend: function (data) {
+                    $(".btn").attr("disabled", "disabled");
+                    ShowFormSpinner();
+                },
+                success: function (data) {                    
+                    location.reload();
+                },
+                error: function (data) {
+                    alert("Ajax error (status code = " + data.status + "): " + data.statusText);
+                },
+                complete: function (data) {
+                }
+            });
+        }
+    }
+
+    function Reject(id) {
+        if (confirm("Вы уверены, что хотите отказать?")) {
+            $.ajax({
+                type: "POST",
+                url: "/Admin/Resume/Reject/" + id,
+                contentType: "application/json; charset=utf-8",
+                beforeSend: function (data) {
+                    $(".btn").attr("disabled", "disabled");
+                    ShowFormSpinner();
+                },
+                success: function (data) {
+                    location.reload();
+                },
+                error: function (data) {
+                    alert("Ajax error (status code = " + data.status + "): " + data.statusText);
+                },
+                complete: function (data) {
+                }
+            });
+        }
+    }
+
+   
+   
+
+    function ShowFormSpinner() {
+        $(".spinner").show();
+    }
+</script>

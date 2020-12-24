@@ -178,28 +178,6 @@ namespace Expro.Areas.Expert.Controllers
         #endregion
 
 
-        //private void PrepareViewData()
-        //{
-        //    ViewData["lawAreas"] = _lawAreaService.GetAsIQueryable()
-        //        .Select(m => new SelectListItemWithParent()
-        //        {
-        //            Value = m.ID.ToString(),
-        //            Text = m.Name,
-        //            ParentValue = m.ParentID.HasValue ? m.ParentID.Value.ToString() : ""
-        //        }).ToList();
-        //}
-
-        //edit
-        //private void PrepareViewData(List<int> selectedLawAreaIDs)
-        //{
-        //    ViewData["lawAreas"] = _lawAreaService.GetAsIQueryable()
-        //        .Select(m => new SelectListItemWithParent()
-        //        {
-        //            Value = m.ID.ToString(),
-        //            Text = m.Name,
-        //            Selected = selectedLawAreaIDs.Contains(m.ID),
-        //            ParentValue = m.ParentID.HasValue ? m.ParentID.Value.ToString() : ""
-        //        }).ToList();
-        //}
+        
     }
 }
