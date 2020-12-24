@@ -2,7 +2,7 @@
 @using Expro.Models.Enums
 
 @{
-    ViewData["Title"] = "Резюме";  
+    ViewData["Title"] = "Компании";  
 }
 
 <h1>@ViewData["Title"]</h1>
@@ -51,7 +51,7 @@
                 lengthChange: false,
                 ajax:
                 {
-                    url: "/Admin/Resume/Search",
+                    url: "/Admin/Company/Search",
                     type: "POST",
                     datatype: "json",
                     data: function (d) {
@@ -65,14 +65,14 @@
                             var html = '';
                             html += '<div class="card">';
                             html += '<div class="card-body">';
-                            html += '<h4 class="card-title">Резюме: ' + full.firstName + ' ' + full.lastName+'</h4>';
+                            html += '<h4 class="card-title">Компания: ' + full.companyName + '</h4>';
                             html += '<p class="card-text">';
                             html += '<ul>';
-                            html += '<li>Дата рождения ' + full.dateOfBirth+'</li>';
-                            html += '<li>Образование ' + full.education+'</li>';                                          
+                            html += '<li>Регион ' + full.region+'</li>';
+                            html += '<li>Город ' + full.city+'</li>';                                          
                             html += '</ul>';                                        
                             html += '</p>';
-                            html += '<a href="/Admin/Resume/Details/' + full.id + '" class="card-link">Просмотр</a>';                                   
+                            html += '<a href="/Admin/Company/Details/' + full.id + '" class="card-link">Просмотр</a>';                                   
                             html += '</div>';
                             html += '</div>';
 

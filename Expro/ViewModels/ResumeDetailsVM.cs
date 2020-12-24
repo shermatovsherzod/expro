@@ -36,7 +36,7 @@ namespace Expro.ViewModels
         [Display(Name = "Другой город")]
         public string CityOther { get; set; }
 
-        [Display(Name = "Образования")]
+        [Display(Name = "Образование")]
         public string Education { get; set; }
 
         [Display(Name = "Дата окончания учебного заведения")]

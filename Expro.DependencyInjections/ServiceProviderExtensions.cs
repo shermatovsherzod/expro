@@ -50,6 +50,7 @@ namespace Expro.DependencyInjections
             //services.AddTransient<IQuestionAnswerLikeRepository, QuestionAnswerLikeRepository>();
             services.AddTransient<IVacancyStatusRepository, VacancyStatusRepository>();
             services.AddTransient<IResumeStatusRepository, ResumeStatusRepository>();
+            services.AddTransient<ICompanyStatusRepository, CompanyStatusRepository>();
         }
 
         public static void AddServices(this IServiceCollection services)
@@ -103,6 +104,9 @@ namespace Expro.DependencyInjections
             services.AddTransient<IResumeStatusService, ResumeStatusService>();
             services.AddTransient<IResumeSearchService, ResumeSearchService>();
             services.AddTransient<IResumeAdminActionsService, ResumeAdminActionsService>();
+            services.AddTransient<ICompanyStatusService, CompanyStatusService>();
+            services.AddTransient<ICompanySearchService, CompanySearchService>();
+            services.AddTransient<ICompanyAdminActionsService, CompanyAdminActionsService>();
         }
     }
 }
