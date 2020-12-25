@@ -42,6 +42,9 @@ namespace Expro.ViewModels
         [Display(Name = "Адрес")]
         public string Address { get; set; }
 
+        [Display(Name = "Статус")]
+        public int Status { get; set; }
+
         public CompanyDetailsVM(Company model)
         {
             if (model == null)
@@ -58,6 +61,7 @@ namespace Expro.ViewModels
             PhoneNumber = model.PhoneNumber;
             Email = model.Email;
             Address = model.Address;
+            Status = model.CompanyStatusID;
         }
 
         public List<CompanyDetailsVM> GetListOfCompanyDetailsVM(IQueryable<Company> models)

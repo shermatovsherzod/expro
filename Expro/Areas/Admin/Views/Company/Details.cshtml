@@ -1,0 +1,158 @@
+﻿@model Expro.ViewModels.CompanyDetailsVM
+@using Expro.Models.Enums
+@{
+    ViewData["Title"] = "Компании";
+    ViewData["ApprovedStatusAlertText"] = "Компания подтверждена";
+    ViewData["RejectedStatusAlertText"] = "Компания отменена";
+}
+
+<div>
+    <h4>Компания</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.ID)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.ID)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.CompanyName)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.CompanyName)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.CompanyDescription)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.CompanyDescription)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Region)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Region)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.City)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.City)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.CityOther)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.CityOther)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.WebSite)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.WebSite)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.PhoneNumber)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.PhoneNumber)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Email)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Email)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Address)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Address)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Status)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Status)
+        </dd>
+
+        <dt class="col-sm-2">
+            Действия:
+        </dt>
+        <dd class="col-sm-10">
+            @if (Model.Status == (int)CompanyStatusEnum.WaitingForApproval)
+            {
+                <button type="button" class="btn btn-success" onclick="Approve(@Model.ID);">Подтвердить</button>
+                <button type="button" class="btn btn-danger" onclick="Reject(@Model.ID);">Отменить</button>
+            }
+            else if (Model.Status == (int)CompanyStatusEnum.Approved)
+            {
+                <div class="alert alert-success">@ViewData["ApprovedStatusAlertText"]</div>
+            }
+            else if (Model.Status == (int)CompanyStatusEnum.Rejected)
+            {
+                <div class="alert alert-danger">@ViewData["RejectedStatusAlertText"]</div>
+            }
+            <div class="spinner-border spinner" style="display: none;"></div>
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+
+<script>
+    function Approve(id) {
+
+        if (confirm("Вы уверены, что хотите подтвердить?")) {
+            $.ajax({
+                type: "POST",
+                url: "/Admin/Company/Approve/" + id,               
+                contentType: "application/json; charset=utf-8",                
+                beforeSend: function (data) {
+                    $(".btn").attr("disabled", "disabled");
+                    ShowFormSpinner();
+                },
+                success: function (data) {                    
+                    location.reload();
+                },
+                error: function (data) {
+                    alert("Ajax error (status code = " + data.status + "): " + data.statusText);
+                },
+                complete: function (data) {
+                }
+            });
+        }
+    }
+
+    function Reject(id) {
+        if (confirm("Вы уверены, что хотите отказать?")) {
+            $.ajax({
+                type: "POST",
+                url: "/Admin/Company/Reject/" + id,
+                contentType: "application/json; charset=utf-8",
+                beforeSend: function (data) {
+                    $(".btn").attr("disabled", "disabled");
+                    ShowFormSpinner();
+                },
+                success: function (data) {
+                    location.reload();
+                },
+                error: function (data) {
+                    alert("Ajax error (status code = " + data.status + "): " + data.statusText);
+                },
+                complete: function (data) {
+                }
+            });
+        }
+    }
+
+   
+   
+
+    function ShowFormSpinner() {
+        $(".spinner").show();
+    }
+</script>
