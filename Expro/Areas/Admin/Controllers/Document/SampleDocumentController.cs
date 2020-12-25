@@ -19,13 +19,17 @@ namespace Expro.Areas.Admin.Controllers
             ISampleDocumentSearchService sampleDocumentSearchService,
             IHangfireService hangfireService,
             IDocumentStatusService documentStatusService,
-            IDocumentAdminActionsService documentAdminActionsService)
+            IDocumentAdminActionsService documentAdminActionsService,
+            IUserService userService,
+            IUserRatingService userRatingService)
             : base(
                   sampleDocumentService,
                   documentStatusService,
                   sampleDocumentSearchService,
                   documentAdminActionsService,
-                  hangfireService)
+                  hangfireService,
+                  userService,
+                  userRatingService)
         {
             ErrorDocumentNotFound = "Образцовый документ не найден";
         }

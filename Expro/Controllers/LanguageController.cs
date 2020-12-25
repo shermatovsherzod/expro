@@ -9,13 +9,13 @@ using Microsoft.Extensions.Localization;
 
 namespace Expro.Controllers.API
 {
-    public class LanguageController : ControllerBase
+    public class LanguageController : BaseController
     {
-        private readonly IStringLocalizer<Resources.ResourceTexts> _localizer;
         public LanguageController(IStringLocalizer<Resources.ResourceTexts> localizer)
         {
             _localizer = localizer;
         }
+
         [HttpGet]
         public async Task<IActionResult> Get()
         {

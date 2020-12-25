@@ -19,13 +19,17 @@ namespace Expro.Areas.Admin.Controllers
             IPracticeDocumentSearchService practiceDocumentSearchService,
             IHangfireService hangfireService,
             IDocumentStatusService documentStatusService,
-            IDocumentAdminActionsService documentAdminActionsService)
+            IDocumentAdminActionsService documentAdminActionsService,
+            IUserService userService,
+            IUserRatingService userRatingService)
             : base(
                   practiceDocumentService,
                   documentStatusService,
                   practiceDocumentSearchService,
                   documentAdminActionsService,
-                  hangfireService)
+                  hangfireService,
+                  userService,
+                  userRatingService)
         {
             ErrorDocumentNotFound = "Практический документ не найден";
         }

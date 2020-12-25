@@ -85,6 +85,9 @@ namespace Expro.Models
         public bool? IsOnline { get; set; }
         public DateTime? DateLastSeen { get; set; }
 
+        public int Points { get; set; }
+        public int Rating { get; set; }
+
         //==========================================================
         [InverseProperty("Author")]
         public virtual ICollection<Post> PostsAuthored { get; set; }

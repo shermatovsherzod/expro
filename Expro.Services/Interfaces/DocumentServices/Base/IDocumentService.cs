@@ -7,6 +7,9 @@ namespace Expro.Services.Interfaces
 {
     public interface IDocumentService : IBaseAuthorableService<Document>
     {
+        int PointsForDocumentFree { get; set; }
+        int PointsForDocumentPaid { get; set; }
+
         Document GetFreeByID(int id);
         Document GetPaidByID(int id);
         bool EditingIsAllowed(Document entity);

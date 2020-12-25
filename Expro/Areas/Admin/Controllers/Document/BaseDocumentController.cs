@@ -19,6 +19,8 @@ namespace Expro.Areas.Admin.Controllers
         private readonly IDocumentSearchService DocumentSearchService;
         protected readonly IDocumentAdminActionsService DocumentAdminActionsService;
         protected readonly IHangfireService HangfireService;
+        private readonly IUserService _userService;
+        private readonly IUserRatingService _userRatingService;
 
         protected string ErrorDocumentNotFound = "Документ не найден";
         protected string ErrorUnableToConfirmDocument = "Статус документа не позволяет подтвердить его";
@@ -28,13 +30,17 @@ namespace Expro.Areas.Admin.Controllers
             IDocumentStatusService documentStatusService,
             IDocumentSearchService documentSearchService,
             IDocumentAdminActionsService documentAdminActionsService,
-            IHangfireService hangfireService)
+            IHangfireService hangfireService,
+            IUserService userService,
+            IUserRatingService userRatingService)
         {
             DocumentService = documentService;
             DocumentStatusService = documentStatusService;
             DocumentSearchService = documentSearchService;
             DocumentAdminActionsService = documentAdminActionsService;
             HangfireService = hangfireService;
+            _userService = userService;
+            _userRatingService = userRatingService;
         }
 
         public virtual IActionResult Index()
@@ -109,6 +115,17 @@ namespace Expro.Areas.Admin.Controllers
 
                 if (!DocumentAdminActionsService.ApprovingIsAllowed(document))
                     throw new Exception(ErrorUnableToConfirmDocument);
+
+                var expert = _userService.GetByID(document.CreatedBy);
+                if (expert == null)
+                    throw new Exception("Эксперт не найден");
+
+                int points = 0;
+                if (DocumentService.IsFree(document))
+                    points = DocumentService.PointsForDocumentFree;
+                else
+                    points = DocumentService.PointsForDocumentPaid;
+                _userRatingService.AddPointsToUser(points, expert);
 
                 //cancel request/video
                 DocumentAdminActionsService.Approve(document, curUser.ID);

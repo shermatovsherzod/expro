@@ -147,7 +147,6 @@ namespace Expro.Models
         public DbSet<Comment> Comments { get; set; }
         public DbSet<UserStatus> UserStatuses { get; set; }
         public DbSet<QuestionAnswer> QuestionAnswers { get; set; }
-        //public DbSet<QuestionAnswerLike> QuestionAnswerLikes { get; set; }
         public DbSet<Company> Companies { get; set; }
         public DbSet<CompanyStatus> CompanyStatuses { get; set; }
         public DbSet<Resume> Resumes { get; set; }
@@ -155,5 +154,6 @@ namespace Expro.Models
         public DbSet<Vacancy> Vacancies { get; set; }
         public DbSet<VacancyStatus> VacancyStatuses { get; set; }
         public DbSet<Like> Likes { get; set; }
+        public DbSet<RatingUpdate> RatingUpdates { get; set; }
     }
 }

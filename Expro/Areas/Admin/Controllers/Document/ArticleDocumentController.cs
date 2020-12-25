@@ -19,13 +19,17 @@ namespace Expro.Areas.Admin.Controllers
             IArticleDocumentSearchService articleDocumentSearchService,
             IHangfireService hangfireService,
             IDocumentStatusService documentStatusService,
-            IDocumentAdminActionsService documentAdminActionsService)
+            IDocumentAdminActionsService documentAdminActionsService,
+            IUserService userService,
+            IUserRatingService userRatingService)
             : base(
                   articleDocumentService,
                   documentStatusService,
                   articleDocumentSearchService,
                   documentAdminActionsService,
-                  hangfireService)
+                  hangfireService,
+                  userService,
+                  userRatingService)
         {
             ErrorDocumentNotFound = "Статья не найдена";
         }

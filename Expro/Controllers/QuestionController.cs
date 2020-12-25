@@ -22,6 +22,8 @@ namespace Expro.Controllers
         private readonly IQuestionSearchService QuestionSearchService;
         private readonly IQuestionCounterService QuestionCounterService;
         private readonly IUserBalanceService UserBalanceService;
+        private readonly IUserService _userService;
+        private readonly IUserRatingService _userRatingService;
 
         public QuestionController(
             IQuestionService questionService,
@@ -32,7 +34,9 @@ namespace Expro.Controllers
             ILawAreaService lawAreaService,
             IQuestionCounterService questionCounterService,
             IQuestionAnswerService questionAnswerService,
-            IHangfireService hangfireService)
+            IHangfireService hangfireService,
+            IUserService userService,
+            IUserRatingService userRatingService)
         {
             QuestionService = questionService;
             QuestionAnswerService = questionAnswerService;
@@ -41,6 +45,8 @@ namespace Expro.Controllers
             QuestionSearchService = questionSearchService;
             QuestionCounterService = questionCounterService;
             UserBalanceService = userBalanceService;
+            _userService = userService;
+            _userRatingService = userRatingService;
         }
 
         public IActionResult Index()
@@ -163,6 +169,14 @@ namespace Expro.Controllers
                         throw new Exception("Вопрос уже завершен");
 
                     QuestionAnswer answer = answerCreateVM.ToModel();
+                    
+                    var curUserFromDB = _userService.GetByID(curUser.ID);
+                    if (curUserFromDB == null)
+                        throw new Exception("Пользователь не найден");
+
+                    int points = Constants.PointsFor.QUESTION_ANSWER;
+                    _userRatingService.AddPointsToUser(points, curUserFromDB);
+
                     QuestionAnswerService.Add(answer, curUser.ID);
 
                     return Ok(new { id = answer.ID });
@@ -260,26 +274,5 @@ namespace Expro.Controllers
                 return CustomBadRequest(ex);
             }
         }
-
-        ////authorize
-        //public IActionResult SaveLike([FromBody] QuestionAnswerLikeCreateVM like)
-        //{
-        //    try
-        //    {
-        //        var questionAnswer = QuestionAnswerService.GetByID(like.QuestionAnswerID);
-        //        if (questionAnswer == null)
-        //            throw new Exception("Ответ не найден");
-
-        //        var curUser = accountUtil.GetCurrentUser(User);
-
-        //        QuestionAnswerService.AddLike(questionAnswer, curUser.ID, like.IsPositive);
-
-        //        return Ok();
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        return CustomBadRequest(ex);
-        //    }
-        //}
     }
 }

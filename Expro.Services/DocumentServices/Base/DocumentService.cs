@@ -17,6 +17,9 @@ namespace Expro.Services
 
         public DocumentTypesEnum _documentType;
 
+        public int PointsForDocumentFree { get; set; }
+        public int PointsForDocumentPaid { get; set; }
+
         public DocumentService(IDocumentRepository repository,
                            IUnitOfWork unitOfWork)
             : base(repository, unitOfWork)

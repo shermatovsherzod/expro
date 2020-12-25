@@ -1,4 +1,5 @@
-﻿using Expro.Data.Infrastructure;
+﻿using Expro.Common;
+using Expro.Data.Infrastructure;
 using Expro.Data.Repository.Interfaces;
 using Expro.Models;
 using Expro.Models.Enums;
@@ -17,6 +18,8 @@ namespace Expro.Services
             : base(repository, unitOfWork)
         {
             _documentType = DocumentTypesEnum.SampleDocument;
+            PointsForDocumentFree = Constants.PointsFor.DOCUMENT.SAMPLE.FREE;
+            PointsForDocumentPaid = Constants.PointsFor.DOCUMENT.SAMPLE.PAID;
         }
     }
 
@@ -27,6 +30,8 @@ namespace Expro.Services
             : base(repository, unitOfWork)
         {
             _documentType = DocumentTypesEnum.ArticleDocument;
+            PointsForDocumentFree = Constants.PointsFor.DOCUMENT.ARTICLE.FREE;
+            PointsForDocumentPaid = Constants.PointsFor.DOCUMENT.ARTICLE.PAID;
         }
     }
 
@@ -37,6 +42,8 @@ namespace Expro.Services
             : base(repository, unitOfWork)
         {
             _documentType = DocumentTypesEnum.PracticeDocument;
+            PointsForDocumentFree = Constants.PointsFor.DOCUMENT.PRACTICE.FREE;
+            PointsForDocumentPaid = Constants.PointsFor.DOCUMENT.PRACTICE.PAID;
         }
     }
 

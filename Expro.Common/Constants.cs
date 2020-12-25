@@ -7,6 +7,29 @@ namespace Expro.Common
 {
     public static class Constants
     {
+        public static class PointsFor
+        {
+            public static readonly int QUESTION_ANSWER = 5;
+            public static class DOCUMENT
+            {
+                public static class ARTICLE
+                {
+                    public static readonly int FREE = 100;
+                    public static readonly int PAID = 100;
+                }
+                public static class PRACTICE
+                {
+                    public static readonly int FREE = 50;
+                    public static readonly int PAID = 100;
+                }
+                public static class SAMPLE
+                {
+                    public static readonly int FREE = 25;
+                    public static readonly int PAID = 100;
+                }
+            }
+        }
+
         public static class FileTypes
         {
             public static readonly string DOCUMENT = "document";

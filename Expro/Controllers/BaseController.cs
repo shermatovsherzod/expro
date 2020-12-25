@@ -6,6 +6,7 @@ using Expro.Common;
 using Expro.Utils;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
+using Microsoft.Extensions.Localization;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 
@@ -17,6 +18,7 @@ namespace Expro.Controllers
         public AccountUtil accountUtil = new AccountUtil();
 
         internal ILogger _logger;
+        internal IStringLocalizer<Resources.ResourceTexts> _localizer;
 
         public override void OnActionExecuting(ActionExecutingContext filterContext)
         {
