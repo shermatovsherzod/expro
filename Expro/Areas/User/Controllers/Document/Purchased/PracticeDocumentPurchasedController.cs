@@ -20,13 +20,15 @@ namespace Expro.Areas.User.Controllers
             IPracticeDocumentSearchService practiceDocumentSearchService,
             UserManager<ApplicationUser> userManager,
             ILawAreaService lawAreaService,
-            IDocumentCounterService documentCounterService)
+            IDocumentCounterService documentCounterService,
+            IUserRatingService userRatingService)
             : base(
                   practiceDocumentService,
                   practiceDocumentSearchService,
                   userManager,
                   lawAreaService,
-                  documentCounterService)
+                  documentCounterService,
+                  userRatingService)
         {
             ErrorDocumentNotFound = "Практический документ не найден";
         }

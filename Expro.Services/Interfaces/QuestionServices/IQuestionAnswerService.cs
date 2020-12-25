@@ -12,5 +12,6 @@ namespace Expro.Services.Interfaces
         int CalculatePaidFee(int questionFee, int percentage);
         //void AddLike(QuestionAnswer questionAnswer, string userID, bool isPositive);
         IQueryable<QuestionAnswer> GetManyPaidByAnswerer(string answererID);
+        IQueryable<QuestionAnswer> GetAllByAnswerer(string answererID);
     }
 }

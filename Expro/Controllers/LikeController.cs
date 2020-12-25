@@ -22,6 +22,7 @@ namespace Expro.Controllers
         private readonly ILikeService _likeService;
         private readonly IDocumentService DocumentService;
         private readonly IQuestionAnswerService QuestionAnswerService;
+        private readonly IUserRatingService _userRatingService;
         private readonly UserManager<ApplicationUser> _userManager;
 
         //private readonly IHostingEnvironment _env;
@@ -31,6 +32,7 @@ namespace Expro.Controllers
             IDocumentService documentService,
             IQuestionAnswerService questionAnswerService,
             //IHostingEnvironment env,
+            IUserRatingService userRatingService,
             UserManager<ApplicationUser> userManager,
             ILogger<AttachmentController> logger)
         {
@@ -38,6 +40,7 @@ namespace Expro.Controllers
             DocumentService = documentService;
             QuestionAnswerService = questionAnswerService;
             //_env = env;
+            _userRatingService = userRatingService;
             _userManager = userManager;
             _logger = logger;
         }
@@ -80,6 +83,16 @@ namespace Expro.Controllers
                         {
                             Like = like
                         });
+
+                        int points = 0;
+                        if (DocumentService.IsFree(model))
+                            points = Constants.PointsFor.DOCUMENT.ARTICLE.FREE_LIKE;
+                        else
+                            points = Constants.PointsFor.DOCUMENT.ARTICLE.PAID_LIKE;
+
+                        var expert = model.Creator;
+                        _userRatingService.AddPointsToUser(points, expert);
+
                         DocumentService.Update(model);
                     }
                 }
@@ -92,6 +105,14 @@ namespace Expro.Controllers
                         {
                             Like = like
                         });
+
+                        if (like.IsPositive)
+                        {
+                            int points = Constants.PointsFor.QUESTION_ANSWER_LIKE;
+                            var expert = model.Creator;
+                            _userRatingService.AddPointsToUser(points, expert);
+                        }
+
                         QuestionAnswerService.Update(model);
                     }
                 }

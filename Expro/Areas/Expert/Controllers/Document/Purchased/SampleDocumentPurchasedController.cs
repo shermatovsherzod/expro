@@ -20,13 +20,15 @@ namespace Expro.Areas.Expert.Controllers
             ISampleDocumentSearchService sampleDocumentSearchService,
             UserManager<ApplicationUser> userManager,
             ILawAreaService lawAreaService,
-            IDocumentCounterService documentCounterService)
+            IDocumentCounterService documentCounterService,
+            IUserRatingService userRatingService)
             : base(
                   sampleDocumentService,
                   sampleDocumentSearchService,
                   userManager,
                   lawAreaService,
-                  documentCounterService)
+                  documentCounterService,
+                  userRatingService)
         {
             ErrorDocumentNotFound = "Образцовый документ не найден";
             //Area = UserAreasEnum.Expert;

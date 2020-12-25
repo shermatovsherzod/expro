@@ -87,6 +87,7 @@ namespace Expro.Models
 
         public int Points { get; set; }
         public int Rating { get; set; }
+        public DateTime? DateRatingLastUpdated { get; set; }
 
         //==========================================================
         [InverseProperty("Author")]

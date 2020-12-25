@@ -52,6 +52,7 @@ namespace Expro.DependencyInjections
             services.AddTransient<IResumeStatusRepository, ResumeStatusRepository>();
             services.AddTransient<ICompanyStatusRepository, CompanyStatusRepository>();
             services.AddTransient<IRatingUpdateRepository, RatingUpdateRepository>();
+            services.AddTransient<IUserRepository, UserRepository>();
         }
 
         public static void AddServices(this IServiceCollection services)

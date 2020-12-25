@@ -19,6 +19,10 @@ namespace Expro.Services
 
         public int PointsForDocumentFree { get; set; }
         public int PointsForDocumentPaid { get; set; }
+        public int PointsForDocumentFreeView { get; set; }
+        public int PointsForDocumentPurchase { get; set; }
+        public int PointsForDocumentFreeLike { get; set; }
+        public int PointsForDocumentPaidLike { get; set; }
 
         public DocumentService(IDocumentRepository repository,
                            IUnitOfWork unitOfWork)
@@ -180,6 +184,17 @@ namespace Expro.Services
         public DateTime RoundToUp(DateTime inputDateTime)
         {
             return inputDateTime.Date.AddDays(1).AddSeconds(-1);
+        }
+
+        public IQueryable<Document> GetAllApprovedByUserAndPeriod(
+            string userID,
+            DateTime startDate, DateTime endDate)
+        {
+            return base.GetAsIQueryable()
+                .Where(m => m.DocumentStatusID == (int)DocumentStatusesEnum.Approved
+                    && m.CreatedBy == userID
+                    && m.DateCreated >= startDate
+                    && m.DateCreated < endDate);
         }
     }
 }
