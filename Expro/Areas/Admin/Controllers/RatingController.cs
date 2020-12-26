@@ -47,6 +47,8 @@ namespace Expro.Areas.Admin.Controllers
             {
                 _ratingUpdateService.UpdateRatingForAllExperts();
 
+                HangfireService.CreateRecurringJobForUpdatingRatingsForAllExperts();
+
                 return Ok();
             }
             catch (Exception ex)
