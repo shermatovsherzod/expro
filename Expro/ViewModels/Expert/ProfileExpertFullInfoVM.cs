@@ -44,8 +44,8 @@ namespace Expro.ViewModels
 
         [Display(Name = "Другой город")]
         [StringLength(256)]
-      
-        public string CityOther { get; set; }       
+
+        public string CityOther { get; set; }
 
         [Display(Name = "Дата рождения")]
         [Required(ErrorMessage = "Поле Дата рождения обязательно для заполнения")]
@@ -106,6 +106,8 @@ namespace Expro.ViewModels
         [Display(Name = "Направление")]
         public List<string> LawAreasName { get; set; }
 
+        [Display(Name = "Статус")]
+        public int Status { get; set; }
 
         public ProfileExpertFullInfoVM(ApplicationUser model) // : base(model)
         {
@@ -117,7 +119,7 @@ namespace Expro.ViewModels
             PatronymicName = model.PatronymicName;
             RegionID = model.RegionID;
             CityID = model.CityID;
-            CityOther = model.CityOther;            
+            CityOther = model.CityOther;
             DateOfBirth = DateTimeUtils.ConvertToString(model.DateOfBirth);
             GenderID = model.GenderID;
             GenderStr = model.GenderID != null ? model.Gender.Name : "";
@@ -138,7 +140,47 @@ namespace Expro.ViewModels
             RegionStr = model.RegionID != null ? model.Region.Name : "";
             CityStr = model.CityID != null ? model.City.Name : "";
             LawAreas = model.UserLawAreas != null ? model.UserLawAreas.Select(r => (int)r.LawAreaID).ToList() : null;
-            LawAreasName = model.UserLawAreas != null ? model.UserLawAreas.Select(c => c.LawArea.Name).ToList():null;
+            LawAreasName = model.UserLawAreas != null ? model.UserLawAreas.Select(c => c.LawArea.Name).ToList() : null;
+            Status = model.UserStatusID;
         }
+
+        public List<ProfileExpertFullInfoVM> GetListOfExpertFullInfoVM(IQueryable<ApplicationUser> models)
+        {
+            if (models == null)
+                return new List<ProfileExpertFullInfoVM>();
+
+            return models.Select(s => new ProfileExpertFullInfoVM
+            {
+                Id = s.Id,
+                FirstName = s.FirstName,
+                LastName = s.LastName,
+                PatronymicName = s.PatronymicName,
+                RegionID = s.RegionID,
+                CityID = s.CityID,
+                CityOther = s.CityOther,
+                DateOfBirth = DateTimeUtils.ConvertToString(s.DateOfBirth, "dd.MMMM.yyyy"),
+                GenderID = s.GenderID,
+                GenderStr = s.GenderID != null ? s.Gender.Name : "",
+                DateRegistered = DateTimeUtils.ConvertToString(s.DateRegistered, "dd.MMMM.yyyy"),
+                UserStatusID = s.UserStatusID,
+                UserStatusStr = s.UserStatus.Name,
+                DateApproved = s.DateApproved,
+                DateRejected = s.DateRejected,
+                DateSubmittedForApproval = s.DateSubmittedForApproval,
+                AboutMe = s.AboutMe,
+                UserName = s.UserName,
+                Email = s.Email,
+                PhoneNumber = s.PhoneNumber,
+                AccountNumber = s.AccountNumber,
+                Balance = s.Balance,
+                Fax = s.Fax,
+                WebSite = s.WebSite,
+                RegionStr = s.RegionID != null ? s.Region.Name : "",
+                CityStr = s.CityID != null ? s.City.Name : "",
+                LawAreas = s.UserLawAreas != null ? s.UserLawAreas.Select(r => (int)r.LawAreaID).ToList() : null,
+                LawAreasName = s.UserLawAreas != null ? s.UserLawAreas.Select(c => c.LawArea.Name).ToList() : null,
+                Status = s.UserStatusID
+            }).ToList();
     }
+}
 }

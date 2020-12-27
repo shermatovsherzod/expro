@@ -110,6 +110,10 @@ namespace Expro.DependencyInjections
             services.AddTransient<ICompanyAdminActionsService, CompanyAdminActionsService>();
             services.AddTransient<IRatingUpdateService, RatingUpdateService>();
             services.AddTransient<IUserRatingService, UserRatingService>();
+
+            services.AddTransient<IExpertsListAdminActionsService, ExpertsListAdminActionsService>();
+            services.AddTransient<IExpertsListSearchService, ExpertsListSearchService>();
+            services.AddTransient<IExpertStatusService, ExpertStatusService>();
         }
     }
 }

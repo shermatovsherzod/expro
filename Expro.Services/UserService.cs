@@ -1,6 +1,7 @@
 ﻿using Expro.Data.Infrastructure;
 using Expro.Data.Repository.Interfaces;
 using Expro.Models;
+using Expro.Models.Enums;
 using Expro.Services.Interfaces;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -27,5 +28,15 @@ namespace Expro.Services
         {
             return GetAsIQueryable().FirstOrDefault(m => m.Id == id);
         }
+
+        public IQueryable<ApplicationUser> GetAllForAdmin()
+        {
+            return GetAsIQueryable();
+        }
+
+        public IQueryable<ApplicationUser> GetAllApproved()
+        {
+            return GetAsIQueryable().Where(c => c.UserStatusID == (int)ExpertApproveStatusEnum.Approved);
+        }        
     }
 }

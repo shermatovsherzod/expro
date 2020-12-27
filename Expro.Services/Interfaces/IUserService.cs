@@ -9,5 +9,7 @@ namespace Expro.Services.Interfaces
     {
         IQueryable<ApplicationUser> GetAsIQueryable();
         ApplicationUser GetByID(string id);
+        IQueryable<ApplicationUser> GetAllForAdmin();
+        IQueryable<ApplicationUser> GetAllApproved();
     }
 }
