@@ -8,7 +8,6 @@ using Expro.Models;
 using Expro.Models.Enums;
 using Expro.Services.Interfaces;
 using Expro.ViewModels;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Expro.Controllers
@@ -19,9 +18,10 @@ namespace Expro.Controllers
         private readonly IDocumentSearchService DocumentSearchService;
         protected readonly IUserBalanceService UserBalanceService;
         private readonly IUserPurchasedDocumentService UserPurchasedDocumentService;
-        protected readonly UserManager<ApplicationUser> _userManager;
+        protected readonly IUserService _userService;
         private readonly ILawAreaService LawAreaService;
         protected readonly IDocumentCounterService DocumentCounterService;
+        private readonly IUserRatingService _userRatingService;
 
         protected string DocumentType = "";
         protected string ErrorDocumentNotFound = "Документ не найден";
@@ -31,17 +31,19 @@ namespace Expro.Controllers
             IDocumentSearchService documentSearchService,
             IUserBalanceService userBalanceService,
             IUserPurchasedDocumentService userPurchasedDocumentService,
-            UserManager<ApplicationUser> userManager,
+            IUserService userService,
             ILawAreaService lawAreaService,
-            IDocumentCounterService documentCounterService)
+            IDocumentCounterService documentCounterService,
+            IUserRatingService userRatingService)
         {
             DocumentService = documentService;
             DocumentSearchService = documentSearchService;
             UserBalanceService = userBalanceService;
             UserPurchasedDocumentService = userPurchasedDocumentService;
-            _userManager = userManager;
+            _userService = userService;
             LawAreaService = lawAreaService;
             DocumentCounterService = documentCounterService;
+            _userRatingService = userRatingService;
         }
 
         public virtual IActionResult Index()
@@ -102,12 +104,18 @@ namespace Expro.Controllers
             });
         }
 
-        public virtual async Task<IActionResult> Details(int id)
+        public virtual IActionResult Details(int id)
         {
             var document = DocumentService.GetApprovedByID(id);
             if (document == null)
                 throw new Exception(ErrorDocumentNotFound);
 
+            if (DocumentService.IsFree(document))
+            {
+                ApplicationUser expert = document.Creator;
+                int points = DocumentService.PointsForDocumentFreeView;
+                _userRatingService.AddPointsToUser(points, expert);
+            }
             DocumentCounterService.IncrementNumberOfViews(document);
 
             var curUser = accountUtil.GetCurrentUser(User);
@@ -117,7 +125,7 @@ namespace Expro.Controllers
             {
                 if (curUser.ID != null)
                 {
-                    ApplicationUser user = await _userManager.GetUserAsync(User);
+                    ApplicationUser user = _userService.GetByID(curUser.ID);
                     if (user != null)
                     {
                         if (UserPurchasedDocumentService.UserPurchasedDocumentBefore(user, document))
@@ -154,7 +162,7 @@ namespace Expro.Controllers
         }
 
         [HttpPost]
-        public virtual async Task<IActionResult> Purchase(DocumentPurchaseFormVM purchaseFormVM)
+        public virtual IActionResult Purchase(DocumentPurchaseFormVM purchaseFormVM)
         {
             var document = DocumentService.GetApprovedByID(purchaseFormVM.DocumentID);
             if (document == null)
@@ -163,7 +171,8 @@ namespace Expro.Controllers
             if (DocumentService.IsFree(document))
                 throw new Exception("Документ бесплатный!");
 
-            ApplicationUser user = await _userManager.GetUserAsync(User);
+            var curUser = accountUtil.GetCurrentUser(User);
+            ApplicationUser user = _userService.GetByID(curUser.ID);
             if (user == null)
                 throw new Exception("Вы не авторизованы");
 
@@ -172,9 +181,11 @@ namespace Expro.Controllers
                 throw new Exception("Недостаточно средств на балансе");
 
             UserPurchasedDocumentService.Purchase(user, document);
-            DocumentCounterService.IncrementNumberOfPurchases(document);
 
-            var curUser = accountUtil.GetCurrentUser(User);
+            ApplicationUser expert = document.Creator;
+            int points = DocumentService.PointsForDocumentPurchase;
+            _userRatingService.AddPointsToUser(points, expert);
+            DocumentCounterService.IncrementNumberOfPurchases(document);
 
             return Redirect("/" + curUser.UserArea.Value.ToString() + "/" + DocumentType + "Purchased/Details/" + document.ID);
         }

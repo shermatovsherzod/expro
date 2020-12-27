@@ -20,6 +20,10 @@ namespace Expro.Services
             _documentType = DocumentTypesEnum.SampleDocument;
             PointsForDocumentFree = Constants.PointsFor.DOCUMENT.SAMPLE.FREE;
             PointsForDocumentPaid = Constants.PointsFor.DOCUMENT.SAMPLE.PAID;
+            PointsForDocumentFreeView = Constants.PointsFor.DOCUMENT.SAMPLE.FREE_VIEW;
+            PointsForDocumentPurchase = Constants.PointsFor.DOCUMENT.SAMPLE.PURCHASE;
+            PointsForDocumentFreeLike = Constants.PointsFor.DOCUMENT.SAMPLE.FREE_LIKE;
+            PointsForDocumentPaidLike = Constants.PointsFor.DOCUMENT.SAMPLE.PAID_LIKE;
         }
     }
 
@@ -32,6 +36,10 @@ namespace Expro.Services
             _documentType = DocumentTypesEnum.ArticleDocument;
             PointsForDocumentFree = Constants.PointsFor.DOCUMENT.ARTICLE.FREE;
             PointsForDocumentPaid = Constants.PointsFor.DOCUMENT.ARTICLE.PAID;
+            PointsForDocumentFreeView = Constants.PointsFor.DOCUMENT.ARTICLE.FREE_VIEW;
+            PointsForDocumentPurchase = Constants.PointsFor.DOCUMENT.ARTICLE.PURCHASE;
+            PointsForDocumentFreeLike = Constants.PointsFor.DOCUMENT.ARTICLE.FREE_LIKE;
+            PointsForDocumentPaidLike = Constants.PointsFor.DOCUMENT.ARTICLE.PAID_LIKE;
         }
     }
 
@@ -44,6 +52,10 @@ namespace Expro.Services
             _documentType = DocumentTypesEnum.PracticeDocument;
             PointsForDocumentFree = Constants.PointsFor.DOCUMENT.PRACTICE.FREE;
             PointsForDocumentPaid = Constants.PointsFor.DOCUMENT.PRACTICE.PAID;
+            PointsForDocumentFreeView = Constants.PointsFor.DOCUMENT.PRACTICE.FREE_VIEW;
+            PointsForDocumentPurchase = Constants.PointsFor.DOCUMENT.PRACTICE.PURCHASE;
+            PointsForDocumentFreeLike = Constants.PointsFor.DOCUMENT.PRACTICE.FREE_LIKE;
+            PointsForDocumentPaidLike = Constants.PointsFor.DOCUMENT.PRACTICE.PAID_LIKE;
         }
     }
 

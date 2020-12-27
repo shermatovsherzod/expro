@@ -9,6 +9,10 @@ namespace Expro.Services.Interfaces
     {
         int PointsForDocumentFree { get; set; }
         int PointsForDocumentPaid { get; set; }
+        int PointsForDocumentFreeView { get; set; }
+        int PointsForDocumentPurchase { get; set; }
+        int PointsForDocumentFreeLike { get; set; }
+        int PointsForDocumentPaidLike { get; set; }
 
         Document GetFreeByID(int id);
         Document GetPaidByID(int id);
@@ -24,5 +28,8 @@ namespace Expro.Services.Interfaces
         bool IsFree(Document model);
         IQueryable<Document> GetAllPurchasedByUser(string purchasedUserID);
         DateTime RoundToUp(DateTime inputDateTime);
+        IQueryable<Document> GetAllApprovedByUserAndPeriod(
+            string userID,
+            DateTime startDate, DateTime endDate);
     }
 }

@@ -20,17 +20,21 @@ namespace Expro.Controllers
             ISampleDocumentSearchService sampleDocumentSearchService,
             IUserBalanceService userBalanceService,
             IUserPurchasedDocumentService userPurchasedDocumentService,
-            UserManager<ApplicationUser> userManager,
+            //UserManager<ApplicationUser> userManager,
+            IUserService userService,
             ILawAreaService lawAreaService,
-            IDocumentCounterService documentCounterService)
+            IDocumentCounterService documentCounterService,
+            IUserRatingService userRatingService)
             : base(
                   sampleDocumentService,
                   sampleDocumentSearchService,
                   userBalanceService,
                   userPurchasedDocumentService,
-                  userManager,
+                  //userManager,
+                  userService,
                   lawAreaService,
-                  documentCounterService)
+                  documentCounterService,
+                  userRatingService)
         {
             DocumentType = DocumentTypesEnum.SampleDocument.ToString();
             ErrorDocumentNotFound = "Образцовый документ не найден";
@@ -51,15 +55,15 @@ namespace Expro.Controllers
             return base.Search(draw, start, length, statusID, priceType, lawAreas);
         }
 
-        public override async Task<IActionResult> Details(int id)
+        public override IActionResult Details(int id)
         {
-            return await base.Details(id);
+            return base.Details(id);
         }
 
         [HttpPost]
-        public override async Task<IActionResult> Purchase(DocumentPurchaseFormVM purchaseFormVM)
+        public override IActionResult Purchase(DocumentPurchaseFormVM purchaseFormVM)
         {
-            return await base.Purchase(purchaseFormVM);
+            return base.Purchase(purchaseFormVM);
         }
     }
 }

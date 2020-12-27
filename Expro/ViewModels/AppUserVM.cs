@@ -1,4 +1,5 @@
 ﻿using Expro.Common;
+using Expro.Common.Utilities;
 using Expro.Models;
 using Expro.Models.Enums;
 using Expro.Utils;
@@ -62,7 +63,14 @@ namespace Expro.ViewModels
         public string BalanceStr { get; set; }
 
         public bool IsOnline { get; set; }
-        public DateTime? DateLastSeen { get; set; }
+        public string DateLastSeen { get; set; }
+
+        [Display(Name = "Балл")]
+        public int Points { get; set; }
+        [Display(Name = "Рейтинг")]
+        public int Rating { get; set; }
+
+        public string DateRatingLastUpdated { get; set; }
 
         //public string PhoneNumber { get; set; }
         //public DateTime DateOfBirth { get; set; }     
@@ -159,7 +167,15 @@ namespace Expro.ViewModels
             Balance = user.Balance;
             BalanceStr = Balance.ToString(AppData.Configuration.NumberViewStringFormat);
             IsOnline = user.IsOnline ?? false;
-            DateLastSeen = user.DateLastSeen;
+            DateLastSeen = DateTimeUtils.ConvertToString(
+                user.DateLastSeen,
+                AppData.Configuration.DateTimeViewStringFormat);
+
+            Points = user.Points;
+            Rating = user.Rating;
+            DateRatingLastUpdated = DateTimeUtils.ConvertToString(
+                user.DateRatingLastUpdated,
+                AppData.Configuration.DateTimeViewStringFormat);
         }
     }
 

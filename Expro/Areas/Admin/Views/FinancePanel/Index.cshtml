@@ -5,6 +5,14 @@
 }
 
 <h1>@ViewData["Title"]</h1>
+<br />
+<div class="row">
+    <div class="col-12">
+        <button type="button" class="btn btn-success" onclick="UpdateRatings();">Обновить рейтинги</button>
+        <div class="spinner-border spinner" style="display: none;"></div>
+    </div>
+</div>
+<br />
 
 @if (Model.Count() > 0)
 {
@@ -15,6 +23,9 @@
             <tr>
                 <th>@Html.DisplayNameFor(m => firstItem.FullName)</th>
                 <th>@Html.DisplayNameFor(m => firstItem.UserType)</th>
+                <th>@Html.DisplayNameFor(m => firstItem.Points)</th>
+                <th>@Html.DisplayNameFor(m => firstItem.Rating)</th>
+                <th>@Html.DisplayNameFor(m => firstItem.DateRatingLastUpdated)</th>
                 <th>@Html.DisplayNameFor(m => firstItem.Balance)</th>
                 <th></th>
             </tr>
@@ -25,6 +36,9 @@
                 <tr>
                     <td>@item.FullName</td>
                     <td>@item.UserType</td>
+                    <td>@item.Points</td>
+                    <td>@item.Rating</td>
+                    <td>@item.DateRatingLastUpdated</td>
                     <td>@item.BalanceStr</td>
                     <td><a class="btn btn-info" href="/Admin/FinancePanel/Details?userID=@item.ID">Детали</a></td>
                 </tr>
@@ -35,4 +49,46 @@
 else
 {
     <p>Нет пользователей</p>
+}
+
+@section Scripts
+{
+    <script>
+        function UpdateRatings() {
+            var confirmationText = "Вы уверены, что хотите обновить рейтинги?";
+            if (!confirm(confirmationText))
+                return;
+
+            $.ajax({
+                type: "POST",
+                url: "/Admin/Rating/UpdateRatings",
+                //data: {
+                //    id: requestID
+                //},
+                //data: JSON.stringify({
+                //    id: requestID
+                //}),
+                contentType: "application/json; charset=utf-8",
+                //dataType: "json",
+                beforeSend: function (data) {
+                    $(".btn").attr("disabled", "disabled");
+                    $(".spinner").show();
+                },
+                success: function (data) {
+                    alert("success");
+                    //alert(data);
+                    location.reload();
+                },
+                error: function (data) {
+                    console.log(data);
+                    alert("Ajax error (status code = " + data.status + "): " + data.statusText);
+                },
+                complete: function (data) {
+                    //alert("completed");
+                    $(".btn").removeAttr("disabled");
+                    $(".spinner").hide();
+                }
+            });
+        }
+    </script>
 }

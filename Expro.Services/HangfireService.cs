@@ -15,19 +15,22 @@ namespace Expro.Services
         private readonly IDocumentAdminActionsService DocumentAdminActionsService;
         private readonly IQuestionAdminActionsService QuestionAdminActionsService;
         private readonly IUserBalanceService UserBalanceService;
+        private readonly IRatingUpdateService _ratingUpdateService;
 
         public HangfireService(
             IDocumentService documentService,
             IQuestionService questionService,
             IDocumentAdminActionsService documentAdminActionsService,
             IQuestionAdminActionsService questionAdminActionsService,
-            IUserBalanceService userBalanceService)
+            IUserBalanceService userBalanceService,
+            IRatingUpdateService ratingUpdateService)
         {
             DocumentService = documentService;
             QuestionService = questionService;
             DocumentAdminActionsService = documentAdminActionsService;
             QuestionAdminActionsService = questionAdminActionsService;
             UserBalanceService = userBalanceService;
+            _ratingUpdateService = ratingUpdateService;
         }
 
         public string CreateJobForDocumentRejectionDeadline(Document document)
@@ -103,6 +106,23 @@ namespace Expro.Services
             //}
             //catch (Exception ex)
             //{ }
+        }
+
+        public void CreateRecurringJobForUpdatingRatingsForAllExperts()
+        {
+            RecurringJob.AddOrUpdate("99999", () => CallRatingUpdateMethod(), Cron.Daily, TimeZoneInfo.Local);
+        }
+
+        public void CallRatingUpdateMethod()
+        {
+            try
+            {
+                _ratingUpdateService.UpdateRatingForAllExperts();
+            }
+            catch (Exception ex)
+            {
+                // email about error can be sent
+            }
         }
 
         public void CancelJob(string jobID)

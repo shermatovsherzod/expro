@@ -64,5 +64,10 @@ namespace Expro.Services
                 .Where(m => m.CreatedBy == answererID
                     && m.PaidFee.HasValue);
         }
+
+        public IQueryable<QuestionAnswer> GetAllByAnswerer(string answererID)
+        {
+            return GetAsIQueryable().Where(m => m.CreatedBy == answererID);
+        }
     }
 }

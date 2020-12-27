@@ -19,6 +19,7 @@ namespace Expro.Controllers
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly ILawAreaService LawAreaService;
         private readonly IDocumentCounterService DocumentCounterService;
+        private readonly IUserRatingService _userRatingService;
 
         protected string ErrorDocumentNotFound = "Документ не найден";
         //protected UserAreasEnum Area;
@@ -28,13 +29,15 @@ namespace Expro.Controllers
             IDocumentSearchService documentSearchService,
             UserManager<ApplicationUser> userManager,
             ILawAreaService lawAreaService,
-            IDocumentCounterService documentCounterService)
+            IDocumentCounterService documentCounterService,
+            IUserRatingService userRatingService)
         {
             this.DocumentService = documentService;
             DocumentSearchService = documentSearchService;
             _userManager = userManager;
             LawAreaService = lawAreaService;
             DocumentCounterService = documentCounterService;
+            _userRatingService = userRatingService;
         }
 
         public virtual IActionResult Index()
@@ -102,6 +105,10 @@ namespace Expro.Controllers
             var document = DocumentService.GetByID(id);
             if (document == null)
                 throw new Exception(ErrorDocumentNotFound);
+
+            //ApplicationUser expert = document.Creator;
+            //int points = DocumentService.PointsForDocumentFreeView;
+            //_userRatingService.AddPointsToUser(points, expert);
 
             DocumentCounterService.IncrementNumberOfViews(document);
 

@@ -11,6 +11,8 @@ namespace Expro.Services.Interfaces
         string CreateJobForQuestionRejectionDeadline(Question document);
         string CreateJobForQuestionCompletionDeadline(Question document);
 
+        void CreateRecurringJobForUpdatingRatingsForAllExperts();
+
         void CancelJob(string jobID);
     }
 }
