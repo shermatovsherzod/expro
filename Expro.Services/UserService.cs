@@ -1,18 +1,26 @@
-﻿using Expro.Data.Infrastructure;
+﻿using Expro.Common;
+using Expro.Data.Infrastructure;
 using Expro.Data.Repository.Interfaces;
 using Expro.Models;
 using Expro.Models.Enums;
 using Expro.Services.Interfaces;
+using Microsoft.Extensions.Options;
+using System;
 using System.Linq;
 
 namespace Expro.Services
 {
     public class UserService : BaseUserService<ApplicationUser>, IUserService
     {
+        protected AppConfiguration AppConfiguration { get; set; }
+
         public UserService(IUserRepository repository,
-                           IUnitOfWork unitOfWork)
+                           IUnitOfWork unitOfWork,
+                           IOptionsSnapshot<AppConfiguration> settings = null)
             : base(repository, unitOfWork)
         {
+            if (settings != null)
+                AppConfiguration = settings.Value;
         }
 
         public IQueryable<ApplicationUser> GetAllForAdmin()
@@ -32,7 +40,15 @@ namespace Expro.Services
 
         public bool UserHasEnoughRatingToWorkWithPaidMaterials(ApplicationUser user)
         {
-            return user.Rating >= 100;
+            int ratingTreshold = 0;
+
+            try
+            {
+                ratingTreshold = AppConfiguration?.RatingThresholdForCreatingPaidDocuments ?? 0;
+            }
+            catch (Exception ex) { }
+
+            return user.Rating >= ratingTreshold;
         }
 
         public bool IsConfirmed(ApplicationUser user)
