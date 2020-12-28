@@ -23,7 +23,6 @@ namespace Expro.Services
         public IQueryable<ApplicationUser> GetAllApproved()
         {
             return GetAsIQueryable().Where(c => c.UserStatusID == (int)ExpertApproveStatusEnum.Approved);
-        }        
         }
 
         public bool UserIsAllowedToWorkWithPaidMaterials(ApplicationUser user)
