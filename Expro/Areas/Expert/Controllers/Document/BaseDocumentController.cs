@@ -22,6 +22,7 @@ namespace Expro.Areas.Expert.Controllers
         private readonly IDocumentService DocumentService;
         private readonly IHangfireService HangfireService;
         private readonly IDocumentStatusService DocumentStatusService;
+        private readonly IUserService _userService;
 
         public BaseDocumentController(
             IDocumentSearchService documentSearchService,
@@ -30,7 +31,8 @@ namespace Expro.Areas.Expert.Controllers
             IAttachmentService attachmentService,
             IDocumentService documentService,
             IHangfireService hangfireService,
-            IDocumentStatusService documentStatusService)
+            IDocumentStatusService documentStatusService,
+            IUserService userService)
         {
             DocumentSearchService = documentSearchService;
             LawAreaService = lawAreaService;
@@ -39,6 +41,7 @@ namespace Expro.Areas.Expert.Controllers
             DocumentService = documentService;
             HangfireService = hangfireService;
             DocumentStatusService = documentStatusService;
+            _userService = userService;
         }
 
         public virtual IActionResult Index()
@@ -119,6 +122,14 @@ namespace Expro.Areas.Expert.Controllers
 
         public virtual IActionResult CreatePaid()
         {
+            var curUser = accountUtil.GetCurrentUser(User);
+            var appUser = _userService.GetByID(curUser.ID);
+            if (appUser == null)
+                throw new Exception("Пользователь не найден");
+
+            ViewData["userIsAllowedToWorkWithPaidMaterials"] = 
+                _userService.UserIsAllowedToWorkWithPaidMaterials(appUser);
+
             return View();
         }
 
@@ -130,6 +141,18 @@ namespace Expro.Areas.Expert.Controllers
                 if (ModelState.IsValid)
                 {
                     var curUser = accountUtil.GetCurrentUser(User);
+                    var appUser = _userService.GetByID(curUser.ID);
+                    if (appUser == null)
+                        throw new Exception("Пользователь не найден");
+
+                    bool userIsAllowedToWorkWithPaidMaterials =
+                        _userService.UserIsAllowedToWorkWithPaidMaterials(appUser);
+
+                    if (!userIsAllowedToWorkWithPaidMaterials)
+                    {
+                        ViewData["userIsAllowedToWorkWithPaidMaterials"] = false;
+                        throw new Exception("user is not allowed to create paid document");
+                    }
 
                     var model = modelVM.ToModel();
                     DocumentService.Add(model, curUser.ID);

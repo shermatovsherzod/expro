@@ -22,7 +22,8 @@ namespace Expro.Areas.Expert.Controllers
             IAttachmentService attachmentService,
             IArticleDocumentService articleDocumentService,
             IHangfireService hangfireService,
-            IDocumentStatusService documentStatusService)
+            IDocumentStatusService documentStatusService,
+            IUserService userService)
             : base(
                   articleDocumentSearchService,
                   lawAreaService,
@@ -30,7 +31,8 @@ namespace Expro.Areas.Expert.Controllers
                   attachmentService,
                   articleDocumentService,
                   hangfireService,
-                  documentStatusService)
+                  documentStatusService,
+                  userService)
         {
         }
 

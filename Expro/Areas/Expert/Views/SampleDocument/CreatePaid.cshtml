@@ -4,26 +4,36 @@
 
 @{
     ViewData["Title"] = "Добавить новый платный Образцовый документ";
+    bool userIsAllowedToWorkWithPaidMaterials = false;
+    bool.TryParse(ViewData["userIsAllowedToWorkWithPaidMaterials"].ToString(),
+        out userIsAllowedToWorkWithPaidMaterials);
 }
 
 <h1>@ViewData["Title"]</h1>
 <hr />
-<div class="row">
-    <div class="col-md-12">
-        <form asp-action="CreatePaid" id="createForm">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="Title" class="control-label"></label>
-                <input asp-for="Title" class="form-control" />
-                <span asp-validation-for="Title" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <button type="submit" class="btn btn-primary">Продолжить</button>
-                <div class="spinner-border spinner" style="display: none;"></div>
-            </div>
-        </form>
+@if (userIsAllowedToWorkWithPaidMaterials)
+{
+    <div class="row">
+        <div class="col-md-12">
+            <form asp-action="CreatePaid" id="createForm">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="form-group">
+                    <label asp-for="Title" class="control-label"></label>
+                    <input asp-for="Title" class="form-control" />
+                    <span asp-validation-for="Title" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <button type="submit" class="btn btn-primary">Продолжить</button>
+                    <div class="spinner-border spinner" style="display: none;"></div>
+                </div>
+            </form>
+        </div>
     </div>
-</div>
+}
+else
+{
+    <div class="alert alert-danger">Пулли намунавий хужжат ёзиш учун 100 рейтинг тўпланг ва маълумотингизни (диплом) тасдиқланг. Батафсил маълумот учун <a href="#">Пулли хизмат кўрсатиш шартларини ўқинг</a></div>
+}
 
 <div>
     <a asp-action="Index">Назад к списку</a>
@@ -32,24 +42,24 @@
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 
-<script>
-    $(document).ready(function () {
-        $("#createForm").submit(function () {
-            var isValid = $('#createForm').valid();
-            if (isValid) {
-                ShowFormSpinner();
-                DisableFormElements();
-            }
+    <script>
+        $(document).ready(function () {
+            $("#createForm").submit(function () {
+                var isValid = $('#createForm').valid();
+                if (isValid) {
+                    ShowFormSpinner();
+                    DisableFormElements();
+                }
+            });
         });
-    });
 
-    function ShowFormSpinner() {
-        $("#createForm .spinner").show();
-    }
+        function ShowFormSpinner() {
+            $("#createForm .spinner").show();
+        }
 
-    function DisableFormElements() {
-        $("form#createForm input").attr("readonly", "readonly");
-        $("form#createForm button").attr("disabled", "disabled");
-    }
-</script>
+        function DisableFormElements() {
+            $("form#createForm input").attr("readonly", "readonly");
+            $("form#createForm button").attr("disabled", "disabled");
+        }
+    </script>
 }

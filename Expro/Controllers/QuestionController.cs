@@ -129,6 +129,13 @@ namespace Expro.Controllers
                 {
                     curUserIsAllowedToAnswer = true;
                     curUserIsAllowedToComment = true;
+
+                    var appUser = _userService.GetByID(curUser.ID);
+                    if (appUser == null)
+                        throw new Exception("Пользователь не найден");
+
+                    ViewData["userIsAllowedToWorkWithPaidMaterials"] =
+                        _userService.UserIsAllowedToWorkWithPaidMaterials(appUser);
                 }
                 else if(QuestionService.BelongsToUser(question, curUser.ID))
                 {

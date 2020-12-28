@@ -46,5 +46,6 @@ namespace Expro.Common
         public int PriceMin { get; set; }
         public int PriceMax { get; set; }
         public int PriceStep { get; set; }
+        public int RatingThresholdForCreatingPaidDocuments { get; set; }
     }
 }

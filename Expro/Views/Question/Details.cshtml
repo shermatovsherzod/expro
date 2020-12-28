@@ -271,9 +271,17 @@
     ViewData["objectID"] = Model.ID;
     if (curUserIsAllowedToAnswer.Value)
     {
-        <div id="addAnswerContainer" class="collapse">
-            @{ await Html.RenderPartialAsync("_AnswerCreateFormPartial", new Expro.ViewModels.QuestionAnswerCreateVM()); }
-        </div>
+    <div id="addAnswerContainer" class="collapse">
+        @if (ViewData["userIsAllowedToWorkWithPaidMaterials"] != null
+         && bool.Parse(ViewData["userIsAllowedToWorkWithPaidMaterials"].ToString()))
+        {
+            <div class="alert alert-danger">Пулли саволга жавоб ёзиш учун 100 рейтинг тўпланг ва маълумотингизни (диплом) тасдиқланг. Батафсил маълумот учун <a href="#">Пулли хизмат кўрсатиш шартларини ўқинг</a></div>
+        }
+        else
+        {
+            await Html.RenderPartialAsync("_AnswerCreateFormPartial", new Expro.ViewModels.QuestionAnswerCreateVM());
+        }
+    </div>
     }
 
     if (curUserIsAllowedToComment.Value)

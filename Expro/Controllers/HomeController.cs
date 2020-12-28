@@ -10,6 +10,10 @@ using System.Threading;
 using System.Globalization;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Http;
+using Expro.Common;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Options;
 
 namespace Expro.Controllers
 {
@@ -17,13 +21,27 @@ namespace Expro.Controllers
     {
         private readonly ILogger<HomeController> _logger;
 
-        public HomeController(ILogger<HomeController> logger)
+        protected AppConfiguration AppConfiguration { get; set; }
+
+        public HomeController(
+            ILogger<HomeController> logger,
+            IOptionsSnapshot<AppConfiguration> settings = null
+            )
         {
             _logger = logger;
+
+            if (settings != null) 
+                AppConfiguration = settings.Value;
         }
 
         public IActionResult Index()
         {
+            var m1 = AppConfiguration.RatingThresholdForCreatingPaidDocuments;
+            //var m2 = Configuration.GetSection("MySettings")["RatingThresholdForCreatingPaidDocuments"];
+
+
+            int k = AppData.Configuration.RatingThresholdForCreatingPaidDocuments;
+
             if (User.Identity.IsAuthenticated)
             {
                 var userType = User.Claims.FirstOrDefault(c => c.Type == "UserType");
