@@ -1,0 +1,225 @@
+﻿@model Expro.ViewModels.ProfileExpertFullInfoVM
+@using Expro.Models.Enums
+@{
+    ViewData["Title"] = "Эксперты";
+    ViewData["ApprovedStatusAlertText"] = "Эксперт подтвержден";
+    ViewData["RejectedStatusAlertText"] = "Эксперту отказано";
+}
+
+<div>
+    <h4>Эксперт</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Id)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Id)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.FirstName)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.FirstName)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.LastName)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.LastName)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.PatronymicName)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.PatronymicName)
+        </dd>        
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.RegionStr)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.RegionStr)
+        </dd>     
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.CityStr)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.CityStr)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.CityOther)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.CityOther)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.DateOfBirth)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.DateOfBirth)
+        </dd>       
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.GenderStr)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.GenderStr)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.DateRegistered)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.DateRegistered)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.AboutMe)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.AboutMe)
+        </dd>
+      
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.UserStatusStr)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.UserStatusStr)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.DateApproved)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.DateApproved)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.DateRejected)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.DateRejected)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.DateSubmittedForApproval)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.DateSubmittedForApproval)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.UserName)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.UserName)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Email)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Email)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.PhoneNumber)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.PhoneNumber)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.AccountNumber)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.AccountNumber)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Balance)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Balance)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Fax)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Fax)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.WebSite)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.WebSite)
+        </dd>
+
+        <dt class="col-sm-2">
+            Действия:
+        </dt>
+        <dd class="col-sm-10">
+            @if (Model.Status == (int)ExpertApproveStatusEnum.WaitingForApproval)
+            {
+                <button type="button" class="btn btn-success" onclick="Approve('@Model.Id');">Подтвердить</button>
+                <button type="button" class="btn btn-danger" onclick="Reject('@Model.Id');">Отменить</button>
+            }
+            else if (Model.Status == (int)ExpertApproveStatusEnum.Approved)
+            {
+                <div class="alert alert-success">@ViewData["ApprovedStatusAlertText"]</div>
+            }
+            else if (Model.Status == (int)ExpertApproveStatusEnum.Rejected)
+            {
+                <div class="alert alert-danger">@ViewData["RejectedStatusAlertText"]</div>
+            }
+            <div class="spinner-border spinner" style="display: none;"></div>
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+
+<script>
+    function Approve(id) {
+
+        if (confirm("Вы уверены, что хотите подтвердить?")) {
+            $.ajax({
+                type: "POST",
+                url: "/Admin/ExpertsList/Approve/" + id,               
+                contentType: "application/json; charset=utf-8",                
+                beforeSend: function (data) {
+                    $(".btn").attr("disabled", "disabled");
+                    ShowFormSpinner();
+                },
+                success: function (data) {                    
+                    location.reload();
+                },
+                error: function (data) {
+                    alert("Ajax error (status code = " + data.status + "): " + data.statusText);
+                },
+                complete: function (data) {
+                }
+            });
+        }
+    }
+
+    function Reject(id) {
+        if (confirm("Вы уверены, что хотите отказать?")) {
+            $.ajax({
+                type: "POST",
+                url: "/Admin/ExpertsList/Reject/" + id,
+                contentType: "application/json; charset=utf-8",
+                beforeSend: function (data) {
+                    $(".btn").attr("disabled", "disabled");
+                    ShowFormSpinner();
+                },
+                success: function (data) {
+                    location.reload();
+                },
+                error: function (data) {
+                    alert("Ajax error (status code = " + data.status + "): " + data.statusText);
+                },
+                complete: function (data) {
+                }
+            });
+        }
+    }
+
+   
+   
+
+    function ShowFormSpinner() {
+        $(".spinner").show();
+    }
+</script>

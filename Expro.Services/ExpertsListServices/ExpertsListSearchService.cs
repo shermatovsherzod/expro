@@ -11,115 +11,115 @@ using System.Runtime.InteropServices.WindowsRuntime;
 
 namespace Expro.Services
 {
-    //public class ExpertsListSearchService : IExpertsListSearchService
-    //{
-    //    private readonly IUserService _userService;
+    public class ExpertsListSearchService : IExpertsListSearchService
+    {
+        private readonly IUserService _userService;
 
-    //    public ExpertsListSearchService() { }
+        public ExpertsListSearchService() { }
 
-    //    public ExpertsListSearchService(IUserService userService)
-    //    {
-    //        _userService = userService;
-    //    }
+        public ExpertsListSearchService(IUserService userService)
+        {
+            _userService = userService;
+        }
 
-    //    public virtual IQueryable<ApplicationUser> Search(
-    //        int? start,
-    //        int? length,
+        public virtual IQueryable<ApplicationUser> Search(
+            int? start,
+            int? length,
 
-    //        out int recordsTotal,
-    //        out int recordsFiltered,
-    //        out string error,
+            out int recordsTotal,
+            out int recordsFiltered,
+            out string error,
 
-    //        UserTypesEnum? curUserType,
-    //        int? statusID,          
-    //        string authorID
-    //        )
-    //    {
-    //        recordsTotal = 0;
-    //        recordsFiltered = 0;
-    //        error = "";
+            UserTypesEnum? curUserType,
+            int? statusID,
+            string authorID
+            )
+        {
+            recordsTotal = 0;
+            recordsFiltered = 0;
+            error = "";
 
-    //        try
-    //        {
-    //            IQueryable<ApplicationUser> experts;
+            try
+            {
+                IQueryable<ApplicationUser> experts=_userService.GetAsIQueryable();
 
-    //            if (curUserType.HasValue)
-    //            {
-    //                if (curUserType == UserTypesEnum.Admin)
-    //                    experts = _userService.GetAllForAdmin();
-    //                else
-    //                    experts = _userService.GetAllApproved();
-    //            }
-    //            else
-    //                experts = _userService.GetAllApproved();
+                //if (curUserType.HasValue)
+                //{
+                //    if (curUserType == UserTypesEnum.Admin)
+                //        experts = _userService.GetAllForAdmin();
+                //    else
+                //        experts = _userService.GetAllApproved();
+                //}
+                //else
+                //    experts = _userService.GetAllApproved();
 
-    //            recordsTotal = experts.Count();
+                recordsTotal = experts.Count();
 
-    //            experts = ApplyFilters(experts, statusID);
+                experts = ApplyFilters(experts, statusID);
 
-    //            recordsFiltered = experts.Count();
+                recordsFiltered = experts.Count();
 
-    //            experts = ApplyOrder(experts, start, length);
+                experts = ApplyOrder(experts, start, length);
 
-    //            return experts;
-    //        }
-    //        catch (Exception ex)
-    //        {
-    //            error += ex.Message;
-    //            if (ex.InnerException != null)
-    //                error += ". Inner exception: " + ex.InnerException.Message;
+                return experts;
+            }
+            catch (Exception ex)
+            {
+                error += ex.Message;
+                if (ex.InnerException != null)
+                    error += ". Inner exception: " + ex.InnerException.Message;
 
-    //            return Enumerable.Empty<ApplicationUser>().AsQueryable();
-    //        }
-    //    }
+                return Enumerable.Empty<ApplicationUser>().AsQueryable();
+            }
+        }
 
-    //    protected IQueryable<ApplicationUser> ApplyFilters(
-    //        IQueryable<ApplicationUser> experts,           
-    //        int? statusID
-    //       )
-    //    {
-    //        if (statusID.HasValue)
-    //        {
-    //            if (statusID.Value == (int)ExpertApproveStatusEnum.Approved)
-    //            {
-    //                experts = experts
-    //                    .Where(m => m.UserStatusID == (int)ExpertApproveStatusEnum.Approved);
-                            
-    //            }
-    //            else if (statusID.Value == (int)ExpertApproveStatusEnum.Rejected)
-    //            {
-    //                experts = experts
-    //                    .Where(m => m.UserStatusID == (int)ExpertApproveStatusEnum.Rejected);
+        protected IQueryable<ApplicationUser> ApplyFilters(
+            IQueryable<ApplicationUser> experts,
+            int? statusID
+           )
+        {
+            if (statusID.HasValue)
+            {
+                if (statusID.Value == (int)ExpertApproveStatusEnum.Approved)
+                {
+                    experts = experts
+                        .Where(m => m.UserStatusID == (int)ExpertApproveStatusEnum.Approved);
 
-    //            }
-    //            else if (statusID.Value == (int)ExpertApproveStatusEnum.NotApproved)
-    //            {
-    //                experts = experts
-    //                    .Where(m => m.UserStatusID == (int)ExpertApproveStatusEnum.NotApproved);
+                }
+                else if (statusID.Value == (int)ExpertApproveStatusEnum.Rejected)
+                {
+                    experts = experts
+                        .Where(m => m.UserStatusID == (int)ExpertApproveStatusEnum.Rejected);
 
-    //            }
-    //            else if (statusID.Value == (int)ExpertApproveStatusEnum.WaitingForApproval)
-    //            {
-    //                experts = experts
-    //                    .Where(m => m.UserStatusID == (int)ExpertApproveStatusEnum.WaitingForApproval);
-    //            }
-    //        }          
+                }
+                else if (statusID.Value == (int)ExpertApproveStatusEnum.NotApproved)
+                {
+                    experts = experts
+                        .Where(m => m.UserStatusID == (int)ExpertApproveStatusEnum.NotApproved);
 
-    //        return experts;
-    //    }
+                }
+                else if (statusID.Value == (int)ExpertApproveStatusEnum.WaitingForApproval)
+                {
+                    experts = experts
+                        .Where(m => m.UserStatusID == (int)ExpertApproveStatusEnum.WaitingForApproval);
+                }
+            }
 
-    //    protected IQueryable<ApplicationUser> ApplyOrder(
-    //        IQueryable<ApplicationUser> experts,
-    //        int? start,
-    //        int? length)
-    //    {
-    //        experts = experts.OrderByDescending(m => m.DateSubmittedForApproval);
-    //        if (start.HasValue && start.Value > 0)
-    //            experts = experts.Skip(start.Value);
-    //        if (length.HasValue && length.Value > 0)
-    //            experts = experts.Take(length.Value);
+            return experts;
+        }
 
-    //        return experts;
-    //    }
-    //}
+        protected IQueryable<ApplicationUser> ApplyOrder(
+            IQueryable<ApplicationUser> experts,
+            int? start,
+            int? length)
+        {
+            experts = experts.OrderByDescending(m => m.DateSubmittedForApproval);
+            if (start.HasValue && start.Value > 0)
+                experts = experts.Skip(start.Value);
+            if (length.HasValue && length.Value > 0)
+                experts = experts.Take(length.Value);
+
+            return experts;
+        }
+    }
 }
