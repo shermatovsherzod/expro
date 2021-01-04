@@ -123,18 +123,6 @@
   <data name="ErrorRequiredField" xml:space="preserve">
     <value>Мажбурий поле</value>
   </data>
-  <data name="expertApproved" xml:space="preserve">
-    <value>Тасдиқланган</value>
-  </data>
-  <data name="expertNotApproved" xml:space="preserve">
-    <value>Тасдиқланмаган</value>
-  </data>
-  <data name="expertRejected" xml:space="preserve">
-    <value>Рад этилди</value>
-  </data>
-  <data name="expertWaitingForApproval" xml:space="preserve">
-    <value>Тасдиқланиши кутилмоқда</value>
-  </data>
   <data name="fr" xml:space="preserve">
     <value>Узбек</value>
   </data>

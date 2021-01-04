@@ -4,14 +4,16 @@ using Expro.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Expro.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210104130905_UserStatus_addedNameShort")]
+    partial class UserStatus_addedNameShort
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -1105,7 +1107,7 @@ namespace Expro.Data.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("NameID")
+                    b.Property<int?>("NameID")
                         .HasColumnType("int");
 
                     b.HasKey("ID");
@@ -1994,9 +1996,7 @@ namespace Expro.Data.Migrations
                 {
                     b.HasOne("Expro.Models.LocalizationShort", "NameShort")
                         .WithMany()
-                        .HasForeignKey("NameID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("NameID");
                 });
 
             modelBuilder.Entity("Expro.Models.Vacancy", b =>

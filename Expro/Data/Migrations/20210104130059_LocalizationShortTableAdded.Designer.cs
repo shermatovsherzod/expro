@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Expro.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20210104113932_LocalizationShortTableAdded")]
+    [Migration("20210104130059_LocalizationShortTableAdded")]
     partial class LocalizationShortTableAdded
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -673,7 +673,7 @@ namespace Expro.Data.Migrations
 
                     b.HasKey("ID");
 
-                    b.ToTable("LocalizationShort");
+                    b.ToTable("LocalizationShorts");
                 });
 
             modelBuilder.Entity("Expro.Models.Post", b =>
@@ -1107,15 +1107,7 @@ namespace Expro.Data.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("NameID")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("NameShortID")
-                        .HasColumnType("int");
-
                     b.HasKey("ID");
-
-                    b.HasIndex("NameShortID");
 
                     b.ToTable("UserStatuses");
                 });
@@ -1993,13 +1985,6 @@ namespace Expro.Data.Migrations
                     b.HasOne("Expro.Models.ApplicationUser", "User")
                         .WithMany("DocumentsPurchased")
                         .HasForeignKey("UserID");
-                });
-
-            modelBuilder.Entity("Expro.Models.UserStatus", b =>
-                {
-                    b.HasOne("Expro.Models.LocalizationShort", "NameShort")
-                        .WithMany()
-                        .HasForeignKey("NameShortID");
                 });
 
             modelBuilder.Entity("Expro.Models.Vacancy", b =>

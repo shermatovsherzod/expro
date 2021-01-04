@@ -155,5 +155,6 @@ namespace Expro.Models
         public DbSet<VacancyStatus> VacancyStatuses { get; set; }
         public DbSet<Like> Likes { get; set; }
         public DbSet<RatingUpdate> RatingUpdates { get; set; }
+        public DbSet<LocalizationShort> LocalizationShorts { get; set; }
     }
 }

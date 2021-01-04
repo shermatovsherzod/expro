@@ -28,6 +28,10 @@
     <Compile Remove="Data\Migrations\20201127061823_addEducationTable13.Designer.cs" />
     <Compile Remove="Data\Migrations\20201205065257_DocumentComment_dropped.cs" />
     <Compile Remove="Data\Migrations\20201205065257_DocumentComment_dropped.Designer.cs" />
+    <Compile Remove="Data\Migrations\20210104123106_LocalizationShortTableAddedCorrection4.cs" />
+    <Compile Remove="Data\Migrations\20210104123106_LocalizationShortTableAddedCorrection4.Designer.cs" />
+    <Compile Remove="Data\Migrations\20210104130306_UserStatus_addedNameShort.cs" />
+    <Compile Remove="Data\Migrations\20210104130306_UserStatus_addedNameShort.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>
