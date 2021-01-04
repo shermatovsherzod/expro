@@ -20,8 +20,7 @@ namespace Expro.ViewModels
         [Display(Name = "Статус")]
         public int UserStatusID { get; set; }
         public string UserStatusName { get; set; }
-        public string UserStatusDescription { get; set; }
-
+        
         [Display(Name = "Дата подтверждения статуса")]
         public DateTime? DateApproved { get; set; }
 
@@ -40,8 +39,7 @@ namespace Expro.ViewModels
             DateApproved = model.DateApproved;
             DateRejected = model.DateRejected;
             DateSubmittedForApproval = model.DateSubmittedForApproval;
-            UserStatusName = model.UserStatus.Name;
-            UserStatusDescription = model.UserStatus.Description;
+            UserStatusName = model.UserStatus.Name;           
         }
     }
 }

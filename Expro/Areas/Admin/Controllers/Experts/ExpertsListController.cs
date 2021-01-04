@@ -9,23 +9,26 @@ using Expro.Services.Interfaces;
 using Expro.ViewModels;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Localization;
 
 namespace Expro.Areas.Admin.Controllers
 {
     [Area("Admin")]
     public class ExpertsListController : BaseExpertsListController
-    {  
+    {
         private readonly IExpertStatusService _expertStatusService;
-
+        
         public ExpertsListController(
              IExpertsListSearchService expertsListSearchService,
              IUserService userService,
              IExpertStatusService expertStatusService,
-             IExpertsListAdminActionsService expertsListAdminActionsService
+             IExpertsListAdminActionsService expertsListAdminActionsService,
+             IStringLocalizer<Resources.ResourceTexts> localizer
            ) : base(
                expertsListSearchService,
                userService,
-               expertsListAdminActionsService
+               expertsListAdminActionsService,
+               localizer
                )
         {
             _expertStatusService = expertStatusService;
@@ -34,11 +37,14 @@ namespace Expro.Areas.Admin.Controllers
         public override IActionResult Index()
         {
             ViewData["statuses"] = _expertStatusService.GetAsSelectList();
+
+            ViewBag.DDD = _localizer["Welcome"];
+
             return base.Index();
         }
 
         [HttpPost]
-        public override IActionResult Search(int draw, int? start = null, int? length = null,  int? statusID = null)
+        public override IActionResult Search(int draw, int? start = null, int? length = null, int? statusID = null)
         {
             return base.Search(draw, start, length, statusID);
         }

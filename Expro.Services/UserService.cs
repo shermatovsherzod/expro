@@ -21,17 +21,7 @@ namespace Expro.Services
         {
             if (settings != null)
                 AppConfiguration = settings.Value;
-        }
-
-        public IQueryable<ApplicationUser> GetAllForAdmin()
-        {
-            return GetAsIQueryable();
-        }
-
-        public IQueryable<ApplicationUser> GetAllApproved()
-        {
-            return GetAsIQueryable().Where(c => c.UserStatusID == (int)ExpertApproveStatusEnum.Approved);
-        }
+        }       
 
         public bool UserIsAllowedToWorkWithPaidMaterials(ApplicationUser user)
         {

@@ -30,5 +30,9 @@ namespace Expro.Services.Interfaces
         IQueryable<T> GetAsIQueryable();
         ////IQueryable<T> GetActiveAsIQueryable();
         ////IQueryable<T> GetWithRelatedDataAsIQueryable();
+        ///
+        IQueryable<ApplicationUser> GetAllForAdmin();
+
+        IQueryable<ApplicationUser> GetAllApproved();
     }
 }

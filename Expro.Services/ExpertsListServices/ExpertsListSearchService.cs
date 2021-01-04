@@ -41,17 +41,17 @@ namespace Expro.Services
 
             try
             {
-                IQueryable<ApplicationUser> experts=_userService.GetAsIQueryable();
+                IQueryable<ApplicationUser> experts;
 
-                //if (curUserType.HasValue)
-                //{
-                //    if (curUserType == UserTypesEnum.Admin)
-                //        experts = _userService.GetAllForAdmin();
-                //    else
-                //        experts = _userService.GetAllApproved();
-                //}
-                //else
-                //    experts = _userService.GetAllApproved();
+                if (curUserType.HasValue)
+                {
+                    if (curUserType == UserTypesEnum.Admin)
+                        experts = _userService.GetAllForAdmin();
+                    else
+                        experts = _userService.GetAllApproved();
+                }
+                else
+                    experts = _userService.GetAllApproved();
 
                 recordsTotal = experts.Count();
 

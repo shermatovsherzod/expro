@@ -2,18 +2,19 @@
 @using Expro.Models.Enums
 
 @{
-    ViewData["Title"] = "Эксперты";  
+    ViewData["Title"] = "Эксперты";
 }
 
 <h1>@ViewData["Title"]</h1>
 <br />
+@ViewBag.DDD
 
 <div class="row">
     <div class="col-sm-4">
         Фильтр по статусу: <br />
         <select id="statusDD" asp-items="@ViewData["statuses"] as List<SelectListItem>" class="form-control">
             <option value="">Все</option>
-        </select>      
+        </select>
         <br />
     </div>
 </div>
@@ -60,18 +61,18 @@
                 },
                 columns: [
                     {
-                        "data": 0, 
+                        "data": 0,
                         "render": function (data, type, full, meta) {
                             var html = '';
                             html += '<div class="card">';
                             html += '<div class="card-body">';
-                            html += '<h4 class="card-title">Эксперт: ' + full.firstName + ' ' + full.lastName+'</h4>';
+                            html += '<h4 class="card-title">Эксперт: ' + full.firstName + ' ' + full.lastName + '</h4>';
                             html += '<p class="card-text">';
                             html += '<ul>';
-                            html += '<li>Дата рождения ' + full.dateOfBirth+'</li>';
-                            html += '</ul>';                                        
+                            html += '<li>Дата рождения ' + full.dateOfBirth + '</li>';
+                            html += '</ul>';
                             html += '</p>';
-                            html += '<a href="/Admin/ExpertsList/Details/' + full.id + '" class="card-link">Просмотр</a>';                                   
+                            html += '<a href="/Admin/ExpertsList/Details/' + full.id + '" class="card-link">Просмотр</a>';
                             html += '</div>';
                             html += '</div>';
 
@@ -86,7 +87,7 @@
                     $("#tableBox .spinner").show();
                 })
                 .on('draw.dt', function () {
-                    $("#tableBox .spinner").hide();                    
+                    $("#tableBox .spinner").hide();
                 });
 
             $("#statusDD").change(function () {
