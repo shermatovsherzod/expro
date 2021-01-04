@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using Expro.Data.Repository.Interfaces;
 using Expro.Models;
+using Expro.Models.Enums;
 using Infrastructure = Expro.Data.Infrastructure;
 
 namespace Expro.Services
@@ -149,6 +150,16 @@ namespace Expro.Services
         void Save()
         {
             _unitOfWork.Commit();
+        }
+
+        public IQueryable<ApplicationUser> GetAllForAdmin()
+        {
+            return GetAsIQueryable();
+        }
+
+        public IQueryable<ApplicationUser> GetAllApproved()
+        {
+            return GetAsIQueryable().Where(c => c.UserStatusID == (int)ExpertApproveStatusEnum.Approved);
         }
     }
 }
