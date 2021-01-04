@@ -79,6 +79,42 @@ namespace Expro.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Подтвержден.
+        /// </summary>
+        public static string expertApproved {
+            get {
+                return ResourceManager.GetString("expertApproved", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Не подвержден.
+        /// </summary>
+        public static string expertNotApproved {
+            get {
+                return ResourceManager.GetString("expertNotApproved", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Отказано.
+        /// </summary>
+        public static string expertRejected {
+            get {
+                return ResourceManager.GetString("expertRejected", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ожидание подтверждения.
+        /// </summary>
+        public static string expertWaitingForApproval {
+            get {
+                return ResourceManager.GetString("expertWaitingForApproval", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Узбекский.
         /// </summary>
         public static string fr {

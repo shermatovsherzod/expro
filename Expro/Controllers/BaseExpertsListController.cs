@@ -9,6 +9,7 @@ using Expro.ViewModels;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System.Linq;
+using Microsoft.Extensions.Localization;
 
 namespace Expro.Controllers
 {
@@ -17,15 +18,18 @@ namespace Expro.Controllers
         private readonly IExpertsListSearchService _expertsListSearchService;
         private readonly IUserService _userService;
         private readonly IExpertsListAdminActionsService _expertsListAdminActionsService;
+        
         public BaseExpertsListController(
             IExpertsListSearchService expertsListSearchService,
             IUserService userService,
-            IExpertsListAdminActionsService expertsListAdminActionsService
+            IExpertsListAdminActionsService expertsListAdminActionsService,
+            IStringLocalizer<Resources.ResourceTexts> localizer
             )
         {
             _expertsListSearchService = expertsListSearchService;
             _userService = userService;
             _expertsListAdminActionsService = expertsListAdminActionsService;
+            _localizer = localizer;
         }
 
         public virtual IActionResult Index()
