@@ -7,12 +7,14 @@ using Expro.Models;
 using Expro.Models.Enums;
 using Expro.Services.Interfaces;
 using Expro.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Expro.Areas.User.Controllers
 {
     [Area("User")]
+    [Authorize(Policy = "SimpleUserOnly")]
     public class SampleDocumentPurchasedController : BaseDocumentPurchasedController
     {
         public SampleDocumentPurchasedController(

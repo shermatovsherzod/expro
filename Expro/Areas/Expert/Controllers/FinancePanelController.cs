@@ -6,12 +6,14 @@ using Expro.Controllers;
 using Expro.Models;
 using Expro.Services.Interfaces;
 using Expro.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Expro.Areas.Expert.Controllers
 {
     [Area("Expert")]
+    [Authorize(Policy = "ExpertOnly")]
     public class FinancePanelController : BaseController
     {
         private readonly IUserBalanceService UserBalanceService;

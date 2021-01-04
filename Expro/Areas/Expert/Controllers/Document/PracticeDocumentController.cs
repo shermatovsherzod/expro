@@ -7,12 +7,14 @@ using Expro.Models;
 using Expro.Models.Enums;
 using Expro.Services.Interfaces;
 using Expro.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Expro.Areas.Expert.Controllers
 {
     [Area("Expert")]
+    [Authorize(Policy = "ExpertOnly")]
     public class PracticeDocumentController : BaseDocumentController
     {
         public PracticeDocumentController(

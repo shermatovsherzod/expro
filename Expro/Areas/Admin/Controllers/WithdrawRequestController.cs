@@ -7,12 +7,14 @@ using Expro.Models;
 using Expro.Models.Enums;
 using Expro.Services.Interfaces;
 using Expro.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Expro.Areas.Admin.Controllers
 {
     [Area("Admin")]
+    [Authorize(Policy = "AdminOnly")]
     public class WithdrawRequestController : BaseController
     {
         private readonly IWithdrawRequestService WithdrawRequestService;

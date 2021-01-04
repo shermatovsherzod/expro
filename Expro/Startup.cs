@@ -27,6 +27,7 @@ using Expro.Filters;
 using Hangfire.Dashboard;
 using Expro.Hubs;
 using System.Globalization;
+using Expro.Models.Enums;
 
 namespace Expro
 {
@@ -127,6 +128,13 @@ namespace Expro
                 options.DefaultRequestCulture = new Microsoft.AspNetCore.Localization.RequestCulture("ru");
                 options.SupportedCultures = cultures;
                 options.SupportedUICultures = cultures;
+            });
+
+            services.AddAuthorization(options =>
+            {
+                options.AddPolicy("AdminOnly", policy => policy.RequireClaim("UserType", ((int)UserTypesEnum.Admin).ToString()));
+                options.AddPolicy("ExpertOnly", policy => policy.RequireClaim("UserType", ((int)UserTypesEnum.Expert).ToString()));
+                options.AddPolicy("SimpleUserOnly", policy => policy.RequireClaim("UserType", ((int)UserTypesEnum.SimpleUser).ToString()));
             });
         }
 
