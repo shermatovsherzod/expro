@@ -8,6 +8,7 @@ using Expro.Models;
 using Expro.Models.Enums;
 using Expro.Services.Interfaces;
 using Expro.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
@@ -163,7 +164,7 @@ namespace Expro.Controllers
         }
 
         //ajax
-        //expertPolicy
+        [Authorize(Policy = "ExpertOnly")]
         [HttpPost]
         public IActionResult AddAnswer(/*[FromBody]*/ QuestionAnswerCreateVM answerCreateVM)
         {
@@ -203,7 +204,7 @@ namespace Expro.Controllers
         }
 
         //ajax
-        //adminAndUserPolicy
+        [Authorize(Policy = "AdminOrSimpleUserOnly")]
         [HttpPost]
         public IActionResult SaveDistribution([FromBody] QuestionFeeDistributionVM distributedAnswers)
         {
@@ -256,7 +257,7 @@ namespace Expro.Controllers
         }
 
         //ajax
-        //adminPolicy
+        [Authorize(Policy = "AdminOnly")]
         [HttpPost]
         public IActionResult Complete(int id)
         {

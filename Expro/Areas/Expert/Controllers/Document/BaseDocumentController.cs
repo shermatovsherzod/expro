@@ -138,6 +138,7 @@ namespace Expro.Areas.Expert.Controllers
         [HttpPost]
         public virtual IActionResult CreatePaid(DocumentPaidCreateVM modelVM)
         {
+            bool userIsAllowedToWorkWithPaidMaterials = false;
             try
             {
                 if (ModelState.IsValid)
@@ -147,14 +148,11 @@ namespace Expro.Areas.Expert.Controllers
                     if (appUser == null)
                         throw new Exception("Пользователь не найден");
 
-                    bool userIsAllowedToWorkWithPaidMaterials =
+                    userIsAllowedToWorkWithPaidMaterials =
                         _userService.UserIsAllowedToWorkWithPaidMaterials(appUser);
 
                     if (!userIsAllowedToWorkWithPaidMaterials)
-                    {
-                        ViewData["userIsAllowedToWorkWithPaidMaterials"] = false;
                         throw new Exception("user is not allowed to create paid document");
-                    }
 
                     var model = modelVM.ToModel();
                     DocumentService.Add(model, curUser.ID);
@@ -166,6 +164,8 @@ namespace Expro.Areas.Expert.Controllers
             {
                 ModelState.AddModelError("", "Что-то пошло не так: " + ex.Message);
             }
+
+            ViewData["userIsAllowedToWorkWithPaidMaterials"] = userIsAllowedToWorkWithPaidMaterials;
 
             return View(modelVM);
         }

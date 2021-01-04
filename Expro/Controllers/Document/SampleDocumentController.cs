@@ -8,6 +8,7 @@ using Expro.Models;
 using Expro.Models.Enums;
 using Expro.Services.Interfaces;
 using Expro.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
@@ -60,6 +61,7 @@ namespace Expro.Controllers
             return base.Details(id);
         }
 
+        [Authorize()]
         [HttpPost]
         public override IActionResult Purchase(DocumentPurchaseFormVM purchaseFormVM)
         {

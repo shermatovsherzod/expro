@@ -7,11 +7,13 @@ using Expro.Models;
 using Expro.Models.Enums;
 using Expro.Services.Interfaces;
 using Expro.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Expro.Controllers
 {
+    [Authorize(Policy = "ExpertOrSimpleUserOnly")]
     public class BaseDocumentPurchasedController : BaseController
     {
         private readonly IDocumentService DocumentService;
