@@ -106,7 +106,8 @@ namespace Expro.Controllers
             });
         }
 
-        public IActionResult Details(int id)
+        //success = "answerAddedSuccessfully/commentAddedSuccessfully/likedSuccessfully"
+        public IActionResult Details(int id, string successMessage = null)
         {
             var curUser = accountUtil.GetCurrentUser(User);
 
@@ -114,7 +115,10 @@ namespace Expro.Controllers
             if (question == null)
                 throw new Exception("Вопрос не найден");
 
-            QuestionCounterService.IncrementNumberOfViews(question);
+            if (string.IsNullOrWhiteSpace(successMessage))
+                QuestionCounterService.IncrementNumberOfViews(question);
+            else
+                ViewData["successMessage"] = successMessage;
 
             QuestionDetailsForSiteVM documentVM = new QuestionDetailsForSiteVM(question, curUser.ID);
 
