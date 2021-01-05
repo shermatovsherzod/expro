@@ -39,9 +39,6 @@ namespace Expro.Areas.Admin.Controllers
         public override IActionResult Index()
         {
             ViewData["statuses"] = _expertStatusService.GetAsSelectList();
-
-            ViewBag.DDD = _localizer["Welcome"];
-
             return base.Index();
         }
 

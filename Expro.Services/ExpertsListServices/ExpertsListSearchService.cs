@@ -46,12 +46,12 @@ namespace Expro.Services
                 if (curUserType.HasValue)
                 {
                     if (curUserType == UserTypesEnum.Admin)
-                        experts = _userService.GetAllForAdmin();
+                        experts = _userService.GetAllExpertsForAdmin();
                     else
-                        experts = _userService.GetAllApproved();
+                        experts = _userService.GetAllApprovedExperts();
                 }
                 else
-                    experts = _userService.GetAllApproved();
+                    experts = _userService.GetAllApprovedExperts();
 
                 recordsTotal = experts.Count();
 

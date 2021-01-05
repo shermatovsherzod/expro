@@ -7,13 +7,13 @@
 
 <h1>@ViewData["Title"]</h1>
 <br />
-@ViewBag.DDD
+
 
 <div class="row">
     <div class="col-sm-4">
         Фильтр по статусу: <br />
         <select id="statusDD" asp-items="@ViewData["statuses"] as List<SelectListItem>" class="form-control">
-            <option value="">Все</option>
+            <option value="">@localizer["All"]</option>
         </select>
         <br />
     </div>

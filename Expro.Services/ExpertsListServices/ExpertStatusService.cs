@@ -4,6 +4,7 @@ using Expro.Models;
 using Expro.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 
 namespace Expro.Services
@@ -18,13 +19,11 @@ namespace Expro.Services
 
         public List<SelectListItem> GetAsSelectList()
         {
-            var result = _repository.GetAll().Select(item => new SelectListItem()
+            return _repository.GetAll().Select(item => new SelectListItem()
             {
                 Value = item.ID.ToString(),
-                Text = item.Name.ToString()
+                Text = CultureInfo.CurrentCulture.Name == "fr" ? item.NameShort.TextUz : item.NameShort.TextRu
             }).ToList();
-
-            return result;
         }
     }
 }

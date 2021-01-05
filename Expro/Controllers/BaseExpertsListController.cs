@@ -92,7 +92,6 @@ namespace Expro.Controllers
                 if (expert == null)
                     throw new Exception("Эксперт не найден");
 
-                var curUser = accountUtil.GetCurrentUser(User);
                 _expertsListAdminActionsService.Approve(expert);
                 return Ok();
             }

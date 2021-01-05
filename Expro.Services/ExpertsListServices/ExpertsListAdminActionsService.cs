@@ -15,48 +15,46 @@ namespace Expro.Services
     public class ExpertsListAdminActionsService : IExpertsListAdminActionsService
     {
         UserManager<ApplicationUser> _userManager;
-
-        public ExpertsListAdminActionsService() { }
-
-        public ExpertsListAdminActionsService(UserManager<ApplicationUser> userManager)
+        IUserService _userService;
+        public ExpertsListAdminActionsService()
         {
-            _userManager = userManager;
+
         }
 
-        public async Task<bool> Approve(ApplicationUser entity)
+        public ExpertsListAdminActionsService(UserManager<ApplicationUser> userManager, IUserService userService)
         {
-            ApplicationUser user = _userManager.Users.FirstOrDefault(c => c.Id == entity.Id);
+            _userManager = userManager;
+            _userService = userService;
+        }
 
+        public bool Approve(ApplicationUser entity)
+        {
             entity.UserStatusID = (int)ExpertApproveStatusEnum.Approved;
             entity.DateApproved = DateTime.Now;
             try
             {
-                IdentityResult result = await _userManager.UpdateAsync(entity);
+                _userService.Update(entity);
+                return true;
             }
             catch (Exception ex)
             {
-                var ss = ex;
+                return false;
             }
-            
-
-            //if (result.Succeeded)
-            //{
-            //    return true;
-            //}
-            return false;
         }
 
-        public async Task<bool> Reject(ApplicationUser entity)
+        public bool Reject(ApplicationUser entity)
         {
             entity.UserStatusID = (int)ExpertApproveStatusEnum.Rejected;
-            entity.DateApproved = DateTime.Now;
-            IdentityResult result = await _userManager.UpdateAsync(entity);
-
-            if (result.Succeeded)
+            entity.DateApproved = DateTime.Now;          
+            try
             {
+                _userService.Update(entity);
                 return true;
             }
-            return false;
-        }      
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
     }
 }

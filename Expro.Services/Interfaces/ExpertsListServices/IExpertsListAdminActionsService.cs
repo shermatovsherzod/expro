@@ -7,7 +7,7 @@ namespace Expro.Services.Interfaces
 {
     public interface IExpertsListAdminActionsService
     {
-        Task<bool> Approve(ApplicationUser entity);
-        Task<bool> Reject(ApplicationUser entity);
+        bool Approve(ApplicationUser entity);
+        bool Reject(ApplicationUser entity);
     }
 }
