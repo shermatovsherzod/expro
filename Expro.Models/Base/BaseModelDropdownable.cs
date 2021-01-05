@@ -14,5 +14,10 @@ namespace Expro.Models
 
         [Required]
         public string Name { get; set; }
+
+        [ForeignKey("NameShort")]
+        public int? NameID { get; set; }
+
+        public virtual LocalizationShort NameShort { get; set; }
     }
 }

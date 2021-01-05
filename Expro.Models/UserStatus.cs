@@ -7,9 +7,9 @@ namespace Expro.Models
 {
     public class UserStatus : BaseModelDropdownable
     {
-        [ForeignKey("NameShort")]
-        public int NameID { get; set; }
+        //[ForeignKey("NameShort")]
+        //public int NameID { get; set; }
 
-        public virtual LocalizationShort NameShort { get; set; }
+        //public virtual LocalizationShort NameShort { get; set; }
     }
 }

@@ -4,14 +4,16 @@ using Expro.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Expro.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210105042304_RemoveLocalizationFromUserStatus")]
+    partial class RemoveLocalizationFromUserStatus
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -98,17 +100,12 @@ namespace Expro.Data.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("NameID")
-                        .HasColumnType("int");
-
                     b.Property<int?>("RegionID")
                         .HasColumnType("int");
 
                     b.HasKey("ID");
 
                     b.HasIndex("CountryID");
-
-                    b.HasIndex("NameID");
 
                     b.HasIndex("RegionID");
 
@@ -332,12 +329,7 @@ namespace Expro.Data.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("NameID")
-                        .HasColumnType("int");
-
                     b.HasKey("ID");
-
-                    b.HasIndex("NameID");
 
                     b.ToTable("CompanyStatuses");
                 });
@@ -353,12 +345,7 @@ namespace Expro.Data.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("NameID")
-                        .HasColumnType("int");
-
                     b.HasKey("ID");
-
-                    b.HasIndex("NameID");
 
                     b.ToTable("Countries");
                 });
@@ -508,12 +495,7 @@ namespace Expro.Data.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("NameID")
-                        .HasColumnType("int");
-
                     b.HasKey("ID");
-
-                    b.HasIndex("NameID");
 
                     b.ToTable("DocumentStatuses");
                 });
@@ -529,12 +511,7 @@ namespace Expro.Data.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("NameID")
-                        .HasColumnType("int");
-
                     b.HasKey("ID");
-
-                    b.HasIndex("NameID");
 
                     b.ToTable("DocumentTypes");
                 });
@@ -601,12 +578,7 @@ namespace Expro.Data.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("NameID")
-                        .HasColumnType("int");
-
                     b.HasKey("ID");
-
-                    b.HasIndex("NameID");
 
                     b.ToTable("Genders");
                 });
@@ -622,12 +594,7 @@ namespace Expro.Data.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("NameID")
-                        .HasColumnType("int");
-
                     b.HasKey("ID");
-
-                    b.HasIndex("NameID");
 
                     b.ToTable("Languages");
                 });
@@ -643,15 +610,10 @@ namespace Expro.Data.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("NameID")
-                        .HasColumnType("int");
-
                     b.Property<int?>("ParentID")
                         .HasColumnType("int");
 
                     b.HasKey("ID");
-
-                    b.HasIndex("NameID");
 
                     b.HasIndex("ParentID");
 
@@ -966,12 +928,7 @@ namespace Expro.Data.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("NameID")
-                        .HasColumnType("int");
-
                     b.HasKey("ID");
-
-                    b.HasIndex("NameID");
 
                     b.ToTable("Regions");
                 });
@@ -1091,12 +1048,7 @@ namespace Expro.Data.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("NameID")
-                        .HasColumnType("int");
-
                     b.HasKey("ID");
-
-                    b.HasIndex("NameID");
 
                     b.ToTable("ResumeStatuses");
                 });
@@ -1155,12 +1107,7 @@ namespace Expro.Data.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("NameID")
-                        .HasColumnType("int");
-
                     b.HasKey("ID");
-
-                    b.HasIndex("NameID");
 
                     b.ToTable("UserStatuses");
                 });
@@ -1266,12 +1213,7 @@ namespace Expro.Data.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("NameID")
-                        .HasColumnType("int");
-
                     b.HasKey("ID");
-
-                    b.HasIndex("NameID");
 
                     b.ToTable("VacancyStatuses");
                 });
@@ -1329,12 +1271,7 @@ namespace Expro.Data.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("NameID")
-                        .HasColumnType("int");
-
                     b.HasKey("ID");
-
-                    b.HasIndex("NameID");
 
                     b.ToTable("WithdrawRequestStatuses");
                 });
@@ -1724,10 +1661,6 @@ namespace Expro.Data.Migrations
                         .WithMany("Cities")
                         .HasForeignKey("CountryID");
 
-                    b.HasOne("Expro.Models.LocalizationShort", "NameShort")
-                        .WithMany()
-                        .HasForeignKey("NameID");
-
                     b.HasOne("Expro.Models.Region", "Region")
                         .WithMany("Cities")
                         .HasForeignKey("RegionID");
@@ -1803,20 +1736,6 @@ namespace Expro.Data.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("Expro.Models.CompanyStatus", b =>
-                {
-                    b.HasOne("Expro.Models.LocalizationShort", "NameShort")
-                        .WithMany()
-                        .HasForeignKey("NameID");
-                });
-
-            modelBuilder.Entity("Expro.Models.Country", b =>
-                {
-                    b.HasOne("Expro.Models.LocalizationShort", "NameShort")
-                        .WithMany()
-                        .HasForeignKey("NameID");
-                });
-
             modelBuilder.Entity("Expro.Models.Document", b =>
                 {
                     b.HasOne("Expro.Models.Attachment", "Attachment")
@@ -1878,20 +1797,6 @@ namespace Expro.Data.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("Expro.Models.DocumentStatus", b =>
-                {
-                    b.HasOne("Expro.Models.LocalizationShort", "NameShort")
-                        .WithMany()
-                        .HasForeignKey("NameID");
-                });
-
-            modelBuilder.Entity("Expro.Models.DocumentType", b =>
-                {
-                    b.HasOne("Expro.Models.LocalizationShort", "NameShort")
-                        .WithMany()
-                        .HasForeignKey("NameID");
-                });
-
             modelBuilder.Entity("Expro.Models.ExpertEducation", b =>
                 {
                     b.HasOne("Expro.Models.Country", "Country")
@@ -1909,26 +1814,8 @@ namespace Expro.Data.Migrations
                         .HasForeignKey("ModifiedBy");
                 });
 
-            modelBuilder.Entity("Expro.Models.Gender", b =>
-                {
-                    b.HasOne("Expro.Models.LocalizationShort", "NameShort")
-                        .WithMany()
-                        .HasForeignKey("NameID");
-                });
-
-            modelBuilder.Entity("Expro.Models.Language", b =>
-                {
-                    b.HasOne("Expro.Models.LocalizationShort", "NameShort")
-                        .WithMany()
-                        .HasForeignKey("NameID");
-                });
-
             modelBuilder.Entity("Expro.Models.LawArea", b =>
                 {
-                    b.HasOne("Expro.Models.LocalizationShort", "NameShort")
-                        .WithMany()
-                        .HasForeignKey("NameID");
-
                     b.HasOne("Expro.Models.LawArea", "Parent")
                         .WithMany("Children")
                         .HasForeignKey("ParentID");
@@ -2047,13 +1934,6 @@ namespace Expro.Data.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("Expro.Models.Region", b =>
-                {
-                    b.HasOne("Expro.Models.LocalizationShort", "NameShort")
-                        .WithMany()
-                        .HasForeignKey("NameID");
-                });
-
             modelBuilder.Entity("Expro.Models.Resume", b =>
                 {
                     b.HasOne("Expro.Models.City", "City")
@@ -2077,13 +1957,6 @@ namespace Expro.Data.Migrations
                         .HasForeignKey("ResumeStatusID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-                });
-
-            modelBuilder.Entity("Expro.Models.ResumeStatus", b =>
-                {
-                    b.HasOne("Expro.Models.LocalizationShort", "NameShort")
-                        .WithMany()
-                        .HasForeignKey("NameID");
                 });
 
             modelBuilder.Entity("Expro.Models.UserLawArea", b =>
@@ -2114,13 +1987,6 @@ namespace Expro.Data.Migrations
                         .HasForeignKey("UserID");
                 });
 
-            modelBuilder.Entity("Expro.Models.UserStatus", b =>
-                {
-                    b.HasOne("Expro.Models.LocalizationShort", "NameShort")
-                        .WithMany()
-                        .HasForeignKey("NameID");
-                });
-
             modelBuilder.Entity("Expro.Models.Vacancy", b =>
                 {
                     b.HasOne("Expro.Models.City", "City")
@@ -2146,13 +2012,6 @@ namespace Expro.Data.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("Expro.Models.VacancyStatus", b =>
-                {
-                    b.HasOne("Expro.Models.LocalizationShort", "NameShort")
-                        .WithMany()
-                        .HasForeignKey("NameID");
-                });
-
             modelBuilder.Entity("Expro.Models.WithdrawRequest", b =>
                 {
                     b.HasOne("Expro.Models.ApplicationUser", "Creator")
@@ -2168,13 +2027,6 @@ namespace Expro.Data.Migrations
                         .HasForeignKey("StatusID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-                });
-
-            modelBuilder.Entity("Expro.Models.WithdrawRequestStatus", b =>
-                {
-                    b.HasOne("Expro.Models.LocalizationShort", "NameShort")
-                        .WithMany()
-                        .HasForeignKey("NameID");
                 });
 
             modelBuilder.Entity("Expro.Models.WorkExperience", b =>
