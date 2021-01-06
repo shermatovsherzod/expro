@@ -74,6 +74,11 @@ namespace Expro.Controllers
             return View();
         }
 
+        public IActionResult ComingSoon()
+        {
+            return View();
+        }
+
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
