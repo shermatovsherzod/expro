@@ -4,14 +4,16 @@ using Expro.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Expro.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210105112912_FeedbackTableAdded")]
+    partial class FeedbackTableAdded
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -600,23 +602,11 @@ namespace Expro.Data.Migrations
                     b.Property<string>("CreatedBy")
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<DateTime?>("DateApproved")
-                        .HasColumnType("datetime2");
-
                     b.Property<DateTime>("DateCreated")
                         .HasColumnType("datetime2");
 
                     b.Property<DateTime>("DateModified")
                         .HasColumnType("datetime2");
-
-                    b.Property<DateTime?>("DateRejected")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime?>("DateSubmittedForApproval")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("FeedbackStatusID")
-                        .HasColumnType("int");
 
                     b.Property<string>("FeedbackText")
                         .HasColumnType("nvarchar(400)")
@@ -631,10 +621,6 @@ namespace Expro.Data.Migrations
                     b.Property<string>("ModifiedBy")
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<string>("RejectedReasonText")
-                        .HasColumnType("nvarchar(256)")
-                        .HasMaxLength(256);
-
                     b.Property<int>("Stars")
                         .HasColumnType("int");
 
@@ -642,34 +628,11 @@ namespace Expro.Data.Migrations
 
                     b.HasIndex("CreatedBy");
 
-                    b.HasIndex("FeedbackStatusID");
-
                     b.HasIndex("FeedbakToUser");
 
                     b.HasIndex("ModifiedBy");
 
                     b.ToTable("Feedbacks");
-                });
-
-            modelBuilder.Entity("Expro.Models.FeedbackStatus", b =>
-                {
-                    b.Property<int>("ID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int?>("NameID")
-                        .HasColumnType("int");
-
-                    b.HasKey("ID");
-
-                    b.HasIndex("NameID");
-
-                    b.ToTable("FeedbackStatuses");
                 });
 
             modelBuilder.Entity("Expro.Models.Gender", b =>
@@ -1997,12 +1960,6 @@ namespace Expro.Data.Migrations
                         .WithMany()
                         .HasForeignKey("CreatedBy");
 
-                    b.HasOne("Expro.Models.FeedbackStatus", "FeedbackStatus")
-                        .WithMany()
-                        .HasForeignKey("FeedbackStatusID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("Expro.Models.ApplicationUser", "ToUser")
                         .WithMany()
                         .HasForeignKey("FeedbakToUser");
@@ -2010,13 +1967,6 @@ namespace Expro.Data.Migrations
                     b.HasOne("Expro.Models.ApplicationUser", "Modifier")
                         .WithMany()
                         .HasForeignKey("ModifiedBy");
-                });
-
-            modelBuilder.Entity("Expro.Models.FeedbackStatus", b =>
-                {
-                    b.HasOne("Expro.Models.LocalizationShort", "NameShort")
-                        .WithMany()
-                        .HasForeignKey("NameID");
                 });
 
             modelBuilder.Entity("Expro.Models.Gender", b =>

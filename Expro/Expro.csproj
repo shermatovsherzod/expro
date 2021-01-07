@@ -34,6 +34,8 @@
     <Compile Remove="Data\Migrations\20210104130306_UserStatus_addedNameShort.Designer.cs" />
     <Compile Remove="Data\Migrations\20210105042705_AddLocalizationToBaseModelDropdownable.cs" />
     <Compile Remove="Data\Migrations\20210105042705_AddLocalizationToBaseModelDropdownable.Designer.cs" />
+    <Compile Remove="Data\Migrations\20210105120251_FeedbackStatusTableAdded.cs" />
+    <Compile Remove="Data\Migrations\20210105120251_FeedbackStatusTableAdded.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>

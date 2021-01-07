@@ -156,5 +156,7 @@ namespace Expro.Models
         public DbSet<Like> Likes { get; set; }
         public DbSet<RatingUpdate> RatingUpdates { get; set; }
         public DbSet<LocalizationShort> LocalizationShorts { get; set; }
+        public DbSet<Feedback> Feedbacks { get; set; }
+        public DbSet<FeedbackStatus> FeedbackStatuses { get; set; }
     }
 }
