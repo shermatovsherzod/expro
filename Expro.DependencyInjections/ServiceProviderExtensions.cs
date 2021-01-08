@@ -119,6 +119,9 @@ namespace Expro.DependencyInjections
             services.AddTransient<IExpertStatusService, ExpertStatusService>();
 
             services.AddTransient<IFeedbackService, FeedbackService>();
+            services.AddTransient<IFeedbackAdminActionsService, FeedbackAdminActionsService>();
+            
+            services.AddTransient<IFeedbackSearchService, FeedbackSearchService>();
             services.AddTransient<IFeedbackStatusService, FeedbackStatusService>();
         }
     }
