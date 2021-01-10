@@ -135,8 +135,8 @@ namespace Expro
                 options.AddPolicy("AdminOnly", policy => policy.RequireClaim("UserType", ((int)UserTypesEnum.Admin).ToString()));
                 options.AddPolicy("ExpertOnly", policy => policy.RequireClaim("UserType", ((int)UserTypesEnum.Expert).ToString()));
                 options.AddPolicy("SimpleUserOnly", policy => policy.RequireClaim("UserType", ((int)UserTypesEnum.SimpleUser).ToString()));
-                options.AddPolicy("AdminOrSimpleUserOnly", policy => policy.RequireClaim("UserType", ((int)UserTypesEnum.Admin, (int)UserTypesEnum.SimpleUser).ToString()));
-                options.AddPolicy("ExpertOrSimpleUserOnly", policy => policy.RequireClaim("UserType", ((int)UserTypesEnum.Expert, (int)UserTypesEnum.SimpleUser).ToString()));
+                options.AddPolicy("AdminOrSimpleUserOnly", policy => policy.RequireClaim("UserType", ((int)UserTypesEnum.Admin).ToString(), ((int)UserTypesEnum.SimpleUser).ToString()));
+                options.AddPolicy("ExpertOrSimpleUserOnly", policy => policy.RequireClaim("UserType", ((int)UserTypesEnum.Expert).ToString(), ((int)UserTypesEnum.SimpleUser).ToString()));
             });
         }
 
