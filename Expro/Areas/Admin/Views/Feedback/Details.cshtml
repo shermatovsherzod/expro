@@ -1,0 +1,105 @@
+﻿@model Expro.ViewModels.FeedbackDetailsVM
+@using Expro.Models.Enums
+@{
+    ViewData["Title"] = "Details";
+    ViewData["ApprovedStatusAlertText"] = "Отзыв подтвержден";
+    ViewData["RejectedStatusAlertText"] = "Отзыв отменен";
+}
+
+<div>
+    <h4>Резюме</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.ID)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.ID)
+        </dd>
+     
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.FeedbackText)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.FeedbackText)
+        </dd>
+
+        <dt class="col-sm-2">
+            Действия:
+        </dt>
+        <dd class="col-sm-10">
+            @if (Model.Status == (int)FeedbackStatusEnum.WaitingForApproval)
+            {
+                <button type="button" class="btn btn-success" onclick="Approve(@Model.ID);">Подтвердить</button>
+                <button type="button" class="btn btn-danger" onclick="Reject(@Model.ID);">Отменить</button>
+            }
+            else if (Model.Status == (int)FeedbackStatusEnum.Approved)
+            {
+                <div class="alert alert-success">@ViewData["ApprovedStatusAlertText"]</div>
+            }
+            else if (Model.Status == (int)FeedbackStatusEnum.Rejected)
+            {
+                <div class="alert alert-danger">@ViewData["RejectedStatusAlertText"]</div>
+            }
+            <div class="spinner-border spinner" style="display: none;"></div>
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+
+<script>
+    function Approve(id) {
+
+        if (confirm("Вы уверены, что хотите подтвердить?")) {
+            $.ajax({
+                type: "POST",
+                url: "/Admin/Feedback/Approve/" + id,               
+                contentType: "application/json; charset=utf-8",                
+                beforeSend: function (data) {
+                    $(".btn").attr("disabled", "disabled");
+                    ShowFormSpinner();
+                },
+                success: function (data) {                    
+                    location.reload();
+                },
+                error: function (data) {
+                    alert("Ajax error (status code = " + data.status + "): " + data.statusText);
+                },
+                complete: function (data) {
+                }
+            });
+        }
+    }
+
+    function Reject(id) {
+        if (confirm("Вы уверены, что хотите отказать?")) {
+            $.ajax({
+                type: "POST",
+                url: "/Admin/Feedback/Reject/" + id,
+                contentType: "application/json; charset=utf-8",
+                beforeSend: function (data) {
+                    $(".btn").attr("disabled", "disabled");
+                    ShowFormSpinner();
+                },
+                success: function (data) {
+                    location.reload();
+                },
+                error: function (data) {
+                    alert("Ajax error (status code = " + data.status + "): " + data.statusText);
+                },
+                complete: function (data) {
+                }
+            });
+        }
+    }
+
+   
+   
+
+    function ShowFormSpinner() {
+        $(".spinner").show();
+    }
+</script>

@@ -11,17 +11,28 @@ namespace Expro.ViewModels
     {
         public FeedbackDetailsVM() { }
         public int ID { get; set; }
-     
+
         [Display(Name = "Статус")]
         public int Status { get; set; }
+
+        [Display(Name = "Звезда")]
+        public int Stars { get; set; }
+
+        [Display(Name = "Отзыв")]
+        public string FeedbackText { get; set; }
+
+        [Display(Name = "Отзыв для")]
+        public string FeedbakToUserFullName { get; set; }
 
         public FeedbackDetailsVM(Feedback model)
         {
             if (model == null)
                 return;
             ID = model.ID;
-           
+            Stars = model.Stars;
+            FeedbackText = model.FeedbackText;
             Status = model.FeedbackStatusID;
+            FeedbakToUserFullName = model.ToUser.FirstName + " " + model.ToUser.LastName;
         }
 
         public List<FeedbackDetailsVM> GetListOfFeedbackDetailsVM(IQueryable<Feedback> models)
@@ -32,8 +43,10 @@ namespace Expro.ViewModels
             return models.Select(s => new FeedbackDetailsVM
             {
                 ID = s.ID,
-               
-                Status=s.FeedbackStatusID
+                Stars = s.Stars,
+                FeedbackText = s.FeedbackText,
+                FeedbakToUserFullName = s.ToUser.FirstName + " " + s.ToUser.LastName,
+                Status = s.FeedbackStatusID
             }).ToList();
         }
     }

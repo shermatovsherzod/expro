@@ -4,140 +4,241 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - Expro</title>
-    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="~/css/site.css" />
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
-    <link href="~/css/admin.css" rel="stylesheet" />
+
+    <!-- Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+
+    <!-- CSS Implementing Plugins -->
+    <link rel="stylesheet" href="~/lib/frontTheme/vendor/fontawesome/css/all.min.css">
+
+    <!-- CSS Front Template -->
+    <link rel="stylesheet" href="~/lib/frontTheme/css/theme.min.css">
 </head>
+
 <body>
-    <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <div class="container">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Expro</a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
-                    <partial name="_LoginPartial" />
-                    <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="Admin" asp-controller="Home" asp-action="Index">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="Admin" asp-controller="Home" asp-action="Privacy">Privacy</a>
-                        </li>
-                    </ul>
+    <!-- Courses Section -->
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-3 mb-5 mb-lg-0">
+                <div class="navbar-expand-lg navbar-expand-lg-collapse-block">
+                    <!-- Responsive Toggle Button -->
+                    <button type="button" class="navbar-toggler btn btn-block border py-3"
+                            aria-label="Toggle navigation"
+                            aria-expanded="false"
+                            aria-controls="sidebarNavExample2"
+                            data-toggle="collapse"
+                            data-target="#sidebarNavExample2">
+                        <span class="d-flex justify-content-between align-items-center">
+                            <span class="h5 mb-0">View all categories</span>
+                            <span class="navbar-toggler-default">
+                                <svg width="14" height="14" viewBox="0 0 18 18" xmlns="http://www.w3.org/2000/svg">
+                                    <path fill="currentColor" d="M17.4,6.2H0.6C0.3,6.2,0,5.9,0,5.5V4.1c0-0.4,0.3-0.7,0.6-0.7h16.9c0.3,0,0.6,0.3,0.6,0.7v1.4C18,5.9,17.7,6.2,17.4,6.2z M17.4,14.1H0.6c-0.3,0-0.6-0.3-0.6-0.7V12c0-0.4,0.3-0.7,0.6-0.7h16.9c0.3,0,0.6,0.3,0.6,0.7v1.4C18,13.7,17.7,14.1,17.4,14.1z" />
+                                </svg>
+                            </span>
+                            <span class="navbar-toggler-toggled">
+                                <svg width="14" height="14" viewBox="0 0 18 18" xmlns="http://www.w3.org/2000/svg">
+                                    <path fill="currentColor" d="M11.5,9.5l5-5c0.2-0.2,0.2-0.6-0.1-0.9l-1-1c-0.3-0.3-0.7-0.3-0.9-0.1l-5,5l-5-5C4.3,2.3,3.9,2.4,3.6,2.6l-1,1 C2.4,3.9,2.3,4.3,2.5,4.5l5,5l-5,5c-0.2,0.2-0.2,0.6,0.1,0.9l1,1c0.3,0.3,0.7,0.3,0.9,0.1l5-5l5,5c0.2,0.2,0.6,0.2,0.9-0.1l1-1 c0.3-0.3,0.3-0.7,0.1-0.9L11.5,9.5z" />
+                                </svg>
+                            </span>
+                        </span>
+                    </button>
+                    <!-- End Responsive Toggle Button -->
+
+                    <div id="sidebarNavExample2" class="collapse navbar-collapse">
+                        <div class="mt-5 mt-lg-0">
+                            <h2 class="h4"><a class="text-inherit" href="#">Artificial Intelligence</a></h2>
+
+                            <!-- Nav Link -->
+                            <a class="dropdown-item d-flex justify-content-between align-items-center px-0" href="#">
+                                AI Product Manager
+                                <span class="badge bg-soft-secondary badge-pill">30+</span>
+                            </a>
+                            <a class="dropdown-item d-flex justify-content-between align-items-center px-0" href="#">
+                                AI Programming with Python
+                            </a>
+                            <a class="dropdown-item d-flex justify-content-between align-items-center px-0" href="#">
+                                Computer Vision
+                                <span class="badge badge-success badge-pill ml-1">New</span>
+                            </a>
+                            <a class="dropdown-item d-flex justify-content-between align-items-center px-0" href="#">
+                                Deep Learning
+                            </a>
+                            <a class="dropdown-item d-flex justify-content-between align-items-center px-0" href="#">
+                                Deep Reinforcement Learning
+                                <span class="badge bg-soft-secondary badge-pill">18</span>
+                            </a>
+                            <!-- End Nav Link -->
+                            <!-- View More - Collapse -->
+                            <div class="collapse" id="collapseSectionOne">
+                                <a class="dropdown-item d-flex justify-content-between align-items-center px-0" href="#">
+                                    Machine Learning
+                                </a>
+                                <a class="dropdown-item d-flex justify-content-between align-items-center px-0" href="#">
+                                    Natural Language Processing
+                                </a>
+                            </div>
+                            <!-- End View More - Collapse -->
+                            <!-- Link -->
+                            <a class="link link-collapse small font-size-1 font-weight-bold pt-1" data-toggle="collapse" href="#collapseSectionOne" role="button" aria-expanded="false" aria-controls="collapseSectionOne">
+                                <span class="link-collapse-default">View more</span>
+                                <span class="link-collapse-active">View less</span>
+                                <span class="link-icon ml-1">+</span>
+                            </a>
+                            <!-- End Link -->
+                        </div>
+
+                        <div class="mt-5">
+                            <h3 class="h4"><a class="text-inherit" href="#">Data Science</a></h3>
+
+                            <!-- Nav Link -->
+                            <a class="dropdown-item d-flex justify-content-between align-items-center px-0" href="#">
+                                Business Analytics
+                            </a>
+                            <a class="dropdown-item d-flex justify-content-between align-items-center px-0" href="#">
+                                Data Analyst
+                                <span class="badge badge-success badge-pill ml-1">New</span>
+                            </a>
+                            <a class="dropdown-item d-flex justify-content-between align-items-center px-0" href="#">
+                                Data Engineer
+                            </a>
+                            <a class="dropdown-item d-flex justify-content-between align-items-center px-0" href="#">
+                                Data Scientist
+                                <span class="badge bg-soft-secondary badge-pill">4</span>
+                            </a>
+                            <a class="dropdown-item d-flex justify-content-between align-items-center px-0" href="#">
+                                Data Visualization
+                            </a>
+                            <a class="dropdown-item d-flex justify-content-between align-items-center px-0" href="#">
+                                Predictive Analytics for Business
+                            </a>
+                            <a class="dropdown-item d-flex justify-content-between align-items-center px-0" href="#">
+                                Programming for Data Science
+                            </a>
+                            <!-- End Nav Link -->
+                        </div>
+
+                        <div class="mt-5">
+                            <h3 class="h4"><a class="text-inherit" href="#">Programming and Development</a></h3>
+
+                            <!-- Nav Link -->
+                            <a class="dropdown-item d-flex justify-content-between align-items-center px-0" href="#">
+                                AI Programming with Python
+                            </a>
+                            <a class="dropdown-item d-flex justify-content-between align-items-center px-0" href="#">
+                                Android Basics
+                            </a>
+                            <a class="dropdown-item d-flex justify-content-between align-items-center px-0" href="#">
+                                Android Developer
+                            </a>
+                            <a class="dropdown-item d-flex justify-content-between align-items-center px-0" href="#">
+                                Blockchain
+                                <span class="badge bg-soft-secondary badge-pill">4</span>
+                            </a>
+                            <a class="dropdown-item d-flex justify-content-between align-items-center px-0" href="#">
+                                C++
+                            </a>
+                            <a class="dropdown-item d-flex justify-content-between align-items-center px-0" href="#">
+                                Front End Web Developer
+                            </a>
+                            <a class="dropdown-item d-flex justify-content-between align-items-center px-0" href="#">
+                                Java Developer
+                            </a>
+                            <a class="dropdown-item d-flex justify-content-between align-items-center px-0" href="#">
+                                iOS
+                                <span class="badge badge-success badge-pill ml-1">New</span>
+                            </a>
+                            <a class="dropdown-item d-flex justify-content-between align-items-center px-0" href="#">
+                                Intro to Programming
+                            </a>
+                            <!-- End Nav Link -->
+                            <!-- View More - Collapse -->
+                            <div class="collapse" id="collapseSectionTwo">
+                                <a class="dropdown-item d-flex justify-content-between align-items-center px-0" href="#">
+                                    Java Developer
+                                </a>
+                                <a class="dropdown-item d-flex justify-content-between align-items-center px-0" href="#">
+                                    React
+                                </a>
+                            </div>
+                            <!-- End View More - Collapse -->
+                            <!-- Link -->
+                            <a class="link link-collapse small font-size-1 font-weight-bold pt-1" data-toggle="collapse" href="#collapseSectionTwo" role="button" aria-expanded="false" aria-controls="collapseSectionTwo">
+                                <span class="link-collapse-default">View more</span>
+                                <span class="link-collapse-active">View less</span>
+                                <span class="link-icon ml-1">+</span>
+                            </a>
+                            <!-- End Link -->
+                        </div>
+
+                        <div class="mt-5">
+                            <h3 class="h4"><a class="text-inherit" href="#">Cloud Computing</a></h3>
+
+                            <!-- Nav Link -->
+                            <a class="dropdown-item d-flex justify-content-between align-items-center px-0" href="#">
+                                Cloud Developer
+                                <span class="badge bg-soft-secondary badge-pill">9+</span>
+                            </a>
+                            <a class="dropdown-item d-flex justify-content-between align-items-center px-0" href="#">
+                                Cloud Dev Ops Engineer
+                            </a>
+                            <!-- End Nav Link -->
+                        </div>
+
+                        <div class="mt-5">
+                            <h3 class="h4"><a class="text-inherit" href="#">Business</a></h3>
+
+                            <!-- Nav Link -->
+                            <a class="dropdown-item d-flex justify-content-between align-items-center px-0" href="#">
+                                Business Analytics
+                            </a>
+                            <a class="dropdown-item d-flex justify-content-between align-items-center px-0" href="#">
+                                Digital Marketing
+                            </a>
+                            <a class="dropdown-item d-flex justify-content-between align-items-center px-0" href="#">
+                                Marketing Analytics
+                            </a>
+                            <!-- End Nav Link -->
+                            <!-- View More - Collapse -->
+                            <div class="collapse" id="collapseSectionThree">
+                                <a class="nav-link" href="#">
+                                    Predictive Analytics for Business
+                                </a>
+                            </div>
+                            <!-- End View More - Collapse -->
+                            <!-- Link -->
+                            <a class="link link-collapse small font-size-1 font-weight-bold pt-1" data-toggle="collapse" href="#collapseSectionThree" role="button" aria-expanded="false" aria-controls="collapseSectionThree">
+                                <span class="link-collapse-default">View more</span>
+                                <span class="link-collapse-active">View less</span>
+                                <span class="link-icon ml-1">+</span>
+                            </a>
+                            <!-- End Link -->
+                        </div>
+
+                        <div class="mt-5">
+                            <h3 class="h4"><a class="text-inherit" href="#">Career <span class="badge badge-success badge-pill ml-1">New</span></a></h3>
+
+                            <!-- Nav Link -->
+                            <a class="dropdown-item d-flex justify-content-between align-items-center px-0" href="#">
+                                Applying to Jobs
+                            </a>
+                            <a class="dropdown-item d-flex justify-content-between align-items-center px-0" href="#">
+                                Interviewing
+                            </a>
+                            <!-- End Nav Link -->
+                        </div>
+                    </div>
                 </div>
             </div>
-        </nav>
-    </header>
-
-    <div class="row">
-        <div class="col-md-2">
-            <div class="main">
-                <aside>
-                    <div class="sidebar left ">
-                        <div class="user-panel">
-                            <div class="pull-left image">
-                                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS52y5aInsxSm31CvHOFHWujqUx_wWTS9iM6s7BAm21oEN_RiGoog" class="rounded-circle" alt="User Image" />
-
-                            </div>
-                            <div class="pull-left info">
-                                <p>bootstrap develop</p>
-                                <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
-                            </div>
-                        </div>
-                        <ul class="list-sidebar bg-defoult">
-                            <li>
-                                <a href="#" data-toggle="collapse" data-target="#dashboard" class="collapsed active"> <i class="fa fa-th-large"></i> <span class="nav-label"> Эксперты </span> <span class="fa fa-chevron-left pull-right"></span> </a>
-                                <ul class="sub-menu collapse" id="dashboard">
-                                    <li class="active"><a href="/Admin/ExpertsList">Эксперты в ожидании</a></li>
-                                    <li><a href="/Admin/WithdrawRequest">Запросы на вывод средств</a></li>
-                                    <li><a href="/Admin/Question">Вопросы</a></li>
-                                    <li><a href="/Admin/FinancePanel">Финансы</a></li>
-                                    <li><a href="/Admin/Vacancy">Вакансии</a></li>
-                                    <li><a href="/Admin/Resume">Резюме</a></li>
-                                    <li><a href="/Admin/Company">Компании</a></li>
-                                    <li><a href="#">FontAwesome</a></li>
-                                    <li><a href="#">Slider</a></li>
-                                    <li><a href="#">Panels</a></li>
-                                    <li><a href="#">Widgets</a></li>
-                                    <li><a href="#">Bootstrap Model</a></li>
-                                </ul>
-                            </li>
-                            <li> <a href="#"><i class="fa fa-diamond"></i> <span class="nav-label">Layouts</span></a> </li>
-                            <li>
-                                <a href="#" data-toggle="collapse" data-target="#products" class="collapsed active"> <i class="fa fa-bar-chart-o"></i> <span class="nav-label">Graphs</span> <span class="fa fa-chevron-left pull-right"></span> </a>
-                                <ul class="sub-menu collapse" id="products">
-                                    <li class="active"><a href="#">CSS3 Animation</a></li>
-                                    <li><a href="#">General</a></li>
-                                    <li><a href="#">Buttons</a></li>
-                                    <li><a href="#">Tabs & Accordions</a></li>
-                                    <li><a href="#">Typography</a></li>
-                                    <li><a href="#">FontAwesome</a></li>
-                                    <li><a href="#">Slider</a></li>
-                                    <li><a href="#">Panels</a></li>
-                                    <li><a href="#">Widgets</a></li>
-                                    <li><a href="#">Bootstrap Model</a></li>
-                                </ul>
-                            </li>
-                            <li> <a href="#"><i class="fa fa-laptop"></i> <span class="nav-label">Grid options</span></a> </li>
-                            <li>
-                                <a href="#" data-toggle="collapse" data-target="#tables" class="collapsed active"><i class="fa fa-table"></i> <span class="nav-label">Tables</span><span class="fa fa-chevron-left pull-right"></span></a>
-                                <ul class="sub-menu collapse" id="tables">
-                                    <li><a href=""> Static Tables</a></li>
-                                    <li><a href=""> Data Tables</a></li>
-                                    <li><a href=""> Foo Tables</a></li>
-                                    <li><a href=""> jqGrid</a></li>
-                                </ul>
-                            </li>
-                            <li>
-                                <a href="#" data-toggle="collapse" data-target="#e-commerce" class="collapsed active"><i class="fa fa-shopping-cart"></i> <span class="nav-label">E-commerce</span><span class="fa fa-chevron-left pull-right"></span></a>
-                                <ul class="sub-menu collapse" id="e-commerce">
-                                    <li><a href=""> Products grid</a></li>
-                                    <li><a href=""> Products list</a></li>
-                                    <li><a href="">Product edit</a></li>
-                                    <li><a href=""> Product detail</a></li>
-                                    <li><a href="">Cart</a></li>
-                                    <li><a href=""> Orders</a></li>
-                                    <li><a href=""> Credit Card form</a> </li>
-                                </ul>
-                            </li>
-                            <li> <a href=""><i class="fa fa-pie-chart"></i> <span class="nav-label">Metrics</span> </a></li>
-                            <li> <a href="#"><i class="fa fa-files-o"></i> <span class="nav-label">Other Pages</span></a> </li>
-                            <li> <a href="#"><i class="fa fa-files-o"></i> <span class="nav-label">Other Pages</span></a> </li>
-                            <li> <a href="#"><i class="fa fa-files-o"></i> <span class="nav-label">Other Pages</span></a> </li>
-                            <li> <a href="#"><i class="fa fa-files-o"></i> <span class="nav-label">Other Pages</span></a> </li>
-                            <li> <a href="#"><i class="fa fa-files-o"></i> <span class="nav-label">Other Pages</span></a> </li>
-                        </ul>
-                    </div>
-                </aside>
-            </div>
-        </div>
-        <div class="col-md-10">
-            @RenderBody()
         </div>
     </div>
-
-
-
-
-    <footer class="border-top footer text-muted">
-        <div class="container text-center">
-            &copy; 2020 - <a asp-area="" asp-controller="Home" asp-action="Index">Expro</a>
-        </div>
-    </footer>
-
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="~/js/site.js" asp-append-version="true"></script>
-
-    <partial name="_FirebaseConfig" />
-
-    @*<script src="~/js/signalr/dist/browser/signalr.js"></script>
-    <script src="~/js/Site/userTrackerHub_signalr.js"></script>*@
-
-    @RenderSection("Scripts", required: false)
+    <!-- End Courses Section -->
 </body>
 </html>
+
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+<script src="~/js/site.js" asp-append-version="true"></script>
+
+@RenderBody()
+
+@RenderSection("Scripts", required: false)
