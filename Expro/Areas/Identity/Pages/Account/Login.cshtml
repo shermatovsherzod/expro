@@ -3,9 +3,56 @@
 
 @{
     ViewData["Title"] = "Log in";
+    Layout = "_LayoutAuth";
 }
 
-<div class="row">
+
+<!-- Form -->
+<form class="js-validate" id="account" method="post">
+    <div asp-validation-summary="All" class="text-danger"></div>
+    <!-- Title -->
+    <div class="mb-5 mb-md-7">
+        <h1 class="h2">Welcome back</h1>
+        <p>Login to manage your account.</p>
+    </div>
+    <!-- End Title -->
+    <!-- Form Group -->
+    <div class="js-form-message form-group">
+        <label class="input-label" asp-for="Input.Email">Email address</label>
+        <input type="email" asp-for="Input.Email" class="form-control" name="email" id="signinSrEmail" tabindex="1" placeholder="Email address" aria-label="Email address" required
+               data-msg="Please enter a valid email address.">
+        <span asp-validation-for="Input.Email" class="text-danger"></span>
+    </div>
+    <!-- End Form Group -->
+    <!-- Form Group -->
+    <div class="js-form-message form-group">
+        <label class="input-label" for="signinSrPassword" tabindex="0">
+            <span class="d-flex justify-content-between align-items-center">
+                <label asp-for="Input.Password"></label>
+                <a class="link-underline text-capitalize font-weight-normal" href="page-recover-account.html">Forgot Password?</a>
+            </span>
+        </label>
+        <input type="password" asp-for="Input.Password" class="form-control" name="password" id="signinSrPassword" tabindex="2" placeholder="********" aria-label="********" required
+               data-msg="Your password is invalid. Please try again.">
+        <span asp-validation-for="Input.Password" class="text-danger"></span>
+    </div>
+    <!-- End Form Group -->
+    <!-- Button -->
+    <div class="row align-items-center mb-5">
+        <div class="col-sm-6 mb-3 mb-sm-0">
+            <span class="font-size-1 text-muted">Don't have an account?</span>
+            <a class="font-size-1 font-weight-bold" href="page-signup.html">Signup</a>
+        </div>
+
+        <div class="col-sm-6 text-sm-right">
+            <button type="submit" class="btn btn-primary transition-3d-hover">Get Started</button>
+        </div>
+    </div>
+    <!-- End Button -->
+</form>
+<!-- End Form -->
+
+@*<div class="row">
     <div class="col-md-4"></div>
     <div class="col-md-4">
         <section>
@@ -14,14 +61,10 @@
                 <hr />
                 <div asp-validation-summary="All" class="text-danger"></div>
                 <div class="form-group">
-                    <label asp-for="Input.Email"></label>
-                    <input asp-for="Input.Email" class="form-control" />
-                    <span asp-validation-for="Input.Email" class="text-danger"></span>
+
                 </div>
                 <div class="form-group">
-                    <label asp-for="Input.Password"></label>
-                    <input asp-for="Input.Password" class="form-control" />
-                    <span asp-validation-for="Input.Password" class="text-danger"></span>
+
                 </div>
                 <div class="form-group">
                     <div class="checkbox">
@@ -46,8 +89,8 @@
         </section>
     </div>
     <div class="col-md-4"></div>
-</div>
+</div>*@
 
-    @section Scripts {
-        <partial name="_ValidationScriptsPartial" />
-    }
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
