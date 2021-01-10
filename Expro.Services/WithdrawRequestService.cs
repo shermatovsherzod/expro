@@ -89,7 +89,7 @@ namespace Expro.Services
 
                 recordsFiltered = requests.Count();
 
-                requests = requests.OrderByDescending(m => m.DateModified);
+                requests = requests.OrderBy(m => m.StatusID).ThenBy(m => m.DateModified);
                 if (start.HasValue && start.Value > 0)
                     requests = requests.Skip(start.Value);
                 if (length.HasValue && length.Value > 0)
