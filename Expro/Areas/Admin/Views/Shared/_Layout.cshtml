@@ -22,6 +22,12 @@
     <link rel="stylesheet" href="~/lib/frontTheme/css/theme.min.css">
 </head>
 <body>
+    <style>
+        .temporarily_hidden_item {
+            display: none;
+        }
+    </style>
+
     <!-- ========== HEADER ========== -->
     <header id="header" class="header">
         <!-- Search -->
@@ -133,24 +139,24 @@
                 <div class="d-flex align-items-center">
                     <!-- Language -->
                     @*<div class="hs-unfold">
-                        <a class="js-hs-unfold-invoker dropdown-nav-link dropdown-toggle d-flex align-items-center" href="javascript:;"
-                           data-hs-unfold-options='{
-                "target": "#languageDropdown",
-                "type": "css-animation",
-                "event": "hover",
-                "hideOnScroll": "true"
-               }'>
-                            <img class="dropdown-item-icon mr-2" src="~/lib/frontTheme/vendor/flag-icon-css/flags/4x3/us.svg" alt="SVG">
-                            <span class="d-inline-block d-sm-none">US</span>
-                            <span class="d-none d-sm-inline-block">United States</span>
-                        </a>
+                                 <a class="js-hs-unfold-invoker dropdown-nav-link dropdown-toggle d-flex align-items-center" href="javascript:;"
+                                    data-hs-unfold-options='{
+                         "target": "#languageDropdown",
+                         "type": "css-animation",
+                         "event": "hover",
+                         "hideOnScroll": "true"
+                        }'>
+                                     <img class="dropdown-item-icon mr-2" src="~/lib/frontTheme/vendor/flag-icon-css/flags/4x3/us.svg" alt="SVG">
+                                     <span class="d-inline-block d-sm-none">US</span>
+                                     <span class="d-none d-sm-inline-block">United States</span>
+                                 </a>
 
-                        <div id="languageDropdown" class="hs-unfold-content dropdown-menu">
-                            <a class="dropdown-item active" href="#">English</a>
-                            <a class="dropdown-item" href="#">Deutsch</a>
-                            <a class="dropdown-item" href="#">Español‎</a>
-                        </div>
-                    </div>*@
+                                 <div id="languageDropdown" class="hs-unfold-content dropdown-menu">
+                                     <a class="dropdown-item active" href="#">English</a>
+                                     <a class="dropdown-item" href="#">Deutsch</a>
+                                     <a class="dropdown-item" href="#">Español‎</a>
+                                 </div>
+                             </div>*@
                     @await Html.PartialAsync("_CulturePartial")
                     <!-- End Language -->
 
@@ -197,34 +203,34 @@
                         </li>
                         <!-- End Search -->
                         <!-- Shopping Cart -->
-                        <li class="list-inline-item">
-                            <div class="hs-unfold">
-                                <a class="js-hs-unfold-invoker btn btn-xs btn-icon btn-ghost-secondary" href="javascript:;"
-                                   data-hs-unfold-options='{
-                    "target": "#shoppingCartDropdown",
-                    "type": "css-animation",
-                    "event": "hover",
-                    "hideOnScroll": "true"
-                   }'>
-                                    <i class="fas fa-shopping-cart"></i>
-                                </a>
+                        @*<li class="list-inline-item">
+                                     <div class="hs-unfold">
+                                         <a class="js-hs-unfold-invoker btn btn-xs btn-icon btn-ghost-secondary" href="javascript:;"
+                                            data-hs-unfold-options='{
+                             "target": "#shoppingCartDropdown",
+                             "type": "css-animation",
+                             "event": "hover",
+                             "hideOnScroll": "true"
+                            }'>
+                                             <i class="fas fa-shopping-cart"></i>
+                                         </a>
 
-                                <div id="shoppingCartDropdown" class="hs-unfold-content dropdown-menu dropdown-menu-right dropdown-card text-center" style="min-width: 275px;">
-                                    <div class="card">
-                                        <div class="card-body">
-                                            <figure class="max-w-9rem mx-auto mb-3">
-                                                <img class="img-fluid" src="~/lib/frontTheme/svg/illustrations/empty-cart.svg" alt="SVG">
-                                            </figure>
-                                            <span class="d-block">Your cart is empty</span>
-                                        </div>
+                                         <div id="shoppingCartDropdown" class="hs-unfold-content dropdown-menu dropdown-menu-right dropdown-card text-center" style="min-width: 275px;">
+                                             <div class="card">
+                                                 <div class="card-body">
+                                                     <figure class="max-w-9rem mx-auto mb-3">
+                                                         <img class="img-fluid" src="~/lib/frontTheme/svg/illustrations/empty-cart.svg" alt="SVG">
+                                                     </figure>
+                                                     <span class="d-block">Your cart is empty</span>
+                                                 </div>
 
-                                        <div class="card-footer">
-                                            <small>Free shipping on orders over <strong class="text-dark">$50</strong></small>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </li>
+                                                 <div class="card-footer">
+                                                     <small>Free shipping on orders over <strong class="text-dark">$50</strong></small>
+                                                 </div>
+                                             </div>
+                                         </div>
+                                     </div>
+                                 </li>*@
                         <!-- End Shopping Cart -->
                         <!-- Account Login -->
                         <li class="list-inline-item">
@@ -244,7 +250,7 @@
                 <!-- Nav -->
                 <nav class="js-mega-menu navbar navbar-expand-lg">
                     <!-- Logo -->
-                    <a class="navbar-brand" href="./index.html" aria-label="Front">
+                    <a class="navbar-brand" href="/Home" aria-label="Front">
                         <img src="~/lib/frontTheme/svg/logos/logo.svg" alt="Logo">
                     </a>
                     <!-- End Logo -->
@@ -268,11 +274,32 @@
                     </button>
                     <!-- End Responsive Toggle Button -->
                     <!-- Navigation -->
+
                     <div id="navBar" class="collapse navbar-collapse">
+                        <ul class="navbar-nav">
+                            <li class="navbar-nav-item">
+                                <a class="nav-link" href="#homeSection">Home</a>
+                            </li>
+                            <li class="navbar-nav-item">
+                                <a class="nav-link" href="#pagesSection">Pages</a>
+                            </li>
+                            <li class="navbar-nav-item">
+                                <a class="nav-link" href="#worksSection">Works</a>
+                            </li>
+                            <li class="navbar-nav-item">
+                                <a class="nav-link" href="#blogSection">Blog</a>
+                            </li>
+                            <li class="navbar-nav-item">
+                                <a class="nav-link" href="#specialtySection">Specialty</a>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div id="navBar" class="collapse navbar-collapse temporarily_hidden_item">
                         <div class="navbar-body header-abs-top-inner">
                             <ul class="navbar-nav">
                                 <!-- Home -->
-                                <li class="hs-has-mega-menu navbar-nav-item">
+                                <li class="hs-has-mega-menu navbar-nav-item temporarily_hidden_item">
                                     <a id="homeMegaMenu" class="hs-mega-menu-invoker nav-link nav-link-toggle " href="javascript:;" aria-haspopup="true" aria-expanded="false">Landings</a>
 
                                     <!-- Home - Mega Menu -->
@@ -329,7 +356,7 @@
                                 </li>
                                 <!-- End Home -->
                                 <!-- Pages -->
-                                <li class="hs-has-sub-menu navbar-nav-item">
+                                <li class="hs-has-sub-menu navbar-nav-item temporarily_hidden_item">
                                     <a id="pagesMegaMenu" class="hs-mega-menu-invoker nav-link nav-link-toggle " href="javascript:;" aria-haspopup="true" aria-expanded="false" aria-labelledby="pagesSubMenu">Pages</a>
 
                                     <!-- Pages - Submenu -->
@@ -440,7 +467,7 @@
                                 </li>
                                 <!-- End Pages -->
                                 <!-- Blog -->
-                                <li class="hs-has-sub-menu navbar-nav-item">
+                                <li class="hs-has-sub-menu navbar-nav-item temporarily_hidden_item">
                                     <a id="blogMegaMenu" class="hs-mega-menu-invoker nav-link nav-link-toggle " href="javascript:;" aria-haspopup="true" aria-expanded="false" aria-labelledby="blogSubMenu">Blog</a>
 
                                     <!-- Blog - Submenu -->
@@ -456,7 +483,7 @@
                                 </li>
                                 <!-- End Blog -->
                                 <!-- Shop -->
-                                <li class="hs-has-mega-menu navbar-nav-item"
+                                <li class="hs-has-mega-menu navbar-nav-item temporarily_hidden_item"
                                     data-hs-mega-menu-item-options='{
                       "desktop": {
                         "position": "right",
@@ -508,7 +535,7 @@
                                 </li>
                                 <!-- End Shop -->
                                 <!-- Demos -->
-                                <li class="hs-has-mega-menu navbar-nav-item"
+                                <li class="hs-has-mega-menu navbar-nav-item temporarily_hidden_item"
                                     data-hs-mega-menu-item-options='{
                       "desktop": {
                         "position": "right",
@@ -625,7 +652,7 @@
                                 </li>
                                 <!-- End Demos -->
                                 <!-- Docs -->
-                                <li class="hs-has-mega-menu navbar-nav-item"
+                                <li class="hs-has-mega-menu navbar-nav-item temporarily_hidden_item"
                                     data-hs-mega-menu-item-options='{
                       "desktop": {
                         "position": "right",
@@ -689,9 +716,9 @@
                                 </li>
                                 <!-- End Docs -->
                                 <!-- Button -->
-                                <li class="navbar-nav-last-item">
-                                    <a class="btn btn-sm btn-primary transition-3d-hover" href="https://themes.getbootstrap.com/product/front-multipurpose-responsive-template/" target="_blank">Buy Now</a>
-                                </li>
+                                @*<li class="navbar-nav-last-item">
+                                        <a class="btn btn-sm btn-primary transition-3d-hover" href="https://themes.getbootstrap.com/product/front-multipurpose-responsive-template/" target="_blank">Buy Now</a>
+                                    </li>*@
                                 <!-- End Button -->
                             </ul>
                         </div>
@@ -709,7 +736,7 @@
         <div class="container-fluid space-1 space-md-2">
             <div class="row">
                 <div class="col-lg-3 order-lg-1 mb-7 mb-lg-0">
-                    <!-- Courses Section -->
+                    <!-- Left Section -->
                     <div class="container">
                         <div class="row">
                             <div class="col-lg-3 mb-5 mb-lg-0">
@@ -742,7 +769,16 @@
                                             <h2 class="h4"><a class="text-inherit" href="#">Artificial Intelligence</a></h2>
 
                                             <!-- Nav Link -->
-                                            <a class="dropdown-item d-flex justify-content-between align-items-center px-0" href="#">
+
+                                            <a class="dropdown-item d-flex justify-content-between align-items-center px-0" href="/Admin/ExpertsList">Эксперты в ожидании</a>
+                                            <a class="dropdown-item d-flex justify-content-between align-items-center px-0" href="/Admin/WithdrawRequest">Запросы на вывод средств</a>
+                                            <a class="dropdown-item d-flex justify-content-between align-items-center px-0" href="/Admin/Question">Вопросы</a>
+                                            <a class="dropdown-item d-flex justify-content-between align-items-center px-0" href="/Admin/FinancePanel">Финансы</a>
+                                            <a class="dropdown-item d-flex justify-content-between align-items-center px-0" href="/Admin/Vacancy">Вакансии</a>
+                                            <a class="dropdown-item d-flex justify-content-between align-items-center px-0" href="/Admin/Resume">Резюме</a>
+                                            <a class="dropdown-item d-flex justify-content-between align-items-center px-0" href="/Admin/Company">Компании</a>
+                                               
+                                            <a  class="dropdown-item d-flex justify-content-between align-items-center px-0" href="#">
                                                 AI Product Manager
                                                 <span class="badge bg-soft-secondary badge-pill">30+</span>
                                             </a>
@@ -924,7 +960,7 @@
                             </div>
                         </div>
                     </div>
-                    <!-- End Courses Section -->
+                    <!-- Left Section -->
                 </div>
 
                 <div class="col-lg-9 order-lg-2">
@@ -943,7 +979,7 @@
                     <div class="col-lg-3 ml-lg-auto mb-5 mb-lg-0">
                         <!-- Logo -->
                         <div class="mb-4">
-                            <a href="index.html" aria-label="Front">
+                            <a href="/Home" aria-label="Front">
                                 <img class="brand" src="~/lib/frontTheme/svg/logos/logo-white.svg" alt="Logo">
                             </a>
                         </div>
