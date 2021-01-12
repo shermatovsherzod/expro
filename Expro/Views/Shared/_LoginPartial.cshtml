@@ -8,54 +8,70 @@
 
 @using Expro.Models.Enums
 
-<ul class="navbar-nav">
-    <li class="nav-item">
-        
-    </li>
-    @if (SignInManager.IsSignedIn(User))
-    {
-        <li class="nav-item">
-            @{
-                var userTypeClaim = User.Claims.FirstOrDefault(c => c.Type == "UserType");
-                if (userTypeClaim != null && (!string.IsNullOrWhiteSpace(userTypeClaim.Value)))
+
+@if (SignInManager.IsSignedIn(User))
+{
+    <li class="nlist-inline-item">
+        @{
+            var userTypeClaim = User.Claims.FirstOrDefault(c => c.Type == "UserType");
+            if (userTypeClaim != null && (!string.IsNullOrWhiteSpace(userTypeClaim.Value)))
+            {
+                int userTypeInt = 0;
+                int.TryParse(userTypeClaim.Value, out userTypeInt);
+                if (Enum.IsDefined(typeof(UserTypesEnum), userTypeInt))
                 {
-                    int userTypeInt = 0;
-                    int.TryParse(userTypeClaim.Value, out userTypeInt);
-                    if (Enum.IsDefined(typeof(UserTypesEnum), userTypeInt))
+                    if ((UserTypesEnum)userTypeInt == UserTypesEnum.Admin)
                     {
-                        if ((UserTypesEnum)userTypeInt == UserTypesEnum.Admin)
-                        {
-                            <a href="/Admin/Profile" class="nav-link text-dark" title="Manage">Hello @User.Identity.Name!</a>
-                        }
-                        else if ((UserTypesEnum)userTypeInt == UserTypesEnum.Expert)
-                        {
-                            <a href="/Expert/Profile" class="nav-link text-dark" title="Manage">Hello @User.Identity.Name!</a>
-                        }
-                        else if ((UserTypesEnum)userTypeInt == UserTypesEnum.SimpleUser)
-                        {
-                            <a href="/User/Profile" class="nav-link text-dark" title="Manage">Hello @User.Identity.Name!</a>
-                        }
+                        <div class="hs-unfold">
+                            <a href="/Admin/Profile" class="js-hs-unfold-invoker btn btn-icon btn-xs btn-ghost-secondary" title="Manage">Hello @User.Identity.Name!</a>
+                        </div>
+                    }
+                    else if ((UserTypesEnum)userTypeInt == UserTypesEnum.Expert)
+                    {
+                        <div class="hs-unfold">
+                            <a href="/Expert/Profile" class="js-hs-unfold-invoker btn btn-icon btn-xs btn-ghost-secondary" title="Manage">Hello @User.Identity.Name!</a>
+                        </div>
+                    }
+                    else if ((UserTypesEnum)userTypeInt == UserTypesEnum.SimpleUser)
+                    {
+                        <div class="hs-unfold">
+                            <a href="/User/Profile" class="js-hs-unfold-invoker btn btn-icon btn-xs btn-ghost-secondary" title="Manage">Hello @User.Identity.Name!</a>
+                        </div>
                     }
                 }
             }
+        }
 
 
 
 
-        </li>
-        <li class="nav-item">
-            <form class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
-                <button type="submit" class="nav-link btn btn-link text-dark">Logout</button>
-            </form>
-        </li>
-    }
-    else
-    {
-        <li class="nav-item">
-            <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Register">Register</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Login">Login</a>
-        </li>
-    }
-</ul>
+    </li>
+    <li class="list-inline-item">
+        <form class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
+            <div class="hs-unfold">
+                <button type="submit" class="js-hs-unfold-invoker btn btn-icon btn-xs btn-ghost-secondary">Logout</button>
+            </div>
+        </form>
+    </li>
+}
+else
+{
+    <li class="list-inline-item">
+        <a class="js-hs-unfold-invoker btn btn-icon btn-xs btn-ghost-secondary" asp-area="Identity" asp-page="/Account/Register">Register</a>
+    </li>
+    <li class="list-inline-item">
+        <div class="hs-unfold">
+            <a class="js-hs-unfold-invoker btn btn-icon btn-xs btn-ghost-secondary" asp-area="Identity" asp-page="/Account/Login">Login</a>
+        </div>
+    </li>
+
+    <li class="list-inline-item">
+        <div class="hs-unfold">
+            <a class="js-hs-unfold-invoker btn btn-icon btn-xs btn-ghost-secondary" href="/Identity/Account/Login">
+                <i class="fas fa-user-circle"></i>
+            </a>
+        </div>
+    </li>
+
+}
+

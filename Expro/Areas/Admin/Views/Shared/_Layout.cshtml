@@ -204,42 +204,46 @@
                         <!-- End Search -->
                         <!-- Shopping Cart -->
                         @*<li class="list-inline-item">
-                                     <div class="hs-unfold">
-                                         <a class="js-hs-unfold-invoker btn btn-xs btn-icon btn-ghost-secondary" href="javascript:;"
-                                            data-hs-unfold-options='{
-                             "target": "#shoppingCartDropdown",
-                             "type": "css-animation",
-                             "event": "hover",
-                             "hideOnScroll": "true"
-                            }'>
-                                             <i class="fas fa-shopping-cart"></i>
-                                         </a>
+                 <div class="hs-unfold">
+                     <a class="js-hs-unfold-invoker btn btn-xs btn-icon btn-ghost-secondary" href="javascript:;"
+                        data-hs-unfold-options='{
+         "target": "#shoppingCartDropdown",
+         "type": "css-animation",
+         "event": "hover",
+         "hideOnScroll": "true"
+        }'>
+                         <i class="fas fa-shopping-cart"></i>
+                     </a>
 
-                                         <div id="shoppingCartDropdown" class="hs-unfold-content dropdown-menu dropdown-menu-right dropdown-card text-center" style="min-width: 275px;">
-                                             <div class="card">
-                                                 <div class="card-body">
-                                                     <figure class="max-w-9rem mx-auto mb-3">
-                                                         <img class="img-fluid" src="~/lib/frontTheme/svg/illustrations/empty-cart.svg" alt="SVG">
-                                                     </figure>
-                                                     <span class="d-block">Your cart is empty</span>
-                                                 </div>
+                     <div id="shoppingCartDropdown" class="hs-unfold-content dropdown-menu dropdown-menu-right dropdown-card text-center" style="min-width: 275px;">
+                         <div class="card">
+                             <div class="card-body">
+                                 <figure class="max-w-9rem mx-auto mb-3">
+                                     <img class="img-fluid" src="~/lib/frontTheme/svg/illustrations/empty-cart.svg" alt="SVG">
+                                 </figure>
+                                 <span class="d-block">Your cart is empty</span>
+                             </div>
 
-                                                 <div class="card-footer">
-                                                     <small>Free shipping on orders over <strong class="text-dark">$50</strong></small>
-                                                 </div>
-                                             </div>
-                                         </div>
-                                     </div>
-                                 </li>*@
+                             <div class="card-footer">
+                                 <small>Free shipping on orders over <strong class="text-dark">$50</strong></small>
+                             </div>
+                         </div>
+                     </div>
+                 </div>
+             </li>*@
                         <!-- End Shopping Cart -->
                         <!-- Account Login -->
-                        <li class="list-inline-item">
+                        @*<li class="list-inline-item">
                             <div class="hs-unfold">
                                 <a class="js-hs-unfold-invoker btn btn-icon btn-xs btn-ghost-secondary" href="/Identity/Account/Login">
                                     <i class="fas fa-user-circle"></i>
                                 </a>
                             </div>
-                        </li>
+                        </li>*@
+
+                        <partial name="_LoginPartial" />
+
+
                         <!-- End Account Login -->
                     </ul>
                 </div>
