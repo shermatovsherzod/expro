@@ -741,7 +741,13 @@
             <div class="row">
                 <div class="col-lg-3 order-lg-1 mb-7 mb-lg-0">
                     <!-- Left Section -->
-                    
+                    @await Component.InvokeAsync("ExpertInfo")
+
+                    @await Component.InvokeAsync("ExpertDocuments")
+
+                    @await Component.InvokeAsync("ExpertBalance")
+
+                    @await Component.InvokeAsync("TermsOfUse")
                     <!-- Left Section -->
                 </div>
 
