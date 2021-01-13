@@ -4,158 +4,81 @@
     ViewData["Title"] = "Регистрация";
     Layout = "_LayoutRegistration";
 }
-
-<div class="row">
-    <div class="col-md-4">  </div>
-    <div class="col-md-4">
-        <h2 class="text-center">@ViewData["Title"]</h2>
-    </div>
-    <div class="col-md-4">  </div>
-</div>
-
-
-<form class="js-validate">
-    <!-- Title -->
-    <div class="mb-5 mb-md-7">
-        <h1 class="h2">Welcome to Front</h1>
-        <p>Fill out the form to get started.</p>
-    </div>
-    <!-- End Title -->
-    <!-- Form Group -->
-    <div class="js-form-message form-group">
-        <label class="input-label" for="signinSrEmail">Email address</label>
-        <input type="email" class="form-control" name="email" id="signinSrEmail" placeholder="Email address" aria-label="Email address" required
-               data-msg="Please enter a valid email address.">
-    </div>
-    <!-- End Form Group -->
-    <!-- Form Group -->
-    <div class="js-form-message form-group">
-        <label class="input-label" for="signinSrPassword">Password</label>
-        <input type="password" class="form-control" name="password" id="signinSrPassword" placeholder="********" aria-label="********" required
-               data-msg="Your password is invalid. Please try again.">
-    </div>
-    <!-- End Form Group -->
-    <!-- Form Group -->
-    <div class="js-form-message form-group">
-        <label class="input-label" for="signinSrConfirmPassword">Confirm password</label>
-        <input type="password" class="form-control" name="confirmPassword" id="signinSrConfirmPassword" placeholder="********" aria-label="********" required
-               data-msg="Password does not match the confirm password.">
-    </div>
-    <!-- End Form Group -->
-    <!-- Checkbox -->
-    <div class="js-form-message mb-5">
-        <div class="custom-control custom-checkbox d-flex align-items-center text-muted">
-            <input type="checkbox" class="custom-control-input" id="termsCheckbox" name="termsCheckbox" required
-                   data-msg="Please accept our Terms and Conditions.">
-            <label class="custom-control-label" for="termsCheckbox">
-                <small>
-                    I agree to the
-                    <a class="link-underline" href="./page-terms.html">Terms and Conditions</a>
-                </small>
-            </label>
-        </div>
-    </div>
-    <!-- End Checkbox -->
-    <!-- Button -->
-    <div class="row align-items-center mb-5">
-        <div class="col-sm-6 mb-3 mb-sm-0">
-            <span class="font-size-1 text-muted">Already have an account?</span>
-            <a class="font-size-1 font-weight-bold" href="page-login.html">Login</a>
+    <form class="js-validate w-md-75 w-lg-50 mx-md-auto" asp-route-returnUrl="@Model.ReturnUrl" method="post">
+        <!-- Title -->
+        <div class="mb-5 mb-md-7 text-sm-center">
+            <h1 class="h2 mb-0">@ViewData["Title"]</h1>
+            <p>Login to manage your account.</p>
         </div>
 
-        <div class="col-sm-6 text-sm-right">
-            <button type="submit" class="btn btn-primary transition-3d-hover">Get Started</button>
+        <!-- End Title -->
+        <!-- Form Group -->
+        <div class="js-form-message form-group">
+            <label class="input-label" asp-for="Input.Surname"></label>
+            <input class="form-control" asp-for="Input.Surname" placeholder="Фамилия" aria-label="" required
+                   data-msg="Please fill field.">
+            <span asp-validation-for="Input.Surname"></span>
         </div>
-    </div>
-    <!-- End Button -->
-</form>
-
-
-<div class="row">
-    <div class="col-md-4">  </div>
-    <div class="col-md-4">
-        <form asp-route-returnUrl="@Model.ReturnUrl" method="post">
-            <hr />
-            <div asp-validation-summary="All" class="text-danger"></div>
-
-            <div class="form-group text-center">
-                <label asp-for="Input.Surname"></label>
-                <input asp-for="Input.Surname" class="form-control text-center" />
-                <span asp-validation-for="Input.Surname"></span>
-            </div>
-
-            <div class="form-group text-center">
-                <label asp-for="Input.Name"></label>
-                <input asp-for="Input.Name" class="form-control text-center" />
-                <span asp-validation-for="Input.Name"></span>
-            </div>
-
-            <div class="form-group text-center">
-                <label asp-for="Input.PhoneNumber"></label>
-                <input asp-for="Input.PhoneNumber" class="form-control text-center" />
-                <span asp-validation-for="Input.PhoneNumber"></span>
-            </div>
-
-            <div class="form-group text-center">
-                <label asp-for="Input.Email"></label>
-                <input asp-for="Input.Email" class="form-control text-center" />
-                <span asp-validation-for="Input.Email" class="text-danger"></span>
-            </div>
-
-            <div class="form-group text-center">
-                <label asp-for="Input.Password"></label>
-                <input asp-for="Input.Password" class="form-control text-center" />
-                <span asp-validation-for="Input.Password" class="text-danger"></span>
-            </div>
-
-            <div class="form-group text-center">
-                <label asp-for="Input.ConfirmPassword"></label>
-                <input asp-for="Input.ConfirmPassword" class="form-control text-center" />
-                <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
-            </div>
-
-            <div class="text-center"><button type="submit" class="btn btn-primary">Регистрация</button></div>
-        </form>
-
-        <div class="text-center">
-            <br />
-            <a href="/Identity/Account/RegisterExpert" class="btn btn-primary">Регистрация эксперта</a>
+        <!-- End Form Group -->
+        <!-- Form Group -->
+        <div class="js-form-message form-group">
+            <label class="input-label" asp-for="Input.Name"></label>
+            <input class="form-control" asp-for="Input.Name" placeholder="Имя" aria-label="" required
+                   data-msg="Please fill field.">
+            <span asp-validation-for="Input.Name"></span>
         </div>
-    </div>
 
-    <div class="col-md-4"></div>
-
-    @*<div class="col-md-6 col-md-offset-2">
-            <section>
-                <h4>Use another service to register.</h4>
-                <hr />
-                @{
-                    if ((Model.ExternalLogins?.Count ?? 0) == 0)
-                    {
-                        <div>
-                            <p>
-                                There are no external authentication services configured. See <a href="https://go.microsoft.com/fwlink/?LinkID=532715">this article</a>
-                                for details on setting up this ASP.NET application to support logging in via external services.
-                            </p>
-                        </div>
-                    }
-                    else
-                    {
-                        <form id="external-account" asp-page="./ExternalLogin" asp-route-returnUrl="@Model.ReturnUrl" method="post" class="form-horizontal">
-                            <div>
-                                <p>
-                                    @foreach (var provider in Model.ExternalLogins)
-                                    {
-                                        <button type="submit" class="btn btn-primary" name="provider" value="@provider.Name" title="Log in using your @provider.DisplayName account">@provider.DisplayName</button>
-                                    }
-                                </p>
-                            </div>
-                        </form>
-                    }
-                }
-            </section>
+        <!-- Form Group -->
+        <div class="js-form-message form-group">
+            <label class="input-label" asp-for="Input.PhoneNumber"></label>
+            <input class="form-control" asp-for="Input.PhoneNumber" placeholder="Телефон" aria-label="" required
+                   data-msg="Please fill field.">
+            <span asp-validation-for="Input.PhoneNumber"></span>
+        </div>
+        <!-- End Form Group -->
+        <!-- Form Group -->
+        <div class="js-form-message form-group">
+            <label class="input-label" asp-for="Input.Email"></label>
+            <input class="form-control" asp-for="Input.Email" placeholder="Емейл" aria-label="" required
+                   data-msg="Please fill field.">
+            <span asp-validation-for="Input.Email"></span>
+        </div>
+        <!-- End Form Group -->
+        <!-- Form Group -->
+        <div class="js-form-message form-group">
+            <label class="input-label" asp-for="Input.Password"></label>
+            <input class="form-control" asp-for="Input.Password" placeholder="******" aria-label="" required
+                   data-msg="Please fill field.">
+            <span asp-validation-for="Input.Password"></span>
+        </div>
+        <!-- End Form Group -->
+        <!-- Form Group -->
+        <div class="js-form-message form-group">
+            <label class="input-label" asp-for="Input.ConfirmPassword"></label>
+            <input class="form-control" asp-for="Input.ConfirmPassword" placeholder="******" aria-label="" required
+                   data-msg="Please fill field.">
+            <span asp-validation-for="Input.ConfirmPassword"></span>
+        </div>
+        <!-- End Form Group -->
+        <!-- Form Group -->
+        @*<div class="js-form-message form-group">
+            <label class="input-label" asp-for="Input."></label>
+            <input class="form-control" asp-for="Input." placeholder="" aria-label="" required
+                   data-msg="Please fill field.">
+            <span asp-validation-for="Input."></span>
         </div>*@
-</div>
+        <!-- End Form Group -->
+      
+        <!-- Button -->
+        <div class="row align-items-center mb-5">
+            <div class="col-sm-12 text-sm-center">
+                <button type="submit" class="btn btn-primary transition-3d-hover">Регистрация</button>
+            </div>
+        </div>
+        <!-- End Button -->
+    </form>
+
+
 
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
