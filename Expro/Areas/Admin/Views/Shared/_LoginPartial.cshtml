@@ -7,13 +7,13 @@
 {
     <li class="list-inline-item">
         <div class="hs-unfold">
-            <a href="/Profile" class="js-hs-unfold-invoker btn btn-icon btn-xs btn-ghost-secondary" title="Manage">Hello @User.Identity.Name!</a>
+            <a href="/Profile" class="js-hs-unfold-invoker btn btn-xs btn-ghost-secondary" title="Manage">Hello @User.Identity.Name!</a>
         </div>
     </li>
     <li class="list-inline-item">
         <form class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
             <div class="hs-unfold">
-                <button type="submit" class="js-hs-unfold-invoker btn btn-icon btn-xs btn-ghost-secondary">Logout</button>
+                <button type="submit" class="js-hs-unfold-invoker btn btn-xs btn-ghost-secondary">Logout</button>
             </div>
         </form>
     </li>
@@ -22,12 +22,12 @@ else
 {
     <li class="list-inline-item">
         <div class="hs-unfold">
-            <a class="js-hs-unfold-invoker btn btn-icon btn-xs btn-ghost-secondary" asp-area="Identity" asp-page="/Account/Register">Register</a>
+            <a class="js-hs-unfold-invoker btn btn-xs btn-ghost-secondary" asp-area="Identity" asp-page="/Account/Register">Register</a>
         </div>
     </li>
     <li class="list-inline-item">
         <div class="hs-unfold">
-            <a class="js-hs-unfold-invoker btn btn-icon btn-xs btn-ghost-secondary" asp-area="Identity" asp-page="/Account/Login">Login</a>
+            <a class="js-hs-unfold-invoker btn btn-xs btn-ghost-secondary" asp-area="Identity" asp-page="/Account/Login">Login</a>
         </div>
     </li>
 }
