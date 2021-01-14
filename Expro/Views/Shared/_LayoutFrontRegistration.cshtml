@@ -29,7 +29,7 @@
     </style>
 
     <!-- ========== HEADER ========== -->
-    @await Html.PartialAsync("_LayoutHeader")
+    @await Html.PartialAsync("_LayoutFrontHeader")
     <!-- ========== END HEADER ========== -->
     <!-- ========== MAIN CONTENT ========== -->
     <main id="content" role="main">
@@ -41,10 +41,10 @@
     </main>
     <!-- ========== END MAIN CONTENT ========== -->
     <!-- ========== FOOTER ========== -->
-    @await Html.PartialAsync("_LayoutFooter")
+    @await Html.PartialAsync("_LayoutFrontFooter")
     <!-- ========== END FOOTER ========== -->
     <!-- ========== SECONDARY CONTENTS ========== -->
-    @await Html.PartialAsync("_LayoutSecondaryContent")
+    @await Html.PartialAsync("_LayoutFrontSecondaryContent")
     <!-- ========== END SECONDARY CONTENTS ========== -->
     <!-- Go to Top -->
     <a class="js-go-to go-to position-fixed" href="javascript:;" style="visibility: hidden;"
