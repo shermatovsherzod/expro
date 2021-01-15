@@ -1,117 +1,161 @@
 ﻿@page
 @model RegisterExpertModel
 @{
-    ViewData["Title"] = "Регистрация";
+    ViewData["Title"] = "Регистрация эксперта";
     Layout = "_LayoutFrontRegistration";
     int? cityID = Model?.Input?.CityID;
+
 }
 
-<div class="row">
-    <div class="col-md-4">  </div>
-    <div class="col-md-4">
-        <h2 class="text-center">@ViewData["Title"]</h2>
-    </div>
-    <div class="col-md-4">  </div>
-</div>
 
-<div class="row">
-    <div class="col-md-4">  </div>
-    <div class="col-md-4">
-        <form asp-route-returnUrl="@Model.ReturnUrl" method="post">
-            <hr />
-            <div asp-validation-summary="All" class="text-danger"></div>
-
-            <div class="form-group text-center">
-                <label asp-for="Input.LastName"></label>
-                <input asp-for="Input.LastName" class="form-control text-center" />
-                <span asp-validation-for="Input.LastName" class="text-danger"></span>
-            </div>
-
-            <div class="form-group text-center">
-                <label asp-for="Input.FirstName"></label>
-                <input asp-for="Input.FirstName" class="form-control text-center" />
-                <span asp-validation-for="Input.FirstName" class="text-danger"></span>
-            </div>
-
-            <div class="form-group text-center">
-                <label asp-for="Input.PatronymicName"></label>
-                <input asp-for="Input.PatronymicName" class="form-control text-center" />
-                <span asp-validation-for="Input.PatronymicName" class="text-danger"></span>
-            </div>
-
-            <div class="form-group text-center">
-                <label asp-for="Input.PhoneNumber"></label>
-                <input asp-for="Input.PhoneNumber" class="form-control text-center" />
-                <span asp-validation-for="Input.PhoneNumber" class="text-danger"></span>
-            </div>
-
-            <div class="form-group text-center">
-                <label asp-for="Input.LawAreas"></label>
-                <select asp-for="Input.LawAreas"
-                        asp-items="@ViewData["lawAreas"] as IEnumerable<SelectListItem>"
-                        class="form-control">
-                </select>
-                <span asp-validation-for="Input.LawAreas" class="text-danger"></span>
-            </div>
-
-            <div class="form-group text-center">
-                <label asp-for="Input.RegionID"></label>
-                <select asp-for="Input.RegionID"
-                        asp-items="@ViewData["regions"] as IEnumerable<SelectListItem>"
-                        class="form-control">
-                    <option disabled selected>--- Выбрать регион ---</option>
-                </select>
-                <span asp-validation-for="Input.RegionID" class="text-danger"></span>
-            </div>
-
-
-            <div class="form-group text-center">
-                <label asp-for="Input.CityID"></label>
-                <select asp-for="Input.CityID"
-                        asp-items="@ViewData["cities"] as IEnumerable<SelectListItem>"
-                        class="form-control">
-                    <option disabled selected>--- Выбрать город ---</option>
-                </select>
-                <span asp-validation-for="Input.CityID" class="text-danger"></span>
-            </div>
-
-            <div class="form-group text-center">
-                <label asp-for="Input.CityOther"></label>
-                <input asp-for="Input.CityOther" class="form-control text-center" />
-                <span asp-validation-for="Input.CityOther" disabled class="text-danger"></span>
-            </div>
-
-            <div class="form-group text-center">
-                <label asp-for="Input.Email"></label>
-                <input asp-for="Input.Email" class="form-control text-center" />
-                <span asp-validation-for="Input.Email" class="text-danger"></span>
-            </div>
-
-            <div class="form-group text-center">
-                <label asp-for="Input.Password"></label>
-                <input asp-for="Input.Password" class="form-control text-center" />
-                <span asp-validation-for="Input.Password" class="text-danger"></span>
-            </div>
-
-            <div class="form-group text-center">
-                <label asp-for="Input.ConfirmPassword"></label>
-                <input asp-for="Input.ConfirmPassword" class="form-control text-center" />
-                <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
-            </div>
-
-            <div class="text-center"><button type="submit" class="btn btn-primary">Регистрация</button></div>
-        </form>
-
-        <div class="text-center">
-            <br />
-            <a href="/Identity/Account/RegisterExpert" class="btn btn-primary">Регистрация эксперта</a>
+    <form class="js-validate w-md-75 w-lg-50 mx-md-auto" asp-route-returnUrl="@Model.ReturnUrl" method="post">
+        <div asp-validation-summary="All" class="text-danger"></div>
+        <!-- Title -->
+        <div class="mb-5 mb-md-7 text-sm-center">
+            <h1 class="h2 mb-0">@ViewData["Title"]</h1>
+            <p>Login to manage your account.</p>
         </div>
-    </div>
 
-    <div class="col-md-4"></div>
-</div>
+        <!-- Form Group -->
+        <div class="js-form-message form-group">
+            <label class="input-label" asp-for="Input.LastName"></label>
+            <input class="form-control" asp-for="Input.LastName" placeholder="" aria-label="" required
+                   data-msg="Please fill field.">
+            <span asp-validation-for="Input.LastName"></span>
+        </div>
+        <!-- End Form Group -->
+        <!-- Form Group -->
+        <div class="js-form-message form-group">
+            <label class="input-label" asp-for="Input.FirstName"></label>
+            <input class="form-control" asp-for="Input.FirstName" placeholder="" aria-label="" required
+                   data-msg="Please fill field.">
+            <span asp-validation-for="Input.FirstName"></span>
+        </div>
+        <!-- End Form Group -->
+        <!-- Form Group -->
+        <div class="js-form-message form-group">
+            <label class="input-label" asp-for="Input.PatronymicName"></label>
+            <input class="form-control" asp-for="Input.PatronymicName" placeholder="" aria-label="" required
+                   data-msg="Please fill field.">
+            <span asp-validation-for="Input.PatronymicName"></span>
+        </div>
+        <!-- End Form Group -->
+        <!-- Form Group -->
+        <div class="js-form-message form-group">
+            <label class="input-label" asp-for="Input.PhoneNumber"></label>
+            <input class="form-control" asp-for="Input.PhoneNumber" placeholder="" aria-label="" required
+                   data-msg="Please fill field.">
+            <span asp-validation-for="Input.PhoneNumber"></span>
+        </div>
+        <!-- End Form Group -->
+
+        <div class="form-group text-center">
+            <label asp-for="Input.LawAreas"></label>
+            <select asp-for="Input.LawAreas"
+                    asp-items="@ViewData["lawAreas"] as IEnumerable<SelectListItem>"
+                    class="form-control">
+            </select>
+            <span asp-validation-for="Input.LawAreas" class="text-danger"></span>
+        </div>
+
+        <!-- Select -->
+        <select class="js-custom-select custom-select" size="1" multiple style="opacity: 0;"
+                data-hs-select2-options='{
+          "minimumResultsForSearch": "Infinity"
+
+        }'>
+            <optgroup label="Optgroup 1">
+                <option value="item-1-1">Optgroup 1</option>
+                <option value="item-1-2">Item 1</option>
+                <option value="item-1-3">Item 2</option>
+            </optgroup>
+            <optgroup label="Optgroup 2">
+                <option value="item-2-1">Item 1</option>
+                <option value="item-2-2">Item 2</option>
+            </optgroup>
+        </select>
+        <!-- End Select -->
+
+
+        <div class="form-group text-center">
+            <label asp-for="Input.RegionID"></label>
+            <select asp-for="Input.RegionID"
+                    asp-items="@ViewData["regions"] as IEnumerable<SelectListItem>"
+                    class="form-control">
+                <option disabled selected>--- Выбрать регион ---</option>
+            </select>
+            <span asp-validation-for="Input.RegionID" class="text-danger"></span>
+        </div>
+
+        <div class="form-group text-center">
+            <label asp-for="Input.CityID"></label>
+            <select asp-for="Input.CityID"
+                    asp-items="@ViewData["cities"] as IEnumerable<SelectListItem>"
+                    class="form-control">
+                <option disabled selected>--- Выбрать город ---</option>
+            </select>
+            <span asp-validation-for="Input.CityID" class="text-danger"></span>
+        </div>
+
+        <!-- Form Group -->
+        <div class="js-form-message form-group">
+            <label class="input-label" asp-for="Input.CityOther"></label>
+            <input class="form-control" asp-for="Input.CityOther" placeholder="" aria-label="" required
+                   data-msg="Please fill field.">
+            <span asp-validation-for="Input.CityOther"></span>
+        </div>
+        <!-- End Form Group -->
+        <!-- Form Group -->
+        <div class="js-form-message form-group">
+            <label class="input-label" asp-for="Input.Email"></label>
+            <input class="form-control" asp-for="Input.Email" placeholder="Емейл" aria-label="" required
+                   data-msg="Please fill field.">
+            <span asp-validation-for="Input.Email"></span>
+        </div>
+        <!-- End Form Group -->
+        <!-- Form Group -->
+        <div class="js-form-message form-group">
+            <label class="input-label" asp-for="Input.Password"></label>
+            <input class="form-control" asp-for="Input.Password" placeholder="******" aria-label="" required
+                   data-msg="Please fill field.">
+            <span asp-validation-for="Input.Password"></span>
+        </div>
+        <!-- End Form Group -->
+        <!-- Form Group -->
+        <div class="js-form-message form-group">
+            <label class="input-label" asp-for="Input.ConfirmPassword"></label>
+            <input class="form-control" asp-for="Input.ConfirmPassword" placeholder="******" aria-label="" required
+                   data-msg="Please fill field.">
+            <span asp-validation-for="Input.ConfirmPassword"></span>
+        </div>
+        <!-- End Form Group -->
+
+        <div class="text-center"><button type="submit" class="btn btn-primary">Регистрация</button></div>
+
+        <!-- Form Group -->
+        <div class="js-form-message form-group">
+            <select class="js-custom-select" id="locationLabel"
+                    data-hs-select2-options='{
+                                "customClass": "custom-select",
+                                "placeholder": "Select country",
+                                "searchInputPlaceholder": "Search a country"
+                              }'>
+                <option label="empty"></option>
+                <option value="AF" data-option-template='<span class="d-flex align-items-center"><img class="avatar avatar-xss avatar-circle mr-2" src="/lib/frontTheme/vendor/flag-icon-css/flags/1x1/af.svg" alt="Afghanistan Flag" /><span class="text-truncate">Afghanistan</span></span>'>Afghanistan</option>
+                <option value="AX" data-option-template='<span class="d-flex align-items-center"><img class="avatar avatar-xss avatar-circle mr-2" src="/lib/frontTheme/vendor/flag-icon-css/flags/1x1/ax.svg" alt="Aland Islands Flag" /><span class="text-truncate">Aland Islands</span></span>'>Aland Islands</option>
+                <option value="AL" data-option-template='<span class="d-flex align-items-center"><img class="avatar avatar-xss avatar-circle mr-2" src="/lib/frontTheme/vendor/flag-icon-css/flags/1x1/al.svg" alt="Albania Flag" /><span class="text-truncate">Albania</span></span>'>Albania</option>
+                <option value="DZ" data-option-template='<span class="d-flex align-items-center"><img class="avatar avatar-xss avatar-circle mr-2" src="/lib/frontTheme/vendor/flag-icon-css/flags/1x1/dz.svg" alt="Algeria Flag" /><span class="text-truncate">Algeria</span></span>'>Algeria</option>
+
+            </select>
+        </div>
+        <!-- End Form Group -->
+
+
+    </form>
+<br />
 
 @section Scripts {
+
     <partial name="_ValidationScriptsPartial" />
     <script>
         $(document).ready(function () {
