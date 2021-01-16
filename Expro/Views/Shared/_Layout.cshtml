@@ -78,7 +78,7 @@
     <script src="~/js/signalr/dist/browser/signalr.js"></script>
     <script src="~/js/Site/userTrackerHub_signalr.js"></script>
 
-    @RenderSection("Scripts", required: false)
+
 
     <!-- JS Global Compulsory  -->
     <script src="~/lib/frontTheme/vendor/jquery/dist/jquery.min.js"></script>
@@ -150,5 +150,7 @@
     <script>
         if (/MSIE \d|Trident.*rv:/.test(navigator.userAgent)) document.write('<script src="~/lib/frontTheme/vendor/babel-polyfill/dist/polyfill.js"><\/script>');
     </script>
+
+    @RenderSection("Scripts", required: false)
 </body>
 </html>

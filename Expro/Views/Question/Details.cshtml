@@ -280,14 +280,14 @@
     if (curUserIsAllowedToAnswer.Value)
     {
     <div id="addAnswerContainer" class="collapse">
-        @if (ViewData["userIsAllowedToWorkWithPaidMaterials"] != null
-         && bool.Parse(ViewData["userIsAllowedToWorkWithPaidMaterials"].ToString()))
+        @if (ViewData["userIsAllowedToWorkWithPaidMaterials"] == null
+          || bool.Parse(ViewData["userIsAllowedToWorkWithPaidMaterials"].ToString()))
         {
-            <div class="alert alert-danger">Пулли саволга жавоб ёзиш учун 100 рейтинг тўпланг ва маълумотингизни (диплом) тасдиқланг. Батафсил маълумот учун <a href="#">Пулли хизмат кўрсатиш шартларини ўқинг</a></div>
+            await Html.RenderPartialAsync("_AnswerCreateFormPartial", new Expro.ViewModels.QuestionAnswerCreateVM());
         }
         else
         {
-            await Html.RenderPartialAsync("_AnswerCreateFormPartial", new Expro.ViewModels.QuestionAnswerCreateVM());
+            <div class="alert alert-danger">Пулли саволга жавоб ёзиш учун 100 рейтинг тўпланг ва маълумотингизни (диплом) тасдиқланг. Батафсил маълумот учун <a href="#">Пулли хизмат кўрсатиш шартларини ўқинг</a></div>
         }
     </div>
     }
@@ -332,6 +332,9 @@
             InitCKEDITORForView();
             InitCKEDITOR();
             InitPopover();
+
+            //var addAnswerForm = document.getElementById("addAnswerForm");
+            //$.validator.unobtrusive.parse(addAnswerForm);
         });
 
         function InitCollapsibleItems() {

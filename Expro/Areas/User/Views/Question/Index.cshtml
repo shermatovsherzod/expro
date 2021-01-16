@@ -97,13 +97,13 @@
 
                             var url = '';
                             if (full.status.id == "@((int)DocumentStatusesEnum.Approved)") {
-                                url = "/QuestionDocument/Details/" + full.id;
+                                url = "/Question/Details/" + full.id;
                             }
                             else {
                                 var editAction = "EditFree";
                                 if (full.priceType == "@((int)DocumentPriceTypesEnum.Paid)")
                                     editAction = "EditPaid";
-                                url = "/User/QuestionDocument/" + editAction + "/" + full.id;
+                                url = "/User/Question/" + editAction + "/" + full.id;
                             }
 
                             html += '       <h3><a href="' + url + '" target="_blank">' + full.title + '</a></h3>';

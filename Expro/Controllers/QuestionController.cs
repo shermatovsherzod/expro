@@ -139,8 +139,11 @@ namespace Expro.Controllers
                     if (appUser == null)
                         throw new Exception("Пользователь не найден");
 
-                    ViewData["userIsAllowedToWorkWithPaidMaterials"] =
-                        _userService.UserIsAllowedToWorkWithPaidMaterials(appUser);
+                    if (!QuestionService.IsFree(question))
+                    {
+                        ViewData["userIsAllowedToWorkWithPaidMaterials"] =
+                            _userService.UserIsAllowedToWorkWithPaidMaterials(appUser);
+                    }
                 }
                 else if(QuestionService.BelongsToUser(question, curUser.ID))
                 {
@@ -194,8 +197,8 @@ namespace Expro.Controllers
                     return Ok(new { id = answer.ID });
                 }
                 else
-                    throw new Exception("Неверные данные");
-                    //return BadRequest(ModelState);
+                    //throw new Exception("Неверные данные");
+                    return BadRequest(ModelState);
             }
             catch (Exception ex)
             {

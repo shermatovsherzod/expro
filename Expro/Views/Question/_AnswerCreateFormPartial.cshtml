@@ -2,7 +2,6 @@
 @using Expro.Common
 
 @{
-    //string targetContainerID = ViewData["targetContainerID"].ToString();
     int documentID = int.Parse(ViewData["objectID"].ToString());
 }
 
@@ -15,7 +14,8 @@
     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
     <div class="form-group">
         <label asp-for="Text" class="control-label"></label>
-        <textarea asp-for="Text" id="answerText" class="form-control ckeditorEditMode"></textarea>
+        @*<textarea asp-for="Text" id="answerText" class="form-control ckeditorEditMode"></textarea>*@
+        <textarea asp-for="Text" class="form-control"></textarea>
         <span asp-validation-for="Text" class="text-danger"></span>
     </div>
     <div class="form-group">
