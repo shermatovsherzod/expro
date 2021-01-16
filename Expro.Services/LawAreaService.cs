@@ -2,6 +2,7 @@
 using Expro.Data.Repository.Interfaces;
 using Expro.Models;
 using Expro.Services.Interfaces;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -257,5 +258,53 @@ namespace Expro.Services
             }
         }
 
+
+        public List<SelectListItem> GetAsGroupedSelectList(List<int> selectedLawAreas = null)
+        {
+            List<SelectListItem> result = new List<SelectListItem>();
+
+            var all = _repository.GetAsIQueryable().ToList();
+
+            foreach (var parent in all.Where(c => c.ParentID == null))
+            {
+                var group = new SelectListGroup { Name = parent.Name };
+
+                foreach (var child in all.Where(c => c.ParentID == parent.ID))
+                {
+                    result.Add(new SelectListItem
+                    {
+                        Value = child.ID.ToString(),
+                        Text = child.Name,
+                        Group = group,
+                        Selected = selectedLawAreas!=null && selectedLawAreas.Contains(child.ID) ? true : false
+                    });
+                }
+            }
+            return result;
+        }
+
+        public List<SelectListItem> GetAsGroupedSelectListForUser(ApplicationUser model)
+        {
+            var areasID = model.UserLawAreas.Select(c => c.LawAreaID).ToList();
+            return GetAsGroupedSelectList(areasID);
+        }
+
+        public List<SelectListItem> GetAsGroupedSelectListForDocument(Document model)
+        {
+            var areasID = model.DocumentLawAreas.Select(c => c.LawAreaID).ToList();
+            return GetAsGroupedSelectList(areasID); ;
+        }
+
+        public List<SelectListItem> GetAsGroupedSelectListForQuestion(Question model)
+        {
+            var areasID = model.QuestionLawAreas.Select(c => c.LawAreaID).ToList();
+            return GetAsGroupedSelectList(areasID); ;
+        }
+
+        public List<SelectListItem> GetAsGroupedSelectListForCompany(Company model)
+        {
+            var areasID = model.CompanyLawAreas.Select(c => c.LawAreaID).ToList();
+            return GetAsGroupedSelectList(areasID); ;
+        }
     }
 }

@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using Expro.Models;
 using Expro.Models.Enums;
 using Expro.Services.Interfaces;
+using Expro.ViewModels;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -120,7 +121,21 @@ namespace Expro.Areas.Identity.Pages.Account
             ReturnUrl = returnUrl;
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
 
-            ViewData["lawAreas"] = _lawAreaService.GetAsSelectList();
+            //ViewData["lawAreas"] = _lawAreaService.GetAsSelectList();
+
+            //ViewData["lawAreas"] = _lawAreaService.GetAsIQueryable()
+            //   .Select(m => new SelectListItemWithParent()
+            //   {
+            //       Value = m.ID.ToString(),
+            //       Text = m.Name,
+            //       ParentValue = m.ParentID.HasValue ? m.ParentID.Value.ToString() : ""
+            //   }).ToList();
+            List<int> lll = new List<int>();
+            lll.Add(6);
+            lll.Add(9);
+
+            ViewData["lawAreas"] = _lawAreaService.GetAsGroupedSelectList(lll);
+          
             ViewData["regions"] = _regionService.GetAsSelectList();
         }
 
