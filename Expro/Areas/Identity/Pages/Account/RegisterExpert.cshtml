@@ -48,38 +48,20 @@
             <span asp-validation-for="Input.PhoneNumber"></span>
         </div>
         <!-- End Form Group -->
-
-        @*<div class="form-group text-center">
-            <label asp-for="Input.LawAreas"></label>
-            <select asp-for="Input.LawAreas"
-                    asp-items="@ViewData["lawAreas"] as IEnumerable<SelectListItem>"
-                    class="form-control">
-            </select>
-            <span asp-validation-for="Input.LawAreas" class="text-danger"></span>
-        </div>*@
-
         <!-- Select -->
-        <select asp-for="Input.LawAreas"
+        <div class="js-form-message form-group">
+            <label class="input-label" asp-for="Input.LawAreas"></label>
+            <select asp-for="Input.LawAreas"
                     asp-items="@ViewData["lawAreas"] as IEnumerable<SelectListItem>" class="js-custom-select custom-select" size="1" multiple style="opacity: 0;"
-                data-hs-select2-options='{
+                    data-hs-select2-options='{
           "minimumResultsForSearch": "Infinity"
-
         }'>
-            @*<optgroup label="Optgroup 1">
-                <option value="item-1-1">Optgroup 1</option>
-                <option value="item-1-2">Item 1</option>
-                <option value="item-1-3">Item 2</option>
-            </optgroup>
-            <optgroup label="Optgroup 2">
-                <option value="item-2-1">Item 1</option>
-                <option value="item-2-2">Item 2</option>
-            </optgroup>*@
-        </select>
+            </select>
+        </div>
         <!-- End Select -->
 
-
-        <div class="form-group text-center">
-            <label asp-for="Input.RegionID"></label>
+        <div class="js-form-message form-group">
+            <label class="input-label" asp-for="Input.RegionID"></label>
             <select asp-for="Input.RegionID"
                     asp-items="@ViewData["regions"] as IEnumerable<SelectListItem>"
                     class="form-control">
@@ -88,8 +70,8 @@
             <span asp-validation-for="Input.RegionID" class="text-danger"></span>
         </div>
 
-        <div class="form-group text-center">
-            <label asp-for="Input.CityID"></label>
+        <div class="js-form-message form-group">
+            <label class="input-label" asp-for="Input.CityID"></label>
             <select asp-for="Input.CityID"
                     asp-items="@ViewData["cities"] as IEnumerable<SelectListItem>"
                     class="form-control">
@@ -134,7 +116,7 @@
         <div class="text-center"><button type="submit" class="btn btn-primary">Регистрация</button></div>
 
         <!-- Form Group -->
-        <div class="js-form-message form-group">
+        @*<div class="js-form-message form-group">
             <select class="js-custom-select" id="locationLabel"
                     data-hs-select2-options='{
                                 "customClass": "custom-select",
@@ -148,7 +130,7 @@
                 <option value="DZ" data-option-template='<span class="d-flex align-items-center"><img class="avatar avatar-xss avatar-circle mr-2" src="/lib/frontTheme/vendor/flag-icon-css/flags/1x1/dz.svg" alt="Algeria Flag" /><span class="text-truncate">Algeria</span></span>'>Algeria</option>
 
             </select>
-        </div>
+        </div>*@
         <!-- End Form Group -->
 
 
