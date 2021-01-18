@@ -4,12 +4,12 @@ using System.Linq;
 
 namespace Expro.Services.Interfaces
 {
-    public interface IDocumentAdminActionsService
+    public interface IDocumentAdminActionsService : IBaseApprovableByAdminService<Document>
     {
-        bool ApprovingIsAllowed(Document entity);
-        void Approve(Document entity, string userID);
-        bool RejectingIsAllowed(Document entity);
-        void Reject(Document entity, string userID);
-        void RejectionDeadlineReaches(Document document);
+        //bool ApprovingIsAllowed(Document entity);
+        //void Approve(Document entity, string userID);
+        //bool RejectingIsAllowed(Document entity);
+        //void Reject(Document entity, string userID);
+        //void RejectionDeadlineReaches(Document document);
     }
 }

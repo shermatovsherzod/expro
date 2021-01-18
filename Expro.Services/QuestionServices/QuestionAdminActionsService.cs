@@ -10,69 +10,35 @@ using System.Runtime.InteropServices.WindowsRuntime;
 
 namespace Expro.Services
 {
-    public class QuestionAdminActionsService : IQuestionAdminActionsService
+    public class QuestionAdminActionsService : BaseApprovableByAdminService<Question>, IQuestionAdminActionsService
     {
-        protected IQuestionService QuestionService;
+        protected IQuestionService _questionService;
 
-        public QuestionAdminActionsService() { }
-
-        public QuestionAdminActionsService(IQuestionService questionService)
+        public QuestionAdminActionsService(IQuestionRepository repository,
+                           IUnitOfWork unitOfWork,
+                           IQuestionService questionService)
+            : base(repository, unitOfWork)
         {
-            QuestionService = questionService;
+            _questionService = questionService;
         }
 
-        bool StatusIsWaitingForApproval(Question entity)
+        public override void Approve(Question entity, string userID)
         {
-            if (entity == null)
-                return false;
-
-            return entity.DocumentStatusID == (int)DocumentStatusesEnum.WaitingForApproval;
-        }
-
-        public bool ApprovingIsAllowed(Question entity)
-        {
-            return StatusIsWaitingForApproval(entity);
-        }
-
-        public void Approve(Question entity, string userID)
-        {
-            entity.DocumentStatusID = (int)DocumentStatusesEnum.Approved;
-            entity.DateApproved = DateTime.Now;
+            base.Approve(entity, userID);
 #if DEBUG
             entity.QuestionCompletionDeadline = entity.DateApproved.Value.AddMinutes(20);
 #else
             entity.QuestionCompletionDeadline = QuestionService.RoundToUp(entity.DateApproved.Value.AddMinutes(7200)); //5 days
 #endif
-            QuestionService.Update(entity, userID);
-        }
-
-        public bool RejectingIsAllowed(Question entity)
-        {
-            return StatusIsWaitingForApproval(entity);
-        }
-
-        public void Reject(Question entity, string userID)
-        {
-            entity.DocumentStatusID = (int)DocumentStatusesEnum.Rejected;
-            entity.DateRejected = DateTime.Now;
-
-            QuestionService.Update(entity, userID);
-        }
-
-        public void RejectionDeadlineReaches(Question model)
-        {
-            if (!RejectingIsAllowed(model))
-                return;
-
-            Reject(model, "634a8718-167d-4b77-98bb-7548340e95b2"); //add botUser
+            Update(entity, userID);
         }
 
         public void CompletionDeadlineReaches(Question Question)
         {
-            if (QuestionService.IsCompleted(Question))
+            if (_questionService.IsCompleted(Question))
                 return;
 
-            QuestionService.Complete(Question, "634a8718-167d-4b77-98bb-7548340e95b2"); //add botUser
+            _questionService.Complete(Question, "634a8718-167d-4b77-98bb-7548340e95b2"); //add botUser
         }
     }
 }
