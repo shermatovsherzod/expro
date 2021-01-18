@@ -1,164 +1,219 @@
-﻿@model Expro.ViewModels.ExpertProfileMainInfoEditVM
-
-@{
+﻿@{
     Layout = "_LayoutProfile";
-    ViewData["Title"] = "Основная информация";
-
-    <link href="~/lib/Gijgo/gijgo.min.css" rel="stylesheet" />
-
 }
 
-<form id="maininfoform" asp-controller="ExpertProfileMainInfo" asp-action="Index" data-ajax="true" data-ajax-mode="replace" data-ajax-method="POST">
-    <div asp-validation-summary="All" class="text-danger"></div>
-    @if ((bool)ViewBag.Message)
-    {
-        <div class="alert alert-success" role="alert">
-            Изменения сохранены
-        </div>
-    }
+<div class="card-header">
+    <h5 class="card-title">Basic info</h5>
+</div>
 
-    <div class="row">
-        <div class="col-md-3">
-            <label asp-for="@Model.FirstName"></label>
-        </div>
-        <div class="col-md-6">
-            <p>
-                <input asp-for="@Model.FirstName" class="form-control" />
-                <span asp-validation-for="@Model.FirstName"></span>
-            </p>
-        </div>
-        <div class="col-md-3"></div>
-    </div>
-    <div class="row">
-        <div class="col-md-3">
-            <label asp-for="@Model.LastName"></label>
-        </div>
-        <div class="col-md-6">
-            <p>
-                <input asp-for="@Model.LastName" class="form-control" />
-                <span asp-validation-for="@Model.LastName"></span>
-            </p>
-        </div>
-        <div class="col-md-3"></div>
-    </div>
-    <div class="row">
-        <div class="col-md-3">
-            <label asp-for="@Model.PatronymicName"></label>
-        </div>
-        <div class="col-md-6">
-            <p>
-                <input asp-for="@Model.PatronymicName" class="form-control" />
-                <span asp-validation-for="@Model.PatronymicName"></span>
-            </p>
-        </div>
-        <div class="col-md-3"></div>
-    </div>
-    <div class="row">
-        <div class="col-md-3">
-            <label asp-for="@Model.RegionID"></label>
-        </div>
-        <div class="col-md-6">
-            <p>
-                <select asp-for="@Model.RegionID"
-                        asp-items="@ViewData["regions"] as IEnumerable<SelectListItem>"
-                        class="form-control">
-                </select>
-                <span asp-validation-for="@Model.RegionID" class="text-danger"></span>
-            </p>
-        </div>
-        <div class="col-md-3"></div>
-    </div>
-    <div class="row">
-        <div class="col-md-3">
-            <label asp-for="@Model.CityID"></label>
-        </div>
-        <div class="col-md-6">
-            <p>
-                <select asp-for="@Model.CityID"
-                        asp-items="@ViewData["cities"] as IEnumerable<SelectListItem>"
-                        class="form-control">
-                    <option disabled>--- Выбрать город ---</option>
-                </select>
-                <span asp-validation-for="@Model.CityID" class="text-danger"></span>
-            </p>
-        </div>
-        <div class="col-md-3"></div>
-    </div>
+<!-- Body -->
+<div class="card-body">
+    <form>
+        <!-- Form Group -->
+        <div class="row form-group">
+            <label class="col-sm-3 col-form-label input-label">Profile photo</label>
 
-    <div class="row">
-        <div class="col-md-3">
-            <label asp-for="@Model.CityOther"></label>
-        </div>
-        <div class="col-md-6">
-            <p>
-                <input asp-for="@Model.CityOther" class="form-control" />
-                <span asp-validation-for="@Model.CityOther" class="text-danger"></span>
-            </p>
-        </div>
-        <div class="col-md-3"></div>
-    </div>
+            <div class="col-sm-9">
+                <div class="media align-items-center">
+                    <label class="avatar avatar-xl avatar-circle mr-4" for="avatarUploader">
+                        <img id="avatarImg" class="avatar-img" src="~/lib/frontTheme/img/160x160/img1.jpg" alt="Image Description">
+                    </label>
 
+                    <div class="media-body">
+                        <div class="btn btn-sm btn-primary file-attachment-btn mb-2 mb-sm-0 mr-2">
+                            Upload Photo
+                            <input type="file" class="js-file-attach file-attachment-btn-label" id="avatarUploader"
+                                   data-hs-file-attach-options='{
+                                    "textTarget": "#avatarImg",
+                                    "mode": "image",
+                                    "targetAttr": "src",
+                                    "allowTypes": [".png", ".jpeg", ".jpg"]
+                                 }'>
+                        </div>
 
-    <div class="row">
-        <div class="col-md-3">
-            <label asp-for="@Model.LawAreas"></label>
+                        <a class="btn btn-sm btn-white mb-2 mb-sm-0" href="javascript:;">Delete</a>
+                    </div>
+                </div>
+            </div>
         </div>
-        <div class="col-md-6">
-            <p>
-                <select asp-for="@Model.LawAreas"
-                        asp-items="@ViewData["lawAreas"] as IEnumerable<SelectListItem>"
-                        class="form-control">
-                </select>
-                <span asp-validation-for="@Model.LawAreas" class="text-danger"></span>
-            </p>
+        <!-- End Form Group -->
+        <!-- Form Group -->
+        <div class="row form-group">
+            <label for="firstNameLabel" class="col-sm-3 col-form-label input-label">Full name <i class="far fa-question-circle text-body ml-1" data-toggle="tooltip" data-placement="top" title="Displayed on public forums, such as Front."></i></label>
+
+            <div class="col-sm-9">
+                <div class="input-group">
+                    <input type="text" class="form-control" name="firstName" id="firstNameLabel" placeholder="Clarice" aria-label="Clarice" value="Natalie">
+                    <input type="text" class="form-control" name="lastName" id="lastNameLabel" placeholder="Boone" aria-label="Boone" value="Curtis">
+                </div>
+            </div>
         </div>
-        <div class="col-md-3"></div>
-    </div>
+        <!-- End Form Group -->
+        <!-- Form Group -->
+        <div class="row form-group">
+            <label for="emailLabel" class="col-sm-3 col-form-label input-label">Email</label>
 
-    <div class="row">
-        <div class="col-md-3">
-            <label asp-for="@Model.DateOfBirth"></label>
+            <div class="col-sm-9">
+                <input type="email" class="form-control" name="email" id="emailLabel" placeholder="clarice@example.com" aria-label="clarice@example.com" value="natalie@example.com">
+            </div>
         </div>
-        <div class="col-md-6">
-            <p>
-                <input asp-for="@Model.DateOfBirth" class="form-control" onkeydown="event.preventDefault()" />
-                <span asp-validation-for="@Model.DateOfBirth"></span>
-            </p>
+        <!-- End Form Group -->
+        <!-- Form Group -->
+        <div class="js-add-field row form-group"
+             data-hs-add-field-options='{
+                        "template": "#addPhoneFieldTemplate",
+                        "container": "#addPhoneFieldContainer",
+                        "defaultCreated": 0
+                      }'>
+            <label for="phoneLabel" class="col-sm-3 col-form-label input-label">Phone <span class="input-label-secondary">(Optional)</span></label>
+
+            <div class="col-sm-9">
+                <div class="input-group align-items-center">
+                    <input type="text" class="js-masked-input form-control" name="phone" id="phoneLabel" placeholder="+x(xxx)xxx-xx-xx" aria-label="+x(xxx)xxx-xx-xx" value="+1(605)5618929"
+                           data-hs-mask-options='{
+                               "template": "+0(000)000-00-00"
+                             }'>
+
+                    <div class="input-group-append">
+                        <!-- Select -->
+                        <select class="js-custom-select custom-select dropdown-toggle" name="phoneSelect"
+                                data-hs-select2-options='{
+                                "minimumResultsForSearch": "Infinity",
+                                "customClass": "custom-select",
+                                "dropdownAutoWidth": true,
+                                "width": true
+                              }'>
+                            <option value="Mobile" selected>Mobile</option>
+                            <option value="Home">Home</option>
+                            <option value="Work">Work</option>
+                            <option value="Fax">Fax</option>
+                            <option value="Direct">Direct</option>
+                        </select>
+                        <!-- End Select -->
+                    </div>
+                </div>
+
+                <!-- Container For Input Field -->
+                <div id="addPhoneFieldContainer"></div>
+
+                <a href="javascript:;" class="js-create-field form-link btn btn-xs btn-no-focus btn-ghost-primary">
+                    <i class="fas fa-plus mr-1"></i>
+                    Add phone
+                </a>
+            </div>
         </div>
-        <div class="col-md-3"></div>
-    </div>
+        <!-- End Form Group -->
+        <!-- Add Phone Input Field -->
+        <div id="addPhoneFieldTemplate" style="display: none;">
+            <div class="input-group input-group-add-field">
+                <input type="text" class="js-masked-input form-control" data-name="additionlPhone" placeholder="+x(xxx)xxx-xx-xx" aria-label="+x(xxx)xxx-xx-xx"
+                       data-hs-mask-options='{
+                             "template": "+0(000)000-00-00"
+                           }'>
 
+                <div class="input-group-append">
+                    <!-- Select -->
+                    <select class="js-custom-select-dynamic btn btn-white dropdown-toggle"
+                            data-name="additionlPhoneSelect"
+                            data-hs-select2-options='{
+                              "minimumResultsForSearch": "Infinity",
+                              "customClass": "custom-select",
+                              "dropdownAutoWidth": true,
+                              "width": true
+                            }'>
+                        <option value="Mobile" selected>Mobile</option>
+                        <option value="Home">Home</option>
+                        <option value="Work">Work</option>
+                        <option value="Fax">Fax</option>
+                        <option value="Direct">Direct</option>
+                    </select>
+                    <!-- End Select -->
+                </div>
 
-    <div class="row">
-        <div class="col-md-3">
-            <label asp-for="@Model.GenderID"></label>
+                <a class="js-delete-field input-group-add-field-delete" href="javascript:;">
+                    <i class="fas fa-times"></i>
+                </a>
+            </div>
         </div>
-        <div class="col-md-6">
-            <p>
-                <select asp-for="@Model.GenderID"
-                        asp-items="@ViewData["gender"] as IEnumerable<SelectListItem>"
-                        class="form-control">
-                </select>
-            </p>
-            <p>
-                <button type="submit" class="btn btn-primary">Сохранить</button>
-            </p>
+        <!-- End Add Phone Input Field -->
+        <!-- Form Group -->
+        <div class="row form-group">
+            <label class="col-sm-3 col-form-label input-label">Gender</label>
+
+            <div class="col-sm-9">
+                <div class="input-group input-group-md-down-break">
+                    <!-- Custom Radio -->
+                    <div class="form-control">
+                        <div class="custom-control custom-radio">
+                            <input type="radio" class="custom-control-input" name="genderTypeRadio" id="genderTypeRadio1">
+                            <label class="custom-control-label" for="genderTypeRadio1">Male</label>
+                        </div>
+                    </div>
+                    <!-- End Custom Radio -->
+                    <!-- Custom Radio -->
+                    <div class="form-control">
+                        <div class="custom-control custom-radio">
+                            <input type="radio" class="custom-control-input" name="genderTypeRadio" id="genderTypeRadio2" checked>
+                            <label class="custom-control-label" for="genderTypeRadio2">Female</label>
+                        </div>
+                    </div>
+                    <!-- End Custom Radio -->
+                    <!-- Custom Radio -->
+                    <div class="form-control">
+                        <div class="custom-control custom-radio">
+                            <input type="radio" class="custom-control-input" name="genderTypeRadio" id="genderTypeRadio3">
+                            <label class="custom-control-label" for="genderTypeRadio3">Other</label>
+                        </div>
+                    </div>
+                    <!-- End Custom Radio -->
+                </div>
+            </div>
         </div>
-        <div class="col-md-3"></div>
-    </div>
-</form>
+        <!-- End Form Group -->
+        <!-- Form Group -->
+        <div class="row form-group">
+            <label class="col-sm-3 col-form-label input-label">BIO</label>
 
+            <div class="col-sm-9">
+                <!-- Quill -->
+                <div class="quill-custom">
+                    <div class="js-quill" style="min-height: 15rem;"
+                         data-hs-quill-options='{
+                           "placeholder": "Type your message...",
+                            "modules": {
+                              "toolbar": [
+                                ["bold", "italic", "underline", "strike", "link", "image", "blockquote", "code", {"list": "bullet"}]
+                              ]
+                            }
+                           }'>
+                        Creative mind at Htmlstream
+                    </div>
+                </div>
+                <!-- End Quill -->
+            </div>
+        </div>
+        <!-- End Form Group -->
+        <!-- Form Group -->
+        <div class="row align-items-center">
+            <label for="disableAdCheckbox" class="col-sm-3 col-form-label input-label">Disable ads <span class="badge badge-primary text-uppercase ml-1">PRO</span></label>
 
-@section Scripts
-    {
-    <script src="~/lib/Gijgo/gijgo.min.js"></script>
-    <script src="~/lib/Gijgo/messages.ru-ru.js"></script>
-    <script>
-        $('#DateOfBirth').datepicker({
-            uiLibrary: 'bootstrap4',
-            format: 'dd.mm.yyyy',
-            locale: 'ru-ru',
-        });
-    </script>
-
-}
+            <div class="col-sm-9">
+                <!-- Custom Checkbox -->
+                <div class="custom-control custom-checkbox">
+                    <input type="checkbox" class="custom-control-input" id="disableAdCheckbox">
+                    <label class="custom-control-label" for="disableAdCheckbox">With your Pro account, you can disable ads across the site.</label>
+                </div>
+                <!-- End Custom Checkbox -->
+            </div>
+        </div>
+        <!-- End Form Group -->
+    </form>
+</div>
+<!-- End Body -->
+<!-- Footer -->
+<div class="card-footer d-flex justify-content-end">
+    <a class="btn btn-white" href="javascript:;">Cancel</a>
+    <span class="mx-2"></span>
+    <a class="btn btn-primary" href="javascript:;">Save Changes</a>
+</div>
+<!-- End Footer -->
