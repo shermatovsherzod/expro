@@ -1,0 +1,131 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Expro</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" />
+    <link href="~/css/userprofile.css" rel="stylesheet" />
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+            <div class="container">
+                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Expro</a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
+                    <partial name="_LoginFrontPartial" />
+                    <ul class="navbar-nav flex-grow-1">
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="Expert" asp-controller="Home" asp-action="Index">Главная</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="Expert" asp-controller="ExpertsList" asp-action="Index">Эксперты</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="Expert" asp-controller="Home" asp-action="">Вопросы</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="Expert" asp-controller="Home" asp-action="">Статьи</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="Expert" asp-controller="Home" asp-action="">FAQ</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="Expert" asp-controller="Home" asp-action="">Контакты</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="Expert" asp-controller="Companies" asp-action="">Компании</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="Expert" asp-controller="Resume" asp-action="">Резюме</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="Expert" asp-controller="Vacancy" asp-action="">Вакансии</a>
+                        </li>
+
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-2">
+                <div class="">
+                    @await Component.InvokeAsync("ExpertPhoto")
+                </div>
+                <div class="row">
+                    <div class="col-md-12  text-center">
+                        <hr />
+                        @await Component.InvokeAsync("ExpertStatus")
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12  text-center">
+                        <hr />
+                     
+                        <p class="text-center"><a href="/Identity/Account/ChangePassword">Изменить пароль</a></p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-10">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="profile-head">
+                            <h5>
+                                @await Component.InvokeAsync("ExpertFullName")
+                            </h5>
+                            <p class="proile-rating">Рейтинг : <span>8/10</span></p>
+                            <ul class="nav nav-tabs">
+                                <li class="nav-item">
+                                    <a class="nav-link" href="/Expert/ExpertProfileMainInfo">Основное</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="/Expert/ExpertProfilePhoto">Фото</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="/Expert/ExpertProfileAboutMe">Обо мне</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="/Expert/ExpertProfileContacts">Контакты</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="/Expert/ExpertProfileEducation">Образование</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="/Expert/ExpertProfileWorkExperience">Опыт работы</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        @RenderBody()
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="border-top footer text-muted">
+        <div class="container text-center">
+            &copy; 2020 - <a asp-area="" asp-controller="Home" asp-action="Index">Expro</a>
+        </div>
+    </footer>
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+
+    <partial name="_FirebaseConfig" />
+
+    @RenderSection("Scripts", required: false)
+</body>
+</html>
