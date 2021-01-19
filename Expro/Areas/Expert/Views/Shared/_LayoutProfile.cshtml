@@ -17,6 +17,7 @@
     <!-- CSS Implementing Plugins -->
     <link rel="stylesheet" href="~/lib/frontTheme/vendor/fontawesome/css/all.min.css">
     <link rel="stylesheet" href="~/lib/frontTheme/vendor/hs-mega-menu/dist/hs-mega-menu.min.css">
+    <link rel="stylesheet" href="~/lib/frontTheme/vendor/select2/dist/css/select2.min.css">
 
     <!-- CSS Front Template -->
     <link rel="stylesheet" href="~/lib/frontTheme/css/theme.min.css">
@@ -269,7 +270,7 @@
     <script src="~/lib/frontTheme/vendor/hs-mega-menu/dist/hs-mega-menu.min.js"></script>
     <script src="~/lib/frontTheme/vendor/hs-show-animation/dist/hs-show-animation.min.js"></script>
     <script src="~/lib/frontTheme/vendor/jquery-validation/dist/jquery.validate.min.js"></script>
-
+    <script src="~/lib/frontTheme/vendor/select2/dist/js/select2.full.min.js"></script>
     <!-- JS Front -->
     <script src="~/lib/frontTheme/js/theme.min.js"></script>
 
@@ -306,6 +307,13 @@
                     }
                 });
             });
+            // INITIALIZATION OF SELECT2
+            // =======================================================
+            $('.js-custom-select').each(function () {
+                var select2 = $.HSCore.components.HSSelect2.init($(this));
+            });
+
+
 
 
             // INITIALIZATION OF SHOW ANIMATIONS

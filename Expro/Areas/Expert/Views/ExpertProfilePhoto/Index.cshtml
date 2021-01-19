@@ -6,6 +6,35 @@
     Layout = "_LayoutProfile";
 }
 
+<!-- Form Group -->
+<div class="row form-group">
+    <label class="col-sm-3 col-form-label input-label">Profile photo</label>
+    <div class="col-sm-9">
+        <div class="media align-items-center">
+            <label class="avatar avatar-xl avatar-circle mr-4" for="avatarUploader">
+                <img id="avatarImg" class="avatar-img" src="~/lib/frontTheme/img/160x160/img1.jpg" alt="Image Description">
+            </label>
+
+            <div class="media-body">
+                <div class="btn btn-sm btn-primary file-attachment-btn mb-2 mb-sm-0 mr-2">
+                    Upload Photo
+                    <input type="file" class="js-file-attach file-attachment-btn-label" id="avatarUploader"
+                           data-hs-file-attach-options='{
+                                    "textTarget": "#avatarImg",
+                                    "mode": "image",
+                                    "targetAttr": "src",
+                                    "allowTypes": [".png", ".jpeg", ".jpg"]
+                                 }'>
+                </div>
+
+                <a class="btn btn-sm btn-white mb-2 mb-sm-0" href="javascript:;">Delete</a>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End Form Group -->
+
+
 <div class="row">
     <div class="col-sm-6">
         <img id="imgContainer" src="@Model.Avatar.Url" alt="Avatar" class="img-thumbnail">

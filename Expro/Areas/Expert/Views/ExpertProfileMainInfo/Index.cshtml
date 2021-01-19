@@ -1,54 +1,94 @@
-﻿@{
+﻿@model Expro.ViewModels.ExpertProfileMainInfoEditVM
+@{
     Layout = "_LayoutProfile";
+    ViewData["Title"] = "Основная информация";
+
+    <link href="~/lib/Gijgo/gijgo.min.css" rel="stylesheet" />
+    int? cityID = Model?.CityID;
 }
 
-<div class="card-header">
-    <h5 class="card-title">Basic info</h5>
-</div>
+
 
 <!-- Body -->
 <div class="card-body">
     <form>
         <!-- Form Group -->
         <div class="row form-group">
-            <label class="col-sm-3 col-form-label input-label">Profile photo</label>
-
+            <label asp-for="@Model.FirstName" class="col-sm-3 col-form-label input-label"></label>
             <div class="col-sm-9">
-                <div class="media align-items-center">
-                    <label class="avatar avatar-xl avatar-circle mr-4" for="avatarUploader">
-                        <img id="avatarImg" class="avatar-img" src="~/lib/frontTheme/img/160x160/img1.jpg" alt="Image Description">
-                    </label>
-
-                    <div class="media-body">
-                        <div class="btn btn-sm btn-primary file-attachment-btn mb-2 mb-sm-0 mr-2">
-                            Upload Photo
-                            <input type="file" class="js-file-attach file-attachment-btn-label" id="avatarUploader"
-                                   data-hs-file-attach-options='{
-                                    "textTarget": "#avatarImg",
-                                    "mode": "image",
-                                    "targetAttr": "src",
-                                    "allowTypes": [".png", ".jpeg", ".jpg"]
-                                 }'>
-                        </div>
-
-                        <a class="btn btn-sm btn-white mb-2 mb-sm-0" href="javascript:;">Delete</a>
-                    </div>
-                </div>
+                <input type="text" asp-for="@Model.FirstName" class="form-control" />
+                <span asp-validation-for="@Model.FirstName"></span>
             </div>
         </div>
         <!-- End Form Group -->
         <!-- Form Group -->
         <div class="row form-group">
-            <label for="firstNameLabel" class="col-sm-3 col-form-label input-label">Full name <i class="far fa-question-circle text-body ml-1" data-toggle="tooltip" data-placement="top" title="Displayed on public forums, such as Front."></i></label>
-
+            <label asp-for="@Model.LastName" class="col-sm-3 col-form-label input-label"></label>
             <div class="col-sm-9">
-                <div class="input-group">
-                    <input type="text" class="form-control" name="firstName" id="firstNameLabel" placeholder="Clarice" aria-label="Clarice" value="Natalie">
-                    <input type="text" class="form-control" name="lastName" id="lastNameLabel" placeholder="Boone" aria-label="Boone" value="Curtis">
-                </div>
+                <input type="text" asp-for="@Model.LastName" class="form-control" />
+                <span asp-validation-for="@Model.LastName"></span>
             </div>
         </div>
         <!-- End Form Group -->
+        <!-- Form Group -->
+        <div class="row form-group">
+            <label asp-for="@Model.PatronymicName" class="col-sm-3 col-form-label input-label"></label>
+            <div class="col-sm-9">
+                <input type="text" asp-for="@Model.PatronymicName" class="form-control" />
+                <span asp-validation-for="@Model.PatronymicName"></span>
+            </div>
+        </div>
+        <!-- End Form Group -->
+        <!-- Form Group -->
+        <div class="row form-group">
+            <label class="col-sm-3 col-form-label input-label" asp-for="@Model.RegionID"></label>
+            <div class="col-sm-9">
+                <select asp-for="@Model.RegionID"
+                        asp-items="@ViewData["regions"] as IEnumerable<SelectListItem>"
+                        class="form-control">
+                    <option disabled selected>--- Выбрать регион ---</option>
+                </select>
+                <span asp-validation-for="@Model.RegionID" class="text-danger"></span>
+            </div>
+        </div>
+        <!-- End Form Group -->
+        <!-- Form Group -->
+        <div class="row form-group">
+            <label class="col-sm-3 col-form-label input-label" asp-for="@Model.CityID"></label>
+            <div class="col-sm-9">
+                <select asp-for="@Model.CityID"
+                        asp-items="@ViewData["cities"] as IEnumerable<SelectListItem>"
+                        class="form-control">
+                    <option disabled selected>--- Выбрать город ---</option>
+                </select>
+                <span asp-validation-for="@Model.CityID" class="text-danger"></span>
+            </div>
+        </div>
+        <!-- End Form Group -->
+        <!-- Form Group -->
+        <div class="row form-group">
+            <label class="col-sm-3 col-form-label input-label" asp-for="@Model.CityOther"></label>
+            <div class="col-sm-9">
+                <input class="form-control" asp-for="@Model.CityOther" placeholder="" aria-label="" required
+                       data-msg="Please fill field.">
+                <span asp-validation-for="@Model.CityOther"></span>
+            </div>
+        </div>
+        <!-- End Form Group -->
+        <!-- Select -->
+        <div class="row form-group">
+            <label class="col-sm-3 col-form-label input-label" asp-for="@Model.LawAreas"></label>
+
+            <div class="col-sm-9">
+                <select asp-for="@Model.LawAreas"
+                        asp-items="@ViewData["lawAreas"] as IEnumerable<SelectListItem>" class="js-custom-select custom-select" size="1" multiple style="opacity: 0;"
+                        data-hs-select2-options='{
+          "minimumResultsForSearch": "Infinity"
+        }'>
+                </select>
+            </div>
+        </div>
+        <!-- End Select -->
         <!-- Form Group -->
         <div class="row form-group">
             <label for="emailLabel" class="col-sm-3 col-form-label input-label">Email</label>
@@ -217,3 +257,70 @@
     <a class="btn btn-primary" href="javascript:;">Save Changes</a>
 </div>
 <!-- End Footer -->
+@section Scripts {
+
+    <partial name="_ValidationScriptsPartial" />
+    <script>
+        $(document).ready(function () {
+            var cityID = Number("@cityID");
+            if (cityID != "0")
+                $("#Input_CityOther").attr('disabled', 'disabled');
+
+            $('#Input_RegionID').change(function () {
+                var selectedRegion = $("#Input_RegionID").val();
+                LoadCitiesByRegion(selectedRegion);
+            });
+
+            $('#Input_CityID').change(function () {
+                var selectedCity = $("#Input_CityID").val();
+                $("#Input_CityOther").val('');
+                if (selectedCity === "0") {
+                    $("#Input_CityOther").removeAttr('disabled');
+                }
+                else {
+                    $("#Input_CityOther").attr('disabled', 'disabled');
+                }
+            });
+
+            LoadCitiesByRegion($("#Input_RegionID").val(), cityID);
+        });
+
+        function LoadCitiesByRegion(regionID, selectedCityID) {
+            if (selectedCityID == undefined || (isNaN(selectedCityID)))
+                selectedCityID = null;
+
+            $.ajax({
+                type: "GET",
+                url: "/City/GetByRegionIDAsSelectList",
+                //data: JSON.stringify({
+                //    selected: categoryID
+                //}),
+                data: {
+                    regionID: regionID,
+                    selected: selectedCityID
+                },
+                contentType: "application/json; charset=utf-8",
+                //dataType: "json",
+                success: function (data) {
+                    $("#Input_CityID").empty().append($("<option>").text("--- Выбрать город ---").attr('disabled', 'disabled').attr('selected', 'selected'));
+                    $.each(data,
+                        function (i, item) {
+                            var isSelected = "";
+                            if (item.selected == true)
+                                isSelected = "selected='selected'";
+
+                            $("#Input_CityID")
+                                //.append($("<option>").text(item.text).val(item.value));
+                                .append("<option value='" + item.value + "' " + isSelected + ">" + item.text + "</option>");
+
+                        });
+                    //$("#Input_CityID")
+                    //    .append($("<option>").text("Другой город").val("0"));
+                },
+                error: function (data) {
+                    console.log(data);
+                }
+            });
+        }
+    </script>
+}

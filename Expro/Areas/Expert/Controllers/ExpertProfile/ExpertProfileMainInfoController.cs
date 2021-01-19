@@ -88,11 +88,11 @@ namespace Expro.Areas.Expert.Controllers.ExpertProfile
 
         private void ExpertProfileMainInfoViewData(ApplicationUser user)
         {
-            ViewData["country"] = _countryService.GetAsSelectList();
-            ViewData["lawAreas"] = _lawAreaService.GetAsSelectList();
+            ViewData["country"] = _countryService.GetAsSelectList();         
             ViewData["regions"] = _regionService.GetAsSelectListOne(user.RegionID);
             ViewData["cities"] = _cityService.GetAsSelectListOne(user.CityID);
-            ViewData["gender"] = _genderService.GetAsSelectListOne(user.GenderID);
+            ViewData["gender"] = _genderService.GetAsSelectListOne(user.GenderID);           
+            ViewData["lawAreas"] = _lawAreaService.GetAsGroupedSelectListForUser(user);
         }
     }
 }
