@@ -11,7 +11,14 @@
 
 <!-- Body -->
 <div class="card-body">
-    <form>
+    <form id="maininfoform" asp-controller="ExpertProfileMainInfo" asp-action="Index" data-ajax="true" data-ajax-mode="replace" data-ajax-method="POST">
+        <div asp-validation-summary="All" class="text-danger"></div>
+        @if ((bool)ViewBag.Message)
+        {
+            <div class="alert alert-success" role="alert">
+                Изменения сохранены
+            </div>
+        }
         <!-- Form Group -->
         <div class="row form-group">
             <label asp-for="@Model.FirstName" class="col-sm-3 col-form-label input-label"></label>
@@ -112,18 +119,16 @@
             </div>
         </div>
         <!-- End Select -->
-
+        <!-- Footer -->
+        <div class="card-footer d-flex justify-content-end">
+            <button type="submit" class="btn btn-primary">Сохранить</button>
+        </div>
+        <!-- End Footer -->
 
     </form>
 </div>
 <!-- End Body -->
-<!-- Footer -->
-<div class="card-footer d-flex justify-content-end">
-    <a class="btn btn-white" href="javascript:;">Cancel</a>
-    <span class="mx-2"></span>
-    <a class="btn btn-primary" href="javascript:;">Save Changes</a>
-</div>
-<!-- End Footer -->
+
 @section Scripts {
 
     <partial name="_ValidationScriptsPartial" />
@@ -131,25 +136,27 @@
         $(document).ready(function () {
             var cityID = Number("@cityID");
             if (cityID != "0")
-                $("#Input_CityOther").attr('disabled', 'disabled');
+                $("#CityOther").attr('disabled', 'disabled');
 
-            $('#Input_RegionID').change(function () {
-                var selectedRegion = $("#Input_RegionID").val();
+
+            
+            $('#RegionID').change(function () {
+                var selectedRegion = $("#RegionID").val();
                 LoadCitiesByRegion(selectedRegion);
             });
 
-            $('#Input_CityID').change(function () {
-                var selectedCity = $("#Input_CityID").val();
-                $("#Input_CityOther").val('');
+            $('#CityID').change(function () {
+                var selectedCity = $("#CityID").val();
+                $("#CityOther").val('');
                 if (selectedCity === "0") {
-                    $("#Input_CityOther").removeAttr('disabled');
+                    $("#CityOther").removeAttr('disabled');
                 }
                 else {
-                    $("#Input_CityOther").attr('disabled', 'disabled');
+                    $("#CityOther").attr('disabled', 'disabled');
                 }
             });
 
-            LoadCitiesByRegion($("#Input_RegionID").val(), cityID);
+            LoadCitiesByRegion($("#RegionID").val(), cityID);
         });
 
         function LoadCitiesByRegion(regionID, selectedCityID) {
@@ -169,14 +176,14 @@
                 contentType: "application/json; charset=utf-8",
                 //dataType: "json",
                 success: function (data) {
-                    $("#Input_CityID").empty().append($("<option>").text("--- Выбрать город ---").attr('disabled', 'disabled').attr('selected', 'selected'));
+                    $("#CityID").empty().append($("<option>").text("--- Выбрать город ---").attr('disabled', 'disabled').attr('selected', 'selected'));
                     $.each(data,
                         function (i, item) {
                             var isSelected = "";
                             if (item.selected == true)
                                 isSelected = "selected='selected'";
 
-                            $("#Input_CityID")
+                            $("#CityID")
                                 //.append($("<option>").text(item.text).val(item.value));
                                 .append("<option value='" + item.value + "' " + isSelected + ">" + item.text + "</option>");
 
