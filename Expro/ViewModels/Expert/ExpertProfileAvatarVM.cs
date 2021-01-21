@@ -1,4 +1,5 @@
 ﻿using Expro.Models;
+using Expro.Models.Enums;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -11,7 +12,10 @@ namespace Expro.ViewModels.Expert
     {
         public string ID { get; set; }
         public AttachmentDetailsVM Avatar { get; set; }
-
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
+        public string Email { get; set; }
+        public bool ExpertApproved { get; set; }
         public ExpertProfileAvatarVM() { }
 
         public ExpertProfileAvatarVM(ApplicationUser model) // : base(model)
@@ -21,6 +25,10 @@ namespace Expro.ViewModels.Expert
 
             ID = model.Id;
             Avatar = new AttachmentDetailsVM(model.Avatar);
+            FirstName = model.FirstName;
+            LastName = model.LastName;
+            Email = model.Email;
+            ExpertApproved = model.UserStatusID == (int)ExpertApproveStatusEnum.Approved ? true : false;
         }
     }
 }
