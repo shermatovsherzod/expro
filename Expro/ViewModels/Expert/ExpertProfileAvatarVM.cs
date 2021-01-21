@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Expro.ViewModels.Expert
 {
-    public class ExpertProfileAvatarVM
+    public class ExpertShortInfoVM
     {
         public string ID { get; set; }
         public AttachmentDetailsVM Avatar { get; set; }
@@ -16,9 +16,9 @@ namespace Expro.ViewModels.Expert
         public string LastName { get; set; }
         public string Email { get; set; }
         public bool ExpertApproved { get; set; }
-        public ExpertProfileAvatarVM() { }
+        public ExpertShortInfoVM() { }
 
-        public ExpertProfileAvatarVM(ApplicationUser model) // : base(model)
+        public ExpertShortInfoVM(ApplicationUser model) // : base(model)
         {
             if (model == null)
                 return;

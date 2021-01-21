@@ -22,7 +22,7 @@ namespace Expro.Areas.Expert.Controllers.ExpertProfile
         {
             var currentUserAccount = accountUtil.GetCurrentUser(User);
             var user = _userManager.Users.FirstOrDefault(c => c.UserName == currentUserAccount.UserName);
-            var photoEditVM = new ExpertProfileAvatarVM(user);
+            var photoEditVM = new ExpertShortInfoVM(user);
             return View(photoEditVM);
         }
     }

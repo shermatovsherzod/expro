@@ -14,11 +14,11 @@ using System.Threading.Tasks;
 
 namespace Expro.Components
 {
-    public class ExpertPhotoViewComponent : ViewComponent
+    public class ExpertShortInfoViewComponent : ViewComponent
     {
         UserManager<ApplicationUser> _userManager;
 
-        public ExpertPhotoViewComponent(UserManager<ApplicationUser> userManager)
+        public ExpertShortInfoViewComponent(UserManager<ApplicationUser> userManager)
         {
             _userManager = userManager;
         }
@@ -29,9 +29,9 @@ namespace Expro.Components
             var currentUserAccount = accountUtil.GetCurrentUser(this.HttpContext.User);
             var currentUser = _userManager.Users.FirstOrDefault(c => c.UserName == currentUserAccount.UserName);
 
-            var photoEditVM = new ExpertProfileAvatarVM(currentUser);           
+            var photoEditVM = new ExpertShortInfoVM(currentUser);           
             
-            return View("ExpertPhoto", photoEditVM);
+            return View("ExpertShortInfo", photoEditVM);
         }
 
     }
