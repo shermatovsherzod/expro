@@ -7,15 +7,12 @@
     int? cityID = Model?.CityID;
 }
 
-
-
 <!-- Body -->
 <div class="card-body">
-    <form id="maininfoform" asp-controller="ExpertProfileMainInfo" asp-action="Index" data-ajax="true" data-ajax-mode="replace" data-ajax-method="POST">
-        <div asp-validation-summary="All" class="text-danger"></div>
+    <form asp-controller="ExpertProfileMainInfo" asp-action="Index" data-ajax="true" data-ajax-method="POST">
         @if ((bool)ViewBag.Message)
         {
-            <div class="alert alert-success" role="alert">
+            <div class="alert alert-soft-success" role="alert">
                 Изменения сохранены
             </div>
         }
@@ -24,6 +21,7 @@
             <label asp-for="@Model.FirstName" class="col-sm-3 col-form-label input-label"></label>
             <div class="col-sm-9">
                 <input type="text" asp-for="@Model.FirstName" class="form-control" />
+
                 <span asp-validation-for="@Model.FirstName"></span>
             </div>
         </div>
@@ -120,7 +118,7 @@
         </div>
         <!-- End Select -->
         <!-- Footer -->
-        <div class="card-footer d-flex justify-content-end">
+        <div class="d-flex justify-content-end">
             <button type="submit" class="btn btn-primary">Сохранить</button>
         </div>
         <!-- End Footer -->
@@ -130,8 +128,7 @@
 <!-- End Body -->
 
 @section Scripts {
-
-    <partial name="_ValidationScriptsPartial" />
+      
     <script>
         $(document).ready(function () {
             var cityID = Number("@cityID");
@@ -139,7 +136,7 @@
                 $("#CityOther").attr('disabled', 'disabled');
 
 
-            
+
             $('#RegionID').change(function () {
                 var selectedRegion = $("#RegionID").val();
                 LoadCitiesByRegion(selectedRegion);

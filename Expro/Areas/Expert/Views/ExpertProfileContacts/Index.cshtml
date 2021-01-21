@@ -5,53 +5,64 @@
     ViewData["Title"] = "Контакты";
 }
 
-<form asp-controller="ExpertProfileContacts" asp-action="Index" data-ajax="true" data-ajax-method="POST">
-    @if ((bool)ViewBag.Message)
-    {
-        <div class="alert alert-success" role="alert">
-            Изменения сохранены
-        </div>
-    }
+<!-- Body -->
+<div class="card-body">
+    <form asp-controller="ExpertProfileContacts" asp-action="Index" data-ajax="true" data-ajax-method="POST">
+        @if ((bool)ViewBag.Message)
+        {
+            <div class="alert alert-soft-success" role="alert">
+                Изменения сохранены
+            </div>
+        }
 
-    <div class="row">
-        <div class="col-md-3">
-            <label asp-for="@Model.PhoneNumber"></label>
-        </div>
-        <div class="col-md-6">
-            <p>
-                <input asp-for="@Model.PhoneNumber" class="form-control" />
+        <!-- Form Group -->
+        <div class="row form-group">
+            <label asp-for="@Model.PhoneNumber" class="col-sm-3 col-form-label input-label"></label>
+            <div class="col-sm-9">
+                <input asp-for="@Model.PhoneNumber" class="js-masked-input form-control" placeholder="+(xxx) xx xxx-xx-xx"
+                       data-hs-mask-options='{
+            "template": "+(000) 00 000-00-00",
+            "clearIfNotMatch": true
+          }'>
                 <span asp-validation-for="@Model.PhoneNumber"></span>
-            </p>
+            </div>
         </div>
-        <div class="col-md-3"></div>
-    </div>
-
-    <div class="row">
-        <div class="col-md-3">
-            <label asp-for="@Model.Fax"></label>
-        </div>
-        <div class="col-md-6">
-            <p>
+        <!-- End Form Group -->
+        <!-- Form Group -->
+        <div class="row form-group">
+            <label asp-for="@Model.Fax" class="col-sm-3 col-form-label input-label"></label>
+            <div class="col-sm-9">
                 <input asp-for="@Model.Fax" class="form-control" />
                 <span asp-validation-for="@Model.Fax"></span>
-            </p>
+            </div>
         </div>
-        <div class="col-md-3"></div>
-    </div>
-
-    <div class="row">
-        <div class="col-md-3">
-            <label asp-for="@Model.WebSite"></label>
-        </div>
-        <div class="col-md-6">
-            <p>
+        <!-- End Form Group -->
+        <!-- Form Group -->
+        <div class="row form-group">
+            <label asp-for="@Model.WebSite" class="col-sm-3 col-form-label input-label"></label>
+            <div class="col-sm-9">
                 <input asp-for="@Model.WebSite" class="form-control" />
                 <span asp-validation-for="@Model.WebSite"></span>
-            </p>
-            <p>
-                <button type="submit" class="btn btn-primary">Сохранить</button>
-            </p>
+            </div>
         </div>
-        <div class="col-md-3"></div>
-    </div>
-</form>
+        <!-- End Form Group -->
+        <!-- Footer -->
+        <div class="d-flex justify-content-end">
+            <button type="submit" class="btn btn-primary">Сохранить</button>
+        </div>
+        <!-- End Footer -->
+    </form>
+</div>
+<!-- End Body -->
+@section Scripts{ 
+    <script src="~/lib/frontTheme/vendor/jquery-mask-plugin/dist/jquery.mask.min.js"></script>
+    <script>
+        $(document).on('ready', function () {
+            // INITIALIZATION OF MASKED INPUT
+            // =======================================================
+            $('.js-masked-input').each(function () {
+                var mask = $.HSCore.components.HSMask.init($(this));
+            });
+        });
+    </script>
+}
