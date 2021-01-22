@@ -3,54 +3,78 @@
     ViewData["Title"] = "ExpertDocuments";
 }
 
-<div class="list-group-item">
-    <p class="list-group-item-text">
-        <a href="#">Мои ответы<span class="badge badge-pill badge-light">2</span></a>
-    </p>
-</div>
-<div class="list-group-item">
-    <p class="list-group-item-text">
-        <a href="/Expert/ArticleDocument">Мои статьи<span class="badge badge-pill badge-light">@Model.ArticleDocumentsCount</span></a>
-    </p>
-</div>
-<div class="list-group-item">
-    <p class="list-group-item-text">
-        <a href="/Expert/SampleDocument">Образцовые документы<span class="badge badge-pill badge-light">@Model.SampleDocumentsCount</span></a>
-    </p>
-</div>
-<div class="list-group-item">
-    <p class="list-group-item-text">
-        <a href="/Expert/PracticeDocument">Практические документы<span class="badge badge-pill badge-light">@Model.PracticeDocumentsCount</span></a>
-    </p>
-</div>
+<h6 class="text-cap small">Документы</h6>
 
-<div class="list-group-item">
-    <p class="list-group-item-text">
-        <a href="/Expert/ArticleDocumentPurchased">Купленные статьи<span class="badge badge-pill badge-light">6</span></a>
-    </p>
-</div>
-<div class="list-group-item">
-    <p class="list-group-item-text">
-        <a href="/Expert/SampleDocumentPurchased">Купленные Образцы документов<span class="badge badge-pill badge-light">3</span></a>
-    </p>
-</div>
-<div class="list-group-item">
-    <p class="list-group-item-text">
-        <a href="/Expert/PracticeDocumentPurchased">Купленные Практические документы<span class="badge badge-pill badge-light">6</span></a>
-    </p>
-</div>
-<div class="list-group-item">
-    <p class="list-group-item-text">
-        <a href="/Expert/WithdrawRequest">Запросы на вывод средств<span class="badge badge-pill badge-light">6</span></a>
-    </p>
-</div>
-<div class="list-group-item">
-    <p class="list-group-item-text">
-        <a href="/Expert/Question">Вопросы<span class="badge badge-pill badge-light">6</span></a>
-    </p>
-</div>
-<div class="list-group-item">
-    <p class="list-group-item-text">
-        <a href="/Expert/FinancePanel">Финансы</a>
-    </p>
-</div>
+<!-- List -->
+
+<ul class="nav nav-sub nav-sm nav-tabs nav-list-y-2 mb-4">
+    <li class="nav-item">
+        <a class="nav-link " href="#">
+            <i class="fas fa-check nav-icon"></i> Мои ответы
+            <span class="badge badge-soft-dark badge-pill nav-link-badge">2</span>
+        </a>
+    </li>
+
+    <li class="nav-item">
+        <a class="nav-link " href="/Expert/ArticleDocument">
+            <i class="fas fa-check nav-icon"></i> Мои статьи
+            <span class="badge badge-soft-dark badge-pill nav-link-badge">@Model.ArticleDocumentsCount</span>
+        </a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link " href="/Expert/SampleDocument">
+            <i class="fas fa-check nav-icon"></i> Образцовые документы
+            <span class="badge badge-soft-dark badge-pill nav-link-badge">@Model.SampleDocumentsCount</span>
+        </a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link " href="/Expert/PracticeDocument">
+            <i class="fas fa-check nav-icon"></i> Практические документы
+            <span class="badge badge-soft-dark badge-pill nav-link-badge">@Model.PracticeDocumentsCount</span>
+        </a>
+    </li>
+
+    <li class="nav-item">
+        <a class="nav-link " href="/Expert/ArticleDocumentPurchased">
+            <i class="fas fa-check nav-icon"></i> Купленные статьи
+            <span class="badge badge-soft-dark badge-pill nav-link-badge">6</span>
+        </a>
+    </li>
+
+    <li class="nav-item">
+        <a class="nav-link " href="/Expert/SampleDocumentPurchased">
+            <i class="fas fa-asterisk nav-icon"></i> Купленные Образцы документов
+            <span class="badge badge-soft-dark badge-pill nav-link-badge">3</span>
+        </a>
+    </li>
+
+    <li class="nav-item">
+        <a class="nav-link " href="/Expert/PracticeDocumentPurchased">
+            <i class="fas fa-check nav-icon"></i> Купленные Практические документы
+            <span class="badge badge-soft-dark badge-pill nav-link-badge">6</span>
+        </a>
+    </li>
+
+    <li class="nav-item">
+        <a class="nav-link " href="/Expert/WithdrawRequest">
+            <i class="fas fa-check nav-icon"></i> Запросы на вывод средств
+            <span class="badge badge-soft-dark badge-pill nav-link-badge">2</span>
+        </a>
+    </li>
+
+    <li class="nav-item">
+        <a class="nav-link " href="/Expert/Question">
+            <i class="fas fa-question nav-icon"></i></i> Вопросы
+            <span class="badge badge-soft-dark badge-pill nav-link-badge">5</span>
+        </a>
+    </li>
+
+    <li class="nav-item">
+        <a class="nav-link " href="/Expert/FinancePanel">
+            <i class="fas fa-dollar-sign nav-icon"></i> Финансы            
+        </a>
+    </li>
+</ul>
+
+<!-- End List -->
+

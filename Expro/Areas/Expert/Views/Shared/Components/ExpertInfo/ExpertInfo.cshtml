@@ -2,28 +2,19 @@
 @{
     ViewData["Title"] = "ExpertInfo";
 }
-<a href="#" class="list-group-item list-group-item-action active">Мой профайл</a>
+
 <div class="list-group-item text-center">
     @await Component.InvokeAsync("ExpertShortInfo")
+    @await Component.InvokeAsync("ExpertStatus")
 </div>
 <div class="list-group-item">
-    <p class="list-group-item-text text-center">
-        <b>@Model.FirstName @Model.LastName</b>
-        <br />
-    </p>
-
     <p class="list-group-item-text">
         Рейтинг: 434
         <br />
         Ответы: 50
     </p>
+</div>
 
-</div>
-<div class="list-group-item">
-    <p class="list-group-item-text">
-        @await Component.InvokeAsync("ExpertStatus")
-    </p>
-</div>
 <div class="list-group-item">
     <p class="list-group-item-text">
         Мнения:<br />

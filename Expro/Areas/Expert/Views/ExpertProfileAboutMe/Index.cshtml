@@ -5,30 +5,26 @@
     ViewData["Title"] = "Обо мне";
 }
 
-<!-- Body -->
-<div class="card-body">
-    <form asp-controller="ExpertProfileAboutMe" asp-action="Index" data-ajax="true" data-ajax-method="POST">
-        @if ((bool)ViewBag.Message)
-        {
-            <div class="alert alert-soft-success" role="alert">
-                Изменения сохранены
-            </div>
-        }
-        <!-- Form Group -->
-        <div class="row form-group">
-            <label asp-for="@Model.AboutMe" class="col-sm-3 col-form-label input-label"></label>
-            <div class="col-sm-9">
-                <textarea asp-for="@Model.AboutMe" class="form-control"></textarea>
-                <span asp-validation-for="@Model.AboutMe"></span>
-            </div>
-        </div>
-        <!-- End Form Group -->
 
-        <!-- Footer -->
-        <div class="d-flex justify-content-end">
-            <button type="submit" class="btn btn-primary">Сохранить</button>
+<form asp-controller="ExpertProfileAboutMe" asp-action="Index" data-ajax="true" data-ajax-method="POST">
+    @if ((bool)ViewBag.Message)
+    {
+        <div class="alert alert-soft-success" role="alert">
+            Изменения сохранены
         </div>
-        <!-- End Footer -->
-    </form>
-</div>
-<!-- End Body -->
+    }
+    <!-- Form Group -->
+    <div class="row form-group">
+        <label asp-for="@Model.AboutMe" class="col-sm-3 col-form-label input-label"></label>
+        <div class="col-sm-9">
+            <textarea asp-for="@Model.AboutMe" class="form-control"></textarea>
+            <span asp-validation-for="@Model.AboutMe"></span>
+        </div>
+    </div>
+    <!-- End Form Group -->
+    <!-- Footer -->
+    <div class="d-flex justify-content-end">
+        <button type="submit" class="btn btn-primary">Сохранить</button>
+    </div>
+    <!-- End Footer -->
+</form>

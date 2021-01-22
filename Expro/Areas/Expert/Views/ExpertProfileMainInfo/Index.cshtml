@@ -7,128 +7,126 @@
     int? cityID = Model?.CityID;
 }
 
-<!-- Body -->
-<div class="card-body">
-    <form asp-controller="ExpertProfileMainInfo" asp-action="Index" data-ajax="true" data-ajax-method="POST">
-        @if ((bool)ViewBag.Message)
-        {
-            <div class="alert alert-soft-success" role="alert">
-                Изменения сохранены
-            </div>
-        }
-        <!-- Form Group -->
-        <div class="row form-group">
-            <label asp-for="@Model.FirstName" class="col-sm-3 col-form-label input-label"></label>
-            <div class="col-sm-9">
-                <input type="text" asp-for="@Model.FirstName" class="form-control" />
 
-                <span asp-validation-for="@Model.FirstName"></span>
-            </div>
+<form asp-controller="ExpertProfileMainInfo" asp-action="Index" data-ajax="true" data-ajax-method="POST">
+    @if ((bool)ViewBag.Message)
+    {
+        <div class="alert alert-soft-success" role="alert">
+            Изменения сохранены
         </div>
-        <!-- End Form Group -->
-        <!-- Form Group -->
-        <div class="row form-group">
-            <label asp-for="@Model.LastName" class="col-sm-3 col-form-label input-label"></label>
-            <div class="col-sm-9">
-                <input type="text" asp-for="@Model.LastName" class="form-control" />
-                <span asp-validation-for="@Model.LastName"></span>
-            </div>
-        </div>
-        <!-- End Form Group -->
-        <!-- Form Group -->
-        <div class="row form-group">
-            <label asp-for="@Model.PatronymicName" class="col-sm-3 col-form-label input-label"></label>
-            <div class="col-sm-9">
-                <input type="text" asp-for="@Model.PatronymicName" class="form-control" />
-                <span asp-validation-for="@Model.PatronymicName"></span>
-            </div>
-        </div>
-        <!-- End Form Group -->
-        <!-- Form Group -->
-        <div class="row form-group">
-            <label class="col-sm-3 col-form-label input-label" asp-for="@Model.RegionID"></label>
-            <div class="col-sm-9">
-                <select asp-for="@Model.RegionID"
-                        asp-items="@ViewData["regions"] as IEnumerable<SelectListItem>"
-                        class="js-custom-select custom-select">
-                    <option disabled selected>--- Выбрать регион ---</option>
-                </select>
-                <span asp-validation-for="@Model.RegionID" class="text-danger"></span>
-            </div>
-        </div>
-        <!-- End Form Group -->
-        <!-- Form Group -->
-        <div class="row form-group">
-            <label class="col-sm-3 col-form-label input-label" asp-for="@Model.CityID"></label>
-            <div class="col-sm-9">
-                <select asp-for="@Model.CityID"
-                        asp-items="@ViewData["cities"] as IEnumerable<SelectListItem>"
-                        class="js-custom-select custom-select">
-                    <option disabled selected>--- Выбрать город ---</option>
-                </select>
-                <span asp-validation-for="@Model.CityID" class="text-danger"></span>
-            </div>
-        </div>
-        <!-- End Form Group -->
-        <!-- Form Group -->
-        <div class="row form-group">
-            <label class="col-sm-3 col-form-label input-label" asp-for="@Model.CityOther"></label>
-            <div class="col-sm-9">
-                <input class="form-control" asp-for="@Model.CityOther" placeholder="" aria-label="" required
-                       data-msg="Please fill field.">
-                <span asp-validation-for="@Model.CityOther"></span>
-            </div>
-        </div>
-        <!-- End Form Group -->
-        <!-- Select -->
-        <div class="row form-group">
-            <label class="col-sm-3 col-form-label input-label" asp-for="@Model.LawAreas"></label>
+    }
+    <!-- Form Group -->
+    <div class="row form-group">
+        <label asp-for="@Model.FirstName" class="col-sm-3 col-form-label input-label"></label>
+        <div class="col-sm-9">
+            <input type="text" asp-for="@Model.FirstName" class="form-control" />
 
-            <div class="col-sm-9">
-                <select asp-for="@Model.LawAreas"
-                        asp-items="@ViewData["lawAreas"] as IEnumerable<SelectListItem>" class="js-custom-select custom-select" size="1" multiple style="opacity: 0;"
-                        data-hs-select2-options='{
+            <span asp-validation-for="@Model.FirstName"></span>
+        </div>
+    </div>
+    <!-- End Form Group -->
+    <!-- Form Group -->
+    <div class="row form-group">
+        <label asp-for="@Model.LastName" class="col-sm-3 col-form-label input-label"></label>
+        <div class="col-sm-9">
+            <input type="text" asp-for="@Model.LastName" class="form-control" />
+            <span asp-validation-for="@Model.LastName"></span>
+        </div>
+    </div>
+    <!-- End Form Group -->
+    <!-- Form Group -->
+    <div class="row form-group">
+        <label asp-for="@Model.PatronymicName" class="col-sm-3 col-form-label input-label"></label>
+        <div class="col-sm-9">
+            <input type="text" asp-for="@Model.PatronymicName" class="form-control" />
+            <span asp-validation-for="@Model.PatronymicName"></span>
+        </div>
+    </div>
+    <!-- End Form Group -->
+    <!-- Form Group -->
+    <div class="row form-group">
+        <label class="col-sm-3 col-form-label input-label" asp-for="@Model.RegionID"></label>
+        <div class="col-sm-9">
+            <select asp-for="@Model.RegionID"
+                    asp-items="@ViewData["regions"] as IEnumerable<SelectListItem>"
+                    class="js-custom-select custom-select">
+                <option disabled selected>--- Выбрать регион ---</option>
+            </select>
+            <span asp-validation-for="@Model.RegionID" class="text-danger"></span>
+        </div>
+    </div>
+    <!-- End Form Group -->
+    <!-- Form Group -->
+    <div class="row form-group">
+        <label class="col-sm-3 col-form-label input-label" asp-for="@Model.CityID"></label>
+        <div class="col-sm-9">
+            <select asp-for="@Model.CityID"
+                    asp-items="@ViewData["cities"] as IEnumerable<SelectListItem>"
+                    class="js-custom-select custom-select">
+                <option disabled selected>--- Выбрать город ---</option>
+            </select>
+            <span asp-validation-for="@Model.CityID" class="text-danger"></span>
+        </div>
+    </div>
+    <!-- End Form Group -->
+    <!-- Form Group -->
+    <div class="row form-group">
+        <label class="col-sm-3 col-form-label input-label" asp-for="@Model.CityOther"></label>
+        <div class="col-sm-9">
+            <input class="form-control" asp-for="@Model.CityOther" placeholder="" aria-label="" required
+                   data-msg="Please fill field.">
+            <span asp-validation-for="@Model.CityOther"></span>
+        </div>
+    </div>
+    <!-- End Form Group -->
+    <!-- Select -->
+    <div class="row form-group">
+        <label class="col-sm-3 col-form-label input-label" asp-for="@Model.LawAreas"></label>
+
+        <div class="col-sm-9">
+            <select asp-for="@Model.LawAreas"
+                    asp-items="@ViewData["lawAreas"] as IEnumerable<SelectListItem>" class="js-custom-select custom-select" size="1" multiple style="opacity: 0;"
+                    data-hs-select2-options='{
           "minimumResultsForSearch": "Infinity"
         }'>
-                </select>
-            </div>
+            </select>
         </div>
-        <!-- End Select -->
-        <!-- Form Group -->
-        <div class="row form-group">
-            <label asp-for="@Model.DateOfBirth" class="col-sm-3 col-form-label input-label"></label>
-            <div class="col-sm-9">
-                <input type="text" asp-for="@Model.DateOfBirth" class="form-control" onkeydown="event.preventDefault()" />
-                <span asp-validation-for="@Model.DateOfBirth"></span>
-            </div>
+    </div>
+    <!-- End Select -->
+    <!-- Form Group -->
+    <div class="row form-group">
+        <label asp-for="@Model.DateOfBirth" class="col-sm-3 col-form-label input-label"></label>
+        <div class="col-sm-9">
+            <input type="text" asp-for="@Model.DateOfBirth" class="form-control" onkeydown="event.preventDefault()" />
+            <span asp-validation-for="@Model.DateOfBirth"></span>
         </div>
-        <!-- End Form Group -->
-        <!-- Select -->
-        <div class="row form-group">
-            <label class="col-sm-3 col-form-label input-label" asp-for="@Model.GenderID"></label>
-            <div class="col-sm-9">
-                <select asp-for="@Model.GenderID" asp-items="@ViewData["gender"] as IEnumerable<SelectListItem>" class="js-custom-select custom-select" size="1" style="opacity: 0;"
-                        data-hs-select2-options='{
+    </div>
+    <!-- End Form Group -->
+    <!-- Select -->
+    <div class="row form-group">
+        <label class="col-sm-3 col-form-label input-label" asp-for="@Model.GenderID"></label>
+        <div class="col-sm-9">
+            <select asp-for="@Model.GenderID" asp-items="@ViewData["gender"] as IEnumerable<SelectListItem>" class="js-custom-select custom-select" size="1" style="opacity: 0;"
+                    data-hs-select2-options='{
           "minimumResultsForSearch": "Infinity",
                         "placeholder": "Пол"
         }'>
-                    <option label="empty"></option>
-                </select>
-            </div>
+                <option label="empty"></option>
+            </select>
         </div>
-        <!-- End Select -->
-        <!-- Footer -->
-        <div class="d-flex justify-content-end">
-            <button type="submit" class="btn btn-primary">Сохранить</button>
-        </div>
-        <!-- End Footer -->
+    </div>
+    <!-- End Select -->
+    <!-- Footer -->
+    <div class="d-flex justify-content-end">
+        <button type="submit" class="btn btn-primary">Сохранить</button>
+    </div>
+    <!-- End Footer -->
 
-    </form>
-</div>
-<!-- End Body -->
+</form>
+
 
 @section Scripts {
-      
+
     <script>
         $(document).ready(function () {
             var cityID = Number("@cityID");

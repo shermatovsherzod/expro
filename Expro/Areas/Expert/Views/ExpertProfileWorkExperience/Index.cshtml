@@ -5,159 +5,157 @@
     ViewData["Title"] = "Образование";
 }
 
-<!-- Body -->
-    <div class="card-body">
-        <div class="row">
-            <div class="col-md-12">
-                @if ((bool)ViewBag.Message)
-                {
-                    <div class="alert alert-soft-success" role="alert">
-                        Изменения сохранены
-                    </div>
+
+<div class="row">
+    <div class="col-md-12">
+        @if ((bool)ViewBag.Message)
+        {
+            <div class="alert alert-soft-success" role="alert">
+                Изменения сохранены
+            </div>
+        }
+    </div>
+</div>
+
+<div class="d-flex">
+    <button type="button" data-toggle="modal" class="btn btn-sm btn-primary" data-target="#modalwindow">Добавить опыт работы</button>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        <br />
+        <table class="table table-thead-bordered">
+            <thead class="thead-light">
+                <tr>
+                    <th>Страна</th>
+                    <th>Город</th>
+                    <th>Место работы</th>
+                    <th>Должность</th>
+                    <th>Период</th>
+                    <th>Диплом</th>
+                    <th>Действие</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                @{
+                    List<Expro.ViewModels.ExpertProfileWorkExperienceDetailsVM> workExperiences = ViewData["workExperienceEducationListVM"] as List<Expro.ViewModels.ExpertProfileWorkExperienceDetailsVM>;
                 }
+
+                @foreach (var item in workExperiences)
+                {
+                    <tr>
+                        <td>@item.Country</td>
+                        <td>@item.City</td>
+                        <td>@item.PlaceOfWork</td>
+                        <td>@item.Position</td>
+                        <td>@item.WorkPeriodFrom - @item.WorkPeriodTo</td>
+                        <td></td>
+                        <td align="center">
+                            <button type="button" data-cid="@item.ID" class="btn btn-danger btn-xs btn-icon btndelete">
+                                <i class="fa fa-times"></i>
+                            </button>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+
+<!-- Modal -->
+<div id="modalwindow" tabindex="-1" class="modal fade" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Добавить опыт работы</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
             </div>
-        </div>
 
-        <div class="d-flex">
-            <button type="button" data-toggle="modal" class="btn btn-sm btn-primary" data-target="#modalwindow">Добавить опыт работы</button>
-        </div>
+            <form asp-controller="ExpertProfileWorkExperience" asp-action="Index" data-ajax="true" data-ajax-method="POST">
+                <div class="modal-body">
+                    <!-- Form Group -->
+                    <div class="row form-group">
+                        <label asp-for="@Model.CountryID" class="col-sm-3 col-form-label input-label"></label>
+                        <div class="col-sm-9">
+                            <select asp-for="@Model.CountryID"
+                                    asp-items="@ViewData["country"] as IEnumerable<SelectListItem>"
+                                    class="js-custom-select custom-select">
+                                <option disabled selected>--- Выбрать страну ---</option>
+                            </select>
 
-        <div class="row">
-            <div class="col-md-12">
-                <br />
-                <table class="table table-thead-bordered">
-                    <thead class="thead-light">
-                        <tr>
-                            <th>Страна</th>
-                            <th>Город</th>
-                            <th>Место работы</th>
-                            <th>Должность</th>
-                            <th>Период</th>
-                            <th>Диплом</th>
-                            <th>Действие</th>
-                        </tr>
-                    </thead>
-
-                    <tbody>
-                        @{
-                            List<Expro.ViewModels.ExpertProfileWorkExperienceDetailsVM> workExperiences = ViewData["workExperienceEducationListVM"] as List<Expro.ViewModels.ExpertProfileWorkExperienceDetailsVM>;
-                        }
-
-                        @foreach (var item in workExperiences)
-                        {
-                        <tr>
-                            <td>@item.Country</td>
-                            <td>@item.City</td>
-                            <td>@item.PlaceOfWork</td>
-                            <td>@item.Position</td>
-                            <td>@item.WorkPeriodFrom - @item.WorkPeriodTo</td>
-                            <td></td>
-                            <td align="center">
-                                <button type="button" data-cid="@item.ID" class="btn btn-danger btn-xs btn-icon btndelete">
-                                    <i class="fa fa-times"></i>
-                                </button>
-                            </td>
-                        </tr>
-                        }
-                    </tbody>
-                </table>
-            </div>
-        </div>
-
-
-        <!-- Modal -->
-        <div id="modalwindow" tabindex="-1" class="modal fade" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog" role="document">
-                <!-- Modal content-->
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Добавить опыт работы</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
+                            <span asp-validation-for="@Model.CountryID" class="text-danger"></span>
+                        </div>
                     </div>
-
-                    <form asp-controller="ExpertProfileWorkExperience" asp-action="Index" data-ajax="true" data-ajax-method="POST">
-                        <div class="modal-body">
-                            <!-- Form Group -->
-                            <div class="row form-group">
-                                <label asp-for="@Model.CountryID" class="col-sm-3 col-form-label input-label"></label>
-                                <div class="col-sm-9">
-                                    <select asp-for="@Model.CountryID"
-                                            asp-items="@ViewData["country"] as IEnumerable<SelectListItem>"
-                                            class="js-custom-select custom-select">
-                                        <option disabled selected>--- Выбрать страну ---</option>
-                                    </select>
-
-                                    <span asp-validation-for="@Model.CountryID" class="text-danger"></span>
-                                </div>
-                            </div>
-                            <!-- End Form Group -->
-                            <!-- Form Group -->
-                            <div class="row form-group">
-                                <label asp-for="@Model.City" class="col-sm-3 col-form-label input-label"></label>
-                                <div class="col-sm-9">
-                                    <input asp-for="@Model.City" class="form-control" />
-                                    <span asp-validation-for="@Model.City"></span>
-                                </div>
-                            </div>
-                            <!-- End Form Group -->
-                            <!-- Form Group -->
-                            <div class="row form-group">
-                                <label asp-for="@Model.PlaceOfWork" class="col-sm-3 col-form-label input-label"></label>
-                                <div class="col-sm-9">
-                                    <input asp-for="@Model.PlaceOfWork" class="form-control" />
-                                    <span asp-validation-for="@Model.PlaceOfWork"></span>
-                                </div>
-                            </div>
-                            <!-- End Form Group -->
-                            <!-- Form Group -->
-                            <div class="row form-group">
-                                <label asp-for="@Model.Position" class="col-sm-3 col-form-label input-label"></label>
-                                <div class="col-sm-9">
-                                    <input asp-for="@Model.Position" class="form-control" />
-                                    <span asp-validation-for="@Model.Position"></span>
-                                </div>
-                            </div>
-                            <!-- End Form Group -->
-                            <!-- Form Group -->
-                            <div class="row form-group">
-                                <label asp-for="@Model.WorkPeriodFrom" class="col-sm-3 col-form-label input-label"></label>
-                                <div class="col-sm-9">
-                                    <input asp-for="@Model.WorkPeriodFrom" class="form-control" />
-                                    <span asp-validation-for="@Model.WorkPeriodFrom"></span>
-                                </div>
-                            </div>
-                            <!-- End Form Group -->
-                            <!-- Form Group -->
-                            <div class="row form-group">
-                                <label asp-for="@Model.WorkPeriodTo" class="col-sm-3 col-form-label input-label"></label>
-                                <div class="col-sm-9">
-                                    <input asp-for="@Model.WorkPeriodTo" class="form-control" />
-                                    <span asp-validation-for="@Model.WorkPeriodTo"></span>
-                                </div>
-                            </div>
-                            <!-- End Form Group -->
-
+                    <!-- End Form Group -->
+                    <!-- Form Group -->
+                    <div class="row form-group">
+                        <label asp-for="@Model.City" class="col-sm-3 col-form-label input-label"></label>
+                        <div class="col-sm-9">
+                            <input asp-for="@Model.City" class="form-control" />
+                            <span asp-validation-for="@Model.City"></span>
                         </div>
-                       
-
-                        <div class="modal-footer">
-                            <!-- Footer -->
-                            <div class="d-flex justify-content-end">
-                                <button type="button" class="btn btn-sm btn-secondary" data-dismiss="modal">Закрыть</button>
-                            </div>
-                            <div class="d-flex justify-content-end">
-                                <button type="submit" class="btn btn-sm btn-primary">Добавить</button>
-                            </div>
-                            <!-- End Footer -->
+                    </div>
+                    <!-- End Form Group -->
+                    <!-- Form Group -->
+                    <div class="row form-group">
+                        <label asp-for="@Model.PlaceOfWork" class="col-sm-3 col-form-label input-label"></label>
+                        <div class="col-sm-9">
+                            <input asp-for="@Model.PlaceOfWork" class="form-control" />
+                            <span asp-validation-for="@Model.PlaceOfWork"></span>
                         </div>
-                    </form>
+                    </div>
+                    <!-- End Form Group -->
+                    <!-- Form Group -->
+                    <div class="row form-group">
+                        <label asp-for="@Model.Position" class="col-sm-3 col-form-label input-label"></label>
+                        <div class="col-sm-9">
+                            <input asp-for="@Model.Position" class="form-control" />
+                            <span asp-validation-for="@Model.Position"></span>
+                        </div>
+                    </div>
+                    <!-- End Form Group -->
+                    <!-- Form Group -->
+                    <div class="row form-group">
+                        <label asp-for="@Model.WorkPeriodFrom" class="col-sm-3 col-form-label input-label"></label>
+                        <div class="col-sm-9">
+                            <input asp-for="@Model.WorkPeriodFrom" class="form-control" />
+                            <span asp-validation-for="@Model.WorkPeriodFrom"></span>
+                        </div>
+                    </div>
+                    <!-- End Form Group -->
+                    <!-- Form Group -->
+                    <div class="row form-group">
+                        <label asp-for="@Model.WorkPeriodTo" class="col-sm-3 col-form-label input-label"></label>
+                        <div class="col-sm-9">
+                            <input asp-for="@Model.WorkPeriodTo" class="form-control" />
+                            <span asp-validation-for="@Model.WorkPeriodTo"></span>
+                        </div>
+                    </div>
+                    <!-- End Form Group -->
+
                 </div>
-            </div>
+
+
+                <div class="modal-footer">
+                    <!-- Footer -->
+                    <div class="d-flex justify-content-end">
+                        <button type="button" class="btn btn-sm btn-secondary" data-dismiss="modal">Закрыть</button>
+                    </div>
+                    <div class="d-flex justify-content-end">
+                        <button type="submit" class="btn btn-sm btn-primary">Добавить</button>
+                    </div>
+                    <!-- End Footer -->
+                </div>
+            </form>
         </div>
     </div>
-<!-- End Body -->
+</div>
+
 
 
 @section Scripts{

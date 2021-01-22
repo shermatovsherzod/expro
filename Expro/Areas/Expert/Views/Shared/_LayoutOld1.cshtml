@@ -1,0 +1,170 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Title -->
+    <title>@ViewData["Title"] - Expro</title>
+
+    <!-- Required Meta Tags Always Come First -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="../favicon.ico">
+
+    <!-- Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+
+    <!-- CSS Implementing Plugins -->
+    <link rel="stylesheet" href="~/lib/frontTheme/vendor/fontawesome/css/all.min.css">
+    <link rel="stylesheet" href="~/lib/frontTheme/vendor/hs-mega-menu/dist/hs-mega-menu.min.css">
+
+    <!-- CSS Front Template -->
+    <link rel="stylesheet" href="~/lib/frontTheme/css/theme.min.css">
+</head>
+<body>
+    <style>
+        .temporarily_hidden_item {
+            display: none;
+        }
+    </style>
+
+    <!-- ========== HEADER ========== -->
+    @await Html.PartialAsync("_LayoutFrontHeader")
+    <!-- ========== END HEADER ========== -->
+    <!-- ========== MAIN CONTENT ========== -->
+    <main id="content" role="main">
+        <!-- Checkout Section -->
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-lg-3 order-lg-1 mb-7 mb-lg-0">
+                    <!-- Left Section -->
+                    @await Component.InvokeAsync("ExpertInfo")
+
+                    @await Component.InvokeAsync("ExpertDocuments")
+
+                    @await Component.InvokeAsync("ExpertBalance")
+
+                    @await Component.InvokeAsync("TermsOfUse")
+                    <!-- Left Section -->
+                </div>
+
+                <div class="col-lg-9 order-lg-2">
+                    @RenderBody()
+                </div>
+            </div>
+        </div>
+        <!-- End Checkout Section -->
+    </main>
+    <!-- ========== END MAIN CONTENT ========== -->
+    <!-- ========== FOOTER ========== -->
+    @await Html.PartialAsync("_LayoutFrontFooter")
+    <!-- ========== END FOOTER ========== -->
+    <!-- ========== SECONDARY CONTENTS ========== -->
+    <!-- Sign Up Modal -->
+    @await Html.PartialAsync("_LayoutFrontSecondaryContent")
+    <!-- End Sign Up Modal -->
+    <!-- ========== END SECONDARY CONTENTS ========== -->
+    <!-- Go to Top -->
+    <a class="js-go-to go-to position-fixed" href="javascript:;" style="visibility: hidden;"
+       data-hs-go-to-options='{
+       "offsetTop": 700,
+       "position": {
+         "init": {
+           "right": 15
+         },
+         "show": {
+           "bottom": 15
+         },
+         "hide": {
+           "bottom": -15
+         }
+       }
+     }'>
+        <i class="fas fa-angle-up"></i>
+    </a>
+
+    <!-- End Go to Top -->
+    <!-- Our libraries -->
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    <partial name="_FirebaseConfig" />
+    <script src="~/js/signalr/dist/browser/signalr.js"></script>
+    <script src="~/js/Site/userTrackerHub_signalr.js"></script>
+
+
+
+    <!-- JS Global Compulsory  -->
+    <script src="~/lib/frontTheme/vendor/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/frontTheme/vendor/jquery-migrate/dist/jquery-migrate.min.js"></script>
+    <script src="~/lib/frontTheme/vendor/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- JS Implementing Plugins -->
+    <script src="~/lib/frontTheme/vendor/hs-header/dist/hs-header.min.js"></script>
+    <script src="~/lib/frontTheme/vendor/hs-go-to/dist/hs-go-to.min.js"></script>
+    <script src="~/lib/frontTheme/vendor/hs-unfold/dist/hs-unfold.min.js"></script>
+    <script src="~/lib/frontTheme/vendor/hs-mega-menu/dist/hs-mega-menu.min.js"></script>
+    <script src="~/lib/frontTheme/vendor/hs-show-animation/dist/hs-show-animation.min.js"></script>
+    <script src="~/lib/frontTheme/vendor/jquery-validation/dist/jquery.validate.min.js"></script>
+
+    <!-- JS Front -->
+    <script src="~/lib/frontTheme/js/theme.min.js"></script>
+
+    <!-- JS Plugins Init. -->
+    <script>
+        $(document).on('ready', function () {
+            // INITIALIZATION OF HEADER
+            // =======================================================
+            var header = new HSHeader($('#header')).init();
+
+
+            // INITIALIZATION OF MEGA MENU
+            // =======================================================
+            var megaMenu = new HSMegaMenu($('.js-mega-menu'), {
+                desktop: {
+                    position: 'left'
+                }
+            }).init();
+
+
+            // INITIALIZATION OF UNFOLD
+            // =======================================================
+            var unfold = new HSUnfold('.js-hs-unfold-invoker').init();
+
+
+            // INITIALIZATION OF FORM VALIDATION
+            // =======================================================
+            $('.js-validate').each(function () {
+                $.HSCore.components.HSValidation.init($(this), {
+                    rules: {
+                        confirmPassword: {
+                            equalTo: '#signupPassword'
+                        }
+                    }
+                });
+            });
+
+
+            // INITIALIZATION OF SHOW ANIMATIONS
+            // =======================================================
+            $('.js-animation-link').each(function () {
+                var showAnimation = new HSShowAnimation($(this)).init();
+            });
+
+
+            // INITIALIZATION OF GO TO
+            // =======================================================
+            $('.js-go-to').each(function () {
+                var goTo = new HSGoTo($(this)).init();
+            });
+        });
+    </script>
+
+    <!-- IE Support -->
+    <script>
+        if (/MSIE \d|Trident.*rv:/.test(navigator.userAgent)) document.write('<script src="~/lib/frontTheme/vendor/babel-polyfill/dist/polyfill.js"><\/script>');
+    </script>
+
+    @RenderSection("Scripts", required: false)
+</body>
+</html>
