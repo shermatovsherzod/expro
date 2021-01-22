@@ -13,12 +13,13 @@
         .ToList();
     var returnUrl = string.IsNullOrEmpty(Context.Request.Path) ? "~/" : $"~{Context.Request.Path.Value}{Context.Request.QueryString}";
 }
-<div title="@localizer["Request culture provider:"] @requestCulture?.Provider?.GetType().Name">
-    <form action="/Language/SetCulture?returnUrl=@returnUrl" id="selectLanguage"
+<div title="@localizer["Request culture provider:"] @requestCulture?.Provider?.GetType().Name" style="display: none;">
+    <form action="/Language/SetCulture?returnUrl=@returnUrl" id="selectLanguageForm"
           method="post"
           class="form-horizontal nav-link text-dark"
           role="form">
         <select name="culture"
+                id="languageSelector"
                 onchange="this.form.submit();"
                 asp-for="@requestCulture.RequestCulture.UICulture.Name"
                 asp-items="cultureItems">
@@ -34,14 +35,34 @@
                   "event": "hover",
                   "hideOnScroll": "true"
                  }'>
-        <img class="dropdown-item-icon mr-2" src="~/lib/frontTheme/vendor/flag-icon-css/flags/4x3/us.svg" alt="SVG">
-        <span class="d-inline-block d-sm-none">US</span>
-        <span class="d-none d-sm-inline-block">United States</span>
+        @*<img class="dropdown-item-icon mr-2" src="~/lib/frontTheme/vendor/flag-icon-css/flags/4x3/us.svg" alt="SVG">*@
+        @*<span class="d-inline-block d-sm-none">US</span>*@
+        <span class="d-none d-sm-inline-block selectedLanguageText"></span>
     </a>
 
     <div id="languageDropdown" class="hs-unfold-content dropdown-menu">
-        <a class="dropdown-item active" href="#">English</a>
-        <a class="dropdown-item" href="#">Deutsch</a>
-        <a class="dropdown-item" href="#">Español‎</a>
+        @foreach (var item in cultureItems)
+        {
+            <a class="dropdown-item" href="javascript: SubmitSelectLanguageForm('@item.Value')">@item.Text</a>
+        }
     </div>
 </div>
+
+<script>
+    SetSelectedLanguageForTemplateLanguageSelector();
+    
+    function SetSelectedLanguageForTemplateLanguageSelector() {
+        var e = document.getElementById("languageSelector");
+        //var strUser = e.value;
+        var ee = document.getElementsByClassName("selectedLanguageText");
+        Array.prototype.forEach.call(ee, function (el) {
+            // Do stuff here
+            el.innerHTML = e.options[e.selectedIndex].text;
+        });
+    }
+
+    function SubmitSelectLanguageForm(value) {
+        $("form#selectLanguageForm select#languageSelector").val(value);
+        $("form#selectLanguageForm").submit();
+    }
+</script>
