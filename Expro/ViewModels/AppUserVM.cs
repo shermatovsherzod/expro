@@ -72,6 +72,8 @@ namespace Expro.ViewModels
 
         public string DateRatingLastUpdated { get; set; }
 
+        public AttachmentDetailsVM Avatar { get; set; }
+
         //public string PhoneNumber { get; set; }
         //public DateTime DateOfBirth { get; set; }     
         //public string PatronymicName { get; set; }
@@ -176,6 +178,8 @@ namespace Expro.ViewModels
             DateRatingLastUpdated = DateTimeUtils.ConvertToString(
                 user.DateRatingLastUpdated,
                 AppData.Configuration.DateTimeViewStringFormat);
+
+            Avatar = new AttachmentDetailsVM(user.Avatar);
         }
     }
 
