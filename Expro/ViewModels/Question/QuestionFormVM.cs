@@ -14,7 +14,7 @@ namespace Expro.ViewModels
     {
         [Required]
         [StringLength(1024)]
-        [Display(Name = "Название")]
+        [Display(Name = "Тема")]
         public string Title { get; set; }
 
         public QuestionFreeCreateVM() { }
@@ -120,7 +120,7 @@ namespace Expro.ViewModels
     public class QuestionPaidEditVM : QuestionFreeEditVM
     {
         [Required]
-        [Display(Name = "Цена")]
+        [Display(Name = "Вознаграждение (в сумах)")]
         public int? Price { get; set; }
 
         public QuestionPaidEditVM() { }
