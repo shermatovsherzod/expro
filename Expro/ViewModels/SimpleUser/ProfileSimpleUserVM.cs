@@ -1,4 +1,5 @@
 ﻿using Expro.Common.Utilities;
+using Expro.Models;
 using Expro.Models.Enums;
 using Expro.ViewModels;
 using System;
@@ -7,7 +8,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 
-namespace Expro.Models
+namespace Expro.ViewModels.SimpleUser
 {
     public class ProfileSimpleUserVM
     {
