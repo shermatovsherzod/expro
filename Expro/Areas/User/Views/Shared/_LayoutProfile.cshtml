@@ -88,7 +88,7 @@
                             <div class="card mb-5">
                                 <div class="card-body">
                                     <!-- Avatar -->
-                                    @await Component.InvokeAsync("UserInfo")
+                                    @await Component.InvokeAsync("SimpleUserShortInfo")
 
                                     
                                     <!-- End Avatar -->
@@ -102,13 +102,12 @@
                                             <a class="nav-link" href="/User/Index"><i class="fas fa-id-card nav-icon"></i> Основная информация</a>
                                         </li>
                                         <li class="nav-item">
-                                            <a class="nav-link" href="/User/ExpertProfilePhoto"><i class="fas fa-image nav-icon"></i> Фото</a>
-                                        </li>
-                                      
+                                            <a class="nav-link" href="#"><i class="fas fa-image nav-icon"></i> Фото</a>
+                                        </li>                                      
 
                                         <li class="nav-item">
-                                            <a class="nav-link " href="account-login-and-security.html">
-                                                <i class="fas fa-shield-alt nav-icon"></i> Login &amp; security
+                                            <a class="nav-link " href="/Identity/Account/ChangePassword">
+                                                <i class="fas fa-shield-alt nav-icon"></i> Изменить пароль
                                             </a>
                                         </li>
                                         <li class="nav-item">

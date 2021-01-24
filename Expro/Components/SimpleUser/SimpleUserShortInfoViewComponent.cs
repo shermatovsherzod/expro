@@ -1,6 +1,7 @@
 ﻿using Expro.Models;
 using Expro.Utils;
 using Expro.ViewModels;
+using Expro.ViewModels.SimpleUser;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -10,11 +11,11 @@ using System.Threading.Tasks;
 
 namespace Expro.Components
 {
-    public class UserInfoViewComponent : ViewComponent
+    public class SimpleUserShortInfoViewComponent : ViewComponent
     {
         UserManager<ApplicationUser> _userManager;
 
-        public UserInfoViewComponent(UserManager<ApplicationUser> userManager)
+        public SimpleUserShortInfoViewComponent(UserManager<ApplicationUser> userManager)
         {
             _userManager = userManager;
         }
@@ -24,9 +25,9 @@ namespace Expro.Components
             AccountUtil accountUtil = new AccountUtil();
             var currentUserAccount = accountUtil.GetCurrentUser(this.HttpContext.User);
             var currentUser = _userManager.Users.FirstOrDefault(c => c.UserName == currentUserAccount.UserName);
-            ProfileSimpleUserVM vmodel = new ProfileSimpleUserVM(currentUser);
+            SimpleUserShortInfoVM vmodel = new SimpleUserShortInfoVM(currentUser);
 
-            return View("UserInfo", vmodel);
+            return View("SimpleUserShortInfo", vmodel);
         }
 
     }

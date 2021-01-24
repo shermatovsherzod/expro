@@ -2,11 +2,14 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Expro.Common;
 using Expro.Common.Utilities;
 using Expro.Controllers;
 using Expro.Models;
 using Expro.Services.Interfaces;
+using Expro.ViewModels;
 using Expro.ViewModels.Expert;
+using Expro.ViewModels.SimpleUser;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
@@ -35,20 +38,17 @@ namespace Expro.Areas.User.Controllers
             _genderService = genderService;
             _countryService = countryService;           
         }
-
-        public IActionResult Index(string message = "")
+       
+        public IActionResult Index()
         {
-            var currentUserAccount = accountUtil.GetCurrentUser(User);
-            var currentUser = _userManager.Users.FirstOrDefault(c => c.UserName == currentUserAccount.UserName);
-
-            ViewData["country"] = _countryService.GetAsSelectList();          
-            ViewData["regions"] = _regionService.GetAsSelectListOne(currentUser.RegionID);
-            ViewData["cities"] = _cityService.GetAsSelectListOne(currentUser.CityID);
-            ViewData["gender"] = _genderService.GetAsSelectListOne(currentUser.GenderID);
-            ViewBag.Message = message;
-            var userMainInfo = new ProfileSimpleUserVM(currentUser);
+            var userAccount = accountUtil.GetCurrentUser(User);
+            var user = _userManager.Users.FirstOrDefault(c => c.UserName == userAccount.UserName);
+            UserProfileViewData(user);
+            ViewBag.Message = false;
+            var userMainInfo = new ProfileSimpleUserVM(user);
             return View(userMainInfo);
         }
+
 
         [HttpPost]
         public async Task<ActionResult> Index(ProfileSimpleUserVM vmodel)
@@ -56,31 +56,44 @@ namespace Expro.Areas.User.Controllers
             var currentUserAccount = accountUtil.GetCurrentUser(User);
             var user = await _userManager.FindByIdAsync(currentUserAccount.ID);
 
-            ViewData["country"] = _countryService.GetAsSelectList();          
-            ViewData["regions"] = _regionService.GetAsSelectListOne(vmodel.RegionID);
-            ViewData["cities"] = _cityService.GetAsSelectListOne(vmodel.CityID);
-            ViewData["gender"] = _genderService.GetAsSelectListOne(vmodel.GenderID);
-            if (ModelState.IsValid && user != null)
+            UserProfileViewData(user);
+            ViewBag.Message = false;
+
+            if (user == null)
+            {
+                throw new Exception("Пользователь не найден");
+            }
+
+            if (ModelState.IsValid)
             {
                 user.FirstName = vmodel.FirstName;
                 user.LastName = vmodel.LastName;
                 user.PatronymicName = vmodel.PatronymicName;
                 user.RegionID = vmodel.RegionID;
                 user.CityID = vmodel.CityID;
-                user.DateOfBirth = DateTimeUtils.ConvertToDateTime(vmodel.DateOfBirth, "dd.MM.yyyy");
-                user.GenderID = vmodel.GenderID;             
+                user.CityOther = vmodel.CityOther;
+                user.DateOfBirth = DateTimeUtils.ConvertToDateTime(vmodel.DateOfBirth, AppData.Configuration.DateViewStringFormat);
+                user.GenderID = vmodel.GenderID;              
                 IdentityResult result = await _userManager.UpdateAsync(user);
+
                 if (result.Succeeded)
                 {
-                    return RedirectToAction("Index", new { message = "Изменения сохранены" });
-                }
-                else
-                {
+                    ViewBag.Message = true;
                     return View(vmodel);
                 }
+                throw new Exception("Изменения не сохранены. Что то пошло не так!");
             }
 
             return View(vmodel);
+        }
+
+
+        private void UserProfileViewData(ApplicationUser user)
+        {
+            ViewData["country"] = _countryService.GetAsSelectList();
+            ViewData["regions"] = _regionService.GetAsSelectListOne(user.RegionID);
+            ViewData["cities"] = _cityService.GetAsSelectListOne(user.CityID);
+            ViewData["gender"] = _genderService.GetAsSelectListOne(user.GenderID);          
         }
     }
 }
