@@ -20,6 +20,7 @@
     <link rel="stylesheet" href="~/lib/frontTheme/vendor/select2/dist/css/select2.min.css">
 
     <!-- CSS Front Template -->
+    @RenderSection("CustomFrontStyles", required: false)
     <link rel="stylesheet" href="~/lib/frontTheme/css/theme.min.css">
 </head>
 <body>
@@ -171,7 +172,6 @@
                         <!-- Body -->
                         <div class="card-body">
                             @RenderBody()
-                            hello
                         </div>
                         <!-- End Body -->
                     </div>

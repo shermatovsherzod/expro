@@ -197,7 +197,7 @@
                             }
                             html += '                       </div>';
                             html += '                   </div>';
-                            html += '                   <div class="col-12 col-md mt-3 mt-md-0">';
+                            html += '                   <div class="col-12 col-md mt-3 mt-md-2">';
                             if (full.priceType == '@((int)DocumentPriceTypesEnum.Paid)')
                                 html += '                   <span class="badge badge-soft-info">Вознаграждение: ' + full.priceStr + ' сум</span>';
                             html += InsertStatusAlert(full);
@@ -268,9 +268,9 @@
                     text = "Вопрос закрыт";
                 }
 
-                html += '<span class="badge badge-soft' + badgeClass + ' mr-2">';
-                html += '   <span class="legend-indicator bg' + badgeClass + '"></span>' + text;
-                html += '</span>';
+                html += '<div class="mt-2 alert alert-soft' + badgeClass + ' text-center rounded-0 mb-0" role="alert">';
+                html += text;
+                html += '</div>';
             }
 
             return html;

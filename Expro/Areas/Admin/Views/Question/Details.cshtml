@@ -68,10 +68,15 @@
         </div>
     </div>
     <!-- End Quill -->
-    <div class="mt-5">
-        <i class="fa fa-file" aria-hidden="true"></i>
-        <a href="@Model.Attachment.Url">@Model.Attachment.DisplayName</a>
-    </div>
+
+    @if (Model.Attachment != null && Model.Attachment.ID > 0)
+    {
+        <div class="mt-5">
+            <i class="fa fa-file" aria-hidden="true"></i>
+            <a href="@Model.Attachment.Url">@Model.Attachment.DisplayName</a>
+        </div>
+    }
+        
     <!-- Badges -->
     <div class="mt-5">
         @foreach (var item in Model.LawAreas)
@@ -144,22 +149,12 @@
     </div>
 </div>
 
-
-
-<style>
-    .cke_reset .cke_top,
-    .cke_reset .cke_bottom {
-        display: none !important;
-    }
-</style>
-
 @section CustomFrontStyles
 {
     <link rel="stylesheet" href="~/lib/frontTheme/vendor/quill/dist/quill.snow.css">
 }
 
 @section Scripts {
-    <script src="~/lib/ckeditor_4.15.0_standard/ckeditor/ckeditor.js"></script>
     <script src="~/lib/frontTheme/vendor/quill/dist/quill.min.js"></script>
 
     <script>
@@ -240,26 +235,5 @@
         function ShowFormSpinner() {
             $(".spinner").show();
         }
-    </script>
-    <script>
-        function InitCKEDITORForView() {
-            var configViewMode =
-            {
-                extraPlugins: 'autogrow',
-                autoGrow_minHeight: 1,
-                autoGrow_maxHeight: 100000,
-                autoGrow_onStartup: true,
-                readOnly: true
-            }
-
-            $('.editorViewMode').each(function (e) {
-                CKEDITOR.replace(this.id, configViewMode);
-            });
-        }
-    </script>
-    <script>
-        //SetDocumentType("@ViewData["DocumentType"]");
-
-        InitCKEDITORForView();
     </script>
 }

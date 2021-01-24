@@ -35,6 +35,9 @@ namespace Expro.ViewModels
         [Display(Name = "Дата публикации")]
         public string DatePublished { get; set; }
 
+        public bool IsCompleted { get; set; }
+        public bool FeeIsDistributed { get; set; }
+
         public QuestionListItemForSiteVM() { }
 
         public QuestionListItemForSiteVM(Question model)
@@ -70,6 +73,9 @@ namespace Expro.ViewModels
 
             Author = new AppUserVM(model.Creator);
             DatePublished = DateTimeUtils.ConvertToString(model.DateApproved);
+
+            IsCompleted = model.QuestionIsCompleted ?? false;
+            FeeIsDistributed = model.QuestionFeeIsDistributed ?? false;
         }
     }
 

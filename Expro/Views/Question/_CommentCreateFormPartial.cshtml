@@ -16,13 +16,23 @@
     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
     <div class="form-group">
         <label asp-for="Text" class="control-label"></label>
-        <textarea asp-for="Text" id="commentText" class="form-control ckeditorEditMode"></textarea>
+        <textarea asp-for="Text" id="commentText" class="form-control"></textarea>
         <span asp-validation-for="Text" class="text-danger"></span>
     </div>
     <div class="form-group">
+        <label for="attachment" class="control-label"></label>
+        <div class="custom-file">
+            <input type="file" class="js-file-attach custom-file-input" id="attachment"
+                   data-hs-file-attach-options='{
+                  "textTarget": "[for=\"attachment\"]"
+               }'>
+            <label class="custom-file-label" for="attachment">Выберите файл</label>
+        </div>
+    </div>
+    @*<div class="form-group">
         <label for="attachmentID" class="control-label"></label>
         <input type="file" id="attachment" class="form-control" />
-    </div>
+    </div>*@
     <div class="form-group">
         <button type="submit" class="btn btn-primary">Отправить</button>
         <div class="spinner-border spinner" style="display: none;"></div>

@@ -1,0 +1,466 @@
+﻿@model Expro.ViewModels.QuestionDetailsForSiteVM
+@using Expro.ViewModels
+@using Expro.Models.Enums
+@using Expro.Common
+
+@{
+    ViewData["Title"] = "Вопрос - детали";
+    //ViewData["DocumentType"] = DocumentTypesEnum.QuestionDocument;
+    bool? curUserIsAllowedToAnswer = ViewData["curUserIsAllowedToAnswer"] as bool?;
+    bool? curUserIsAllowedToComment = ViewData["curUserIsAllowedToComment"] as bool?;
+    bool? curUserIsAllowedToDistributeFee = ViewData["curUserIsAllowedToDistributeFee"] as bool?;
+    bool? curUserIsAllowedToComplete = ViewData["curUserIsAllowedToComplete"] as bool?;
+}
+
+<h1>@ViewData["Title"]</h1>
+<hr />
+
+@if (ViewData["successMessage"] != null)
+{
+    <div class="alert alert-success">
+        @ViewData["successMessage"]
+    </div>
+}
+
+<div>
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Title)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Title)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Author)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Author.FullName)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.DatePublished)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.DatePublished)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.LawAreas)
+        </dt>
+        <dd class="col-sm-10">
+            @foreach (var lawArea in Model.LawAreas)
+            {
+                <span class="badge badge-primary">@lawArea.Name</span>
+            }
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Text)
+        </dt>
+        <dd class="col-sm-10">
+            @*@Html.Raw(Model.Text)*@
+            <textarea class="editorViewMode" id="questionText">@Html.Raw(Model.Text)</textarea>
+        </dd>
+        @if (Model.Attachment != null && Model.Attachment.ID > 0)
+        {
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Attachment)
+            </dt>
+            <dd class="col-sm-10">
+                <a href="@Model.Attachment.Url">@Model.Attachment.DisplayName</a>
+            </dd>
+        }
+
+        @if (Model.PriceType == DocumentPriceTypesEnum.Paid)
+        {
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.PriceStr)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.PriceStr) сум
+            </dd>
+        }
+    </dl>
+</div>
+
+<hr />
+<h3>Ответы</h3>
+<div class="row" id="answers">
+    @if (Model.IsCompleted)
+    {
+        if (Model.FeeIsDistributed)
+        {
+            <div class="alert alert-success">
+                Вопрос решен
+            </div>
+        }
+        else
+        {
+            <div class="alert alert-warning">
+                Вопрос закрыт
+            </div>
+        }
+    }
+    else
+    {
+        if (Model.PriceType == DocumentPriceTypesEnum.Paid)
+        {
+            if (curUserIsAllowedToDistributeFee.Value)
+            {
+                <div class="col-12" style="margin-bottom: 20px; margin-top: 20px;">
+                    <button class="btn btn-info" data-toggle="modal" data-target="#moneyDistributionModal">Распределить гонорар</button>
+                </div>
+            }
+
+            if (curUserIsAllowedToComplete.Value)
+            {
+                <div class="col-12" style="margin-bottom: 20px; margin-top: 20px;">
+                    <button class="btn btn-danger" id="closeQuestionBtn" onclick="CloseQuestion();">Закрыть вопрос</button>
+                    <div class="spinner-border spinner" style="display: none;"></div>
+                </div>
+            }
+        }
+
+        if (curUserIsAllowedToAnswer.Value)
+        {
+            <div class="col-12" style="margin-bottom: 20px; margin-top: 20px;">
+                <button class="btn btn-success" data-toggle="collapse" data-target="#addAnswerContainer">Написать ответ</button>
+            </div>
+        }
+    }
+
+    @if (Model.Answers.Count > 0)
+    {
+        foreach (var answer in Model.Answers)
+        {
+            <div class="col-12">
+                <div class="card bg-light text-dark" style="margin-bottom: 20px;">
+                    @{
+                        string feeStr = "";
+                        if (!string.IsNullOrWhiteSpace(answer.PaidFeeStr))
+                        {
+                            feeStr = "Получен гонорар: " + answer.PaidFeeStr + " сум";
+                        }
+                    }
+                    @{ 
+                        string isOnline = answer.Author.IsOnline ? "(онлайн)" : "";
+                    }
+                    <div class="card-header"><span class="text-success">@feeStr</span> @answer.Author.FullName <span class="text-success">@isOnline</span> @answer.DatePublished</div>
+                    <div class="card-body">
+                        <textarea class="editorViewMode" id="answerText_@answer.ID">@Html.Raw(answer.Text)</textarea>
+                        @if (answer.Attachment.ID > 0)
+                        {
+                            <p><a href="@answer.Attachment.Url">@answer.Attachment.DisplayName</a></p>
+                            <br />
+                        }
+
+                        @if (User.Identity.IsAuthenticated)
+                        {
+                            <div id="likesInfoBox_@answer.ID">
+                                @if (answer.ViewerUserHasLikeOrDislike.HasValue)
+                                {
+                                    if (answer.ViewerUserHasLikeOrDislike.Value == true)
+                                    {
+                                        <span><a href="javascript:void(0)" class="text-info">Лайки</a>: @answer.PositiveLikesCount, </span>
+                                        <span><a href="javascript:void(0)" class="text-dark">Дислайки</a>: @answer.NegativeLikesCount</span>
+                                    }
+                                    else
+                                    {
+                                        <span><a href="javascript:void(0)" class="text-dark">Лайки</a>: @answer.PositiveLikesCount, </span>
+                                        <span><a href="javascript:void(0)" class="text-info">Дислайки</a>: @answer.NegativeLikesCount</span>
+                                    }
+                                }
+                                else
+                                {
+                                    <span><a href="javascript:void(0)" class="text-dark" onclick="Like(@answer.ID)">Лайки</a>: @answer.PositiveLikesCount, </span>
+                                    <span><a href="javascript:void(0)" class="text-dark" onclick="Dislike(@answer.ID)">Дислайки</a>: @answer.NegativeLikesCount</span>
+                                }
+
+                                @*@{ 
+                                    string likeIconTextColor = "text-dark";
+                                    if (answer.ViewerUserHasLikeOrDislike.HasValue
+                                       && answer.ViewerUserHasLikeOrDislike.Value == true)
+                                    {
+                                        likeIconTextColor = "text-info";
+                                    }
+                                    <span><a href="javascript:void(0)" class="@likeIconTextColor" onclick="Like(@answer.ID)">Лайки</a>: @answer.PositiveLikesCount, </span>
+
+                                    string dislikeIconTextColor = "text-dark";
+                                    if (answer.ViewerUserHasLikeOrDislike.HasValue
+                                       && answer.ViewerUserHasLikeOrDislike.Value == false)
+                                    {
+                                        dislikeIconTextColor = "text-info";
+                                    }
+                                    <span><a href="javascript:void(0)" class="@dislikeIconTextColor" onclick="Dislike(@answer.ID)">Дислайки</a>: @answer.NegativeLikesCount</span>
+                                }*@
+
+                                <div class="spinner-border spinner" style="display: none;"></div>
+                            </div>
+                        }
+                        else
+                        {
+                            <div>
+                                <a href="javascript:void(0)" data-toggle="popover" data-trigger="focus" @*title="Popover Header"*@ data-html="true" data-content="<a href='/Identity/Account/Login?returnUrl=@ViewData["curPageUrl"]'>Войдите</a>, чтобы лайкнуть">Лайки</a>: @answer.PositiveLikesCount, 
+                                <a href="javascript:void(0)" data-toggle="popover" data-trigger="focus" @*title="Popover Header"*@ data-html="true" data-content="Some <a href='/Identity/Account/Login?returnUrl=@ViewData["curPageUrl"]'>Войдите</a>, чтобы дислайкнуть">Дислайки</a>: @answer.NegativeLikesCount
+                            </div>
+                        }
+
+                        @if (curUserIsAllowedToComment.Value && !Model.IsCompleted)
+                        {
+                            <p><button class="btn btn-link" data-toggle="collapse" data-target="#addCommentContainer" onclick="SetCommentObjectID(@answer.ID);">Комментировать</button></p>
+                        }
+                    </div>
+                    <div class="card-footer">
+                        @{
+                            Stack<CommentDetailsVM> commentsStack = new Stack<CommentDetailsVM>();
+
+                            var rootComments = answer.Comments.Where(m => !m.ParentID.HasValue).OrderByDescending(m => m.ID).ToList();
+                            foreach (var rootComment in rootComments)
+                            {
+                                rootComment.DepthLevel = 0;
+                                commentsStack.Push(rootComment);
+                            }
+
+                            int paddingInt = 0;
+
+                            while (commentsStack.Count > 0)
+                            {
+                                CommentDetailsVM currentComment = commentsStack.Pop();
+
+                                paddingInt = currentComment.DepthLevel * 20;
+                                string paddingStr = paddingInt + "px";
+
+                                <div style="padding-left: @paddingStr; margin-bottom: 20px;">
+                                    <div class="card">
+                                        <div class="card-header">@currentComment.Author.FullName @currentComment.DatePublished</div>
+                                        <div class="card-body">
+                                            <textarea class="editorViewMode" id="commentText_@currentComment.ID">@Html.Raw(currentComment.Text)</textarea>
+                                            @*<p>@Html.Raw(currentComment.Text)</p>*@
+                                            @if (currentComment.Attachment.ID > 0)
+                                            {
+                                                <p><a href="@currentComment.Attachment.Url">@currentComment.Attachment.DisplayName</a></p>
+                                                <br />
+                                            }
+                                            @if (curUserIsAllowedToComment.Value && !Model.IsCompleted)
+                                            {
+                                                <p><button class="btn btn-link" data-toggle="collapse" data-target="#addCommentContainer" onclick="SetCommentObjectID(@answer.ID, @currentComment.ID);">Комментировать</button></p>
+                                            }
+                                        </div>
+                                    </div>
+                                </div>
+
+                                var children = answer.Comments.Where(m => m.ParentID == currentComment.ID).OrderByDescending(m => m.ID).ToList();
+                                if (children.Count > 0)
+                                {
+                                    foreach (var childComment in children)
+                                    {
+                                        childComment.DepthLevel = currentComment.DepthLevel + 1;
+                                        commentsStack.Push(childComment);
+                                    }
+                                }
+                            }
+                        }
+                    </div>
+                </div>
+            </div>
+        }
+
+        if (!Model.IsCompleted && curUserIsAllowedToAnswer.Value)
+        {
+            <div class="col-12" style="margin-bottom: 20px; margin-top: 20px;">
+                <button class="btn btn-success" data-toggle="collapse" data-target="#addAnswerContainer">Написать ответ</button>
+            </div>
+        }
+    }
+    else
+    {
+        <p><small>Ответов нет</small></p>
+    }
+</div>
+
+@{
+    ViewData["objectID"] = Model.ID;
+    if (curUserIsAllowedToAnswer.Value)
+    {
+    <div id="addAnswerContainer" class="collapse">
+        @if (ViewData["userIsAllowedToWorkWithPaidMaterials"] == null
+          || bool.Parse(ViewData["userIsAllowedToWorkWithPaidMaterials"].ToString()))
+        {
+            await Html.RenderPartialAsync("_AnswerCreateFormPartial", new Expro.ViewModels.QuestionAnswerCreateVM());
+        }
+        else
+        {
+            <div class="alert alert-danger">Пулли саволга жавоб ёзиш учун 100 рейтинг тўпланг ва маълумотингизни (диплом) тасдиқланг. Батафсил маълумот учун <a href="#">Пулли хизмат кўрсатиш шартларини ўқинг</a></div>
+        }
+    </div>
+    }
+
+    if (curUserIsAllowedToComment.Value)
+    {
+        ViewData["commentType"] = Constants.CommentTypes.QUESTION_ANSWER;
+        <div id="addCommentContainer" class="collapse">
+            @{ await Html.RenderPartialAsync("_CommentCreateFormPartial", new Expro.ViewModels.CommentCreateVM()); }
+        </div>
+    }
+
+    if (curUserIsAllowedToDistributeFee.Value)
+    {
+        await Html.RenderPartialAsync("_MoneyDistributionFormPartial", Model.Answers);
+    }
+}
+
+<div>
+    <a asp-action="Index">Назад</a>
+</div>
+
+<style>
+    /*.cke_reset {
+        border: none !important;
+    }*/
+
+    #answers .cke_reset .cke_top,
+    #answers .cke_reset .cke_bottom {
+        display: none !important;
+    }
+</style>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+
+    <script src="~/lib/ckeditor_4.15.0_standard/ckeditor/ckeditor.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            InitCollapsibleItems();
+            InitCKEDITORForView();
+            InitCKEDITOR();
+            InitPopover();
+
+            //var addAnswerForm = document.getElementById("addAnswerForm");
+            //$.validator.unobtrusive.parse(addAnswerForm);
+        });
+
+        function InitCollapsibleItems() {
+            $(".collapse#addAnswerContainer").on('shown.bs.collapse', function () {
+                $([document.documentElement, document.body]).animate({
+                    scrollTop: $(".collapse#addAnswerContainer").offset().top
+                }, 500);
+            });
+
+            $(".collapse#addCommentContainer").on('shown.bs.collapse', function () {
+                $([document.documentElement, document.body]).animate({
+                    scrollTop: $(".collapse#addCommentContainer").offset().top
+                }, 500);
+            });
+        }
+
+        function InitCKEDITORForView() {
+            var configViewMode =
+            {
+                extraPlugins: 'autogrow',
+                autoGrow_minHeight: 1,
+                autoGrow_maxHeight: 100000,
+                autoGrow_onStartup: true,
+                readOnly: true
+            }
+
+            $('.editorViewMode').each(function (e) {
+                CKEDITOR.replace(this.id, configViewMode);
+            });
+
+            //CKEDITOR.config.extraPlugins = 'autogrow';
+            //CKEDITOR.config.autoGrow_minHeight = 50;
+            //CKEDITOR.config.autoGrow_maxHeight = 100000;
+            //CKEDITOR.config.autoGrow_onStartup = true;
+            //CKEDITOR.config.readOnly = true;
+        }
+
+        function InitCKEDITOR() {
+            $('.ckeditorEditMode').each(function (e) {
+                CKEDITOR.replace(this.id);
+            });
+
+        }
+
+        function CloseQuestion() {
+            if (!confirm("Вы уверены, что хотите закрыть вопрос, не распределив гонорар?"))
+                return;
+
+            $.ajax({
+                url: "/Question/Complete/@Model.ID",
+                //data: JSON.stringify(data),
+                processData: false,
+                contentType: "application/json; charset=utf-8",
+                type: "POST",
+                //dataType: "json",
+                beforeSend: function () {
+                    $("button#closeQuestionBtn").parent().children(".spinner").show();
+                    $("button").attr("disabled", "disabled");
+                },
+                success: function (data) {
+                    location.reload();
+                    //alert("File uploaded!");
+                },
+                error: function (data) {
+                    alert(data.responseJSON.errorMessage);
+                    $("button").removeAttr("disabled");
+                },
+                complete: function () {
+                    //$("#" + spinnerTagID).hide();
+                    //$(input).removeAttr("disabled");
+                }
+            });
+        }
+
+        function InitPopover() {
+            $(document).ready(function () {
+                $('[data-toggle="popover"]').popover();
+            });
+        }
+    </script>
+
+    <script>
+        function Like(answerID, isLike) {
+            var isPositive = true;
+            if (isLike == false)
+                isPositive = false;
+
+            var likeData = {
+                ObjectID: answerID,
+                IsPositive: isPositive,
+                LikeType: "@Constants.LikeTypes.QUESTION_ANSWER"
+            };
+
+            $.ajax({
+                url: "/Like/Save",
+                data: JSON.stringify(likeData),
+                processData: false,
+                contentType: "application/json; charset=utf-8",
+                type: "POST",
+                //dataType: "json",
+                beforeSend: function () {
+                    //$(".errorMessage, .successMessage").hide().text("");
+                    $("#likesInfoBox_" + answerID + " .spinner").show();
+                    $("#likesInfoBox_" + answerID + " a").attr("disabled", "disabled");
+                },
+                success: function (data) {
+                    //$("#moneyDistributionModal .successMessage")
+                    //    .text(data.successMessage)
+                    //    .show();
+
+                    location.reload();
+                    //alert("File uploaded!");
+                },
+                error: function (data) {
+                    $("#likesInfoBox_" + answerID + " .spinner").hide();
+                    $("#likesInfoBox_" + answerID + " a").removeAttr("disabled");
+                },
+                complete: function () {
+                    //$("#" + spinnerTagID).hide();
+                    //$(input).removeAttr("disabled");
+                }
+            });
+        }
+
+        function Dislike(answerID) {
+            Like(answerID, false);
+        }
+    </script>
+}
