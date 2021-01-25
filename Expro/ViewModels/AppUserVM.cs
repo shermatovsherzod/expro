@@ -179,7 +179,7 @@ namespace Expro.ViewModels
                 user.DateRatingLastUpdated,
                 AppData.Configuration.DateTimeViewStringFormat);
 
-            Avatar = new AttachmentDetailsVM(user.Avatar);
+            //Avatar = new AttachmentDetailsVM(user.Avatar);
         }
     }
 

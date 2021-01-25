@@ -119,7 +119,7 @@ namespace Expro.Models
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseLazyLoadingProxies();            
+            optionsBuilder.UseLazyLoadingProxies();
         }
 
         public virtual void Commit()
@@ -133,7 +133,7 @@ namespace Expro.Models
         public DbSet<Country> Countries { get; set; }
         public DbSet<Region> Regions { get; set; }
         public DbSet<City> Cities { get; set; }
-        public DbSet<Attachment> Attachments{ get; set; }
+        public DbSet<Attachment> Attachments { get; set; }
         public DbSet<ExpertEducation> ExpertEducations { get; set; }
         public DbSet<WorkExperience> WorkExperiences { get; set; }
         public DbSet<Document> Documents { get; set; }
