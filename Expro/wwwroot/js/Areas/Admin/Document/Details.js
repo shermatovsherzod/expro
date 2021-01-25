@@ -56,17 +56,19 @@ function ShowFormSpinner() {
     $(".spinner").show();
 }
 
-function InitCKEDITORForView() {
-    var configViewMode =
-    {
-        extraPlugins: 'autogrow',
-        autoGrow_minHeight: 1,
-        autoGrow_maxHeight: 100000,
-        autoGrow_onStartup: true,
-        readOnly: true
-    }
+function InitQuill() {
+    // INITIALIZATION OF QUILLJS EDITOR
+    // =======================================================
+    var options = {
+        //debug: 'info',
+        //modules: {
+        //    toolbar: '#toolbar'
+        //},
+        //placeholder: 'Compose an epic...',
+        readOnly: true,
+        //theme: 'snow'
+    };
+    var quill = $.HSCore.components.HSQuill.init('.js-quill', options);
 
-    $('.editorViewMode').each(function (e) {
-        CKEDITOR.replace(this.id, configViewMode);
-    });
+    return quill;
 }
