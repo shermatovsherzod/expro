@@ -159,6 +159,8 @@ namespace Expro.Controllers
                 }
             }
 
+            ViewData["curPageUrl"] = Request.Path.Value;
+
             return View(documentVM);
         }
 

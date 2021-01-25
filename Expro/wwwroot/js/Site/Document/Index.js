@@ -57,28 +57,53 @@ $(document).ready(function () {
                 "data": 0, //"name": "statusId", "autoWidth": true,
                 "render": function (data, type, full, meta) {
                     var html = '';
-                    html += '<div class="card" style="margin-top: 10px;">';
+                    var url = '/' + documentType + '/Details/' + full.id;
+
+                    //html += '<div class="col-12">';
+                    html += '<div class="card card-bordered card-hover-shadow mb-5">';
                     html += '   <div class="card-body">';
-                    html += '       <h3><a href="/' + documentType + '/Details/' + full.id + '" target="_blank">' + full.title + '</a></h3>';
-
-                    if (full.contentType == documentContentTypeFile)
-                        html += '   <p>Есть вложенный файл</p>';
-                    //else
-                    //    html += '   <p>' + full.text + '</p>';
-
-                    html += '       <p>Дата публикации: ' + full.datePublished + '</p>';
-                    html += '       <p>Автор: <a href="#">' + full.author.fullName + '</a></p>';
-                    html += '       <p>';
-                    for (var i = 0; i < full.lawAreas.length; i++) {
-                        html += '       <span class="badge badge-primary">' + full.lawAreas[i].name + '</span>';
+                    html += '       <div class="d-sm-flex">';
+                    html += '           <div class="media-body">';
+                    html += '               <div class="row">';
+                    html += '                   <div class="col col-md-8">';
+                    html += '                       <h3 class="mb-0">';
+                    html += '                           <a class="text-dark" href="' + url + '" target="_blank">' + full.title + '</a>';
+                    html += '                       </h3>';
+                    html += '                       <div class="d-none d-sm-inline-block">';
+                    html += '                           <h6 class="mb-0">';
+                    html += '                               <p class="text-muted">';
+                    if (full.contentType == documentContentTypeFile) {
+                        html += '                               <i class="fa fa-file" aria-hidden="true"></i> Есть вложенный файл';
                     }
-                    html += '       </p>';
-                    //console.log(full.title);
-                    //console.log(full.priceType);
+                    else {
+                        html += full.text;
+                    }
+                    html += '                               </p>';
+                    html += '                           </h6>';
+                    html += '                       </div>';
+                    html += '                       <div class="d-none d-sm-block">';
+                    for (var i = 0; i < full.lawAreas.length; i++) {
+                        html += '                       <span class="badge badge-primary">' + full.lawAreas[i].name + '</span>';
+                    }
+                    html += '                       </div>';
+                    html += '                   </div>';
+                    html += '                   <div class="col-12 col-md mt-3 mt-md-2">';
                     if (full.priceType == documentPriceTypePaid)
-                        html += '   <p>Цена: <b class="text-danger">' + full.priceStr + ' сум</b></p>';
+                        html += '                   <span class="badge badge-soft-info">Цена: ' + full.priceStr + ' сум</span>';
+                    html += '                   </div>';
+                    html += '               </div>';
+                    html += '           </div>';
+                    html += '       </div>';
+                    html += '   </div>';
+                    html += '   <div class="card-footer">';
+                    html += '       <ul class="list-inline list-separator small text-body">';
+                    html += '           <li class="list-inline-item">Автор: ' + full.author.fullName + '</li>';
+                    html += '           <li class="list-inline-item">Дата публикации: ' + full.datePublished + '</li>';
+                    html += '       </ul>';
                     html += '   </div>';
                     html += '</div>';
+                    //html += '</div>';
+
                     return html;
                 }
             }
@@ -98,3 +123,18 @@ $(document).ready(function () {
         table.draw();
     });
 });
+
+function InitHSPlugins() {
+    // INITIALIZATION OF SELECT2
+    // =======================================================
+    $('.js-custom-select').each(function () {
+        var select2 = $.HSCore.components.HSSelect2.init($(this));
+    });
+
+
+    //// INITIALIZATION OF ION RANGE SLIDER
+    //// =======================================================
+    //$('.js-ion-range-slider').each(function () {
+    //    var ionRangeSlider = $.HSCore.components.HSIonRangeSlider.init($(this));
+    //});
+}
