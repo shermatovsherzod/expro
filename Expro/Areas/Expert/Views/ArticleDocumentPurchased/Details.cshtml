@@ -5,29 +5,39 @@
     ViewData["Title"] = "Купленная Статья";
 }
 
-<h1>@ViewData["Title"]</h1>
+<div class="w-lg-60 mx-lg-auto">
+    <h2>@ViewData["Title"]</h2>
 
-@await Html.PartialAsync("/Views/Shared/DocumentPurchasedPartials/_Details.cshtml", Model)
+    @await Html.PartialAsync("/Views/Shared/DocumentPurchasedPartials/_Details.cshtml", Model)
+</div>
+
+@section CustomFrontStyles
+{
+    <link rel="stylesheet" href="~/lib/frontTheme/vendor/quill/dist/quill.snow.css">
+}
 
 @section Scripts {
-    <script src="~/lib/ckeditor_4.15.0_standard/ckeditor/ckeditor.js"></script>
+    <script src="~/lib/frontTheme/vendor/quill/dist/quill.min.js"></script>
     <script>
-        function InitCKEDITORForView() {
-            var configViewMode =
-            {
-                extraPlugins: 'autogrow',
-                autoGrow_minHeight: 1,
-                autoGrow_maxHeight: 100000,
-                autoGrow_onStartup: true,
-                readOnly: true
-            }
+        $(document).ready(function () {
+            InitQuill();
+        });
 
-            $('.editorViewMode').each(function (e) {
-                CKEDITOR.replace(this.id, configViewMode);
-            });
+        function InitQuill() {
+            // INITIALIZATION OF QUILLJS EDITOR
+            // =======================================================
+            var options = {
+                //debug: 'info',
+                //modules: {
+                //    toolbar: '#toolbar'
+                //},
+                //placeholder: 'Compose an epic...',
+                readOnly: true,
+                //theme: 'snow'
+            };
+            var quill = $.HSCore.components.HSQuill.init('.js-quill', options);
+
+            return quill;
         }
-    </script>
-    <script>
-        InitCKEDITORForView();
     </script>
 }
