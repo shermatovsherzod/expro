@@ -7,149 +7,176 @@
     ViewData["Title"] = "Редактировать платный Образцовый документ";
 }
 
-<h1>@ViewData["Title"]</h1>
-<hr />
-@if (ViewData["successfullySaved"] != null)
-{
-    <div class="alert alert-success">
-        Данные успешно сохранены
+<form asp-action="EditPaid" id="editForm">
+    <div class="border-bottom mb-4">
+        <h2>@ViewData["Title"]</h2>
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
     </div>
-}
-@if (Model.StatusID == (int)DocumentStatusesEnum.WaitingForApproval)
-{
-    <div class="alert alert-info">
-        Документ отправлен на подтверждение
-    </div>
-}
-else if (Model.StatusID == (int)DocumentStatusesEnum.Approved)
-{
-    <div class="alert alert-success">
-        Документ подтвержден администратором
-    </div>
-}
-else if (Model.StatusID == (int)DocumentStatusesEnum.Rejected)
-{
-    <div class="alert alert-danger">
-        Документ отменен администратором
-    </div>
-}
-<div class="row">
-    <div class="col-md-12">
-        <form asp-action="EditPaid" id="editForm">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input asp-for="StatusID" type="hidden" />
-            <div class="form-group">
-                <label asp-for="Title" class="control-label"></label>
-                <input asp-for="Title" class="form-control" />
-                <span asp-validation-for="Title" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="LanguageID" class="control-label"></label>
-                <select asp-for="LanguageID"
-                        asp-items="@ViewData["languages"] as IEnumerable<SelectListItem>"
-                        class="form-control">
-                </select>
-                <span asp-validation-for="LanguageID" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="LawAreas" class="control-label"></label>
-                <div>
-                    <select asp-for="LawAreas"
-                            class="selectpicker"
-                            title="Выберите"
-                            multiple
-                            data-selected-text-format="count > 3">
-                        @{
-                            var items = ViewData["lawAreas"] as List<SelectListItemWithParent>;
-                            var parentItems = items.Where(m => m.ParentValue == "").ToList();
-                            for (int i = 0; i < parentItems.Count; i++)
-                            {
-                                <option value="@parentItems[i].Value" data-content="<b>@parentItems[i].Text</b>">@parentItems[i].Text</option>
+    <input asp-for="StatusID" type="hidden" />
 
-                                var childItems = items.Where(m => m.ParentValue == parentItems[i].Value).ToList();
-                                foreach (var childItem in childItems)
-                                {
-                                    <option value="@childItem.Value" data-content="- @childItem.Text">@childItem.Text</option>
-                                }
+    @if (ViewData["successfullySaved"] != null)
+    {
+        <div class="alert alert-soft-success text-center rounded-0 mb-0" role="alert">
+            Данные успешно сохранены
+        </div>
+        <br />
+    }
+    @if (Model.StatusID == (int)DocumentStatusesEnum.WaitingForApproval)
+    {
+        <div class="alert alert-soft-info text-center rounded-0 mb-0" role="alert">
+            Документ отправлен на подтверждение
+        </div>
+    }
+    else if (Model.StatusID == (int)DocumentStatusesEnum.Approved)
+    {
+        <div class="alert alert-soft-success text-center rounded-0 mb-0" role="alert">
+            Документ подтвержден администратором
+        </div>
+    }
+    else if (Model.StatusID == (int)DocumentStatusesEnum.Rejected)
+    {
+        <div class="alert alert-soft-danger text-center rounded-0 mb-0" role="alert">
+            Документ подтвержден администратором
+        </div>
+    }
 
-                                if (i < parentItems.Count - 1)
-                                {
-                                    <option data-divider="true"></option>
-                                }
-                            }
-                        }
-                    </select>
-                </div>
-                <span asp-validation-for="LawAreas" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input asp-for="ContentType" type="radio" value="@DocumentContentTypesEnum.file">
-                <label asp-for="AttachmentID" class="control-label"></label>
-                <input asp-for="AttachmentID" type="hidden" />
+    <!-- Form Group -->
+    <div class="form-group">
+        <label asp-for="Title" class="control-label"></label>
+        <input asp-for="Title" class="form-control" />
+        <span asp-validation-for="Title" class="text-danger"></span>
+    </div>
+    <!-- End Form Group -->
+
+    <div class="form-group">
+        <label asp-for="LanguageID" class="control-label"></label>
+        <select asp-for="LanguageID"
+                asp-items="@ViewData["languages"] as IEnumerable<SelectListItem>"
+                class="js-custom-select custom-select" size="1" style="opacity: 0;"
+                data-hs-select2-options='{
+                      "minimumResultsForSearch": "Infinity"
+                    }'>
+        </select>
+        <span asp-validation-for="LanguageID" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="LawAreas" class="control-label"></label>
+        <div>
+            <select asp-for="LawAreas"
+                    class="js-custom-select custom-select" size="1" multiple style="opacity: 0;"
+                    data-hs-select2-options='{
+                      "minimumResultsForSearch": "Infinity"
+                    }'>
                 @{
-                    string fileInputDisplayStyle = "";
-                    string existingFileContainerDisplayStyle = "";
+                    var items = ViewData["lawAreas"] as List<SelectListItemWithParent>;
+                    var parentItems = items.Where(m => m.ParentValue == "").ToList();
+                    for (int i = 0; i < parentItems.Count; i++)
+                    {
+                        <option value="@parentItems[i].Value" data-option-template="<b>@parentItems[i].Text</b>">@parentItems[i].Text</option>
 
-                    if (Model.AttachmentID.HasValue)
-                    {
-                        fileInputDisplayStyle = "style=display:none;";
-                    }
-                    else
-                    {
-                        existingFileContainerDisplayStyle = "style=display:none;";
+                        var childItems = items.Where(m => m.ParentValue == parentItems[i].Value).ToList();
+                        foreach (var childItem in childItems)
+                        {
+                            <option value="@childItem.Value" data-option-template="- @childItem.Text">@childItem.Text</option>
+                        }
                     }
                 }
-
-                <input type="file" id="fileInput" class="form-control" @fileInputDisplayStyle />
-
-                <div id="existingFileContainer" @existingFileContainerDisplayStyle>
-                    @if (Model.Attachment != null)
-                    {
-                        <button id="deleteFileBtn" type="button" class="btn btn-danger" onclick="DeleteFile(@Model.Attachment.ID, '@Model.Attachment.Path');">X</button>
-                        <a href="@Model.Attachment.Url">@Model.Attachment.DisplayName</a>
-                    }
-                </div>
-
-                <div class="spinner-border spinner" id="fileUploadSpinner" style="display: none;"></div>
-                <span asp-validation-for="AttachmentID" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input asp-for="ContentType" type="radio" value="@DocumentContentTypesEnum.text">
-                <label asp-for="Text" class="control-label"></label>
-                <textarea asp-for="Text" class="form-control"></textarea>
-                <span asp-validation-for="Text" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Price" class="control-label"></label>
-                <input asp-for="Price" class="form-control" />
-                <span asp-validation-for="Price" class="text-danger"></span>
-            </div>
-            <div class="form-group" id="actionButtonsBox">
-                <input asp-for="ActionType" type="hidden" />
-                <button type="submit" class="btn btn-primary" actiontype="@DocumentActionTypesEnum.saveAsDraft">Сохранить как черновик</button>
-                <button type="submit" class="btn btn-primary" actiontype="@DocumentActionTypesEnum.submitForApproval">Отправить на подтверждение</button>
-                <div class="spinner-border spinner" style="display: none;"></div>
-            </div>
-
-            @*<div class="alert alert-info" id="alertSubmittedForApproval" style="display: none;">Документ отправлен на подтверждение</div>*@
-        </form>
+            </select>
+            <!-- End Select -->
+        </div>
+        <span asp-validation-for="LawAreas" class="text-danger"></span>
     </div>
-</div>
+
+    <div class="form-group">
+        <input asp-for="ContentType" type="radio" value="@DocumentContentTypesEnum.file">
+        <label asp-for="AttachmentID" class="control-label"></label>
+        <input asp-for="AttachmentID" type="hidden" />
+        @{
+            string fileInputDisplayStyle = "";
+            string existingFileContainerDisplayStyle = "";
+
+            if (Model.AttachmentID.HasValue)
+            {
+                fileInputDisplayStyle = "style=display:none;";
+            }
+            else
+            {
+                existingFileContainerDisplayStyle = "style=display:none;";
+            }
+        }
+
+        <div class="custom-file" @fileInputDisplayStyle>
+            <input type="file" class="js-file-attach custom-file-input" id="fileInput"
+                   data-hs-file-attach-options='{
+                  "textTarget": "[for=\"fileInput\"]"
+               }'>
+            <label class="custom-file-label" for="fileInput">Выберите файл</label>
+        </div>
+
+        <div id="existingFileContainer" @existingFileContainerDisplayStyle>
+            @if (Model.Attachment != null)
+            {
+                <i class="fa fa-file" aria-hidden="true"></i>
+                <a href="@Model.Attachment.Url">@Model.Attachment.DisplayName</a>
+                <button id="deleteFileBtn" type="button" class="btn btn-link" onclick="DeleteFile(@Model.Attachment.ID, '@Model.Attachment.Path');"><i class="fa fa-times text-danger" aria-hidden="true"></i></button>
+            }
+        </div>
+
+        <div class="spinner-border spinner" id="fileUploadSpinner" style="display: none;"></div>
+        <span asp-validation-for="AttachmentID" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <input asp-for="ContentType" type="radio" value="@DocumentContentTypesEnum.text">
+        <label asp-for="Text" class="control-label"></label>
+        <!-- Quill -->
+        <div class="quill-custom Text">
+            <div class="js-quill" style="min-height: 15rem;"
+                 data-hs-quill-options='{
+                   "placeholder": "Type your message...",
+                    "modules": {
+                      "toolbar": [["bold", "italic", "underline", "strike", "link", "image", "blockquote", "code", {"list": "bullet"}]]
+                    }
+                   }'>
+                @Html.Raw(Model.Text)
+            </div>
+        </div>
+        <!-- End Quill -->
+        <textarea asp-for="Text" class="form-control" style="display: none;"></textarea>
+        <span asp-validation-for="Text" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Price" class="control-label"></label>
+        <input asp-for="Price" class="form-control" />
+        <span asp-validation-for="Price" class="text-danger"></span>
+    </div>
+
+    <div class="form-group" id="actionButtonsBox">
+        <input asp-for="ActionType" type="hidden" />
+        <button type="submit" class="btn btn-info" actiontype="@DocumentActionTypesEnum.saveAsDraft">Сохранить как черновик</button>
+        <button type="submit" class="btn btn-indigo" actiontype="@DocumentActionTypesEnum.submitForApproval">Отправить на подтверждение</button>
+        <div class="spinner-border spinner" style="display: none;"></div>
+    </div>
+</form>
 
 <div>
     <a asp-action="Index">Назад к списку</a>
 </div>
 
-<link href="~/lib/treeselect/css/jquery.bootstrap.treeselect.css" rel="stylesheet" />
-<link href="~/lib/bootstrap-select-1.13.14/css/bootstrap-select.css" rel="stylesheet" />
+@section CustomFrontStyles
+{
+    <link rel="stylesheet" href="~/lib/frontTheme/vendor/select2/dist/css/select2.min.css">
+    <link rel="stylesheet" href="~/lib/frontTheme/vendor/quill/dist/quill.snow.css">
+}
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 
-    @*<script src="~/lib/treeselect/js/jquery.bootstrap.treeselect.js"></script>*@
-    <script src="~/lib/bootstrap-select-1.13.14/js/bootstrap-select.js"></script>
-
-    <script src="~/lib/ckeditor_4.15.0_standard/ckeditor/ckeditor.js"></script>
+    <script src="~/lib/frontTheme/vendor/select2/dist/js/select2.full.min.js"></script>
+    <script src="~/lib/frontTheme/vendor/hs-file-attach/dist/hs-file-attach.min.js"></script>
+    <script src="~/lib/frontTheme/vendor/quill/dist/quill.min.js"></script>
 
     <script>
         var input;
@@ -160,9 +187,9 @@ else if (Model.StatusID == (int)DocumentStatusesEnum.Rejected)
         $(document).ready(function ()
         {
             InitFormPostSubmissionActions();
-
             InitSelectpicker();
-            InitCKEDIOTR();
+            InitFileUploader();
+            var quill = InitQuill();
 
             var statusID = @Model.StatusID;
             if (statusID == @((int)DocumentStatusesEnum.WaitingForApproval)
@@ -172,9 +199,8 @@ else if (Model.StatusID == (int)DocumentStatusesEnum.Rejected)
                 $("form input, form select, form textarea").attr("disabled", "disabled");
                 $("form #existingFileContainer button").attr("disabled", "disabled");
                 $('#LawAreas').prop('disabled', true);
-                $('#LawAreas').selectpicker('refresh');
                 $("#actionButtonsBox").html("");
-                //$("#alertSubmittedForApproval").show();
+                quill.disable();
             }
 
             $("form button[type=submit]").click(function (ev) {
@@ -212,17 +238,55 @@ else if (Model.StatusID == (int)DocumentStatusesEnum.Rejected)
         function DisableFormElements() {
             $("form#editForm input, form#editForm select, form#editForm textarea").attr("readonly", "readonly");
             $("form#editForm #existingFileContainer button").attr("disabled", "disabled");
-            //$('#LawAreas').prop('disabled', true);
-            $('#LawAreas').selectpicker('refresh');
             $("form#editForm button").attr("disabled", "disabled");
-        } 
+        }
 
-        function InitCKEDIOTR() {
-            CKEDITOR.replace('Text');
+        function InitQuill() {
+            // INITIALIZATION OF QUILLJS EDITOR
+            // =======================================================
+            var options = {
+                //debug: 'info',
+                //modules: {
+                //    toolbar: '#toolbar'
+                //},
+                //placeholder: 'Compose an epic...',
+                //readOnly: true,
+                //theme: 'snow'
+            };
+            var quill = $.HSCore.components.HSQuill.init('.js-quill', options);
+            quill.on('text-change', function (delta, oldDelta, source) {
+                //if (source == 'api') {
+                //    alert("An API call triggered this change.");
+                //} else if (source == 'user') {
+                //    alert("A user action triggered this change.");
+                //}
+
+                var html = $(".quill-custom.Text .ql-editor").html();
+                if (html == "<p><br></p>")
+                    html = "";
+
+                $("textarea#Text").val(html);
+            });
+
+            return quill;
         }
 
         function InitSelectpicker() {
-            $('#LawAreas').selectpicker();
+            //$('#LawAreas').selectpicker();
+
+            // INITIALIZATION OF SELECT2
+            // =======================================================
+            $('.js-custom-select').each(function () {
+                var select2 = $.HSCore.components.HSSelect2.init($(this));
+            });
+        }
+
+        function InitFileUploader() {
+            // INITIALIZATION OF CUSTOM FILE
+            // =======================================================
+            $('.js-file-attach').each(function () {
+                var customFile = new HSFileAttach($(this)).init();
+            });
         }
 
         function UploadToFirebaseStorage(file)
@@ -317,11 +381,13 @@ else if (Model.StatusID == (int)DocumentStatusesEnum.Rejected)
 
                         //console.log(attachment);
                         var html = '';
-                        html += "<button id='deleteFileBtn' type='button' class='btn btn-danger' onclick='DeleteFile(" + data.id + ", \"" + attachment.Path + "\");'>X</button>";
+                        html += '<i class="fa fa-file" aria-hidden="true"></i> ';
                         html += '<a href="' + attachment.DownloadUrl + '">' + attachment.DisplayName + '</a>';
+                        html += "<button id='deleteFileBtn' type='button' class='btn btn-link' onclick='DeleteFile(" + data.id + ", \"" + attachment.Path + "\");'><i class='fa fa-times text-danger' aria-hidden='true'></i></button>";
+
                         $("#existingFileContainer").html(html);
                         $("#existingFileContainer").show();
-                        $("#fileInput").hide();
+                        $("#fileInput").parent().hide();
 
                         //alert("File uploaded!");
                     },
@@ -392,13 +458,13 @@ else if (Model.StatusID == (int)DocumentStatusesEnum.Rejected)
                 // File deleted successfully
                 $("#" + spinnerTagID).hide();
                 $("#existingFileContainer").html("");
-                $("#fileInput").show();
+                $("#fileInput").parent().show();
             }).catch(function (error) {
                 // Uh-oh, an error occurred!
                 console.log(error);
                 $("#" + spinnerTagID).hide();
                 $("#existingFileContainer").html("");
-                $("#fileInput").show();
+                $("#fileInput").parent().show();
             });
         }
     </script>

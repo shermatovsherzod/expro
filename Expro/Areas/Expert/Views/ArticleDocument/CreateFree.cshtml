@@ -6,24 +6,34 @@
     ViewData["Title"] = "Добавить новую статью";
 }
 
-<h1>@ViewData["Title"]</h1>
-<hr />
-<div class="row">
-    <div class="col-md-12">
-        <form asp-action="CreateFree" id="createForm">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+<form asp-action="CreateFree" id="createForm">
+    <div class="border-bottom mb-4">
+        <h3>@ViewData["Title"]</h3>
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-6">
+            <!-- Form Group -->
             <div class="form-group">
-                <label asp-for="Title" class="control-label"></label>
-                <input asp-for="Title" class="form-control" />
+                <label asp-for="Title" class="input-label"></label>
+                <input asp-for="Title" class="form-control" placeholder="Дайте название" aria-label="Дайте название">
                 <span asp-validation-for="Title" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <button type="submit" class="btn btn-primary">Продолжить</button>
+            <!-- End Form Group -->
+        </div>
+    </div>
+    <!-- End Row -->
+
+    <div class="row">
+        <div class="col-md-6">
+            <div class="mt-7 mb-7">
+                <button type="submit" class="btn btn-block btn-primary">Продолжить</button>
                 <div class="spinner-border spinner" style="display: none;"></div>
             </div>
-        </form>
+        </div>
     </div>
-</div>
+</form>
 
 <div>
     <a asp-action="Index">Назад к списку</a>

@@ -8,16 +8,25 @@
     ViewData["RejectedStatusAlertText"] = "Статья отменена";
 }
 
-<h1>@ViewData["Title"]</h1>
+<div class="w-lg-60 mx-lg-auto">
+    <h2>@ViewData["Title"]</h2>
 
-@await Html.PartialAsync("/Areas/Admin/Views/DocumentPartials/_Details.cshtml", Model)
+    @await Html.PartialAsync("/Areas/Admin/Views/DocumentPartials/_Details.cshtml", Model)
+</div>
+
+@section CustomFrontStyles
+{
+    <link rel="stylesheet" href="~/lib/frontTheme/vendor/quill/dist/quill.snow.css">
+}
 
 @section Scripts {
-    <script src="~/lib/ckeditor_4.15.0_standard/ckeditor/ckeditor.js"></script>
+    <script src="~/lib/frontTheme/vendor/quill/dist/quill.min.js"></script>
+
     <script src="~/js/Areas/Admin/Document/Details.js"></script>
     <script>
-        SetDocumentType("@ViewData["DocumentType"]");
-
-        InitCKEDITORForView();
+        $(document).ready(function () {
+            SetDocumentType("@ViewData["DocumentType"]");
+            InitQuill();
+        });
     </script>
 }
