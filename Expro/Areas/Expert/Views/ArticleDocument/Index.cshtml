@@ -1,5 +1,4 @@
-﻿@*@model IEnumerable<Expro.ViewModels.DocumentListItemForExpertVM>*@
-@using Expro.ViewModels
+﻿@using Expro.ViewModels
 @using Expro.Models.Enums
 
 @{
@@ -8,50 +7,140 @@
 
 <h1>@ViewData["Title"]</h1>
 <br />
+
 <div class="row">
     <div class="col-12">
-        <p><a href="/Expert/ArticleDocument/CreateFree" class="btn btn-info">Добавить новую статью</a></p>
-        <p><a href="/Expert/ArticleDocument/CreatePaid" class="btn btn-primary">Добавить новую платную статью</a></p>
+        <!-- CTA Section -->
+        <div class="bg-primary">
+            <div class="container space-2">
+                <div class="row justify-content-lg-between align-items-lg-center text-center text-lg-left">
+                    <div class="col-lg-5 mb-5 mb-lg-0">
+                        <h2 class="text-white mb-0">Добавить новую статью</h2>
+                    </div>
+
+                    <div class="col-lg-5 text-lg-right">
+                        <a class="btn btn-light btn-wide btn-pill transition-3d-hover mx-1 mb-2" href="/Expert/ArticleDocument/CreateFree">Обычная</a>
+                        <a class="btn btn-indigo btn-wide btn-pill transition-3d-hover mx-1 mb-2" href="/Expert/ArticleDocument/CreatePaid">Платная</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- End CTA Section -->
     </div>
 </div>
 <br />
 
 <div class="row">
-    <div class="col-sm-4" id="filtersBox">
-        Фильтр по статусу: <br />
-        <select id="statusDD" asp-items="@ViewData["statuses"] as List<SelectListItem>" class="form-control">
-            <option value="">Все</option>
-        </select>
+    <div class="col-lg-3 order-lg-2 mb-5 mb-lg-0">
+        <!-- Navbar -->
+        <div class="navbar-expand-lg navbar-expand-lg-collapse-block navbar-light">
+            <!-- Responsive Toggle Button -->
+            <button type="button" class="navbar-toggler btn btn-block btn-white"
+                    aria-label="Toggle navigation"
+                    aria-expanded="false"
+                    aria-controls="sidebarNav"
+                    data-toggle="collapse"
+                    data-target="#sidebarNav">
+                <span class="d-flex justify-content-between align-items-center">
+                    <span class="h5 mb-0">View all filters</span>
+                    <span class="navbar-toggler-default">
+                        <svg width="14" height="14" viewBox="0 0 18 18" xmlns="http://www.w3.org/2000/svg">
+                            <path fill="currentColor" d="M17.4,6.2H0.6C0.3,6.2,0,5.9,0,5.5V4.1c0-0.4,0.3-0.7,0.6-0.7h16.9c0.3,0,0.6,0.3,0.6,0.7v1.4C18,5.9,17.7,6.2,17.4,6.2z M17.4,14.1H0.6c-0.3,0-0.6-0.3-0.6-0.7V12c0-0.4,0.3-0.7,0.6-0.7h16.9c0.3,0,0.6,0.3,0.6,0.7v1.4C18,13.7,17.7,14.1,17.4,14.1z" />
+                        </svg>
+                    </span>
+                    <span class="navbar-toggler-toggled">
+                        <svg width="14" height="14" viewBox="0 0 18 18" xmlns="http://www.w3.org/2000/svg">
+                            <path fill="currentColor" d="M11.5,9.5l5-5c0.2-0.2,0.2-0.6-0.1-0.9l-1-1c-0.3-0.3-0.7-0.3-0.9-0.1l-5,5l-5-5C4.3,2.3,3.9,2.4,3.6,2.6l-1,1 C2.4,3.9,2.3,4.3,2.5,4.5l5,5l-5,5c-0.2,0.2-0.2,0.6,0.1,0.9l1,1c0.3,0.3,0.7,0.3,0.9,0.1l5-5l5,5c0.2,0.2,0.6,0.2,0.9-0.1l1-1 c0.3-0.3,0.3-0.7,0.1-0.9L11.5,9.5z" />
+                        </svg>
+                    </span>
+                </span>
+            </button>
 
-        Фильтр по цене: <br />
-        <select id="priceTypeDD" class="form-control">
-            <option value="">Все</option>
-            <option value="@DocumentPriceTypesEnum.Free">Бесплатные</option>
-            <option value="@DocumentPriceTypesEnum.Paid">Платные</option>
-        </select>
-        <br />
+            <div id="sidebarNav" class="collapse navbar-collapse">
+                <div class="pt-4 pt-lg-0">
+                    <!-- Filter Form -->
+                    <form>
+                        <!-- Filter Group -->
+                        <div class="mb-5">
+                            <h6 class="small text-cap">Фильтр по статусу</h6>
+
+                            <!-- Select -->
+                            <div id="statusDDBox" class="select2-custom select2-custom-sm-right">
+                                <select id="statusDD" class="js-custom-select custom-select-sm" style="opacity: 0;"
+                                        data-hs-select2-options='{
+						"dropdownParent": "#statusDDBox",
+						"minimumResultsForSearch": "Infinity",
+						"customClass": "custom-select custom-select-sm",
+						"dropdownAutoWidth": true
+					  }' asp-items="@ViewData["statuses"] as List<SelectListItem>">
+                                    <option value="">Все</option>
+                                </select>
+                            </div>
+                            <!-- End Select -->
+                        </div>
+                        <!-- End Filter Group -->
+                        <!-- Filter Group -->
+                        <div class="mb-5">
+                            <h6 class="small text-cap">Фильтр по цене</h6>
+
+                            <!-- Select -->
+                            <div id="priceTypeDDBox" class="select2-custom select2-custom-sm-right">
+                                <select id="priceTypeDD" class="js-custom-select custom-select-sm" style="opacity: 0;"
+                                        data-hs-select2-options='{
+						"dropdownParent": "#priceTypeDDBox",
+						"minimumResultsForSearch": "Infinity",
+						"customClass": "custom-select custom-select-sm",
+						"dropdownAutoWidth": true
+					  }'>
+                                    <option value="">Все</option>
+                                    <option value="@DocumentPriceTypesEnum.Free">Бесплатные</option>
+                                    <option value="@DocumentPriceTypesEnum.Paid">Платные</option>
+                                </select>
+                            </div>
+                            <!-- End Select -->
+                        </div>
+                        <!-- End Filter Group -->
+                        @*<button type="button" class="btn btn-sm btn-block btn-white">
+                                <i class="fas fa-redo fa-sm mr-1"></i> Reset all
+                            </button>*@
+                    </form>
+                    <!-- End Filter Form -->
+                </div>
+            </div>
+        </div>
+        <!-- End Navbar -->
     </div>
-</div>
-
-<div id="tableBox">
-    <div class="spinner-border spinner" style="display: none;"></div>
-    <table id="list" width="100%">
-        <thead>
-            <tr>
-            </tr>
-        </thead>
-        <tbody>
-        </tbody>
-    </table>
-    <div class="spinner-border spinner" style="display: none;"></div>
+    <div class="col-lg-9">
+        <div id="tableBox">
+            <div class="spinner-border spinner" style="display: none;"></div>
+            <table id="list" width="100%">
+                <thead>
+                    <tr>
+                    </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+            <div class="spinner-border spinner" style="display: none;"></div>
+        </div>
+    </div>
 </div>
 
 <link href="~/lib/DataTables-1.10.22/datatables.css" rel="stylesheet" />
 
+@section CustomFrontStyles
+{
+    <link rel="stylesheet" href="~/lib/frontTheme/vendor/select2/dist/css/select2.min.css">
+}
+
 @section Scripts
 {
     <script src="~/lib/DataTables-1.10.22/datatables.js"></script>
+    <script src="~/lib/frontTheme/vendor/select2/dist/js/select2.full.min.js"></script>
+
     <script>
+        InitHSPlugins();
+
         var table;
 
         $(document).ready(function () {
@@ -93,93 +182,60 @@
                         "render": function (data, type, full, meta)
                         {
                             var html = '';
-                            html += '<div class="card" style="margin-top: 10px;">';
+
+                            var editAction = "EditFree";
+                            if (full.priceType == "@((int)DocumentPriceTypesEnum.Paid)")
+                                editAction = "EditPaid";
+                            var url = '/Expert/ArticleDocument/' + editAction + '/' + full.id;
+
+                            //html += '<div class="col-12">';
+                            html += '<div class="card card-bordered card-hover-shadow mb-5">';
                             html += '   <div class="card-body">';
-
-                            var editAction = "EditFree";
-                            if (full.priceType == "@((int)DocumentPriceTypesEnum.Paid)")
-                                editAction = "EditPaid";
-
-                            html += '       <h3><a href="/Expert/ArticleDocument/' + editAction + '/' + + full.id + '" target="_blank">' + full.title + '</a></h3>';
-
-                            html += InsertStatusAlert(full);
-
-                            @*if (full.contentType == '@((int)DocumentContentTypesEnum.file)')
-                                html += '   <p>Есть вложенный файл</p>';
-                            else
-                                html += '   <p>' + full.text + '</p>';*@
-
-                            html += '       <p>Дата изменения: ' + full.dateModified + '</p>';
-                            //html += '       <p>Автор: <a href="#">' + full.author.fullName + '</a></p>';
-                            html += '       <p>';
-                            for (var i = 0; i < full.lawAreas.length; i++)
-                            {
-                                html += '       <span class="badge badge-primary">' + full.lawAreas[i].name + '</span>';
+                            html += '       <div class="d-sm-flex">';
+                            html += '           <div class="media-body">';
+                            html += '               <div class="row">';
+                            html += '                   <div class="col col-md-8">';
+                            html += '                       <h3 class="mb-0">';
+                            html += '                           <a class="text-dark" href="' + url + '" target="_blank">' + full.title + '</a>';
+                            html += '                       </h3>';
+                            @*html += '                       <div class="d-none d-sm-inline-block">';
+                            html += '                           <h6 class="mb-0">';
+                            html += '                               <p class="text-dark">';
+                            if (full.contentType == '@((int)DocumentContentTypesEnum.file)') {
+                                html += '                               <i class="fa fa-file" aria-hidden="true"></i> Есть вложенный файл';
                             }
-                            html += '       </p>';
-                            //console.log(full.title);
-                            //console.log(full.priceType);
+                            else {
+                                html += full.text;
+                            }
+                            html += '                               </p>';
+                            html += '                           </h6>';
+                            html += '                       </div>';*@
+                            html += '                       <div class="d-none d-sm-block">';
+                            for (var i = 0; i < full.lawAreas.length; i++) {
+                                html += '                       <span class="badge badge-primary">' + full.lawAreas[i].name + '</span>';
+                            }
+                            html += '                       </div>';
+                            html += '                   </div>';
+                            html += '                   <div class="col-12 col-md mt-3 mt-md-2">';
                             if (full.priceType == '@((int)DocumentPriceTypesEnum.Paid)')
-                                html += '   <p>Цена: <b class="text-danger">' + full.priceStr + ' сум</b></p>';
-
-                            var editAction = "EditFree";
-                            if (full.priceType == "@((int)DocumentPriceTypesEnum.Paid)")
-                                editAction = "EditPaid";
-
-                            html += '       <a href="/Expert/ArticleDocument/' + editAction + '/' + full.id + '" class="btn btn-outline-primary" target="_blank">Открыть</a>';
+                                html += '                   <span class="badge badge-soft-info">Цена: ' + full.priceStr + ' сум</span>';
+                            html += InsertStatusAlert(full);
+                            html += '                   </div>';
+                            html += '               </div>';
+                            html += '           </div>';
+                            html += '       </div>';
+                            html += '   </div>';
+                            html += '   <div class="card-footer">';
+                            html += '       <ul class="list-inline list-separator small text-body">';
+                            html += '           <li class="list-inline-item">Дата изменения: ' + full.dateModified + '</li>';
+                            html += '       </ul>';
                             html += '   </div>';
                             html += '</div>';
+                            //html += '</div>';
+
                             return html;
                         }
                     }
-                    //{
-                    //    "data": 0, //"name": "statusId", "autoWidth": true,
-                    //    "render": function (data, type, full, meta) { return '' + full.title + ''; }
-                    //},
-                    //{
-                    //    "data": 1, //"name": "statusId", "autoWidth": true,
-                    //    "render": function (data, type, full, meta)
-                    //    {
-                    //        var html = "";
-                    //        if (full.price != null)
-                    //            html = "" + full.price;
-                    //        return html;
-                    //    }
-                    //},
-                    @*{
-                        "data": 2, //"name": "statusId", "autoWidth": true,
-                        "render": function (data, type, full, meta)
-                        {
-                            var html = "<div class='alert ";
-                            if (full.status.id == "@((int)DocumentStatusesEnum.WaitingForApproval)")
-                                html += "alert-warning'>";
-                            else if (full.status.id == "@((int)DocumentStatusesEnum.Approved)")
-                                html += "alert-success'>";
-                            else if (full.status.id == "@((int)DocumentStatusesEnum.Rejected)")
-                                html += "alert-danger'>";
-
-                            html += full.status.name;
-                            html += "</div>";
-
-                            return html;
-                        }
-                    },*@
-                    //{
-                    //    "data": 3, //"name": "statusId", "autoWidth": true,
-                    //    "render": function (data, type, full, meta) { return '' + full.dateModified + ''; }
-                    //},
-                    @*{
-                        "data": 4, //"name": "statusId", "autoWidth": true,
-                        "render": function (data, type, full, meta)
-                        {
-                            var editAction = "EditFree";
-                            if (full.priceType == "@DocumentPriceTypesEnum.Paid")
-                                editAction = "EditPaid";
-
-                            var html = '<a href="/Expert/ArticleDocument/' + editAction + '/' + full.id + '" class="btn btn-outline-primary" target="_blank">Открыть</a>';
-                            return html;
-                        }
-                    }*@
                 ]
             });
 
@@ -198,20 +254,37 @@
         });
 
         function InsertStatusAlert(full) {
-            var html = "<div class='alert ";
+            var badgeClass = "";
             if (full.status.id == "@((int)DocumentStatusesEnum.Pending)")
-                html += "alert-secondary'>";
+                badgeClass = "-info";
             else if (full.status.id == "@((int)DocumentStatusesEnum.WaitingForApproval)")
-                html += "alert-warning'>";
+                badgeClass = "-warning";
             else if (full.status.id == "@((int)DocumentStatusesEnum.Approved)")
-                html += "alert-success'>";
+                badgeClass = "-success";
             else if (full.status.id == "@((int)DocumentStatusesEnum.Rejected)")
-                html += "alert-danger'>";
+                badgeClass = "-danger";
 
-            html += full.status.name;
-            html += "</div>";
+
+            var html = '<span class="badge badge-soft' + badgeClass + ' mr-2">';
+            html += '   <span class="legend-indicator bg' + badgeClass + '"></span>' + full.status.name;
+            html += '</span>';
 
             return html;
+        }
+
+        function InitHSPlugins() {
+            // INITIALIZATION OF SELECT2
+            // =======================================================
+            $('.js-custom-select').each(function () {
+                var select2 = $.HSCore.components.HSSelect2.init($(this));
+            });
+
+
+            //// INITIALIZATION OF ION RANGE SLIDER
+            //// =======================================================
+            //$('.js-ion-range-slider').each(function () {
+            //    var ionRangeSlider = $.HSCore.components.HSIonRangeSlider.init($(this));
+            //});
         }
     </script>
 }

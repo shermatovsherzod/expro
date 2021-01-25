@@ -144,7 +144,6 @@
     <a asp-action="Index">Назад к списку</a>
 </div>
 
-
 @section CustomFrontStyles
 {
     <link rel="stylesheet" href="~/lib/frontTheme/vendor/select2/dist/css/select2.min.css">
@@ -364,8 +363,8 @@
                         var html = '';
                         html += '<i class="fa fa-file" aria-hidden="true"></i> ';
                         html += '<a href="' + attachment.DownloadUrl + '">' + attachment.DisplayName + '</a>';
-
                         html += "<button id='deleteFileBtn' type='button' class='btn btn-link' onclick='DeleteFile(" + data.id + ", \"" + attachment.Path + "\");'><i class='fa fa-times text-danger' aria-hidden='true'></i></button>";
+
                         $("#existingFileContainer").html(html);
                         $("#existingFileContainer").show();
                         $("#fileInput").parent().hide();
