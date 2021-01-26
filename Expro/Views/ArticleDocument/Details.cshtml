@@ -7,15 +7,25 @@
     ViewData["DocumentType"] = DocumentTypesEnum.ArticleDocument;
 }
 
-<h1>@ViewData["Title"]</h1>
-<hr />
+<div class="w-lg-60 mx-lg-auto">
+    <h2>@ViewData["Title"]</h2>
 
-@await Html.PartialAsync("/Views/DocumentPartials/_Details.cshtml", Model)
+    @await Html.PartialAsync("/Views/DocumentPartials/_Details.cshtml", Model)
+</div>
+
+@section CustomFrontStyles
+{
+    <link rel="stylesheet" href="~/lib/frontTheme/vendor/quill/dist/quill.snow.css">
+}
 
 @section Scripts {
-    <script src="~/lib/ckeditor_4.15.0_standard/ckeditor/ckeditor.js"></script>
+    <script src="~/lib/frontTheme/vendor/quill/dist/quill.min.js"></script>
+
     <script src="~/js/Site/Document/Details.js"></script>
     <script>
-        SetLikeType("@Constants.LikeTypes.DOCUMENT");
+        $(document).ready(function () {
+            SetLikeType("@Constants.LikeTypes.DOCUMENT");
+            InitQuill();
+        });
     </script>
 }

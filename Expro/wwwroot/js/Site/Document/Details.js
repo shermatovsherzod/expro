@@ -85,3 +85,20 @@ function Like(objectID, isLike) {
 function Dislike(objectID) {
     Like(objectID, false);
 }
+
+function InitQuill() {
+    // INITIALIZATION OF QUILLJS EDITOR
+    // =======================================================
+    var options = {
+        //debug: 'info',
+        //modules: {
+        //    toolbar: '#toolbar'
+        //},
+        //placeholder: 'Compose an epic...',
+        readOnly: true,
+        //theme: 'snow'
+    };
+    var quill = $.HSCore.components.HSQuill.init('.js-quill', options);
+
+    return quill;
+}
