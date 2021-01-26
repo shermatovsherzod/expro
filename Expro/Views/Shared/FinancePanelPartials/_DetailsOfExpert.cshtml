@@ -1,10 +1,20 @@
 ﻿@model Expro.ViewModels.ExpertFinancePanelVM
+@using Expro.Common
 
-<h2>@Model.User.FullName <small>(Эксперт)</small></h2>
+<!-- Author -->
+<div class="media align-items-center border-top border-bottom py-5">
+    <div class="avatar avatar-circle avatar-xl">
+        <img class="avatar-img" src="@Model.User.Avatar.Url" alt="Image Description">
+    </div>
+    <div class="media-body ml-3">
+        <small class="d-block small font-weight-bold text-cap">Эксперт</small>
+        <h3 class="mb-0"><a href="#">@Model.User.FullName</a></h3>
+    </div>
+</div>
+<!-- End Author -->
 
 <div class="alert alert-primary">
-    <h4>@Html.DisplayNameFor(m => m.Balance):</h4>
-    <p>@Model.BalanceStr сум</p>
+    <b>@Html.DisplayNameFor(m => m.Balance):</b> <span>@Model.BalanceStr</span> сум
 </div>
 
 <h4>@Html.DisplayNameFor(m => m.Incomes)</h4>
@@ -12,93 +22,132 @@
 {
     var firstItem = Model.Incomes.First();
 
-    <table class="table table-sm thead-dark table-bordered table-striped">
-        <thead>
-            <tr>
-                <th>@Html.DisplayNameFor(m => firstItem.DateTimeStr)</th>
-                <th>@Html.DisplayNameFor(m => firstItem.PurchaseObject)</th>
-                <th>@Html.DisplayNameFor(m => firstItem.PurchaseObjectPurchaser)</th>
-                <th>@Html.DisplayNameFor(m => firstItem.Amount)</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var item in Model.Incomes)
-            {
+    <div class="table-responsive">
+        <table class="table table-sm thead-dark table-bordered table-striped table-nowrap">
+            <thead>
                 <tr>
-                    <td>@item.DateTimeStr</td>
-                    <td>@item.PurchaseObject</td>
-                    <td>@item.PurchaseObjectPurchaser.FullName</td>
-                    <td><span class="text-success">@item.AmountStr</span></td>
+                    <th>@Html.DisplayNameFor(m => firstItem.DateTimeStr)</th>
+                    <th>@Html.DisplayNameFor(m => firstItem.PurchaseObject)</th>
+                    <th>@Html.DisplayNameFor(m => firstItem.PurchaseObjectPurchaser)</th>
+                    <th>@Html.DisplayNameFor(m => firstItem.Amount)</th>
                 </tr>
-            }
-        </tbody>
-    </table>
+            </thead>
+            <tbody>
+                @{
+                    int total = 0;
+                }
+                @foreach (var item in Model.Incomes)
+                {
+                    <tr>
+                        <td>@item.DateTimeStr</td>
+                        <td>@item.PurchaseObject</td>
+                        <td>@item.PurchaseObjectPurchaser.FullName</td>
+                        <td><span class="text-success">@item.AmountStr</span></td>
+                    </tr>
+
+                    total += item.Amount;
+                }
+                <tr>
+                    <td><strong>Итого</strong></td>
+                    <td></td>
+                    <td></td>
+                    <td><span class="text-success"><b>@total.ToString(AppData.Configuration.NumberViewStringFormat)</b></span></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
 }
 else
 {
-    <p>Нет пополнений</p>
+    <p><i>Нет пополнений</i></p>
 }
+<br />
 
 <h4>@Html.DisplayNameFor(m => m.Expenses)</h4>
 @if (Model.Expenses.Count > 0)
 {
     var firstItem = Model.Expenses.First();
 
-    <table class="table table-sm thead-dark table-bordered table-striped">
-        <thead>
-            <tr>
-                <th>@Html.DisplayNameFor(m => firstItem.DateTimeStr)</th>
-                <th>@Html.DisplayNameFor(m => firstItem.PurchaseObject)</th>
-                <th>@Html.DisplayNameFor(m => firstItem.PurchaseObjectAuthor)</th>
-                <th>@Html.DisplayNameFor(m => firstItem.Amount)</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var item in Model.Expenses)
-            {
+    <div class="table-responsive">
+        <table class="table table-sm thead-dark table-bordered table-striped table-nowrap">
+            <thead>
                 <tr>
-                    <td>@item.DateTimeStr</td>
-                    <td>@item.PurchaseObject</td>
-                    @{ 
-                        string purchaseObjectAuthorFullName = item.PurchaseObjectAuthor?.FullName;
-                    }
-                    <td>@purchaseObjectAuthorFullName</td>
-                    <td><span class="text-danger">@item.AmountStr</span></td>
+                    <th>@Html.DisplayNameFor(m => firstItem.DateTimeStr)</th>
+                    <th>@Html.DisplayNameFor(m => firstItem.PurchaseObject)</th>
+                    <th>@Html.DisplayNameFor(m => firstItem.PurchaseObjectAuthor)</th>
+                    <th>@Html.DisplayNameFor(m => firstItem.Amount)</th>
                 </tr>
-            }
-        </tbody>
-    </table>
+            </thead>
+            <tbody>
+                @{
+                    int total = 0;
+                }
+                @foreach (var item in Model.Expenses)
+                {
+                    <tr>
+                        <td>@item.DateTimeStr</td>
+                        <td>@item.PurchaseObject</td>
+                        @{
+                            string purchaseObjectAuthorFullName = item.PurchaseObjectAuthor?.FullName;
+                        }
+                        <td>@purchaseObjectAuthorFullName</td>
+                        <td><span class="text-danger">@item.AmountStr</span></td>
+                    </tr>
+
+                    total += item.Amount;
+                }
+                <tr>
+                    <td><strong>Итого</strong></td>
+                    <td></td>
+                    <td></td>
+                    <td><span class="text-danger"><b>@total.ToString(AppData.Configuration.NumberViewStringFormat)</b></span></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
 }
 else
 {
-    <p>Нет расходов</p>
+    <p><i>Нет расходов</i></p>
 }
+<br />
 
 <h4>@Html.DisplayNameFor(m => m.Withdrawals)</h4>
 @if (Model.Withdrawals.Count > 0)
 {
     var firstItem = Model.Withdrawals.First();
 
-    <table class="table table-sm thead-dark table-bordered table-striped">
-        <thead>
-            <tr>
-                <th>@Html.DisplayNameFor(m => firstItem.DateTimeStr)</th>
-                @*<th>@Html.DisplayNameFor(m => firstItem.Status)</th>*@
-                <th>@Html.DisplayNameFor(m => firstItem.Amount)</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var item in Model.Withdrawals)
-            {
+    <div class="table-responsive">
+        <table class="table table-sm thead-dark table-bordered table-striped table-nowrap">
+            <thead>
                 <tr>
-                    <td>@item.DateTimeStr</td>
-                    <td><span class="text-primary">@item.AmountStr</span></td>
+                    <th>@Html.DisplayNameFor(m => firstItem.DateTimeStr)</th>
+                    @*<th>@Html.DisplayNameFor(m => firstItem.Status)</th>*@
+                    <th>@Html.DisplayNameFor(m => firstItem.Amount)</th>
                 </tr>
-            }
-        </tbody>
-    </table>
+            </thead>
+            <tbody>
+                @{
+                    int total = 0;
+                }
+                @foreach (var item in Model.Withdrawals)
+                {
+                    <tr>
+                        <td>@item.DateTimeStr</td>
+                        <td><span class="text-primary">@item.AmountStr</span></td>
+                    </tr>
+
+                    total += item.Amount;
+                }
+                <tr>
+                    <td><strong>Итого</strong></td>
+                    <td><span class="text-primary"><b>@total.ToString(AppData.Configuration.NumberViewStringFormat)</b></span></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
 }
 else
 {
-    <p>Нет выводов средств</p>
+    <p><i>Нет выводов средств</i></p>
 }

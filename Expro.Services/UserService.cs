@@ -12,6 +12,7 @@ namespace Expro.Services
 {
     public class UserService : BaseUserService<ApplicationUser>, IUserService
     {
+        private IUserRepository _userRepository;
         protected AppConfiguration AppConfiguration { get; set; }
 
         public UserService(IUserRepository repository,
@@ -21,6 +22,8 @@ namespace Expro.Services
         {
             if (settings != null)
                 AppConfiguration = settings.Value;
+
+            _userRepository = repository;
         }       
 
         public bool UserIsAllowedToWorkWithPaidMaterials(ApplicationUser user)
@@ -44,6 +47,18 @@ namespace Expro.Services
         public bool IsConfirmed(ApplicationUser user)
         {
             return (user.UserStatusID == (int)ExpertApproveStatusEnum.Approved);
+        }
+
+        public IQueryable<ApplicationUser> GetManyWithRelatedDataAsIQueryable()
+        {
+            return _userRepository.GetManyWithRelatedDataAsIQueryable();
+        }
+
+        public IQueryable<ApplicationUser> GetAllExpertsAndSimpleUsers()
+        {
+            return GetManyWithRelatedDataAsIQueryable()
+                .Where(m => m.UserType == UserTypesEnum.Expert
+                    || m.UserType == UserTypesEnum.SimpleUser);
         }
     }
 }

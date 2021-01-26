@@ -192,9 +192,9 @@
                     {
                         "data": 1, //"name": "statusId", "autoWidth": true,
                         "render": function (data, type, full, meta) {
-                            if (full.user.userType == 2)
+                            if (full.user.userType == @((int)UserTypesEnum.Expert))
                                 return "Эксперт";
-                            else if (full.user.userType == 3)
+                            else if (full.user.userType == @((int)UserTypesEnum.SimpleUser))
                                 return "Пользователь";
                             else
                                 return "-";
