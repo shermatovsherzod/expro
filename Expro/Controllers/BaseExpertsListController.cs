@@ -60,7 +60,7 @@ namespace Expro.Controllers
                 ""
             );
 
-            dynamic data = new ProfileExpertFullInfoVM().GetListOfExpertFullInfoVM(dataIQueryable);
+            dynamic data = new ExpertListInfoVM().GetExpertListInfoVM(dataIQueryable);
 
             return Json(new
             {
