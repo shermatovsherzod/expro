@@ -18,6 +18,10 @@ namespace Expro.Common
         public string SpinnerUrl { get; set; }
         public int WebsiteCommission { get; set; }
         public int PaymentSystemCommission { get; set; }
+
+        /// <summary>
+        /// ### ### ### ### ##0
+        /// </summary>
         public string NumberViewStringFormat { get; set; }
 
         /// <summary>

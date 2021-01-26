@@ -57,7 +57,7 @@ $(document).ready(function () {
             {
                 "data": 1, //"name": "statusId", "autoWidth": true,
                 "render": function (data, type, full, meta) {
-                    return '' + full.amountStr + ' сум';
+                    return '' + full.amountStr;
                 }
             },
             {
@@ -91,18 +91,31 @@ $(document).ready(function () {
 });
 
 function InsertStatusAlert(full) {
-    var html = "<div class='alert ";
+    var badgeClass = "";
     if (full.status.id == withdrawRequestStatusPending)
-        html += "alert-secondary'>";
+        badgeClass = "-secondary";
     else if (full.status.id == withdrawRequestStatusCompleted)
-        html += "alert-success'>";
+        badgeClass = "-success";
 
+
+    var html = '<span class="badge badge-soft' + badgeClass + ' mr-2">';
     html += full.status.name;
-
-    if (full.status.id == withdrawRequestStatusCompleted)
-        html += "<br> " + full.dateCompleted;
-
-    html += "</div>";
+    html += '</span>';
 
     return html;
+}
+
+function InitHSPlugins() {
+    // INITIALIZATION OF SELECT2
+    // =======================================================
+    $('.js-custom-select').each(function () {
+        var select2 = $.HSCore.components.HSSelect2.init($(this));
+    });
+
+
+    //// INITIALIZATION OF ION RANGE SLIDER
+    //// =======================================================
+    //$('.js-ion-range-slider').each(function () {
+    //    var ionRangeSlider = $.HSCore.components.HSIonRangeSlider.init($(this));
+    //});
 }

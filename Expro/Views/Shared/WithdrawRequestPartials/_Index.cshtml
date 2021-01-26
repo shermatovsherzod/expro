@@ -3,12 +3,14 @@
 
 @if (ViewData["successfullyCreated"] != null)
 {
-    <div class="alert alert-success">Запрос успешно отправлен</div>
+    <div class="alert alert-soft-success text-center rounded-0 mb-2" role="alert">
+        Запрос успешно отправлен
+    </div>
 }
 
 <div class="row">
     <div class="col-12">
-        <p><a href="/@ViewData["Area"]/WithdrawRequest/Create" class="btn btn-info">Добавить новый запрос</a></p>
+        <a href="/@ViewData["Area"]/WithdrawRequest/Create" class="btn btn-info">Добавить новый запрос <i class="fas fa-plus ml-1"></i></a>
     </div>
 </div>
 <br />
@@ -16,17 +18,27 @@
 <div class="row">
     <div class="col-sm-4" id="filtersBox">
         Фильтр по статусу: <br />
-        <select id="statusDD" asp-items="@ViewData["statuses"] as List<SelectListItem>" class="form-control">
-            <option value="">Все</option>
-        </select>
+        <!-- Select -->
+        <div id="statusDDBox" class="select2-custom select2-custom-sm-right">
+            <select id="statusDD" class="js-custom-select custom-select-sm" style="opacity: 0;"
+                    data-hs-select2-options='{
+						"dropdownParent": "#statusDDBox",
+						"minimumResultsForSearch": "Infinity",
+						"customClass": "custom-select custom-select-sm",
+						"dropdownAutoWidth": true
+					  }' asp-items="@ViewData["statuses"] as List<SelectListItem>">
+                <option value="">Все</option>
+            </select>
+        </div>
+        <!-- End Select -->
         <br />
     </div>
 </div>
 
-<div id="tableBox">
+<div id="tableBox" class="table-responsive">
     <div class="spinner-border spinner" style="display: none;"></div>
-    <table id="list" width="100%" class="table">
-        <thead>
+    <table id="list" class="table table-borderless table-thead-bordered table-nowrap table-align-middle" width="100%">
+        <thead class="thead-light">
             <tr>
                 @{
                     var listItem = new WithdrawRequestListItemForExpertAndUserVM();
