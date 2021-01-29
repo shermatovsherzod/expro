@@ -16,6 +16,12 @@ namespace Expro.Data.Repository
         public IQueryable<ApplicationUser> GetManyWithRelatedDataAsIQueryable()
         {
             return DbSet
+                .Include(m => m.Avatar);
+        }
+
+        public IQueryable<ApplicationUser> GetManyWithRelatedDataAsIQueryable()
+        {
+            return DbSet
                 .Include(m => m.WorkExperience)
                 .Include(m => m.ExpertEducations);
         }

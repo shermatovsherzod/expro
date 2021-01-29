@@ -22,6 +22,7 @@ namespace Expro.Areas.Admin.Controllers
         private readonly IWithdrawRequestService WithdrawRequestService;
         private readonly IClickTransactionService ClickTransactionService;
         private readonly IQuestionAnswerService QuestionAnswerService;
+        private readonly IUserService _userService;
 
         public FinancePanelController(
             IUserBalanceService userBalanceService,
@@ -30,7 +31,8 @@ namespace Expro.Areas.Admin.Controllers
             IQuestionService questionService,
             IWithdrawRequestService withdrawRequestService,
             IClickTransactionService clickTransactionService,
-            IQuestionAnswerService questionAnswerService)
+            IQuestionAnswerService questionAnswerService,
+            IUserService userService)
         {
             UserBalanceService = userBalanceService;
             _userManager = userManager;
@@ -39,15 +41,14 @@ namespace Expro.Areas.Admin.Controllers
             WithdrawRequestService = withdrawRequestService;
             ClickTransactionService = clickTransactionService;
             QuestionAnswerService = questionAnswerService;
+            _userService = userService;
         }
 
         public IActionResult Index()
         {
             List<AppUserVM> usersVM = new List<AppUserVM>();
 
-            var users = _userManager.Users
-                .Where(m => m.UserType == UserTypesEnum.Expert
-                    || m.UserType == UserTypesEnum.SimpleUser);
+            var users = _userService.GetAllExpertsAndSimpleUsers();
 
             foreach (var item in users)
             {

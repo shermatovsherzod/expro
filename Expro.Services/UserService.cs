@@ -53,9 +53,17 @@ namespace Expro.Services
             return _userRepository.GetManyWithRelatedDataAsIQueryable();
         }
 
-        public ApplicationUser GeWithRelatedDataByID(string id)
+        public ApplicationUser GetWithRelatedDataByID(string id)
         {
-            return _userRepository.GeWithRelatedDataByID(id);
+            return _userRepository.GetWithRelatedDataByID(id);
+        }
+
+        
+        public IQueryable<ApplicationUser> GetAllExpertsAndSimpleUsers()
+        {
+            return GetManyWithRelatedDataAsIQueryable()
+                .Where(m => m.UserType == UserTypesEnum.Expert
+                    || m.UserType == UserTypesEnum.SimpleUser);
         }
     }
 }

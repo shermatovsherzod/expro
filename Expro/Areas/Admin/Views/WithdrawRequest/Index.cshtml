@@ -9,53 +9,126 @@
 <br />
 
 <div class="row">
-    <div class="col-sm-4" id="filtersBox">
-        Фильтр по статусу: <br />
-        <select id="statusDD" asp-items="@ViewData["statuses"] as List<SelectListItem>" class="form-control">
-            <option value="">Все</option>
-        </select>
-        <br />
+    <div class="col-lg-3 order-lg-2 mb-5 mb-lg-0">
+        <!-- Navbar -->
+        <div class="navbar-expand-lg navbar-expand-lg-collapse-block navbar-light">
+            <!-- Responsive Toggle Button -->
+            <button type="button" class="navbar-toggler btn btn-block btn-white"
+                    aria-label="Toggle navigation"
+                    aria-expanded="false"
+                    aria-controls="sidebarNav"
+                    data-toggle="collapse"
+                    data-target="#sidebarNav">
+                <span class="d-flex justify-content-between align-items-center">
+                    <span class="h5 mb-0">View all filters</span>
+                    <span class="navbar-toggler-default">
+                        <svg width="14" height="14" viewBox="0 0 18 18" xmlns="http://www.w3.org/2000/svg">
+                            <path fill="currentColor" d="M17.4,6.2H0.6C0.3,6.2,0,5.9,0,5.5V4.1c0-0.4,0.3-0.7,0.6-0.7h16.9c0.3,0,0.6,0.3,0.6,0.7v1.4C18,5.9,17.7,6.2,17.4,6.2z M17.4,14.1H0.6c-0.3,0-0.6-0.3-0.6-0.7V12c0-0.4,0.3-0.7,0.6-0.7h16.9c0.3,0,0.6,0.3,0.6,0.7v1.4C18,13.7,17.7,14.1,17.4,14.1z" />
+                        </svg>
+                    </span>
+                    <span class="navbar-toggler-toggled">
+                        <svg width="14" height="14" viewBox="0 0 18 18" xmlns="http://www.w3.org/2000/svg">
+                            <path fill="currentColor" d="M11.5,9.5l5-5c0.2-0.2,0.2-0.6-0.1-0.9l-1-1c-0.3-0.3-0.7-0.3-0.9-0.1l-5,5l-5-5C4.3,2.3,3.9,2.4,3.6,2.6l-1,1 C2.4,3.9,2.3,4.3,2.5,4.5l5,5l-5,5c-0.2,0.2-0.2,0.6,0.1,0.9l1,1c0.3,0.3,0.7,0.3,0.9,0.1l5-5l5,5c0.2,0.2,0.6,0.2,0.9-0.1l1-1 c0.3-0.3,0.3-0.7,0.1-0.9L11.5,9.5z" />
+                        </svg>
+                    </span>
+                </span>
+            </button>
 
-        Фильтр по типу пользователя: <br />
-        <select id="userTypeDD" class="form-control">
-            <option value="">Все</option>
-            <option value="@UserTypesEnum.Expert">Эксперты</option>
-            <option value="@UserTypesEnum.SimpleUser">Обычные пользователи</option>
-        </select>
-        <br />
+            <div id="sidebarNav" class="collapse navbar-collapse">
+                <div class="pt-4 pt-lg-0">
+                    <!-- Filter Form -->
+                    <form>
+                        <!-- Filter Group -->
+                        <div class="mb-5">
+                            <h6 class="small text-cap">Фильтр по статусу</h6>
+
+                            <!-- Select -->
+                            <div id="statusDDBox" class="select2-custom select2-custom-sm-right">
+                                <select id="statusDD" class="js-custom-select custom-select-sm" style="opacity: 0;"
+                                        data-hs-select2-options='{
+						"dropdownParent": "#statusDDBox",
+						"minimumResultsForSearch": "Infinity",
+						"customClass": "custom-select custom-select-sm",
+						"dropdownAutoWidth": true
+					  }' asp-items="@ViewData["statuses"] as List<SelectListItem>">
+                                    <option value="">Все</option>
+                                </select>
+                            </div>
+                            <!-- End Select -->
+                        </div>
+                        <!-- End Filter Group -->
+                        <!-- Filter Group -->
+                        <div class="mb-5">
+                            <h6 class="small text-cap">Фильтр по типу пользователя</h6>
+
+                            <!-- Select -->
+                            <div id="userTypeDDBox" class="select2-custom select2-custom-sm-right">
+                                <select id="userTypeDD" class="js-custom-select custom-select-sm" style="opacity: 0;"
+                                        data-hs-select2-options='{
+						"dropdownParent": "#userTypeDDBox",
+						"minimumResultsForSearch": "Infinity",
+						"customClass": "custom-select custom-select-sm",
+						"dropdownAutoWidth": true
+					  }'>
+                                    <option value="">Все</option>
+                                    <option value="@UserTypesEnum.Expert">Эксперты</option>
+                                    <option value="@UserTypesEnum.SimpleUser">Обычные пользователи</option>
+                                </select>
+                            </div>
+                            <!-- End Select -->
+                        </div>
+                        <!-- End Filter Group -->
+                        @*<button type="button" class="btn btn-sm btn-block btn-white">
+                                <i class="fas fa-redo fa-sm mr-1"></i> Reset all
+                            </button>*@
+                    </form>
+                    <!-- End Filter Form -->
+                </div>
+            </div>
+        </div>
+        <!-- End Navbar -->
     </div>
-</div>
-
-<div id="tableBox">
-    <div class="spinner-border spinner" style="display: none;"></div>
-    <table id="list" width="100%" class="table">
-        <thead>
-            <tr>
-                @{
-                    var listItem = new WithdrawRequestListItemForAdminVM();
-                }
-                <th>@Html.DisplayNameFor(model => listItem.ID)</th>
-                <th>@Html.DisplayNameFor(model => listItem.User.FullName)</th>
-                <th>@Html.DisplayNameFor(model => listItem.User.UserType)</th>
-                <th>@Html.DisplayNameFor(model => listItem.Amount)</th>
-                <th>@Html.DisplayNameFor(model => listItem.DateCreated)</th>
-                <th>@Html.DisplayNameFor(model => listItem.Status)</th>
-                @*<th>@Html.DisplayNameFor(model => listItem.DateCompleted)</th>*@
-                <th></th>
-            </tr>
-        </thead>
-        <tbody>
-        </tbody>
-    </table>
-    <div class="spinner-border spinner" style="display: none;"></div>
+    <div class="col-lg-9">
+        <div id="tableBox" class="table-responsive">
+            <div class="spinner-border spinner" style="display: none;"></div>
+            <table id="list" width="100%" class="table table-borderless table-thead-bordered table-nowrap table-align-middle">
+                <thead class="thead-light">
+                    <tr>
+                        @{
+                            var listItem = new WithdrawRequestListItemForAdminVM();
+                        }
+                        @*<th>@Html.DisplayNameFor(model => listItem.ID)</th>*@
+                        <th>@Html.DisplayNameFor(model => listItem.User.FullName)</th>
+                        <th>@*@Html.DisplayNameFor(model => listItem.User.UserType)*@</th>
+                        <th>@Html.DisplayNameFor(model => listItem.Amount)</th>
+                        <th>@Html.DisplayNameFor(model => listItem.DateCreated)</th>
+                        <th>@Html.DisplayNameFor(model => listItem.Status)</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+            <div class="spinner-border spinner" style="display: none;"></div>
+        </div>
+    </div>
 </div>
 
 <link href="~/lib/DataTables-1.10.22/datatables.css" rel="stylesheet" />
 
+@section CustomFrontStyles
+{
+    <link rel="stylesheet" href="~/lib/frontTheme/vendor/select2/dist/css/select2.min.css">
+}
+
 @section Scripts
 {
     <script src="~/lib/DataTables-1.10.22/datatables.js"></script>
+    <script src="~/lib/frontTheme/vendor/select2/dist/js/select2.full.min.js"></script>
+
     <script>
+        InitHSPlugins();
+
         var table;
 
         $(document).ready(function () {
@@ -92,44 +165,55 @@
                 //    //}
                 //],
                 columns: [
+                    //{
+                    //    "data": 0, //"name": "statusId", "autoWidth": true,
+                    //    "render": function (data, type, full, meta)
+                    //    {
+                    //        return '' + full.id + '';
+                    //    }
+                    //},
                     {
                         "data": 0, //"name": "statusId", "autoWidth": true,
-                        "render": function (data, type, full, meta)
-                        {
-                            return '' + full.id + '';
+                        "render": function (data, type, full, meta) {
+                            var html = '';
+                            html += '<div class="media align-items-center">';
+                            html += '   <img class="avatar avatar-sm avatar-circle mr-3" src="' + full.user.avatar.url + '" alt="Image Description">';
+                            html += '   <div class="media-body">';
+                            html += '       <a class="d-inline-block text-dark" href="#">';
+                            html += '           <h6 class="text-hover-primary mb-0">' + full.user.fullName + '</h6>';
+                            html += '       </a>';
+                            html += '       <small class="d-block">' + full.user.email + '</small>';
+                            html += '   </div>';
+                            html += '</div>';
+
+                            return html;
                         }
                     },
                     {
                         "data": 1, //"name": "statusId", "autoWidth": true,
                         "render": function (data, type, full, meta) {
-                            return full.user.fullName;
-                        }
-                    },
-                    {
-                        "data": 2, //"name": "statusId", "autoWidth": true,
-                        "render": function (data, type, full, meta) {
-                            if (full.user.userType == 2)
+                            if (full.user.userType == @((int)UserTypesEnum.Expert))
                                 return "Эксперт";
-                            else if (full.user.userType == 3)
+                            else if (full.user.userType == @((int)UserTypesEnum.SimpleUser))
                                 return "Пользователь";
                             else
                                 return "-";
                         }
                     },
                     {
-                        "data": 3, //"name": "statusId", "autoWidth": true,
+                        "data": 2, //"name": "statusId", "autoWidth": true,
                         "render": function (data, type, full, meta) {
-                            return '' + full.amountStr + ' сум';
+                            return '' + full.amountStr;
                         }
                     },
                     {
-                        "data": 4, //"name": "statusId", "autoWidth": true,
+                        "data": 3, //"name": "statusId", "autoWidth": true,
                         "render": function (data, type, full, meta) {
                             return '' + full.dateCreated + '';
                         }
                     },
                     {
-                        "data": 5, //"name": "statusId", "autoWidth": true,
+                        "data": 4, //"name": "statusId", "autoWidth": true,
                         "render": function (data, type, full, meta)
                         {
                             return '' + InsertStatusAlert(full) + '';
@@ -151,8 +235,8 @@
                             var html = "";
 
                             if (full.status.id == "@((int)WithdrawRequestStatusesEnum.Pending)") {
-                                html += "<button type='button' class='btn btn-primary' onclick='MarkAsCompleted(this, " + full.id + ")'>";
-                                html += "Выполнить";
+                                html += "<button type='button' class='btn btn-success btn-icon btn-xs' onclick='MarkAsCompleted(this, " + full.id + ")' title='Отметить как выполненное'>";
+                                html += "<i class='fas fa-check'></i>";
                                 html += "</button>";
                             }
 
@@ -177,20 +261,34 @@
         });
 
         function InsertStatusAlert(full) {
-            var html = "<div id='statusAlert_" + full.id + "' class='alert ";
+            var badgeClass = "";
             if (full.status.id == "@((int)WithdrawRequestStatusesEnum.Pending)")
-                html += "alert-secondary'>";
+                badgeClass = "-secondary";
             else if (full.status.id == "@((int)WithdrawRequestStatusesEnum.Completed)")
-                html += "alert-success'>";
+                badgeClass = "-success";
 
+            var html = '<span id="statusAlert_' + full.id + '" class="badge badge-soft' + badgeClass + ' mr-2">';
             html += full.status.name;
-
             if (full.status.id == "@((int)WithdrawRequestStatusesEnum.Completed)")
-                html += "<br> " + full.dateCompleted;
-
-            html += "</div>";
+                html += "<br>" + full.dateCompleted;
+            html += '</span>';
 
             return html;
+        }
+
+        function InitHSPlugins() {
+            // INITIALIZATION OF SELECT2
+            // =======================================================
+            $('.js-custom-select').each(function () {
+                var select2 = $.HSCore.components.HSSelect2.init($(this));
+            });
+
+
+            //// INITIALIZATION OF ION RANGE SLIDER
+            //// =======================================================
+            //$('.js-ion-range-slider').each(function () {
+            //    var ionRangeSlider = $.HSCore.components.HSIonRangeSlider.init($(this));
+            //});
         }
 
         function MarkAsCompleted(button, id) {
@@ -223,9 +321,9 @@
                     //html += "</div>";
 
                     $(button).remove();
-                    $("div#statusAlert_" + id)
-                        .removeClass("alert-secondary")
-                        .addClass("alert-success")
+                    $("span#statusAlert_" + id)
+                        .removeClass("badge-soft-secondary")
+                        .addClass("badge-soft-success")
                         .text("Выполнено");
                 },
                 error: function (data) {

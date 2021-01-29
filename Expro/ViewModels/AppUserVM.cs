@@ -165,6 +165,7 @@ namespace Expro.ViewModels
             ID = user.Id;
             FirstName = user.FirstName;
             LastName = user.LastName;
+            Email = !string.IsNullOrWhiteSpace(user.Email) ? user.Email : "";
             UserType = user.UserType;
             Balance = user.Balance;
             BalanceStr = Balance.ToString(AppData.Configuration.NumberViewStringFormat);
@@ -179,7 +180,7 @@ namespace Expro.ViewModels
                 user.DateRatingLastUpdated,
                 AppData.Configuration.DateTimeViewStringFormat);
 
-            //Avatar = new AttachmentDetailsVM(user.Avatar);
+            Avatar = new AttachmentDetailsVM(user.Avatar);
         }
     }
 

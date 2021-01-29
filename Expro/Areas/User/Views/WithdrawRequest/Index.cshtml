@@ -13,14 +13,23 @@
 
 <link href="~/lib/DataTables-1.10.22/datatables.css" rel="stylesheet" />
 
+@section CustomFrontStyles
+{
+    <link rel="stylesheet" href="~/lib/frontTheme/vendor/select2/dist/css/select2.min.css">
+}
+
 @section Scripts
 {
     <script src="~/lib/DataTables-1.10.22/datatables.js"></script>
+    <script src="~/lib/frontTheme/vendor/select2/dist/js/select2.full.min.js"></script>
+
     <script src="~/js/Shared/WithdrawRequest/Index.js"></script>
     <script>
         SetVariables(
             "@ViewData["Area"]",
             @((int)WithdrawRequestStatusesEnum.Pending),
             @((int)WithdrawRequestStatusesEnum.Completed));
+
+        InitHSPlugins();
     </script>
 }

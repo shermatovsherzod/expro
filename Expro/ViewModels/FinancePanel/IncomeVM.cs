@@ -18,6 +18,7 @@ namespace Expro.ViewModels
         [Display(Name = "На что")]
         public string PurchaseObject { get; set; }
 
+        [Display(Name = "Покупатель")]
         public AppUserVM PurchaseObjectPurchaser { get; set; }
 
         [Display(Name = "Сумма")]

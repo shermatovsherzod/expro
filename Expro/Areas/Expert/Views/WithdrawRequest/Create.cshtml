@@ -7,7 +7,13 @@
 
     int minimalAmountInBalanceForWithdrawal =
         int.Parse(ViewData["minimalAmountInBalanceForWithdrawal"].ToString());
+    string minimalAmountInBalanceForWithdrawalStr =
+        minimalAmountInBalanceForWithdrawal
+        .ToString(AppData.Configuration.NumberViewStringFormat);
+
     int userBalance = int.Parse(ViewData["userBalance"].ToString());
+    string userBalanceStr = userBalance
+        .ToString(AppData.Configuration.NumberViewStringFormat);
 }
 
 <h1>@ViewData["Title"]</h1>
@@ -15,16 +21,18 @@
 
 @if (ViewData["userHasNotEnoughtMoneyForWithdrawal"] != null)
 {
-    <div class="alert alert-danger">
-        Для того, чтобы оставить запрос на вывод средств, на Вашем балансе должно быть не менее @minimalAmountInBalanceForWithdrawal сумов.
-        <b>Ваш баланс:</b> @userBalance сум.
+    <div class="alert alert-soft-danger text-center rounded-0 mb-0" role="alert">
+        Для того, чтобы оставить запрос на вывод средств, на Вашем балансе должно быть не менее @minimalAmountInBalanceForWithdrawalStr сумов.
+        <b>Ваш баланс:</b> @userBalanceStr сум.
     </div>
 }
 else
 {
     <div class="row">
         <div class="col-md-12">
-            <div class="alert alert-info">Вы можете снять от <b>@minimalAmountInBalanceForWithdrawal</b> до <b>@userBalance</b> сум</div>
+            <div class="alert alert-soft-info text-center rounded-0 mb-0">
+                Вы можете снять от <b>@minimalAmountInBalanceForWithdrawalStr</b> до <b>@userBalanceStr</b> сум
+            </div>
             <form asp-action="Create" id="createForm">
                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                 <div class="form-group">
