@@ -52,6 +52,7 @@ namespace Expro.Common
             public static readonly string QUESTION_ANSWER = "question_answer";
             public static readonly string USER_AVATAR = "user_avatar";
             public static readonly string COMMENT = "comment";
+            public static readonly string COMPANY = "company";
         }
 
         public static class CommentTypes

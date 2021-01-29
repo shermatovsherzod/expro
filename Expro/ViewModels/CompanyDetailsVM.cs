@@ -1,4 +1,5 @@
-﻿using Expro.Models;
+﻿using Expro.Common.Utilities;
+using Expro.Models;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -9,26 +10,12 @@ namespace Expro.ViewModels
 {
     public class CompanyDetailsVM
     {
-        public CompanyDetailsVM() { }
         public int ID { get; set; }
+
+        public AttachmentDetailsVM Logo { get; set; }
 
         [Display(Name = "Название компании")]
         public string CompanyName { get; set; }
-
-        [Display(Name = "О компании")]
-        public string CompanyDescription { get; set; }
-
-        [Display(Name = "Регион")]
-        public string Region { get; set; }
-
-        [Display(Name = "Город")]
-        public string City { get; set; }
-
-        [Display(Name = "Другой город")]
-        public string CityOther { get; set; }
-
-        [Display(Name = "Направление")]
-        public List<string> LawAreas { get; set; }
 
         [Display(Name = "Сайт")]
         public string WebSite { get; set; }
@@ -42,8 +29,22 @@ namespace Expro.ViewModels
         [Display(Name = "Адрес")]
         public string Address { get; set; }
 
-        [Display(Name = "Статус")]
-        public int Status { get; set; }
+        [Display(Name = "О компании")]
+        public string CompanyDescription { get; set; }
+
+        public BaseDropdownableDetailsVM Region { get; set; }
+
+        public BaseDropdownableDetailsVM City { get; set; }
+
+        public BaseDropdownableDetailsVM Status { get; set; }
+
+        [Display(Name = "Направление")]
+        public List<BaseDropdownableDetailsVM> LawAreas { get; set; }
+
+        [Display(Name = "Дата изменения")]
+        public string DateModified { get; set; }
+
+        public CompanyDetailsVM() { }
 
         public CompanyDetailsVM(Company model)
         {
@@ -52,16 +53,31 @@ namespace Expro.ViewModels
 
             ID = model.ID;
             CompanyName = model.CompanyName;
-            CompanyDescription = model.CompanyDescription;
-            Region = model.Region?.Name;
-            City = model.City?.Name;
-            CityOther = model.CityOther;
-            LawAreas = model.CompanyLawAreas != null ? model.CompanyLawAreas.Select(r => r.LawArea.Name).ToList() : null;
+            Logo = new AttachmentDetailsVM(model.Logo);
             WebSite = model.WebSite;
             PhoneNumber = model.PhoneNumber;
             Email = model.Email;
             Address = model.Address;
-            Status = model.CompanyStatusID;
+            CompanyDescription = model.CompanyDescription;
+
+            LawAreas = model.CompanyLawAreas
+                .Select(m => new BaseDropdownableDetailsVM(m.LawArea))
+                .ToList();
+
+            Status = new BaseDropdownableDetailsVM(model.CompanyStatus);
+            DateModified = DateTimeUtils.ConvertToString(model.DateModified);
+
+            Region = new BaseDropdownableDetailsVM(model.Region);
+            if (model.CityID.HasValue)
+                City = new BaseDropdownableDetailsVM(model.City);
+            else
+            {
+                City = new BaseDropdownableDetailsVM()
+                {
+                    ID = 0,
+                    Name = model.CityOther
+                };
+            }
         }
 
         public List<CompanyDetailsVM> GetListOfCompanyDetailsVM(IQueryable<Company> models)
@@ -69,20 +85,7 @@ namespace Expro.ViewModels
             if (models == null)
                 return new List<CompanyDetailsVM>();
 
-            return models.Select(s => new CompanyDetailsVM
-            {
-                ID = s.ID,
-                CompanyName = s.CompanyName,
-                CompanyDescription = s.CompanyDescription,
-                Region = s.Region.Name,
-                City = s.City != null ? s.City.Name : "",
-                CityOther = s.CityOther,
-                LawAreas = s.CompanyLawAreas != null ? s.CompanyLawAreas.Select(r => r.LawArea.Name).ToList() : null,
-                WebSite = s.WebSite,
-                PhoneNumber = s.PhoneNumber,
-                Email = s.Email,
-                Address = s.Address
-            }).ToList();
+            return models.Select(s => new CompanyDetailsVM(s)).ToList();
         }
     }
 }

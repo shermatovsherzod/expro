@@ -10,5 +10,6 @@ namespace Expro.Services.Interfaces
         IQueryable<Company> GetAllApproved();
         bool CompanyBelongsToUser(Company model, string userID);
         bool CompanyBelongsToUser(int modelID, string userID);
+        void SubmitForApproval(Company entity, string userID);
     }
 }

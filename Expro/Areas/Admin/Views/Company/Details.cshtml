@@ -41,12 +41,6 @@
             @Html.DisplayFor(model => model.City)
         </dd>
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.CityOther)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.CityOther)
-        </dd>
-        <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.WebSite)
         </dt>
         <dd class="col-sm-10">
@@ -81,16 +75,16 @@
             Действия:
         </dt>
         <dd class="col-sm-10">
-            @if (Model.Status == (int)CompanyStatusEnum.WaitingForApproval)
+            @if (Model.Status.ID == (int)CompanyStatusEnum.WaitingForApproval)
             {
                 <button type="button" class="btn btn-success" onclick="Approve(@Model.ID);">Подтвердить</button>
                 <button type="button" class="btn btn-danger" onclick="Reject(@Model.ID);">Отменить</button>
             }
-            else if (Model.Status == (int)CompanyStatusEnum.Approved)
+            else if (Model.Status.ID == (int)CompanyStatusEnum.Approved)
             {
                 <div class="alert alert-success">@ViewData["ApprovedStatusAlertText"]</div>
             }
-            else if (Model.Status == (int)CompanyStatusEnum.Rejected)
+            else if (Model.Status.ID == (int)CompanyStatusEnum.Rejected)
             {
                 <div class="alert alert-danger">@ViewData["RejectedStatusAlertText"]</div>
             }
@@ -148,9 +142,6 @@
             });
         }
     }
-
-   
-   
 
     function ShowFormSpinner() {
         $(".spinner").show();
