@@ -252,6 +252,21 @@
 </div>
 <!-- Description Section -->
 <div>
+
+    @if (Model.Status == (int)ExpertApproveStatusEnum.WaitingForApproval)
+    {
+        <button type="button" class="btn btn-success" onclick="Approve('@Model.Id');">Подтвердить</button>
+        <button type="button" class="btn btn-danger" onclick="Reject('@Model.Id');">Отменить</button>
+    }
+    else if (Model.Status == (int)ExpertApproveStatusEnum.Approved)
+    {
+        <div class="alert alert-success">@ViewData["ApprovedStatusAlertText"]</div>
+    }
+    else if (Model.Status == (int)ExpertApproveStatusEnum.Rejected)
+    {
+        <div class="alert alert-danger">@ViewData["RejectedStatusAlertText"]</div>
+    }
+    <div class="spinner-border spinner" style="display: none;"></div>
     <a asp-action="Index">Back to List</a>
 </div>
 

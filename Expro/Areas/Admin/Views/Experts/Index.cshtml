@@ -76,15 +76,21 @@
                         "data": 0,
                         "render": function (data, type, full, meta) {
 
-                            //html += '<a href="/Admin/Experts/Details/' + full.id + '" class="card-link">Просмотр</a>';
-
                             var html = '';
                             html += '<div class="media align-items-center">';
-                            html += '<img class="avatar avatar-sm avatar-circle mr-3" src="/lib/frontTheme/img/100x100/img1.jpg" alt="Image Description">';
+                            html += '<div class="avatar avatar-circle mr-3"><img class="avatar-img" src = "' + full.avatar.url + '" alt = "">'
 
-                            html += '<div class="media-body">';
+                            if (full.isOnline) {
+                                html += '<span class="avatar-status avatar-sm-status avatar-success" ></span > ';
+                            }
+                            html += '</div><div class="media-body">';
                             html += '<a class="d-inline-block text-dark" href="#">';
-                            html += '<h6 class="text-hover-primary mb-0">' + full.firstName + ' ' + full.lastName + ' <img class="avatar avatar-xss ml-1" src="/lib/frontTheme/svg/illustrations/top-vendor.svg" alt="Image Description" data-toggle="tooltip" data-placement="top" title="Verified user"></h6>';
+                            html += '<h6 class="text-hover-primary mb-0">' + full.firstName + ' ' + full.lastName;
+                            if (full.userStatusID == 3) {
+                                html += '<img class="avatar avatar-xss ml-1" src = "/lib/frontTheme/svg/illustrations/top-vendor.svg" alt = "Image Description" data - toggle="tooltip" data - placement="top" title = "Пользователь подтвержден" > '
+                            }
+
+                            html += '</h6 > ';
                             html += '</a>';
                             html += '<small class="d-block">' + full.email + ' </small>';
                             html += '</div>';
@@ -97,7 +103,7 @@
                         "data": 1,
                         "render": function (data, type, full, meta) {
                             var html = '';
-                           
+
                             if (full.userStatusID == 1) {
                                 html += '<div class="alert alert-soft-secondary" role="alert">Не подтвержден</div>'
                             }
@@ -126,11 +132,11 @@
                         "data": 3,
                         "render": function (data, type, full, meta) {
                             var html = '';
-                            html += '<span>' + full.rating +'</span>'
-                          
+                            html += '<span>' + full.rating + '</span>'
+
                             return html;
                         }
-                    },                   
+                    },
                     {
                         "data": 4,
                         "render": function (data, type, full, meta) {
@@ -144,7 +150,7 @@
                         "data": 5,
                         "render": function (data, type, full, meta) {
                             var html = '';
-                            html += ' <a class="text-body" href="/Admin/Experts/Details/' +full.id +'" data-toggle="tooltip" data-placement="top" title="Locked"><i class="fas fa-eye" ></i></a >';
+                            html += ' <a class="text-body" href="/Admin/Experts/Details/' + full.id + '" data-toggle="tooltip" data-placement="top" title="Locked"><i class="fas fa-eye" ></i></a >';
 
                             return html;
                         }

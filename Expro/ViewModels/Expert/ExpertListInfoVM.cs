@@ -59,9 +59,9 @@ namespace Expro.ViewModels
             IsOnline = model.IsOnline ?? false;
             Points = model.Points;
             Rating = model.Rating;
-            DateRatingLastUpdated = DateTimeUtils.ConvertToString(
+            DateRatingLastUpdated = model.DateRatingLastUpdated != null ? DateTimeUtils.ConvertToString(
                 model.DateRatingLastUpdated,
-                AppData.Configuration.DateTimeViewStringFormat);
+                AppData.Configuration.DateTimeViewStringFormat) : "";
         }
 
         public List<ExpertListInfoVM> GetExpertListInfoVM(IQueryable<ApplicationUser> models)
@@ -81,9 +81,9 @@ namespace Expro.ViewModels
                 IsOnline = model.IsOnline ?? false,
                 Points = model.Points,
                 Rating = model.Rating,
-                DateRatingLastUpdated = DateTimeUtils.ConvertToString(
+                DateRatingLastUpdated = model.DateRatingLastUpdated != null ? DateTimeUtils.ConvertToString(
                 model.DateRatingLastUpdated,
-                AppData.Configuration.DateTimeViewStringFormat),
+                AppData.Configuration.DateTimeViewStringFormat) : "",
             }).ToList();
         }
     }
