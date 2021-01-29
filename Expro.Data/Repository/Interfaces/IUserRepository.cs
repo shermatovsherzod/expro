@@ -8,5 +8,6 @@ namespace Expro.Data.Repository.Interfaces
         IQueryable<ApplicationUser> GetManyWithRelatedDataAsIQueryable();
       
         ApplicationUser GetWithRelatedDataByID(string id);
+        
     }
 }

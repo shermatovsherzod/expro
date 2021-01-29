@@ -76,7 +76,7 @@ namespace Expro.Controllers
 
         public virtual IActionResult Details(string id)
         {
-            var expert = _userService.GeWithRelatedDataByID(id);
+            var expert = _userService.GetWithRelatedDataByID(id);
             if (expert == null)
                 throw new Exception("Эксперт не найден");
 
