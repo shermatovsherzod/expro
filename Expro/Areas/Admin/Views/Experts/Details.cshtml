@@ -1,0 +1,311 @@
+﻿@model Expro.ViewModels.ProfileExpertFullInfoVM
+@using Expro.Models.Enums
+@{
+    ViewData["Title"] = "Эксперты";
+    ViewData["ApprovedStatusAlertText"] = "Эксперт подтвержден";
+    ViewData["RejectedStatusAlertText"] = "Эксперту отказано";
+}
+
+<!-- Page Header -->
+<div class="container">
+    <div class="page-header">
+        <!-- Media -->
+        <div class="d-flex align-items-lg-center">
+            <div class="mr-4">
+                <img class="avatar avatar-xl avatar-circle" src="@Model.Avatar.Url" alt="@Model.LastName @Model.FirstName @Model.PatronymicName">
+            </div>
+
+            <div class="media-body">
+                <div class="row">
+                    <div class="col-lg mb-3 mb-lg-0">
+                        <h1 class="h2 mb-1">@Model.LastName @Model.FirstName @Model.PatronymicName</h1>
+
+                        <ul class="list-inline list-separator font-size-1">
+                            <li class="list-inline-item">
+                                <i class="fas fa-map-marker-alt text-primary mr-1"></i> @Model.RegionStr @Model.CityStr
+                            </li>
+                            <li class="list-inline-item">@Model.Email</li>
+                            <li class="list-inline-item">@Model.PhoneNumber</li>
+                        </ul>
+                    </div>
+
+
+                </div>
+                <!-- End Row -->
+            </div>
+        </div>
+        <!-- End Media -->
+    </div>
+</div>
+<!-- End Page Header -->
+<!-- Description Section -->
+<div class="container space-2">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="mb-8">
+                <div class="mb-3">
+                    <h3>О себе</h3>
+                </div>
+
+                <p>@Model.AboutMe</p>
+
+                <h5>Направления</h5>
+                <ul class="pl-4 mb-4">
+                    @foreach (var item in Model.LawAreasName)
+                    {
+                        <li>@item</li>
+                    }
+                </ul>
+
+                <div class="mb-3">
+                    <h3>Личная информация</h3>
+                </div>
+                <!-- Row -->
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="mb-4">
+                            <h5>Дата рождения</h5>
+                            <p>@Model.DateOfBirth</p>
+                        </div>
+                        <div class="mb-4">
+                            <h5>Пол</h5>
+                            <p>@Model.GenderStr</p>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="mb-4">
+                            <h5>Веб сайт</h5>
+                            <p>@Model.WebSite</p>
+                        </div>
+                        <div class="mb-4">
+                            <h5>Факс</h5>
+                            <p>@Model.Fax</p>
+                        </div>
+
+                    </div>
+                </div>
+                <!-- End Row -->
+
+
+                <div class="mb-3">
+                    <h3>Регистрационная информация</h3>
+                </div>
+                <!-- Row -->
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="mb-4">
+                            <h5>Дата регистрации</h5>
+                            <p>@Model.DateRegistered</p>
+                        </div>
+                        <div class="mb-4">
+                            <h5>Статус</h5>
+                            <p>@Model.UserStatusStr</p>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+
+                        @if (@Model.UserStatusID == 2)
+                        {
+                            <div class="mb-4">
+                                <h5>Дата отправки на подтверждение аккаунта</h5>
+                                <p>@Model.DateSubmittedForApproval</p>
+                            </div>
+                        }
+
+                        @if (@Model.UserStatusID == 3)
+                        {
+                            <div class="mb-4">
+                                <h5>Дата подтверждения аккаунта</h5>
+                                <p>@Model.DateApproved</p>
+                            </div>
+                        }
+
+                        @if (@Model.UserStatusID == 4)
+                        {
+                            <div class="mb-4">
+                                <h5>Дата отказа аккаунту</h5>
+                                <p>@Model.DateRejected</p>
+                            </div>
+                        }
+
+
+
+                    </div>
+                </div>
+                <!-- End Row -->
+            </div>
+
+            <div class="mb-8">
+                <div class="mb-3">
+                    <h3>Опыт работы</h3>
+                </div>
+                <!-- Step -->
+                <ul class="step step-icon-sm">
+                    @foreach (var item in Model.WorkExperience)
+                    {
+                        <li class="step-item">
+                            <div class="step-content-wrapper">
+                                <div class="step-avatar step-avatar-sm">
+                                    <img class="step-avatar-img" src="~/lib/frontTheme/svg/brands/slack.svg" alt="Image Description" />
+                                </div>
+                                <div class="step-content">
+                                    <h5>@item.Position</h5>
+                                    <span class="d-block text-dark">@item.Country, @item.City - @item.PlaceOfWork </span>
+                                    <small class="d-block mb-4">@item.WorkPeriodFrom - @item.WorkPeriodTo</small>
+                                    <p class="text-body mb-0"></p>
+                                </div>
+                            </div>
+                        </li>
+                    }
+                </ul>
+                <!-- End Step -->
+            </div>
+
+            <div class="mb-8">
+                <div class="mb-3">
+                    <h3>Образование</h3>
+                </div>
+
+                <!-- Step -->
+                <ul class="step step-icon-sm">
+
+                    @foreach (var item in Model.Education)
+                    {
+                        <li class="step-item">
+                            <div class="step-content-wrapper">
+                                <span class="step-icon step-icon-soft-dark">
+                                    <i class="fas fa-graduation-cap"></i>
+                                </span>
+                                <div class="step-content">
+                                    <h5>@item.University - @item.Faculty</h5>
+                                    <span class="d-block text-dark">@item.Country, @item.City</span>
+                                    <small class="d-block">Год окончания @item.GraduationYear</small>
+                                </div>
+                            </div>
+                        </li>
+                    }
+                </ul>
+                <!-- End Step -->
+            </div>
+
+            <div class="mb-8">
+                <div class="mb-3">
+                    <h3>Skills</h3>
+                </div>
+
+                <ul class="list-inline list-sm-article">
+                    <li class="list-inline-item"><span class="badge badge-soft-dark py-2 px-3">Bootstrap (8 years)</span></li>
+                    <li class="list-inline-item"><span class="badge badge-soft-dark py-2 px-3">HTML5 (8 years)</span></li>
+                    <li class="list-inline-item"><span class="badge badge-soft-dark py-2 px-3">CSS3 (8 years)</span></li>
+                    <li class="list-inline-item"><span class="badge badge-soft-dark py-2 px-3">SASS (7 years)</span></li>
+                    <li class="list-inline-item"><span class="badge badge-soft-dark py-2 px-3">User Interface (UI) (8 years)</span></li>
+                    <li class="list-inline-item"><span class="badge badge-soft-dark py-2 px-3">Adobe Photoshop (3 years)</span></li>
+                    <li class="list-inline-item"><span class="badge badge-soft-dark py-2 px-3">Adobe Illustrator (5 years)</span></li>
+                    <li class="list-inline-item"><span class="badge badge-soft-dark py-2 px-3">Figma (1 year)</span></li>
+                </ul>
+            </div>
+
+            <div class="mb-8">
+                <div class="mb-3">
+                    <h3>Languages</h3>
+                </div>
+
+                <ul class="list-unstyled list-sm-article">
+                    <li>
+                        <div class="d-flex align-items-center">
+                            <span class="text-dark">English</span>
+                            <span class="font-size-1 ml-1">&mdash; Native</span>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="d-flex align-items-center">
+                            <span class="text-dark">Deutsch</span>
+                            <span class="font-size-1 ml-1">&mdash; Fluent</span>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="d-flex align-items-center">
+                            <span class="text-dark">French</span>
+                            <span class="font-size-1 ml-1">&mdash; Beginner</span>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="mb-3">
+                <h3>Links</h3>
+            </div>
+
+            <ul class="list-unstyled list-sm-article">
+                <li>
+                    <a href="#">www.github.com/maria-w</a>
+                </li>
+                <li>
+                    <a href="#">www.twitter.com/maria-w</a>
+                </li>
+            </ul>
+
+            <!-- Sticky Block End Point -->
+            <div id="stickyBlockEndPoint"></div>
+        </div>
+    </div>
+</div>
+<!-- Description Section -->
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+
+<script>
+    function Approve(id) {
+
+        if (confirm("Вы уверены, что хотите подтвердить?")) {
+            $.ajax({
+                type: "POST",
+                url: "/Admin/ExpertsList/Approve/" + id,
+                contentType: "application/json; charset=utf-8",
+                beforeSend: function (data) {
+                    $(".btn").attr("disabled", "disabled");
+                    ShowFormSpinner();
+                },
+                success: function (data) {
+                    location.reload();
+                },
+                error: function (data) {
+                    alert("Ajax error (status code = " + data.status + "): " + data.statusText);
+                },
+                complete: function (data) {
+                }
+            });
+        }
+    }
+
+    function Reject(id) {
+        if (confirm("Вы уверены, что хотите отказать?")) {
+            $.ajax({
+                type: "POST",
+                url: "/Admin/ExpertsList/Reject/" + id,
+                contentType: "application/json; charset=utf-8",
+                beforeSend: function (data) {
+                    $(".btn").attr("disabled", "disabled");
+                    ShowFormSpinner();
+                },
+                success: function (data) {
+                    location.reload();
+                },
+                error: function (data) {
+                    alert("Ajax error (status code = " + data.status + "): " + data.statusText);
+                },
+                complete: function (data) {
+                }
+            });
+        }
+    }
+
+
+
+
+    function ShowFormSpinner() {
+        $(".spinner").show();
+    }
+</script>

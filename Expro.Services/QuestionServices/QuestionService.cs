@@ -29,7 +29,7 @@ namespace Expro.Services
         }
 
         public IQueryable<Question> GetManyWithRelatedDataAsIQueryable()
-        {
+        {            
             return _questionRepository.GetManyWithRelatedDataAsIQueryable();
         }
 

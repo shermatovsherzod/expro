@@ -27,7 +27,9 @@ namespace Expro.Models
         [StringLength(100)]
         public string WorkPeriodTo { get; set; }
 
-        //public string UserID { get; set; }
-        //public virtual ApplicationUser User { get; set; }
+
+        [ForeignKey("User")]     
+        public string UserID { get; set; }
+        public virtual ApplicationUser User { get; set; }
     }
 }

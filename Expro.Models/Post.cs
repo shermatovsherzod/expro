@@ -4,11 +4,11 @@ using System.Text;
 
 namespace Expro.Models
 {
-    public class Post : BaseModelAuthorable
-    {
-        public string Title { get; set; }
+    //public class Post : BaseModelAuthorable
+    //{
+    //    public string Title { get; set; }
 
-        public string AuthorID { get; set; }
-        public virtual ApplicationUser Author { get; set; }
-    }
+    //    public string AuthorID { get; set; }
+    //    public virtual ApplicationUser Author { get; set; }
+    //}
 }

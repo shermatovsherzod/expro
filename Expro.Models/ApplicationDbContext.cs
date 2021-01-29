@@ -101,6 +101,9 @@ namespace Expro.Models
                 .WithMany(c => c.QuestionAnswerLikes)
                 .HasForeignKey(bc => bc.LikeID);
 
+          
+                
+
             //modelBuilder.Entity<ApplicationUser>()
             //    .HasOne(e => e.Avatar)
             //    .WithMany(c => c.UsersUsingThisAvatar);
@@ -127,7 +130,7 @@ namespace Expro.Models
             base.SaveChanges();
         }
 
-        public DbSet<Post> Posts { get; set; }
+        //public DbSet<Post> Posts { get; set; }
         public DbSet<Gender> Genders { get; set; }
         public DbSet<LawArea> LawAreas { get; set; }
         public DbSet<Country> Countries { get; set; }

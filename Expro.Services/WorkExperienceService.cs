@@ -16,14 +16,14 @@ namespace Expro.Services
         {
         }
 
-        public IQueryable<WorkExperience> GetExpertWorkExperienceByCreatorID(string userID)
+        public IQueryable<WorkExperience> GetExpertWorkExperienceByUserID(string userID)
         {
-            return _repository.GetAsIQueryable().Where(c => c.CreatedBy == userID);
+            return _repository.GetAsIQueryable().Where(c => c.UserID == userID);
         }
 
         public bool WorkExperienceBelongsToUser(WorkExperience model, string userID)
         {
-            if (model.CreatedBy == userID)
+            if (model.UserID == userID)
             {              
                 return true;
             }

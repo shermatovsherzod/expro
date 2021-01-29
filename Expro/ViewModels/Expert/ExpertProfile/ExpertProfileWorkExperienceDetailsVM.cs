@@ -60,5 +60,21 @@ namespace Expro.ViewModels
                 WorkPeriodTo = s.WorkPeriodTo
             }).ToList();
         }
+        public List<ExpertProfileWorkExperienceDetailsVM> GetListOfExpertProfileWorkExperienceDetailsVM(ICollection<WorkExperience> models)
+        {   
+            if (models == null)
+                return null;
+
+            return models.Select(s => new ExpertProfileWorkExperienceDetailsVM
+            {
+                ID = s.ID,
+                Country = s.Country.Name,
+                City = s.City,
+                PlaceOfWork = s.PlaceOfWork,
+                Position = s.Position,
+                WorkPeriodFrom = s.WorkPeriodFrom,
+                WorkPeriodTo = s.WorkPeriodTo
+            }).ToList();
+        }
     }
 }

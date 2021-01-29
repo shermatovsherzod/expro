@@ -20,6 +20,10 @@ namespace Expro.Models
 
         [StringLength(256)]
         public string Faculty { get; set; }
-        public int GraduationYear { get; set; }      
+        public int GraduationYear { get; set; }
+
+        [ForeignKey("User")]
+        public string UserID { get; set; }
+        public virtual ApplicationUser User { get; set; }
     }
 }

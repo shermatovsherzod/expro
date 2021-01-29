@@ -43,6 +43,7 @@ namespace Expro.Areas.Expert.Controllers.ExpertProfile
             {
                 WorkExperience model = new WorkExperience();
                 PropertyCopier.CopyTo(vmodel, model);
+                model.UserID = user.ID;
                 _workExperienceService.Add(model, user.ID);
                 GetEducationViewData(user);
                 ViewBag.Message = true;
@@ -54,7 +55,7 @@ namespace Expro.Areas.Expert.Controllers.ExpertProfile
         private void GetEducationViewData(AppUserVM user)
         {
             ViewData["country"] = _countryService.GetAsSelectList();
-            ViewData["workExperienceEducationListVM"] = new ExpertProfileWorkExperienceDetailsVM().GetListOfExpertProfileWorkExperienceDetailsVM(_workExperienceService.GetExpertWorkExperienceByCreatorID(user.ID));
+            ViewData["workExperienceEducationListVM"] = new ExpertProfileWorkExperienceDetailsVM().GetListOfExpertProfileWorkExperienceDetailsVM(_workExperienceService.GetExpertWorkExperienceByUserID(user.ID));
         }
 
         [HttpPost]

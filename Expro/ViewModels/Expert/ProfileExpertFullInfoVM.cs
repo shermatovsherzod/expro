@@ -109,7 +109,13 @@ namespace Expro.ViewModels
         [Display(Name = "Статус")]
         public int Status { get; set; }
 
-        public ProfileExpertFullInfoVM(ApplicationUser model) // : base(model)
+        public AttachmentDetailsVM Avatar { get; set; }
+
+        public List<ExpertProfileWorkExperienceDetailsVM> WorkExperience { get; set; }
+
+        public List<ExpertProfileEducationDetailsVM> Education { get; set; }
+
+        public ProfileExpertFullInfoVM(ApplicationUser model) 
         {
             if (model == null)
                 return;
@@ -142,6 +148,9 @@ namespace Expro.ViewModels
             LawAreas = model.UserLawAreas != null ? model.UserLawAreas.Select(r => (int)r.LawAreaID).ToList() : null;
             LawAreasName = model.UserLawAreas != null ? model.UserLawAreas.Select(c => c.LawArea.Name).ToList() : null;
             Status = model.UserStatusID;
+            Avatar = new AttachmentDetailsVM(model.Avatar);
+            WorkExperience = new ExpertProfileWorkExperienceDetailsVM().GetListOfExpertProfileWorkExperienceDetailsVM(model.WorkExperience);
+            Education = new ExpertProfileEducationDetailsVM().GetListOfExpertProfileEducationDetailsVM(model.ExpertEducations);
         }
 
         public List<ProfileExpertFullInfoVM> GetListOfExpertFullInfoVM(IQueryable<ApplicationUser> models)
@@ -179,7 +188,8 @@ namespace Expro.ViewModels
                 CityStr = s.CityID != null ? s.City.Name : "",
                 LawAreas = s.UserLawAreas != null ? s.UserLawAreas.Select(r => (int)r.LawAreaID).ToList() : null,
                 LawAreasName = s.UserLawAreas != null ? s.UserLawAreas.Select(c => c.LawArea.Name).ToList() : null,
-                Status = s.UserStatusID
+                Status = s.UserStatusID,
+
             }).ToList();
     }
 }

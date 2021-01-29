@@ -16,16 +16,18 @@ namespace Expro.Areas.Admin.Controllers
 {
     [Area("Admin")]
     [Authorize(Policy = "AdminOnly")]
-    public class ExpertsListController : BaseExpertsListController
+    public class ExpertsController : BaseExpertsController
     {
         private readonly IExpertStatusService _expertStatusService;
-        
-        public ExpertsListController(
+        private readonly IWorkExperienceService _workExperienceService;
+
+        public ExpertsController(
              IExpertsListSearchService expertsListSearchService,
              IUserService userService,
              IExpertStatusService expertStatusService,
              IExpertsListAdminActionsService expertsListAdminActionsService,
-             IStringLocalizer<Resources.ResourceTexts> localizer
+             IStringLocalizer<Resources.ResourceTexts> localizer,
+             IWorkExperienceService workExperienceService
            ) : base(
                expertsListSearchService,
                userService,
@@ -34,6 +36,7 @@ namespace Expro.Areas.Admin.Controllers
                )
         {
             _expertStatusService = expertStatusService;
+            _workExperienceService = workExperienceService;
         }
 
         public override IActionResult Index()
@@ -50,7 +53,7 @@ namespace Expro.Areas.Admin.Controllers
 
 
         public override IActionResult Details(string id)
-        {
+        {          
             return base.Details(id);
         }
 

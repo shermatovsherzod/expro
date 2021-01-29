@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Expro.Models
 {
-    public class ExpertProfileWorkExperienceFormVM 
+    public class ExpertProfileWorkExperienceFormVM
     {
         public ExpertProfileWorkExperienceFormVM() { }
         public int ID { get; set; }
@@ -39,6 +39,8 @@ namespace Expro.Models
         [Display(Name = "По")]
         public string WorkPeriodTo { get; set; }
 
+       
+
         public ExpertProfileWorkExperienceFormVM(WorkExperience model) // : base(model)
         {
             if (model == null)
@@ -51,34 +53,47 @@ namespace Expro.Models
             Position = model.Position;
             WorkPeriodFrom = model.WorkPeriodFrom;
             WorkPeriodTo = model.WorkPeriodTo;
+       
         }
     }
-        
+
     public class WorkExperienceListItemVM
     {
         public int ID { get; set; }
 
-        [Required]
         [Display(Name = "Страна")]
         public string Country { get; set; }
-               
+
         [Display(Name = "Город")]
         public string City { get; set; }
 
-        [Required]
-        [Display(Name = "Место работы")]    
+        [Display(Name = "Место работы")]
         public string PlaceOfWork { get; set; }
 
-        [Required]
-        [Display(Name = "Должность")]     
+        [Display(Name = "Должность")]
         public string Position { get; set; }
 
-        [Required]
         [Display(Name = "С")]
         public string WorkPeriodFrom { get; set; }
 
-        [Required]
         [Display(Name = "По")]
         public string WorkPeriodTo { get; set; }
+
+        public List<WorkExperienceListItemVM> GetWorkExperienceListVM(IQueryable<WorkExperience> models, string UserID)
+        {
+            if (models == null)
+                return new List<WorkExperienceListItemVM>();
+
+            return models.Where(c => c.Creator.Id == UserID).Select(model => new WorkExperienceListItemVM
+            {
+                ID = model.ID,
+                Country = model.Country.Name,
+                City = model.City,
+                PlaceOfWork = model.PlaceOfWork,
+                Position = model.Position,
+                WorkPeriodFrom = model.WorkPeriodFrom,
+                WorkPeriodTo = model.WorkPeriodTo,
+            }).ToList();
+        }
     }
 }

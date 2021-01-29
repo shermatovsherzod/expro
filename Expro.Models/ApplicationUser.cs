@@ -90,7 +90,16 @@ namespace Expro.Models
         public DateTime? DateRatingLastUpdated { get; set; }
 
         //==========================================================
-        [InverseProperty("Author")]
-        public virtual ICollection<Post> PostsAuthored { get; set; }
+        //[InverseProperty("Author")]
+        //public virtual ICollection<Post> PostsAuthored { get; set; }
+
+        [InverseProperty("User")]
+        public virtual ICollection<WorkExperience> WorkExperience { get; set; }
+
+
+        [InverseProperty("User")]
+        public virtual ICollection<ExpertEducation> ExpertEducations { get; set; }
+        [InverseProperty("Creator")]
+        public virtual ICollection<ExpertEducation> CreatedExpertEducations { get; set; }
     }
 }

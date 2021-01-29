@@ -13,17 +13,19 @@ using Microsoft.Extensions.Localization;
 
 namespace Expro.Controllers
 {
-    public class BaseExpertsListController : BaseController
+    public class BaseExpertsController : BaseController
     {
         private readonly IExpertsListSearchService _expertsListSearchService;
         private readonly IUserService _userService;
         private readonly IExpertsListAdminActionsService _expertsListAdminActionsService;
-        
-        public BaseExpertsListController(
+     
+
+        public BaseExpertsController(
             IExpertsListSearchService expertsListSearchService,
             IUserService userService,
             IExpertsListAdminActionsService expertsListAdminActionsService,
             IStringLocalizer<Resources.ResourceTexts> localizer
+          
             )
         {
             _expertsListSearchService = expertsListSearchService;
@@ -74,11 +76,13 @@ namespace Expro.Controllers
 
         public virtual IActionResult Details(string id)
         {
-            var expert = _userService.GetByID(id);
+            var expert = _userService.GeWithRelatedDataByID(id);
             if (expert == null)
                 throw new Exception("Эксперт не найден");
 
             ProfileExpertFullInfoVM profileExpertFullInfoVM = new ProfileExpertFullInfoVM(expert);
+
+            
 
             return View(profileExpertFullInfoVM);
         }

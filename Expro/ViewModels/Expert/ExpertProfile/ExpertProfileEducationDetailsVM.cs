@@ -56,5 +56,21 @@ namespace Expro.ViewModels
                  ID = s.ID
              }).ToList();
         }
+
+        public List<ExpertProfileEducationDetailsVM> GetListOfExpertProfileEducationDetailsVM(ICollection<ExpertEducation> models)
+        {
+            if (models == null)
+                return null;
+
+            return models.Select(s => new ExpertProfileEducationDetailsVM
+            {
+                University = s.University,
+                City = s.City,
+                Country = s.Country.Name,
+                Faculty = s.Faculty,
+                GraduationYear = s.GraduationYear,
+                ID = s.ID
+            }).ToList();
+        }
     }
 }

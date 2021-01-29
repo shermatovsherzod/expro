@@ -1,11 +1,11 @@
-﻿using Expro.Models;
-using System;
-using System.Collections.Generic;
-using System.Text;
+﻿//using Expro.Models;
+//using System;
+//using System.Collections.Generic;
+//using System.Text;
 
-namespace Expro.Data.Repository.Interfaces
-{
-    public interface IPostRepository : IBaseCRUDRepository<Post>
-    {
-    }
-}
+//namespace Expro.Data.Repository.Interfaces
+//{
+//    public interface IPostRepository : IBaseCRUDRepository<Post>
+//    {
+//    }
+//}
