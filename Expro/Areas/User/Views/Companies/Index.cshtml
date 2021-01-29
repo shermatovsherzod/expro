@@ -1,29 +1,40 @@
-﻿@model CompanyEditVM
+﻿@model IEnumerable<Expro.ViewModels.CompanyDetailsVM>
 @using Expro.ViewModels
+@using Expro.Models.Enums
+
 @{
     Layout = "_Layout";
     ViewData["Title"] = "Компании";
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
 }
 
+@if (ViewData["successfullyCreated"] != null)
+{
+    <div class="alert alert-soft-success text-center rounded-0 mb-0" role="alert">
+        Компания успешно добавлена
+    </div>
+    <br />
+}
+
 <div class="row">
     <div class="col-md-12">
-        @Html.ActionLink("Добавить компанию", "Create", "Companies", null, new { @class = "btn btn-primary" })        
+        @Html.ActionLink("Добавить компанию", "Create", "Companies", null, new { @class = "btn btn-primary" })
     </div>
 </div>
 
 <div class="row">
     <div class="col-md-12">
         <br />
-        <table class="table">
+        <table id="list">
             <thead>
                 <tr>
-                    <th>Логотип</th>
-                    <th>Название компании</th>
-                    <th>Веб сайт</th>
-                    <th>Телефон</th>
-                    <th>Емейл</th>
-                    <th>Действия</th>
+                    @*<th>Логотип</th>
+                        <th>Название компании</th>
+                        <th>Веб сайт</th>
+                        <th>Телефон</th>
+                        <th>Емейл</th>
+                        <th>Действия</th>*@
+                    <th></th>
                 </tr>
             </thead>
             <tbody>
@@ -31,18 +42,92 @@
                     List<CompanyDetailsVM> _list = ViewData["companyListVM"] as List<CompanyDetailsVM>;
                 }
 
-                @foreach (var item in _list)
+                @foreach (var item in Model)
                 {
                     <tr>
-                        <td></td>
-                        <td>@item.CompanyName</td>
-                        <td>@item.WebSite</td>
-                        <td>@item.PhoneNumber</td>
-                        <td>@item.Email</td>
+                        @*<td>@item.Logo.Url</td>
+                            <td>@item.CompanyName</td>
+                            <td>@item.WebSite</td>
+                            <td>@item.PhoneNumber</td>
+                            <td>@item.Email</td>
+                            <td>
+                                <a href="/User/Companies/Details/@item.ID"><i class="fas fa-eye"></i></a>
+                                <a href="/User/Companies/Edit/@item.ID"><i class="fas fa-pencil-alt"></i></a>
+                                <a href="/User/Companies/Delete/@item.ID"><i class="far fa-trash-alt"></i></a>
+                            </td>*@
                         <td>
-                            <a href="/User/Companies/Details/@item.ID"><i class="fas fa-eye"></i></a>
-                            <a href="/User/Companies/Edit/@item.ID"><i class="fas fa-pencil-alt"></i></a>
-                            <a href="/User/Companies/Delete/@item.ID"><i class="far fa-trash-alt"></i></a>
+                            <div class="card card-bordered card-hover-shadow mb-5">
+                                <div class="card-body">
+                                    <div class="d-sm-flex">
+                                        <div class="media align-items-center align-items-sm-start mb-3">
+                                            <img class="avatar avatar-sm mr-3" src="@item.Logo.Url" alt="Image Description">
+                                            <div class="media-body d-sm-none">
+                                                <h6 class="mb-0">
+                                                    <a class="text-dark" href="employer.html">Mailchimp</a>
+                                                    <img class="avatar avatar-xss ml-1" src="../assets/svg/illustrations/top-vendor.svg" alt="Review rating" data-toggle="tooltip" data-placement="top" title="Claimed profile">
+                                                </h6>
+                                            </div>
+                                        </div>
+                                        <div class="media-body">
+                                            <div class="row">
+                                                <div class="col col-md-8">
+                                                    <h3 class="mb-0">
+                                                        <a class="text-dark" href="/User/Companies/Edit/@item.ID" target="_blank">@item.CompanyName</a>
+                                                    </h3>
+                                                    <div class="d-none d-sm-block">
+                                                        @foreach (var lawArea in item.LawAreas)
+                                                        {
+                                                            <span class="badge badge-soft-primary">@lawArea.Name</span>
+                                                        }
+                                                    </div>
+                                                </div>
+                                                <div class="col-12 col-md mt-3 mt-md-2">
+                                                    @*<span class="d-block font-size-1 text-body mb-1">$125k-$135k yearly</span>*@
+
+                                                    @{
+                                                        string badgeClass = "";
+                                                        if (item.Status.ID == ((int)CompanyStatusEnum.NotApproved))
+                                                        {
+                                                            badgeClass = "info";
+                                                        }
+                                                        else if (item.Status.ID == ((int)CompanyStatusEnum.WaitingForApproval))
+                                                        {
+                                                            badgeClass = "warning";
+                                                        }
+                                                        else if (item.Status.ID == ((int)CompanyStatusEnum.Approved))
+                                                        {
+                                                            badgeClass = "success";
+                                                        }
+                                                        else if (item.Status.ID == ((int)CompanyStatusEnum.Rejected))
+                                                        {
+                                                            badgeClass = "danger";
+                                                        }
+                                                    }
+                                                    <span class="badge badge-soft-@badgeClass mr-2">
+                                                        <span class="legend-indicator bg-@badgeClass"></span>@item.Status.Name
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card-footer">
+                                    <ul class="list-inline list-separator small text-body">
+                                        @if (!string.IsNullOrWhiteSpace(item.WebSite))
+                                        {
+                                            <li class="list-inline-item"><i class="fa fa-globe"></i> <a href="@item.WebSite">Вэб-сайт</a></li>
+                                        }
+                                        @if (!string.IsNullOrWhiteSpace(item.PhoneNumber))
+                                        {
+                                            <li class="list-inline-item"><i class="fa fa-phone"></i> @item.PhoneNumber</li>
+                                        }
+                                        @if (!string.IsNullOrWhiteSpace(item.Email))
+                                        {
+                                            <li class="list-inline-item"><i class="fa fa-envelope"></i> @item.Email</li>
+                                        }
+                                    </ul>
+                                </div>
+                            </div>
                         </td>
                     </tr>
                 }
@@ -51,6 +136,19 @@
     </div>
 </div>
 
-@section Scripts{
+<link href="~/lib/DataTables-1.10.22/datatables.css" rel="stylesheet" />
 
+@section Scripts{
+    <script src="~/lib/DataTables-1.10.22/datatables.js"></script>
+    <script>
+        $(document).ready(function () {
+            $("table#list").DataTable({
+                searching: false,
+                ordering: false,
+                lengthChange: false,
+                scrollX: true,
+                lengthChange: false
+            });
+        });
+    </script>
 }

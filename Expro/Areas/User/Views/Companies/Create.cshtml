@@ -1,24 +1,55 @@
 ﻿@model CompanyEditVM
 @using Expro.ViewModels
+@using Expro.Common
+
 @{
-    Layout = "_Layout";
-    ViewData["Title"] = "Добавить компанию";
-    <link href="~/lib/treeselect/css/jquery.bootstrap.treeselect.css" rel="stylesheet" />
-    <link href="~/lib/bootstrap-select-1.13.14/css/bootstrap-select.css" rel="stylesheet" />
+    ViewData["Title"] = "Добавление компании";
     int? cityID = Model?.CityID;
 }
-<style>
-    .bootstrap-select {
-        border: 1px solid #ced4da !important;
-        border-radius: .25rem;
-    }
-</style>
 
-<div class="row">
-    <h4>Добавление компании</h4>
-</div>
+<form asp-controller="Companies" asp-action="Create"
+      id="addCompanyForm"
+      onsubmit="SubmitCompanyForm()"
+      data-ajax="true"
+      data-ajax-method="POST"
+      data-ajax-failure="PostFailure"
+      data-ajax-success="PostSuccess"
+      data-ajax-complete="PostCompleted">
 
-<form asp-controller="Companies" asp-action="Create" data-ajax="true" data-ajax-method="POST">
+    <div class="border-bottom mb-4">
+        <h2>@ViewData["Title"]</h2>
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    </div>
+
+    <!-- Form Group -->
+    <div class="row form-group">
+        <label class="col-sm-3 col-form-label input-label">Лого</label>
+        <div class="col-sm-9">
+            <div class="d-flex align-items-center">
+                <!-- Avatar -->
+                <label class="avatar avatar-xl avatar-circle mr-4" for="addCompanyFormAttachment">
+                    <img id="avatarImg" class="avatar-img" src="~/lib/frontTheme/img/160x160/img38.jpg" alt="Image Description">
+                </label>
+                <div class="btn btn-sm btn-primary file-attachment-btn">
+                    Загрузить лого
+                    <input type="file" class="js-file-attach file-attachment-btn-label" id="addCompanyFormAttachment"
+                           data-hs-file-attach-options='{
+                              "textTarget": "#avatarImg",
+                              "mode": "image",
+                              "targetAttr": "src",
+                              "resetTarget": ".js-file-attach-reset-img",
+                              "resetImg": "/lib/frontTheme/img/160x160/img38.jpg",
+                              "allowTypes": [".png", ".jpeg", ".jpg"]
+                           }'>
+                </div>
+                <!-- End Avatar -->
+
+                <button type="button" class="js-file-attach-reset-img btn btn-sm btn-white ml-2">Удалить</button>
+            </div>
+        </div>
+    </div>
+    <!-- End Form Group -->
+
     <div class="row">
         <div class="col-md-3">
             <label asp-for="@Model.CompanyName"></label>
@@ -36,10 +67,22 @@
             <label asp-for="@Model.CompanyDescription"></label>
         </div>
         <div class="col-md-9">
-            <p>
-                <textarea asp-for="@Model.CompanyDescription" class="form-control"></textarea>
-                <span asp-validation-for="@Model.CompanyDescription" class="text-danger"></span>
-            </p>
+            <!-- Quill -->
+            <div class="quill-custom Text">
+                <div class="js-quill" style="min-height: 15rem;"
+                     data-hs-quill-options='{
+                   "placeholder": "Опишите в двух словах...",
+                    "modules": {
+                      "toolbar": [["bold", "italic", "underline", "strike", "link", "image", "blockquote", "code", {"list": "bullet"}]]
+                    }
+                   }'>
+                    @*@Html.Raw(Model.CompanyDescription)*@
+                </div>
+            </div>
+            <br />
+            <!-- End Quill -->
+            <textarea asp-for="CompanyDescription" class="form-control" style="display: none;"></textarea>
+            <span asp-validation-for="CompanyDescription" class="text-danger"></span>
         </div>
     </div>
 
@@ -48,36 +91,28 @@
             <label asp-for="@Model.LawAreas"></label>
         </div>
         <div class="col-md-9">
-            <p>
-                <select asp-for="@Model.LawAreas"
-                        class="selectpicker form-control"
-                        title="Выберите"
-                        multiple
-                        data-selected-text-format="count > 3"
-                        data-language="ru_RU">
-                    @{
-                        var items = ViewData["lawAreas"] as List<SelectListItemWithParent>;
-                        var parentItems = items.Where(m => m.ParentValue == "").ToList();
-                        for (int i = 0; i < parentItems.Count; i++)
+            <select asp-for="LawAreas"
+                    class="js-custom-select custom-select" size="1" multiple style="opacity: 0;"
+                    data-hs-select2-options='{
+                    "minimumResultsForSearch": "Infinity"
+                }'>
+                @{
+                    var items = ViewData["lawAreas"] as List<SelectListItemWithParent>;
+                    var parentItems = items.Where(m => m.ParentValue == "").ToList();
+                    for (int i = 0; i < parentItems.Count; i++)
+                    {
+                        <option value="@parentItems[i].Value" data-option-template="<b>@parentItems[i].Text</b>">@parentItems[i].Text</option>
+
+                        var childItems = items.Where(m => m.ParentValue == parentItems[i].Value).ToList();
+                        foreach (var childItem in childItems)
                         {
-                            <option value="@parentItems[i].Value" data-content="<b>@parentItems[i].Text</b>">@parentItems[i].Text</option>
-
-                            var childItems = items.Where(m => m.ParentValue == parentItems[i].Value).ToList();
-                            foreach (var childItem in childItems)
-                            {
-                                <option value="@childItem.Value" data-content="- @childItem.Text">@childItem.Text</option>
-                            }
-
-                            if (i < parentItems.Count - 1)
-                            {
-                                <option data-divider="true"></option>
-                            }
+                            <option value="@childItem.Value" data-option-template="- @childItem.Text">@childItem.Text</option>
                         }
                     }
-                </select>
+                }
+            </select>
 
-                <span asp-validation-for="@Model.LawAreas" class="text-danger"></span>
-            </p>
+            <span asp-validation-for="@Model.LawAreas" class="text-danger"></span>
         </div>
     </div>
 
@@ -87,14 +122,15 @@
             <label asp-for="@Model.RegionID"></label>
         </div>
         <div class="col-md-9">
-            <p>
-                <select asp-for="@Model.RegionID"
-                        asp-items="@ViewData["regions"] as IEnumerable<SelectListItem>"
-                        class="form-control">
-                    <option disabled selected>--- Выбрать регион ---</option>
-                </select>
-                <span asp-validation-for="@Model.RegionID" class="text-danger"></span>
-            </p>
+            <select asp-for="@Model.RegionID"
+                    asp-items="@ViewData["regions"] as IEnumerable<SelectListItem>"
+                    class="js-custom-select custom-select" size="1" style="opacity: 0;"
+                    data-hs-select2-options='{
+                    "minimumResultsForSearch": "Infinity"
+                }'>
+                <option disabled selected>--- Выбрать регион ---</option>
+            </select>
+            <span asp-validation-for="@Model.RegionID" class="text-danger"></span>
         </div>
     </div>
 
@@ -103,14 +139,15 @@
             <label asp-for="@Model.CityID"></label>
         </div>
         <div class="col-md-9">
-            <p>
-                <select asp-for="@Model.CityID"
-                        asp-items="@ViewData["cities"] as IEnumerable<SelectListItem>"
-                        class="form-control">
-                    <option disabled selected>--- Выбрать город ---</option>
-                </select>
-                <span asp-validation-for="@Model.CityID" class="text-danger"></span>
-            </p>
+            <select asp-for="@Model.CityID"
+                    asp-items="@ViewData["cities"] as IEnumerable<SelectListItem>"
+                    class="js-custom-select custom-select" size="1" style="opacity: 0;"
+                    data-hs-select2-options='{
+                    "minimumResultsForSearch": "Infinity"
+                }'>
+                <option disabled selected>--- Выбрать город ---</option>
+            </select>
+            <span asp-validation-for="@Model.CityID" class="text-danger"></span>
         </div>
     </div>
 
@@ -172,21 +209,38 @@
             </p>
         </div>
     </div>
-    <button type="submit" class="btn btn-success">Добавить</button>
 
-
+    <div class="row">
+        <div class="col-sm-12">
+            <button type="submit" class="btn btn-success">Сохранить</button>
+            <div class="spinner-border spinner" style="display: none;"></div>
+        </div>
+    </div>
 </form>
-<div class="row">
 
+<div class="row">
     <a asp-action="Index">Вернутся к списку</a>
 </div>
 
+@section CustomFrontStyles
+{
+    <link rel="stylesheet" href="~/lib/frontTheme/vendor/select2/dist/css/select2.min.css">
+    <link rel="stylesheet" href="~/lib/frontTheme/vendor/quill/dist/quill.snow.css">
+}
 
 @section Scripts{
-    <script src="~/lib/bootstrap-select-1.13.14/js/bootstrap-select.js"></script>
-    <script src="~/lib/bootstrap-select-1.13.14/js/i18n/defaults-ru_RU.js"></script>
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+
+    <script src="~/lib/frontTheme/vendor/select2/dist/js/select2.full.min.js"></script>
+    <script src="~/lib/frontTheme/vendor/hs-file-attach/dist/hs-file-attach.min.js"></script>
+    <script src="~/lib/frontTheme/vendor/quill/dist/quill.min.js"></script>
+
     <script>
         $(document).ready(function () {
+            InitFileUploader();
+            InitSelectpicker();
+            var quill = InitQuill();
+
             var cityID = Number("@cityID");
             if (cityID != "0")
                 $("#CityOther").attr('disabled', 'disabled');
@@ -240,6 +294,221 @@
                     console.log(data);
                 }
             });
+        }
+    </script>
+
+    <script>
+        function InitFileUploader() {
+            // INITIALIZATION OF CUSTOM FILE
+            // =======================================================
+            $('.js-file-attach').each(function () {
+                var customFile = new HSFileAttach($(this)).init();
+            });
+        }
+
+        function InitSelectpicker() {
+            //$('#LawAreas').selectpicker();
+
+            // INITIALIZATION OF SELECT2
+            // =======================================================
+            $('.js-custom-select').each(function () {
+                var select2 = $.HSCore.components.HSSelect2.init($(this));
+            });
+        }
+
+        function InitQuill() {
+            // INITIALIZATION OF QUILLJS EDITOR
+            // =======================================================
+            var options = {
+                //debug: 'info',
+                //modules: {
+                //    toolbar: '#toolbar'
+                //},
+                //placeholder: 'Compose an epic...',
+                //readOnly: true,
+                //theme: 'snow'
+            };
+            var quill = $.HSCore.components.HSQuill.init('.js-quill', options);
+            quill.on('text-change', function (delta, oldDelta, source) {
+                //if (source == 'api') {
+                //    alert("An API call triggered this change.");
+                //} else if (source == 'user') {
+                //    alert("A user action triggered this change.");
+                //}
+
+                var html = $(".quill-custom.Text .ql-editor").html();
+                if (html == "<p><br></p>")
+                    html = "";
+
+                $("textarea#CompanyDescription").val(html);
+            });
+
+            return quill;
+        }
+
+        var fileInput;
+        var companyID = 0;
+
+        function SubmitCompanyForm() {
+            var isValid = $('#addCompanyForm').valid();
+            if (isValid) {
+                $("#addCompanyForm .spinner").show();
+
+                DisableFormElements();
+
+                return true;
+            }
+            else
+                return false;
+        }
+
+        function ShowAnswerFormSpinner() {
+
+        }
+
+        function DisableFormElements() {
+            $("#addCompanyForm input").attr("readonly", "readonly");
+            $("#addCompanyForm textarea").attr("readonly", "readonly");
+            $("#addCompanyForm button").attr("disabled", "disabled");
+        }
+
+        function PostFailure(data) {
+            alert("Ошибка: " + data.responseJSON.errorMessage);
+            //console.log(data);
+            $("#addCompanyForm .spinner").hide();
+        }
+
+        function PostSuccess(data) {
+            //alert("success");
+            console.log(data);
+            companyID = data.id;
+            //alert("success");
+
+            fileInput = document.getElementById('addCompanyFormAttachment')
+            //fileInput = $("#addCompanyForm input#attachment");
+            //console.log(fileInput);
+            if (!(fileInput.files && fileInput.files[0])) {
+                //$("#" + spinnerTagID).hide();
+                //alert("no file is selected");
+                RedirectToIndexPageAfterSuccessCreate()
+            }
+            else {
+                var file = fileInput.files[0];
+                UploadToFirebaseStorageAnswerFile(file);
+            }
+        }
+
+        function PostCompleted(data) {
+            //alert("completed");
+            //console.log(data);
+            //alert("completed");
+            //$("#addCompanyForm .spinner").hide();
+        }
+
+        function UploadToFirebaseStorageAnswerFile(file) {
+            var displayName = file.name;
+            var extension = file.name.split('.')[1];
+
+            // Create a root reference
+            var storageRef = firebase.storage().ref();
+            var uploadTask = storageRef.child('Companies/' + companyID + '.' + extension).put(file);
+
+            // Listen for state changes, errors, and completion of the upload.
+            uploadTask.on(firebase.storage.TaskEvent.STATE_CHANGED, // or 'state_changed'
+                function (snapshot)
+                {
+                    // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
+                    var progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+                    console.log('Upload is ' + progress + '% done');
+                    switch (snapshot.state)
+                    {
+                        case firebase.storage.TaskState.PAUSED: // or 'paused'
+                            console.log('Upload is paused');
+                            break;
+                        case firebase.storage.TaskState.RUNNING: // or 'running'
+                            console.log('Upload is running');
+                            break;
+                    }
+                }, function (error)
+                {
+                    $("#addCompanyForm .spinner").hide();
+                    console.log(error);
+                }, function ()
+                {
+                    // Upload completed successfully, now we can get the download URL
+                    var attachment = {
+                        FileName: "" + companyID,
+                        DisplayName: displayName,
+                        Extension: extension,
+                        Path: "",
+                        Size: 0,
+                        ContentType: "",
+                        DownloadUrl: "",
+                        FileType: "@Constants.FileTypes.COMPANY",
+                        ModelID: companyID
+                    };
+                    //console.log(uploadTask.snapshot.ref);
+
+
+                    uploadTask.snapshot.ref.getMetadata().then(function (metaData)
+                    {
+                        //console.log(metaData);
+
+                        //attachment.Filename = metaData.name;
+                        attachment.Path = metaData.fullPath;
+                        attachment.Size = metaData.size;
+                        attachment.ContentType = metaData.contentType;
+
+                        uploadTask.snapshot.ref.getDownloadURL().then(function (downloadURL)
+                        {
+                            attachment.DownloadUrl = downloadURL;
+
+                            //console.log(attachment);
+                            FileAjaxUpload(fileInput, file, attachment);
+                        });
+                    });
+                }
+            );
+        }
+
+        function FileAjaxUpload(input, file, attachment) {
+            if (file) {
+                $.ajax({
+                    url: "/Attachment/Save",
+                    data: JSON.stringify(attachment),
+                    processData: false,
+                    contentType: "application/json; charset=utf-8",
+                    type: "POST",
+                    //dataType: "json",
+                    beforeSend: function () {
+                        //alert("beforeSend");
+                        //$("#" + spinnerTagID).show();
+                        //$("#imgInp").attr("disabled", "disabled");
+                        $(input).attr("disabled", "disabled");
+                    },
+                    success: function (data) {
+                        RedirectToIndexPageAfterSuccessCreate();
+                        //alert("File uploaded!");
+                    },
+                    error: function (data) {
+                        alert("Error!");
+                        $("#addCompanyForm .spinner").hide();
+                    },
+                    complete: function () {
+                        //$("#" + spinnerTagID).hide();
+                        //$(input).removeAttr("disabled");
+                    }
+                });
+            }
+            else {
+                //$("#" + spinnerTagID).hide();
+                $("#addCompanyForm .spinner").hide();
+                $(input).removeAttr("disabled");
+            }
+        }
+
+        function RedirectToIndexPageAfterSuccessCreate() {
+            window.location.replace("/User/Companies/Index?successfullyCreated=true");
         }
     </script>
 }

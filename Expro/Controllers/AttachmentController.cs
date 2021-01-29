@@ -24,6 +24,7 @@ namespace Expro.Controllers
         private readonly IQuestionService QuestionService;
         private readonly IQuestionAnswerService QuestionAnswerService;
         private readonly ICommentService CommentService;
+        private readonly ICompanyService _companyService;
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly IUserService _userService;
 
@@ -35,6 +36,7 @@ namespace Expro.Controllers
             IQuestionService questionService,
             IQuestionAnswerService questionAnswerService,
             ICommentService commentService,
+            ICompanyService companyService,
             //IHostingEnvironment env,
             UserManager<ApplicationUser> userManager,
             ILogger<AttachmentController> logger,
@@ -45,6 +47,7 @@ namespace Expro.Controllers
             QuestionService = questionService;
             QuestionAnswerService = questionAnswerService;
             CommentService = commentService;
+            _companyService = companyService;
             //_env = env;
             _userManager = userManager;
             _logger = logger;
@@ -118,6 +121,15 @@ namespace Expro.Controllers
                     {
                         model.Attachment = attachment;
                         CommentService.Update(model);
+                    }
+                }
+                else if (fileType.Equals(Constants.FileTypes.COMPANY))
+                {
+                    var model = _companyService.GetByID(modelIDInt);
+                    if (model != null)
+                    {
+                        model.Logo = attachment;
+                        _companyService.Update(model);
                     }
                 }
             }
