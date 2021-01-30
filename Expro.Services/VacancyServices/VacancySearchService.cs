@@ -46,7 +46,7 @@ namespace Expro.Services
                 {
                     if (curUserType == UserTypesEnum.Admin)
                         vacancies = _vacancyService.GetAllForAdmin();
-                    else if (curUserType == UserTypesEnum.Expert)
+                    else if (curUserType == UserTypesEnum.Expert || curUserType == UserTypesEnum.SimpleUser)
                         vacancies = _vacancyService.GetVacancyByCreatorID(authorID);                  
                     else
                         vacancies = _vacancyService.GetAllApproved();

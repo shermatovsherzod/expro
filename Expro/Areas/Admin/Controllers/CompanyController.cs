@@ -59,8 +59,6 @@ namespace Expro.Areas.Admin.Controllers
             int recordsFiltered = 0;
             string error = "";
 
-            var curUser = accountUtil.GetCurrentUser(User);
-
             IQueryable<Company> dataIQueryable = _companySearchService.Search(
                 start,
                 length,
@@ -69,7 +67,7 @@ namespace Expro.Areas.Admin.Controllers
                 out recordsFiltered,
                 out error,
 
-                curUser.UserType,
+                UserTypesEnum.Admin,
                 statusID,
                 null,
                 lawAreas

@@ -10,5 +10,6 @@ namespace Expro.Services.Interfaces
         bool VacancyBelongsToUser(int modelID, string userID);
         IQueryable<Vacancy> GetAllForAdmin();
         IQueryable<Vacancy> GetAllApproved();
+        void SubmitForApproval(Vacancy entity, string userID);
     }
 }

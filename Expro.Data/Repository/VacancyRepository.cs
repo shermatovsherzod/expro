@@ -13,5 +13,13 @@ namespace Expro.Data.Repository
         {
         }
 
+        public IQueryable<Vacancy> GetManyWithRelatedDataAsIQueryable()
+        {
+            return DbSet
+                .Include(m => m.Creator)
+                .Include(m => m.Region)
+                .Include(m => m.City)
+                .Include(m => m.VacancyStatus);
+        }
     }
 }

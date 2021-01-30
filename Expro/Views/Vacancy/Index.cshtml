@@ -39,11 +39,11 @@
                     <!-- Filter Form -->
                     <form>
                         <!-- Filter Group -->
-                        <div class="mb-5">
-                            <h6 class="small text-cap">Фильтр по статусу</h6>
+                        <!--<div class="mb-5">
+                            <h6 class="small text-cap">Фильтр по статусу</h6>-->
 
                             <!-- Select -->
-                            <div id="statusDDBox" class="select2-custom select2-custom-sm-right">
+                            <!--<div id="statusDDBox" class="select2-custom select2-custom-sm-right">
                                 <select id="statusDD" class="js-custom-select custom-select-sm" style="opacity: 0;"
                                         data-hs-select2-options='{
 						"dropdownParent": "#statusDDBox",
@@ -53,9 +53,9 @@
 					  }' asp-items="@ViewData["statuses"] as List<SelectListItem>">
                                     <option value="">Все</option>
                                 </select>
-                            </div>
+                            </div>-->
                             <!-- End Select -->
-                        </div>
+                        <!--</div>-->
                         <!-- End Filter Group -->
                         @*<button type="button" class="btn btn-sm btn-block btn-white">
                                 <i class="fas fa-redo fa-sm mr-1"></i> Reset all
@@ -110,11 +110,11 @@
                 lengthChange: false,
                 ajax:
                 {
-                    url: "/Admin/Vacancy/Search",
+                    url: "/Vacancy/Search",
                     type: "POST",
                     datatype: "json",
                     data: function (d) {
-                        d.statusID = $("#statusDD").val();
+                        //d.statusID = $("#statusDD").val();
                     },
                 },
                 columns: [
@@ -122,7 +122,7 @@
                         "data": 0,
                         "render": function (data, type, full, meta) {
                             var html = '';
-                            var url = '/Admin/Vacancy/Details/' + full.id;
+                            var url = '/Vacancy/Details/' + full.id;
 
                             //html += '<div class="col-12">';
                             html += '<div class="card card-bordered card-hover-shadow mb-5">';
@@ -148,7 +148,6 @@
                             html += '                   </div>';
                             html += '                   <div class="col-12 col-md mt-3 mt-md-2">';
                             html += '                       <span class="d-block font-size-1 text-body mb-1">' + full.salary + '</span>';
-                            html += InsertStatusAlert(full);
                             html += '                   </div>';
                             html += '               </div>';
                             html += '           </div>';
@@ -181,27 +180,10 @@
                     //console.log('Redraw took at: ' + (new Date().getTime() - startTime) + 'mS');
                 });
 
-            $("#statusDD").change(function () {
-                table.draw();
-            });
+            //$("#statusDD").change(function () {
+            //    table.draw();
+            //});
         });
-
-        function InsertStatusAlert(full) {
-            var badgeClass = "";
-            if (full.status.id == @((int)CompanyStatusEnum.WaitingForApproval))
-                badgeClass = "-warning";
-            else if (full.status.id == @((int)CompanyStatusEnum.Approved))
-                badgeClass = "-success";
-            else if (full.status.id == @((int)CompanyStatusEnum.Rejected))
-                badgeClass = "-danger";
-
-
-            var html = '<span class="badge badge-soft' + badgeClass + ' mr-2">';
-            html += '   <span class="legend-indicator bg' + badgeClass + '"></span>' + full.status.name;
-            html += '</span>';
-
-            return html;
-        }
 
         function InitHSPlugins() {
             // INITIALIZATION OF SELECT2

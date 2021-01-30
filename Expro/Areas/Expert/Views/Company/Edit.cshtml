@@ -33,19 +33,19 @@
     @if (Model.StatusID == (int)DocumentStatusesEnum.WaitingForApproval)
     {
         <div class="alert alert-soft-info text-center rounded-0 mb-0" role="alert">
-            Отправлен на подтверждение
+            Отправлена на подтверждение
         </div>
     }
     else if (Model.StatusID == (int)DocumentStatusesEnum.Approved)
     {
         <div class="alert alert-soft-success text-center rounded-0 mb-0" role="alert">
-            Подтверждено администратором
+            Подтверждена администратором
         </div>
     }
     else if (Model.StatusID == (int)DocumentStatusesEnum.Rejected)
     {
         <div class="alert alert-soft-danger text-center rounded-0 mb-0" role="alert">
-            Отклонено администратором
+            Отклонена администратором
         </div>
     }
 
@@ -275,16 +275,15 @@
     <script>
         $(document).ready(function ()
         {
-            InitFormPostSubmissionActions();
             InitFileUploader();
             InitSelectpicker();
             var quill = InitQuill();
 
             var statusID = @Model.StatusID;
             console.log(statusID);
-            if (statusID == @((int)DocumentStatusesEnum.WaitingForApproval)
-                || statusID == @((int)DocumentStatusesEnum.Approved)
-                || statusID == @((int)DocumentStatusesEnum.Rejected))
+            if (statusID == @((int)CompanyStatusEnum.WaitingForApproval)
+                || statusID == @((int)CompanyStatusEnum.Approved)
+                || statusID == @((int)CompanyStatusEnum.Rejected))
             {
                 $("form input, form select, form textarea").attr("disabled", "disabled");
                 $("form #editCompanyFormAttachment").attr("disabled", "disabled");
@@ -315,16 +314,6 @@
 
             LoadCitiesByRegion($("#RegionID").val(), cityID);
         });
-
-        function InitFormPostSubmissionActions() {
-            $("#editCompanyForm").submit(function () {
-                var isValid = $('#editCompanyForm').valid();
-                if (isValid) {
-                    ShowFormSpinner();
-                    DisableFormElements();
-                }
-            });
-        }
 
         function LoadCitiesByRegion(regionID, selectedCityID) {
             if (selectedCityID == undefined || (isNaN(selectedCityID)))
@@ -432,6 +421,7 @@
             $("#editCompanyForm input").attr("readonly", "readonly");
             $("#editCompanyForm textarea").attr("readonly", "readonly");
             $("#editCompanyForm button").attr("disabled", "disabled");
+            $("#editCompanyForm select").attr("disabled", "disabled");
         }
 
         function PostFailure(data) {
