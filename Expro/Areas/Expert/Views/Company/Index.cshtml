@@ -18,7 +18,7 @@
 
 <div class="row">
     <div class="col-md-12">
-        @Html.ActionLink("Добавить компанию", "Create", "Companies", null, new { @class = "btn btn-primary" })
+        @Html.ActionLink("Добавить компанию", "Create", "Company", null, new { @class = "btn btn-primary" })
     </div>
 </div>
 
@@ -51,9 +51,9 @@
                             <td>@item.PhoneNumber</td>
                             <td>@item.Email</td>
                             <td>
-                                <a href="/Expert/Companies/Details/@item.ID"><i class="fas fa-eye"></i></a>
-                                <a href="/Expert/Companies/Edit/@item.ID"><i class="fas fa-pencil-alt"></i></a>
-                                <a href="/Expert/Companies/Delete/@item.ID"><i class="far fa-trash-alt"></i></a>
+                                <a href="/Expert/Company/Details/@item.ID"><i class="fas fa-eye"></i></a>
+                                <a href="/Expert/Company/Edit/@item.ID"><i class="fas fa-pencil-alt"></i></a>
+                                <a href="/Expert/Company/Delete/@item.ID"><i class="far fa-trash-alt"></i></a>
                             </td>*@
                         <td>
                             <div class="card card-bordered card-hover-shadow mb-5">

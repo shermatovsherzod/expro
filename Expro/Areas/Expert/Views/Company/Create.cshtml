@@ -7,7 +7,7 @@
     int? cityID = Model?.CityID;
 }
 
-<form asp-controller="Companies" asp-action="Create"
+<form asp-controller="Company" asp-action="Create"
       id="addCompanyForm"
       onsubmit="SubmitCompanyForm()"
       data-ajax="true"
@@ -508,7 +508,7 @@
         }
 
         function RedirectToIndexPageAfterSuccessCreate() {
-            window.location.replace("/Expert/Companies/Index?successfullyCreated=true");
+            window.location.replace("/Expert/Company/Index?successfullyCreated=true");
         }
     </script>
 }
