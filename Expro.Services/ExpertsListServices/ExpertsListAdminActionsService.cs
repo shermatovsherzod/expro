@@ -45,7 +45,7 @@ namespace Expro.Services
         public bool Reject(ApplicationUser entity)
         {
             entity.UserStatusID = (int)ExpertApproveStatusEnum.Rejected;
-            entity.DateApproved = DateTime.Now;          
+            entity.DateRejected = DateTime.Now;          
             try
             {
                 _userService.Update(entity);

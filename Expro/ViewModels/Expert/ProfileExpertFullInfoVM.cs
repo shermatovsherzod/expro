@@ -118,6 +118,10 @@ namespace Expro.ViewModels
 
         public bool IsOnline { get; set; }
 
+        public string DateApprovedStr { get; set; }
+        public string DateRejectedStr { get; set; }
+        public string DateSubmittedForApprovalStr { get; set; }
+
         public ProfileExpertFullInfoVM(ApplicationUser model)
         {
             if (model == null)
@@ -138,6 +142,11 @@ namespace Expro.ViewModels
             DateApproved = model.DateApproved;
             DateRejected = model.DateRejected;
             DateSubmittedForApproval = model.DateSubmittedForApproval;
+
+            DateApprovedStr = DateTimeUtils.ConvertToString(model.DateApproved, AppData.Configuration.DateTimeViewStringFormat);
+            DateRejectedStr = DateTimeUtils.ConvertToString(model.DateRejected, AppData.Configuration.DateTimeViewStringFormat);
+            DateSubmittedForApprovalStr = DateTimeUtils.ConvertToString(model.DateSubmittedForApproval, AppData.Configuration.DateTimeViewStringFormat);
+
             AboutMe = model.AboutMe;
             UserName = model.UserName;
             Email = model.Email;
@@ -178,8 +187,11 @@ namespace Expro.ViewModels
                 UserStatusID = s.UserStatusID,
                 UserStatusStr = s.UserStatus.Name,
                 DateApproved = s.DateApproved,
+                DateApprovedStr = DateTimeUtils.ConvertToString(s.DateApproved, AppData.Configuration.DateTimeViewStringFormat),
                 DateRejected = s.DateRejected,
+                DateRejectedStr = DateTimeUtils.ConvertToString(s.DateRejected, AppData.Configuration.DateTimeViewStringFormat),
                 DateSubmittedForApproval = s.DateSubmittedForApproval,
+                DateSubmittedForApprovalStr = DateTimeUtils.ConvertToString(s.DateSubmittedForApproval, AppData.Configuration.DateTimeViewStringFormat),
                 AboutMe = s.AboutMe,
                 UserName = s.UserName,
                 Email = s.Email,
