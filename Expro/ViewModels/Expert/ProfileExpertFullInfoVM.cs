@@ -1,4 +1,5 @@
-﻿using Expro.Common.Utilities;
+﻿using Expro.Common;
+using Expro.Common.Utilities;
 using Expro.Models;
 using Expro.Models.Enums;
 using System;
@@ -115,7 +116,9 @@ namespace Expro.ViewModels
 
         public List<ExpertProfileEducationDetailsVM> Education { get; set; }
 
-        public ProfileExpertFullInfoVM(ApplicationUser model) 
+        public bool IsOnline { get; set; }
+
+        public ProfileExpertFullInfoVM(ApplicationUser model)
         {
             if (model == null)
                 return;
@@ -126,10 +129,10 @@ namespace Expro.ViewModels
             RegionID = model.RegionID;
             CityID = model.CityID;
             CityOther = model.CityOther;
-            DateOfBirth = DateTimeUtils.ConvertToString(model.DateOfBirth);
+            DateOfBirth = model.DateOfBirth != DateTime.MinValue ? DateTimeUtils.ConvertToString(model.DateOfBirth, AppData.Configuration.DateViewStringFormat) : "";
             GenderID = model.GenderID;
             GenderStr = model.GenderID != null ? model.Gender.Name : "";
-            DateRegistered = DateTimeUtils.ConvertToString(model.DateRegistered);
+            DateRegistered = DateTimeUtils.ConvertToString(model.DateRegistered, AppData.Configuration.DateTimeViewStringFormat);
             UserStatusID = model.UserStatusID;
             UserStatusStr = model.UserStatus.Name;
             DateApproved = model.DateApproved;
@@ -151,6 +154,7 @@ namespace Expro.ViewModels
             Avatar = new AttachmentDetailsVM(model.Avatar);
             WorkExperience = new ExpertProfileWorkExperienceDetailsVM().GetListOfExpertProfileWorkExperienceDetailsVM(model.WorkExperience);
             Education = new ExpertProfileEducationDetailsVM().GetListOfExpertProfileEducationDetailsVM(model.ExpertEducations);
+            IsOnline = model.IsOnline == true ? true : false;
         }
 
         public List<ProfileExpertFullInfoVM> GetListOfExpertFullInfoVM(IQueryable<ApplicationUser> models)
@@ -167,10 +171,10 @@ namespace Expro.ViewModels
                 RegionID = s.RegionID,
                 CityID = s.CityID,
                 CityOther = s.CityOther,
-                DateOfBirth = DateTimeUtils.ConvertToString(s.DateOfBirth, "dd.MMMM.yyyy"),
+                DateOfBirth = s.DateOfBirth != DateTime.MinValue ? DateTimeUtils.ConvertToString(s.DateOfBirth, AppData.Configuration.DateViewStringFormat) : "",
                 GenderID = s.GenderID,
                 GenderStr = s.GenderID != null ? s.Gender.Name : "",
-                DateRegistered = DateTimeUtils.ConvertToString(s.DateRegistered, "dd.MMMM.yyyy"),
+                DateRegistered = DateTimeUtils.ConvertToString(s.DateRegistered, AppData.Configuration.DateTimeViewStringFormat),
                 UserStatusID = s.UserStatusID,
                 UserStatusStr = s.UserStatus.Name,
                 DateApproved = s.DateApproved,
@@ -189,8 +193,8 @@ namespace Expro.ViewModels
                 LawAreas = s.UserLawAreas != null ? s.UserLawAreas.Select(r => (int)r.LawAreaID).ToList() : null,
                 LawAreasName = s.UserLawAreas != null ? s.UserLawAreas.Select(c => c.LawArea.Name).ToList() : null,
                 Status = s.UserStatusID,
-
+                IsOnline = s.IsOnline == true ? true : false
             }).ToList();
+        }
     }
-}
 }

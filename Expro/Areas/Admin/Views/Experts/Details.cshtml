@@ -4,6 +4,8 @@
     ViewData["Title"] = "Эксперты";
     ViewData["ApprovedStatusAlertText"] = "Эксперт подтвержден";
     ViewData["RejectedStatusAlertText"] = "Эксперту отказано";
+    ViewData["WaitingForApprovalAlertText"] = "Ожидание подтверждения";
+    ViewData["NotApprovedAlertText"] = "Эксперт не отправлял данные на подтверждение";
 }
 
 <!-- Page Header -->
@@ -11,8 +13,12 @@
     <div class="page-header">
         <!-- Media -->
         <div class="d-flex align-items-lg-center">
-            <div class="mr-4">
-                <img class="avatar avatar-xl avatar-circle" src="@Model.Avatar.Url" alt="@Model.LastName @Model.FirstName @Model.PatronymicName">
+            <div class="avatar avatar-xxl avatar-circle mr-4">
+                <img class="avatar-img" src="@Model.Avatar.Url" alt="@Model.LastName @Model.FirstName @Model.PatronymicName">
+                @if (Model.IsOnline)
+                {
+                    <span class="avatar-status avatar-sm-status avatar-success"></span>
+                }
             </div>
 
             <div class="media-body">
@@ -49,13 +55,7 @@
 
                 <p>@Model.AboutMe</p>
 
-                <h5>Направления</h5>
-                <ul class="pl-4 mb-4">
-                    @foreach (var item in Model.LawAreasName)
-                    {
-                        <li>@item</li>
-                    }
-                </ul>
+
 
                 <div class="mb-3">
                     <h3>Личная информация</h3>
@@ -97,10 +97,6 @@
                             <h5>Дата регистрации</h5>
                             <p>@Model.DateRegistered</p>
                         </div>
-                        <div class="mb-4">
-                            <h5>Статус</h5>
-                            <p>@Model.UserStatusStr</p>
-                        </div>
                     </div>
                     <div class="col-sm-6">
 
@@ -133,6 +129,18 @@
                     </div>
                 </div>
                 <!-- End Row -->
+            </div>
+
+            <div class="mb-8">
+                <div class="mb-3">
+                    <h3>Направления</h3>
+                </div>
+                <ul class="list-inline list-sm-article">
+                    @foreach (var item in Model.LawAreasName)
+                    {
+                        <li class="list-inline-item"><span class="badge badge-soft-dark py-2 px-3">@item</span></li>
+                    }
+                </ul>
             </div>
 
             <div class="mb-8">
@@ -188,22 +196,7 @@
                 <!-- End Step -->
             </div>
 
-            <div class="mb-8">
-                <div class="mb-3">
-                    <h3>Skills</h3>
-                </div>
 
-                <ul class="list-inline list-sm-article">
-                    <li class="list-inline-item"><span class="badge badge-soft-dark py-2 px-3">Bootstrap (8 years)</span></li>
-                    <li class="list-inline-item"><span class="badge badge-soft-dark py-2 px-3">HTML5 (8 years)</span></li>
-                    <li class="list-inline-item"><span class="badge badge-soft-dark py-2 px-3">CSS3 (8 years)</span></li>
-                    <li class="list-inline-item"><span class="badge badge-soft-dark py-2 px-3">SASS (7 years)</span></li>
-                    <li class="list-inline-item"><span class="badge badge-soft-dark py-2 px-3">User Interface (UI) (8 years)</span></li>
-                    <li class="list-inline-item"><span class="badge badge-soft-dark py-2 px-3">Adobe Photoshop (3 years)</span></li>
-                    <li class="list-inline-item"><span class="badge badge-soft-dark py-2 px-3">Adobe Illustrator (5 years)</span></li>
-                    <li class="list-inline-item"><span class="badge badge-soft-dark py-2 px-3">Figma (1 year)</span></li>
-                </ul>
-            </div>
 
             <div class="mb-8">
                 <div class="mb-3">
@@ -251,25 +244,49 @@
     </div>
 </div>
 <!-- Description Section -->
-<div>
+<div class="container space-2">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="col-md-6">
+                @if (Model.Status == (int)ExpertApproveStatusEnum.Approved)
+                {
+                    <div class="alert alert-success">@ViewData["ApprovedStatusAlertText"]</div>
+                }
+                else if (Model.Status == (int)ExpertApproveStatusEnum.Rejected)
+                {
+                    <div class="alert alert-danger">@ViewData["RejectedStatusAlertText"]</div>
+                }
+                else if (Model.Status == (int)ExpertApproveStatusEnum.WaitingForApproval)
+                {
+                    <div class="alert alert-warning">@ViewData["WaitingForApprovalAlertText"]</div>
+                }
+                else if (Model.Status == (int)ExpertApproveStatusEnum.NotApproved)
+                {
+                    <div class="alert alert-warning">@ViewData["NotApprovedAlertText"]</div>
+                }
+            </div>
 
-    @if (Model.Status == (int)ExpertApproveStatusEnum.WaitingForApproval)
-    {
-        <button type="button" class="btn btn-success" onclick="Approve('@Model.Id');">Подтвердить</button>
-        <button type="button" class="btn btn-danger" onclick="Reject('@Model.Id');">Отменить</button>
-    }
-    else if (Model.Status == (int)ExpertApproveStatusEnum.Approved)
-    {
-        <div class="alert alert-success">@ViewData["ApprovedStatusAlertText"]</div>
-    }
-    else if (Model.Status == (int)ExpertApproveStatusEnum.Rejected)
-    {
-        <div class="alert alert-danger">@ViewData["RejectedStatusAlertText"]</div>
-    }
-    <div class="spinner-border spinner" style="display: none;"></div>
-    <a asp-action="Index">Back to List</a>
+            <div class="col-md-6">
+
+                @if (Model.Status == (int)ExpertApproveStatusEnum.WaitingForApproval)
+                {
+                    <button type="button" class="btn btn-success" onclick="Approve('@Model.Id');">Подтвердить</button>
+                    <button type="button" class="btn btn-danger" onclick="Reject('@Model.Id');">Отменить</button>
+                }
+                else if (Model.Status == (int)ExpertApproveStatusEnum.Rejected)
+                {
+                    <button type="button" class="btn btn-success" onclick="Approve('@Model.Id');">Подтвердить эксперта</button>
+                }
+                else if (Model.Status == (int)ExpertApproveStatusEnum.Approved)
+                {
+                    <button type="button" class="btn btn-danger" onclick="Reject('@Model.Id');">Эксперту отказать</button>
+                }
+
+                <div class="spinner-border spinner" style="display: none;"></div>
+            </div>
+        </div>
+    </div>
 </div>
-
 
 <script>
     function Approve(id) {
@@ -277,7 +294,7 @@
         if (confirm("Вы уверены, что хотите подтвердить?")) {
             $.ajax({
                 type: "POST",
-                url: "/Admin/ExpertsList/Approve/" + id,
+                url: "/Admin/Experts/Approve/" + id,
                 contentType: "application/json; charset=utf-8",
                 beforeSend: function (data) {
                     $(".btn").attr("disabled", "disabled");
@@ -299,7 +316,7 @@
         if (confirm("Вы уверены, что хотите отказать?")) {
             $.ajax({
                 type: "POST",
-                url: "/Admin/ExpertsList/Reject/" + id,
+                url: "/Admin/Experts/Reject/" + id,
                 contentType: "application/json; charset=utf-8",
                 beforeSend: function (data) {
                     $(".btn").attr("disabled", "disabled");
