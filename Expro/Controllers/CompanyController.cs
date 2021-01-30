@@ -10,35 +10,26 @@ using Expro.ViewModels;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Expro.Areas.Admin.Controllers
+namespace Expro.Controllers
 {
-    [Area("Admin")]
     public class CompanyController : BaseController
-    {  
-        private readonly ICompanyStatusService _companyStatusService;
+    {
         private readonly ICompanySearchService _companySearchService;
         private readonly ICompanyService _companyService;
-        private readonly ICompanyAdminActionsService _companyAdminActionsService;
         private readonly ILawAreaService _lawAreaService;
 
         public CompanyController(
              ICompanySearchService companySearchService,
              ICompanyService companyService,
-             ICompanyStatusService companyStatusService,
-             ICompanyAdminActionsService companyAdminActionsService,
              ILawAreaService lawAreaService)
         {
-            _companyStatusService = companyStatusService;
             _companySearchService = companySearchService;
             _companyService = companyService;
-            _companyAdminActionsService = companyAdminActionsService;
             _lawAreaService = lawAreaService;
         }
 
         public IActionResult Index()
         {
-            ViewData["statuses"] = _companyStatusService.GetAsSelectList();
-
             ViewData["lawAreas"] = _lawAreaService.GetAsIQueryable()
                 .Select(m => new SelectListItemWithParent()
                 {
@@ -52,8 +43,7 @@ namespace Expro.Areas.Admin.Controllers
         }
 
         [HttpPost]
-        public IActionResult Search(int draw, int? start = null, int? length = null,  
-            int? statusID = null, int[] lawAreas = null)
+        public IActionResult Search(int draw, int? start = null, int? length = null, int[] lawAreas = null)
         {
             int recordsTotal = 0;
             int recordsFiltered = 0;
@@ -69,8 +59,8 @@ namespace Expro.Areas.Admin.Controllers
                 out recordsFiltered,
                 out error,
 
-                curUser.UserType,
-                statusID,
+                null,
+                null,
                 null,
                 lawAreas
             );
@@ -87,7 +77,6 @@ namespace Expro.Areas.Admin.Controllers
             });
         }
 
-
         public IActionResult Details(int id)
         {
             var company = _companyService.GetByID(id);
@@ -97,44 +86,6 @@ namespace Expro.Areas.Admin.Controllers
             CompanyDetailsVM companyDetailsVM = new CompanyDetailsVM(company);
 
             return View(companyDetailsVM);
-        }
-
-        [HttpPost]
-        public IActionResult Approve(int id)
-        {
-            try
-            {
-                var company = _companyService.GetByID(id);
-                if (company == null)
-                    throw new Exception("Компания не найдена");
-
-                var curUser = accountUtil.GetCurrentUser(User);
-                _companyAdminActionsService.Approve(company, curUser.ID);
-                return Ok();
-            }
-            catch (Exception ex)
-            {
-                return CustomBadRequest(ex);
-            }
-        }
-
-        [HttpPost]
-        public IActionResult Reject(int id)
-        {
-            try
-            {
-                var company = _companyService.GetByID(id);
-                if (company == null)
-                    throw new Exception("Компания не найдена");
-
-                var curUser = accountUtil.GetCurrentUser(User);
-                _companyAdminActionsService.Reject(company, curUser.ID);
-                return Ok();
-            }
-            catch (Exception ex)
-            {
-                return CustomBadRequest(ex);
-            }
         }
     }
 }

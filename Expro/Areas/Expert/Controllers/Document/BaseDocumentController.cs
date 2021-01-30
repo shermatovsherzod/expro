@@ -72,7 +72,7 @@ namespace Expro.Areas.Expert.Controllers
                 out recordsFiltered,
                 out error,
 
-                curUser.UserType.Value,
+                UserTypesEnum.Expert,
                 statusID,
                 priceType,
                 curUser.ID,

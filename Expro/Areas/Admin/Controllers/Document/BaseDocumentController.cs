@@ -60,9 +60,6 @@ namespace Expro.Areas.Admin.Controllers
             int recordsFiltered = 0;
             string error = "";
 
-            var curUser = accountUtil.GetCurrentUser(User);
-            //ApplicationUser user = await _userManager.GetUserAsync(User);
-
             IQueryable<Document> dataIQueryable = DocumentSearchService.Search(
                 start,
                 length,
@@ -71,7 +68,7 @@ namespace Expro.Areas.Admin.Controllers
                 out recordsFiltered,
                 out error,
 
-                curUser.UserType.Value,
+                UserTypesEnum.Admin,
                 statusID,
                 priceType,
                 null,

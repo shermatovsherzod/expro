@@ -1,9 +1,7 @@
 ﻿@model Expro.ViewModels.CompanyDetailsVM
 @using Expro.Models.Enums
 @{
-    ViewData["Title"] = "Компании";
-    ViewData["ApprovedStatusAlertText"] = "Компания подтверждена";
-    ViewData["RejectedStatusAlertText"] = "Компания отменена";
+    ViewData["Title"] = "Компания";
 }
 
 <!-- Page Header -->
@@ -183,34 +181,6 @@
         </div>
     </div>
 
-    <div class="mt-5 mb-3">
-        @*@{
-                string dateAdminResponsed = "";
-                if (!string.IsNullOrWhiteSpace(Model.DateAdminResponsed))
-                {
-                    dateAdminResponsed = "(" + Model.DateAdminResponsed + ")";
-                }
-            }*@
-        @if (Model.Status.ID == (int)DocumentStatusesEnum.WaitingForApproval)
-        {
-            <span>Действия:</span>
-            <button type="button" class="btn btn-success" onclick="Approve(@Model.ID);">Подтвердить <i class="fas fa-check ml-1"></i></button>
-            <button type="button" class="btn btn-danger" onclick="Reject(@Model.ID);">Отменить <i class="fas fa-times ml-1"></i></button>
-            <div class="spinner-border spinner" style="display: none;"></div>
-        }
-        else if (Model.Status.ID == (int)DocumentStatusesEnum.Approved)
-        {
-            <div class="alert alert-soft-success text-center rounded-0 mb-0" role="alert">
-                @ViewData["ApprovedStatusAlertText"] @*@dateAdminResponsed*@
-            </div>
-        }
-        else if (Model.Status.ID == (int)DocumentStatusesEnum.Rejected)
-        {
-            <div class="alert alert-soft-danger text-center rounded-0 mb-0" role="alert">
-                @ViewData["RejectedStatusAlertText"] @*@dateAdminResponsed*@
-            </div>
-        }
-    </div>
     <div>
         <a asp-action="Index">Назад к списку</a>
     </div>
@@ -230,55 +200,6 @@
         $(document).ready(function () {
             InitQuill();
         });
-
-        function Approve(id) {
-
-            if (confirm("Вы уверены, что хотите подтвердить?")) {
-                $.ajax({
-                    type: "POST",
-                    url: "/Admin/Company/Approve/" + id,
-                    contentType: "application/json; charset=utf-8",
-                    beforeSend: function (data) {
-                        $(".btn").attr("disabled", "disabled");
-                        ShowFormSpinner();
-                    },
-                    success: function (data) {
-                        location.reload();
-                    },
-                    error: function (data) {
-                        alert("Ajax error (status code = " + data.status + "): " + data.statusText);
-                    },
-                    complete: function (data) {
-                    }
-                });
-            }
-        }
-
-        function Reject(id) {
-            if (confirm("Вы уверены, что хотите отказать?")) {
-                $.ajax({
-                    type: "POST",
-                    url: "/Admin/Company/Reject/" + id,
-                    contentType: "application/json; charset=utf-8",
-                    beforeSend: function (data) {
-                        $(".btn").attr("disabled", "disabled");
-                        ShowFormSpinner();
-                    },
-                    success: function (data) {
-                        location.reload();
-                    },
-                    error: function (data) {
-                        alert("Ajax error (status code = " + data.status + "): " + data.statusText);
-                    },
-                    complete: function (data) {
-                    }
-                });
-            }
-        }
-
-        function ShowFormSpinner() {
-            $(".spinner").show();
-        }
 
         function InitQuill() {
             // INITIALIZATION OF QUILLJS EDITOR

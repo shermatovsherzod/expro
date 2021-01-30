@@ -31,8 +31,8 @@ namespace Expro.Services
 
             UserTypesEnum? curUserType,
             int? statusID,          
-            string authorID
-            )
+            string authorID,
+            int[] lawAreas)
         {
             recordsTotal = 0;
             recordsFiltered = 0;
@@ -46,7 +46,7 @@ namespace Expro.Services
                 {
                     if (curUserType == UserTypesEnum.Admin)
                         companies = _companyService.GetAllForAdmin();
-                    else if (curUserType == UserTypesEnum.Expert)
+                    else if (curUserType == UserTypesEnum.Expert || curUserType == UserTypesEnum.SimpleUser)
                         companies = _companyService.GetCompanyByCreatorID(authorID);                  
                     else
                         companies = _companyService.GetAllApproved();
@@ -56,7 +56,7 @@ namespace Expro.Services
 
                 recordsTotal = companies.Count();
 
-                companies = ApplyFilters(companies, statusID);
+                companies = ApplyFilters(companies, statusID, lawAreas);
 
                 recordsFiltered = companies.Count();
 
@@ -76,34 +76,21 @@ namespace Expro.Services
 
         protected IQueryable<Company> ApplyFilters(
             IQueryable<Company> companies,           
-            int? statusID
-           )
+            int? statusID,
+            int[] lawAreas)
         {
+            if (lawAreas != null && lawAreas.Length > 0)
+            {
+                companies = companies
+                    .Where(m => m.CompanyLawAreas
+                        .Select(n => n.LawAreaID)
+                        .Any(n => lawAreas.Contains(n)));
+            }
+
             if (statusID.HasValue)
             {
-                if (statusID.Value == (int)CompanyStatusEnum.Approved)
-                {
-                    companies = companies
-                        .Where(m => m.CompanyStatusID == (int)CompanyStatusEnum.Approved);
-                            
-                }
-                else if (statusID.Value == (int)CompanyStatusEnum.Rejected)
-                {
-                    companies = companies
-                        .Where(m => m.CompanyStatusID == (int)CompanyStatusEnum.Rejected);
-
-                }
-                else if (statusID.Value == (int)CompanyStatusEnum.NotApproved)
-                {
-                    companies = companies
-                        .Where(m => m.CompanyStatusID == (int)CompanyStatusEnum.NotApproved);
-
-                }
-                else if (statusID.Value == (int)CompanyStatusEnum.WaitingForApproval)
-                {
-                    companies = companies
-                        .Where(m => m.CompanyStatusID == (int)CompanyStatusEnum.WaitingForApproval);
-                }
+                companies = companies
+                    .Where(m => m.CompanyStatusID == statusID.Value);
             }          
 
             return companies;

@@ -13,7 +13,7 @@ using System.Linq;
 namespace Expro.Areas.User.Controllers
 {
     [Area("User")]
-    public class CompaniesController : BaseController
+    public class CompanyController : BaseController
     {
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly ICompanyService _companyService;
@@ -22,7 +22,7 @@ namespace Expro.Areas.User.Controllers
         private readonly IRegionService _regionService;
         private readonly ICityService _cityService;
 
-        public CompaniesController(
+        public CompanyController(
               UserManager<ApplicationUser> userManager,
               ICompanyService companyService,
               ICountryService countryService,

@@ -40,25 +40,6 @@
                     <form>
                         <!-- Filter Group -->
                         <div class="mb-5">
-                            <h6 class="small text-cap">Фильтр по статусу</h6>
-
-                            <!-- Select -->
-                            <div id="statusDDBox" class="select2-custom select2-custom-sm-right">
-                                <select id="statusDD" class="js-custom-select custom-select-sm" style="opacity: 0;"
-                                        data-hs-select2-options='{
-						"dropdownParent": "#statusDDBox",
-						"minimumResultsForSearch": "Infinity",
-						"customClass": "custom-select custom-select-sm",
-						"dropdownAutoWidth": true
-					  }' asp-items="@ViewData["statuses"] as List<SelectListItem>">
-                                    <option value="">Все</option>
-                                </select>
-                            </div>
-                            <!-- End Select -->
-                        </div>
-                        <!-- End Filter Group -->
-                        <!-- Filter Group -->
-                        <div class="mb-5">
                             <h6 class="small text-cap">Фильтр по направлению</h6>
 
                             @{
@@ -90,8 +71,8 @@
                         </div>
                         <!-- End Filter Group -->
                         @*<button type="button" class="btn btn-sm btn-block btn-white">
-            <i class="fas fa-redo fa-sm mr-1"></i> Reset all
-        </button>*@
+                                <i class="fas fa-redo fa-sm mr-1"></i> Reset all
+                            </button>*@
                     </form>
                     <!-- End Filter Form -->
                 </div>
@@ -142,11 +123,11 @@
                 lengthChange: false,
                 ajax:
                 {
-                    url: "/Admin/Company/Search",
+                    url: "/Company/Search",
                     type: "POST",
                     datatype: "json",
                     data: function (d) {
-                        d.statusID = $("#statusDD").val();
+                        //d.statusID = $("#statusDD").val();
 
                         var lawAreasCheckboxValues = new Array();
                         $.each($("input[name='lawAreasCheckbox']:checked"), function () {
@@ -160,7 +141,7 @@
                         "data": 0,
                         "render": function (data, type, full, meta) {
                             var html = '';
-                            var url = '/Admin/Company/Details/' + full.id;
+                            var url = '/Company/Details/' + full.id;
 
                             //html += '<div class="col-12">';
                             html += '<div class="card card-bordered card-hover-shadow mb-5">';
@@ -186,9 +167,9 @@
                             }
                             html += '                       </div>';
                             html += '                   </div>';
-                            html += '                   <div class="col-12 col-md mt-3 mt-md-2">';
-                            html += InsertStatusAlert(full);
-                            html += '                   </div>';
+                            //html += '                   <div class="col-12 col-md mt-3 mt-md-2">';
+                            //html += InsertStatusAlert(full);
+                            //html += '                   </div>';
                             html += '               </div>';
                             html += '           </div>';
                             html += '       </div>';
@@ -220,27 +201,10 @@
                     $("#tableBox .spinner").hide();
                 });
 
-            $("#statusDD, input[name=lawAreasCheckbox]").change(function () {
+            $("input[name=lawAreasCheckbox]").change(function () {
                 table.draw();
             });
         });
-
-        function InsertStatusAlert(full) {
-            var badgeClass = "";
-            if (full.status.id == @((int)CompanyStatusEnum.WaitingForApproval))
-                badgeClass = "-warning";
-            else if (full.status.id == @((int)CompanyStatusEnum.Approved))
-                badgeClass = "-success";
-            else if (full.status.id == @((int)CompanyStatusEnum.Rejected))
-                badgeClass = "-danger";
-
-
-            var html = '<span class="badge badge-soft' + badgeClass + ' mr-2">';
-            html += '   <span class="legend-indicator bg' + badgeClass + '"></span>' + full.status.name;
-            html += '</span>';
-
-            return html;
-        }
 
         function InitHSPlugins() {
             // INITIALIZATION OF SELECT2

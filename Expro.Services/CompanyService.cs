@@ -33,12 +33,14 @@ namespace Expro.Services
 
         public IQueryable<Company> GetAllForAdmin()
         {
-            return GetAsIQueryable();
+            return GetManyWithRelatedDataAsIQueryable()
+                .Where(m => m.CompanyStatusID != (int)CompanyStatusEnum.NotApproved);
         }
 
         public IQueryable<Company> GetAllApproved()
         {
-            return GetAsIQueryable().Where(c => c.CompanyStatusID == (int)CompanyStatusEnum.Approved);
+            return GetManyWithRelatedDataAsIQueryable()
+                .Where(c => c.CompanyStatusID == (int)CompanyStatusEnum.Approved);
         }
 
         public bool CompanyBelongsToUser(Company model, string userID)
