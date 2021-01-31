@@ -1,22 +1,23 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Expro.Controllers;
+using Expro.Models;
+using Expro.Models.Enums;
 using Expro.Services.Interfaces;
-using Microsoft.AspNetCore.Authorization;
+using Expro.Utils;
+using Expro.ViewModels;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using System.Linq;
 
-namespace Expro.Areas.Admin.Controllers.Experts
+namespace Expro.Controllers
 {
-    [Area("Admin")]
-    [Authorize(Policy = "AdminOnly")]
-    public class ExpertFeedbacksController : BaseFeedbackController
+    public class FeedbackController : BaseFeedbackController
     {
-        public ExpertFeedbacksController(
+        public FeedbackController(
               IFeedbackSearchService feedbackSearchService,
-              IFeedbackService feedbackService,
-              IFeedbackAdminActionsService feedbackAdminActionsService
+            IFeedbackService feedbackService,
+            IFeedbackAdminActionsService feedbackAdminActionsService
               ) : base(
                   feedbackSearchService,
                   feedbackService,
@@ -38,5 +39,6 @@ namespace Expro.Areas.Admin.Controllers.Experts
         {
             return base.Search(draw, start, length, statusID, feedbackToUser);
         }
+
     }
 }

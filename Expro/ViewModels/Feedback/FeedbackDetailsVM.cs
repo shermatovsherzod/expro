@@ -1,4 +1,6 @@
-﻿using Expro.Models;
+﻿using Expro.Common;
+using Expro.Common.Utilities;
+using Expro.Models;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -22,7 +24,14 @@ namespace Expro.ViewModels
         public string FeedbackText { get; set; }
 
         [Display(Name = "Отзыв для")]
-        public string FeedbakToUserFullName { get; set; }
+        public string FeedbackToUserFullName { get; set; }
+
+        [Display(Name = "Отзыв от")]
+        public string FeedbackCreatedUserFullName { get; set; }
+
+        [Display(Name = "Дата")]
+        public string FeedbackDateCreated { get; set; }
+        public AttachmentDetailsVM FeedbackCreatedUserAvatar { get; set; }
 
         public FeedbackDetailsVM(Feedback model)
         {
@@ -32,7 +41,12 @@ namespace Expro.ViewModels
             Stars = model.Stars;
             FeedbackText = model.FeedbackText;
             Status = model.FeedbackStatusID;
-            FeedbakToUserFullName = model.ToUser.FirstName + " " + model.ToUser.LastName;
+            FeedbackToUserFullName = model.ToUser.FirstName + " " + model.ToUser.LastName;
+            FeedbackCreatedUserFullName = model.Creator.FirstName + " " + model.Creator.LastName;
+            FeedbackDateCreated = model.DateCreated != DateTime.MinValue ? DateTimeUtils.ConvertToString(model.DateCreated, AppData.Configuration.DateViewStringFormat) : "";
+            FeedbackCreatedUserAvatar = new AttachmentDetailsVM(model.Creator.Avatar);
+
+           
         }
 
         public List<FeedbackDetailsVM> GetListOfFeedbackDetailsVM(IQueryable<Feedback> models)
@@ -45,8 +59,11 @@ namespace Expro.ViewModels
                 ID = s.ID,
                 Stars = s.Stars,
                 FeedbackText = s.FeedbackText,
-                FeedbakToUserFullName = s.ToUser.FirstName + " " + s.ToUser.LastName,
-                Status = s.FeedbackStatusID
+                FeedbackToUserFullName = s.ToUser.FirstName + " " + s.ToUser.LastName,
+                Status = s.FeedbackStatusID,
+                FeedbackCreatedUserFullName = s.Creator.FirstName + " " + s.Creator.LastName,
+                FeedbackDateCreated = s.DateCreated != DateTime.MinValue ? DateTimeUtils.ConvertToString(s.DateCreated, AppData.Configuration.DateViewStringFormat) : "",
+                FeedbackCreatedUserAvatar = new AttachmentDetailsVM(s.Creator.Avatar)
             }).ToList();
         }
     }

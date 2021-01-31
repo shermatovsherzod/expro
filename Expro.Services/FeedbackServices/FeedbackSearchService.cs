@@ -31,7 +31,8 @@ namespace Expro.Services
 
             UserTypesEnum? curUserType,
             int? statusID,          
-            string authorID
+            string authorID,
+            string feedbackToUser
             )
         {
             recordsTotal = 0;
@@ -45,14 +46,12 @@ namespace Expro.Services
                 if (curUserType.HasValue)
                 {
                     if (curUserType == UserTypesEnum.Admin)
-                        feedbacks = _feedbackService.GetAllForAdmin();
-                    else if (curUserType == UserTypesEnum.Expert)
-                        feedbacks = _feedbackService.GetFeedbackByCreatorID(authorID);                  
+                        feedbacks = _feedbackService.GetAllForAdmin(feedbackToUser);                                   
                     else
-                        feedbacks = _feedbackService.GetAllApproved();
+                        feedbacks = _feedbackService.GetAllApproved(feedbackToUser);
                 }
                 else
-                    feedbacks = _feedbackService.GetAllApproved();
+                    feedbacks = _feedbackService.GetAllApproved(feedbackToUser);
 
                 recordsTotal = feedbacks.Count();
 

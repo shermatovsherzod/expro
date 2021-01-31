@@ -1,0 +1,200 @@
+﻿@model Expro.ViewModels.ProfileExpertFullInfoVM
+@using Expro.Models.Enums
+@{
+    ViewData["Title"] = "Эксперты";
+}
+
+<!-- Page Header -->
+<div class="container">
+    <div class="page-header">
+        <!-- Media -->
+        <div class="d-flex align-items-lg-center">
+            <div class="avatar avatar-xxl avatar-circle mr-4">
+                <img class="avatar-img" src="@Model.Avatar.Url" alt="@Model.LastName @Model.FirstName @Model.PatronymicName">
+                @if (Model.IsOnline)
+                {
+                    <span class="avatar-status avatar-sm-status avatar-success"></span>
+                }
+            </div>
+
+            <div class="media-body">
+                <div class="row">
+                    <div class="col-lg mb-3 mb-lg-0">
+                        <h1 class="h2 mb-1">@Model.LastName @Model.FirstName @Model.PatronymicName</h1>
+
+                        <ul class="list-inline list-separator font-size-1">
+                            <li class="list-inline-item">
+                                <i class="fas fa-map-marker-alt text-primary mr-1"></i> @Model.RegionStr @Model.CityStr
+                            </li>
+                            <li class="list-inline-item">@Model.Email</li>
+                            <li class="list-inline-item">@Model.PhoneNumber</li>
+                        </ul>
+
+                        <div class="d-flex align-items-center min-w-21rem">
+                            <ul class="list-inline mr-1 mb-2">
+                                <li class="list-inline-item mr-1"><img src="~/lib/frontTheme/svg/illustrations/star.svg" alt="Review rating" width="16"></li>
+                                <li class="list-inline-item mr-1"><img src="~/lib/frontTheme/svg/illustrations/star.svg" alt="Review rating" width="16"></li>
+                                <li class="list-inline-item mr-1"><img src="~/lib/frontTheme/svg/illustrations/star.svg" alt="Review rating" width="16"></li>
+                                <li class="list-inline-item mr-1"><img src="~/lib/frontTheme/svg/illustrations/star.svg" alt="Review rating" width="16"></li>
+                                <li class="list-inline-item mr-1"><img src="~/lib/frontTheme/svg/illustrations/star.svg" alt="Review rating" width="16"></li>
+                            </ul>
+
+                            <a class="link" href="/Feedback/Index?id=@Model.Id">Просмотреть рейтинг и отзывы</a>
+                        </div>
+                    </div>
+                </div>
+                <!-- End Row -->
+            </div>
+        </div>
+        <!-- End Media -->
+    </div>
+</div>
+
+
+
+@if (!ViewBag.FeedbackExist && User.Identity.IsAuthenticated)
+{
+    <link href="~/css/stars.css" rel="stylesheet" />
+    <div class="container space-2">
+        <div class="row">
+            <div class="col-lg-12">
+                <form asp-controller="Experts" asp-action="Feedback" data-ajax="true" data-ajax-method="POST">
+                    <!-- Form Group -->
+                    <input type="hidden" id="toUserId" name="toUserId" value="@Model.Id" />
+                    <div class="row form-group">
+                        <label class="label">Рейтинг</label>
+                        <div class="col-sm-12">
+                            <div class="rating">
+                                <input type="radio" id="star5" name="rating" value="5" /><label for="star5" title="Rocks!">5 stars</label>
+                                <input type="radio" id="star4" name="rating" value="4" /><label for="star4" title="Pretty good">4 stars</label>
+                                <input type="radio" id="star3" name="rating" value="3" /><label for="star3" title="Meh">3 stars</label>
+                                <input type="radio" id="star2" name="rating" value="2" /><label for="star2" title="Kinda bad">2 stars</label>
+                                <input type="radio" id="star1" name="rating" value="1" /><label for="star1" title="Sucks big time">1 star</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row form-group">
+                        <label class="label">Отзыв</label>
+                        <div class="col-sm-12">
+                            <textarea id="feedbackText" name="feedbackText" class="form-control"></textarea>
+                        </div>
+                    </div>
+                    <!-- End Form Group -->
+                    <!-- Footer -->
+                    <div class="d-flex justify-content-end">
+                        <button type="submit" class="btn btn-primary">Сохранить</button>
+                    </div>
+                    <!-- End Footer -->
+                </form>
+            </div>
+        </div>
+    </div>
+}
+<!-- End Page Header -->
+<!-- Description Section -->
+<div class="container space-2">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="mb-8">
+                <div class="mb-3">
+                    <h3>О себе</h3>
+                </div>
+                <p>@Model.AboutMe</p>
+                <div class="mb-3">
+                    <h3>Личная информация</h3>
+                </div>
+                <!-- Row -->
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="mb-4">
+                            <h5>Дата рождения</h5>
+                            <p>@Model.DateOfBirth</p>
+                        </div>
+                        <div class="mb-4">
+                            <h5>Пол</h5>
+                            <p>@Model.GenderStr</p>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="mb-4">
+                            <h5>Веб сайт</h5>
+                            <p>@Model.WebSite</p>
+                        </div>
+                        <div class="mb-4">
+                            <h5>Факс</h5>
+                            <p>@Model.Fax</p>
+                        </div>
+
+                    </div>
+                </div>
+                <!-- End Row -->
+            </div>
+
+            <div class="mb-8">
+                <div class="mb-3">
+                    <h3>Направления</h3>
+                </div>
+                <ul class="list-inline list-sm-article">
+                    @foreach (var item in Model.LawAreasName)
+                    {
+                        <li class="list-inline-item"><span class="badge badge-soft-dark py-2 px-3">@item</span></li>
+                    }
+                </ul>
+            </div>
+
+            <div class="mb-8">
+                <div class="mb-3">
+                    <h3>Опыт работы</h3>
+                </div>
+                <!-- Step -->
+                <ul class="step step-icon-sm">
+                    @foreach (var item in Model.WorkExperience)
+                    {
+                        <li class="step-item">
+                            <div class="step-content-wrapper">
+                                <div class="step-avatar step-avatar-sm">
+                                    <img class="step-avatar-img" src="~/lib/frontTheme/svg/brands/slack.svg" alt="Image Description" />
+                                </div>
+                                <div class="step-content">
+                                    <h5>@item.Position</h5>
+                                    <span class="d-block text-dark">@item.Country, @item.City - @item.PlaceOfWork </span>
+                                    <small class="d-block mb-4">@item.WorkPeriodFrom - @item.WorkPeriodTo</small>
+                                    <p class="text-body mb-0"></p>
+                                </div>
+                            </div>
+                        </li>
+                    }
+                </ul>
+                <!-- End Step -->
+            </div>
+
+            <div class="mb-8">
+                <div class="mb-3">
+                    <h3>Образование</h3>
+                </div>
+
+                <!-- Step -->
+                <ul class="step step-icon-sm">
+
+                    @foreach (var item in Model.Education)
+                    {
+                        <li class="step-item">
+                            <div class="step-content-wrapper">
+                                <span class="step-icon step-icon-soft-dark">
+                                    <i class="fas fa-graduation-cap"></i>
+                                </span>
+                                <div class="step-content">
+                                    <h5>@item.University - @item.Faculty</h5>
+                                    <span class="d-block text-dark">@item.Country, @item.City</span>
+                                    <small class="d-block">Год окончания @item.GraduationYear</small>
+                                </div>
+                            </div>
+                        </li>
+                    }
+                </ul>
+                <!-- End Step -->
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Description Section -->

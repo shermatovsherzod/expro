@@ -16,9 +16,13 @@ namespace Expro.ViewModels.Expert
         public string LastName { get; set; }
         public string Email { get; set; }
         public bool ExpertApproved { get; set; }
+        public bool IsOnline { get; set; }
+        public string RegionStr { get; set; }
+        public string CityStr { get; set; }
+
         public ExpertShortInfoVM() { }
 
-        public ExpertShortInfoVM(ApplicationUser model) // : base(model)
+        public ExpertShortInfoVM(ApplicationUser model) 
         {
             if (model == null)
                 return;
@@ -29,6 +33,9 @@ namespace Expro.ViewModels.Expert
             LastName = model.LastName;
             Email = model.Email;
             ExpertApproved = model.UserStatusID == (int)ExpertApproveStatusEnum.Approved ? true : false;
+            IsOnline = model.IsOnline == true ? true : false;
+            RegionStr = model.Region != null ? model.Region.Name : "";
+            CityStr = model.City != null ? model.City.Name : model.CityOther;
         }
     }
 }

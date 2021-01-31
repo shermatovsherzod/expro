@@ -1,0 +1,153 @@
+﻿@*@using Microsoft.AspNetCore.Identity
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
+
+
+@using Microsoft.AspNetCore.Authorization
+@inject IAuthorizationService AuthorizationService
+
+@using Expro.Models.Enums
+
+
+@{
+    ViewData["Title"] = "Эксперты";
+    var userTypeClaim = User.Claims.FirstOrDefault(c => c.Type == "UserType");
+    if (userTypeClaim != null && (!string.IsNullOrWhiteSpace(userTypeClaim.Value)))
+    {
+        int userTypeInt = 0;
+        int.TryParse(userTypeClaim.Value, out userTypeInt);
+        if (Enum.IsDefined(typeof(UserTypesEnum), userTypeInt))
+        {
+            if ((UserTypesEnum)userTypeInt == UserTypesEnum.Admin)
+            {
+
+            }
+            else if ((UserTypesEnum)userTypeInt == UserTypesEnum.Expert)
+            {
+                Layout = "/Areas/Expert/Views/Shared/_Layout.cshtml ";
+            }
+            else if ((UserTypesEnum)userTypeInt == UserTypesEnum.SimpleUser)
+            {
+
+            }
+        }
+    }
+}*@
+
+<h4>@ViewData["Title"]</h4>
+<br />
+
+<div id="tableBox">
+    <div class="spinner-border spinner" style="display: none;"></div>
+    <div class="table-responsive">
+        <table id="list" class="table table-borderless table-thead-bordered table-nowrap table-align-middle" width="100%">
+            <thead class="thead-light">
+                <tr>
+                    <th>Name</th>
+                    <th>Points</th>
+                    <th>Rating</th>
+                </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+    </div>
+    <div class="spinner-border spinner" style="display: none;"></div>
+</div>
+
+<link href="~/lib/DataTables-1.10.22/datatables.css" rel="stylesheet" />
+
+@section Scripts
+{
+    <script src="~/lib/DataTables-1.10.22/datatables.js"></script>
+    <script>
+        var table;
+
+        $(document).ready(function () {
+            table = $("table#list").DataTable({
+                searching: false,
+                ordering: false,
+                processing: true,
+                serverSide: true,
+                lengthChange: false,
+                scrollX: true,
+                lengthChange: false,
+                ajax:
+                {
+                    url: "/Experts/Search",
+                    type: "POST",
+                    datatype: "json",
+                    data: function (d) {
+                    },
+                },
+                columns: [
+                    {
+                        "data": 0,
+                        "render": function (data, type, full, meta) {
+
+                            var html = '';
+                            html += '<div class="media align-items-center">';
+                            html += '<div class="avatar avatar-circle mr-3"><img class="avatar-img" src = "' + full.avatar.url + '" alt = "">'
+
+                            if (full.isOnline) {
+                                html += '<span class="avatar-status avatar-sm-status avatar-success" ></span > ';
+                            }
+                            html += '</div><div class="media-body">';
+                            html += '<a class="d-inline-block text-dark" href="/Experts/Details/' + full.id + '">';
+                            html += '<h6 class="text-hover-primary mb-0">' + full.firstName + ' ' + full.lastName;
+                            if (full.userStatusID == 3) {
+                                html += '<img class="avatar avatar-xss ml-1" src = "/lib/frontTheme/svg/illustrations/top-vendor.svg" alt = "Image Description" data - toggle="tooltip" data - placement="top" title = "Пользователь подтвержден" > '
+                            }
+
+                            html += '</h6 > ';
+                            html += '</a>';
+                            html += '<small class="d-block">' + full.email + ' </small>';
+                            html += '</div>';
+                            html += '</div>';
+
+                            return html;
+                        }
+                    },
+                    {
+                        "data": 1,
+                        "render": function (data, type, full, meta) {
+                            var html = '';
+                            html += '<span>' + full.points + '</span>'
+
+                            return html;
+                        }
+                    },
+                    {
+                        "data": 2,
+                        "render": function (data, type, full, meta) {
+                            var html = '';
+                            html += '<span>' + full.rating + '</span>'
+
+                            return html;
+                        }
+                    }
+                ]
+            });
+
+            table
+                .on('preDraw', function () {
+                    $("#tableBox .spinner").show();
+                })
+                .on('draw.dt', function () {
+                    $("#tableBox .spinner").hide();
+                });
+
+            $("#statusDD").change(function () {
+                table.draw();
+            });
+        });
+    </script>
+
+    <script>
+        // INITIALIZATION OF SELECT2
+        // =======================================================
+        $('.js-custom-select').each(function () {
+            var select2 = $.HSCore.components.HSSelect2.init($(this));
+        });
+    </script>
+}

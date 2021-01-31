@@ -12,15 +12,6 @@
     </div>
 </div>
 
-<!-- Ratings & Reviews -->
-<!-- Overall Ratings -->
-
-@await Component.InvokeAsync("ExpertRating", new { id = ViewBag.feedbackToUserID })
-
-
-
-<!-- End Ratings & Reviews -->
-
 <div id="tableBox">
     <div class="spinner-border spinner" style="display: none;"></div>
     <div class="table-responsive">
@@ -59,7 +50,7 @@
                 lengthChange: false,
                 ajax:
                 {
-                    url: "/Admin/ExpertFeedbacks/Search?feedbackToUser=" + feedbakToUserID,
+                    url: "/Feedback/Search?feedbackToUser=" + feedbakToUserID,
                     type: "POST",
                     datatype: "json",
                     data: function (d) {
