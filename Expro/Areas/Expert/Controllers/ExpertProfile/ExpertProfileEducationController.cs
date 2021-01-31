@@ -27,29 +27,39 @@ namespace Expro.Areas.Expert.Controllers.ExpertProfile
             _countryService = countryService;
         }
 
-        public IActionResult Index()
+        public IActionResult Index(bool? message = false)
         {
             var user = accountUtil.GetCurrentUser(User);
             GetEducationViewData(user);
-            ViewBag.Message = false;
+            ViewBag.Message = message;
             return View();
         }
 
         [HttpPost]
         public IActionResult Index(ExpertProfileEducationEditVM vmodel)
         {
-            var user = accountUtil.GetCurrentUser(User);
-            if (ModelState.IsValid && user != null)
+            try
             {
-                ExpertEducation model = new ExpertEducation();
-                PropertyCopier.CopyTo(vmodel, model);
-                model.UserID = user.ID;
-                _expertEducationService.Add(model, user.ID);
-                GetEducationViewData(user);
-                ViewBag.Message = true;
-                return View();
+                var user = accountUtil.GetCurrentUser(User);
+                if (ModelState.IsValid && user != null)
+                {
+                    ExpertEducation model = new ExpertEducation();
+                    PropertyCopier.CopyTo(vmodel, model);
+                    model.UserID = user.ID;
+                    _expertEducationService.Add(model, user.ID);
+                    //GetEducationViewData(user);
+                    //ViewBag.Message = true;
+                    //return View();
+                    return Ok(new { id = model.ID });
+                }
+                else
+                    //throw new Exception("Неверные данные");
+                    return BadRequest(ModelState);
             }
-            return View(vmodel);
+            catch (Exception ex)
+            {
+                return CustomBadRequest(ex);
+            }
         }
 
         private void GetEducationViewData(AppUserVM user)

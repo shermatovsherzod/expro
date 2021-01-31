@@ -6,7 +6,6 @@
     Layout = "_LayoutProfile";
 }
 
-
 <!-- Form Group -->
 <div class="row form-group">
     <div class="col-sm-12">
@@ -17,7 +16,7 @@
 
             <div class="media-body">
                 <div class="btn btn-sm btn-primary file-attachment-btn mb-2 mb-sm-0 mr-2">
-                    Upload Photo
+                    Загрузить фото
                     <input type="file" class="js-file-attach file-attachment-btn-label" id="imgInp" accept="image/*"
                            data-hs-file-attach-options='{
                                     "textTarget": "#avatarImg",
@@ -170,7 +169,6 @@
 
                             //console.log(attachment);
                             FileAjaxUpload2(input, file, attachment, spinnerTagID, imgPreviewContainerTagID);
-                            location.reload(); 
                         });
                     });
                 }
@@ -197,21 +195,22 @@
                     },
                     success: function (data)
                     {
-                        if (imgPreviewContainerTagID != undefined
-                            || imgPreviewContainerTagID != null
-                            || imgPreviewContainerTagID != "")
-                        {
-                            var reader = new FileReader();
-                            reader.onload = function (e)
-                            {
-                                $("#" + imgPreviewContainerTagID).attr('src', e.target.result);
-                            }
-                            reader.readAsDataURL(file);
-                        }
-                        else
-                        {
-                            //alert("File uploaded!");
-                        }
+                        //if (imgPreviewContainerTagID != undefined
+                        //    || imgPreviewContainerTagID != null
+                        //    || imgPreviewContainerTagID != "")
+                        //{
+                        //    var reader = new FileReader();
+                        //    reader.onload = function (e)
+                        //    {
+                        //        $("#" + imgPreviewContainerTagID).attr('src', e.target.result);
+                        //    }
+                        //    reader.readAsDataURL(file);
+                        //}
+                        //else
+                        //{
+                        //    //alert("File uploaded!");
+                        //}
+                        location.reload();
                     },
                     error: function (data)
                     {

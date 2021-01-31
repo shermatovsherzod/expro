@@ -25,5 +25,9 @@ namespace Expro.Models
         [ForeignKey("User")]
         public string UserID { get; set; }
         public virtual ApplicationUser User { get; set; }
+
+        [ForeignKey("Diploma")]
+        public int? DiplomaID { get; set; }
+        public virtual Attachment Diploma { get; set; }
     }
 }

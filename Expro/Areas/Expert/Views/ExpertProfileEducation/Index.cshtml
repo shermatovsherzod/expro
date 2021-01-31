@@ -1,4 +1,5 @@
 ﻿@model Expro.ViewModels.ExpertProfileEducationEditVM
+@using Expro.Common
 
 @{
     Layout = "_LayoutProfile";
@@ -76,9 +77,19 @@
                 </button>
             </div>
 
-            <form asp-controller="ExpertProfileEducation" asp-action="Index" data-ajax="true" data-ajax-method="POST">
-                <div class="modal-body">
+            <form asp-controller="ExpertProfileEducation" asp-action="Index"
+                  id="addEducationForm"
+                  onsubmit="SubmitEducationForm()"
+                  data-ajax="true"
+                  data-ajax-method="POST"
+                  data-ajax-failure="PostFailure"
+                  data-ajax-success="PostSuccess"
+                  data-ajax-complete="PostCompleted">
 
+                <div class="modal-body">
+                    <div class="border-bottom mb-2">
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    </div>
 
                     <!-- Form Group -->
                     <div class="row form-group">
@@ -130,8 +141,13 @@
                         </div>
                     </div>
                     <!-- End Form Group -->
-
-
+                    <div class="custom-file">
+                        <input type="file" class="js-file-attach custom-file-input" id="addEducationFormAttachment"
+                               data-hs-file-attach-options='{
+                              "textTarget": "[for=\"addEducationFormAttachment\"]"
+                           }'>
+                        <label class="custom-file-label" for="customFile">Загрузить диплом</label>
+                    </div>
                 </div>
                 <div class="modal-footer">
                     <!-- Footer -->
@@ -140,6 +156,7 @@
                     </div>
                     <div class="d-flex justify-content-end">
                         <button type="submit" class="btn btn-sm btn-primary">Добавить</button>
+                        <div class="spinner-border spinner" style="display: none;"></div>
                     </div>
                     <!-- End Footer -->
                 </div>
@@ -150,6 +167,8 @@
 
 
 @section Scripts{
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+
     <script src="~/lib/yearpicker/yearpicker.js"></script>
 
     <script>
@@ -198,4 +217,171 @@
           });
     </script>
 
+    <script>
+        var fileInput;
+        var educationID = 0;
+
+        function SubmitEducationForm() {
+            var isValid = $('#addEducationForm').valid();
+            if (isValid) {
+                $("#addEducationForm .spinner").show();
+
+                DisableFormElements();
+
+                return true;
+            }
+            else
+                return false;
+        }
+
+        function ShowAnswerFormSpinner() {
+
+        }
+
+        function DisableFormElements() {
+            $("#addEducationForm input").attr("readonly", "readonly");
+            $("#addEducationForm textarea").attr("readonly", "readonly");
+            $("#addEducationForm button").attr("disabled", "disabled");
+        }
+
+        function PostFailure(data) {
+            alert("Ошибка: " + data.responseJSON.errorMessage);
+            //console.log(data);
+            $("#addEducationForm .spinner").hide();
+        }
+
+        function PostSuccess(data) {
+            //alert("success");
+            console.log(data);
+            educationID = data.id;
+            //alert("success");
+
+            fileInput = document.getElementById('addEducationFormAttachment')
+            //fileInput = $("#addEducationForm input#attachment");
+            //console.log(fileInput);
+            if (!(fileInput.files && fileInput.files[0])) {
+                //$("#" + spinnerTagID).hide();
+                //alert("no file is selected");
+                Reload();
+            }
+            else {
+                var file = fileInput.files[0];
+                UploadToFirebaseStorageAnswerFile(file);
+            }
+        }
+
+        function PostCompleted(data) {
+            //alert("completed");
+            //console.log(data);
+            //alert("completed");
+            //$("#addEducationForm .spinner").hide();
+        }
+
+        function UploadToFirebaseStorageAnswerFile(file) {
+            var displayName = file.name;
+            var extension = file.name.split('.')[1];
+
+            // Create a root reference
+            var storageRef = firebase.storage().ref();
+            var uploadTask = storageRef.child('Educations/' + educationID + '.' + extension).put(file);
+
+            // Listen for state changes, errors, and completion of the upload.
+            uploadTask.on(firebase.storage.TaskEvent.STATE_CHANGED, // or 'state_changed'
+                function (snapshot)
+                {
+                    // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
+                    var progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+                    console.log('Upload is ' + progress + '% done');
+                    switch (snapshot.state)
+                    {
+                        case firebase.storage.TaskState.PAUSED: // or 'paused'
+                            console.log('Upload is paused');
+                            break;
+                        case firebase.storage.TaskState.RUNNING: // or 'running'
+                            console.log('Upload is running');
+                            break;
+                    }
+                }, function (error)
+                {
+                    $("#addEducationForm .spinner").hide();
+                    console.log(error);
+                }, function ()
+                {
+                    // Upload completed successfully, now we can get the download URL
+                    var attachment = {
+                        FileName: "" + educationID,
+                        DisplayName: displayName,
+                        Extension: extension,
+                        Path: "",
+                        Size: 0,
+                        ContentType: "",
+                        DownloadUrl: "",
+                        FileType: "@Constants.FileTypes.EDUCATION",
+                        ModelID: educationID
+                    };
+                    //console.log(uploadTask.snapshot.ref);
+
+
+                    uploadTask.snapshot.ref.getMetadata().then(function (metaData)
+                    {
+                        //console.log(metaData);
+
+                        //attachment.Filename = metaData.name;
+                        attachment.Path = metaData.fullPath;
+                        attachment.Size = metaData.size;
+                        attachment.ContentType = metaData.contentType;
+
+                        uploadTask.snapshot.ref.getDownloadURL().then(function (downloadURL)
+                        {
+                            attachment.DownloadUrl = downloadURL;
+
+                            //console.log(attachment);
+                            FileAjaxUpload(fileInput, file, attachment);
+                        });
+                    });
+                }
+            );
+        }
+
+        function FileAjaxUpload(input, file, attachment) {
+            if (file) {
+                $.ajax({
+                    url: "/Attachment/Save",
+                    data: JSON.stringify(attachment),
+                    processData: false,
+                    contentType: "application/json; charset=utf-8",
+                    type: "POST",
+                    //dataType: "json",
+                    beforeSend: function () {
+                        //alert("beforeSend");
+                        //$("#" + spinnerTagID).show();
+                        //$("#imgInp").attr("disabled", "disabled");
+                        $(input).attr("disabled", "disabled");
+                    },
+                    success: function (data) {
+                        Reload();
+                        //alert("File uploaded!");
+                    },
+                    error: function (data) {
+                        alert("Error!");
+                        $("#addEducationForm .spinner").hide();
+                    },
+                    complete: function () {
+                        //$("#" + spinnerTagID).hide();
+                        //$(input).removeAttr("disabled");
+                    }
+                });
+            }
+            else {
+                //$("#" + spinnerTagID).hide();
+                $("#addEducationForm .spinner").hide();
+                $(input).removeAttr("disabled");
+            }
+        }
+
+        function Reload() {
+            //location.reload();
+            window.location.replace("/Expert/ExpertProfileEducation?message=true");
+        }
+    </script>
 }

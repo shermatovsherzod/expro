@@ -1,4 +1,5 @@
 ﻿using Expro.Models;
+using Expro.Models.Enums;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -63,6 +64,8 @@ namespace Expro.ViewModels
         [StringLength(256)]
         [Display(Name = "Дополнительная информация")]
         public string OtherInfo { get; set; }
+
+        public DocumentActionTypesEnum ActionType { get; set; } = DocumentActionTypesEnum.saveAsDraft;
 
         public ResumeEditVM(Resume model)
         {

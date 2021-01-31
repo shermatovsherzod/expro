@@ -10,5 +10,6 @@ namespace Expro.Services.Interfaces
         IQueryable<Resume> GetAllApproved();
         bool ResumeBelongsToUser(Resume model, string userID);
         bool ResumeBelongsToUser(int modelID, string userID);
+        void SubmitForApproval(Resume entity, string userID);
     }
 }
