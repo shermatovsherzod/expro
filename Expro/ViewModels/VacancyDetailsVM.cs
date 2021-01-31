@@ -15,14 +15,9 @@ namespace Expro.ViewModels
         [Display(Name = "Название компании")]
         public string Company { get; set; }
 
-        [Display(Name = "Регион")]
-        public string Region { get; set; }
+        public BaseDropdownableDetailsVM Region { get; set; }
 
-        [Display(Name = "Город")]
-        public string City { get; set; }
-
-        [Display(Name = "Другой город")]
-        public string CityOther { get; set; }
+        public BaseDropdownableDetailsVM City { get; set; }
 
         [Display(Name = "Должность")]
         public string Position { get; set; }
@@ -37,10 +32,16 @@ namespace Expro.ViewModels
         public string Salary { get; set; }
 
         [Display(Name = "Контакты")]
-        public string Contacts { get; set; }
+        public string ContactPerson { get; set; }
+
+        [Display(Name = "Контакты")]
+        public string PhoneNumber { get; set; }
+
+        [Display(Name = "Контакты")]
+        public string Email { get; set; }
 
         [Display(Name = "Статус")]
-        public int Status { get; set; }
+        public BaseDropdownableDetailsVM Status { get; set; }
 
         public VacancyDetailsVM(Vacancy model)
         {
@@ -49,15 +50,27 @@ namespace Expro.ViewModels
 
             ID = model.ID;
             Company = model.Company;
-            Region = model.Region?.Name;
-            City = model.City?.Name;
-            CityOther = model.CityOther;
+
+            Region = new BaseDropdownableDetailsVM(model.Region);
+            if (model.CityID.HasValue)
+                City = new BaseDropdownableDetailsVM(model.City);
+            else
+            {
+                City = new BaseDropdownableDetailsVM()
+                {
+                    ID = 0,
+                    Name = model.CityOther ?? ""
+                };
+            }
+
             Position = model.Position;
             Responsibility = model.Responsibility;
             Requirements = model.Requirements;
             Salary = model.Salary;
-            Contacts = model.Contacts;
-            Status = model.VacancyStatusID;
+            ContactPerson = model.ContactPerson;
+            PhoneNumber = model.PhoneNumber;
+            Email = model.Email;
+            Status = new BaseDropdownableDetailsVM(model.VacancyStatus);
         }
 
         public List<VacancyDetailsVM> GetListOfVacancyDetailsVM(IQueryable<Vacancy> models)
@@ -65,19 +78,7 @@ namespace Expro.ViewModels
             if (models == null)
                 return new List<VacancyDetailsVM>();
 
-            return models.Select(s => new VacancyDetailsVM
-            {
-                ID = s.ID,
-                Company = s.Company,
-                Region = s.Region != null ? s.Region.Name : "",
-                City = s.City != null ? s.City.Name : "",
-                CityOther = s.CityOther,
-                Position = s.Position,
-                Responsibility = s.Responsibility,
-                Requirements = s.Requirements,
-                Salary = s.Salary,
-                Contacts = s.Contacts,
-            }).ToList();
+            return models.Select(s => new VacancyDetailsVM(s)).ToList();
         }
     }
 }

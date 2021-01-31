@@ -4,14 +4,16 @@ using Expro.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Expro.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210130135528_Vacancy_addedContactFields")]
+    partial class Vacancy_addedContactFields
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -562,9 +564,6 @@ namespace Expro.Data.Migrations
                     b.Property<DateTime>("DateModified")
                         .HasColumnType("datetime2");
 
-                    b.Property<int?>("DiplomaID")
-                        .HasColumnType("int");
-
                     b.Property<string>("Faculty")
                         .HasColumnType("nvarchar(256)")
                         .HasMaxLength(256);
@@ -590,8 +589,6 @@ namespace Expro.Data.Migrations
                     b.HasIndex("CountryID");
 
                     b.HasIndex("CreatedBy");
-
-                    b.HasIndex("DiplomaID");
 
                     b.HasIndex("ModifiedBy");
 
@@ -1971,10 +1968,6 @@ namespace Expro.Data.Migrations
                     b.HasOne("Expro.Models.ApplicationUser", "Creator")
                         .WithMany("CreatedExpertEducations")
                         .HasForeignKey("CreatedBy");
-
-                    b.HasOne("Expro.Models.Attachment", "Diploma")
-                        .WithMany()
-                        .HasForeignKey("DiplomaID");
 
                     b.HasOne("Expro.Models.ApplicationUser", "Modifier")
                         .WithMany()

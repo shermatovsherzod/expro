@@ -25,8 +25,8 @@ namespace Expro.Controllers
         private readonly IQuestionAnswerService QuestionAnswerService;
         private readonly ICommentService CommentService;
         private readonly ICompanyService _companyService;
-        private readonly UserManager<ApplicationUser> _userManager;
         private readonly IUserService _userService;
+        private readonly IExpertEducationService _expertEducationService;
 
         //private readonly IHostingEnvironment _env;
 
@@ -38,9 +38,9 @@ namespace Expro.Controllers
             ICommentService commentService,
             ICompanyService companyService,
             //IHostingEnvironment env,
-            UserManager<ApplicationUser> userManager,
             ILogger<AttachmentController> logger,
-            IUserService userService)
+            IUserService userService,
+            IExpertEducationService expertEducationService)
         {
             AttachmentService = attachmentService;
             DocumentService = documentService;
@@ -49,14 +49,14 @@ namespace Expro.Controllers
             CommentService = commentService;
             _companyService = companyService;
             //_env = env;
-            _userManager = userManager;
             _logger = logger;
             _userService = userService;
+            _expertEducationService = expertEducationService;
         }
 
         //ajax
         [HttpPost]
-        public async Task<IActionResult> Save([FromBody] UploadFileVM uploadFileVM)
+        public IActionResult Save([FromBody] UploadFileVM uploadFileVM)
         {
             try
             {
@@ -66,7 +66,7 @@ namespace Expro.Controllers
                 AttachmentService.Add(attachment, curUser.ID);
 
                 if (uploadFileVM.ModelID != null)
-                    await AttachFile(attachment, uploadFileVM.ModelID, uploadFileVM.FileType);
+                    AttachFile(attachment, uploadFileVM.ModelID, uploadFileVM.FileType);
 
                 //if (uploadFileVM.ModelID.HasValue && uploadFileVM.ModelID.Value > 0)
                 //    AttachFile(attachment, uploadFileVM.ModelID.Value, uploadFileVM.FileType, curUser.ID);
@@ -79,7 +79,7 @@ namespace Expro.Controllers
             }
         }
 
-        private async Task AttachFile(Attachment attachment, object id, string fileType)
+        private void AttachFile(Attachment attachment, object id, string fileType)
         {
             string modelIDString = id.ToString();
             int modelIDInt = 0;
@@ -132,17 +132,25 @@ namespace Expro.Controllers
                         _companyService.Update(model);
                     }
                 }
+                else if (fileType.Equals(Constants.FileTypes.EDUCATION))
+                {
+                    var model = _expertEducationService.GetByID(modelIDInt);
+                    if (model != null)
+                    {
+                        model.Diploma = attachment;
+                        _expertEducationService.Update(model);
+                    }
+                }
             }
             else
             {
                 if (fileType.Equals(Constants.FileTypes.USER_AVATAR))
                 {
-                    var user = await _userManager.FindByIdAsync(modelIDString);
-                    //var user = _userService.GetByID(modelIDString);
+                    var user = _userService.GetByID(modelIDString);
                     if (user != null)
                     {
                         user.Avatar = attachment;
-                        await _userManager.UpdateAsync(user);
+                        _userService.Update(user);
                     }
                 }
             }

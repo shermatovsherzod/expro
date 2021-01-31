@@ -1,4 +1,5 @@
-﻿using Expro.Models;
+﻿using Expro.Common.Utilities;
+using Expro.Models;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -21,26 +22,30 @@ namespace Expro.ViewModels
         [Display(Name = "Отчество")]
         public string PatronymicName { get; set; }
 
+        public string FullName
+        {
+            get
+            {
+                return LastName + " " + FirstName + " " + PatronymicName;
+            }
+        }
+
         [Display(Name = "Контакты")]
         public string Contact { get; set; }
 
         [Display(Name = "Дата рождения")]
-        public DateTime DateOfBirth { get; set; }
+        public string DateOfBirth { get; set; }
 
         [Display(Name = "Регион")]
-        public string Region { get; set; }
+        public BaseDropdownableDetailsVM Region { get; set; }
 
-        [Display(Name = "Город")]
-        public string City { get; set; }
-
-        [Display(Name = "Другой город")]
-        public string CityOther { get; set; }
+        public BaseDropdownableDetailsVM City { get; set; }
 
         [Display(Name = "Образование")]
         public string Education { get; set; }
 
         [Display(Name = "Дата окончания учебного заведения")]
-        public DateTime? GraduationDate { get; set; }
+        public string GraduationDate { get; set; }
 
         [Display(Name = "Стаж работы")]
         public string WorkExperience { get; set; }
@@ -52,7 +57,7 @@ namespace Expro.ViewModels
         public string OtherInfo { get; set; }
 
         [Display(Name = "Статус")]
-        public int Status { get; set; }
+        public BaseDropdownableDetailsVM Status { get; set; }
 
         public ResumeDetailsVM(Resume model)
         {
@@ -63,16 +68,26 @@ namespace Expro.ViewModels
             LastName = model.LastName;
             PatronymicName = model.PatronymicName;
             Contact = model.Contact;
-            DateOfBirth = model.DateOfBirth;
-            Region = model.Region?.Name;
-            City = model.City?.Name;
-            CityOther = model.CityOther;
+            DateOfBirth = DateTimeUtils.ConvertToString(model.DateOfBirth);
+
+            Region = new BaseDropdownableDetailsVM(model.Region);
+            if (model.CityID.HasValue)
+                City = new BaseDropdownableDetailsVM(model.City);
+            else
+            {
+                City = new BaseDropdownableDetailsVM()
+                {
+                    ID = 0,
+                    Name = model.CityOther ?? ""
+                };
+            }
+
             Education = model.Education;
-            GraduationDate = model.GraduationDate;
+            GraduationDate = DateTimeUtils.ConvertToString(model.GraduationDate);
             WorkExperience = model.WorkExperience;
             Languages = model.Languages;
             OtherInfo = model.OtherInfo;
-            Status = model.ResumeStatusID;
+            Status = new BaseDropdownableDetailsVM(model.ResumeStatus);
         }
 
         public List<ResumeDetailsVM> GetListOfResumeDetailsVM(IQueryable<Resume> models)
@@ -80,24 +95,7 @@ namespace Expro.ViewModels
             if (models == null)
                 return new List<ResumeDetailsVM>();
 
-            return models.Select(s => new ResumeDetailsVM
-            {
-                ID = s.ID,
-                FirstName = s.FirstName,
-                LastName = s.LastName,
-                PatronymicName = s.PatronymicName,
-                Contact = s.Contact,
-                DateOfBirth = s.DateOfBirth,
-                Region = s.Region != null ? s.Region.Name : "",
-                City = s.City != null ? s.City.Name : "",
-                CityOther = s.CityOther,
-                Education = s.Education,
-                GraduationDate = s.GraduationDate,
-                WorkExperience = s.WorkExperience,
-                Languages = s.Languages,
-                OtherInfo = s.OtherInfo,
-
-            }).ToList();
+            return models.Select(s => new ResumeDetailsVM(s)).ToList();
         }
     }
 }

@@ -1,14 +1,66 @@
 ﻿@model VacancyEditVM
 @using Expro.ViewModels
+@using Expro.Common
+@using Expro.Models.Enums
+
 @{
     ViewData["Title"] = "Редактирование вакансии";
     int? cityID = Model?.CityID;
 }
 
-<h4>Редактирование вакансии</h4>
-<hr />
+<form asp-controller="Vacancy" asp-action="Edit"
+      id="editVacancyForm"
+      onsubmit="SubmitVacancyForm()"
+      data-ajax="true"
+      data-ajax-method="POST"
+      data-ajax-failure="PostFailure"
+      data-ajax-success="PostSuccess"
+      data-ajax-complete="PostCompleted">
 
-<form asp-controller="Vacancy" asp-action="Edit" data-ajax="true" data-ajax-method="POST">
+    <div class="border-bottom mb-4">
+        <h2>@ViewData["Title"]</h2>
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    </div>
+    <input asp-for="StatusID" type="hidden" />
+
+    @if (ViewData["successfullySaved"] != null)
+    {
+        <div class="alert alert-soft-success text-center rounded-0 mb-0" role="alert">
+            Данные успешно сохранены
+        </div>
+        <br />
+    }
+    @if (Model.StatusID == (int)DocumentStatusesEnum.WaitingForApproval)
+    {
+        <div class="alert alert-soft-info text-center rounded-0 mb-0" role="alert">
+            Отправлена на подтверждение
+        </div>
+    }
+    else if (Model.StatusID == (int)DocumentStatusesEnum.Approved)
+    {
+        <div class="alert alert-soft-success text-center rounded-0 mb-0" role="alert">
+            Подтверждена администратором
+        </div>
+    }
+    else if (Model.StatusID == (int)DocumentStatusesEnum.Rejected)
+    {
+        <div class="alert alert-soft-danger text-center rounded-0 mb-0" role="alert">
+            Отклонена администратором
+        </div>
+    }
+
+    <div class="row">
+        <div class="col-md-3">
+            <label asp-for="@Model.Position"></label>
+        </div>
+        <div class="col-md-9">
+            <p>
+                <input asp-for="@Model.Position" class="form-control" />
+                <span asp-validation-for="@Model.Position" class="text-danger"></span>
+            </p>
+        </div>
+    </div>
+
     <div class="row">
         <div class="col-md-3">
             <label asp-for="@Model.Company"></label>
@@ -26,14 +78,15 @@
             <label asp-for="@Model.RegionID"></label>
         </div>
         <div class="col-md-9">
-            <p>
-                <select asp-for="@Model.RegionID"
-                        asp-items="@ViewData["regions"] as IEnumerable<SelectListItem>"
-                        class="form-control">
-                    <option disabled selected>--- Выбрать регион ---</option>
-                </select>
-                <span asp-validation-for="@Model.RegionID" class="text-danger"></span>
-            </p>
+            <select asp-for="@Model.RegionID"
+                    asp-items="@ViewData["regions"] as IEnumerable<SelectListItem>"
+                    class="js-custom-select custom-select" size="1" style="opacity: 0;"
+                    data-hs-select2-options='{
+                      "minimumResultsForSearch": "Infinity"
+                    }'>
+                <option disabled selected>--- Выбрать регион ---</option>
+            </select>
+            <span asp-validation-for="@Model.RegionID" class="text-danger"></span>
         </div>
     </div>
 
@@ -42,14 +95,15 @@
             <label asp-for="@Model.CityID"></label>
         </div>
         <div class="col-md-9">
-            <p>
-                <select asp-for="@Model.CityID"
-                        asp-items="@ViewData["cities"] as IEnumerable<SelectListItem>"
-                        class="form-control">
-                    <option disabled selected>--- Выбрать город ---</option>
-                </select>
-                <span asp-validation-for="@Model.CityID" class="text-danger"></span>
-            </p>
+            <select asp-for="@Model.CityID"
+                    asp-items="@ViewData["cities"] as IEnumerable<SelectListItem>"
+                    class="js-custom-select custom-select" size="1" style="opacity: 0;"
+                    data-hs-select2-options='{
+                    "minimumResultsForSearch": "Infinity"
+                }'>
+                <option disabled selected>--- Выбрать город ---</option>
+            </select>
+            <span asp-validation-for="@Model.CityID" class="text-danger"></span>
         </div>
     </div>
 
@@ -67,25 +121,25 @@
 
     <div class="row">
         <div class="col-md-3">
-            <label asp-for="@Model.Position"></label>
-        </div>
-        <div class="col-md-9">
-            <p>
-                <textarea asp-for="@Model.Position" class="form-control"></textarea>
-                <span asp-validation-for="@Model.Position" class="text-danger"></span>
-            </p>
-        </div>
-    </div>
-
-    <div class="row">
-        <div class="col-md-3">
             <label asp-for="@Model.Responsibility"></label>
         </div>
         <div class="col-md-9">
-            <p>
-                <textarea asp-for="@Model.Responsibility" class="form-control"></textarea>
-                <span asp-validation-for="@Model.Responsibility" class="text-danger"></span>
-            </p>
+            <!-- Quill -->
+            <div class="quill-custom Responsibility">
+                <div class="js-quill" style="min-height: 15rem;"
+                     data-hs-quill-options='{
+                   "placeholder": "Опишите в двух словах...",
+                    "modules": {
+                      "toolbar": [["bold", "italic", "underline", "strike", "link", "image", "blockquote", "code", {"list": "bullet"}]]
+                    }
+                   }'>
+                    @Html.Raw(Model.Responsibility)
+                </div>
+            </div>
+            <br />
+            <!-- End Quill -->
+            <textarea asp-for="Responsibility" class="form-control" style="display: none;"></textarea>
+            <span asp-validation-for="Responsibility" class="text-danger"></span>
         </div>
     </div>
 
@@ -94,10 +148,22 @@
             <label asp-for="@Model.Requirements"></label>
         </div>
         <div class="col-md-9">
-            <p>
-                <textarea asp-for="@Model.Requirements" class="form-control"></textarea>
-                <span asp-validation-for="@Model.Requirements" class="text-danger"></span>
-            </p>
+            <!-- Quill -->
+            <div class="quill-custom Requirements">
+                <div class="js-quill" style="min-height: 15rem;"
+                     data-hs-quill-options='{
+                   "placeholder": "Опишите в двух словах...",
+                    "modules": {
+                      "toolbar": [["bold", "italic", "underline", "strike", "link", "image", "blockquote", "code", {"list": "bullet"}]]
+                    }
+                   }'>
+                    @Html.Raw(Model.Requirements)
+                </div>
+            </div>
+            <br />
+            <!-- End Quill -->
+            <textarea asp-for="Requirements" class="form-control" style="display: none;"></textarea>
+            <span asp-validation-for="Requirements" class="text-danger"></span>
         </div>
     </div>
 
@@ -107,37 +173,99 @@
         </div>
         <div class="col-md-9">
             <p>
-                <textarea asp-for="@Model.Salary" class="form-control"></textarea>
+                <input asp-for="@Model.Salary" class="form-control" />
                 <span asp-validation-for="@Model.Salary" class="text-danger"></span>
+            </p>
+        </div>
+    </div>
+
+    <h3>Контакты</h3>
+
+    <div class="row">
+        <div class="col-md-3">
+            <label asp-for="@Model.ContactPerson"></label>
+        </div>
+        <div class="col-md-9">
+            <p>
+                <input asp-for="@Model.ContactPerson" class="form-control" />
+                <span asp-validation-for="@Model.ContactPerson" class="text-danger"></span>
             </p>
         </div>
     </div>
 
     <div class="row">
         <div class="col-md-3">
-            <label asp-for="@Model.Contacts"></label>
+            <label asp-for="@Model.PhoneNumber"></label>
         </div>
         <div class="col-md-9">
             <p>
-                <textarea asp-for="@Model.Contacts" class="form-control"></textarea>
-                <span asp-validation-for="@Model.Contacts" class="text-danger"></span>
+                <input asp-for="@Model.PhoneNumber" class="form-control" />
+                <span asp-validation-for="@Model.PhoneNumber" class="text-danger"></span>
             </p>
         </div>
     </div>
 
+    <div class="row">
+        <div class="col-md-3">
+            <label asp-for="@Model.Email"></label>
+        </div>
+        <div class="col-md-9">
+            <p>
+                <input asp-for="@Model.Email" class="form-control" />
+                <span asp-validation-for="@Model.Email" class="text-danger"></span>
+            </p>
+        </div>
+    </div>
 
-    <button type="submit" class="btn btn-success">Сохранить</button>
-
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="form-group" id="actionButtonsBox">
+                <input asp-for="ActionType" type="hidden" />
+                <button type="submit" class="btn btn-info" actiontype="@DocumentActionTypesEnum.saveAsDraft">Сохранить как черновик</button>
+                <button type="submit" class="btn btn-indigo" actiontype="@DocumentActionTypesEnum.submitForApproval">Отправить на подтверждение</button>
+                <div class="spinner-border spinner" style="display: none;"></div>
+            </div>
+        </div>
+    </div>
 </form>
 
-
-<div>
+<div class="row">
     <a asp-action="Index">Вернутся к списку</a>
 </div>
 
+@section CustomFrontStyles
+{
+    <link rel="stylesheet" href="~/lib/frontTheme/vendor/select2/dist/css/select2.min.css">
+    <link rel="stylesheet" href="~/lib/frontTheme/vendor/quill/dist/quill.snow.css">
+}
+
+
 @section Scripts{
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+
+    <script src="~/lib/frontTheme/vendor/select2/dist/js/select2.full.min.js"></script>
+    <script src="~/lib/frontTheme/vendor/quill/dist/quill.min.js"></script>
+
     <script>
         $(document).ready(function () {
+            InitSelectpicker();
+            var quillRequirements = InitQuillRequirements();
+            var quillResponsibilities = InitQuillResponsibilities();
+
+            var statusID = @Model.StatusID;
+            console.log(statusID);
+            if (statusID == @((int)VacancyStatusEnum.WaitingForApproval)
+                || statusID == @((int)VacancyStatusEnum.Approved)
+                || statusID == @((int)VacancyStatusEnum.Rejected))
+            {
+                $("form input, form select, form textarea").attr("disabled", "disabled");
+                $("form #editCompanyFormAttachment").attr("disabled", "disabled");
+                $('select').prop('disabled', true);
+                $("#actionButtonsBox").html("");
+                quillRequirements.disable();
+                quillResponsibilities.disable();
+            }
+
             var cityID = Number("@cityID");
             if (cityID != "0")
                 $("#CityOther").attr('disabled', 'disabled');
@@ -193,4 +321,127 @@
             });
         }
     </script>
+
+    <script>
+        function InitSelectpicker() {
+            //$('#LawAreas').selectpicker();
+
+            // INITIALIZATION OF SELECT2
+            // =======================================================
+            $('.js-custom-select').each(function () {
+                var select2 = $.HSCore.components.HSSelect2.init($(this));
+            });
+        }
+
+        function InitQuillRequirements() {
+            // INITIALIZATION OF QUILLJS EDITOR
+            // =======================================================
+            var options = {
+                //debug: 'info',
+                //modules: {
+                //    toolbar: '#toolbar'
+                //},
+                //placeholder: 'Compose an epic...',
+                //readOnly: true,
+                //theme: 'snow'
+            };
+            var quill = $.HSCore.components.HSQuill.init('.quill-custom.Requirements .js-quill', options);
+            quill.on('text-change', function (delta, oldDelta, source) {
+                //if (source == 'api') {
+                //    alert("An API call triggered this change.");
+                //} else if (source == 'user') {
+                //    alert("A user action triggered this change.");
+                //}
+
+                var html = $(".quill-custom.Requirements .ql-editor").html();
+                if (html == "<p><br></p>")
+                    html = "";
+
+                $("textarea#Requirements").val(html);
+            });
+
+            return quill;
+        }
+
+        function InitQuillResponsibilities() {
+            // INITIALIZATION OF QUILLJS EDITOR
+            // =======================================================
+            var options = {
+                //debug: 'info',
+                //modules: {
+                //    toolbar: '#toolbar'
+                //},
+                //placeholder: 'Compose an epic...',
+                //readOnly: true,
+                //theme: 'snow'
+            };
+            var quill = $.HSCore.components.HSQuill.init('.quill-custom.Responsibility .js-quill', options);
+            quill.on('text-change', function (delta, oldDelta, source) {
+                //if (source == 'api') {
+                //    alert("An API call triggered this change.");
+                //} else if (source == 'user') {
+                //    alert("A user action triggered this change.");
+                //}
+
+                var html = $(".quill-custom.Responsibility .ql-editor").html();
+                if (html == "<p><br></p>")
+                    html = "";
+
+                $("textarea#Responsibility").val(html);
+            });
+
+            return quill;
+        }
+
+        function SubmitVacancyForm() {
+            var isValid = $('#editVacancyForm').valid();
+            if (isValid) {
+                $("#editVacancyForm .spinner").show();
+
+                DisableFormElements();
+
+                return true;
+            }
+            else
+                return false;
+        }
+
+        function ShowAnswerFormSpinner() {
+
+        }
+
+        function DisableFormElements() {
+            $("#editVacancyForm input").attr("readonly", "readonly");
+            $("#editVacancyForm textarea").attr("readonly", "readonly");
+            $("#editVacancyForm button").attr("disabled", "disabled");
+            $("#editVacancyForm select").attr("disabled", "disabled");
+        }
+
+        function PostFailure(data) {
+            alert("Ошибка: " + data.responseJSON.errorMessage);
+            //console.log(data);
+            $("#editVacancyForm .spinner").hide();
+        }
+
+        function PostSuccess(data) {
+            //alert("success");
+            console.log(data);
+            companyID = data.id;
+            //alert("success");
+
+            RedirectToIndexPageAfterSuccessCreate();
+        }
+
+        function PostCompleted(data) {
+            //alert("completed");
+            //console.log(data);
+            //alert("completed");
+            //$("#editVacancyForm .spinner").hide();
+        }
+
+        function RedirectToIndexPageAfterSuccessCreate() {
+            window.location.replace("/Expert/Vacancy/Edit/" + "@Model.ID" + "?successfullySaved=true");
+        }
+    </script>
 }
+

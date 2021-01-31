@@ -37,9 +37,18 @@ namespace Expro.Models
         [StringLength(256)]
         public string Salary { get; set; }
 
-        [StringLength(1000)]
+        [StringLength(256)]
         [Required]
-        public string Contacts { get; set; }
+        public string ContactPerson { get; set; }
+
+        [StringLength(256)]
+        [Required]
+        public string PhoneNumber { get; set; }
+
+        [StringLength(100)]
+        [Required]
+        public string Email { get; set; }
+
 
         [ForeignKey("VacancyStatus")]
         public int VacancyStatusID { get; set; }

@@ -15,25 +15,19 @@ namespace Expro.Areas.Expert.Controllers
     [Area("Expert")]
     public class CompanyController : BaseController
     {
-        private readonly UserManager<ApplicationUser> _userManager;
         private readonly ICompanyService _companyService;
-        private readonly ICountryService _countryService;
         private readonly ILawAreaService _lawAreaService;
         private readonly IRegionService _regionService;
         private readonly ICityService _cityService;
 
         public CompanyController(
-              UserManager<ApplicationUser> userManager,
               ICompanyService companyService,
-              ICountryService countryService,
               ILawAreaService lawAreaService,
               IRegionService regionService,
               ICityService cityService
               )
         {
-            _userManager = userManager;
             _companyService = companyService;
-            _countryService = countryService;
             _lawAreaService = lawAreaService;
             _regionService = regionService;
             _cityService = cityService;

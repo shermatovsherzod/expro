@@ -8,7 +8,7 @@ namespace Expro.ViewModels
 {
     public class BaseDropdownableDetailsVM : BaseVM
     {
-        public string Name { get; set; }
+        public string Name { get; set; } = "";
 
         public BaseDropdownableDetailsVM() { }
 
