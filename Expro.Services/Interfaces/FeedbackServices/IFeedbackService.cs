@@ -13,5 +13,6 @@ namespace Expro.Services.Interfaces
         bool FeedbackExist(string toUserID, string createdUserID);
         int GetRatingStarsCountByExpert(string userID, int starsValue);
         double GetOverallRatingByExpert(string userID);
+        int GetAllStarsCountByExpert(string userID);
     }
 }

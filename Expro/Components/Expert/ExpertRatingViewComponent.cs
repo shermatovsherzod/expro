@@ -27,17 +27,47 @@ namespace Expro.Components
 
             double overallRating = _feedbackService.GetOverallRatingByExpert(id);
 
-            vmodel.OverallRating = overallRating.ToString("0.00");
-            vmodel.FiveStarsSum = _feedbackService.GetRatingStarsCountByExpert(id, 5);
-            vmodel.FourStarsSum = _feedbackService.GetRatingStarsCountByExpert(id, 4);
-            vmodel.ThreeStarsSum = _feedbackService.GetRatingStarsCountByExpert(id, 3);
-            vmodel.TwoStarsSum = _feedbackService.GetRatingStarsCountByExpert(id, 2);
-            vmodel.OneStarsSum = _feedbackService.GetRatingStarsCountByExpert(id, 1);
+            double _allStarsCount = _feedbackService.GetAllStarsCountByExpert(id);
 
-            vmodel.OverallRatingStarsType = GetOverallRatingStarsType(overallRating);         
+            vmodel.OverallRating = overallRating.ToString("0.00");
+
+            int _fiveStarsSum = _feedbackService.GetRatingStarsCountByExpert(id, 5);
+            vmodel.FiveStarsSum = _fiveStarsSum;
+            vmodel.FiveStarsProgressBarPercent = GetProgressBarPercent(_fiveStarsSum, _allStarsCount);
+
+            int _fourStarsSum = _feedbackService.GetRatingStarsCountByExpert(id, 4);
+            vmodel.FourStarsSum = _fourStarsSum;
+            vmodel.FourStarsProgressBarPercent = GetProgressBarPercent(_fourStarsSum, _allStarsCount);
+
+            int _threeStarsSum = _feedbackService.GetRatingStarsCountByExpert(id, 3);
+            vmodel.ThreeStarsSum = _threeStarsSum;
+            vmodel.ThreeStarsProgressBarPercent = GetProgressBarPercent(_threeStarsSum, _allStarsCount);
+
+            int _twoStarsSum = _feedbackService.GetRatingStarsCountByExpert(id, 2);
+            vmodel.TwoStarsSum = _twoStarsSum;
+            vmodel.TwoStarsProgressBarPercent = GetProgressBarPercent(_twoStarsSum, _allStarsCount);
+
+            int _oneStarsSum = _feedbackService.GetRatingStarsCountByExpert(id, 1);
+            vmodel.OneStarsSum = _oneStarsSum;
+            vmodel.OneStarsProgressBarPercent = GetProgressBarPercent(_oneStarsSum, _allStarsCount);
+
+            vmodel.OverallRatingStarsType = GetOverallRatingStarsType(overallRating);
 
             return View("ExpertRating", vmodel);
 
+        }
+
+        public string GetProgressBarPercent(int starsValue, double allstarsCount)
+        {
+            if (allstarsCount != 0)
+            {
+                double result = ((double)starsValue / allstarsCount) * 100;
+
+                int rounded = (int)Math.Round(result);
+
+                return rounded.ToString();
+            }
+            return "0";
         }
 
         public ExpertRatingStarsTypeVM GetOverallRatingStarsType(double overallRating)

@@ -104,5 +104,10 @@ namespace Expro.Services
             return 0;
             // (5 * 252 + 4 * 124 + 3 * 40 + 2 * 29 + 1 * 33) / 478 = 4.11
         }
+
+        public int GetAllStarsCountByExpert(string userID)
+        {
+            return _repository.GetAsIQueryable().Count(c => c.ToUser.Id == userID);
+        }
     }
 }

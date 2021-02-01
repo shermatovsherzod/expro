@@ -10,10 +10,15 @@ namespace Expro.ViewModels
     {
         public string OverallRating { get; set; }
         public int FiveStarsSum { get; set; }
+        public string FiveStarsProgressBarPercent { get; set; }
         public int FourStarsSum { get; set; }
+        public string FourStarsProgressBarPercent { get; set; }
         public int ThreeStarsSum { get; set; }
+        public string ThreeStarsProgressBarPercent { get; set; }
         public int TwoStarsSum { get; set; }
+        public string TwoStarsProgressBarPercent { get; set; }
         public int OneStarsSum { get; set; }
+        public string OneStarsProgressBarPercent { get; set; }
         public double OverallStars { get; set; }
 
         public ExpertRatingStarsTypeVM OverallRatingStarsType { get; set; }
