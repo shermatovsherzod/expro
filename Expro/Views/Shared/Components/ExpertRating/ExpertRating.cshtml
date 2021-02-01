@@ -7,11 +7,20 @@
             <div class="card bg-primary text-white text-center py-4 px-3">
                 <span class="display-4">@Model.OverallRating</span>
                 <ul class="list-inline mb-2">
-                    <li class="list-inline-item mr-1"><img src="~/lib/frontTheme/svg/illustrations/star.svg" alt="Review rating" width="22"></li>
-                    <li class="list-inline-item mr-1"><img src="~/lib/frontTheme/svg/illustrations/star.svg" alt="Review rating" width="22"></li>
-                    <li class="list-inline-item mr-1"><img src="~/lib/frontTheme/svg/illustrations/star.svg" alt="Review rating" width="22"></li>
-                    <li class="list-inline-item mr-1"><img src="~/lib/frontTheme/svg/illustrations/star.svg" alt="Review rating" width="22"></li>
-                    <li class="list-inline-item mr-1"><img src="~/lib/frontTheme/svg/illustrations/star-half.svg" alt="Review rating" width="22"></li>
+                    @for (int i = 0; i < Model.OverallRatingStarsType.Star; i++)
+                    {
+                        <li class="list-inline-item mr-1"><img src="~/lib/frontTheme/svg/illustrations/star.svg" alt="Review rating" width="22"></li>
+                    }
+
+                    @for (int i = 0; i < Model.OverallRatingStarsType.StarHalf; i++)
+                    {
+                        <li class="list-inline-item mr-1"><img src="~/lib/frontTheme/svg/illustrations/star-half.svg" alt="Review rating" width="22"></li>
+                    }
+
+                    @for (int i = 0; i < Model.OverallRatingStarsType.StarMuted; i++)
+                    {
+                        <li class="list-inline-item mr-1"><img src="~/lib/frontTheme/svg/illustrations/star-muted.svg" alt="Review rating" width="22"></li>
+                    }
                 </ul>
                 <span>Общий рейтинг</span>
             </div>

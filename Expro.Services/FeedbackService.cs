@@ -90,16 +90,16 @@ namespace Expro.Services
 
         public double GetOverallRatingByExpert(string userID)
         {
-            int sum = _repository.GetAsIQueryable().Where(c => c.ToUser.Id == userID).Sum(c => c.Stars);
-            if (sum != 0)
+            double marksCount = _repository.GetAsIQueryable().Count(c => c.ToUser.Id == userID);
+            if (marksCount != 0)
             {
-                int k = 0;
+                double k = 0;
                 for (int i = 1; i <= 5; i++)
                 {
                     k += i * GetRatingStarsCountByExpert(userID, i);
                 }
 
-                return k / sum;
+                return k / marksCount;
             }
             return 0;
             // (5 * 252 + 4 * 124 + 3 * 40 + 2 * 29 + 1 * 33) / 478 = 4.11
