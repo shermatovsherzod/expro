@@ -177,7 +177,10 @@ namespace Expro.Services
             question.QuestionIsCompleted = true;
             question.DateQuestionCompleted = DateTime.Now;
 
-            Update(question, userID);
+            if (string.IsNullOrWhiteSpace(userID))
+                Update(question);
+            else
+                Update(question, userID);
         }
 
         public bool AdminIsAllowedToComplete(Question question)

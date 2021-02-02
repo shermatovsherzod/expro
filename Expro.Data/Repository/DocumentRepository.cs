@@ -18,6 +18,7 @@ namespace Expro.Data.Repository
             return DbSet
                 .Include(m => m.DocumentLawAreas).ThenInclude(m => m.LawArea)
                 .Include(m => m.Creator)
+                    .ThenInclude(m => m.Avatar)
                 .Include(m => m.DocumentStatus);
         }
 

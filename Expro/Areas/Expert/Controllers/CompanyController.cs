@@ -103,7 +103,8 @@ namespace Expro.Areas.Expert.Controllers
             }
 
             CompanyEditVM vmodel = new CompanyEditVM(_companyService.GetByID(id));
-            GetCompanyViewDataForEdit(vmodel);
+            //GetCompanyViewDataForEdit(vmodel);
+            GetCompanyViewDataForEdit();
 
             ViewData["successfullySaved"] = successfullySaved;
 
@@ -152,19 +153,34 @@ namespace Expro.Areas.Expert.Controllers
             }
         }
 
-        public void GetCompanyViewDataForEdit(CompanyEditVM vmodel)
+        //public void GetCompanyViewDataForEdit(CompanyEditVM vmodel)
+        //{
+        //    ViewData["lawAreas"] = _lawAreaService.GetAsIQueryable()
+        //        .Select(m => new SelectListItemWithParent()
+        //        {
+        //            Value = m.ID.ToString(),
+        //            Text = m.Name,
+        //            Selected = vmodel.LawAreas.Contains(m.ID),
+        //            ParentValue = m.ParentID.HasValue ? m.ParentID.Value.ToString() : ""
+        //        }).ToList();
+
+        //    ViewData["regions"] = _regionService.GetAsSelectListOne(vmodel.RegionID);
+        //    ViewData["cities"] = _cityService.GetAsSelectListOne(vmodel.CityID);
+        //}
+
+        public void GetCompanyViewDataForEdit()
         {
             ViewData["lawAreas"] = _lawAreaService.GetAsIQueryable()
                 .Select(m => new SelectListItemWithParent()
                 {
                     Value = m.ID.ToString(),
                     Text = m.Name,
-                    Selected = vmodel.LawAreas.Contains(m.ID),
+                    //Selected = vmodel.LawAreas.Contains(m.ID),
                     ParentValue = m.ParentID.HasValue ? m.ParentID.Value.ToString() : ""
                 }).ToList();
 
-            ViewData["regions"] = _regionService.GetAsSelectListOne(vmodel.RegionID);
-            ViewData["cities"] = _cityService.GetAsSelectListOne(vmodel.CityID);
+            ViewData["regions"] = _regionService.GetAsSelectListOne();
+            ViewData["cities"] = _cityService.GetAsSelectListOne();
         }
 
 
@@ -204,6 +220,6 @@ namespace Expro.Areas.Expert.Controllers
         //#endregion
 
 
-        
+
     }
 }
