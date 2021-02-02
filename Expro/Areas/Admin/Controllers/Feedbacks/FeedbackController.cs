@@ -14,7 +14,7 @@ namespace Expro.Areas.Admin.Controllers
 {
     [Area("Admin")]
     public class FeedbackController : BaseFeedbackController
-    {  
+    {
         private readonly IFeedbackStatusService _feedbackStatusService;
 
         public FeedbackController(
@@ -31,16 +31,16 @@ namespace Expro.Areas.Admin.Controllers
             _feedbackStatusService = feedbackStatusService;
         }
 
-        public override IActionResult Index()
+        public override IActionResult Index(string feedbackToUser="")
         {
             ViewData["statuses"] = _feedbackStatusService.GetAsSelectList();
             return base.Index();
         }
 
         [HttpPost]
-        public override IActionResult Search(int draw, int? start = null, int? length = null,  int? statusID = null)
+        public override IActionResult Search(int draw, int? start = null, int? length = null, int? statusID = null, string feedbackToUser = "")
         {
-            return base.Search(draw, start, length, statusID);
+            return base.Search(draw, start, length, statusID, feedbackToUser);
         }
 
 

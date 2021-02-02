@@ -1,0 +1,135 @@
+﻿@model Expro.ViewModels.ExpertRatingInfoVM
+<!-- Overall Ratings -->
+<div class="mb-7">
+    <div class="row align-items-center">
+        <div class="col-lg-4 mb-4 mb-lg-0">
+            <!-- Overall Review Rating -->
+            <div class="card bg-primary text-white text-center py-4 px-3">
+                <span class="display-4">@Model.OverallRating</span>
+                <ul class="list-inline mb-2">
+                    @for (int i = 0; i < Model.OverallRatingStarsType.Star; i++)
+                    {
+                        <li class="list-inline-item mr-1"><img src="~/lib/frontTheme/svg/illustrations/star.svg" alt="Review rating" width="22"></li>
+                    }
+
+                    @for (int i = 0; i < Model.OverallRatingStarsType.StarHalf; i++)
+                    {
+                        <li class="list-inline-item mr-1"><img src="~/lib/frontTheme/svg/illustrations/star-half.svg" alt="Review rating" width="22"></li>
+                    }
+
+                    @for (int i = 0; i < Model.OverallRatingStarsType.StarMuted; i++)
+                    {
+                        <li class="list-inline-item mr-1"><img src="~/lib/frontTheme/svg/illustrations/star-muted.svg" alt="Review rating" width="22"></li>
+                    }
+                </ul>
+                <span>Общий рейтинг</span>
+            </div>
+            <!-- End Overall Review Rating -->
+        </div>
+
+        <div class="col-lg-8">
+            <ul class="list-unstyled list-sm-article mb-0">
+                <li>
+                    <!-- Review Rating -->
+                    <a class="d-flex align-items-center font-size-1" href="javascript:;">
+                        <div class="progress w-100" style="height: 8px;">
+                            <div class="progress-bar" role="progressbar" style="width: @Model.FiveStarsProgressBarPercent%;" aria-valuenow="'@Model.FiveStarsProgressBarPercent'" aria-valuemin="0" aria-valuemax="100"></div>
+                        </div>
+                        <div class="d-flex align-items-center min-w-21rem ml-3">
+                            <ul class="list-inline mr-1 mb-2">
+                                <li class="list-inline-item mr-1"><img src="~/lib/frontTheme/svg/illustrations/star.svg" alt="Review rating" width="16"></li>
+                                <li class="list-inline-item mr-1"><img src="~/lib/frontTheme/svg/illustrations/star.svg" alt="Review rating" width="16"></li>
+                                <li class="list-inline-item mr-1"><img src="~/lib/frontTheme/svg/illustrations/star.svg" alt="Review rating" width="16"></li>
+                                <li class="list-inline-item mr-1"><img src="~/lib/frontTheme/svg/illustrations/star.svg" alt="Review rating" width="16"></li>
+                                <li class="list-inline-item mr-1"><img src="~/lib/frontTheme/svg/illustrations/star.svg" alt="Review rating" width="16"></li>
+                            </ul>
+                            <span>@Model.FiveStarsSum</span>
+                        </div>
+                    </a>
+                    <!-- End Review Rating -->
+                </li>
+
+                <li>
+                    <!-- Review Rating -->
+                    <a class="d-flex align-items-center font-size-1" href="javascript:;">
+                        <div class="progress w-100" style="height: 8px;">
+                            <div class="progress-bar" role="progressbar" style="width: @Model.FourStarsProgressBarPercent%;" aria-valuenow="'@Model.FourStarsProgressBarPercent'" aria-valuemin="0" aria-valuemax="100"></div>
+                        </div>
+                        <div class="d-flex align-items-center min-w-21rem ml-3">
+                            <ul class="list-inline mr-1 mb-2">
+                                <li class="list-inline-item mr-1"><img src="~/lib/frontTheme/svg/illustrations/star.svg" alt="Review rating" width="16"></li>
+                                <li class="list-inline-item mr-1"><img src="~/lib/frontTheme/svg/illustrations/star.svg" alt="Review rating" width="16"></li>
+                                <li class="list-inline-item mr-1"><img src="~/lib/frontTheme/svg/illustrations/star.svg" alt="Review rating" width="16"></li>
+                                <li class="list-inline-item mr-1"><img src="~/lib/frontTheme/svg/illustrations/star.svg" alt="Review rating" width="16"></li>
+                                <li class="list-inline-item mr-1"><img src="~/lib/frontTheme/svg/illustrations/star-muted.svg" alt="Review rating" width="16"></li>
+                            </ul>
+                            <span>@Model.FourStarsSum</span>
+                        </div>
+                    </a>
+                    <!-- End Review Rating -->
+                </li>
+
+                <li>
+                    <!-- Review Rating -->
+                    <a class="d-flex align-items-center font-size-1" href="javascript:;">
+                        <div class="progress w-100" style="height: 8px;">
+                            <div class="progress-bar" role="progressbar" style="width: @Model.ThreeStarsProgressBarPercent%;" aria-valuenow="'@Model.ThreeStarsProgressBarPercent'" aria-valuemin="0" aria-valuemax="100"></div>
+                        </div>
+                        <div class="d-flex align-items-center min-w-21rem ml-3">
+                            <ul class="list-inline mr-1 mb-2">
+                                <li class="list-inline-item mr-1"><img src="~/lib/frontTheme/svg/illustrations/star.svg" alt="Review rating" width="16"></li>
+                                <li class="list-inline-item mr-1"><img src="~/lib/frontTheme/svg/illustrations/star.svg" alt="Review rating" width="16"></li>
+                                <li class="list-inline-item mr-1"><img src="~/lib/frontTheme/svg/illustrations/star.svg" alt="Review rating" width="16"></li>
+                                <li class="list-inline-item mr-1"><img src="~/lib/frontTheme/svg/illustrations/star-muted.svg" alt="Review rating" width="16"></li>
+                                <li class="list-inline-item mr-1"><img src="~/lib/frontTheme/svg/illustrations/star-muted.svg" alt="Review rating" width="16"></li>
+                            </ul>
+                            <span>@Model.ThreeStarsSum</span>
+                        </div>
+                    </a>
+                    <!-- End Review Rating -->
+                </li>
+
+                <li>
+                    <!-- Review Rating -->
+                    <a class="d-flex align-items-center font-size-1" href="javascript:;">
+                        <div class="progress w-100" style="height: 8px;">
+                            <div class="progress-bar" role="progressbar" style="width: @Model.TwoStarsProgressBarPercent%;" aria-valuenow="'@Model.TwoStarsProgressBarPercent'" aria-valuemin="0" aria-valuemax="100"></div>
+                        </div>
+                        <div class="d-flex align-items-center min-w-21rem ml-3">
+                            <ul class="list-inline mr-1 mb-2">
+                                <li class="list-inline-item mr-1"><img src="~/lib/frontTheme/svg/illustrations/star.svg" alt="Review rating" width="16"></li>
+                                <li class="list-inline-item mr-1"><img src="~/lib/frontTheme/svg/illustrations/star.svg" alt="Review rating" width="16"></li>
+                                <li class="list-inline-item mr-1"><img src="~/lib/frontTheme/svg/illustrations/star-muted.svg" alt="Review rating" width="16"></li>
+                                <li class="list-inline-item mr-1"><img src="~/lib/frontTheme/svg/illustrations/star-muted.svg" alt="Review rating" width="16"></li>
+                                <li class="list-inline-item mr-1"><img src="~/lib/frontTheme/svg/illustrations/star-muted.svg" alt="Review rating" width="16"></li>
+                            </ul>
+                            <span>@Model.TwoStarsSum</span>
+                        </div>
+                    </a>
+                    <!-- End Review Rating -->
+                </li>
+
+                <li>
+                    <!-- Review Rating -->
+                    <a class="d-flex align-items-center font-size-1" href="javascript:;">
+                        <div class="progress w-100" style="height: 8px;">
+                            <div class="progress-bar" role="progressbar" style="width: @Model.OneStarsProgressBarPercent%;" aria-valuenow="'@Model.OneStarsProgressBarPercent'" aria-valuemin="0" aria-valuemax="100"></div>
+                        </div>
+                        <div class="d-flex align-items-center min-w-21rem ml-3">
+                            <ul class="list-inline mr-1 mb-2">
+                                <li class="list-inline-item mr-1"><img src="~/lib/frontTheme/svg/illustrations/star.svg" alt="Review rating" width="16"></li>
+                                <li class="list-inline-item mr-1"><img src="~/lib/frontTheme/svg/illustrations/star-muted.svg" alt="Review rating" width="16"></li>
+                                <li class="list-inline-item mr-1"><img src="~/lib/frontTheme/svg/illustrations/star-muted.svg" alt="Review rating" width="16"></li>
+                                <li class="list-inline-item mr-1"><img src="~/lib/frontTheme/svg/illustrations/star-muted.svg" alt="Review rating" width="16"></li>
+                                <li class="list-inline-item mr-1"><img src="~/lib/frontTheme/svg/illustrations/star-muted.svg" alt="Review rating" width="16"></li>
+                            </ul>
+                            <span>@Model.OneStarsSum</span>
+                        </div>
+                    </a>
+                    <!-- End Review Rating -->
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+<!-- End Overall Ratings -->

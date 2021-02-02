@@ -28,14 +28,19 @@ namespace Expro.Controllers
             _feedbackAdminActionsService = feedbackAdminActionsService;
         }
 
-        public virtual IActionResult Index()
+        //public virtual IActionResult Index()
+        //{
+        //    return View();
+        //}
+
+        public virtual IActionResult Index(string feedbackToUserID="")
         {
             return View();
         }
 
         [HttpPost]
         public virtual IActionResult Search(
-           int draw, int? start = null, int? length = null, int? statusID = null)
+           int draw, int? start = null, int? length = null, int? statusID = null, string feedbackToUser = "")
         {
             int recordsTotal = 0;
             int recordsFiltered = 0;
@@ -53,7 +58,8 @@ namespace Expro.Controllers
 
                 curUser.UserType,
                 statusID,
-                ""
+                "",
+                feedbackToUser
             );
 
             dynamic data = new FeedbackDetailsVM().GetListOfFeedbackDetailsVM(dataIQueryable);

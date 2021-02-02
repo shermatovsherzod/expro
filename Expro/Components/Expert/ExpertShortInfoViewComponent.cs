@@ -23,15 +23,26 @@ namespace Expro.Components
             _userManager = userManager;
         }
 
-        public IViewComponentResult Invoke()
+        public IViewComponentResult Invoke(string id = "")
         {
-            AccountUtil accountUtil = new AccountUtil();
-            var currentUserAccount = accountUtil.GetCurrentUser(this.HttpContext.User);
-            var currentUser = _userManager.Users.FirstOrDefault(c => c.UserName == currentUserAccount.UserName);
+            if (String.IsNullOrEmpty(id))
+            {
+                AccountUtil accountUtil = new AccountUtil();
+                var currentUserAccount = accountUtil.GetCurrentUser(this.HttpContext.User);
+                var currentUser = _userManager.Users.FirstOrDefault(c => c.UserName == currentUserAccount.UserName);
 
-            var photoEditVM = new ExpertShortInfoVM(currentUser);           
-            
-            return View("ExpertShortInfo", photoEditVM);
+                var currentUserInfo = new ExpertShortInfoVM(currentUser);
+
+                return View("ExpertShortInfo", currentUserInfo);
+            }
+
+
+            var user = _userManager.Users.FirstOrDefault(c => c.Id == id);
+
+            var userInfo = new ExpertShortInfoVM(user);
+
+            return View("ExpertShortInfo", userInfo);
+
         }
 
     }

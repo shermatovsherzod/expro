@@ -12,20 +12,21 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Localization;
 
-namespace Expro.Areas.Admin.Controllers
+namespace Expro.Controllers
 {
-    [Area("Admin")]
-    [Authorize(Policy = "AdminOnly")]
     public class ExpertsController : BaseExpertsController
     {
-        private readonly IExpertStatusService _expertStatusService;        
+        private readonly IExpertStatusService _expertStatusService;
+        private readonly IUserService _userService;
+        private readonly IFeedbackService _feedbackService;
 
         public ExpertsController(
              IExpertsListSearchService expertsListSearchService,
              IUserService userService,
              IExpertStatusService expertStatusService,
              IExpertsListAdminActionsService expertsListAdminActionsService,
-             IStringLocalizer<Resources.ResourceTexts> localizer             
+             IStringLocalizer<Resources.ResourceTexts> localizer,
+             IFeedbackService feedbackService
            ) : base(
                expertsListSearchService,
                userService,
@@ -33,12 +34,14 @@ namespace Expro.Areas.Admin.Controllers
                localizer
                )
         {
-            _expertStatusService = expertStatusService;       
+            _expertStatusService = expertStatusService;
+            _feedbackService = feedbackService;
+            _userService = userService;
         }
 
         public override IActionResult Index()
         {
-            ViewData["statuses"] = _expertStatusService.GetAsSelectList();
+
             return base.Index();
         }
 
@@ -50,20 +53,29 @@ namespace Expro.Areas.Admin.Controllers
 
 
         public override IActionResult Details(string id)
-        {          
+        {
+            var currentUserAccount = accountUtil.GetCurrentUser(User);
+            ViewBag.FeedbackExist = _feedbackService.FeedbackExist(id, currentUserAccount.ID);
             return base.Details(id);
         }
 
-        [HttpPost]
-        public override IActionResult Approve(string id)
-        {
-            return base.Approve(id);
-        }
 
         [HttpPost]
-        public override IActionResult Reject(string id)
+        public IActionResult Feedback(string toUserId, int rating, string feedbackText)
         {
-            return base.Reject(id);
+            var currentUserAccount = accountUtil.GetCurrentUser(User);
+            if (currentUserAccount != null && !_feedbackService.FeedbackExist(toUserId, currentUserAccount.ID))
+            {
+                Feedback model = new Feedback();
+                model.Stars = rating;
+                model.FeedbackText = feedbackText;
+                model.FeedbakToUser = toUserId;
+                model.FeedbackStatusID = (int)FeedbackStatusEnum.Approved;
+
+                _feedbackService.Add(model, currentUserAccount.ID);
+            }
+
+            return RedirectToAction("Details", new { id = toUserId });
         }
     }
 }
