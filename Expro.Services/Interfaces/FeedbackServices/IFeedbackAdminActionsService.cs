@@ -8,5 +8,6 @@ namespace Expro.Services.Interfaces
     {
         void Approve(Feedback entity, string userID);
         void Reject(Feedback entity, string userID);
+        void Delete(Feedback entity);
     }
 }

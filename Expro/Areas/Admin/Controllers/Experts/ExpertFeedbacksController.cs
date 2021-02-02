@@ -28,8 +28,6 @@ namespace Expro.Areas.Admin.Controllers.Experts
         public override IActionResult Index(string id)
         {
             ViewBag.feedbackToUserID = id;
-
-
             return base.Index(id);
         }
 
@@ -37,6 +35,12 @@ namespace Expro.Areas.Admin.Controllers.Experts
         public override IActionResult Search(int draw, int? start = null, int? length = null, int? statusID = null, string feedbackToUser = "")
         {
             return base.Search(draw, start, length, statusID, feedbackToUser);
+        }
+
+        [HttpPost]
+        public override IActionResult Delete(int id)
+        {
+            return base.Delete(id);
         }
     }
 }

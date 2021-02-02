@@ -36,5 +36,10 @@ namespace Expro.Services
 
             _feedbackService.Update(entity, userID);
         }
+
+        public void Delete(Feedback entity)
+        {            
+            _feedbackService.DeletePermanently(entity);
+        }
     }
 }

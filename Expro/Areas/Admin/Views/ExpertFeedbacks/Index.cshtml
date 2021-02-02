@@ -28,6 +28,7 @@
             <thead class="thead-light">
                 <tr>
                     <th>Отзывы об эксперте</th>
+                    <th>Удалить</th>
                 </tr>
             </thead>
             <tbody>
@@ -36,6 +37,8 @@
     </div>
     <div class="spinner-border spinner" style="display: none;"></div>
 </div>
+
+<a href=""></a>
 
 <link href="~/lib/DataTables-1.10.22/datatables.css" rel="stylesheet" />
 
@@ -99,6 +102,15 @@
 
                             return html;
                         }
+                    },
+                    {
+                        "data": 1,
+                        "render": function (data, type, full, meta) {
+
+                            var html = '';
+                            html += '<a href="#" onclick="return deleteFeedback(' + full.id + ')"><i class="fas fa-trash-alt"></i></a>';
+                            return html;
+                        }
                     }
                 ]
             });
@@ -123,5 +135,28 @@
         $('.js-custom-select').each(function () {
             var select2 = $.HSCore.components.HSSelect2.init($(this));
         });
+    </script>
+
+    <script>
+    function deleteFeedback(id) {
+                if (confirm("Вы действительно хотите удалить отзыв?")) {
+                    $.ajax({
+                        url: "/Admin/ExpertFeedbacks/Delete?id="+ id,
+                        type: "POST",
+                        cache: false,
+                        contentType: false,
+                        processData: false,
+                        success: function (data) {
+                              location.reload();
+                        },
+                        error: function (data) {
+                            alert("Ajax error (status code = " + data.status + "): " + data.statusText);
+                        },
+                        complete: function (data) {
+
+                        }
+                    });
+                }
+            }
     </script>
 }

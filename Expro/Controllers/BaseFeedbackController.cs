@@ -33,7 +33,7 @@ namespace Expro.Controllers
         //    return View();
         //}
 
-        public virtual IActionResult Index(string feedbackToUserID="")
+        public virtual IActionResult Index(string feedbackToUserID = "")
         {
             return View();
         }
@@ -92,7 +92,7 @@ namespace Expro.Controllers
             {
                 var feedback = _feedbackService.GetByID(id);
                 if (feedback == null)
-                    throw new Exception("Вакансия не найдена");
+                    throw new Exception("Отзыв не найден");
 
                 var curUser = accountUtil.GetCurrentUser(User);
                 _feedbackAdminActionsService.Approve(feedback, curUser.ID);
@@ -111,10 +111,29 @@ namespace Expro.Controllers
             {
                 var feedback = _feedbackService.GetByID(id);
                 if (feedback == null)
-                    throw new Exception("Вакансия не найдена");
+                    throw new Exception("Отзыв не найден");
 
                 var curUser = accountUtil.GetCurrentUser(User);
                 _feedbackAdminActionsService.Reject(feedback, curUser.ID);
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return CustomBadRequest(ex);
+            }
+        }
+
+        [HttpPost]
+        public virtual IActionResult Delete(int id)
+        {
+            try
+            {
+                var feedback = _feedbackService.GetByID(id);
+                if (feedback == null)
+                    throw new Exception("Отзыв не найден");
+
+                var curUser = accountUtil.GetCurrentUser(User);
+                _feedbackAdminActionsService.Delete(feedback);
                 return Ok();
             }
             catch (Exception ex)
