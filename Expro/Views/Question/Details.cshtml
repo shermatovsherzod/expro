@@ -419,8 +419,9 @@
                 //theme: 'snow'
             };
             var quill = $.HSCore.components.HSQuill.init('.js-quill.editorEditMode', options);
-
-            
+            //console.log(quill);
+            if (quill == undefined)
+                return null;
 
             quill.on('text-change', function (delta, oldDelta, source) {
                 //if (source == 'api') {
