@@ -78,7 +78,7 @@ namespace Expro.Controllers
         {
             var feedback = _feedbackService.GetByID(id);
             if (feedback == null)
-                throw new Exception("Вакансия не найдена");
+                throw new Exception("Отзыв не найден");
 
             FeedbackDetailsVM feedbackDetailsVM = new FeedbackDetailsVM(feedback);
 
