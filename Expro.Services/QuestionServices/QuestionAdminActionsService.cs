@@ -38,7 +38,7 @@ namespace Expro.Services
             if (_questionService.IsCompleted(Question))
                 return;
 
-            _questionService.Complete(Question, "634a8718-167d-4b77-98bb-7548340e95b2"); //add botUser
+            _questionService.Complete(Question, null);
         }
     }
 }
