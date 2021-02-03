@@ -31,9 +31,8 @@ namespace Expro.Areas.Admin.Controllers
             _feedbackStatusService = feedbackStatusService;
         }
 
-        public override IActionResult Index(string feedbackToUser="")
+        public override IActionResult Index(string feedbackToUser = "")
         {
-            ViewData["statuses"] = _feedbackStatusService.GetAsSelectList();
             return base.Index();
         }
 
