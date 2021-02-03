@@ -2,7 +2,7 @@
 @using Expro.Models.Enums
 
 @{
-    ViewData["Title"] = "Эксперты";
+    ViewData["Title"] = "Эксперты";    
 }
 @section CustomFrontStyles{
     <link rel="stylesheet" href="~/lib/frontTheme/vendor/select2/dist/css/select2.min.css">
@@ -50,7 +50,10 @@
 {
     <script src="~/lib/frontTheme/vendor/select2/dist/js/select2.full.min.js"></script>
     <script src="~/lib/DataTables-1.10.22/datatables.js"></script>
+
+
     <script>
+      
         var table;
 
         $(document).ready(function () {
@@ -179,4 +182,6 @@
             var select2 = $.HSCore.components.HSSelect2.init($(this));
         });
     </script>
+
+    
 }
