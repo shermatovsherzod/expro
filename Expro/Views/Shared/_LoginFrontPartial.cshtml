@@ -23,20 +23,29 @@
                     if ((UserTypesEnum)userTypeInt == UserTypesEnum.Admin)
                     {
                         <div class="hs-unfold">
-                            <a href="/Admin/Profile" class="js-hs-unfold-invoker btn btn-xs btn-ghost-secondary" title="Manage">Hello @User.Identity.Name!</a>
+                            <a href="/Admin/Home" class="js-hs-unfold-invoker btn btn-xs btn-ghost-secondary" title="Manage">Hello @User.Identity.Name!</a>
                         </div>
+                        @*<div class="hs-unfold">
+                            <a href="/Admin/Profile" class="js-hs-unfold-invoker btn btn-xs btn-ghost-secondary" title="Manage">Hello @User.Identity.Name!</a>
+                        </div>*@
                     }
                     else if ((UserTypesEnum)userTypeInt == UserTypesEnum.Expert)
                     {
                         <div class="hs-unfold">
-                            <a href="/Expert/ExpertProfileMainInfo" class="js-hs-unfold-invoker btn btn-xs btn-ghost-secondary" title="Manage">Hello @User.Identity.Name!</a>
+                            <a href="/Expert/Home" class="js-hs-unfold-invoker btn btn-xs btn-ghost-secondary" title="Manage">Hello @User.Identity.Name!</a>
                         </div>
+                        @*<div class="hs-unfold">
+                            <a href="/Expert/ExpertProfileMainInfo" class="js-hs-unfold-invoker btn btn-xs btn-ghost-secondary" title="Manage">Hello @User.Identity.Name!</a>
+                        </div>*@
                     }
                     else if ((UserTypesEnum)userTypeInt == UserTypesEnum.SimpleUser)
                     {
                         <div class="hs-unfold">
-                            <a href="/User/Profile" class="js-hs-unfold-invoker btn btn-xs btn-ghost-secondary" title="Manage">Hello @User.Identity.Name!</a>
+                            <a href="/User/Home" class="js-hs-unfold-invoker btn btn-xs btn-ghost-secondary" title="Manage">Hello @User.Identity.Name!</a>
                         </div>
+                        @*<div class="hs-unfold">
+                            <a href="/User/Profile" class="js-hs-unfold-invoker btn btn-xs btn-ghost-secondary" title="Manage">Hello @User.Identity.Name!</a>
+                        </div>*@
                     }
                 }
             }
