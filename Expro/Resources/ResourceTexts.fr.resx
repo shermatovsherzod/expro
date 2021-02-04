@@ -120,11 +120,20 @@
   <data name="All" xml:space="preserve">
     <value>Барчаси</value>
   </data>
+  <data name="Article" xml:space="preserve">
+    <value>Мақолалар</value>
+  </data>
+  <data name="Company" xml:space="preserve">
+    <value>Компаниялар</value>
+  </data>
   <data name="Email" xml:space="preserve">
     <value>Yashik</value>
   </data>
   <data name="ErrorRequiredField" xml:space="preserve">
     <value>Мажбурий поле</value>
+  </data>
+  <data name="Experts" xml:space="preserve">
+    <value>Экспертлар</value>
   </data>
   <data name="fr" xml:space="preserve">
     <value>Узбек</value>
@@ -132,11 +141,29 @@
   <data name="FullName" xml:space="preserve">
     <value>Исм</value>
   </data>
+  <data name="Home" xml:space="preserve">
+    <value>Бош сахифа</value>
+  </data>
+  <data name="PracticeDocument" xml:space="preserve">
+    <value>Амалиёт</value>
+  </data>
+  <data name="Question" xml:space="preserve">
+    <value>Саволлар</value>
+  </data>
   <data name="RandomGUID" xml:space="preserve">
     <value>RandomGUID бу {0}</value>
   </data>
+  <data name="Resume" xml:space="preserve">
+    <value>Резюме</value>
+  </data>
   <data name="ru" xml:space="preserve">
     <value>Рус</value>
+  </data>
+  <data name="SampleDocument" xml:space="preserve">
+    <value>Наъмунавий хужжатлар</value>
+  </data>
+  <data name="Vacancy" xml:space="preserve">
+    <value>Вакансиялар</value>
   </data>
   <data name="Welcome" xml:space="preserve">
     <value>Хуш келибсиз</value>
