@@ -42,25 +42,25 @@ namespace Expro.Controllers
 
             int k = AppData.Configuration.RatingThresholdForCreatingPaidDocuments;
 
-            if (User.Identity.IsAuthenticated)
-            {
-                var userType = User.Claims.FirstOrDefault(c => c.Type == "UserType");
-                if (userType != null)
-                {
-                    if (int.Parse(userType.Value) == 1)
-                    {
-                        return Redirect("/Admin/Home");
-                    }
-                    else if (int.Parse(userType.Value) == 2)
-                    {
-                        return Redirect("/Expert/Home");
-                    }
-                    else if (int.Parse(userType.Value) == 3)
-                    {
-                        return Redirect("/User/Home");
-                    }
-                }
-            }
+            //if (User.Identity.IsAuthenticated)
+            //{
+            //    var userType = User.Claims.FirstOrDefault(c => c.Type == "UserType");
+            //    if (userType != null)
+            //    {
+            //        if (int.Parse(userType.Value) == 1)
+            //        {
+            //            return Redirect("/Admin/Home");
+            //        }
+            //        else if (int.Parse(userType.Value) == 2)
+            //        {
+            //            return Redirect("/Expert/Home");
+            //        }
+            //        else if (int.Parse(userType.Value) == 3)
+            //        {
+            //            return Redirect("/User/Home");
+            //        }
+            //    }
+            //}
             return View();
         }
 
