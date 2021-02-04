@@ -1,4 +1,6 @@
 ﻿@model Expro.ViewModels.BalanceVM
+@using Expro.Common 
+
 @{
     ViewData["Title"] = "UserBalance";
 }
@@ -8,25 +10,42 @@
 <!-- List -->
 <ul class="nav nav-sub nav-sm nav-tabs nav-list-y-2 mb-4">
     <li class="nav-item">
-        <a class="nav-link " href="#">
+        <a class="nav-link " href="javascript: void();">
             <i class="fas fa-check nav-icon"></i> Баланс
             <span class="badge badge-soft-dark badge-pill nav-link-badge">@Model.Balance</span>
         </a>
     </li>
 
     <li class="nav-item">
-        <a class="nav-link " href="#">
+        @{
+            string clickUrl = @"https://my.click.uz/services/pay" + @"
+                ?service_id=" + Constants.CLICK.SETTINGS.SERVICE_id + @"
+                &merchant_id=" + Constants.CLICK.SETTINGS.MERCHANT_ID + @"
+                &transaction_param=" + Model.AccountNumber;
+        }
+        <a class="nav-link " href="@clickUrl">
             <i class="fas fa-check nav-icon"></i> Пополнить баланс
         </a>
     </li>
     <li class="nav-item">
-        <a class="nav-link " href="#">
-            <i class="fas fa-check nav-icon"></i> Транзакции
+        <a class="nav-link " href="/User/WithdrawRequest">
+            <i class="fas fa-check nav-icon"></i> Запросы на вывод средств
+            @*<span class="badge badge-soft-dark badge-pill nav-link-badge">2</span>*@
         </a>
     </li>
+    @*<li class="nav-item">
+            <a class="nav-link " href="#">
+                <i class="fas fa-check nav-icon"></i> Транзакции
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link " href="#">
+                <i class="fas fa-check nav-icon"></i> Оплата за услуги
+            </a>
+        </li>*@
     <li class="nav-item">
-        <a class="nav-link " href="#">
-            <i class="fas fa-check nav-icon"></i> Оплата за услуги
+        <a class="nav-link " href="/User/FinancePanel">
+            <i class="fas fa-dollar-sign nav-icon"></i> Финансы
         </a>
     </li>
 </ul>
