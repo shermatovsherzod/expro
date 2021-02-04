@@ -8,5 +8,6 @@ namespace Expro.ViewModels
     public class BalanceVM
     {
         public int Balance { get; set; }
+        public string AccountNumber { get; set; }
     }
 }

@@ -25,6 +25,7 @@ namespace Expro.Components
             var currentUser = _userManager.Users.FirstOrDefault(c => c.UserName == currentUserAccount.UserName);
             BalanceVM vmodel = new BalanceVM();
             vmodel.Balance = currentUser.Balance;
+            vmodel.AccountNumber = currentUser.AccountNumber;
             return View("UserBalance", vmodel);
         }
     }
