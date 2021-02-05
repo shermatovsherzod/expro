@@ -93,7 +93,7 @@
                                     <!-- Avatar -->
                                     @await Component.InvokeAsync("SimpleUserShortInfo")
                                     <!-- End Avatar -->
-                                   
+
                                     @await Component.InvokeAsync("UserDocuments")
 
                                     @await Component.InvokeAsync("UserBalance")
@@ -102,9 +102,7 @@
                                     <!-- Nav -->
                                     <!-- List -->
                                     <!-- End List -->
-
                                     <!--<h6 class="text-cap small">Shopping</h6>-->
-
                                     <!-- List -->
                                     <!--<ul class="nav nav-sub nav-sm nav-tabs nav-list-y-2 mb-4">
                                         <li class="nav-item">
@@ -120,9 +118,7 @@
                                         </li>
                                     </ul>-->
                                     <!-- End List -->
-
                                     <!--<h6 class="text-cap small">Billing</h6>-->
-
                                     <!-- List -->
                                     <!--<ul class="nav nav-sub nav-sm nav-tabs nav-list-y-2">
                                         <li class="nav-item">
@@ -211,20 +207,19 @@
     </a>
 
     <!-- End Go to Top -->
+    <!-- JS Global Compulsory  -->
+    <script src="~/lib/frontTheme/vendor/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/frontTheme/vendor/jquery-migrate/dist/jquery-migrate.min.js"></script>
+    <script src="~/lib/frontTheme/vendor/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+
     <!-- Our libraries -->
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    @*<script src="~/lib/jquery/dist/jquery.min.js"></script>*@
+    @*<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>*@
     <script src="~/js/site.js" asp-append-version="true"></script>
     <partial name="_FirebaseConfig" />
     <script src="~/js/signalr/dist/browser/signalr.js"></script>
     <script src="~/js/Site/userTrackerHub_signalr.js"></script>
 
-
-
-    <!-- JS Global Compulsory  -->
-    <script src="~/lib/frontTheme/vendor/jquery/dist/jquery.min.js"></script>
-    <script src="~/lib/frontTheme/vendor/jquery-migrate/dist/jquery-migrate.min.js"></script>
-    <script src="~/lib/frontTheme/vendor/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
 
     <!-- JS Implementing Plugins -->
     <script src="~/lib/frontTheme/vendor/hs-header/dist/hs-header.min.js"></script>

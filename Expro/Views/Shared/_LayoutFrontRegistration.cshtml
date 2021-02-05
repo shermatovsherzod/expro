@@ -69,8 +69,15 @@
 
     <!-- End Go to Top -->
     <!-- Our libraries -->
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    @*<script src="~/lib/jquery/dist/jquery.min.js"></script>*@
+    @*<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>*@
+
+    <!-- JS Global Compulsory  -->
+    <script src="~/lib/frontTheme/vendor/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/frontTheme/vendor/jquery-migrate/dist/jquery-migrate.min.js"></script>
+    <script src="~/lib/frontTheme/vendor/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+
+
     <script src="~/js/site.js" asp-append-version="true"></script>
     <partial name="_FirebaseConfig" />
     <script src="~/js/signalr/dist/browser/signalr.js"></script>
@@ -78,10 +85,6 @@
 
     @RenderSection("Scripts", required: false)
 
-    <!-- JS Global Compulsory  -->
-    <script src="~/lib/frontTheme/vendor/jquery/dist/jquery.min.js"></script>
-    <script src="~/lib/frontTheme/vendor/jquery-migrate/dist/jquery-migrate.min.js"></script>
-    <script src="~/lib/frontTheme/vendor/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
 
     <!-- JS Implementing Plugins -->
     <script src="~/lib/frontTheme/vendor/hs-header/dist/hs-header.min.js"></script>
