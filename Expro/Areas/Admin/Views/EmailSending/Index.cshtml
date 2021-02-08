@@ -1,0 +1,38 @@
+﻿
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<form asp-controller="EmailSending" asp-action="Index" data-ajax="true" data-ajax-method="POST">
+    @if ((bool)ViewBag.Message)
+    {
+        <div class="alert alert-soft-success" role="alert">
+            Письмо отправлено
+        </div>
+    }
+    <!-- Form Group -->
+    <div class="row form-group">
+        <label class="col-sm-3 col-form-label input-label">Емейл адрес</label>
+        <input type="text" id="emailaddress" name="emailaddress" class="form-control" />
+    </div>
+    <!-- End Form Group -->
+    <!-- Form Group -->
+    <div class="row form-group">
+        <label class="col-sm-3 col-form-label input-label">Тема письма</label>
+        <input type="text" id="subject" name="subject" class="form-control" />
+    </div>
+    <!-- End Form Group -->
+    <!-- Form Group -->
+    <div class="row form-group">
+        <label class="col-sm-3 col-form-label input-label">Текст письма</label>
+        <textarea id="emailBody" name="emailBody" class="form-control"></textarea>
+    </div>
+    <!-- End Form Group -->
+    <!-- Footer -->
+    <div class="d-flex justify-content-end">
+        <button type="submit" class="btn btn-primary">Отправить</button>
+    </div>
+    <!-- End Footer -->
+</form>

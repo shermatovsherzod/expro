@@ -123,6 +123,8 @@ namespace Expro.DependencyInjections
             
             services.AddTransient<IFeedbackSearchService, FeedbackSearchService>();
             services.AddTransient<IFeedbackStatusService, FeedbackStatusService>();
+
+            services.AddTransient<IEmailService, EmailService>();
         }
     }
 }
