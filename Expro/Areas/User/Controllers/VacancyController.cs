@@ -65,6 +65,9 @@ namespace Expro.Areas.User.Controllers
 
                     _vacancyService.Add(model, user.ID);
 
+                    if (vmodel.ActionType == DocumentActionTypesEnum.submitForApproval)
+                        _vacancyService.SubmitForApproval(model, user.ID);
+
                     //return RedirectToAction("Index");
                     return Ok(new { id = model.ID });
                 }

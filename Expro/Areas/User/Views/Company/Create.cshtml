@@ -1,6 +1,7 @@
 ﻿@model CompanyEditVM
 @using Expro.ViewModels
 @using Expro.Common
+@using Expro.Models.Enums
 
 @{
     ViewData["Title"] = "Добавление компании";
@@ -212,8 +213,12 @@
 
     <div class="row">
         <div class="col-sm-12">
-            <button type="submit" class="btn btn-success">Сохранить</button>
-            <div class="spinner-border spinner" style="display: none;"></div>
+            <div class="form-group" id="actionButtonsBox">
+                <input asp-for="ActionType" type="hidden" />
+                <button type="submit" class="btn btn-info" actiontype="@DocumentActionTypesEnum.saveAsDraft">Сохранить как черновик</button>
+                <button type="submit" class="btn btn-indigo" actiontype="@DocumentActionTypesEnum.submitForApproval">Отправить на подтверждение</button>
+                <div class="spinner-border spinner" style="display: none;"></div>
+            </div>
         </div>
     </div>
 </form>
@@ -262,6 +267,10 @@
             });
 
             LoadCitiesByRegion($("#RegionID").val(), cityID);
+
+            $("form button[type=submit]").click(function (ev) {
+                $("form input#ActionType").val($(this).attr("actiontype"));
+            });
         });
 
         function LoadCitiesByRegion(regionID, selectedCityID) {
