@@ -57,7 +57,7 @@
                 <!-- Avatar -->
                 <label class="avatar avatar-xl avatar-circle mr-4" for="editCompanyFormAttachment">
                     @{
-                        string logoUrl = "~/lib/frontTheme/img/160x160/img38.jpg";
+                        string logoUrl = "/lib/frontTheme/img/160x160/img38.jpg";
                         if (Model.Logo != null && Model.Logo.ID > 0)
                         {
                             logoUrl = Model.Logo.Url;
@@ -314,6 +314,10 @@
             });
 
             LoadCitiesByRegion($("#RegionID").val(), cityID);
+
+            $("form button[type=submit]").click(function (ev) {
+                $("form input#ActionType").val($(this).attr("actiontype"));
+            });
         });
 
         function InitFormPostSubmissionActions() {

@@ -66,6 +66,9 @@ namespace Expro.Areas.Expert.Controllers
                     _lawAreaService.UpdateCompanyLawAreas(model, vmodel.LawAreas);
                     _companyService.Add(model, user.ID);
 
+                    if (vmodel.ActionType == DocumentActionTypesEnum.submitForApproval)
+                        _companyService.SubmitForApproval(model, user.ID);
+
                     //return RedirectToAction("Index");
                     return Ok(new { id = model.ID });
                 }
