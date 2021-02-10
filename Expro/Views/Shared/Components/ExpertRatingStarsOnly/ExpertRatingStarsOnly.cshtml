@@ -1,0 +1,20 @@
+﻿@model Expro.ViewModels.ExpertRatingStarsTypeVM
+    <div class="d-flex align-items-center min-w-21rem">
+
+        <ul class="list-inline mr-1 mb-2">
+            @for (int i = 0; i < Model.Star; i++)
+            {
+                <li class="list-inline-item mr-1"><img src="~/lib/frontTheme/svg/illustrations/star.svg" alt="Review rating" width="16"></li>
+            }
+
+            @for (int i = 0; i < Model.StarHalf; i++)
+            {
+                <li class="list-inline-item mr-1"><img src="~/lib/frontTheme/svg/illustrations/star-half.svg" alt="Review rating" width="16"></li>
+            }
+
+            @for (int i = 0; i < Model.StarMuted; i++)
+            {
+                <li class="list-inline-item mr-1"><img src="~/lib/frontTheme/svg/illustrations/star-muted.svg" alt="Review rating" width="16"></li>
+            }
+        </ul>
+    </div>
