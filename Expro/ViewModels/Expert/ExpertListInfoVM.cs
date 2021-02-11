@@ -32,6 +32,8 @@ namespace Expro.ViewModels
         [Display(Name = "Емейл")]
         public string Email { get; set; }
 
+        public string AboutMe { get; set; }
+
         [Display(Name = "Балл")]
         public int Points { get; set; }
 
@@ -62,6 +64,7 @@ namespace Expro.ViewModels
             DateRatingLastUpdated = model.DateRatingLastUpdated != null ? DateTimeUtils.ConvertToString(
                 model.DateRatingLastUpdated,
                 AppData.Configuration.DateTimeViewStringFormat) : "";
+            AboutMe = model.AboutMe != null ? model.AboutMe : "";
         }
 
         public List<ExpertListInfoVM> GetExpertListInfoVM(IQueryable<ApplicationUser> models)
@@ -84,6 +87,7 @@ namespace Expro.ViewModels
                 DateRatingLastUpdated = model.DateRatingLastUpdated != null ? DateTimeUtils.ConvertToString(
                 model.DateRatingLastUpdated,
                 AppData.Configuration.DateTimeViewStringFormat) : "",
+                AboutMe = model.AboutMe != null ? model.AboutMe : ""
             }).ToList();
         }
     }
