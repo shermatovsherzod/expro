@@ -152,9 +152,19 @@
             </div>
 
             <ul class="list-unstyled">
+                @{
+                    int i = 1;
+                }
                 @foreach (var answer in Model.Answers)
                 {
-                    <!-- Comment -->
+                    <li class="mb-5">
+                        <hr />
+                        <h4>Ответ № @i</h4>
+                    </li>
+
+                    i++;
+
+                    <!-- Answer -->
                     <li class="mb-5 ">
                         <div class="card card-frame">
                             <div class="card-body">
@@ -241,9 +251,9 @@
                                 }
                             </div>
                         </div>
-                        
+
                     </li>
-                    <!-- End Comment -->
+                    <!-- End Answer -->
 
                     Stack<CommentDetailsVM> commentsStack = new Stack<CommentDetailsVM>();
 
