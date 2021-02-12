@@ -30,17 +30,9 @@
                             <li class="list-inline-item">@Model.PhoneNumber</li>
                         </ul>
 
-                        <div class="d-flex align-items-center min-w-21rem">
-                            <ul class="list-inline mr-1 mb-2">
-                                <li class="list-inline-item mr-1"><img src="~/lib/frontTheme/svg/illustrations/star.svg" alt="Review rating" width="16"></li>
-                                <li class="list-inline-item mr-1"><img src="~/lib/frontTheme/svg/illustrations/star.svg" alt="Review rating" width="16"></li>
-                                <li class="list-inline-item mr-1"><img src="~/lib/frontTheme/svg/illustrations/star.svg" alt="Review rating" width="16"></li>
-                                <li class="list-inline-item mr-1"><img src="~/lib/frontTheme/svg/illustrations/star.svg" alt="Review rating" width="16"></li>
-                                <li class="list-inline-item mr-1"><img src="~/lib/frontTheme/svg/illustrations/star.svg" alt="Review rating" width="16"></li>
-                            </ul>
-
-                            <a class="link" href="/Feedback/Index?id=@Model.Id">Просмотреть рейтинг и отзывы</a>
-                        </div>
+                        @await Component.InvokeAsync("ExpertRatingStarsOnly", new { id = Model.Id })
+                        <a class="link" href="/Feedback/Index?id=@Model.Id">Просмотреть рейтинг и отзывы</a>
+                       
                     </div>
                 </div>
                 <!-- End Row -->
@@ -51,45 +43,6 @@
 </div>
 
 
-
-@if (!ViewBag.FeedbackExist && User.Identity.IsAuthenticated)
-{
-    <link href="~/css/stars.css" rel="stylesheet" />
-    <div class="container space-2">
-        <div class="row">
-            <div class="col-lg-12">
-                <form asp-controller="Experts" asp-action="Feedback" data-ajax="true" data-ajax-method="POST">
-                    <!-- Form Group -->
-                    <input type="hidden" id="toUserId" name="toUserId" value="@Model.Id" />
-                    <div class="row form-group">
-                        <label class="label">Рейтинг</label>
-                        <div class="col-sm-12">
-                            <div class="rating">
-                                <input type="radio" id="star5" name="rating" value="5" /><label for="star5" title="Rocks!">5 stars</label>
-                                <input type="radio" id="star4" name="rating" value="4" /><label for="star4" title="Pretty good">4 stars</label>
-                                <input type="radio" id="star3" name="rating" value="3" /><label for="star3" title="Meh">3 stars</label>
-                                <input type="radio" id="star2" name="rating" value="2" /><label for="star2" title="Kinda bad">2 stars</label>
-                                <input type="radio" id="star1" name="rating" value="1" /><label for="star1" title="Sucks big time">1 star</label>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row form-group">
-                        <label class="label">Отзыв</label>
-                        <div class="col-sm-12">
-                            <textarea id="feedbackText" name="feedbackText" class="form-control"></textarea>
-                        </div>
-                    </div>
-                    <!-- End Form Group -->
-                    <!-- Footer -->
-                    <div class="d-flex justify-content-end">
-                        <button type="submit" class="btn btn-primary">Сохранить</button>
-                    </div>
-                    <!-- End Footer -->
-                </form>
-            </div>
-        </div>
-    </div>
-}
 <!-- End Page Header -->
 <!-- Description Section -->
 <div class="container space-2">

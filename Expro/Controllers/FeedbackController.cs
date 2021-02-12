@@ -14,6 +14,7 @@ namespace Expro.Controllers
 {
     public class FeedbackController : BaseFeedbackController
     {
+        private readonly IFeedbackService _feedbackService;
         public FeedbackController(
               IFeedbackSearchService feedbackSearchService,
             IFeedbackService feedbackService,
@@ -23,13 +24,14 @@ namespace Expro.Controllers
                   feedbackService,
                   feedbackAdminActionsService)
         {
-
+            _feedbackService = feedbackService;
         }
 
         public override IActionResult Index(string id)
         {
             ViewBag.feedbackToUserID = id;
-
+            var currentUserAccount = accountUtil.GetCurrentUser(User);
+            ViewBag.FeedbackExist = _feedbackService.FeedbackExist(id, currentUserAccount.ID);
 
             return base.Index(id);
         }

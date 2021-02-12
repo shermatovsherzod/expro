@@ -21,8 +21,9 @@
                             <li class="list-inline-item">
                                 <i class="fas fa-map-marker-alt text-primary mr-1"></i> @Model.RegionStr @Model.CityStr
                             </li>
-                            <li class="list-inline-item">@Model.Email</li>                           
+                            <li class="list-inline-item">@Model.Email</li>
                         </ul>
+                        @await Component.InvokeAsync("ExpertRatingStarsOnly", new { id = Model.ID })
                     </div>
                 </div>
                 <!-- End Row -->

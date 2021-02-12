@@ -51,7 +51,7 @@ namespace Expro.Components
             vmodel.OneStarsSum = _oneStarsSum;
             vmodel.OneStarsProgressBarPercent = GetProgressBarPercent(_oneStarsSum, _allStarsCount);
 
-            vmodel.OverallRatingStarsType = GetOverallRatingStarsType(overallRating);
+            vmodel.OverallRatingStarsType = ExpertRatingStarsTypeVM.GetExpertRatingStarsTypeVM(overallRating);
 
             return View("ExpertRating", vmodel);
 
@@ -70,76 +70,76 @@ namespace Expro.Components
             return "0";
         }
 
-        public ExpertRatingStarsTypeVM GetOverallRatingStarsType(double overallRating)
-        {
-            ExpertRatingStarsTypeVM result = new ExpertRatingStarsTypeVM();
-            if (overallRating == 0)
-            {
-                result.StarMuted = 5;
-            }
+        //public ExpertRatingStarsTypeVM GetOverallRatingStarsType(double overallRating)
+        //{
+        //    ExpertRatingStarsTypeVM result = new ExpertRatingStarsTypeVM();
+        //    if (overallRating == 0)
+        //    {
+        //        result.StarMuted = 5;
+        //    }
 
-            if (0 < overallRating && overallRating < 1)
-            {
-                result.StarHalf = 1;
-                result.StarMuted = 4;
-            }
+        //    if (0 < overallRating && overallRating < 1)
+        //    {
+        //        result.StarHalf = 1;
+        //        result.StarMuted = 4;
+        //    }
 
-            if (overallRating == 1)
-            {
-                result.Star = 1;
-                result.StarMuted = 4;
-            }
+        //    if (overallRating == 1)
+        //    {
+        //        result.Star = 1;
+        //        result.StarMuted = 4;
+        //    }
 
-            if (1 < overallRating && overallRating < 2)
-            {
-                result.Star = 1;
-                result.StarHalf = 1;
-                result.StarMuted = 3;
-            }
+        //    if (1 < overallRating && overallRating < 2)
+        //    {
+        //        result.Star = 1;
+        //        result.StarHalf = 1;
+        //        result.StarMuted = 3;
+        //    }
 
-            if (overallRating == 2)
-            {
-                result.Star = 2;
-                result.StarMuted = 3;
-            }
+        //    if (overallRating == 2)
+        //    {
+        //        result.Star = 2;
+        //        result.StarMuted = 3;
+        //    }
 
-            if (2 < overallRating && overallRating < 3)
-            {
-                result.Star = 2;
-                result.StarHalf = 1;
-                result.StarMuted = 2;
-            }
+        //    if (2 < overallRating && overallRating < 3)
+        //    {
+        //        result.Star = 2;
+        //        result.StarHalf = 1;
+        //        result.StarMuted = 2;
+        //    }
 
-            if (overallRating == 3)
-            {
-                result.Star = 3;
-                result.StarMuted = 2;
-            }
+        //    if (overallRating == 3)
+        //    {
+        //        result.Star = 3;
+        //        result.StarMuted = 2;
+        //    }
 
-            if (3 < overallRating && overallRating < 4)
-            {
-                result.Star = 3;
-                result.StarHalf = 1;
-                result.StarMuted = 1;
-            }
+        //    if (3 < overallRating && overallRating < 4)
+        //    {
+        //        result.Star = 3;
+        //        result.StarHalf = 1;
+        //        result.StarMuted = 1;
+        //    }
 
-            if (overallRating == 4)
-            {
-                result.Star = 4;
-                result.StarMuted = 1;
-            }
+        //    if (overallRating == 4)
+        //    {
+        //        result.Star = 4;
+        //        result.StarMuted = 1;
+        //    }
 
-            if (4 < overallRating && overallRating < 5)
-            {
-                result.Star = 4;
-                result.StarHalf = 1;
-            }
+        //    if (4 < overallRating && overallRating < 5)
+        //    {
+        //        result.Star = 4;
+        //        result.StarHalf = 1;
+        //    }
 
-            if (overallRating == 5)
-            {
-                result.Star = 5;
-            }
-            return result;
-        }
+        //    if (overallRating == 5)
+        //    {
+        //        result.Star = 5;
+        //    }
+        //    return result;
+        //}
     }
 }

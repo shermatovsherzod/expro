@@ -53,9 +53,7 @@ namespace Expro.Controllers
 
 
         public override IActionResult Details(string id)
-        {
-            var currentUserAccount = accountUtil.GetCurrentUser(User);
-            ViewBag.FeedbackExist = _feedbackService.FeedbackExist(id, currentUserAccount.ID);
+        {  
             return base.Details(id);
         }
 
