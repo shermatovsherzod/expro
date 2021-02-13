@@ -36,6 +36,7 @@
                     <th>ВУЗ</th>
                     <th>Факультет</th>
                     <th>Год выпуска</th>
+                    <th>Диплом</th>
                     <th>Действие</th>
                 </tr>
             </thead>
@@ -52,6 +53,9 @@
                         <td>@item.University</td>
                         <td>@item.Faculty</td>
                         <td align="center">@item.GraduationYear</td>
+                        <td>
+                            <a href="@item.Diploma.Url" target="_blank" download="@item.Diploma.DisplayName">@item.Diploma.DisplayName</a>
+                        </td>
                         <td align="center">
                             <button type="button" data-cid="@item.ID" class="btn btn-danger btn-xs btn-icon btndelete">
                                 <i class="fa fa-times"></i>
