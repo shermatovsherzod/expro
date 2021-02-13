@@ -12,14 +12,14 @@
     <div asp-validation-summary="All" class="text-danger"></div>
     <!-- Title -->
     <div class="mb-5 mb-md-7">
-        <h1 class="h2">Welcome back</h1>
+        <h1 class="h2">@localizer["Welcome"]</h1>
         <p>Login to manage your account.</p>
     </div>
     <!-- End Title -->
     <!-- Form Group -->
     <div class="js-form-message form-group">
         <label class="input-label" asp-for="Input.Email">Email address</label>
-        <input type="email" asp-for="Input.Email" class="form-control" name="email" id="signinSrEmail" tabindex="1" placeholder="Email address" aria-label="Email address" required
+        <input type="email" asp-for="Input.Email" class="form-control" name="email" id="signinSrEmail" tabindex="1" placeholder="Email" aria-label="Email" required
                data-msg="Please enter a valid email address.">
         <span asp-validation-for="Input.Email" class="text-danger"></span>
     </div>
@@ -40,12 +40,12 @@
     <!-- Button -->
     <div class="row align-items-center mb-5">
         <div class="col-sm-6 mb-3 mb-sm-0">
-            <span class="font-size-1 text-muted">Don't have an account?</span>
-            <a class="font-size-1 font-weight-bold" href="page-signup.html">Signup</a>
+            <span class="font-size-1 text-muted">У вас нет аккаунта?</span>
+            <a class="font-size-1 font-weight-bold" href="/Identity/Account/Register">Регистрация</a>
         </div>
 
         <div class="col-sm-6 text-sm-right">
-            <button type="submit" class="btn btn-primary transition-3d-hover">Get Started</button>
+            <button type="submit" class="btn btn-primary transition-3d-hover">@localizer["Enter"]</button>
         </div>
     </div>
     <!-- End Button -->
