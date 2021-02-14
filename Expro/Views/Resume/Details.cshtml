@@ -1,0 +1,121 @@
+﻿@model Expro.ViewModels.ResumeDetailsVM
+@using Expro.Models.Enums
+@{
+    ViewData["Title"] = "Резюме";
+}
+
+
+<!-- Page Header -->
+<div class="container">
+    <div class="page-header">
+        <!-- Media -->
+        <div class="d-flex align-items-lg-center">
+            <div class="media-body">
+                <div class="row">
+                    <div class="col-lg mb-3 mb-lg-0">
+                        <h1 class="h2 mb-1">@Model.LastName @Model.FirstName @Model.PatronymicName</h1>
+
+                        <ul class="list-inline list-separator font-size-1">
+                            <li class="list-inline-item">
+                                <i class="fas fa-map-marker-alt text-primary mr-1"></i> @Model.Region.Name, @Model.City.Name
+                            </li>                           
+                        </ul>
+                    </div>
+                </div>
+                <!-- End Row -->
+            </div>
+        </div>
+        <!-- End Media -->
+    </div>
+</div>
+
+<!-- End Page Header -->
+<!-- Description Section -->
+<div class="container space-2">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="mb-8">
+                <div class="mb-3">
+                    <h3>Контакты</h3>
+                </div>
+                <p>@Html.Raw(Model.Contact)</p>
+                <div class="mb-3">
+                    <h3>Личная информация</h3>
+                </div>
+                <!-- Row -->
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="mb-4">
+                            <h5>Дата рождения</h5>
+                            <p>@Model.DateOfBirth</p>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="mb-4">
+                            <h5>Языки</h5>
+                            <p>@Model.Languages</p>
+                        </div>
+                        <div class="mb-4">
+
+                        </div>
+                    </div>
+                </div>
+                <!-- End Row -->
+            </div>
+
+
+            <div class="mb-8">
+                <div class="mb-3">
+                    <h3>Опыт работы</h3>
+                </div>
+                <!-- Step -->
+                <ul class="step step-icon-sm">
+
+                    <li class="step-item">
+                        <div class="step-content-wrapper">
+                            <div class="step-avatar step-avatar-sm">
+                                <img class="step-avatar-img" src="~/lib/frontTheme/svg/brands/slack.svg" alt="Image Description" />
+                            </div>
+                            <div class="step-content">
+                                <p class="text-body mb-0">@Model.WorkExperience</p>
+                            </div>
+                        </div>
+                    </li>
+
+                </ul>
+                <!-- End Step -->
+            </div>
+
+            <div class="mb-8">
+                <div class="mb-3">
+                    <h3>Образование</h3>
+                </div>
+
+                <!-- Step -->
+                <ul class="step step-icon-sm">
+
+                    <li class="step-item">
+                        <div class="step-content-wrapper">
+                            <span class="step-icon step-icon-soft-dark">
+                                <i class="fas fa-graduation-cap"></i>
+                            </span>
+                            <div class="step-content">
+                                <p class="text-body mb-0">@Html.Raw(Model.Education)</p>
+                                <small class="d-block">@Model.GraduationDate</small>
+                            </div>
+                        </div>
+                    </li>
+
+                </ul>
+                <!-- End Step -->
+            </div>
+
+            <div class="mb-8">
+                <div class="mb-3">
+                    <h3>Дополнительная информация</h3>
+                </div>
+                <p>@Html.Raw(Model.OtherInfo)</p>               
+            </div>
+        </div>
+    </div>
+</div>

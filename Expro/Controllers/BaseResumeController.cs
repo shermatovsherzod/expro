@@ -72,7 +72,7 @@ namespace Expro.Controllers
         {
             var resume = _resumeService.GetByID(id);
             if (resume == null)
-                throw new Exception("Вакансия не найдена");
+                throw new Exception("Резюме не найдено");
 
             ResumeDetailsVM resumeDetailsVM = new ResumeDetailsVM(resume);
 
@@ -86,7 +86,7 @@ namespace Expro.Controllers
             {
                 var resume = _resumeService.GetByID(id);
                 if (resume == null)
-                    throw new Exception("Вакансия не найдена");
+                    throw new Exception("Резюме не найдено");
 
                 var curUser = accountUtil.GetCurrentUser(User);
                 _resumeAdminActionsService.Approve(resume, curUser.ID);
@@ -105,7 +105,7 @@ namespace Expro.Controllers
             {
                 var resume = _resumeService.GetByID(id);
                 if (resume == null)
-                    throw new Exception("Вакансия не найдена");
+                    throw new Exception("Резюме не найдено");
 
                 var curUser = accountUtil.GetCurrentUser(User);
                 _resumeAdminActionsService.Reject(resume, curUser.ID);

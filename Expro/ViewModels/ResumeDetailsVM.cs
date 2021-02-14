@@ -88,6 +88,7 @@ namespace Expro.ViewModels
             Languages = model.Languages;
             OtherInfo = model.OtherInfo;
             Status = new BaseDropdownableDetailsVM(model.ResumeStatus);
+            
         }
 
         public List<ResumeDetailsVM> GetListOfResumeDetailsVM(IQueryable<Resume> models)

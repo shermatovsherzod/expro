@@ -1,0 +1,199 @@
+﻿@using Expro.ViewModels
+@using Expro.Models.Enums
+
+@{
+    ViewData["Title"] = "Резюме";
+}
+
+<h4>@ViewData["Title"]</h4>
+<br />
+
+<div class="row">
+    <div class="col-lg-3 order-lg-2 mb-5 mb-lg-0">
+        <!-- Navbar -->
+        <div class="navbar-expand-lg navbar-expand-lg-collapse-block navbar-light">
+            <!-- Responsive Toggle Button -->
+            <button type="button" class="navbar-toggler btn btn-block btn-white"
+                    aria-label="Toggle navigation"
+                    aria-expanded="false"
+                    aria-controls="sidebarNav"
+                    data-toggle="collapse"
+                    data-target="#sidebarNav">
+                <span class="d-flex justify-content-between align-items-center">
+                    <span class="h5 mb-0">View all filters</span>
+                    <span class="navbar-toggler-default">
+                        <svg width="14" height="14" viewBox="0 0 18 18" xmlns="http://www.w3.org/2000/svg">
+                            <path fill="currentColor" d="M17.4,6.2H0.6C0.3,6.2,0,5.9,0,5.5V4.1c0-0.4,0.3-0.7,0.6-0.7h16.9c0.3,0,0.6,0.3,0.6,0.7v1.4C18,5.9,17.7,6.2,17.4,6.2z M17.4,14.1H0.6c-0.3,0-0.6-0.3-0.6-0.7V12c0-0.4,0.3-0.7,0.6-0.7h16.9c0.3,0,0.6,0.3,0.6,0.7v1.4C18,13.7,17.7,14.1,17.4,14.1z" />
+                        </svg>
+                    </span>
+                    <span class="navbar-toggler-toggled">
+                        <svg width="14" height="14" viewBox="0 0 18 18" xmlns="http://www.w3.org/2000/svg">
+                            <path fill="currentColor" d="M11.5,9.5l5-5c0.2-0.2,0.2-0.6-0.1-0.9l-1-1c-0.3-0.3-0.7-0.3-0.9-0.1l-5,5l-5-5C4.3,2.3,3.9,2.4,3.6,2.6l-1,1 C2.4,3.9,2.3,4.3,2.5,4.5l5,5l-5,5c-0.2,0.2-0.2,0.6,0.1,0.9l1,1c0.3,0.3,0.7,0.3,0.9,0.1l5-5l5,5c0.2,0.2,0.6,0.2,0.9-0.1l1-1 c0.3-0.3,0.3-0.7,0.1-0.9L11.5,9.5z" />
+                        </svg>
+                    </span>
+                </span>
+            </button>
+
+            <div id="sidebarNav" class="collapse navbar-collapse">
+                <div class="pt-4 pt-lg-0">
+                    <!-- Filter Form -->
+                    <form>
+                        <!-- Filter Group -->
+                        <!--<div class="mb-5">
+                            <h6 class="small text-cap">Фильтр по статусу</h6>-->
+
+                            <!-- Select -->
+                            <!--<div id="statusDDBox" class="select2-custom select2-custom-sm-right">
+                                <select id="statusDD" class="js-custom-select custom-select-sm" style="opacity: 0;"
+                                        data-hs-select2-options='{
+						"dropdownParent": "#statusDDBox",
+						"minimumResultsForSearch": "Infinity",
+						"customClass": "custom-select custom-select-sm",
+						"dropdownAutoWidth": true
+					  }' asp-items="@ViewData["statuses"] as List<SelectListItem>">
+                                    <option value="">Все</option>
+                                </select>
+                            </div>-->
+                            <!-- End Select -->
+                        <!--</div>-->
+                        <!-- End Filter Group -->
+                        @*<button type="button" class="btn btn-sm btn-block btn-white">
+                                <i class="fas fa-redo fa-sm mr-1"></i> Reset all
+                            </button>*@
+                    </form>
+                    <!-- End Filter Form -->
+                </div>
+            </div>
+        </div>
+        <!-- End Navbar -->
+    </div>
+    <div class="col-lg-9">
+        <div id="tableBox">
+            <div class="spinner-border spinner" style="display: none;"></div>
+            <table id="list" width="100%">
+                <thead>
+                    <tr>
+                    </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+            <div class="spinner-border spinner" style="display: none;"></div>
+        </div>
+    </div>
+</div>
+
+<link href="~/lib/DataTables-1.10.22/datatables.css" rel="stylesheet" />
+
+@section CustomFrontStyles
+{
+    <link rel="stylesheet" href="~/lib/frontTheme/vendor/select2/dist/css/select2.min.css">
+}
+
+@section Scripts
+{
+    <script src="~/lib/DataTables-1.10.22/datatables.js"></script>
+    <script src="~/lib/frontTheme/vendor/select2/dist/js/select2.full.min.js"></script>
+
+    <script>
+        InitHSPlugins();
+        var table;
+
+        $(document).ready(function () {
+            table = $("table#list").DataTable({
+                searching: false,
+                ordering: false,
+                processing: true,
+                serverSide: true,
+                lengthChange: false,
+                scrollX: true,
+                lengthChange: false,
+                ajax:
+                {
+                    url: "/Resume/Search",
+                    type: "POST",
+                    datatype: "json",
+                    data: function (d) {
+                        //d.statusID = $("#statusDD").val();
+                    },
+                },
+                columns: [
+                    {
+                        "data": 0,
+                        "render": function (data, type, full, meta) {
+                            var html = '';
+                            var url = '/Resume/Details/' + full.id;
+
+                            //html += '<div class="col-12">';
+                            html += '<div class="card card-bordered card-hover-shadow mb-5">';
+                            html += '   <div class="card-body">';
+                            html += '       <div class="d-sm-flex">';
+                            //html += '           <div class="media align-items-center align-items-sm-start mb-3">';
+                            //html += '               <img class="avatar avatar-sm mr-3" src="' + full.logo.url + '" alt="Image Description">';
+                            //html += '               <div class="media-body d-sm-none">';
+                            //html += '                   <h6 class="mb-0">';
+                            //html += '                       <a class="text-dark" href="employer.html">Mailchimp</a>';
+                            //html += '                   </h6>';
+                            //html += '               </div>';
+                            //html += '           </div>';
+                            html += '           <div class="media-body">';
+                            html += '               <div class="row">';
+                            html += '                   <div class="col col-md-8">';
+                            html += '                       <h3 class="mb-0">';
+                            html += '                           <a class="text-dark" href="' + url + '" target="_blank">' + full.firstName + ' ' + full.lastName + '</a>';
+                            html += '                       </h3>';
+                            html += '                       <div class="d-none d-sm-block">';
+                            //html += full.company;
+                            html += '                       </div>';
+                            html += '                   </div>';
+                            html += '                   <div class="col-12 col-md mt-3 mt-md-2">';
+                            html += '                       <span class="d-block font-size-1 text-body mb-1">' + '</span>';
+                            html += '                   </div>';
+                            html += '               </div>';
+                            html += '           </div>';
+                            html += '       </div>';
+                            html += '   </div>';
+                            html += '   <div class="card-footer">';
+                            html += '       <ul class="list-inline list-separator small text-body">';
+                            html += '           <li class="list-inline-item"><i class="fa fa-location-arrow"></i> ' + full.region.name + ', ' + full.city.name + '</li>';
+                            html += '       </ul>';
+                            html += '   </div>';
+                            html += '</div>';
+                            //html += '</div>';
+
+                            return html;
+                        }
+                    }
+                ]
+            });
+
+            table
+                .on('preDraw', function () {
+                    $("#tableBox .spinner").show();
+                })
+                .on('draw.dt', function () {
+                    $("#tableBox .spinner").hide();
+                    //console.log('Redraw took at: ' + (new Date().getTime() - startTime) + 'mS');
+                });
+
+            //$("#statusDD").change(function () {
+            //    table.draw();
+            //});
+        });
+
+        function InitHSPlugins() {
+            // INITIALIZATION OF SELECT2
+            // =======================================================
+            $('.js-custom-select').each(function () {
+                var select2 = $.HSCore.components.HSSelect2.init($(this));
+            });
+
+
+            //// INITIALIZATION OF ION RANGE SLIDER
+            //// =======================================================
+            //$('.js-ion-range-slider').each(function () {
+            //    var ionRangeSlider = $.HSCore.components.HSIonRangeSlider.init($(this));
+            //});
+        }
+    </script>
+}
