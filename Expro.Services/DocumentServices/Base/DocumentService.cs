@@ -1,4 +1,5 @@
-﻿using Expro.Data.Infrastructure;
+﻿using Expro.Common.Utilities;
+using Expro.Data.Infrastructure;
 using Expro.Data.Repository.Interfaces;
 using Expro.Models;
 using Expro.Models.Enums;
@@ -195,6 +196,15 @@ namespace Expro.Services
                     && m.CreatedBy == userID
                     && m.DateCreated >= startDate
                     && m.DateCreated < endDate);
+        }
+
+        public IQueryable<Document> GetRandomDocuments(int count)
+        {
+            List<int> allApprovedIDs = GetAllApproved().Select(m => m.ID).ToList();
+
+            List<int> randomlySelectedIDs = RandomUtils.ExtractRandomInts(allApprovedIDs, count);
+
+            return GetAllApproved().Where(m => randomlySelectedIDs.Contains(m.ID));
         }
     }
 }

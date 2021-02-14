@@ -31,5 +31,7 @@ namespace Expro.Services.Interfaces
         IQueryable<Document> GetAllApprovedByUserAndPeriod(
             string userID,
             DateTime startDate, DateTime endDate);
+
+        IQueryable<Document> GetRandomDocuments(int count);
     }
 }

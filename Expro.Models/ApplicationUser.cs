@@ -101,5 +101,10 @@ namespace Expro.Models
         public virtual ICollection<ExpertEducation> ExpertEducations { get; set; }
         [InverseProperty("Creator")]
         public virtual ICollection<ExpertEducation> CreatedExpertEducations { get; set; }
+
+        [InverseProperty("ToUser")]
+        public virtual ICollection<Feedback> FeedbacksWrittenToThisExpert { get; set; }
+        [InverseProperty("Creator")]
+        public virtual ICollection<Feedback> FeedbacksCreatedByThisUser { get; set; }
     }
 }

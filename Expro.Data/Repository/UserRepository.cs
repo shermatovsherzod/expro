@@ -18,7 +18,8 @@ namespace Expro.Data.Repository
             return DbSet
                 .Include(m => m.Avatar)
                 .Include(m => m.WorkExperience)
-                .Include(m => m.ExpertEducations);
+                .Include(m => m.ExpertEducations)
+                .Include(m => m.UserStatus);
         }
 
 

@@ -42,6 +42,14 @@ namespace Expro.ViewModels
         public UserTypesEnum? UserType { get; set; }
         public UserAreasEnum? UserArea { get; set; }
 
+        public bool IsSimpleUser
+        {
+            get
+            {
+                return UserType.HasValue && UserType.Value == UserTypesEnum.SimpleUser;
+            }
+        }
+
         public bool IsExpert
         {
             get

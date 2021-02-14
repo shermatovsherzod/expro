@@ -14,20 +14,36 @@ using Expro.Common;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Options;
+using Expro.ViewModels;
+using Expro.Services.Interfaces;
 
 namespace Expro.Controllers
 {
     public class HomeController : BaseController
     {
-        private readonly ILogger<HomeController> _logger;
+        private readonly IQuestionService _questionService;
+        private readonly IArticleDocumentService _articleDocumentService;
+        private readonly ISampleDocumentService _sampleDocumentService;
+        private readonly IPracticeDocumentService _practiceDocumentService;
+        private readonly IUserService _userService;
 
         protected AppConfiguration AppConfiguration { get; set; }
 
         public HomeController(
+            IQuestionService questionService,
+            IArticleDocumentService articleDocumentService,
+            ISampleDocumentService sampleDocumentService,
+            IPracticeDocumentService practiceDocumentService,
+            IUserService userService,
             ILogger<HomeController> logger,
-            IOptionsSnapshot<AppConfiguration> settings = null
-            )
+            IOptionsSnapshot<AppConfiguration> settings = null)
         {
+            _questionService = questionService;
+            _articleDocumentService = articleDocumentService;
+            _sampleDocumentService = sampleDocumentService;
+            _practiceDocumentService = practiceDocumentService;
+            _userService = userService;
+
             _logger = logger;
 
             if (settings != null) 
@@ -42,26 +58,65 @@ namespace Expro.Controllers
 
             int k = AppData.Configuration.RatingThresholdForCreatingPaidDocuments;
 
-            //if (User.Identity.IsAuthenticated)
+            ViewData["curPageUrl"] = Request.Path.Value;
+
+            bool showAskQuestionCTA = true;
+            string askQuestionCTAUrl = "#";
+
+            var curUser = accountUtil.GetCurrentUser(User);
+            if (User.Identity.IsAuthenticated)
+            {
+                if (curUser.IsSimpleUser)
+                    askQuestionCTAUrl = "/User/Question";
+                else
+                    showAskQuestionCTA = false;
+            }
+            else
+                askQuestionCTAUrl = "/Identity/Account/Login";
+
+            ViewData["showAskQuestionCTA"] = showAskQuestionCTA;
+            ViewData["askQuestionCTAUrl"] = askQuestionCTAUrl;
+
+            HomePageVM modelVM = new HomePageVM()
+            {
+                Stats = new HomePageStatsVM(),
+                //{
+                //    QuestionsCount = _questionService.GetAllApproved().Count(),
+                //    ArticlesCount = _articleDocumentService.GetAllApproved().Count(),
+                //    SampleDocumentsCount = _sampleDocumentService.GetAllApproved().Count(),
+                //    ExpertsCount = _userService.GetAllExpertsForAdmin().Count()
+                //},
+                FeaturedSampleDocuments = new List<DocumentListItemForSiteVM>(),
+                FeaturedPracticeDocuments = new List<DocumentListItemForSiteVM>(),
+                FeaturedQuestions = new List<QuestionListItemForSiteVM>(),
+                TopExperts = new List<ExpertTopInfoVM>()
+            };
+
+            //var featuredSampleDocuments = _sampleDocumentService.GetRandomDocuments(3);
+            //foreach (var item in featuredSampleDocuments)
             //{
-            //    var userType = User.Claims.FirstOrDefault(c => c.Type == "UserType");
-            //    if (userType != null)
-            //    {
-            //        if (int.Parse(userType.Value) == 1)
-            //        {
-            //            return Redirect("/Admin/Home");
-            //        }
-            //        else if (int.Parse(userType.Value) == 2)
-            //        {
-            //            return Redirect("/Expert/Home");
-            //        }
-            //        else if (int.Parse(userType.Value) == 3)
-            //        {
-            //            return Redirect("/User/Home");
-            //        }
-            //    }
+            //    modelVM.FeaturedSampleDocuments.Add(new DocumentListItemForSiteVM(item));
             //}
-            return View();
+
+            //var featuredPracticeDocuments = _practiceDocumentService.GetRandomDocuments(3);
+            //foreach (var item in featuredPracticeDocuments)
+            //{
+            //    modelVM.FeaturedPracticeDocuments.Add(new DocumentListItemForSiteVM(item));
+            //}
+
+            //var featuredQuestions = _questionService.GetRandomQuestions(3);
+            //foreach (var item in featuredQuestions)
+            //{
+            //    modelVM.FeaturedQuestions.Add(new QuestionListItemForSiteVM(item));
+            //}
+
+            var topExperts = _userService.GetTopExperts(4);
+            foreach (var item in topExperts)
+            {
+                modelVM.TopExperts.Add(new ExpertTopInfoVM(item));
+            }
+
+            return View(modelVM);
         }
 
         public IActionResult Privacy()

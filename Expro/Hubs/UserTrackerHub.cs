@@ -21,49 +21,51 @@ namespace Expro.Hubs
 
         public override async Task OnConnectedAsync()
         {
-            ////var context = Context;
-            //if (Context.User.Identity.IsAuthenticated)
-            //{
-            //    if (UserHasNoConnections(Context.UserIdentifier))
-            //    {
-            //        var user = await _userManager.FindByIdAsync(Context.UserIdentifier);
-            //        if (user != null)
-            //        {
-            //            user.IsOnline = true;
-            //            user.DateLastSeen = DateTime.Now;
-            //            await _userManager.UpdateAsync(user);
-            //        }
-            //    }
+            //var context = Context;
+            if (Context.User.Identity.IsAuthenticated)
+            {
+                if (UserHasNoConnections(Context.UserIdentifier))
+                {
+                    var user = await _userManager.FindByIdAsync(Context.UserIdentifier);
+                    if (user != null)
+                    {
+                        user.IsOnline = true;
+                        user.DateLastSeen = DateTime.Now;
+                        await _userManager.UpdateAsync(user);
+                    }
+                }
 
-            //    onlineUsers[Context.ConnectionId] = Context.UserIdentifier;
-            //}
+                onlineUsers[Context.ConnectionId] = Context.UserIdentifier;
+            }
 
-            ////await Groups.AddToGroupAsync(Context.ConnectionId, "SignalR Users");
+            //await Groups.AddToGroupAsync(Context.ConnectionId, "SignalR Users");
             await base.OnConnectedAsync();
         }
 
         public override async Task OnDisconnectedAsync(Exception exception)
         {
-            //var context = Context;
+            await Task.Delay(5000);
 
-            //await Task.Delay(5000);
+            if (Context.User.Identity.IsAuthenticated)
+            {
+                string userID;
+                onlineUsers.TryRemove(Context.ConnectionId, out userID);
 
-            //string userID = null;
-            //onlineUsers.TryRemove(Context.ConnectionId, out userID);
+                if (!string.IsNullOrWhiteSpace(userID)
+                    && UserHasNoConnections(userID))
+                {
+                    var user = await _userManager.FindByIdAsync(userID);
+                    if (user != null)
+                    {
+                        user.IsOnline = false;
+                        user.DateLastSeen = DateTime.Now;
+                        await _userManager.UpdateAsync(user);
+                    }
+                }
+            }
+                
 
-            //if (!string.IsNullOrWhiteSpace(userID)
-            //    && UserHasNoConnections(userID))
-            //{
-            //    var user = await _userManager.FindByIdAsync(userID);
-            //    if (user != null)
-            //    {
-            //        user.IsOnline = false;
-            //        user.DateLastSeen = DateTime.Now;
-            //        await _userManager.UpdateAsync(user);
-            //    }
-            //}
-
-            ////await Groups.RemoveFromGroupAsync(Context.ConnectionId, "SignalR Users");
+            //await Groups.RemoveFromGroupAsync(Context.ConnectionId, "SignalR Users");
             await base.OnDisconnectedAsync(exception);
         }
 
