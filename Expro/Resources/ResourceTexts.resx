@@ -129,6 +129,9 @@
   <data name="Email" xml:space="preserve">
     <value>Почта</value>
   </data>
+  <data name="Enter" xml:space="preserve">
+    <value>Вход</value>
+  </data>
   <data name="ErrorRequiredField" xml:space="preserve">
     <value>Обязательное поле</value>
   </data>

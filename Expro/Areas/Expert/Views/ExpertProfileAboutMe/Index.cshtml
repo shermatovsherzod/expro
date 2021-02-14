@@ -3,6 +3,7 @@
 @{
     Layout = "_LayoutProfile";
     ViewData["Title"] = "Обо мне";
+    <link href="~/lib/frontTheme/vendor/quill/dist/quill.snow.css" rel="stylesheet" />
 }
 
 
@@ -13,18 +14,83 @@
             Изменения сохранены
         </div>
     }
+
+
     <!-- Form Group -->
     <div class="row form-group">
-        <label asp-for="@Model.AboutMe" class="col-sm-3 col-form-label input-label"></label>
+        <label class="col-sm-3 col-form-label input-label">Обо мне</label>
         <div class="col-sm-9">
-            <textarea asp-for="@Model.AboutMe" class="form-control"></textarea>
-            <span asp-validation-for="@Model.AboutMe"></span>
+            <!-- Quill -->
+            <div class="quill-custom AboutMe">
+                <div class="js-quill" style="min-height: 15rem;"
+                     data-hs-quill-options='{
+                           "placeholder": "Обо мне ...",
+                           "id" :"hhh66",
+                            "modules": {
+                              "toolbar": [
+                                ["bold", "italic", "underline", "strike", "link", "image", "blockquote", "code", {"list": "bullet"}]
+                              ]
+                            }
+                           }'>
+                    @Html.Raw(Model.AboutMe)
+                </div>
+            </div>
+            <!-- End Quill -->
+            <textarea asp-for="AboutMe" class="form-control" style="display: none;"></textarea>
+            <span asp-validation-for="AboutMe" class="text-danger"></span>
         </div>
     </div>
     <!-- End Form Group -->
-    <!-- Footer -->
-    <div class="d-flex justify-content-end">
-        <button type="submit" class="btn btn-primary">Сохранить</button>
+    <!-- Form Group -->
+    <div class="row align-items-center">
+        <div class="col-sm-12">
+            <div class="d-flex justify-content-end">
+                <button type="submit" class="btn btn-primary">Сохранить</button>
+            </div>
+        </div>
     </div>
-    <!-- End Footer -->
+    <!-- End Form Group -->
+
 </form>
+
+@section Scripts {
+    <script src="~/lib/frontTheme/vendor/quill/dist/quill.min.js"></script>
+
+
+    <script>
+        $(document).ready(function () {          
+            var quill = InitQuill();
+        });
+
+
+        function InitQuill() {
+            // INITIALIZATION OF QUILLJS EDITOR
+            // =======================================================
+            var options = {
+                //debug: 'info',
+                //modules: {
+                //    toolbar: '#toolbar'
+                //},
+                //placeholder: 'Compose an epic...',
+                //readOnly: true,
+                //theme: 'snow'
+            };
+            var quill = $.HSCore.components.HSQuill.init('.js-quill', options);
+            quill.on('text-change', function (delta, oldDelta, source) {
+                //if (source == 'api') {
+                //    alert("An API call triggered this change.");
+                //} else if (source == 'user') {
+                //    alert("A user action triggered this change.");
+                //}
+
+                var html = $(".quill-custom.AboutMe .ql-editor").html();
+                if (html == "<p><br></p>")
+                    html = "";
+
+                $("textarea#AboutMe").val(html);
+            });
+
+            return quill;
+        }
+    </script>
+}

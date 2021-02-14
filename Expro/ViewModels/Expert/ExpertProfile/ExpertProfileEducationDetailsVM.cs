@@ -28,6 +28,8 @@ namespace Expro.ViewModels
         [Display(Name = "Год окончания")]
         public int GraduationYear { get; set; }
 
+        public AttachmentDetailsVM Diploma { get; set; }
+
         public ExpertProfileEducationDetailsVM(ExpertEducation model)
         {
             if (model == null)
@@ -39,6 +41,7 @@ namespace Expro.ViewModels
             University = model.University;
             Faculty = model.Faculty;
             GraduationYear = model.GraduationYear;
+            Diploma= new AttachmentDetailsVM(model.Diploma);
         }
 
         public List<ExpertProfileEducationDetailsVM> GetListOfExpertProfileEducationDetailsVM(IQueryable<ExpertEducation> models)
@@ -53,8 +56,9 @@ namespace Expro.ViewModels
                  Country = s.Country.Name,
                  Faculty = s.Faculty,
                  GraduationYear = s.GraduationYear,
-                 ID = s.ID
-             }).ToList();
+                 ID = s.ID,
+                 Diploma = new AttachmentDetailsVM(s.Diploma)
+           }).ToList();
         }
 
         public List<ExpertProfileEducationDetailsVM> GetListOfExpertProfileEducationDetailsVM(ICollection<ExpertEducation> models)
@@ -69,7 +73,8 @@ namespace Expro.ViewModels
                 Country = s.Country.Name,
                 Faculty = s.Faculty,
                 GraduationYear = s.GraduationYear,
-                ID = s.ID
+                ID = s.ID,
+                Diploma = new AttachmentDetailsVM(s.Diploma)
             }).ToList();
         }
     }
