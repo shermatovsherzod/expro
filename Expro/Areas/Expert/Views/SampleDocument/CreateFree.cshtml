@@ -6,6 +6,13 @@
     ViewData["Title"] = "Добавить новый Образцовый документ";
 }
 
+@functions {
+    public void RenderRedAsteriks()
+    {
+        <span class="text-danger">*</span>
+    }
+}
+
 <form asp-action="CreateFree" id="createForm">
     <div class="border-bottom mb-4">
         <h3>@ViewData["Title"]</h3>
@@ -16,7 +23,7 @@
         <div class="col-md-6">
             <!-- Form Group -->
             <div class="form-group">
-                <label asp-for="Title" class="input-label"></label>
+                <label asp-for="Title" class="control-label"></label> @{ RenderRedAsteriks(); }
                 <input asp-for="Title" class="form-control" placeholder="Дайте название" aria-label="Дайте название">
                 <span asp-validation-for="Title" class="text-danger"></span>
             </div>
@@ -27,7 +34,7 @@
 
     <div class="row">
         <div class="col-md-6">
-            <div class="mt-7 mb-7">
+            <div class="mb-7">
                 <button type="submit" class="btn btn-block btn-primary">Продолжить</button>
                 <div class="spinner-border spinner" style="display: none;"></div>
             </div>
@@ -42,24 +49,24 @@
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 
-<script>
-    $(document).ready(function () {
-        $("#createForm").submit(function () {
-            var isValid = $('#createForm').valid();
-            if (isValid) {
-                ShowFormSpinner();
-                DisableFormElements();
-            }
+    <script>
+        $(document).ready(function () {
+            $("#createForm").submit(function () {
+                var isValid = $('#createForm').valid();
+                if (isValid) {
+                    ShowFormSpinner();
+                    DisableFormElements();
+                }
+            });
         });
-    });
 
-    function ShowFormSpinner() {
-        $("#createForm .spinner").show();
-    }
+        function ShowFormSpinner() {
+            $("#createForm .spinner").show();
+        }
 
-    function DisableFormElements() {
-        $("form#createForm input").attr("readonly", "readonly");
-        $("form#createForm button").attr("disabled", "disabled");
-    }
-</script>
+        function DisableFormElements() {
+            $("form#createForm input").attr("readonly", "readonly");
+            $("form#createForm button").attr("disabled", "disabled");
+        }
+    </script>
 }

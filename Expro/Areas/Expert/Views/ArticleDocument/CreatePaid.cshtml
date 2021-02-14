@@ -9,6 +9,13 @@
         out userIsAllowedToWorkWithPaidMaterials);
 }
 
+@functions {
+    public void RenderRedAsteriks()
+    {
+        <span class="text-danger">*</span>
+    }
+}
+
 @if (userIsAllowedToWorkWithPaidMaterials)
 {
     <form asp-action="CreatePaid" id="createForm">
@@ -21,7 +28,7 @@
             <div class="col-md-6">
                 <!-- Form Group -->
                 <div class="form-group">
-                    <label asp-for="Title" class="input-label"></label>
+                    <label asp-for="Title" class="control-label"></label> @{ RenderRedAsteriks(); }
                     <input asp-for="Title" class="form-control" placeholder="Дайте название" aria-label="Дайте название">
                     <span asp-validation-for="Title" class="text-danger"></span>
                 </div>
@@ -32,7 +39,7 @@
 
         <div class="row">
             <div class="col-md-6">
-                <div class="mt-7 mb-7">
+                <div class="mb-7">
                     <button type="submit" class="btn btn-block btn-primary">Продолжить</button>
                     <div class="spinner-border spinner" style="display: none;"></div>
                 </div>
