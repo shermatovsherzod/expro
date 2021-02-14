@@ -7,6 +7,13 @@
     ViewData["Title"] = "Редактировать Образцовый документ";
 }
 
+@functions {
+    public void RenderRedAsteriks()
+    {
+        <span class="text-danger">*</span>
+    }
+}
+
 <form asp-action="EditFree" id="editForm">
     <div class="border-bottom mb-4">
         <h2>@ViewData["Title"]</h2>
@@ -42,14 +49,14 @@
 
     <!-- Form Group -->
     <div class="form-group">
-        <label asp-for="Title" class="control-label"></label>
+        <label asp-for="Title" class="control-label"></label> @{ RenderRedAsteriks(); }
         <input asp-for="Title" class="form-control" />
         <span asp-validation-for="Title" class="text-danger"></span>
     </div>
     <!-- End Form Group -->
 
     <div class="form-group">
-        <label asp-for="LanguageID" class="control-label"></label>
+        <label asp-for="LanguageID" class="control-label"></label> @{ RenderRedAsteriks(); }
         <select asp-for="LanguageID"
                 asp-items="@ViewData["languages"] as IEnumerable<SelectListItem>"
                 class="js-custom-select custom-select" size="1" style="opacity: 0;"
@@ -61,7 +68,7 @@
     </div>
 
     <div class="form-group">
-        <label asp-for="LawAreas" class="control-label"></label>
+        <label asp-for="LawAreas" class="control-label"></label> @{ RenderRedAsteriks(); }
         <div>
             <select asp-for="LawAreas"
                     class="js-custom-select custom-select" size="1" multiple style="opacity: 0;"

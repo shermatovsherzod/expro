@@ -53,6 +53,21 @@ namespace Expro.Services
             return _userRepository.GetManyWithRelatedDataAsIQueryable();
         }
 
+        public IQueryable<ApplicationUser> GetAllForAdmin()
+        {
+            return GetManyWithRelatedDataAsIQueryable();
+        }
+
+        public IQueryable<ApplicationUser> GetAllExpertsForAdmin()
+        {
+            return GetManyWithRelatedDataAsIQueryable().Where(c => c.UserType == UserTypesEnum.Expert);
+        }
+
+        public IQueryable<ApplicationUser> GetAllApprovedExperts()
+        {
+            return GetManyWithRelatedDataAsIQueryable().Where(c => c.UserStatusID == (int)ExpertApproveStatusEnum.Approved && c.UserType == UserTypesEnum.Expert);
+        }
+
         public ApplicationUser GetWithRelatedDataByID(string id)
         {
             return _userRepository.GetWithRelatedDataByID(id);
@@ -64,6 +79,15 @@ namespace Expro.Services
             return GetManyWithRelatedDataAsIQueryable()
                 .Where(m => m.UserType == UserTypesEnum.Expert
                     || m.UserType == UserTypesEnum.SimpleUser);
+        }
+
+        public IQueryable<ApplicationUser> GetTopExperts(int count)
+        {
+            return GetAllExpertsForAdmin()
+                .OrderByDescending(m => m.Rating)
+                .ThenByDescending(m => m.Points)
+                .ThenByDescending(m => m.FeedbacksWrittenToThisExpert.Average(n => n.Stars))
+                .Take(count);
         }
     }
 }

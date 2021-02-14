@@ -7,7 +7,13 @@ namespace Expro.Services.Interfaces
     {
         bool UserIsAllowedToWorkWithPaidMaterials(ApplicationUser user);
         IQueryable<ApplicationUser> GetManyWithRelatedDataAsIQueryable();
+        IQueryable<ApplicationUser> GetAllForAdmin();
+
+        IQueryable<ApplicationUser> GetAllExpertsForAdmin();
+
+        IQueryable<ApplicationUser> GetAllApprovedExperts();
         IQueryable<ApplicationUser> GetAllExpertsAndSimpleUsers();        
         ApplicationUser GetWithRelatedDataByID(string id);
+        IQueryable<ApplicationUser> GetTopExperts(int count);
     }
 }

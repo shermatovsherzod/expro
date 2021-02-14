@@ -151,20 +151,5 @@ namespace Expro.Services
         {
             _unitOfWork.Commit();
         }
-
-        public IQueryable<ApplicationUser> GetAllForAdmin()
-        {
-            return GetAsIQueryable();
-        }
-
-        public IQueryable<ApplicationUser> GetAllExpertsForAdmin()
-        {
-            return GetAsIQueryable().Where(c=> c.UserType == UserTypesEnum.Expert);
-        }
-
-        public IQueryable<ApplicationUser> GetAllApprovedExperts()
-        {
-            return GetAsIQueryable().Where(c => c.UserStatusID == (int)ExpertApproveStatusEnum.Approved && c.UserType == UserTypesEnum.Expert);
-        }
     }
 }

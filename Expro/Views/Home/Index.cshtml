@@ -1,8 +1,391 @@
-﻿@{
+﻿@model Expro.ViewModels.HomePageVM
+
+@{
     ViewData["Title"] = "Home Page";
 }
 
-<div class="text-center">
-        <h1 class="display-4">@localizer["Welcome"]</h1>
-        <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<div class="container">
+    <div class="w-lg-85 mx-lg-auto">
+        @{
+            bool? showAskQuestionCTA = ViewData["showAskQuestionCTA"] as bool?;
+            string askQuestionCTAUrl = ViewData["askQuestionCTAUrl"] as string;
+
+            if (showAskQuestionCTA == true)
+            {
+                <!-- CTA Section -->
+                <div class="card bg-primary text-white overflow-hidden p-4 mb-4">
+                    <div class="row justify-content-md-start align-items-md-center text-center text-md-left">
+                        <div class="col-md-6 offset-md-3 mb-3 mb-md-0">
+                            <h3 class="text-white mb-1">Есть вопросы?</h3>
+                            <p class="text-white-70 mb-0">We'd love to talk about how we can help you.</p>
+                        </div>
+                        <div class="col-md-3 text-md-right">
+                            <a class="btn btn-light transition-3d-hover" href="@askQuestionCTAUrl">Задать вопрос</a>
+                        </div>
+                    </div>
+
+                    <!-- SVG Component -->
+                    <figure class="w-25 d-none d-md-block content-centered-y ml-n4">
+                        <img class="img-fluid" src="/lib/frontTheme/svg/illustrations/communication.svg" alt="Image Description">
+                    </figure>
+                    <!-- End SVG Component -->
+                </div>
+                <!-- End CTA Section -->
+            }
+        }
+
+        <!-- Stats Section -->
+        <div class="bg-light rounded-lg mb-4">
+            <div class="container space-2">
+                <div class="row justify-content-lg-center">
+                    <div class="col-md-3 mb-7 mb-md-0">
+                        <!-- Stats -->
+                        <a class="d-block text-center px-md-3" href="#">
+                            <figure class="max-w-8rem mx-auto">
+                                <img class="img-fluid" src="/lib/frontTheme/svg/icons/icon-4.svg" alt="SVG">
+                            </figure>
+                            @*<img class="clients mb-3" src="/lib/frontTheme/svg/clients-logo/slack-original.svg" alt="Image Description">*@
+                            <span class="d-block h2">@Model.Stats.QuestionsCount</span>
+                            <p class="text-body">Количество вопросов</p>
+                        </a>
+                        <!-- End Stats -->
+                    </div>
+
+                    <div class="col-md-3 mb-7 mb-md-0">
+                        <!-- Stats -->
+                        <a class="d-block text-center column-divider-md column-divider-20deg px-md-3" href="#">
+                            <figure class="max-w-8rem mx-auto">
+                                <img class="img-fluid" src="/lib/frontTheme/svg/icons/icon-37.svg" alt="SVG">
+                            </figure>
+                            @*<img class="clients mb-3" src="/lib/frontTheme/svg/clients-logo/fitbit-original.svg" alt="Image Description">*@
+                            <span class="d-block h2">@Model.Stats.ArticlesCount</span>
+                            <p class="text-body">Количество статей</p>
+                        </a>
+                        <!-- End Stats -->
+                    </div>
+
+                    <div class="col-md-3">
+                        <!-- Stats -->
+                        <a class="d-block text-center column-divider-md column-divider-20deg px-md-3" href="#">
+                            <figure class="max-w-8rem mx-auto">
+                                <img class="img-fluid" src="./lib/frontTheme/svg/icons/icon-19.svg" alt="SVG">
+                            </figure>
+                            @*<img class="clients mb-3" src="/lib/frontTheme/svg/clients-logo/hubspot-original.svg" alt="Image Description">*@
+                            <span class="d-block h2">@Model.Stats.SampleDocumentsCount</span>
+                            <p class="text-body">Количество образцовых документов</p>
+                        </a>
+                        <!-- End Stats -->
+                    </div>
+                    <div class="col-md-3">
+                        <!-- Stats -->
+                        <a class="d-block text-center column-divider-md column-divider-20deg px-md-3" href="#">
+                            @*<img class="clients mb-3" src="/lib/frontTheme/svg/clients-logo/hubspot-original.svg" alt="Image Description">*@
+                            <figure class="max-w-8rem mx-auto">
+                                <img class="img-fluid" src="/lib/frontTheme/svg/icons/icon-7.svg" alt="SVG">
+                            </figure>
+                            <span class="d-block h2">@Model.Stats.ExpertsCount</span>
+                            <p class="text-body">Количество экспертов</p>
+                        </a>
+                        <!-- End Stats -->
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- End Stats Section -->
+
+        <div class="row mb-10">
+            <div class="col-md-4 col-12">
+                <div class="mb-3">
+                    <h3>Образцовые документы</h3>
+                </div>
+                @foreach (var item in Model.FeaturedSampleDocuments)
+                {
+                    <article class="mb-3">
+                        <a class="card card-frame p-3" href="/SampleDocument/Details/@item.ID">
+                            <div class="media align-items-center">
+                                <div class="media-body mr-2">
+                                    <h4 class="h6 mb-0">@item.Title</h4>
+                                    <span class="d-block font-size-1 text-body">@item.DatePublished</span>
+                                </div>
+                                <i class="fas fa-angle-right"></i>
+                            </div>
+                        </a>
+                    </article>
+                }
+
+                <a href="/SampleDocument">
+                    <span class="font-size-1 font-weight-bold">Открыть все <i class="fas fa-angle-right fa-sm ml-1"></i></span>
+                </a>
+            </div>
+            <div class="col-md-4 col-12">
+                <div class="mb-3">
+                    <h3>Практические документы</h3>
+                </div>
+                @foreach (var item in Model.FeaturedPracticeDocuments)
+                {
+                    <article class="mb-3">
+                        <a class="card card-frame p-3" href="/PracticeDocument/Details/@item.ID">
+                            <div class="media align-items-center">
+                                <div class="media-body mr-2">
+                                    <h4 class="h6 mb-0">@item.Title</h4>
+                                    <span class="d-block font-size-1 text-body">@item.DatePublished</span>
+                                </div>
+                                <i class="fas fa-angle-right"></i>
+                            </div>
+                        </a>
+                    </article>
+                }
+
+                <a href="/PracticeDocument">
+                    <span class="font-size-1 font-weight-bold">Открыть все <i class="fas fa-angle-right fa-sm ml-1"></i></span>
+                </a>
+            </div>
+            <div class="col-md-4 col-12">
+                <div class="mb-3">
+                    <h3>Вопросы</h3>
+                </div>
+                @foreach (var item in Model.FeaturedQuestions)
+                {
+                    <article class="mb-3">
+                        <a class="card card-frame p-3" href="/Question/Details/@item.ID">
+                            <div class="media align-items-center">
+                                <div class="media-body mr-2">
+                                    <h4 class="h6 mb-0">@item.Title</h4>
+                                    <span class="d-block font-size-1 text-body">@item.DatePublished</span>
+                                </div>
+                                <i class="fas fa-angle-right"></i>
+                            </div>
+                        </a>
+                    </article>
+                }
+
+                <a href="/Question">
+                    <span class="font-size-1 font-weight-bold">Открыть все <i class="fas fa-angle-right fa-sm ml-1"></i></span>
+                </a>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <!-- Title -->
+                <div class="w-md-80 w-lg-60 text-center mx-md-auto mb-5 mb-md-9">
+                    @*<span class="d-block small font-weight-bold text-cap mb-2">Our team</span>*@
+                    <h2>ТОП эксперты</h2>
+                </div>
+                <!-- End Title -->
+            </div>
+        </div>
+        <div class="row mx-n2 mb-2">
+            @foreach (var item in Model.TopExperts)
+            {
+                <div class="col-sm-6 col-lg-3 px-2 mb-3">
+                    <!-- Team -->
+                    <div class="card h-100 transition-3d-hover">
+                        <div class="card-body">
+                            <div class="avatar avatar-lg avatar-circle mb-4">
+                                <img class="avatar-img" src="@item.Avatar.Url" alt="Image Description">
+                                @if (item.IsOnline)
+                                {
+                                    <span class="avatar-status avatar-sm-status avatar-success"></span>
+                                }
+                            </div>
+
+                            @*<span class="d-block small font-weight-bold text-cap mb-1">Founder / CEO</span>*@
+                            <h4 class="text-lh-sm">@item.FullName</h4>
+                            <p class="font-size-1">@item.AboutMe</p>
+                        </div>
+
+                        <!--<div class="card-footer border-0 pt-0">-->
+                        <!-- Social Networks -->
+                        <!--<ul class="list-inline mb-0">
+                        <li class="list-inline-item">
+                            <a class="btn btn-xs btn-icon btn-soft-secondary rounded-lg" href="#">
+                                <i class="fab fa-facebook-f"></i>
+                            </a>
+                        </li>
+                        <li class="list-inline-item">
+                            <a class="btn btn-xs btn-icon btn-soft-secondary rounded-lg" href="#">
+                                <i class="fab fa-google"></i>
+                            </a>
+                        </li>
+                        <li class="list-inline-item">
+                            <a class="btn btn-xs btn-icon btn-soft-secondary rounded-lg" href="#">
+                                <i class="fab fa-twitter"></i>
+                            </a>
+                        </li>
+                    </ul>-->
+                        <!-- End Social Networks -->
+                        <!--</div>-->
+                    </div>
+                    <!-- End Team -->
+                </div>
+            }
+        </div>
+        <div class="row mb-10">
+            <div class="col-12 text-center">
+                <a href="/Experts">
+                    <span class="font-size-1 font-weight-bold">Все эксперты<i class="fas fa-angle-right fa-sm ml-1"></i></span>
+                </a>
+            </div>
+        </div>
+
+        <div class="row mb-10">
+            <div class="col-sm-6 col-lg-4 mb-5">
+                <!-- Card -->
+                <div class="card card-bordered card-hover-shadow h-100">
+                    <div class="card-body">
+                        <div class="row mb-3">
+                            <div class="col">
+                                <div class="media align-items-center">
+                                    <img class="avatar avatar-sm mr-3" src="/lib/frontTheme/svg/icons/icon-13.svg" alt="Image Description">
+                                    <div class="media-body">
+                                        <h6 class="mb-0">
+                                            <a class="text-dark" href="/Company">Компании</a>
+                                            <img class="avatar avatar-xss ml-1" src="/lib/frontTheme/svg/illustrations/top-vendor.svg" alt="Review rating" data-toggle="tooltip" data-placement="top" title="Только подтвержденные">
+                                        </h6>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!--<div class="col-auto">-->
+                            <!-- Checkbbox Bookmark -->
+                            <!--<div class="custom-control custom-checkbox-bookmark">
+                            <input type="checkbox" id="checkboxBookmark1" class="custom-control-input custom-checkbox-bookmark-input">
+                            <label class="custom-checkbox-bookmark-label" for="checkboxBookmark1">
+                                <span class="custom-checkbox-bookmark-default" data-toggle="tooltip" data-placement="top" title="Save this job">
+                                    <i class="far fa-star"></i>
+                                </span>
+                                <span class="custom-checkbox-bookmark-active" data-toggle="tooltip" data-placement="top" title="Saved">
+                                    <i class="fas fa-star"></i>
+                                </span>
+                            </label>
+                        </div>-->
+                            <!-- End Checkbbox Bookmark -->
+                            <!--</div>-->
+                        </div>
+                        <!-- End Row -->
+
+                        <h3 class="mb-3">
+                            <a class="text-dark" href="/Company">Каталог компаний</a>
+                        </h3>
+
+                        @*<span class="d-block font-size-1 text-body mb-1">$125k-$135k yearly</span>*@
+                    </div>
+
+                    @*<div class="card-footer">
+                        <ul class="list-inline list-separator small text-body">
+                            <li class="list-inline-item">Posted 7 hours ago</li>
+                            <li class="list-inline-item">Oxford</li>
+                            <li class="list-inline-item">Full time</li>
+                        </ul>
+                    </div>*@
+                </div>
+                <!-- End Card -->
+            </div>
+            <div class="col-sm-6 col-lg-4 mb-5">
+                <!-- Card -->
+                <div class="card card-bordered card-hover-shadow h-100">
+                    <div class="card-body">
+                        <div class="row mb-3">
+                            <div class="col">
+                                <div class="media align-items-center">
+                                    <img class="avatar avatar-sm mr-3" src="/lib/frontTheme/svg/icons/icon-67.svg" alt="Image Description">
+                                    <div class="media-body">
+                                        <h6 class="mb-0">
+                                            <a class="text-dark" href="/Vacancy">Вакансии</a>
+                                            <img class="avatar avatar-xss ml-1" src="/lib/frontTheme/svg/illustrations/top-vendor.svg" alt="Review rating" data-toggle="tooltip" data-placement="top" title="Только подтвержденные">
+                                        </h6>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!--<div class="col-auto">-->
+                            <!-- Checkbbox Bookmark -->
+                            <!--<div class="custom-control custom-checkbox-bookmark">
+                            <input type="checkbox" id="checkboxBookmark1" class="custom-control-input custom-checkbox-bookmark-input">
+                            <label class="custom-checkbox-bookmark-label" for="checkboxBookmark1">
+                                <span class="custom-checkbox-bookmark-default" data-toggle="tooltip" data-placement="top" title="Save this job">
+                                    <i class="far fa-star"></i>
+                                </span>
+                                <span class="custom-checkbox-bookmark-active" data-toggle="tooltip" data-placement="top" title="Saved">
+                                    <i class="fas fa-star"></i>
+                                </span>
+                            </label>
+                        </div>-->
+                            <!-- End Checkbbox Bookmark -->
+                            <!--</div>-->
+                        </div>
+                        <!-- End Row -->
+
+                        <h3 class="mb-3">
+                            <a class="text-dark" href="/Vacancy">Каталог вакансий</a>
+                        </h3>
+
+                        @*<span class="d-block font-size-1 text-body mb-1">$125k-$135k yearly</span>*@
+                    </div>
+
+                    @*<div class="card-footer">
+                        <ul class="list-inline list-separator small text-body">
+                            <li class="list-inline-item">Posted 7 hours ago</li>
+                            <li class="list-inline-item">Oxford</li>
+                            <li class="list-inline-item">Full time</li>
+                        </ul>
+                    </div>*@
+                </div>
+                <!-- End Card -->
+            </div>
+            <div class="col-sm-6 col-lg-4 mb-5">
+                <!-- Card -->
+                <div class="card card-bordered card-hover-shadow h-100">
+                    <div class="card-body">
+                        <div class="row mb-3">
+                            <div class="col">
+                                <div class="media align-items-center">
+                                    <img class="avatar avatar-sm mr-3" src="/lib/frontTheme/svg/icons/icon-18.svg" alt="Image Description">
+                                    <div class="media-body">
+                                        <h6 class="mb-0">
+                                            <a class="text-dark" href="/Resume">Резюме</a>
+                                            <img class="avatar avatar-xss ml-1" src="/lib/frontTheme/svg/illustrations/top-vendor.svg" alt="Review rating" data-toggle="tooltip" data-placement="top" title="Только подтвержденные">
+                                        </h6>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!--<div class="col-auto">-->
+                            <!-- Checkbbox Bookmark -->
+                            <!--<div class="custom-control custom-checkbox-bookmark">
+                            <input type="checkbox" id="checkboxBookmark1" class="custom-control-input custom-checkbox-bookmark-input">
+                            <label class="custom-checkbox-bookmark-label" for="checkboxBookmark1">
+                                <span class="custom-checkbox-bookmark-default" data-toggle="tooltip" data-placement="top" title="Save this job">
+                                    <i class="far fa-star"></i>
+                                </span>
+                                <span class="custom-checkbox-bookmark-active" data-toggle="tooltip" data-placement="top" title="Saved">
+                                    <i class="fas fa-star"></i>
+                                </span>
+                            </label>
+                        </div>-->
+                            <!-- End Checkbbox Bookmark -->
+                            <!--</div>-->
+                        </div>
+                        <!-- End Row -->
+
+                        <h3 class="mb-3">
+                            <a class="text-dark" href="/Resume">Каталог резюме</a>
+                        </h3>
+
+                        @*<span class="d-block font-size-1 text-body mb-1">$125k-$135k yearly</span>*@
+                    </div>
+
+                    @*<div class="card-footer">
+                        <ul class="list-inline list-separator small text-body">
+                            <li class="list-inline-item">Posted 7 hours ago</li>
+                            <li class="list-inline-item">Oxford</li>
+                            <li class="list-inline-item">Full time</li>
+                        </ul>
+                    </div>*@
+                </div>
+                <!-- End Card -->
+            </div>
+        </div>
     </div>
+</div>
+
