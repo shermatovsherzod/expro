@@ -51,5 +51,10 @@ namespace Expro.Common
         public int PriceMax { get; set; }
         public int PriceStep { get; set; }
         public int RatingThresholdForCreatingPaidDocuments { get; set; }
+
+        /// <summary>
+        /// "email1;email2;email3;..."
+        /// </summary>
+        public string AdminEmails { get; set; }
     }
 }

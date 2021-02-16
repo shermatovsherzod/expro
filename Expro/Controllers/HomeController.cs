@@ -61,54 +61,48 @@ namespace Expro.Controllers
             ViewData["curPageUrl"] = Request.Path.Value;
 
             bool showAskQuestionCTA = true;
-            string askQuestionCTAUrl = "#";
 
             var curUser = accountUtil.GetCurrentUser(User);
             if (User.Identity.IsAuthenticated)
             {
-                if (curUser.IsSimpleUser)
-                    askQuestionCTAUrl = "/User/Question";
-                else
+                if (!curUser.IsSimpleUser)
                     showAskQuestionCTA = false;
             }
-            else
-                askQuestionCTAUrl = "/Identity/Account/Login";
 
             ViewData["showAskQuestionCTA"] = showAskQuestionCTA;
-            ViewData["askQuestionCTAUrl"] = askQuestionCTAUrl;
 
             HomePageVM modelVM = new HomePageVM()
             {
-                Stats = new HomePageStatsVM(),
-                //{
-                //    QuestionsCount = _questionService.GetAllApproved().Count(),
-                //    ArticlesCount = _articleDocumentService.GetAllApproved().Count(),
-                //    SampleDocumentsCount = _sampleDocumentService.GetAllApproved().Count(),
-                //    ExpertsCount = _userService.GetAllExpertsForAdmin().Count()
-                //},
+                Stats = new HomePageStatsVM()
+                {
+                    QuestionsCount = _questionService.GetAllApproved().Count(),
+                    ArticlesCount = _articleDocumentService.GetAllApproved().Count(),
+                    SampleDocumentsCount = _sampleDocumentService.GetAllApproved().Count(),
+                    ExpertsCount = _userService.GetAllExpertsForAdmin().Count()
+                },
                 FeaturedSampleDocuments = new List<DocumentListItemForSiteVM>(),
                 FeaturedPracticeDocuments = new List<DocumentListItemForSiteVM>(),
                 FeaturedQuestions = new List<QuestionListItemForSiteVM>(),
                 TopExperts = new List<ExpertTopInfoVM>()
             };
 
-            //var featuredSampleDocuments = _sampleDocumentService.GetRandomDocuments(3);
-            //foreach (var item in featuredSampleDocuments)
-            //{
-            //    modelVM.FeaturedSampleDocuments.Add(new DocumentListItemForSiteVM(item));
-            //}
+            var featuredSampleDocuments = _sampleDocumentService.GetRandomDocuments(3);
+            foreach (var item in featuredSampleDocuments)
+            {
+                modelVM.FeaturedSampleDocuments.Add(new DocumentListItemForSiteVM(item));
+            }
 
-            //var featuredPracticeDocuments = _practiceDocumentService.GetRandomDocuments(3);
-            //foreach (var item in featuredPracticeDocuments)
-            //{
-            //    modelVM.FeaturedPracticeDocuments.Add(new DocumentListItemForSiteVM(item));
-            //}
+            var featuredPracticeDocuments = _practiceDocumentService.GetRandomDocuments(3);
+            foreach (var item in featuredPracticeDocuments)
+            {
+                modelVM.FeaturedPracticeDocuments.Add(new DocumentListItemForSiteVM(item));
+            }
 
-            //var featuredQuestions = _questionService.GetRandomQuestions(3);
-            //foreach (var item in featuredQuestions)
-            //{
-            //    modelVM.FeaturedQuestions.Add(new QuestionListItemForSiteVM(item));
-            //}
+            var featuredQuestions = _questionService.GetRandomQuestions(3);
+            foreach (var item in featuredQuestions)
+            {
+                modelVM.FeaturedQuestions.Add(new QuestionListItemForSiteVM(item));
+            }
 
             var topExperts = _userService.GetTopExperts(4);
             foreach (var item in topExperts)

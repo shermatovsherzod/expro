@@ -3,6 +3,8 @@ using MailKit.Net.Smtp;
 using System.Threading.Tasks;
 using Expro.Services.Interfaces;
 using MailKit.Security;
+using System.Collections.Generic;
+using System;
 
 namespace Expro.Services
 {
@@ -28,6 +30,68 @@ namespace Expro.Services
 
                 await client.DisconnectAsync(true);
             }
+        }
+
+        public async Task SendEmailAsync(
+            List<Tuple<string, string>> emails, 
+            string subjectUz, string subjectRu,
+            string messageUz, string messageRu)
+        {
+            foreach (var email in emails)
+            {
+                var emailMessage = new MimeMessage();
+
+                emailMessage.From.Add(new MailboxAddress("Администрация сайта Expro.Uz", "farkhodexpro@yandex.com"));
+                emailMessage.To.Add(new MailboxAddress("", email.Item1));
+                emailMessage.Subject = subjectUz + " | " + subjectRu;
+                emailMessage.Body = new TextPart(MimeKit.Text.TextFormat.Html)
+                {
+                    Text = @"" + Appeal(email.Item2, "uz") + @"
+
+" + messageUz + @"
+
+" + Footer("uz") + @"
+
+" + Appeal(email.Item2, "ru") + @"
+
+" + messageRu + @"
+
+" + Footer("ru")
+                };
+
+                using (var client = new SmtpClient())
+                {
+                    await client.ConnectAsync("smtp.yandex.com", 587, SecureSocketOptions.StartTls);
+                    await client.AuthenticateAsync("farkhodexpro@yandex.com", "5ax7?wuWjm");
+                    //await client.SendAsync(emailMessage);
+
+                    await client.DisconnectAsync(true);
+                }
+            }
+        }
+
+        private string Appeal(string fullName, string lang = "uz")
+        {
+            string result;
+            if (lang == "uz")
+                result = "Хурматли ";
+            else
+                result = "Уважаемый(ая), ";
+
+            return result + fullName;
+        }
+
+        private string Footer(string lang = "uz")
+        {
+            string result;
+            if (lang == "uz")
+                result = @"Бу автоматик равишда жунатилинган хат. Илтимос, жавоб ёзманг.
+Expro жамоаси.";
+            else
+                result = @"Это автоматически отправленное письмо. Пожалуйста, не отвечайте на него.
+Команда Expro.";
+
+            return result;
         }
     }
 }

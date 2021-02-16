@@ -1,9 +1,11 @@
-﻿using Expro.Common.Utilities;
+﻿using Expro.Common;
+using Expro.Common.Utilities;
 using Expro.Data.Infrastructure;
 using Expro.Data.Repository.Interfaces;
 using Expro.Models;
 using Expro.Models.Enums;
 using Expro.Services.Interfaces;
+using Microsoft.Extensions.Options;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,13 +16,26 @@ namespace Expro.Services
     public class QuestionService : BaseAuthorableService<Question>, IQuestionService
     {
         private IQuestionRepository _questionRepository;
+        private readonly IEmailService _emailService;
+        private readonly IUserService _userService;
+
+        protected AppConfiguration AppConfiguration { get; set; }
+
         protected int _tmpPeriodMinutes = 20;
 
         public QuestionService(IQuestionRepository repository,
-                           IUnitOfWork unitOfWork)
+                           IUnitOfWork unitOfWork,
+                           IEmailService emailService,
+                           IUserService userService,
+                           IOptionsSnapshot<AppConfiguration> settings = null)
             : base(repository, unitOfWork)
         {
             _questionRepository = repository;
+            _emailService = emailService;
+            _userService = userService;
+
+            if (settings != null)
+                AppConfiguration = settings.Value;
         }
 
         public override void Add(Question entity, string creatorID)
@@ -84,7 +99,7 @@ namespace Expro.Services
             return EditingIsAllowed(entity);
         }
 
-        public void SubmitForApproval(Question entity, string userID)
+        public async void SubmitForApproval(Question entity, string userID)
         {
             entity.DocumentStatusID = (int)DocumentStatusesEnum.WaitingForApproval;
             entity.DateSubmittedForApproval = DateTime.Now;
@@ -95,6 +110,34 @@ namespace Expro.Services
             entity.CancellationDeadline = RoundToUp(entity.DateSubmittedForApproval.Value.AddMinutes(7 200)); //5 days
 #endif
             Update(entity, userID);
+
+            try
+            {
+                List<string> adminEmails = AppConfiguration.AdminEmails.Split(';').ToList();
+                List<Tuple<string, string>> adminEmailsWithNames = new List<Tuple<string, string>>();
+                foreach (var item in adminEmails)
+                {
+                    adminEmailsWithNames.Add(new Tuple<string, string>(item, "Админ"));
+                }
+
+                string subjectUz = "Янги савол";
+                string subjectRu = "Новый вопрос";
+                if (IsFree(entity))
+                {
+                    subjectUz = "Янги пуллик савол";
+                    subjectRu = "Новый вопрос с вознаграждением";
+                }
+
+                string questionUrl = "/Admin/Question/Details/" + entity.ID;
+                string messageUz = "Янги савол тасдиқлашга жўнатилинди. <a href='" + questionUrl + "'>" + entity.Title + "</a>";
+                string messageRu = "Поступил новый вопрос на подтверждение. <a href='" + questionUrl + "'>" + entity.Title + "</a>";
+
+                await _emailService.SendEmailAsync(
+                    adminEmailsWithNames,
+                    subjectUz, subjectRu,
+                    messageUz, messageRu);
+            }
+            catch (Exception ex) { }
         }
 
         public IQueryable<Question> GetAllForAdmin()

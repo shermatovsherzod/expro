@@ -20,7 +20,14 @@
                             <p class="text-white-70 mb-0">We'd love to talk about how we can help you.</p>
                         </div>
                         <div class="col-md-3 text-md-right">
-                            <a class="btn btn-light transition-3d-hover" href="@askQuestionCTAUrl">Задать вопрос</a>
+                            @if (User.Identity.IsAuthenticated)
+                            {
+                                <a class="btn btn-light transition-3d-hover" href="/User/Question">Задать вопрос</a>
+                            }
+                            else
+                            {
+                                <a href="javascript:void(0)" class="btn btn-light transition-3d-hover" data-toggle="popover" data-trigger="focus" @*title="Popover Header"*@ data-html="true" data-content="<a href='/Identity/Account/Login?returnUrl=/User/Question'>Войдите</a> или <a href='/Identity/Account/Register?returnUrl=/User/Question'>зарегистрируйтесь</a>, чтобы задать вопрос">Задать вопрос</a>
+                            }
                         </div>
                     </div>
 
@@ -389,3 +396,10 @@
     </div>
 </div>
 
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            $('[data-toggle="popover"]').popover();
+        });
+    </script>
+}
