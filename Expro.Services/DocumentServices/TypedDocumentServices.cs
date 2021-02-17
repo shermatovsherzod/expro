@@ -15,7 +15,7 @@ namespace Expro.Services
     public class SampleDocumentService : DocumentService, ISampleDocumentService
     {
         private readonly IEmailService _emailService;
-        protected AppConfiguration AppConfiguration { get; set; }
+        //protected AppConfiguration AppConfiguration { get; set; }
 
         public SampleDocumentService(
             IDocumentRepository repository,
@@ -33,8 +33,8 @@ namespace Expro.Services
             PointsForDocumentPaidLike = Constants.PointsFor.DOCUMENT.SAMPLE.PAID_LIKE;
 
             _emailService = emailService;
-            if (settings != null)
-                AppConfiguration = settings.Value;
+            //if (settings != null)
+            //    AppConfiguration = settings.Value;
         }
 
         public async override void SubmitForApproval(Document entity, string userID)

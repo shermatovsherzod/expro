@@ -56,5 +56,9 @@ namespace Expro.Common
         /// "email1;email2;email3;..."
         /// </summary>
         public string AdminEmails { get; set; }
+
+        public int DocumentRejectionDeadlinePeriodInMinutes { get; set; }
+        public int QuestionRejectionDeadlinePeriodInMinutes { get; set; }
+        public int QuestionCompletionDeadlinePeriodInMinutes { get; set; }
     }
 }

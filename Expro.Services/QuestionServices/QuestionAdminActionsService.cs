@@ -1,4 +1,5 @@
 ﻿using Expro.Common;
+using Expro.Common.Utilities;
 using Expro.Data.Infrastructure;
 using Expro.Data.Repository.Interfaces;
 using Expro.Models;
@@ -39,11 +40,10 @@ namespace Expro.Services
         public async override void Approve(Question entity, string userID)
         {
             base.Approve(entity, userID);
-#if DEBUG
-            entity.QuestionCompletionDeadline = entity.DateApproved.Value.AddMinutes(20);
-#else
-            entity.QuestionCompletionDeadline = QuestionService.RoundToUp(entity.DateApproved.Value.AddMinutes(7200)); //5 days
-#endif
+
+            entity.QuestionCompletionDeadline = DateTimeUtils.RoundToUp(entity.DateApproved.Value
+                .AddMinutes(AppConfiguration.QuestionCompletionDeadlinePeriodInMinutes));
+
             Update(entity, userID);
 
             try

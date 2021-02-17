@@ -20,7 +20,6 @@ namespace Expro.Services.Interfaces
         IQueryable<Question> GetAllByCreator(string userID);
         bool IsFree(Question model);
         IQueryable<Question> GetAllAnsweredByUser(string answeredUserID);
-        DateTime RoundToUp(DateTime inputDateTime);
         void CompleteWithDistribution(Question question, string userID);
         void Complete(Question question, string userID);
         bool AdminIsAllowedToComplete(Question question);

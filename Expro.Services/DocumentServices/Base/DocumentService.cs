@@ -1,9 +1,11 @@
-﻿using Expro.Common.Utilities;
+﻿using Expro.Common;
+using Expro.Common.Utilities;
 using Expro.Data.Infrastructure;
 using Expro.Data.Repository.Interfaces;
 using Expro.Models;
 using Expro.Models.Enums;
 using Expro.Services.Interfaces;
+using Microsoft.Extensions.Options;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,7 +16,6 @@ namespace Expro.Services
     public class DocumentService : BaseAuthorableService<Document>, IDocumentService
     {
         private IDocumentRepository _documentRepository;
-        protected int _tmpPeriodMinutes = 2;
 
         public DocumentTypesEnum _documentType;
 
@@ -25,11 +26,18 @@ namespace Expro.Services
         public int PointsForDocumentFreeLike { get; set; }
         public int PointsForDocumentPaidLike { get; set; }
 
-        public DocumentService(IDocumentRepository repository,
-                           IUnitOfWork unitOfWork)
+        protected AppConfiguration AppConfiguration { get; set; }
+
+        public DocumentService(
+            IDocumentRepository repository,
+            IUnitOfWork unitOfWork,
+            IOptionsSnapshot<AppConfiguration> settings = null)
             : base(repository, unitOfWork)
         {
             _documentRepository = repository;
+
+            if (settings != null)
+                AppConfiguration = settings.Value;
         }
 
         public override void Add(Document entity, string creatorID)
@@ -128,12 +136,10 @@ namespace Expro.Services
         {
             entity.DocumentStatusID = (int)DocumentStatusesEnum.WaitingForApproval;
             entity.DateSubmittedForApproval = DateTime.Now;
-#if DEBUG
-            //tmpPeriodMinutes = 2880;
-            entity.RejectionDeadline = entity.DateSubmittedForApproval.Value.AddMinutes(_tmpPeriodMinutes);
-#else
-            entity.CancellationDeadline = RoundToUp(entity.DateSubmittedForApproval.Value.AddMinutes(7 200)); //5 days
-#endif
+
+            entity.RejectionDeadline = DateTimeUtils.RoundToUp(entity.DateSubmittedForApproval.Value
+                .AddMinutes(AppConfiguration.DocumentRejectionDeadlinePeriodInMinutes));
+
             Update(entity, userID);
         }
 
@@ -180,11 +186,6 @@ namespace Expro.Services
             return GetManyWithRelatedDataAsIQueryable()
                 .Where(m => m.DocumentTypeID == (int)_documentType
                     && m.UsersPurchasedThisDocument.Select(n => n.UserID).Contains(purchasedUserID));
-        }
-
-        public DateTime RoundToUp(DateTime inputDateTime)
-        {
-            return inputDateTime.Date.AddDays(1).AddSeconds(-1);
         }
 
         public IQueryable<Document> GetAllApprovedByUserAndPeriod(

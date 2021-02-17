@@ -39,5 +39,10 @@ namespace Expro.Common.Utilities
 
             return result;
         }
+
+        public static DateTime RoundToUp(DateTime inputDateTime)
+        {
+            return inputDateTime.Date.AddDays(1).AddSeconds(-1);
+        }
     }
 }

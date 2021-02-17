@@ -21,8 +21,6 @@ namespace Expro.Services
 
         protected AppConfiguration AppConfiguration { get; set; }
 
-        protected int _tmpPeriodMinutes = 20;
-
         public QuestionService(IQuestionRepository repository,
                            IUnitOfWork unitOfWork,
                            IEmailService emailService,
@@ -103,12 +101,10 @@ namespace Expro.Services
         {
             entity.DocumentStatusID = (int)DocumentStatusesEnum.WaitingForApproval;
             entity.DateSubmittedForApproval = DateTime.Now;
-#if DEBUG
-            //tmpPeriodMinutes = 2880;
-            entity.RejectionDeadline = entity.DateSubmittedForApproval.Value.AddMinutes(_tmpPeriodMinutes);
-#else
-            entity.CancellationDeadline = RoundToUp(entity.DateSubmittedForApproval.Value.AddMinutes(7 200)); //5 days
-#endif
+
+            entity.RejectionDeadline = DateTimeUtils.RoundToUp(entity.DateSubmittedForApproval.Value
+                .AddMinutes(AppConfiguration.QuestionRejectionDeadlinePeriodInMinutes));
+
             Update(entity, userID);
 
             try
@@ -203,11 +199,6 @@ namespace Expro.Services
                 .Where(m => m.Answers
                     .Select(n => n.CreatedBy)
                     .Contains(answeredUserID));
-        }
-
-        public DateTime RoundToUp(DateTime inputDateTime)
-        {
-            return inputDateTime.Date.AddDays(1).AddSeconds(-1);
         }
 
         public async void CompleteWithDistribution(Question question, string userID)

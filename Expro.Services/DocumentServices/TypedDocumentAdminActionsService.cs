@@ -30,7 +30,6 @@ namespace Expro.Services
             try
             {
                 List<Tuple<string, string>> emailsWithNames = new List<Tuple<string, string>>();
-                //var creator = _userService.GetByID(entity.CreatedBy);
                 var creator = entity.Creator;
                 emailsWithNames.Add(new Tuple<string, string>(creator.Email, creator.FirstName + " " + creator.LastName));
 
@@ -56,7 +55,6 @@ namespace Expro.Services
             try
             {
                 List<Tuple<string, string>> emailsWithNames = new List<Tuple<string, string>>();
-                //var creator = _userService.GetByID(entity.CreatedBy);
                 var creator = entity.Creator;
                 emailsWithNames.Add(new Tuple<string, string>(creator.Email, creator.FirstName + " " + creator.LastName));
 
@@ -96,7 +94,6 @@ namespace Expro.Services
             try
             {
                 List<Tuple<string, string>> emailsWithNames = new List<Tuple<string, string>>();
-                //var creator = _userService.GetByID(entity.CreatedBy);
                 var creator = entity.Creator;
                 emailsWithNames.Add(new Tuple<string, string>(creator.Email, creator.FirstName + " " + creator.LastName));
 
@@ -122,7 +119,6 @@ namespace Expro.Services
             try
             {
                 List<Tuple<string, string>> emailsWithNames = new List<Tuple<string, string>>();
-                //var creator = _userService.GetByID(entity.CreatedBy);
                 var creator = entity.Creator;
                 emailsWithNames.Add(new Tuple<string, string>(creator.Email, creator.FirstName + " " + creator.LastName));
 
@@ -162,7 +158,6 @@ namespace Expro.Services
             try
             {
                 List<Tuple<string, string>> emailsWithNames = new List<Tuple<string, string>>();
-                //var creator = _userService.GetByID(entity.CreatedBy);
                 var creator = entity.Creator;
                 emailsWithNames.Add(new Tuple<string, string>(creator.Email, creator.FirstName + " " + creator.LastName));
 
@@ -188,7 +183,6 @@ namespace Expro.Services
             try
             {
                 List<Tuple<string, string>> emailsWithNames = new List<Tuple<string, string>>();
-                //var creator = _userService.GetByID(entity.CreatedBy);
                 var creator = entity.Creator;
                 emailsWithNames.Add(new Tuple<string, string>(creator.Email, creator.FirstName + " " + creator.LastName));
 

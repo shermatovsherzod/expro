@@ -27,7 +27,6 @@ namespace Expro.Services.Interfaces
         IQueryable<Document> GetAllByCreator(string userID);
         bool IsFree(Document model);
         IQueryable<Document> GetAllPurchasedByUser(string purchasedUserID);
-        DateTime RoundToUp(DateTime inputDateTime);
         IQueryable<Document> GetAllApprovedByUserAndPeriod(
             string userID,
             DateTime startDate, DateTime endDate);
