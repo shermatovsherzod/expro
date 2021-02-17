@@ -17,7 +17,7 @@ namespace Expro.Services
     {
         private IQuestionRepository _questionRepository;
         private readonly IEmailService _emailService;
-        private readonly IUserService _userService;
+        //private readonly IUserService _userService;
 
         protected AppConfiguration AppConfiguration { get; set; }
 
@@ -26,13 +26,13 @@ namespace Expro.Services
         public QuestionService(IQuestionRepository repository,
                            IUnitOfWork unitOfWork,
                            IEmailService emailService,
-                           IUserService userService,
+                           //IUserService userService,
                            IOptionsSnapshot<AppConfiguration> settings = null)
             : base(repository, unitOfWork)
         {
             _questionRepository = repository;
             _emailService = emailService;
-            _userService = userService;
+            //_userService = userService;
 
             if (settings != null)
                 AppConfiguration = settings.Value;
@@ -210,10 +210,37 @@ namespace Expro.Services
             return inputDateTime.Date.AddDays(1).AddSeconds(-1);
         }
 
-        public void CompleteWithDistribution(Question question, string userID)
+        public async void CompleteWithDistribution(Question question, string userID)
         {
             question.QuestionFeeIsDistributed = true;
             Complete(question, userID);
+
+            var questionAnswers = question.Answers.ToList();
+            foreach (var answer in questionAnswers)
+            {
+                if (answer.PaidFee.HasValue && answer.PaidFee > 0)
+                {
+                    try
+                    {
+                        string answerGiverFullName = answer.Creator.FirstName + " " + answer.Creator.LastName;
+                        List<Tuple<string, string>> emailsWithNames = new List<Tuple<string, string>>();
+                        emailsWithNames.Add(new Tuple<string, string>(answer.Creator.Email, answerGiverFullName));
+
+                        string subjectUz = "Саволга жавоб учун мукофот олинди";
+                        string subjectRu = "Получено вознаграждение за ответ на вопрос";
+
+                        string questionUrl = "/Question/Details/" + question.ID;
+                        string messageUz = "Саволга (<a href='" + questionUrl + "'>\"" + question.Title + "\"</a>) жавоб учун " + answer.PaidFee.Value + " сум мукофот олинди.";
+                        string messageRu = "Получено вознаграждение в размере " + answer.PaidFee.Value + " сум за ответил на вопрос (<a href='" + questionUrl + "'>\"" + question.Title + "\"</a>)";
+
+                        await _emailService.SendEmailAsync(
+                            emailsWithNames,
+                            subjectUz, subjectRu,
+                            messageUz, messageRu);
+                    }
+                    catch (Exception ex) { }
+                }
+            }
         }
 
         public void Complete(Question question, string userID)

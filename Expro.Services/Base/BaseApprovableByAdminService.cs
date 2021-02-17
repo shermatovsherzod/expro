@@ -36,11 +36,7 @@ namespace Expro.Services
         {
             entity.DocumentStatusID = (int)DocumentStatusesEnum.Approved;
             entity.DateApproved = DateTime.Now;
-//#if DEBUG
-//            entity.QuestionCompletionDeadline = entity.DateApproved.Value.AddMinutes(20);
-//#else
-//            entity.QuestionCompletionDeadline = QuestionService.RoundToUp(entity.DateApproved.Value.AddMinutes(7200)); //5 days
-//#endif
+
             Update(entity, userID);
         }
 
@@ -49,12 +45,15 @@ namespace Expro.Services
             return StatusIsWaitingForApproval(entity);
         }
 
-        public void Reject(T entity, string userID)
+        public virtual void Reject(T entity, string userID)
         {
             entity.DocumentStatusID = (int)DocumentStatusesEnum.Rejected;
             entity.DateRejected = DateTime.Now;
 
-            Update(entity, userID);
+            if (string.IsNullOrWhiteSpace(userID))
+                base.Update(entity);
+            else
+                Update(entity, userID);
         }
 
         public void RejectionDeadlineReaches(T model)
@@ -62,7 +61,7 @@ namespace Expro.Services
             if (!RejectingIsAllowed(model))
                 return;
 
-            Reject(model, "634a8718-167d-4b77-98bb-7548340e95b2"); //add botUser
+            Reject(model, null);
         }
     }
 }

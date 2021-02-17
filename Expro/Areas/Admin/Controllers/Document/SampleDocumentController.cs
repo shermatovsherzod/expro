@@ -21,7 +21,7 @@ namespace Expro.Areas.Admin.Controllers
             ISampleDocumentSearchService sampleDocumentSearchService,
             IHangfireService hangfireService,
             IDocumentStatusService documentStatusService,
-            IDocumentAdminActionsService documentAdminActionsService,
+            IPracticeDocumentAdminActionsService documentAdminActionsService,
             IUserService userService,
             IUserRatingService userRatingService)
             : base(

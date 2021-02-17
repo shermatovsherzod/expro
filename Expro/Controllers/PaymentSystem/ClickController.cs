@@ -366,10 +366,10 @@ namespace Expro.Controllers
 
                 ClickTransactionService.MarkTransactionAsPaid(transaction);
                 checkResult = true;
-                if (!checkResult)
-                {
-                    UserBalanceService.TakeOffBalance(user, (int?)(requestDTO.amount) ?? 0);
-                }
+                //if (!checkResult)
+                //{
+                //    UserBalanceService.TakeOffBalance(user, (int?)(requestDTO.amount) ?? 0);
+                //}
             }
 
             if (!checkResult)

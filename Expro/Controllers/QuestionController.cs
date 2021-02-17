@@ -176,11 +176,11 @@ namespace Expro.Controllers
                 if (ModelState.IsValid)
                 {
                     var curUser = accountUtil.GetCurrentUser(User);
-                    var document = QuestionService.GetApprovedByID(answerCreateVM.QuestionID);
-                    if (document == null)
+                    var question = QuestionService.GetApprovedByID(answerCreateVM.QuestionID);
+                    if (question == null)
                         throw new Exception("Вопрос не найден");
 
-                    if (QuestionService.IsCompleted(document))
+                    if (QuestionService.IsCompleted(question))
                         throw new Exception("Вопрос уже завершен");
 
                     QuestionAnswer answer = answerCreateVM.ToModel();
@@ -251,7 +251,7 @@ namespace Expro.Controllers
                 QuestionService.CompleteWithDistribution(question, curUser.ID);
                 HangfireService.CancelJob(question.QuestionCompletionJobID);
 
-                return Ok(new { successMessage = "Гонорар успешно распределен" });
+                return Ok(new { successMessage = "Вознаграждение успешно распределено" });
             }
             catch (Exception ex)
             {

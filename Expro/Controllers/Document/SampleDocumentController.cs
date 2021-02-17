@@ -20,7 +20,7 @@ namespace Expro.Controllers
             ISampleDocumentService sampleDocumentService,
             ISampleDocumentSearchService sampleDocumentSearchService,
             IUserBalanceService userBalanceService,
-            IUserPurchasedDocumentService userPurchasedDocumentService,
+            IUserPurchasedPracticeDocumentService userPurchasedDocumentService,
             //UserManager<ApplicationUser> userManager,
             IUserService userService,
             ILawAreaService lawAreaService,

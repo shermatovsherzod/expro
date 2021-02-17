@@ -4,6 +4,7 @@ using Expro.Data.Repository.Interfaces;
 using Expro.Models;
 using Expro.Models.Enums;
 using Expro.Services.Interfaces;
+using Microsoft.Extensions.Options;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,8 +14,14 @@ namespace Expro.Services
 {
     public class SampleDocumentService : DocumentService, ISampleDocumentService
     {
-        public SampleDocumentService(IDocumentRepository repository,
-                           IUnitOfWork unitOfWork)
+        private readonly IEmailService _emailService;
+        protected AppConfiguration AppConfiguration { get; set; }
+
+        public SampleDocumentService(
+            IDocumentRepository repository,
+            IUnitOfWork unitOfWork,
+            IEmailService emailService,
+            IOptionsSnapshot<AppConfiguration> settings = null)
             : base(repository, unitOfWork)
         {
             _documentType = DocumentTypesEnum.SampleDocument;
@@ -24,13 +31,56 @@ namespace Expro.Services
             PointsForDocumentPurchase = Constants.PointsFor.DOCUMENT.SAMPLE.PURCHASE;
             PointsForDocumentFreeLike = Constants.PointsFor.DOCUMENT.SAMPLE.FREE_LIKE;
             PointsForDocumentPaidLike = Constants.PointsFor.DOCUMENT.SAMPLE.PAID_LIKE;
+
+            _emailService = emailService;
+            if (settings != null)
+                AppConfiguration = settings.Value;
+        }
+
+        public async override void SubmitForApproval(Document entity, string userID)
+        {
+            base.SubmitForApproval(entity, userID);
+
+            try
+            {
+                List<string> adminEmails = AppConfiguration.AdminEmails.Split(';').ToList();
+                List<Tuple<string, string>> adminEmailsWithNames = new List<Tuple<string, string>>();
+                foreach (var item in adminEmails)
+                {
+                    adminEmailsWithNames.Add(new Tuple<string, string>(item, "Админ"));
+                }
+
+                string subjectUz = "Янги намунавий хужжат";
+                string subjectRu = "Новый образцовый документ";
+                if (IsFree(entity))
+                {
+                    subjectUz = "Янги пуллик намунавий хужжат";
+                    subjectRu = "Новый платный образцовый документ";
+                }
+
+                string documentUrl = "/Admin/SampleDocument/Details/" + entity.ID;
+                string messageUz = "Янги намунавий хужжат тасдиқлашга жўнатилинди. <a href='" + documentUrl + "'>" + entity.Title + "</a>";
+                string messageRu = "Поступил новый образцовый документ на подтверждение. <a href='" + documentUrl + "'>" + entity.Title + "</a>";
+
+                await _emailService.SendEmailAsync(
+                    adminEmailsWithNames,
+                    subjectUz, subjectRu,
+                    messageUz, messageRu);
+            }
+            catch (Exception ex) { }
         }
     }
 
     public class ArticleDocumentService : DocumentService, IArticleDocumentService
     {
-        public ArticleDocumentService(IDocumentRepository repository,
-                           IUnitOfWork unitOfWork)
+        private readonly IEmailService _emailService;
+        protected AppConfiguration AppConfiguration { get; set; }
+
+        public ArticleDocumentService(
+            IDocumentRepository repository,
+            IUnitOfWork unitOfWork,
+            IEmailService emailService,
+            IOptionsSnapshot<AppConfiguration> settings = null)
             : base(repository, unitOfWork)
         {
             _documentType = DocumentTypesEnum.ArticleDocument;
@@ -40,13 +90,56 @@ namespace Expro.Services
             PointsForDocumentPurchase = Constants.PointsFor.DOCUMENT.ARTICLE.PURCHASE;
             PointsForDocumentFreeLike = Constants.PointsFor.DOCUMENT.ARTICLE.FREE_LIKE;
             PointsForDocumentPaidLike = Constants.PointsFor.DOCUMENT.ARTICLE.PAID_LIKE;
+
+            _emailService = emailService;
+            if (settings != null)
+                AppConfiguration = settings.Value;
+        }
+
+        public async override void SubmitForApproval(Document entity, string userID)
+        {
+            base.SubmitForApproval(entity, userID);
+
+            try
+            {
+                List<string> adminEmails = AppConfiguration.AdminEmails.Split(';').ToList();
+                List<Tuple<string, string>> adminEmailsWithNames = new List<Tuple<string, string>>();
+                foreach (var item in adminEmails)
+                {
+                    adminEmailsWithNames.Add(new Tuple<string, string>(item, "Админ"));
+                }
+
+                string subjectUz = "Янги мақола";
+                string subjectRu = "Новая статья";
+                if (IsFree(entity))
+                {
+                    subjectUz = "Янги пуллик мақола";
+                    subjectRu = "Новая платная статья";
+                }
+
+                string documentUrl = "/Admin/ArticleDocument/Details/" + entity.ID;
+                string messageUz = "Янги мақола тасдиқлашга жўнатилинди. <a href='" + documentUrl + "'>" + entity.Title + "</a>";
+                string messageRu = "Поступила новая статья на подтверждение. <a href='" + documentUrl + "'>" + entity.Title + "</a>";
+
+                await _emailService.SendEmailAsync(
+                    adminEmailsWithNames,
+                    subjectUz, subjectRu,
+                    messageUz, messageRu);
+            }
+            catch (Exception ex) { }
         }
     }
 
     public class PracticeDocumentService : DocumentService, IPracticeDocumentService
     {
-        public PracticeDocumentService(IDocumentRepository repository,
-                           IUnitOfWork unitOfWork)
+        private readonly IEmailService _emailService;
+        protected AppConfiguration AppConfiguration { get; set; }
+
+        public PracticeDocumentService(
+            IDocumentRepository repository,
+            IUnitOfWork unitOfWork,
+            IEmailService emailService,
+            IOptionsSnapshot<AppConfiguration> settings = null)
             : base(repository, unitOfWork)
         {
             _documentType = DocumentTypesEnum.PracticeDocument;
@@ -56,6 +149,43 @@ namespace Expro.Services
             PointsForDocumentPurchase = Constants.PointsFor.DOCUMENT.PRACTICE.PURCHASE;
             PointsForDocumentFreeLike = Constants.PointsFor.DOCUMENT.PRACTICE.FREE_LIKE;
             PointsForDocumentPaidLike = Constants.PointsFor.DOCUMENT.PRACTICE.PAID_LIKE;
+
+            _emailService = emailService;
+            if (settings != null)
+                AppConfiguration = settings.Value;
+        }
+
+        public async override void SubmitForApproval(Document entity, string userID)
+        {
+            base.SubmitForApproval(entity, userID);
+
+            try
+            {
+                List<string> adminEmails = AppConfiguration.AdminEmails.Split(';').ToList();
+                List<Tuple<string, string>> adminEmailsWithNames = new List<Tuple<string, string>>();
+                foreach (var item in adminEmails)
+                {
+                    adminEmailsWithNames.Add(new Tuple<string, string>(item, "Админ"));
+                }
+
+                string subjectUz = "Янги амалиёт";
+                string subjectRu = "Новый практический документ";
+                if (IsFree(entity))
+                {
+                    subjectUz = "Янги пуллик амалиёт";
+                    subjectRu = "Новый платный практический документ";
+                }
+
+                string documentUrl = "/Admin/PracticeDocument/Details/" + entity.ID;
+                string messageUz = "Янги амалиёт тасдиқлашга жўнатилинди. <a href='" + documentUrl + "'>" + entity.Title + "</a>";
+                string messageRu = "Поступил новый практический документ на подтверждение. <a href='" + documentUrl + "'>" + entity.Title + "</a>";
+
+                await _emailService.SendEmailAsync(
+                    adminEmailsWithNames,
+                    subjectUz, subjectRu,
+                    messageUz, messageRu);
+            }
+            catch (Exception ex) { }
         }
     }
 

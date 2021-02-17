@@ -12,4 +12,16 @@ namespace Expro.Services.Interfaces
         IQueryable<UserPurchasedDocument> GetPurchasesByUser(string userID);
         IQueryable<UserPurchasedDocument> GetSalesByUser(string userID);
     }
+
+    public interface IUserPurchasedArticleDocumentService : IUserPurchasedDocumentService
+    {
+    }
+
+    public interface IUserPurchasedSampleDocumentService : IUserPurchasedDocumentService
+    {
+    }
+
+    public interface IUserPurchasedPracticeDocumentService : IUserPurchasedDocumentService
+    {
+    }
 }

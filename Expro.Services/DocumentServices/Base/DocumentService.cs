@@ -124,7 +124,7 @@ namespace Expro.Services
             return EditingIsAllowed(entity);
         }
 
-        public void SubmitForApproval(Document entity, string userID)
+        public virtual void SubmitForApproval(Document entity, string userID)
         {
             entity.DocumentStatusID = (int)DocumentStatusesEnum.WaitingForApproval;
             entity.DateSubmittedForApproval = DateTime.Now;
