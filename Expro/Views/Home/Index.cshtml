@@ -1,7 +1,7 @@
 ﻿@model Expro.ViewModels.HomePageVM
 
 @{
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = localizer["HomePage"];
 }
 
 <div class="container">
@@ -16,17 +16,17 @@
                 <div class="card bg-primary text-white overflow-hidden p-4 mb-4">
                     <div class="row justify-content-md-start align-items-md-center text-center text-md-left">
                         <div class="col-md-6 offset-md-3 mb-3 mb-md-0">
-                            <h3 class="text-white mb-1">Есть вопросы?</h3>
+                            <h3 class="text-white mb-1">@localizer["Questions?"]</h3>
                             <p class="text-white-70 mb-0">We'd love to talk about how we can help you.</p>
                         </div>
                         <div class="col-md-3 text-md-right">
                             @if (User.Identity.IsAuthenticated)
                             {
-                                <a class="btn btn-light transition-3d-hover" href="/User/Question">Задать вопрос</a>
+                                <a class="btn btn-light transition-3d-hover" href="/User/Question">@localizer["AskQuestion"]</a>
                             }
                             else
                             {
-                                <a href="javascript:void(0)" class="btn btn-light transition-3d-hover" data-toggle="popover" data-trigger="focus" @*title="Popover Header"*@ data-html="true" data-content="<a href='/Identity/Account/Login?returnUrl=/User/Question'>Войдите</a> или <a href='/Identity/Account/Register?returnUrl=/User/Question'>зарегистрируйтесь</a>, чтобы задать вопрос">Задать вопрос</a>
+                                <a href="javascript:void(0)" class="btn btn-light transition-3d-hover" data-toggle="popover" data-trigger="focus" @*title="Popover Header"*@ data-html="true" data-content="@localizer["AskQuestionPopover"]">@localizer["AskQuestion"]</a>
                             }
                         </div>
                     </div>
@@ -53,7 +53,7 @@
                             </figure>
                             @*<img class="clients mb-3" src="/lib/frontTheme/svg/clients-logo/slack-original.svg" alt="Image Description">*@
                             <span class="d-block h2">@Model.Stats.QuestionsCount</span>
-                            <p class="text-body">Количество вопросов</p>
+                            <p class="text-body">@localizer["QuestionsCount"]</p>
                         </a>
                         <!-- End Stats -->
                     </div>
@@ -66,7 +66,7 @@
                             </figure>
                             @*<img class="clients mb-3" src="/lib/frontTheme/svg/clients-logo/fitbit-original.svg" alt="Image Description">*@
                             <span class="d-block h2">@Model.Stats.ArticlesCount</span>
-                            <p class="text-body">Количество статей</p>
+                            <p class="text-body">@localizer["ArticlesCount"]</p>
                         </a>
                         <!-- End Stats -->
                     </div>
@@ -79,7 +79,7 @@
                             </figure>
                             @*<img class="clients mb-3" src="/lib/frontTheme/svg/clients-logo/hubspot-original.svg" alt="Image Description">*@
                             <span class="d-block h2">@Model.Stats.SampleDocumentsCount</span>
-                            <p class="text-body">Количество образцовых документов</p>
+                            <p class="text-body">@localizer["SampleDocumentsCount"]</p>
                         </a>
                         <!-- End Stats -->
                     </div>
@@ -91,7 +91,7 @@
                                 <img class="img-fluid" src="/lib/frontTheme/svg/icons/icon-7.svg" alt="SVG">
                             </figure>
                             <span class="d-block h2">@Model.Stats.ExpertsCount</span>
-                            <p class="text-body">Количество экспертов</p>
+                            <p class="text-body">@localizer["ExpertsCount"]</p>
                         </a>
                         <!-- End Stats -->
                     </div>
@@ -103,7 +103,7 @@
         <div class="row mb-10">
             <div class="col-md-4 col-12">
                 <div class="mb-3">
-                    <h3>Образцовые документы</h3>
+                    <h3>@localizer["SampleDocuments"]</h3>
                 </div>
                 @foreach (var item in Model.FeaturedSampleDocuments)
                 {
@@ -121,12 +121,12 @@
                 }
 
                 <a href="/SampleDocument">
-                    <span class="font-size-1 font-weight-bold">Открыть все <i class="fas fa-angle-right fa-sm ml-1"></i></span>
+                    <span class="font-size-1 font-weight-bold">@localizer["SeeAll"] <i class="fas fa-angle-right fa-sm ml-1"></i></span>
                 </a>
             </div>
             <div class="col-md-4 col-12">
                 <div class="mb-3">
-                    <h3>Практические документы</h3>
+                    <h3>@localizer["PracticeDocuments"]</h3>
                 </div>
                 @foreach (var item in Model.FeaturedPracticeDocuments)
                 {
@@ -144,12 +144,12 @@
                 }
 
                 <a href="/PracticeDocument">
-                    <span class="font-size-1 font-weight-bold">Открыть все <i class="fas fa-angle-right fa-sm ml-1"></i></span>
+                    <span class="font-size-1 font-weight-bold">@localizer["SeeAll"] <i class="fas fa-angle-right fa-sm ml-1"></i></span>
                 </a>
             </div>
             <div class="col-md-4 col-12">
                 <div class="mb-3">
-                    <h3>Вопросы</h3>
+                    <h3>@localizer["Questions"]</h3>
                 </div>
                 @foreach (var item in Model.FeaturedQuestions)
                 {
@@ -167,7 +167,7 @@
                 }
 
                 <a href="/Question">
-                    <span class="font-size-1 font-weight-bold">Открыть все <i class="fas fa-angle-right fa-sm ml-1"></i></span>
+                    <span class="font-size-1 font-weight-bold">@localizer["SeeAll"] <i class="fas fa-angle-right fa-sm ml-1"></i></span>
                 </a>
             </div>
         </div>
@@ -176,7 +176,7 @@
                 <!-- Title -->
                 <div class="w-md-80 w-lg-60 text-center mx-md-auto mb-5 mb-md-9">
                     @*<span class="d-block small font-weight-bold text-cap mb-2">Our team</span>*@
-                    <h2>ТОП эксперты</h2>
+                    <h2>@localizer["TopExperts"]</h2>
                 </div>
                 <!-- End Title -->
             </div>
@@ -230,7 +230,7 @@
         <div class="row mb-10">
             <div class="col-12 text-center">
                 <a href="/Experts">
-                    <span class="font-size-1 font-weight-bold">Все эксперты<i class="fas fa-angle-right fa-sm ml-1"></i></span>
+                    <span class="font-size-1 font-weight-bold">@localizer["AllExperts"]<i class="fas fa-angle-right fa-sm ml-1"></i></span>
                 </a>
             </div>
         </div>
@@ -246,8 +246,8 @@
                                     <img class="avatar avatar-sm mr-3" src="/lib/frontTheme/svg/icons/icon-13.svg" alt="Image Description">
                                     <div class="media-body">
                                         <h6 class="mb-0">
-                                            <a class="text-dark" href="/Company">Компании</a>
-                                            <img class="avatar avatar-xss ml-1" src="/lib/frontTheme/svg/illustrations/top-vendor.svg" alt="Review rating" data-toggle="tooltip" data-placement="top" title="Только подтвержденные">
+                                            <a class="text-dark" href="/Company">@localizer["Companies"]</a>
+                                            <img class="avatar avatar-xss ml-1" src="/lib/frontTheme/svg/illustrations/top-vendor.svg" alt="Review rating" data-toggle="tooltip" data-placement="top" title="@localizer["ConfirmedOnly"]">
                                         </h6>
                                     </div>
                                 </div>
@@ -272,7 +272,7 @@
                         <!-- End Row -->
 
                         <h3 class="mb-3">
-                            <a class="text-dark" href="/Company">Каталог компаний</a>
+                            <a class="text-dark" href="/Company">@localizer["CompaniesCatalog"]</a>
                         </h3>
 
                         @*<span class="d-block font-size-1 text-body mb-1">$125k-$135k yearly</span>*@
@@ -298,8 +298,8 @@
                                     <img class="avatar avatar-sm mr-3" src="/lib/frontTheme/svg/icons/icon-67.svg" alt="Image Description">
                                     <div class="media-body">
                                         <h6 class="mb-0">
-                                            <a class="text-dark" href="/Vacancy">Вакансии</a>
-                                            <img class="avatar avatar-xss ml-1" src="/lib/frontTheme/svg/illustrations/top-vendor.svg" alt="Review rating" data-toggle="tooltip" data-placement="top" title="Только подтвержденные">
+                                            <a class="text-dark" href="/Vacancy">@localizer["Vacancies"]</a>
+                                            <img class="avatar avatar-xss ml-1" src="/lib/frontTheme/svg/illustrations/top-vendor.svg" alt="Review rating" data-toggle="tooltip" data-placement="top" title="@localizer["ConfirmedOnly"]">
                                         </h6>
                                     </div>
                                 </div>
@@ -324,7 +324,7 @@
                         <!-- End Row -->
 
                         <h3 class="mb-3">
-                            <a class="text-dark" href="/Vacancy">Каталог вакансий</a>
+                            <a class="text-dark" href="/Vacancy">@localizer["VacanciesCatalog"]</a>
                         </h3>
 
                         @*<span class="d-block font-size-1 text-body mb-1">$125k-$135k yearly</span>*@
@@ -350,8 +350,8 @@
                                     <img class="avatar avatar-sm mr-3" src="/lib/frontTheme/svg/icons/icon-18.svg" alt="Image Description">
                                     <div class="media-body">
                                         <h6 class="mb-0">
-                                            <a class="text-dark" href="/Resume">Резюме</a>
-                                            <img class="avatar avatar-xss ml-1" src="/lib/frontTheme/svg/illustrations/top-vendor.svg" alt="Review rating" data-toggle="tooltip" data-placement="top" title="Только подтвержденные">
+                                            <a class="text-dark" href="/Resume">@localizer["Resume"]</a>
+                                            <img class="avatar avatar-xss ml-1" src="/lib/frontTheme/svg/illustrations/top-vendor.svg" alt="Review rating" data-toggle="tooltip" data-placement="top" title="@localizer["ConfirmedOnly"]">
                                         </h6>
                                     </div>
                                 </div>
@@ -376,7 +376,7 @@
                         <!-- End Row -->
 
                         <h3 class="mb-3">
-                            <a class="text-dark" href="/Resume">Каталог резюме</a>
+                            <a class="text-dark" href="/Resume">@localizer["ResumeCatalog"]</a>
                         </h3>
 
                         @*<span class="d-block font-size-1 text-body mb-1">$125k-$135k yearly</span>*@

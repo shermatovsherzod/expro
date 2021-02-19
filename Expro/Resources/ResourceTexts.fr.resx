@@ -120,11 +120,29 @@
   <data name="All" xml:space="preserve">
     <value>Барчаси</value>
   </data>
-  <data name="Article" xml:space="preserve">
+  <data name="AllExperts" xml:space="preserve">
+    <value>Барча экспертлар</value>
+  </data>
+  <data name="Articles" xml:space="preserve">
     <value>Мақолалар</value>
   </data>
-  <data name="Company" xml:space="preserve">
+  <data name="ArticlesCount" xml:space="preserve">
+    <value>Маколалар сони</value>
+  </data>
+  <data name="AskQuestion" xml:space="preserve">
+    <value>Савол бериш</value>
+  </data>
+  <data name="AskQuestionPopover" xml:space="preserve">
+    <value>Савол бериш учун &lt;a href='/Identity/Account/Login?returnUrl=/User/Question'&gt;сайтга киринг&lt;/a&gt; ёки &lt;a href='/Identity/Account/Register?returnUrl=/User/Question'&gt;руйхатдан утинг&lt;/a&gt;</value>
+  </data>
+  <data name="Companies" xml:space="preserve">
     <value>Компаниялар</value>
+  </data>
+  <data name="CompaniesCatalog" xml:space="preserve">
+    <value>Компаниялар каталоги</value>
+  </data>
+  <data name="ConfirmedOnly" xml:space="preserve">
+    <value>Факат тасдикланган</value>
   </data>
   <data name="Email" xml:space="preserve">
     <value>Yashik</value>
@@ -138,6 +156,9 @@
   <data name="Experts" xml:space="preserve">
     <value>Экспертлар</value>
   </data>
+  <data name="ExpertsCount" xml:space="preserve">
+    <value>Экспертлар сони</value>
+  </data>
   <data name="fr" xml:space="preserve">
     <value>Узбек</value>
   </data>
@@ -147,11 +168,17 @@
   <data name="Home" xml:space="preserve">
     <value>Бош сахифа</value>
   </data>
-  <data name="PracticeDocument" xml:space="preserve">
+  <data name="PracticeDocuments" xml:space="preserve">
     <value>Амалиёт</value>
   </data>
-  <data name="Question" xml:space="preserve">
+  <data name="Questions" xml:space="preserve">
     <value>Саволлар</value>
+  </data>
+  <data name="Questions?" xml:space="preserve">
+    <value>Саволлар борми?</value>
+  </data>
+  <data name="QuestionsCount" xml:space="preserve">
+    <value>Саволлар сони</value>
   </data>
   <data name="RandomGUID" xml:space="preserve">
     <value>RandomGUID бу {0}</value>
@@ -159,14 +186,29 @@
   <data name="Resume" xml:space="preserve">
     <value>Резюме</value>
   </data>
+  <data name="ResumeCatalog" xml:space="preserve">
+    <value>Резюмелар каталоги</value>
+  </data>
   <data name="ru" xml:space="preserve">
     <value>Рус</value>
   </data>
-  <data name="SampleDocument" xml:space="preserve">
+  <data name="SampleDocuments" xml:space="preserve">
     <value>Наъмунавий хужжатлар</value>
   </data>
-  <data name="Vacancy" xml:space="preserve">
+  <data name="SampleDocumentsCount" xml:space="preserve">
+    <value>Намунавий хужжатлар сони</value>
+  </data>
+  <data name="SeeAll" xml:space="preserve">
+    <value>Барчасини очиш</value>
+  </data>
+  <data name="TopExperts" xml:space="preserve">
+    <value>ТОП экспертлар</value>
+  </data>
+  <data name="Vacancies" xml:space="preserve">
     <value>Вакансиялар</value>
+  </data>
+  <data name="VacanciesCatalog" xml:space="preserve">
+    <value>Вакансиялар каталоги</value>
   </data>
   <data name="Welcome" xml:space="preserve">
     <value>Хуш келибсиз</value>

@@ -70,20 +70,74 @@ namespace Expro.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Все эксперты.
+        /// </summary>
+        public static string AllExperts {
+            get {
+                return ResourceManager.GetString("AllExperts", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Статьи.
         /// </summary>
-        public static string Article {
+        public static string Articles {
             get {
-                return ResourceManager.GetString("Article", resourceCulture);
+                return ResourceManager.GetString("Articles", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Количество статей.
+        /// </summary>
+        public static string ArticlesCount {
+            get {
+                return ResourceManager.GetString("ArticlesCount", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Задать вопрос.
+        /// </summary>
+        public static string AskQuestion {
+            get {
+                return ResourceManager.GetString("AskQuestion", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &lt;a href=&apos;/Identity/Account/Login?returnUrl=/User/Question&apos;&gt;Войдите&lt;/a&gt; или &lt;a href=&apos;/Identity/Account/Register?returnUrl=/User/Question&apos;&gt;зарегистрируйтесь&lt;/a&gt;, чтобы задать вопрос.
+        /// </summary>
+        public static string AskQuestionPopover {
+            get {
+                return ResourceManager.GetString("AskQuestionPopover", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Компании.
         /// </summary>
-        public static string Company {
+        public static string Companies {
             get {
-                return ResourceManager.GetString("Company", resourceCulture);
+                return ResourceManager.GetString("Companies", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Каталог компаний.
+        /// </summary>
+        public static string CompaniesCatalog {
+            get {
+                return ResourceManager.GetString("CompaniesCatalog", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Только подтвержденные.
+        /// </summary>
+        public static string ConfirmedOnly {
+            get {
+                return ResourceManager.GetString("ConfirmedOnly", resourceCulture);
             }
         }
         
@@ -124,6 +178,15 @@ namespace Expro.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Количество экспертов.
+        /// </summary>
+        public static string ExpertsCount {
+            get {
+                return ResourceManager.GetString("ExpertsCount", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Узбекский.
         /// </summary>
         public static string fr {
@@ -144,27 +207,45 @@ namespace Expro.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Главная.
         /// </summary>
-        public static string Home {
+        public static string HomePage {
             get {
-                return ResourceManager.GetString("Home", resourceCulture);
+                return ResourceManager.GetString("HomePage", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Образцовые документы.
+        ///   Looks up a localized string similar to Практические документы.
         /// </summary>
-        public static string PracticeDocument {
+        public static string PracticeDocuments {
             get {
-                return ResourceManager.GetString("PracticeDocument", resourceCulture);
+                return ResourceManager.GetString("PracticeDocuments", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Вопросы.
         /// </summary>
-        public static string Question {
+        public static string Questions {
             get {
-                return ResourceManager.GetString("Question", resourceCulture);
+                return ResourceManager.GetString("Questions", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Есть вопросы?.
+        /// </summary>
+        public static string Questions_ {
+            get {
+                return ResourceManager.GetString("Questions?", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Количество вопросов.
+        /// </summary>
+        public static string QuestionsCount {
+            get {
+                return ResourceManager.GetString("QuestionsCount", resourceCulture);
             }
         }
         
@@ -187,6 +268,15 @@ namespace Expro.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Каталог резюме.
+        /// </summary>
+        public static string ResumeCatalog {
+            get {
+                return ResourceManager.GetString("ResumeCatalog", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Русский.
         /// </summary>
         public static string ru {
@@ -196,20 +286,56 @@ namespace Expro.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Практические документы.
+        ///   Looks up a localized string similar to Образцовые документы.
         /// </summary>
-        public static string SampleDocument {
+        public static string SampleDocuments {
             get {
-                return ResourceManager.GetString("SampleDocument", resourceCulture);
+                return ResourceManager.GetString("SampleDocuments", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Количество образцовых документов.
+        /// </summary>
+        public static string SampleDocumentsCount {
+            get {
+                return ResourceManager.GetString("SampleDocumentsCount", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Открыть все.
+        /// </summary>
+        public static string SeeAll {
+            get {
+                return ResourceManager.GetString("SeeAll", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ТОП эксперты.
+        /// </summary>
+        public static string TopExperts {
+            get {
+                return ResourceManager.GetString("TopExperts", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Вакансии.
         /// </summary>
-        public static string Vacancy {
+        public static string Vacancies {
             get {
-                return ResourceManager.GetString("Vacancy", resourceCulture);
+                return ResourceManager.GetString("Vacancies", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Каталог вакансий.
+        /// </summary>
+        public static string VacanciesCatalog {
+            get {
+                return ResourceManager.GetString("VacanciesCatalog", resourceCulture);
             }
         }
         

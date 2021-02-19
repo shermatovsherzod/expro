@@ -15,14 +15,13 @@ namespace Expro.Services
     public class SampleDocumentService : DocumentService, ISampleDocumentService
     {
         private readonly IEmailService _emailService;
-        //protected AppConfiguration AppConfiguration { get; set; }
 
         public SampleDocumentService(
             IDocumentRepository repository,
             IUnitOfWork unitOfWork,
             IEmailService emailService,
             IOptionsSnapshot<AppConfiguration> settings = null)
-            : base(repository, unitOfWork)
+            : base(repository, unitOfWork, settings)
         {
             _documentType = DocumentTypesEnum.SampleDocument;
             PointsForDocumentFree = Constants.PointsFor.DOCUMENT.SAMPLE.FREE;
@@ -33,8 +32,6 @@ namespace Expro.Services
             PointsForDocumentPaidLike = Constants.PointsFor.DOCUMENT.SAMPLE.PAID_LIKE;
 
             _emailService = emailService;
-            //if (settings != null)
-            //    AppConfiguration = settings.Value;
         }
 
         public async override void SubmitForApproval(Document entity, string userID)
@@ -74,14 +71,13 @@ namespace Expro.Services
     public class ArticleDocumentService : DocumentService, IArticleDocumentService
     {
         private readonly IEmailService _emailService;
-        protected AppConfiguration AppConfiguration { get; set; }
 
         public ArticleDocumentService(
             IDocumentRepository repository,
             IUnitOfWork unitOfWork,
             IEmailService emailService,
             IOptionsSnapshot<AppConfiguration> settings = null)
-            : base(repository, unitOfWork)
+            : base(repository, unitOfWork, settings)
         {
             _documentType = DocumentTypesEnum.ArticleDocument;
             PointsForDocumentFree = Constants.PointsFor.DOCUMENT.ARTICLE.FREE;
@@ -92,8 +88,7 @@ namespace Expro.Services
             PointsForDocumentPaidLike = Constants.PointsFor.DOCUMENT.ARTICLE.PAID_LIKE;
 
             _emailService = emailService;
-            if (settings != null)
-                AppConfiguration = settings.Value;
+
         }
 
         public async override void SubmitForApproval(Document entity, string userID)
@@ -133,14 +128,13 @@ namespace Expro.Services
     public class PracticeDocumentService : DocumentService, IPracticeDocumentService
     {
         private readonly IEmailService _emailService;
-        protected AppConfiguration AppConfiguration { get; set; }
 
         public PracticeDocumentService(
             IDocumentRepository repository,
             IUnitOfWork unitOfWork,
             IEmailService emailService,
             IOptionsSnapshot<AppConfiguration> settings = null)
-            : base(repository, unitOfWork)
+            : base(repository, unitOfWork, settings)
         {
             _documentType = DocumentTypesEnum.PracticeDocument;
             PointsForDocumentFree = Constants.PointsFor.DOCUMENT.PRACTICE.FREE;
@@ -151,8 +145,6 @@ namespace Expro.Services
             PointsForDocumentPaidLike = Constants.PointsFor.DOCUMENT.PRACTICE.PAID_LIKE;
 
             _emailService = emailService;
-            if (settings != null)
-                AppConfiguration = settings.Value;
         }
 
         public async override void SubmitForApproval(Document entity, string userID)
