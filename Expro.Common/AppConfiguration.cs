@@ -36,7 +36,7 @@ namespace Expro.Common
         /// dd.MM.yyyy HH:mm
         /// </summary>
         public string DateTimeViewStringFormat { get; set; }
-        
+
         public string DateTextViewStringFormat { get; set; }
         public string DateDbViewStringFormat { get; set; }
 
@@ -60,5 +60,15 @@ namespace Expro.Common
         public int DocumentRejectionDeadlinePeriodInMinutes { get; set; }
         public int QuestionRejectionDeadlinePeriodInMinutes { get; set; }
         public int QuestionCompletionDeadlinePeriodInMinutes { get; set; }
+
+        /// <summary>
+        /// From email
+        /// </summary>
+        public string ExproEmailAddress { get; set; }
+        public string ExproEmailPassword { get; set; }
+        public string ExproEmailSmtpClient { get; set; }
+        public int ExproEmailSmtpPort { get; set; }
+        public bool ExproEmailEnableSsl { get; set; }
+
     }
 }
