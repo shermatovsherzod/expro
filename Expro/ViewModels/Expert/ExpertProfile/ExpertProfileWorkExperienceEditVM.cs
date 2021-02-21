@@ -1,4 +1,5 @@
 ﻿using Expro.Models;
+using Expro.Resources;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -13,30 +14,30 @@ namespace Expro.ViewModels
         public int ID { get; set; }
 
         [Required]
-        [Display(Name = "Страна")]
+        [Display(Name = "lblCountry", ResourceType = typeof(ResourceTexts))]
         public int CountryID { get; set; }
 
         //[Required]
-        [Display(Name = "Город")]
+        [Display(Name = "lblCity", ResourceType = typeof(ResourceTexts))]
         [StringLength(256)]
         public string City { get; set; }
 
         [Required]
-        [Display(Name = "Место работы")]
+        [Display(Name = "lblPlaceOfWork", ResourceType = typeof(ResourceTexts))]
         [StringLength(256)]
         public string PlaceOfWork { get; set; }
 
         [Required]
-        [Display(Name = "Должность")]
+        [Display(Name = "lblPosition", ResourceType = typeof(ResourceTexts))]
         [StringLength(256)]
         public string Position { get; set; }
 
         [Required]
-        [Display(Name = "С")]
+        [Display(Name = "lblWorkPeriodFrom", ResourceType = typeof(ResourceTexts))]
         public string WorkPeriodFrom { get; set; }
 
         [Required]
-        [Display(Name = "По")]
+        [Display(Name = "lblWorkPeriodTo", ResourceType = typeof(ResourceTexts))]
         public string WorkPeriodTo { get; set; }
 
         public ExpertProfileWorkExperienceEditVM(WorkExperience model) 

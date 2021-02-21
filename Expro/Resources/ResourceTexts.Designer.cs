@@ -97,6 +97,15 @@ namespace Expro.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Добавить опыть работы.
+        /// </summary>
+        public static string AddWorkexperience {
+            get {
+                return ResourceManager.GetString("AddWorkexperience", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Все.
         /// </summary>
         public static string All {
@@ -457,6 +466,24 @@ namespace Expro.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Место работы.
+        /// </summary>
+        public static string lblPlaceOfWork {
+            get {
+                return ResourceManager.GetString("lblPlaceOfWork", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Должность.
+        /// </summary>
+        public static string lblPosition {
+            get {
+                return ResourceManager.GetString("lblPosition", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Регион.
         /// </summary>
         public static string lblRegion {
@@ -484,11 +511,38 @@ namespace Expro.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to С.
+        /// </summary>
+        public static string lblWorkPeriodFrom {
+            get {
+                return ResourceManager.GetString("lblWorkPeriodFrom", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to По.
+        /// </summary>
+        public static string lblWorkPeriodTo {
+            get {
+                return ResourceManager.GetString("lblWorkPeriodTo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Основная информация.
         /// </summary>
         public static string MainInfo {
             get {
                 return ResourceManager.GetString("MainInfo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Период.
+        /// </summary>
+        public static string PeriodOfWork {
+            get {
+                return ResourceManager.GetString("PeriodOfWork", resourceCulture);
             }
         }
         
@@ -678,6 +732,15 @@ namespace Expro.Resources {
         public static string Welcome {
             get {
                 return ResourceManager.GetString("Welcome", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Опыт работы.
+        /// </summary>
+        public static string Workexperience {
+            get {
+                return ResourceManager.GetString("Workexperience", resourceCulture);
             }
         }
     }
