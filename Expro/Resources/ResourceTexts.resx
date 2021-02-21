@@ -204,11 +204,17 @@
   <data name="lblCity" xml:space="preserve">
     <value>Город</value>
   </data>
+  <data name="lblCityOther" xml:space="preserve">
+    <value>Другой город</value>
+  </data>
   <data name="lblConfirmPassword" xml:space="preserve">
     <value>Подтверждение пароля</value>
   </data>
   <data name="lblCountry" xml:space="preserve">
     <value>Страна</value>
+  </data>
+  <data name="lblDateOfBirth" xml:space="preserve">
+    <value>Дата рождения</value>
   </data>
   <data name="lblFaculty" xml:space="preserve">
     <value>Факультет</value>
@@ -216,8 +222,14 @@
   <data name="lblFax" xml:space="preserve">
     <value>Факс</value>
   </data>
+  <data name="lblGender" xml:space="preserve">
+    <value>Пол</value>
+  </data>
   <data name="lblGraduationYear" xml:space="preserve">
     <value>Год окончания</value>
+  </data>
+  <data name="lblLawAreas" xml:space="preserve">
+    <value>Направление</value>
   </data>
   <data name="lblNewPassword" xml:space="preserve">
     <value>Новый пароль</value>
@@ -225,14 +237,23 @@
   <data name="lblPassword" xml:space="preserve">
     <value>Пароль</value>
   </data>
+  <data name="lblPatronymicName" xml:space="preserve">
+    <value>Отчество</value>
+  </data>
   <data name="lblPhoneNumber" xml:space="preserve">
     <value>Номер телефона</value>
+  </data>
+  <data name="lblRegion" xml:space="preserve">
+    <value>Регион</value>
   </data>
   <data name="lblUniversity" xml:space="preserve">
     <value>ВУЗ</value>
   </data>
   <data name="lblWebSite" xml:space="preserve">
     <value>Веб сайт</value>
+  </data>
+  <data name="MainInfo" xml:space="preserve">
+    <value>Основная информация</value>
   </data>
   <data name="PracticeDocuments" xml:space="preserve">
     <value>Практические документы</value>
@@ -269,6 +290,12 @@
   </data>
   <data name="SeeAll" xml:space="preserve">
     <value>Открыть все</value>
+  </data>
+  <data name="SelectCity" xml:space="preserve">
+    <value>Выбрать город</value>
+  </data>
+  <data name="SelectRegion" xml:space="preserve">
+    <value>Выбрать регион</value>
   </data>
   <data name="TopExperts" xml:space="preserve">
     <value>ТОП эксперты</value>

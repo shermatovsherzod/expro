@@ -322,6 +322,15 @@ namespace Expro.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Другой город.
+        /// </summary>
+        public static string lblCityOther {
+            get {
+                return ResourceManager.GetString("lblCityOther", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Подтверждение пароля.
         /// </summary>
         public static string lblConfirmPassword {
@@ -336,6 +345,15 @@ namespace Expro.Resources {
         public static string lblCountry {
             get {
                 return ResourceManager.GetString("lblCountry", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Дата рождения.
+        /// </summary>
+        public static string lblDateOfBirth {
+            get {
+                return ResourceManager.GetString("lblDateOfBirth", resourceCulture);
             }
         }
         
@@ -358,11 +376,29 @@ namespace Expro.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Пол.
+        /// </summary>
+        public static string lblGender {
+            get {
+                return ResourceManager.GetString("lblGender", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Год окончания.
         /// </summary>
         public static string lblGraduationYear {
             get {
                 return ResourceManager.GetString("lblGraduationYear", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Направление.
+        /// </summary>
+        public static string lblLawAreas {
+            get {
+                return ResourceManager.GetString("lblLawAreas", resourceCulture);
             }
         }
         
@@ -385,11 +421,29 @@ namespace Expro.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Отчество.
+        /// </summary>
+        public static string lblPatronymicName {
+            get {
+                return ResourceManager.GetString("lblPatronymicName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Номер телефона.
         /// </summary>
         public static string lblPhoneNumber {
             get {
                 return ResourceManager.GetString("lblPhoneNumber", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Регион.
+        /// </summary>
+        public static string lblRegion {
+            get {
+                return ResourceManager.GetString("lblRegion", resourceCulture);
             }
         }
         
@@ -408,6 +462,15 @@ namespace Expro.Resources {
         public static string lblWebSite {
             get {
                 return ResourceManager.GetString("lblWebSite", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Основная информация.
+        /// </summary>
+        public static string MainInfo {
+            get {
+                return ResourceManager.GetString("MainInfo", resourceCulture);
             }
         }
         
@@ -516,6 +579,24 @@ namespace Expro.Resources {
         public static string SeeAll {
             get {
                 return ResourceManager.GetString("SeeAll", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Выбрать город.
+        /// </summary>
+        public static string SelectCity {
+            get {
+                return ResourceManager.GetString("SelectCity", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Выбрать регион.
+        /// </summary>
+        public static string SelectRegion {
+            get {
+                return ResourceManager.GetString("SelectRegion", resourceCulture);
             }
         }
         

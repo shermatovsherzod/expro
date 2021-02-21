@@ -1,5 +1,6 @@
 ﻿using Expro.Common.Utilities;
 using Expro.Models;
+using Expro.Resources;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -10,29 +11,29 @@ namespace Expro.ViewModels
     {
         public ExpertProfileMainInfoEditVM() { }
 
-        [Display(Name = "Отчество")]
+        [Display(Name = "lblPatronymicName", ResourceType = typeof(ResourceTexts))]
         [StringLength(256)]
         public string PatronymicName { get; set; }
 
-        [Display(Name = "Регион")]
+        [Display(Name = "lblRegion", ResourceType = typeof(ResourceTexts))]
         public int? RegionID { get; set; }
 
-        [Display(Name = "Город")]
+        [Display(Name = "lblCity", ResourceType = typeof(ResourceTexts))]
         public int? CityID { get; set; }
 
-        [Display(Name = "Другой город")]
+        [Display(Name = "lblCityOther", ResourceType = typeof(ResourceTexts))]
         [StringLength(256)]
         public string CityOther { get; set; }
 
         [Required(ErrorMessage = "Поле Направление обязательно для заполнения")]
-        [Display(Name = "Направление")]
+        [Display(Name = "lblLawAreas", ResourceType = typeof(ResourceTexts))]
         public List<int> LawAreas { get; set; }
 
-        [Display(Name = "Дата рождения")]
+        [Display(Name = "lblDateOfBirth", ResourceType = typeof(ResourceTexts))]
         [Required(ErrorMessage = "Поле Дата рождения обязательно для заполнения")]
         public string DateOfBirth { get; set; }        
 
-        [Display(Name = "Пол")]
+        [Display(Name = "lblGender", ResourceType = typeof(ResourceTexts))]
         public int? GenderID { get; set; }
 
         public ExpertProfileMainInfoEditVM(ApplicationUser user)

@@ -204,11 +204,17 @@
   <data name="lblCity" xml:space="preserve">
     <value>Шаҳар</value>
   </data>
+  <data name="lblCityOther" xml:space="preserve">
+    <value>Бошқа шаҳар</value>
+  </data>
   <data name="lblConfirmPassword" xml:space="preserve">
     <value>Парольни тасдиқлаш</value>
   </data>
   <data name="lblCountry" xml:space="preserve">
     <value>Мамлакат</value>
+  </data>
+  <data name="lblDateOfBirth" xml:space="preserve">
+    <value>Туғилган санаси</value>
   </data>
   <data name="lblFaculty" xml:space="preserve">
     <value>Факультет</value>
@@ -216,8 +222,14 @@
   <data name="lblFax" xml:space="preserve">
     <value>Факс</value>
   </data>
+  <data name="lblGender" xml:space="preserve">
+    <value>Жинси</value>
+  </data>
   <data name="lblGraduationYear" xml:space="preserve">
     <value>Тугаллаш йили</value>
+  </data>
+  <data name="lblLawAreas" xml:space="preserve">
+    <value>Йўналиш</value>
   </data>
   <data name="lblNewPassword" xml:space="preserve">
     <value>Янги пароль</value>
@@ -225,14 +237,23 @@
   <data name="lblPassword" xml:space="preserve">
     <value>Пароль</value>
   </data>
+  <data name="lblPatronymicName" xml:space="preserve">
+    <value>Отаси исми</value>
+  </data>
   <data name="lblPhoneNumber" xml:space="preserve">
     <value>Телефон рақами</value>
+  </data>
+  <data name="lblRegion" xml:space="preserve">
+    <value>Минтақа</value>
   </data>
   <data name="lblUniversity" xml:space="preserve">
     <value>Университет</value>
   </data>
   <data name="lblWebSite" xml:space="preserve">
     <value>Веб сайт</value>
+  </data>
+  <data name="MainInfo" xml:space="preserve">
+    <value>Асосий маълумот</value>
   </data>
   <data name="PracticeDocuments" xml:space="preserve">
     <value>Амалиёт</value>
@@ -269,6 +290,12 @@
   </data>
   <data name="SeeAll" xml:space="preserve">
     <value>Барчасини очиш</value>
+  </data>
+  <data name="SelectCity" xml:space="preserve">
+    <value>Шаҳарни танлаш</value>
+  </data>
+  <data name="SelectRegion" xml:space="preserve">
+    <value>Минтақани танлаш</value>
   </data>
   <data name="TopExperts" xml:space="preserve">
     <value>ТОП экспертлар</value>
