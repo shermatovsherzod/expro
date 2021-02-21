@@ -2,6 +2,7 @@
 using Expro.Common.Utilities;
 using Expro.Models;
 using Expro.Models.Enums;
+using Expro.Resources;
 using Expro.Utils;
 using System;
 using System.Collections.Generic;
@@ -17,12 +18,12 @@ namespace Expro.ViewModels
         public string ID { get; set; }
 
         [Required]
-        [Display(Name = "Имя")]
+        [Display(Name = "lblFirstName", ResourceType = typeof(ResourceTexts))]
         [StringLength(256)]
         public string FirstName { get; set; }
 
         [Required]
-        [Display(Name = "Фамилия")]
+        [Display(Name = "lblLastName", ResourceType = typeof(ResourceTexts))]
         [StringLength(256)]
         public string LastName { get; set; }
         public string UserName { get; set; }

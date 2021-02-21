@@ -222,11 +222,17 @@
   <data name="lblFax" xml:space="preserve">
     <value>Факс</value>
   </data>
+  <data name="lblFirstName" xml:space="preserve">
+    <value>Исм</value>
+  </data>
   <data name="lblGender" xml:space="preserve">
     <value>Жинси</value>
   </data>
   <data name="lblGraduationYear" xml:space="preserve">
     <value>Тугаллаш йили</value>
+  </data>
+  <data name="lblLastName" xml:space="preserve">
+    <value>Фамилия</value>
   </data>
   <data name="lblLawAreas" xml:space="preserve">
     <value>Йўналиш</value>

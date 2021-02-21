@@ -21,7 +21,7 @@
             <label asp-for="@Model.FirstName" style="float:left;" class="input-label"></label>
         </div>
         <div class="col-sm-9">
-            <input type="text" asp-for="@Model.FirstName" class="form-control" />
+            <input type="text" asp-for="@Model.FirstName" class="form-control" placeholder="@localizer["lblFirstName"]" />
 
             <span asp-validation-for="@Model.FirstName"></span>
         </div>
@@ -34,7 +34,7 @@
         </div>
 
         <div class="col-sm-9">
-            <input type="text" asp-for="@Model.LastName" class="form-control" />
+            <input type="text" asp-for="@Model.LastName" class="form-control" placeholder="@localizer["lblLastName"]" />
             <span asp-validation-for="@Model.LastName"></span>
         </div>
     </div>
@@ -45,7 +45,7 @@
             <label asp-for="@Model.PatronymicName" style="float:left;" class="input-label"></label>
         </div>
         <div class="col-sm-9">
-            <input type="text" asp-for="@Model.PatronymicName" class="form-control" />
+            <input type="text" asp-for="@Model.PatronymicName" class="form-control" placeholder="@localizer["lblPatronymicName"]" />
             <span asp-validation-for="@Model.PatronymicName"></span>
         </div>
     </div>
@@ -86,8 +86,7 @@
             <label asp-for="@Model.CityOther" style="float:left;" class="input-label"></label>
         </div>
         <div class="col-sm-9">
-            <input class="form-control" asp-for="@Model.CityOther" placeholder="" aria-label="" required
-                   data-msg="Please fill field.">
+            <input class="form-control" asp-for="@Model.CityOther" placeholder="@localizer["lblCityOther"]" aria-label="" data-msg="Please fill field.">
             <span asp-validation-for="@Model.CityOther"></span>
         </div>
     </div>
@@ -113,7 +112,7 @@
             <label asp-for="@Model.DateOfBirth" style="float:left;" class="input-label"></label>
         </div>       
         <div class="col-sm-9">
-            <input type="text" asp-for="@Model.DateOfBirth" class="form-control" onkeydown="event.preventDefault()" />
+            <input type="text" asp-for="@Model.DateOfBirth" class="form-control" placeholder="@localizer["lblDateOfBirth"]" onkeydown="event.preventDefault()" />
             <span asp-validation-for="@Model.DateOfBirth"></span>
         </div>
     </div>

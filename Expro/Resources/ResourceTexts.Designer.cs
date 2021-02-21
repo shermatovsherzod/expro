@@ -376,6 +376,15 @@ namespace Expro.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Имя.
+        /// </summary>
+        public static string lblFirstName {
+            get {
+                return ResourceManager.GetString("lblFirstName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Пол.
         /// </summary>
         public static string lblGender {
@@ -390,6 +399,15 @@ namespace Expro.Resources {
         public static string lblGraduationYear {
             get {
                 return ResourceManager.GetString("lblGraduationYear", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Фамилия.
+        /// </summary>
+        public static string lblLastName {
+            get {
+                return ResourceManager.GetString("lblLastName", resourceCulture);
             }
         }
         
