@@ -26,7 +26,7 @@
                    data-hs-file-attach-options='{
                   "textTarget": "[for=\"attachment\"]"
                }'>
-            <label class="custom-file-label" for="attachment">Выберите файл</label>
+            <label class="custom-file-label" for="attachment">@localizer["SelectFile"]</label>
         </div>
     </div>
     @*<div class="form-group">
@@ -34,7 +34,7 @@
         <input type="file" id="attachment" class="form-control" />
     </div>*@
     <div class="form-group">
-        <button type="submit" class="btn btn-primary">Отправить</button>
+        <button type="submit" class="btn btn-primary">@localizer["Submit"]</button>
         <div class="spinner-border spinner" style="display: none;"></div>
     </div>
 </form>
@@ -201,7 +201,7 @@
                     //alert("File uploaded!");
                 },
                 error: function (data) {
-                    alert("Error!");
+                    alert("@localizer["Error"]!");
                     $("#addCommentForm .spinner").hide();
                 },
                 complete: function () {

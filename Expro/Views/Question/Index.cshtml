@@ -2,7 +2,7 @@
 @using Expro.ViewModels
 
 @{
-    ViewData["Title"] = "Вопросы";
+    ViewData["Title"] = localizer["Questions"];
     //ViewData["DocumentType"] = DocumentTypesEnum.QuestionDocument;
 }
 
@@ -21,7 +21,7 @@
                     data-toggle="collapse"
                     data-target="#sidebarNav">
                 <span class="d-flex justify-content-between align-items-center">
-                    <span class="h5 mb-0">View all filters</span>
+                    <span class="h5 mb-0">@localizer["ViewAllFilters"]</span>
                     <span class="navbar-toggler-default">
                         <svg width="14" height="14" viewBox="0 0 18 18" xmlns="http://www.w3.org/2000/svg">
                             <path fill="currentColor" d="M17.4,6.2H0.6C0.3,6.2,0,5.9,0,5.5V4.1c0-0.4,0.3-0.7,0.6-0.7h16.9c0.3,0,0.6,0.3,0.6,0.7v1.4C18,5.9,17.7,6.2,17.4,6.2z M17.4,14.1H0.6c-0.3,0-0.6-0.3-0.6-0.7V12c0-0.4,0.3-0.7,0.6-0.7h16.9c0.3,0,0.6,0.3,0.6,0.7v1.4C18,13.7,17.7,14.1,17.4,14.1z" />
@@ -41,7 +41,7 @@
                     <form>
                         <!-- Filter Group -->
                         <div class="mb-5">
-                            <h6 class="small text-cap">Фильтр по цене</h6>
+                            <h6 class="small text-cap">@localizer["FilterByPrice"]</h6>
 
                             <!-- Select -->
                             <div id="priceTypeDDBox" class="select2-custom select2-custom-sm-right">
@@ -52,9 +52,9 @@
 						"customClass": "custom-select custom-select-sm",
 						"dropdownAutoWidth": true
 					  }'>
-                                    <option value="">Все</option>
-                                    <option value="@DocumentPriceTypesEnum.Free">Бесплатные</option>
-                                    <option value="@DocumentPriceTypesEnum.Paid">Платные</option>
+                                    <option value="">@localizer["All"]</option>
+                                    <option value="@DocumentPriceTypesEnum.Free">@localizer["Usuals"]</option>
+                                    <option value="@DocumentPriceTypesEnum.Paid">@localizer["WithFee"]</option>
                                 </select>
                             </div>
                             <!-- End Select -->
@@ -62,7 +62,7 @@
                         <!-- End Filter Group -->
                         <!-- Filter Group -->
                         <div class="mb-5">
-                            <h6 class="small text-cap">Фильтр по направлению</h6>
+                            <h6 class="small text-cap">@localizer["FilterByLawArea"]</h6>
 
                             @{
                                 var items = ViewData["lawAreas"] as List<SelectListItemWithParent>;
@@ -203,7 +203,7 @@
                                 html += '                       <div class="d-none d-sm-inline-block">';
                                 html += '                           <h6 class="mb-0">';
                                 //html += '                               <a class="text-dark" href="employer.html">Question text...</a>';
-                                html += '                               <i class="fa fa-file" aria-hidden="true"></i> <p>Есть вложенный файл</p>';
+                                html += '                               <i class="fa fa-file" aria-hidden="true"></i> <p>' + '@localizer["FileIsAttached"]' + '</p>';
                                 html += '                           </h6>';
                                 html += '                       </div>';
                             }
@@ -215,7 +215,7 @@
                             html += '                   </div>';
                             html += '                   <div class="col-12 col-md mt-3 mt-md-2">';
                             if (full.priceType == '@((int)DocumentPriceTypesEnum.Paid)')
-                                html += '                   <span class="badge badge-soft-info">Вознаграждение: ' + full.priceStr + ' сум</span>';
+                                html += '                   <span class="badge badge-soft-info">' + '@localizer["Fee"]' + ': ' + full.priceStr + ' ' + '@localizer["soum"]' + '</span>';
                             html += InsertCompletenessStatus(full);
                             html += '                   </div>';
                             html += '               </div>';
@@ -224,8 +224,8 @@
                             html += '   </div>';
                             html += '   <div class="card-footer">';
                             html += '       <ul class="list-inline list-separator small text-body">';
-                            html += '           <li class="list-inline-item">Автор: ' + full.author.fullName + '</li>';
-                            html += '           <li class="list-inline-item">Дата публикации: ' + full.datePublished + '</li>';
+                            html += '           <li class="list-inline-item">' + '@localizer["Author"]' + ': ' + full.author.fullName + '</li>';
+                            html += '           <li class="list-inline-item">' + '@localizer["DatePublished"]' + ': ' + full.datePublished + '</li>';
                             html += '       </ul>';
                             html += '   </div>';
                             html += '</div>';
@@ -259,11 +259,11 @@
             if (full.isCompleted) {
                 if (full.feeIsDistributed) {
                     badgeClass = "-success";
-                    text = "Вопрос решен";
+                    text = "@localizer["QuestionSolved"]";
                 }
                 else {
                     badgeClass = "-warning";
-                    text = "Вопрос закрыт";
+                    text = "@localizer["QuestionClosed"]";
                 }
 
                 html += '<div class="mt-2 alert alert-soft' + badgeClass + ' text-center rounded-0 mb-0" role="alert">';

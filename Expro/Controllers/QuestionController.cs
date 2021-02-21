@@ -11,6 +11,7 @@ using Expro.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Localization;
 
 namespace Expro.Controllers
 {
@@ -37,7 +38,8 @@ namespace Expro.Controllers
             IQuestionAnswerService questionAnswerService,
             IHangfireService hangfireService,
             IUserService userService,
-            IUserRatingService userRatingService)
+            IUserRatingService userRatingService,
+            IStringLocalizer<Resources.ResourceTexts> localizer)
         {
             QuestionService = questionService;
             QuestionAnswerService = questionAnswerService;
@@ -114,7 +116,7 @@ namespace Expro.Controllers
 
             var question = QuestionService.GetApprovedWithAnswersAndCommentsByID(id);
             if (question == null)
-                throw new Exception("Вопрос не найден");
+                throw new Exception(_localizer["QuestionNotFound"]);
 
             if (string.IsNullOrWhiteSpace(successMessage))
                 QuestionCounterService.IncrementNumberOfViews(question);
@@ -137,7 +139,7 @@ namespace Expro.Controllers
 
                     var appUser = _userService.GetByID(curUser.ID);
                     if (appUser == null)
-                        throw new Exception("Пользователь не найден");
+                        throw new Exception(_localizer["UserNotFound"]);
 
                     if (!QuestionService.IsFree(question))
                     {
@@ -178,16 +180,16 @@ namespace Expro.Controllers
                     var curUser = accountUtil.GetCurrentUser(User);
                     var question = QuestionService.GetApprovedByID(answerCreateVM.QuestionID);
                     if (question == null)
-                        throw new Exception("Вопрос не найден");
+                        throw new Exception(_localizer["QuestionNotFound"]);
 
                     if (QuestionService.IsCompleted(question))
-                        throw new Exception("Вопрос уже завершен");
+                        throw new Exception(_localizer["QuestionClosed"]);
 
                     QuestionAnswer answer = answerCreateVM.ToModel();
                     
                     var curUserFromDB = _userService.GetByID(curUser.ID);
                     if (curUserFromDB == null)
-                        throw new Exception("Пользователь не найден");
+                        throw new Exception(_localizer["UserNotFound"]);
 
                     int points = Constants.PointsFor.QUESTION_ANSWER;
                     _userRatingService.AddPointsToUser(points, curUserFromDB);
@@ -215,32 +217,32 @@ namespace Expro.Controllers
             {
                 var question = QuestionService.GetByID(distributedAnswers.QuestionID);
                 if (question == null)
-                    throw new Exception("Вопрос не найден");
+                    throw new Exception(_localizer["QuestionNotFound"]);
 
                 if (QuestionService.IsCompleted(question))
-                    throw new Exception("Вопрос уже завершен");
+                    throw new Exception(_localizer["QuestionClosed"]);
 
                 if (QuestionService.IsFree(question))
-                    throw new Exception("Вопрос не имеет гонорара");
+                    throw new Exception(_localizer["QuestionHasNoFee"]);
 
                 if (distributedAnswers == null 
                     || distributedAnswers.Answers == null
                     || distributedAnswers.Answers.Count == 0)
                 {
-                    throw new Exception("Выберите хотя бы один ответ");
+                    throw new Exception(_localizer["SelectAtLeastOneAnswer"]);
                 }
 
                 var percentages = distributedAnswers.Answers
                     .Select(m => m.Percentage)
                     .ToList();
                 if (!QuestionAnswerService.DistributionIsCorrect(percentages))
-                    throw new Exception("Суммарно должно быть 100%");
+                    throw new Exception(_localizer["ItMustBe100PercentInTotal"]);
 
                 foreach (var item in distributedAnswers.Answers)
                 {
                     var answer = QuestionAnswerService.GetByID(item.AnswerID);
                     if (answer == null)
-                        throw new Exception("Что-то не то с выбранными ответами");
+                        throw new Exception(_localizer["SomethingIsWrongWithSelectedAnswers"]);
 
                     answer.PaidFee = QuestionAnswerService.CalculatePaidFee(question.Price.Value, item.Percentage);
 
@@ -251,7 +253,7 @@ namespace Expro.Controllers
                 QuestionService.CompleteWithDistribution(question, curUser.ID);
                 HangfireService.CancelJob(question.QuestionCompletionJobID);
 
-                return Ok(new { successMessage = "Вознаграждение успешно распределено" });
+                return Ok(new { successMessage = _localizer["FeeIsSuccessfullyDistributed"] });
             }
             catch (Exception ex)
             {
@@ -268,13 +270,13 @@ namespace Expro.Controllers
             {
                 var question = QuestionService.GetByID(id);
                 if (question == null)
-                    throw new Exception("Вопрос не найден");
+                    throw new Exception(_localizer["QuestionNotFound"]);
 
                 if (QuestionService.IsCompleted(question))
-                    throw new Exception("Вопрос уже завершен");
+                    throw new Exception(_localizer["QuestionClosed"]);
 
                 if (QuestionService.IsFree(question))
-                    throw new Exception("Вопрос не имеет гонорара");
+                    throw new Exception(_localizer["QuestionHasNoFee"]);
 
                 UserBalanceService.ReplenishBalance(question.Creator, question.Price.Value);
 
@@ -282,7 +284,7 @@ namespace Expro.Controllers
                 QuestionService.Complete(question, curUser.ID);
                 HangfireService.CancelJob(question.QuestionCompletionJobID);
 
-                return Ok(new { successMessage = "Гонорар успешно распределен" });
+                return Ok(new { successMessage = _localizer["FeeIsSuccessfullyDistributed"] });
             }
             catch (Exception ex)
             {

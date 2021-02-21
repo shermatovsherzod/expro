@@ -4,7 +4,7 @@
 @using Expro.Common
 
 @{
-    ViewData["Title"] = "Вопрос - детали";
+    ViewData["Title"] = localizer["QuestionDetails"];
     //ViewData["DocumentType"] = DocumentTypesEnum.QuestionDocument;
     bool? curUserIsAllowedToAnswer = ViewData["curUserIsAllowedToAnswer"] as bool?;
     bool? curUserIsAllowedToComment = ViewData["curUserIsAllowedToComment"] as bool?;
@@ -37,14 +37,14 @@
                         <span class="d-block text-muted">@Model.DatePublished</span>
                         @if (Model.PriceType == DocumentPriceTypesEnum.Paid)
                         {
-                            <span class="badge badge-soft-info">Вознаграждение: @Model.PriceStr сум</span>
+                            <span class="badge badge-soft-info">@localizer["Fee"]: @Model.PriceStr @localizer["soum"]</span>
                         }
                     </div>
                 </div>
             </div>
             <div class="col-md-5">
                 <div class="d-flex justify-content-md-end align-items-center">
-                    <span class="d-block small font-weight-bold text-cap mr-2">Поделиться:</span>
+                    <span class="d-block small font-weight-bold text-cap mr-2">@localizer["Share"]:</span>
                     @{
                         var curPageFullUrl = Context.Request.Scheme + "://" + Context.Request.Host.Value + Context.Request.Path;
                         string telegramShareUrl = "https://t.me/share/url?url=" + curPageFullUrl + "&text=" + Model.Title;
@@ -99,13 +99,13 @@
             if (Model.FeeIsDistributed)
             {
                 <div class="alert alert-soft-success text-center rounded-0 mb-0" role="alert">
-                    Вопрос решен
+                    @localizer["QuestionSolved"]
                 </div>
             }
             else
             {
                 <div class="alert alert-soft-warning text-center rounded-0 mb-0" role="alert">
-                    Вопрос закрыт
+                    @localizer["QuestionClosed"]
                 </div>
             }
         }
@@ -116,14 +116,14 @@
                 if (curUserIsAllowedToDistributeFee.Value)
                 {
                     <div class="col-12" style="margin-bottom: 20px; margin-top: 20px;">
-                        <button class="btn btn-info" data-toggle="modal" data-target="#moneyDistributionModal">Распределить гонорар</button>
+                        <button class="btn btn-info" data-toggle="modal" data-target="#moneyDistributionModal">@localizer["DistributeFee"]</button>
                     </div>
                 }
 
                 if (curUserIsAllowedToComplete.Value)
                 {
                     <div class="col-12" style="margin-bottom: 20px; margin-top: 20px;">
-                        <button class="btn btn-danger" id="closeQuestionBtn" onclick="CloseQuestion();">Закрыть вопрос</button>
+                        <button class="btn btn-danger" id="closeQuestionBtn" onclick="CloseQuestion();">@localizer["CloseQuestion"]</button>
                         <div class="spinner-border spinner" style="display: none;"></div>
                     </div>
                 }
@@ -132,7 +132,7 @@
             if (curUserIsAllowedToAnswer.Value)
             {
                 <div class="col-12" style="margin-bottom: 20px; margin-top: 20px;">
-                    <button class="btn btn-success" data-toggle="collapse" data-target="#addAnswerContainer">Написать ответ</button>
+                    <button class="btn btn-success" data-toggle="collapse" data-target="#addAnswerContainer">@localizer["WriteAnswer"]</button>
                 </div>
             }
         }
@@ -142,7 +142,7 @@
         @if (Model.Answers.Count > 0)
         {
             <div class="mb-4">
-                <h3>Ответы (@Model.Answers.Count)</h3>
+                <h3>@localizer["Answers"] (@Model.Answers.Count)</h3>
             </div>
 
             <ul class="list-unstyled">
@@ -153,7 +153,7 @@
                 {
                     <li class="mb-5">
                         <hr />
-                        <h4>Ответ № @i</h4>
+                        <h4>@localizer["AnswerN"] @i</h4>
                     </li>
 
                     i++;
@@ -176,7 +176,7 @@
                                                 @answer.Author.FullName
                                                 @if (!string.IsNullOrWhiteSpace(answer.PaidFeeStr))
                                                 {
-                                                    <span class="badge badge-success">Получено вознаграждение: @answer.PaidFeeStr сум</span>
+                                                    <span class="badge badge-success">@localizer["FeePaid"]: @answer.PaidFeeStr @localizer["soum"]</span>
                                                 }
                                             </span>
                                             <small class="text-muted">@answer.DatePublished</small>
@@ -234,14 +234,14 @@
                                 else
                                 {
                                     <div>
-                                        <span><a href="javascript:void(0)" class="text-muted" data-toggle="popover" data-trigger="focus" @*title="Popover Header"*@ data-html="true" data-content="<a href='/Identity/Account/Login?returnUrl=@ViewData["curPageUrl"]'>Войдите</a>, чтобы лайкнуть"><i class="fa fa-thumbs-up"></i> @answer.PositiveLikesCount</a></span>
-                                        <span class="ml-4"><a href="javascript:void(0)" class="text-muted" data-toggle="popover" data-trigger="focus" @*title="Popover Header"*@ data-html="true" data-content="<a href='/Identity/Account/Login?returnUrl=@ViewData["curPageUrl"]'>Войдите</a>, чтобы дислайкнуть"><i class="fa fa-thumbs-down"></i> @answer.NegativeLikesCount</a></span>
+                                        <span><a href="javascript:void(0)" class="text-muted" data-toggle="popover" data-trigger="focus" @*title="Popover Header"*@ data-html="true" data-content="@localizer["UnauthorizedLikePopover", ViewData["curPageUrl"]]"><i class="fa fa-thumbs-up"></i> @answer.PositiveLikesCount</a></span>
+                                        <span class="ml-4"><a href="javascript:void(0)" class="text-muted" data-toggle="popover" data-trigger="focus" @*title="Popover Header"*@ data-html="true" data-content="@localizer["UnauthorizedDislikePopover", ViewData["curPageUrl"]]"><i class="fa fa-thumbs-down"></i> @answer.NegativeLikesCount</a></span>
                                     </div>
                                 }
 
                                 @if (curUserIsAllowedToComment.Value && !Model.IsCompleted)
                                 {
-                                    <p><button class="btn btn-link font-weight-bold" data-toggle="collapse" data-target="#addCommentContainer" onclick="SetCommentObjectID(@answer.ID);">Комментировать</button></p>
+                                    <p><button class="btn btn-link font-weight-bold" data-toggle="collapse" data-target="#addCommentContainer" onclick="SetCommentObjectID(@answer.ID);">@localizer["DoComment"]</button></p>
                                 }
                             </div>
                         </div>
@@ -254,7 +254,7 @@
                     if (answer.Comments.Count > 0)
                     {
                         <li class="mb-5">
-                            <h5>Комментарии (@answer.Comments.Count)</h5>
+                            <h5>@localizer["Comments"] (@answer.Comments.Count)</h5>
                         </li>
                     }
 
@@ -318,7 +318,7 @@
 
                                 @if (curUserIsAllowedToComment.Value && !Model.IsCompleted)
                                 {
-                                    <p><button class="btn btn-link font-weight-bold" data-toggle="collapse" data-target="#addCommentContainer" onclick="SetCommentObjectID(@answer.ID, @currentComment.ID);">Комментировать</button></p>
+                                    <p><button class="btn btn-link font-weight-bold" data-toggle="collapse" data-target="#addCommentContainer" onclick="SetCommentObjectID(@answer.ID, @currentComment.ID);">@localizer["DoComment"]</button></p>
                                 }
                             </div>
                         </li>
@@ -339,7 +339,7 @@
         else
         {
             <div class="mb-4">
-                <h3>Ответов нет</h3>
+                <h3>@localizer["NoAnswers"]</h3>
             </div>
         }
     </div>
@@ -351,14 +351,14 @@
     {
         <div id="addAnswerContainer" class="collapse">
             @if (ViewData["userIsAllowedToWorkWithPaidMaterials"] == null
-           || bool.Parse(ViewData["userIsAllowedToWorkWithPaidMaterials"].ToString()))
+                || bool.Parse(ViewData["userIsAllowedToWorkWithPaidMaterials"].ToString()))
             {
                 await Html.RenderPartialAsync("_AnswerCreateFormPartial", new Expro.ViewModels.QuestionAnswerCreateVM());
             }
             else
             {
                 <div class="lert alert-soft-danger text-center rounded-0 mb-0">
-                    Пулли саволга жавоб ёзиш учун 100 рейтинг тўпланг ва маълумотингизни (диплом) тасдиқланг. Батафсил маълумот учун <a href="#">Пулли хизмат кўрсатиш шартларини ўқинг</a>
+                    @localizer["WarningNotEnoughPointToGiveAnswerForQuestionWithFee"]
                 </div>
             }
         </div>
@@ -379,7 +379,7 @@
 }
 
 <div>
-    <a asp-action="Index">Назад</a>
+    <a asp-action="Index">@localizer["Back"]</a>
 </div>
 
 @section CustomFrontStyles
@@ -495,7 +495,7 @@
         }
 
         function CloseQuestion() {
-            if (!confirm("Вы уверены, что хотите закрыть вопрос, не распределив гонорар?"))
+            if (!confirm("@localizer["AreYouSureToCloseQuestionWithoutFeeDistribution"]"))
                 return;
 
             $.ajax({

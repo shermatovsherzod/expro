@@ -123,6 +123,18 @@
   <data name="AllExperts" xml:space="preserve">
     <value>Все эксперты</value>
   </data>
+  <data name="AnswerN" xml:space="preserve">
+    <value>Ответ №</value>
+  </data>
+  <data name="Answers" xml:space="preserve">
+    <value>Ответы</value>
+  </data>
+  <data name="AnswerText" xml:space="preserve">
+    <value>Текст ответа</value>
+  </data>
+  <data name="AreYouSureToCloseQuestionWithoutFeeDistribution" xml:space="preserve">
+    <value>Вы уверены, что хотите закрыть вопрос, не распределив гонорар?</value>
+  </data>
   <data name="Articles" xml:space="preserve">
     <value>Статьи</value>
   </data>
@@ -135,6 +147,24 @@
   <data name="AskQuestionPopover" xml:space="preserve">
     <value>&lt;a href='/Identity/Account/Login?returnUrl=/User/Question'&gt;Войдите&lt;/a&gt; или &lt;a href='/Identity/Account/Register?returnUrl=/User/Question'&gt;зарегистрируйтесь&lt;/a&gt;, чтобы задать вопрос</value>
   </data>
+  <data name="Author" xml:space="preserve">
+    <value>Автор</value>
+  </data>
+  <data name="Back" xml:space="preserve">
+    <value>Назад</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>Отмена</value>
+  </data>
+  <data name="CloseQuestion" xml:space="preserve">
+    <value>Закрыть вопрос</value>
+  </data>
+  <data name="Comments" xml:space="preserve">
+    <value>Комментарии</value>
+  </data>
+  <data name="CommentText" xml:space="preserve">
+    <value>Текст комментария</value>
+  </data>
   <data name="Companies" xml:space="preserve">
     <value>Компании</value>
   </data>
@@ -144,20 +174,53 @@
   <data name="ConfirmedOnly" xml:space="preserve">
     <value>Только подтвержденные</value>
   </data>
+  <data name="DatePublished" xml:space="preserve">
+    <value>Дата публикации</value>
+  </data>
+  <data name="DistributeFee" xml:space="preserve">
+    <value>Распределить гонорар</value>
+  </data>
+  <data name="DoComment" xml:space="preserve">
+    <value>Комментировать</value>
+  </data>
   <data name="Email" xml:space="preserve">
     <value>Почта</value>
   </data>
   <data name="Enter" xml:space="preserve">
     <value>Вход</value>
   </data>
+  <data name="Error" xml:space="preserve">
+    <value>Ошибка</value>
+  </data>
   <data name="ErrorRequiredField" xml:space="preserve">
     <value>Обязательное поле</value>
+  </data>
+  <data name="Expert" xml:space="preserve">
+    <value>Эксперт</value>
   </data>
   <data name="Experts" xml:space="preserve">
     <value>Эксперты</value>
   </data>
   <data name="ExpertsCount" xml:space="preserve">
     <value>Количество экспертов</value>
+  </data>
+  <data name="Fee" xml:space="preserve">
+    <value>Вознаграждение</value>
+  </data>
+  <data name="FeeIsSuccessfullyDistributed" xml:space="preserve">
+    <value>Вознаграждение успешно распределено</value>
+  </data>
+  <data name="FeePaid" xml:space="preserve">
+    <value>Получено вознаграждение</value>
+  </data>
+  <data name="FileIsAttached" xml:space="preserve">
+    <value>Есть вложенный файл</value>
+  </data>
+  <data name="FilterByLawArea" xml:space="preserve">
+    <value>Фильтр по направлению</value>
+  </data>
+  <data name="FilterByPrice" xml:space="preserve">
+    <value>Фильтр по цене</value>
   </data>
   <data name="fr" xml:space="preserve">
     <value>Узбекский</value>
@@ -168,8 +231,26 @@
   <data name="HomePage" xml:space="preserve">
     <value>Главная</value>
   </data>
+  <data name="ItMustBe100PercentInTotal" xml:space="preserve">
+    <value>Суммарно должно быть 100%</value>
+  </data>
+  <data name="NoAnswers" xml:space="preserve">
+    <value>Ответов нет</value>
+  </data>
   <data name="PracticeDocuments" xml:space="preserve">
     <value>Практические документы</value>
+  </data>
+  <data name="QuestionClosed" xml:space="preserve">
+    <value>Вопрос закрыт</value>
+  </data>
+  <data name="QuestionDetails" xml:space="preserve">
+    <value>Вопрос - детали</value>
+  </data>
+  <data name="QuestionHasNoFee" xml:space="preserve">
+    <value>Вопрос не имеет вознаграждение</value>
+  </data>
+  <data name="QuestionNotFound" xml:space="preserve">
+    <value>Вопрос не найден</value>
   </data>
   <data name="Questions" xml:space="preserve">
     <value>Вопросы</value>
@@ -179,6 +260,9 @@
   </data>
   <data name="QuestionsCount" xml:space="preserve">
     <value>Количество вопросов</value>
+  </data>
+  <data name="QuestionSolved" xml:space="preserve">
+    <value>Вопрос решен</value>
   </data>
   <data name="RandomGUID" xml:space="preserve">
     <value>RandomGUID это {0}</value>
@@ -201,8 +285,38 @@
   <data name="SeeAll" xml:space="preserve">
     <value>Открыть все</value>
   </data>
+  <data name="SelectAtLeastOneAnswer" xml:space="preserve">
+    <value>Выберите хотя бы один ответ</value>
+  </data>
+  <data name="SelectFile" xml:space="preserve">
+    <value>Выберите файл</value>
+  </data>
+  <data name="Share" xml:space="preserve">
+    <value>Поделиться</value>
+  </data>
+  <data name="SomethingIsWrongWithSelectedAnswers" xml:space="preserve">
+    <value>Что-то не так с выбранными ответами</value>
+  </data>
+  <data name="soum" xml:space="preserve">
+    <value>сум</value>
+  </data>
+  <data name="Submit" xml:space="preserve">
+    <value>Отправить</value>
+  </data>
   <data name="TopExperts" xml:space="preserve">
     <value>ТОП эксперты</value>
+  </data>
+  <data name="UnauthorizedDislikePopover" xml:space="preserve">
+    <value>&lt;a href='/Identity/Account/Login?returnUrl={0}'&gt;Войдите&lt;/a&gt;, чтобы дислайкнуть</value>
+  </data>
+  <data name="UnauthorizedLikePopover" xml:space="preserve">
+    <value>&lt;a href='/Identity/Account/Login?returnUrl={0}'&gt;Войдите&lt;/a&gt;, чтобы лайкнуть</value>
+  </data>
+  <data name="UserNotFound" xml:space="preserve">
+    <value>Пользователь не найден</value>
+  </data>
+  <data name="Usuals" xml:space="preserve">
+    <value>Обычные</value>
   </data>
   <data name="Vacancies" xml:space="preserve">
     <value>Вакансии</value>
@@ -210,7 +324,19 @@
   <data name="VacanciesCatalog" xml:space="preserve">
     <value>Каталог вакансий</value>
   </data>
+  <data name="ViewAllFilters" xml:space="preserve">
+    <value>Показать все фильтры</value>
+  </data>
+  <data name="WarningNotEnoughPointToGiveAnswerForQuestionWithFee" xml:space="preserve">
+    <value>Чтобы ответить на вопрос с вознаграждением, требуется набрать 100 баллов и подтвердить образование (диплом). Подробнее читайте &lt;a href="#"&gt;условия оказания платных услуг&lt;/a&gt;</value>
+  </data>
   <data name="Welcome" xml:space="preserve">
     <value>Добро пожаловать</value>
+  </data>
+  <data name="WithFee" xml:space="preserve">
+    <value>С вознаграждением</value>
+  </data>
+  <data name="WriteAnswer" xml:space="preserve">
+    <value>Написать ответ</value>
   </data>
 </root>

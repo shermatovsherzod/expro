@@ -13,8 +13,8 @@ namespace Expro.ViewModels
     {
         public int QuestionID { get; set; }
 
-        [Required]
-        [Display(Name = "Текст ответа")]
+        [Required(ErrorMessageResourceType = typeof(Resources.ResourceTexts), ErrorMessageResourceName = "ErrorRequiredField")]
+        [Display(Name = "AnswerText", ResourceType = typeof(Resources.ResourceTexts))]
         public string Text { get; set; }
 
         public QuestionAnswer ToModel()

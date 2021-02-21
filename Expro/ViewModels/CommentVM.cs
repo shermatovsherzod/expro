@@ -13,8 +13,8 @@ namespace Expro.ViewModels
         public int? ObjectID { get; set; }
         public int? ParentID { get; set; }
 
-        [Required]
-        [Display(Name = "Текст комментария")]
+        [Required(ErrorMessageResourceType = typeof(Resources.ResourceTexts), ErrorMessageResourceName = "ErrorRequiredField")]
+        [Display(Name = "CommentText", ResourceType = typeof(Resources.ResourceTexts))]
         public string Text { get; set; }
 
         public string CommentType { get; set; }

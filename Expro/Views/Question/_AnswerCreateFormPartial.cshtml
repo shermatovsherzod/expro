@@ -37,12 +37,12 @@
                    data-hs-file-attach-options='{
                   "textTarget": "[for=\"addAnswerFormAttachment\"]"
                }'>
-            <label class="custom-file-label" for="addAnswerFormAttachment">Выберите файл</label>
+            <label class="custom-file-label" for="addAnswerFormAttachment">@localizer["SelectFile"]</label>
         </div>
         @*<input type="file" id="addAnswerFormAttachment" class="form-control" />*@
     </div>
     <div class="form-group">
-        <button type="submit" class="btn btn-primary">Отправить</button>
+        <button type="submit" class="btn btn-primary">@localizer["Submit"]</button>
         <div class="spinner-border spinner" style="display: none;"></div>
     </div>
 </form>
@@ -72,7 +72,7 @@
     }
 
     function ShowAnswerFormSpinner() {
-        
+
     }
 
     function DisableAnswerFormElements() {
@@ -82,13 +82,13 @@
     }
 
     function AnswerPostFailure(data) {
-        alert("Ошибка: " + data.responseJSON.errorMessage);
+        alert("@localizer["Error"]: " + data.responseJSON.errorMessage);
         //console.log(data);
         $("#addAnswerForm .spinner").hide();
     }
 
     function AnswerPostSuccess(data) {
-        alert("success");
+        //alert("success");
         console.log(data);
         answerID = data.id;
         //alert("success");
@@ -200,7 +200,7 @@
                     //alert("File uploaded!");
                 },
                 error: function (data) {
-                    alert("Error!");
+                    alert("@localizer["Error"]!");
                     $("#addAnswerForm .spinner").hide();
                 },
                 complete: function () {

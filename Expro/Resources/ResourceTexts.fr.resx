@@ -123,6 +123,18 @@
   <data name="AllExperts" xml:space="preserve">
     <value>Барча экспертлар</value>
   </data>
+  <data name="AnswerN" xml:space="preserve">
+    <value>Жавоб №</value>
+  </data>
+  <data name="Answers" xml:space="preserve">
+    <value>Жавоблар</value>
+  </data>
+  <data name="AnswerText" xml:space="preserve">
+    <value>Жавоб матни</value>
+  </data>
+  <data name="AreYouSureToCloseQuestionWithoutFeeDistribution" xml:space="preserve">
+    <value>Мукофотни тақсимламасдан саволни ёпишга ишончингиз комилми?</value>
+  </data>
   <data name="Articles" xml:space="preserve">
     <value>Мақолалар</value>
   </data>
@@ -135,6 +147,24 @@
   <data name="AskQuestionPopover" xml:space="preserve">
     <value>Савол бериш учун &lt;a href='/Identity/Account/Login?returnUrl=/User/Question'&gt;сайтга киринг&lt;/a&gt; ёки &lt;a href='/Identity/Account/Register?returnUrl=/User/Question'&gt;руйхатдан утинг&lt;/a&gt;</value>
   </data>
+  <data name="Author" xml:space="preserve">
+    <value>Муаллиф</value>
+  </data>
+  <data name="Back" xml:space="preserve">
+    <value>Ортга</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>Бекор қилиш</value>
+  </data>
+  <data name="CloseQuestion" xml:space="preserve">
+    <value>Саволни ёпиш</value>
+  </data>
+  <data name="Comments" xml:space="preserve">
+    <value>Комментлар</value>
+  </data>
+  <data name="CommentText" xml:space="preserve">
+    <value>Коммент матни</value>
+  </data>
   <data name="Companies" xml:space="preserve">
     <value>Компаниялар</value>
   </data>
@@ -144,20 +174,53 @@
   <data name="ConfirmedOnly" xml:space="preserve">
     <value>Факат тасдикланган</value>
   </data>
+  <data name="DatePublished" xml:space="preserve">
+    <value>Чоп этилган сана</value>
+  </data>
+  <data name="DistributeFee" xml:space="preserve">
+    <value>Мукофотни булиш</value>
+  </data>
+  <data name="DoComment" xml:space="preserve">
+    <value>Коммент қолдириш</value>
+  </data>
   <data name="Email" xml:space="preserve">
-    <value>Yashik</value>
+    <value>Яшик</value>
   </data>
   <data name="Enter" xml:space="preserve">
     <value>Кириш</value>
   </data>
+  <data name="Error" xml:space="preserve">
+    <value>Хато</value>
+  </data>
   <data name="ErrorRequiredField" xml:space="preserve">
     <value>Мажбурий поле</value>
+  </data>
+  <data name="Expert" xml:space="preserve">
+    <value>Эксперт</value>
   </data>
   <data name="Experts" xml:space="preserve">
     <value>Экспертлар</value>
   </data>
   <data name="ExpertsCount" xml:space="preserve">
     <value>Экспертлар сони</value>
+  </data>
+  <data name="Fee" xml:space="preserve">
+    <value>Мукофот</value>
+  </data>
+  <data name="FeeIsSuccessfullyDistributed" xml:space="preserve">
+    <value>Мукофот тақсимланди</value>
+  </data>
+  <data name="FeePaid" xml:space="preserve">
+    <value>Мукофот олинди</value>
+  </data>
+  <data name="FileIsAttached" xml:space="preserve">
+    <value>Файл бириктирилган</value>
+  </data>
+  <data name="FilterByLawArea" xml:space="preserve">
+    <value>Йуналиш буйича филтр</value>
+  </data>
+  <data name="FilterByPrice" xml:space="preserve">
+    <value>Нарх буйича филтр</value>
   </data>
   <data name="fr" xml:space="preserve">
     <value>Узбек</value>
@@ -168,8 +231,26 @@
   <data name="Home" xml:space="preserve">
     <value>Бош сахифа</value>
   </data>
+  <data name="ItMustBe100PercentInTotal" xml:space="preserve">
+    <value>Суммада 100% булиши керак</value>
+  </data>
+  <data name="NoAnswers" xml:space="preserve">
+    <value>Жавоблар йуқ</value>
+  </data>
   <data name="PracticeDocuments" xml:space="preserve">
     <value>Амалиёт</value>
+  </data>
+  <data name="QuestionClosed" xml:space="preserve">
+    <value>Савол ёпилди</value>
+  </data>
+  <data name="QuestionDetails" xml:space="preserve">
+    <value>Савол</value>
+  </data>
+  <data name="QuestionHasNoFee" xml:space="preserve">
+    <value>Саволга мукофот белгиланмаган</value>
+  </data>
+  <data name="QuestionNotFound" xml:space="preserve">
+    <value>Савол топилмади</value>
   </data>
   <data name="Questions" xml:space="preserve">
     <value>Саволлар</value>
@@ -179,6 +260,9 @@
   </data>
   <data name="QuestionsCount" xml:space="preserve">
     <value>Саволлар сони</value>
+  </data>
+  <data name="QuestionSolved" xml:space="preserve">
+    <value>Савол хал қилинди</value>
   </data>
   <data name="RandomGUID" xml:space="preserve">
     <value>RandomGUID бу {0}</value>
@@ -196,13 +280,43 @@
     <value>Наъмунавий хужжатлар</value>
   </data>
   <data name="SampleDocumentsCount" xml:space="preserve">
-    <value>Намунавий хужжатлар сони</value>
+    <value>Наъмунавий хужжатлар сони</value>
   </data>
   <data name="SeeAll" xml:space="preserve">
     <value>Барчасини очиш</value>
   </data>
+  <data name="SelectAtLeastOneAnswer" xml:space="preserve">
+    <value>Хеч булмаганда битта жавобни белгиланг</value>
+  </data>
+  <data name="SelectFile" xml:space="preserve">
+    <value>Файлни танланг</value>
+  </data>
+  <data name="Share" xml:space="preserve">
+    <value>Улашиш</value>
+  </data>
+  <data name="SomethingIsWrongWithSelectedAnswers" xml:space="preserve">
+    <value>Танланган жавобларда муаммо бор</value>
+  </data>
+  <data name="soum" xml:space="preserve">
+    <value>сум</value>
+  </data>
+  <data name="Submit" xml:space="preserve">
+    <value>Жунатиш</value>
+  </data>
   <data name="TopExperts" xml:space="preserve">
     <value>ТОП экспертлар</value>
+  </data>
+  <data name="UnauthorizedDislikePopover" xml:space="preserve">
+    <value>Дислайк қуйиш учун &lt;a href='/Identity/Account/Login?returnUrl={0}'&gt;сайтга кирин&lt;/a&gt;</value>
+  </data>
+  <data name="UnauthorizedLikePopover" xml:space="preserve">
+    <value>Лайк қуйиш учун &lt;a href='/Identity/Account/Login?returnUrl={0}'&gt;сайтга кирин&lt;/a&gt;</value>
+  </data>
+  <data name="UserNotFound" xml:space="preserve">
+    <value>Фойдаланувчи топилмади</value>
+  </data>
+  <data name="Usuals" xml:space="preserve">
+    <value>Оддий</value>
   </data>
   <data name="Vacancies" xml:space="preserve">
     <value>Вакансиялар</value>
@@ -210,7 +324,19 @@
   <data name="VacanciesCatalog" xml:space="preserve">
     <value>Вакансиялар каталоги</value>
   </data>
+  <data name="ViewAllFilters" xml:space="preserve">
+    <value>Барча филтрларни курсатиш</value>
+  </data>
+  <data name="WarningNotEnoughPointToGiveAnswerForQuestionWithFee" xml:space="preserve">
+    <value>Пулли саволга жавоб ёзиш учун 100 рейтинг тўпланг ва маълумотингизни (диплом) тасдиқланг. Батафсил маълумот учун &lt;a href="#"&gt;Пулли хизмат кўрсатиш шартларини ўқинг&lt;/a&gt;</value>
+  </data>
   <data name="Welcome" xml:space="preserve">
     <value>Хуш келибсиз</value>
+  </data>
+  <data name="WithFee" xml:space="preserve">
+    <value>Мукофотли</value>
+  </data>
+  <data name="WriteAnswer" xml:space="preserve">
+    <value>Жавоб бериш</value>
   </data>
 </root>
