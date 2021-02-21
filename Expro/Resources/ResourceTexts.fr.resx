@@ -177,6 +177,9 @@
   <data name="Diploma" xml:space="preserve">
     <value>Диплом</value>
   </data>
+  <data name="DoNotHaveAccess" xml:space="preserve">
+    <value>Рўйхатдан ўтмаганмисиз?</value>
+  </data>
   <data name="Education" xml:space="preserve">
     <value>Маълумоти</value>
   </data>
@@ -273,8 +276,17 @@
   <data name="lblWorkPeriodTo" xml:space="preserve">
     <value>Иш тугаган вақт</value>
   </data>
+  <data name="Login" xml:space="preserve">
+    <value>Кириш</value>
+  </data>
+  <data name="Logout" xml:space="preserve">
+    <value>Чиқиш</value>
+  </data>
   <data name="MainInfo" xml:space="preserve">
     <value>Асосий маълумот</value>
+  </data>
+  <data name="MainPage" xml:space="preserve">
+    <value>Асосий сахифа</value>
   </data>
   <data name="PeriodOfWork" xml:space="preserve">
     <value>Ишлаган вақти</value>
@@ -305,6 +317,9 @@
   </data>
   <data name="RandomGUID" xml:space="preserve">
     <value>RandomGUID бу {0}</value>
+  </data>
+  <data name="Register" xml:space="preserve">
+    <value>Рўйхатдан ўтиш</value>
   </data>
   <data name="Resume" xml:space="preserve">
     <value>Резюме</value>

@@ -18,8 +18,8 @@
     <!-- End Title -->
     <!-- Form Group -->
     <div class="js-form-message form-group">
-        <label class="input-label" asp-for="Input.Email">Email address</label>
-        <input type="email" asp-for="Input.Email" class="form-control" name="email" id="signinSrEmail" tabindex="1" placeholder="Email" aria-label="Email" required
+        <label class="input-label" asp-for="Input.Email"></label>
+        <input type="email" asp-for="Input.Email" class="form-control" name="email" id="signinSrEmail" tabindex="1" placeholder="@localizer["Email"]" aria-label="Email" required
                data-msg="Please enter a valid email address.">
         <span asp-validation-for="Input.Email" class="text-danger"></span>
     </div>
@@ -40,8 +40,8 @@
     <!-- Button -->
     <div class="row align-items-center mb-5">
         <div class="col-sm-6 mb-3 mb-sm-0">
-            <span class="font-size-1 text-muted">У вас нет аккаунта?</span>
-            <a class="font-size-1 font-weight-bold" href="/Identity/Account/Register">Регистрация</a>
+            <span class="font-size-1 text-muted">@localizer["DoNotHaveAccess"]</span>
+            <a class="font-size-1 font-weight-bold" href="/Identity/Account/Register">@localizer["Register"]</a>
         </div>
 
         <div class="col-sm-6 text-sm-right">
