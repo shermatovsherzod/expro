@@ -279,6 +279,9 @@
   <data name="PeriodOfWork" xml:space="preserve">
     <value>Ишлаган вақти</value>
   </data>
+  <data name="PersonalInfo" xml:space="preserve">
+    <value>Шахсий маълумот</value>
+  </data>
   <data name="Photo" xml:space="preserve">
     <value>Расм</value>
   </data>
@@ -287,6 +290,9 @@
   </data>
   <data name="PracticeDocuments" xml:space="preserve">
     <value>Амалиёт</value>
+  </data>
+  <data name="ProfileEdit" xml:space="preserve">
+    <value>Профайлни тахрирлаш</value>
   </data>
   <data name="Questions" xml:space="preserve">
     <value>Саволлар</value>

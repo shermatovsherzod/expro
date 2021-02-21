@@ -511,7 +511,7 @@ namespace Expro.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to С.
+        ///   Looks up a localized string similar to Период с.
         /// </summary>
         public static string lblWorkPeriodFrom {
             get {
@@ -520,7 +520,7 @@ namespace Expro.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to По.
+        ///   Looks up a localized string similar to Период по.
         /// </summary>
         public static string lblWorkPeriodTo {
             get {
@@ -543,6 +543,15 @@ namespace Expro.Resources {
         public static string PeriodOfWork {
             get {
                 return ResourceManager.GetString("PeriodOfWork", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Персональная информация.
+        /// </summary>
+        public static string PersonalInfo {
+            get {
+                return ResourceManager.GetString("PersonalInfo", resourceCulture);
             }
         }
         
@@ -570,6 +579,15 @@ namespace Expro.Resources {
         public static string PracticeDocuments {
             get {
                 return ResourceManager.GetString("PracticeDocuments", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Редактировать профайл.
+        /// </summary>
+        public static string ProfileEdit {
+            get {
+                return ResourceManager.GetString("ProfileEdit", resourceCulture);
             }
         }
         

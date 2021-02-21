@@ -94,7 +94,7 @@
                     <div class="row form-group">
                         <label asp-for="@Model.City" class="col-sm-3 col-form-label input-label"></label>
                         <div class="col-sm-9">
-                            <input asp-for="@Model.City" class="form-control" />
+                            <input asp-for="@Model.City" class="form-control" placeholder="@localizer["lblCity"]"/>
                             <span asp-validation-for="@Model.City"></span>
                         </div>
                     </div>
@@ -103,7 +103,7 @@
                     <div class="row form-group">
                         <label asp-for="@Model.PlaceOfWork" class="col-sm-3 col-form-label input-label"></label>
                         <div class="col-sm-9">
-                            <input asp-for="@Model.PlaceOfWork" class="form-control" />
+                            <input asp-for="@Model.PlaceOfWork" class="form-control"  placeholder="@localizer["lblPlaceOfWork"]" />
                             <span asp-validation-for="@Model.PlaceOfWork"></span>
                         </div>
                     </div>
@@ -112,7 +112,7 @@
                     <div class="row form-group">
                         <label asp-for="@Model.Position" class="col-sm-3 col-form-label input-label"></label>
                         <div class="col-sm-9">
-                            <input asp-for="@Model.Position" class="form-control" />
+                            <input asp-for="@Model.Position" class="form-control"  placeholder="@localizer["lblPosition"]" />
                             <span asp-validation-for="@Model.Position"></span>
                         </div>
                     </div>
@@ -121,7 +121,7 @@
                     <div class="row form-group">
                         <label asp-for="@Model.WorkPeriodFrom" class="col-sm-3 col-form-label input-label"></label>
                         <div class="col-sm-9">
-                            <input asp-for="@Model.WorkPeriodFrom" class="form-control" />
+                            <input asp-for="@Model.WorkPeriodFrom" class="form-control"  placeholder="@localizer["lblWorkPeriodFrom"]"/>
                             <span asp-validation-for="@Model.WorkPeriodFrom"></span>
                         </div>
                     </div>
@@ -130,7 +130,7 @@
                     <div class="row form-group">
                         <label asp-for="@Model.WorkPeriodTo" class="col-sm-3 col-form-label input-label"></label>
                         <div class="col-sm-9">
-                            <input asp-for="@Model.WorkPeriodTo" class="form-control" />
+                            <input asp-for="@Model.WorkPeriodTo" class="form-control" placeholder="@localizer["lblWorkPeriodTo"]" />
                             <span asp-validation-for="@Model.WorkPeriodTo"></span>
                         </div>
                     </div>

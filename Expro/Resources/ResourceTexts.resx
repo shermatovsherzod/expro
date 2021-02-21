@@ -268,16 +268,19 @@
     <value>Веб сайт</value>
   </data>
   <data name="lblWorkPeriodFrom" xml:space="preserve">
-    <value>С</value>
+    <value>Период с</value>
   </data>
   <data name="lblWorkPeriodTo" xml:space="preserve">
-    <value>По</value>
+    <value>Период по</value>
   </data>
   <data name="MainInfo" xml:space="preserve">
     <value>Основная информация</value>
   </data>
   <data name="PeriodOfWork" xml:space="preserve">
     <value>Период</value>
+  </data>
+  <data name="PersonalInfo" xml:space="preserve">
+    <value>Персональная информация</value>
   </data>
   <data name="Photo" xml:space="preserve">
     <value>Фото</value>
@@ -287,6 +290,9 @@
   </data>
   <data name="PracticeDocuments" xml:space="preserve">
     <value>Практические документы</value>
+  </data>
+  <data name="ProfileEdit" xml:space="preserve">
+    <value>Редактировать профайл</value>
   </data>
   <data name="Questions" xml:space="preserve">
     <value>Вопросы</value>
