@@ -1,6 +1,6 @@
 ﻿@model Expro.ViewModels.PasswordChangeVM
 @{
-    ViewData["Title"] = "Изменение пароля";
+    ViewData["Title"] = localizer["ChangePassword"];
 }
 
 <h4>@ViewData["Title"]</h4>
@@ -9,14 +9,14 @@
     @if ((bool)ViewBag.Message)
     {
         <div class="alert alert-soft-success" role="alert">
-            Изменения сохранены
+            @localizer["ChangesSaved"]
         </div>
     }
     <div asp-validation-summary="All" class="text-danger"></div>
 
     <!-- Form Group -->
     <div class="js-form-message form-group">
-        <label class="input-label" asp-for="@Model.Password"></label>
+        <label class="input-label" style="float:left;" asp-for="@Model.Password"></label> <span class="text-danger" >*</span>
         <input class="form-control" asp-for="@Model.Password" placeholder="******" aria-label="" required
                data-msg="Please fill field.">
         <span asp-validation-for="@Model.Password"></span>
@@ -24,7 +24,7 @@
     <!-- End Form Group -->
     <!-- Form Group -->
     <div class="js-form-message form-group">
-        <label class="input-label" asp-for="@Model.NewPassword"></label>
+        <label class="input-label" style="float:left;" asp-for="@Model.NewPassword"></label> <span class="text-danger">*</span>
         <input class="form-control" asp-for="@Model.NewPassword" placeholder="******" aria-label="" required
                data-msg="Please fill field.">
         <span asp-validation-for="@Model.NewPassword"></span>
@@ -32,16 +32,18 @@
     <!-- End Form Group -->
     <!-- Form Group -->
     <div class="js-form-message form-group">
-        <label class="input-label" asp-for="@Model.ConfirmPassword"></label>
+        <label class="input-label" style="float:left;" asp-for="@Model.ConfirmPassword"></label> <span class="text-danger">*</span>
         <input class="form-control" asp-for="@Model.ConfirmPassword" placeholder="******" aria-label="" required
                data-msg="Please fill field.">
         <span asp-validation-for="@Model.ConfirmPassword"></span>
     </div>
     <!-- End Form Group -->
     <!-- Button -->
-    <div class="row align-items-center mb-5">
-        <div class="col-sm-12 text-sm-center">
-            <button type="submit" class="btn btn-primary transition-3d-hover">Сохранить</button>
+    <div class="row align-items-center">
+        <div class="col-sm-12">
+            <div class="d-flex justify-content-end">
+                <button type="submit" class="btn btn-primary">@localizer["SaveButton"]</button>
+            </div>
         </div>
     </div>
     <!-- End Button -->
