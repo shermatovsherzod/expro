@@ -169,6 +169,15 @@ namespace Expro.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Контакты.
+        /// </summary>
+        public static string Contacts {
+            get {
+                return ResourceManager.GetString("Contacts", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Почта.
         /// </summary>
         public static string Email {
@@ -250,6 +259,15 @@ namespace Expro.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Факс.
+        /// </summary>
+        public static string lblFax {
+            get {
+                return ResourceManager.GetString("lblFax", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Новый пароль.
         /// </summary>
         public static string lblNewPassword {
@@ -264,6 +282,24 @@ namespace Expro.Resources {
         public static string lblPassword {
             get {
                 return ResourceManager.GetString("lblPassword", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Номер телефона.
+        /// </summary>
+        public static string lblPhoneNumber {
+            get {
+                return ResourceManager.GetString("lblPhoneNumber", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Веб сайт.
+        /// </summary>
+        public static string lblWebSite {
+            get {
+                return ResourceManager.GetString("lblWebSite", resourceCulture);
             }
         }
         

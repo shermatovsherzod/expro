@@ -2,20 +2,22 @@
 
 @{
     Layout = "_LayoutProfile";
-    ViewData["Title"] = "Контакты";
+    ViewData["Title"] = localizer["Contacts"];
 }
 
     <form asp-controller="ExpertProfileContacts" asp-action="Index" data-ajax="true" data-ajax-method="POST">
         @if ((bool)ViewBag.Message)
         {
-            <div class="alert alert-soft-success" role="alert">
-                Изменения сохранены
-            </div>
+        <div class="alert alert-soft-success" role="alert">
+            @localizer["ChangesSaved"]
+        </div>
         }
 
         <!-- Form Group -->
         <div class="row form-group">
-            <label asp-for="@Model.PhoneNumber" class="col-sm-3 col-form-label input-label"></label>
+            <div class="col-sm-3 col-form-label">
+                <label asp-for="@Model.PhoneNumber" style="float:left;" class="input-label"></label>
+            </div>
             <div class="col-sm-9">
                 <input asp-for="@Model.PhoneNumber" class="js-masked-input form-control" placeholder="+(xxx) xx xxx-xx-xx"
                        data-hs-mask-options='{
@@ -30,7 +32,7 @@
         <div class="row form-group">
             <label asp-for="@Model.Fax" class="col-sm-3 col-form-label input-label"></label>
             <div class="col-sm-9">
-                <input asp-for="@Model.Fax" class="form-control" />
+                <input asp-for="@Model.Fax" class="form-control" placeholder="@localizer["lblFax"]" />
                 <span asp-validation-for="@Model.Fax"></span>
             </div>
         </div>
@@ -39,14 +41,14 @@
         <div class="row form-group">
             <label asp-for="@Model.WebSite" class="col-sm-3 col-form-label input-label"></label>
             <div class="col-sm-9">
-                <input asp-for="@Model.WebSite" class="form-control" />
+                <input asp-for="@Model.WebSite" class="form-control"  placeholder="@localizer["lblWebSite"]" />
                 <span asp-validation-for="@Model.WebSite"></span>
             </div>
         </div>
         <!-- End Form Group -->
         <!-- Footer -->
         <div class="d-flex justify-content-end">
-            <button type="submit" class="btn btn-primary">Сохранить</button>
+            <button type="submit" class="btn btn-primary">@localizer["SaveButton"]</button>
         </div>
         <!-- End Footer -->
     </form>

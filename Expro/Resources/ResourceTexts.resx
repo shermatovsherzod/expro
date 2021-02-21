@@ -153,6 +153,9 @@
   <data name="ConfirmedOnly" xml:space="preserve">
     <value>Только подтвержденные</value>
   </data>
+  <data name="Contacts" xml:space="preserve">
+    <value>Контакты</value>
+  </data>
   <data name="Email" xml:space="preserve">
     <value>Почта</value>
   </data>
@@ -180,11 +183,20 @@
   <data name="lblConfirmPassword" xml:space="preserve">
     <value>Подтверждение пароля</value>
   </data>
+  <data name="lblFax" xml:space="preserve">
+    <value>Факс</value>
+  </data>
   <data name="lblNewPassword" xml:space="preserve">
     <value>Новый пароль</value>
   </data>
   <data name="lblPassword" xml:space="preserve">
     <value>Пароль</value>
+  </data>
+  <data name="lblPhoneNumber" xml:space="preserve">
+    <value>Номер телефона</value>
+  </data>
+  <data name="lblWebSite" xml:space="preserve">
+    <value>Веб сайт</value>
   </data>
   <data name="PracticeDocuments" xml:space="preserve">
     <value>Практические документы</value>
