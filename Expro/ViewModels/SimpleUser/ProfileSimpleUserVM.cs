@@ -1,6 +1,7 @@
 ﻿using Expro.Common.Utilities;
 using Expro.Models;
 using Expro.Models.Enums;
+using Expro.Resources;
 using Expro.ViewModels;
 using System;
 using System.Collections.Generic;
@@ -18,41 +19,41 @@ namespace Expro.ViewModels.SimpleUser
         }
 
         [Required]
-        [Display(Name = "Имя")]
+        [Display(Name = "lblFirstName", ResourceType = typeof(ResourceTexts))]
         [StringLength(256)]
         public string FirstName { get; set; }
 
         [Required]
-        [Display(Name = "Фамилия")]
+        [Display(Name = "lblLastName", ResourceType = typeof(ResourceTexts))]
         [StringLength(256)]
         public string LastName { get; set; }
 
-        [Display(Name = "Отчество")]
+        [Display(Name = "lblPatronymicName", ResourceType = typeof(ResourceTexts))]
         [StringLength(256)]
         public string PatronymicName { get; set; }
 
         [Display(Name = "Регион")]
         public int? RegionID { get; set; }
 
-        [Display(Name = "Регион")]
+        [Display(Name = "lblRegion", ResourceType = typeof(ResourceTexts))]
         public string Region { get; set; }
 
-        [Display(Name = "Город")]
+        [Display(Name = "lblCity", ResourceType = typeof(ResourceTexts))]
         public int? CityID { get; set; }
 
-        [Display(Name = "Другой город")]
+        [Display(Name = "lblCityOther", ResourceType = typeof(ResourceTexts))]
         [StringLength(256)]
         //[Remote("ValidateFrom", "VideoRequest", ErrorMessage = "Введите город", AdditionalFields = "TypeID")]
         public string CityOther { get; set; }
 
-        [Display(Name = "Дата рождения")]
+        [Display(Name = "lblDateOfBirth", ResourceType = typeof(ResourceTexts))]
         [Required(ErrorMessage = "Поле Дата рождения обязательно для заполнения")]
         public string DateOfBirth { get; set; }
 
-        [Display(Name = "Пол")]
+        [Display(Name = "lblGender", ResourceType = typeof(ResourceTexts))]
         public int? GenderID { get; set; }
 
-        [Display(Name = "На сайте с:")]
+        [Display(Name = "lblDateRegistered", ResourceType = typeof(ResourceTexts))]
         public string DateRegistered { get; set; }
 
         public ProfileSimpleUserVM(ApplicationUser model) // : base(model)

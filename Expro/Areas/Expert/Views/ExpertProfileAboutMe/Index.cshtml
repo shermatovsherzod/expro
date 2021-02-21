@@ -11,20 +11,20 @@
     @if ((bool)ViewBag.Message)
     {
         <div class="alert alert-soft-success" role="alert">
-            Изменения сохранены
+            @localizer["ChangesSaved"]
         </div>
     }
 
 
     <!-- Form Group -->
     <div class="row form-group">
-        <label class="col-sm-3 col-form-label input-label">Обо мне</label>
+        <label class="col-sm-3 col-form-label input-label">@localizer["AboutMe"] <span class="text-danger">*</span></label>
         <div class="col-sm-9">
             <!-- Quill -->
             <div class="quill-custom AboutMe">
                 <div class="js-quill" style="min-height: 15rem;"
                      data-hs-quill-options='{
-                           "placeholder": "Обо мне ...",
+                           "placeholder": "@localizer["AboutMe"] ...",
                            "id" :"hhh66",
                             "modules": {
                               "toolbar": [
@@ -45,7 +45,7 @@
     <div class="row align-items-center">
         <div class="col-sm-12">
             <div class="d-flex justify-content-end">
-                <button type="submit" class="btn btn-primary">Сохранить</button>
+                <button type="submit" class="btn btn-primary">@localizer["SaveButton"]</button>
             </div>
         </div>
     </div>
@@ -58,7 +58,7 @@
 
 
     <script>
-        $(document).ready(function () {          
+        $(document).ready(function () {
             var quill = InitQuill();
         });
 

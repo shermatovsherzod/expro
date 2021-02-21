@@ -1,4 +1,5 @@
 ﻿using Expro.Models;
+using Expro.Resources;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -12,14 +13,14 @@ namespace Expro.ViewModels
         public ExpertProfileContactEditVM() { }
 
         [Required]
-        [Display(Name = "Номер телефона")]
+        [Display(Name = "lblPhoneNumber", ResourceType = typeof(ResourceTexts))]
         public string PhoneNumber { get; set; }
         
-        [Display(Name = "Факс")]
+        [Display(Name = "lblFax", ResourceType = typeof(ResourceTexts))]
         public string Fax { get; set; }
 
         [Required]
-        [Display(Name = "Веб сайт")]
+        [Display(Name = "lblWebSite", ResourceType = typeof(ResourceTexts))]
         public string WebSite { get; set; }
 
         public ExpertProfileContactEditVM(ApplicationUser model) 

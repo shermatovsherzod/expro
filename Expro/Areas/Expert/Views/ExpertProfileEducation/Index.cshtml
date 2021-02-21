@@ -3,7 +3,7 @@
 
 @{
     Layout = "_LayoutProfile";
-    ViewData["Title"] = "Образование";
+    ViewData["Title"] = localizer["Education"];
     <link href="~/lib/yearpicker/yearpicker.css" rel="stylesheet" />
 }
 
@@ -14,14 +14,14 @@
         @if ((bool)ViewBag.Message)
         {
             <div class="alert alert-soft-success" role="alert">
-                Изменения сохранены
+                @localizer["ChangesSaved"]
             </div>
         }
     </div>
 </div>
 
 <div class="d-flex">
-    <button type="button" data-toggle="modal" class="btn btn-sm btn-primary" data-target="#modalwindow">Добавить образование</button>
+    <button type="button" data-toggle="modal" class="btn btn-sm btn-primary" data-target="#modalwindow">@localizer["AddEducation"]</button>
 </div>
 
 
@@ -31,13 +31,13 @@
         <table class="table table-thead-bordered">
             <thead class="thead-light">
                 <tr>
-                    <th>Страна</th>
-                    <th>Город</th>
-                    <th>ВУЗ</th>
-                    <th>Факультет</th>
-                    <th>Год выпуска</th>
-                    <th>Диплом</th>
-                    <th>Действие</th>
+                    <th>@localizer["lblCountry"]</th>
+                    <th>@localizer["lblCity"]</th>
+                    <th>@localizer["lblUniversity"]</th>
+                    <th>@localizer["lblFaculty"]</th>
+                    <th>@localizer["lblGraduationYear"]</th>
+                    <th>@localizer["Diploma"]</th>
+                    <th>@localizer["Action"]</th>
                 </tr>
             </thead>
             <tbody>
@@ -75,7 +75,7 @@
         <!-- Modal content-->
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Добавить образование</h5>
+                <h5 class="modal-title" id="exampleModalLabel">@localizer["AddEducation"]</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -97,12 +97,14 @@
 
                     <!-- Form Group -->
                     <div class="row form-group">
-                        <label asp-for="@Model.CountryID" class="col-sm-3 col-form-label input-label"></label>
-                        <div class="col-sm-9">
+                        <div class="col-sm-4 col-form-label">
+                            <label asp-for="@Model.CountryID" style="float:left;" class="input-label"></label><span class="text-danger">*</span>
+                        </div>
+                        <div class="col-sm-8">
                             <select asp-for="@Model.CountryID"
                                     asp-items="@ViewData["country"] as IEnumerable<SelectListItem>"
                                     class="js-custom-select custom-select">
-                                <option disabled selected>--- Выбрать страну ---</option>
+                                <option disabled selected>--- @localizer["CountrySelect"] ---</option>
                             </select>
 
                             <span asp-validation-for="@Model.CountryID" class="text-danger"></span>
@@ -111,36 +113,44 @@
                     <!-- End Form Group -->
                     <!-- Form Group -->
                     <div class="row form-group">
-                        <label asp-for="@Model.City" class="col-sm-3 col-form-label input-label"></label>
-                        <div class="col-sm-9">
-                            <input asp-for="@Model.City" class="form-control" />
+                        <div class="col-sm-4 col-form-label">
+                            <label asp-for="@Model.City" style="float:left;" class="input-label"></label><span class="text-danger">*</span>
+                        </div>
+                        <div class="col-sm-8">
+                            <input asp-for="@Model.City" class="form-control" placeholder="@localizer["lblCity"]"/>
                             <span asp-validation-for="@Model.City"></span>
                         </div>
                     </div>
                     <!-- End Form Group -->
                     <!-- Form Group -->
                     <div class="row form-group">
-                        <label asp-for="@Model.University" class="col-sm-3 col-form-label input-label"></label>
-                        <div class="col-sm-9">
-                            <input asp-for="@Model.University" class="form-control" />
+                        <div class="col-sm-4 col-form-label">
+                            <label asp-for="@Model.University" style="float:left;" class="input-label"></label><span class="text-danger">*</span>
+                        </div>
+                        <div class="col-sm-8">
+                            <input asp-for="@Model.University" class="form-control" placeholder="@localizer["lblUniversity"]" />
                             <span asp-validation-for="@Model.University"></span>
                         </div>
                     </div>
                     <!-- End Form Group -->
                     <!-- Form Group -->
                     <div class="row form-group">
-                        <label asp-for="@Model.Faculty" class="col-sm-3 col-form-label input-label"></label>
-                        <div class="col-sm-9">
-                            <input asp-for="@Model.Faculty" class="form-control" />
+                        <div class="col-sm-4 col-form-label">
+                            <label asp-for="@Model.Faculty" style="float:left;" class="input-label"></label><span class="text-danger">*</span>
+                        </div>
+                        <div class="col-sm-8">
+                            <input asp-for="@Model.Faculty" class="form-control" placeholder="@localizer["lblFaculty"]" />
                             <span asp-validation-for="@Model.Faculty"></span>
                         </div>
                     </div>
                     <!-- End Form Group -->
                     <!-- Form Group -->
                     <div class="row form-group">
-                        <label asp-for="@Model.GraduationYear" class="col-sm-3 col-form-label input-label"></label>
-                        <div class="col-sm-9">
-                            <input type="text" asp-for="@Model.GraduationYear" class="form-control yearpicker" onkeydown="event.preventDefault()" />
+                        <div class="col-sm-4 col-form-label">
+                            <label asp-for="@Model.GraduationYear" style="float:left;" class="input-label"></label><span class="text-danger">*</span>
+                        </div>
+                        <div class="col-sm-8">
+                            <input type="text" asp-for="@Model.GraduationYear" placeholder="@localizer["lblGraduationYear"]" class="form-control yearpicker" onkeydown="event.preventDefault()" />
                             <span asp-validation-for="@Model.GraduationYear"></span>
                         </div>
                     </div>
@@ -150,16 +160,16 @@
                                data-hs-file-attach-options='{
                               "textTarget": "[for=\"addEducationFormAttachment\"]"
                            }'>
-                        <label class="custom-file-label" for="customFile">Загрузить диплом</label>
+                        <label class="custom-file-label" for="customFile">@localizer["UploadDiploma"]</label>
                     </div>
                 </div>
                 <div class="modal-footer">
                     <!-- Footer -->
                     <div class="d-flex justify-content-end">
-                        <button type="button" class="btn btn-sm btn-secondary" data-dismiss="modal">Закрыть</button>
+                        <button type="button" class="btn btn-sm btn-secondary" data-dismiss="modal">@localizer["Close"]</button>
                     </div>
                     <div class="d-flex justify-content-end">
-                        <button type="submit" class="btn btn-sm btn-primary">Добавить</button>
+                        <button type="submit" class="btn btn-sm btn-primary">@localizer["Add"]</button>
                         <div class="spinner-border spinner" style="display: none;"></div>
                     </div>
                     <!-- End Footer -->
@@ -178,12 +188,12 @@
     <script>
         $('.yearpicker').yearpicker();
     </script>
-
+    
     <script>
         $(document).ready(function () {
             if ($('.validation-summary-errors').length) {
                 $('#modalwindow').modal('show');
-            }
+            }            
         });
 
         $('.modal').on('hidden.bs.modal', function (e) {
@@ -388,4 +398,5 @@
             window.location.replace("/Expert/ExpertProfileEducation?message=true");
         }
     </script>
+
 }

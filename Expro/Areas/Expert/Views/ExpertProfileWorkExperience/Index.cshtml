@@ -2,7 +2,7 @@
 
 @{
     Layout = "_LayoutProfile";
-    ViewData["Title"] = "Образование";
+    ViewData["Title"] = localizer["Workexperience"];
 }
 
 
@@ -10,15 +10,15 @@
     <div class="col-md-12">
         @if ((bool)ViewBag.Message)
         {
-            <div class="alert alert-soft-success" role="alert">
-                Изменения сохранены
-            </div>
+        <div class="alert alert-soft-success" role="alert">
+            @localizer["ChangesSaved"]
+        </div>
         }
     </div>
 </div>
 
 <div class="d-flex">
-    <button type="button" data-toggle="modal" class="btn btn-sm btn-primary" data-target="#modalwindow">Добавить опыт работы</button>
+    <button type="button" data-toggle="modal" class="btn btn-sm btn-primary" data-target="#modalwindow">@localizer["AddWorkexperience"]</button>
 </div>
 
 <div class="row">
@@ -27,13 +27,12 @@
         <table class="table table-thead-bordered">
             <thead class="thead-light">
                 <tr>
-                    <th>Страна</th>
-                    <th>Город</th>
-                    <th>Место работы</th>
-                    <th>Должность</th>
-                    <th>Период</th>
-                    <th>Диплом</th>
-                    <th>Действие</th>
+                    <th>@localizer["lblCountry"]</th>
+                    <th>@localizer["lblCity"]</th>
+                    <th>@localizer["lblPlaceOfWork"]</th>
+                    <th>@localizer["lblPosition"]</th>
+                    <th>@localizer["PeriodOfWork"]</th>                   
+                    <th>@localizer["Action"]</th>
                 </tr>
             </thead>
 
@@ -49,8 +48,7 @@
                         <td>@item.City</td>
                         <td>@item.PlaceOfWork</td>
                         <td>@item.Position</td>
-                        <td>@item.WorkPeriodFrom - @item.WorkPeriodTo</td>
-                        <td></td>
+                        <td>@item.WorkPeriodFrom - @item.WorkPeriodTo</td>                        
                         <td align="center">
                             <button type="button" data-cid="@item.ID" class="btn btn-danger btn-xs btn-icon btndelete">
                                 <i class="fa fa-times"></i>
@@ -70,7 +68,7 @@
         <!-- Modal content-->
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Добавить опыт работы</h5>
+                <h5 class="modal-title" id="exampleModalLabel">@localizer["AddWorkexperience"]</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -85,7 +83,7 @@
                             <select asp-for="@Model.CountryID"
                                     asp-items="@ViewData["country"] as IEnumerable<SelectListItem>"
                                     class="js-custom-select custom-select">
-                                <option disabled selected>--- Выбрать страну ---</option>
+                                <option disabled selected>--- @localizer["CountrySelect"] ---</option>
                             </select>
 
                             <span asp-validation-for="@Model.CountryID" class="text-danger"></span>
@@ -96,7 +94,7 @@
                     <div class="row form-group">
                         <label asp-for="@Model.City" class="col-sm-3 col-form-label input-label"></label>
                         <div class="col-sm-9">
-                            <input asp-for="@Model.City" class="form-control" />
+                            <input asp-for="@Model.City" class="form-control" placeholder="@localizer["lblCity"]"/>
                             <span asp-validation-for="@Model.City"></span>
                         </div>
                     </div>
@@ -105,7 +103,7 @@
                     <div class="row form-group">
                         <label asp-for="@Model.PlaceOfWork" class="col-sm-3 col-form-label input-label"></label>
                         <div class="col-sm-9">
-                            <input asp-for="@Model.PlaceOfWork" class="form-control" />
+                            <input asp-for="@Model.PlaceOfWork" class="form-control"  placeholder="@localizer["lblPlaceOfWork"]" />
                             <span asp-validation-for="@Model.PlaceOfWork"></span>
                         </div>
                     </div>
@@ -114,7 +112,7 @@
                     <div class="row form-group">
                         <label asp-for="@Model.Position" class="col-sm-3 col-form-label input-label"></label>
                         <div class="col-sm-9">
-                            <input asp-for="@Model.Position" class="form-control" />
+                            <input asp-for="@Model.Position" class="form-control"  placeholder="@localizer["lblPosition"]" />
                             <span asp-validation-for="@Model.Position"></span>
                         </div>
                     </div>
@@ -123,7 +121,7 @@
                     <div class="row form-group">
                         <label asp-for="@Model.WorkPeriodFrom" class="col-sm-3 col-form-label input-label"></label>
                         <div class="col-sm-9">
-                            <input asp-for="@Model.WorkPeriodFrom" class="form-control" />
+                            <input asp-for="@Model.WorkPeriodFrom" class="form-control"  placeholder="@localizer["lblWorkPeriodFrom"]"/>
                             <span asp-validation-for="@Model.WorkPeriodFrom"></span>
                         </div>
                     </div>
@@ -132,7 +130,7 @@
                     <div class="row form-group">
                         <label asp-for="@Model.WorkPeriodTo" class="col-sm-3 col-form-label input-label"></label>
                         <div class="col-sm-9">
-                            <input asp-for="@Model.WorkPeriodTo" class="form-control" />
+                            <input asp-for="@Model.WorkPeriodTo" class="form-control" placeholder="@localizer["lblWorkPeriodTo"]" />
                             <span asp-validation-for="@Model.WorkPeriodTo"></span>
                         </div>
                     </div>
@@ -144,10 +142,10 @@
                 <div class="modal-footer">
                     <!-- Footer -->
                     <div class="d-flex justify-content-end">
-                        <button type="button" class="btn btn-sm btn-secondary" data-dismiss="modal">Закрыть</button>
+                        <button type="button" class="btn btn-sm btn-secondary" data-dismiss="modal">@localizer["Close"]</button>
                     </div>
                     <div class="d-flex justify-content-end">
-                        <button type="submit" class="btn btn-sm btn-primary">Добавить</button>
+                        <button type="submit" class="btn btn-sm btn-primary">@localizer["Add"]</button>
                     </div>
                     <!-- End Footer -->
                 </div>

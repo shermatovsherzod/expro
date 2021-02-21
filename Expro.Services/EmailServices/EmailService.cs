@@ -5,27 +5,38 @@ using Expro.Services.Interfaces;
 using MailKit.Security;
 using System.Collections.Generic;
 using System;
+using Expro.Common;
+using Microsoft.Extensions.Options;
 
 namespace Expro.Services
 {
     public class EmailService : IEmailService
     {
+        protected AppConfiguration AppConfiguration { get; set; }
+
+        public EmailService(IOptionsSnapshot<AppConfiguration> settings = null)
+        {
+            if (settings != null)
+                AppConfiguration = settings.Value;
+        }
+
         public async Task SendEmailAsync(string email, string subject, string message)
         {
             var emailMessage = new MimeMessage();
 
-            emailMessage.From.Add(new MailboxAddress("Администрация сайта Expro.Uz", "farkhodexpro@yandex.com"));
+            emailMessage.From.Add(new MailboxAddress("Администрация сайта Expro.Uz", AppConfiguration.ExproEmailAddress));
             emailMessage.To.Add(new MailboxAddress("", email));
             emailMessage.Subject = subject;
             emailMessage.Body = new TextPart(MimeKit.Text.TextFormat.Html)
             {
                 Text = message
             };
+         
 
             using (var client = new SmtpClient())
             {
-                await client.ConnectAsync("smtp.yandex.com", 587, SecureSocketOptions.StartTls);
-                await client.AuthenticateAsync("farkhodexpro@yandex.com", "5ax7?wuWjm");
+                await client.ConnectAsync(AppConfiguration.ExproEmailSmtpClient, AppConfiguration.ExproEmailSmtpPort, SecureSocketOptions.SslOnConnect);
+                await client.AuthenticateAsync(AppConfiguration.ExproEmailAddress, AppConfiguration.ExproEmailPassword);
                 await client.SendAsync(emailMessage);
 
                 await client.DisconnectAsync(true);
@@ -41,7 +52,7 @@ namespace Expro.Services
             {
                 var emailMessage = new MimeMessage();
 
-                emailMessage.From.Add(new MailboxAddress("Администрация сайта Expro.Uz", "farkhodexpro@yandex.com"));
+                emailMessage.From.Add(new MailboxAddress("Администрация сайта Expro.Uz", AppConfiguration.ExproEmailAddress));
                 emailMessage.To.Add(new MailboxAddress("", email.Item1));
                 emailMessage.Subject = subjectUz + " | " + subjectRu;
                 emailMessage.Body = new TextPart(MimeKit.Text.TextFormat.Html)
@@ -61,8 +72,8 @@ namespace Expro.Services
 
                 using (var client = new SmtpClient())
                 {
-                    await client.ConnectAsync("smtp.yandex.com", 587, SecureSocketOptions.StartTls);
-                    await client.AuthenticateAsync("farkhodexpro@yandex.com", "5ax7?wuWjm");
+                    await client.ConnectAsync(AppConfiguration.ExproEmailSmtpClient, AppConfiguration.ExproEmailSmtpPort, SecureSocketOptions.StartTls);
+                    await client.AuthenticateAsync(AppConfiguration.ExproEmailAddress, AppConfiguration.ExproEmailPassword);
                     //await client.SendAsync(emailMessage);
 
                     await client.DisconnectAsync(true);
