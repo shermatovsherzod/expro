@@ -222,6 +222,9 @@
   <data name="lblDateOfBirth" xml:space="preserve">
     <value>Туғилган санаси</value>
   </data>
+  <data name="lblDateRegistered" xml:space="preserve">
+    <value>Сайтда </value>
+  </data>
   <data name="lblFaculty" xml:space="preserve">
     <value>Факультет</value>
   </data>

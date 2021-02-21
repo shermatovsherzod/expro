@@ -376,6 +376,15 @@ namespace Expro.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Сайтда с.
+        /// </summary>
+        public static string lblDateRegistered {
+            get {
+                return ResourceManager.GetString("lblDateRegistered", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Факультет.
         /// </summary>
         public static string lblFaculty {

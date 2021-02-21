@@ -18,7 +18,7 @@
     <!-- Form Group -->
     <div class="row form-group">
         <div class="col-sm-3 col-form-label">
-            <label asp-for="@Model.FirstName" style="float:left;" class="input-label"></label>
+            <label asp-for="@Model.FirstName" style="float:left;" class="input-label"></label><span class="text-danger">*</span>
         </div>
         <div class="col-sm-9">
             <input type="text" asp-for="@Model.FirstName" class="form-control" placeholder="@localizer["lblFirstName"]" />
@@ -30,7 +30,7 @@
     <!-- Form Group -->
     <div class="row form-group">
         <div class="col-sm-3 col-form-label">
-            <label asp-for="@Model.LastName" style="float:left;" class="input-label"></label>
+            <label asp-for="@Model.LastName" style="float:left;" class="input-label"></label><span class="text-danger">*</span>
         </div>
 
         <div class="col-sm-9">
@@ -94,7 +94,7 @@
     <!-- Select -->
     <div class="row form-group">        
         <div class="col-sm-3 col-form-label">
-            <label asp-for="@Model.LawAreas" style="float:left;" class="input-label"></label>
+            <label asp-for="@Model.LawAreas" style="float:left;" class="input-label"></label><span class="text-danger">*</span>
         </div>
         <div class="col-sm-9">
             <select asp-for="@Model.LawAreas"
@@ -109,7 +109,7 @@
     <!-- Form Group -->
     <div class="row form-group">
         <div class="col-sm-3 col-form-label">
-            <label asp-for="@Model.DateOfBirth" style="float:left;" class="input-label"></label>
+            <label asp-for="@Model.DateOfBirth" style="float:left;" class="input-label"></label><span class="text-danger">*</span>
         </div>       
         <div class="col-sm-9">
             <input type="text" asp-for="@Model.DateOfBirth" class="form-control" placeholder="@localizer["lblDateOfBirth"]" onkeydown="event.preventDefault()" />
