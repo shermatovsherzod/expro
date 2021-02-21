@@ -70,6 +70,33 @@ namespace Expro.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Действие.
+        /// </summary>
+        public static string Action {
+            get {
+                return ResourceManager.GetString("Action", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Добавить.
+        /// </summary>
+        public static string Add {
+            get {
+                return ResourceManager.GetString("Add", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Добавить образование.
+        /// </summary>
+        public static string AddEducation {
+            get {
+                return ResourceManager.GetString("AddEducation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Все.
         /// </summary>
         public static string All {
@@ -142,6 +169,15 @@ namespace Expro.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Закрыть.
+        /// </summary>
+        public static string Close {
+            get {
+                return ResourceManager.GetString("Close", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Компании.
         /// </summary>
         public static string Companies {
@@ -174,6 +210,33 @@ namespace Expro.Resources {
         public static string Contacts {
             get {
                 return ResourceManager.GetString("Contacts", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Выбрать страну.
+        /// </summary>
+        public static string CountrySelect {
+            get {
+                return ResourceManager.GetString("CountrySelect", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Диплом.
+        /// </summary>
+        public static string Diploma {
+            get {
+                return ResourceManager.GetString("Diploma", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Образование.
+        /// </summary>
+        public static string Education {
+            get {
+                return ResourceManager.GetString("Education", resourceCulture);
             }
         }
         
@@ -250,6 +313,15 @@ namespace Expro.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Город.
+        /// </summary>
+        public static string lblCity {
+            get {
+                return ResourceManager.GetString("lblCity", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Подтверждение пароля.
         /// </summary>
         public static string lblConfirmPassword {
@@ -259,11 +331,38 @@ namespace Expro.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Страна.
+        /// </summary>
+        public static string lblCountry {
+            get {
+                return ResourceManager.GetString("lblCountry", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Факультет.
+        /// </summary>
+        public static string lblFaculty {
+            get {
+                return ResourceManager.GetString("lblFaculty", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Факс.
         /// </summary>
         public static string lblFax {
             get {
                 return ResourceManager.GetString("lblFax", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Год окончания.
+        /// </summary>
+        public static string lblGraduationYear {
+            get {
+                return ResourceManager.GetString("lblGraduationYear", resourceCulture);
             }
         }
         
@@ -291,6 +390,15 @@ namespace Expro.Resources {
         public static string lblPhoneNumber {
             get {
                 return ResourceManager.GetString("lblPhoneNumber", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ВУЗ.
+        /// </summary>
+        public static string lblUniversity {
+            get {
+                return ResourceManager.GetString("lblUniversity", resourceCulture);
             }
         }
         
@@ -417,6 +525,15 @@ namespace Expro.Resources {
         public static string TopExperts {
             get {
                 return ResourceManager.GetString("TopExperts", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Загрузить диплом.
+        /// </summary>
+        public static string UploadDiploma {
+            get {
+                return ResourceManager.GetString("UploadDiploma", resourceCulture);
             }
         }
         

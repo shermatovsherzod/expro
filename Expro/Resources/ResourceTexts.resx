@@ -120,6 +120,15 @@
   <data name="AboutMe" xml:space="preserve">
     <value>Обо мне</value>
   </data>
+  <data name="Action" xml:space="preserve">
+    <value>Действие</value>
+  </data>
+  <data name="Add" xml:space="preserve">
+    <value>Добавить</value>
+  </data>
+  <data name="AddEducation" xml:space="preserve">
+    <value>Добавить образование</value>
+  </data>
   <data name="All" xml:space="preserve">
     <value>Все</value>
   </data>
@@ -144,6 +153,9 @@
   <data name="ChangesSaved" xml:space="preserve">
     <value>Изменения сохранены</value>
   </data>
+  <data name="Close" xml:space="preserve">
+    <value>Закрыть</value>
+  </data>
   <data name="Companies" xml:space="preserve">
     <value>Компании</value>
   </data>
@@ -155,6 +167,15 @@
   </data>
   <data name="Contacts" xml:space="preserve">
     <value>Контакты</value>
+  </data>
+  <data name="CountrySelect" xml:space="preserve">
+    <value>Выбрать страну</value>
+  </data>
+  <data name="Diploma" xml:space="preserve">
+    <value>Диплом</value>
+  </data>
+  <data name="Education" xml:space="preserve">
+    <value>Образование</value>
   </data>
   <data name="Email" xml:space="preserve">
     <value>Почта</value>
@@ -180,11 +201,23 @@
   <data name="HomePage" xml:space="preserve">
     <value>Главная</value>
   </data>
+  <data name="lblCity" xml:space="preserve">
+    <value>Город</value>
+  </data>
   <data name="lblConfirmPassword" xml:space="preserve">
     <value>Подтверждение пароля</value>
   </data>
+  <data name="lblCountry" xml:space="preserve">
+    <value>Страна</value>
+  </data>
+  <data name="lblFaculty" xml:space="preserve">
+    <value>Факультет</value>
+  </data>
   <data name="lblFax" xml:space="preserve">
     <value>Факс</value>
+  </data>
+  <data name="lblGraduationYear" xml:space="preserve">
+    <value>Год окончания</value>
   </data>
   <data name="lblNewPassword" xml:space="preserve">
     <value>Новый пароль</value>
@@ -194,6 +227,9 @@
   </data>
   <data name="lblPhoneNumber" xml:space="preserve">
     <value>Номер телефона</value>
+  </data>
+  <data name="lblUniversity" xml:space="preserve">
+    <value>ВУЗ</value>
   </data>
   <data name="lblWebSite" xml:space="preserve">
     <value>Веб сайт</value>
@@ -236,6 +272,9 @@
   </data>
   <data name="TopExperts" xml:space="preserve">
     <value>ТОП эксперты</value>
+  </data>
+  <data name="UploadDiploma" xml:space="preserve">
+    <value>Загрузить диплом</value>
   </data>
   <data name="Vacancies" xml:space="preserve">
     <value>Вакансии</value>

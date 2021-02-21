@@ -1,4 +1,5 @@
 ﻿using Expro.Models;
+using Expro.Resources;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -14,26 +15,26 @@ namespace Expro.ViewModels
         public int ID { get; set; }
 
         [Required]
-        [Display(Name = "Страна")]
+        [Display(Name = "lblCountry", ResourceType = typeof(ResourceTexts))]
         public int CountryID { get; set; }
 
         [Required]
-        [Display(Name = "Город")]
+        [Display(Name = "lblCity", ResourceType = typeof(ResourceTexts))]
         [StringLength(256)]
         public string City { get; set; }      
 
         [Required]
-        [Display(Name = "ВУЗ")]
+        [Display(Name = "lblUniversity", ResourceType = typeof(ResourceTexts))]
         [StringLength(256)]
         public string University { get; set; }
 
         [Required]
-        [Display(Name = "Факультет")]
+        [Display(Name = "lblFaculty", ResourceType = typeof(ResourceTexts))]
         [StringLength(256)]
         public string Faculty { get; set; }
 
         [Required]
-        [Display(Name = "Год окончания")]
+        [Display(Name = "lblGraduationYear", ResourceType = typeof(ResourceTexts))]
         public int GraduationYear { get; set; }
 
         public ExpertProfileEducationEditVM(ExpertEducation model)
