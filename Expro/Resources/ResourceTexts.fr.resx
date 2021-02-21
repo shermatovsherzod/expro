@@ -261,6 +261,12 @@
   <data name="MainInfo" xml:space="preserve">
     <value>Асосий маълумот</value>
   </data>
+  <data name="Photo" xml:space="preserve">
+    <value>Расм</value>
+  </data>
+  <data name="PhotoUpload" xml:space="preserve">
+    <value>Расм юклаш</value>
+  </data>
   <data name="PracticeDocuments" xml:space="preserve">
     <value>Амалиёт</value>
   </data>

@@ -2,7 +2,7 @@
 @using Expro.Common
 
 @{
-    ViewData["Title"] = "Фото";
+    ViewData["Title"] = localizer["Photo"];
     Layout = "_LayoutProfile";
 }
 
@@ -16,7 +16,7 @@
 
             <div class="media-body">
                 <div class="btn btn-sm btn-primary file-attachment-btn mb-2 mb-sm-0 mr-2">
-                    Загрузить фото
+                    @localizer["PhotoUpload"]  
                     <input type="file" class="js-file-attach file-attachment-btn-label" id="imgInp" accept="image/*"
                            data-hs-file-attach-options='{
                                     "textTarget": "#avatarImg",

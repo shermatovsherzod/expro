@@ -261,6 +261,12 @@
   <data name="MainInfo" xml:space="preserve">
     <value>Основная информация</value>
   </data>
+  <data name="Photo" xml:space="preserve">
+    <value>Фото</value>
+  </data>
+  <data name="PhotoUpload" xml:space="preserve">
+    <value>Загрузить фото</value>
+  </data>
   <data name="PracticeDocuments" xml:space="preserve">
     <value>Практические документы</value>
   </data>

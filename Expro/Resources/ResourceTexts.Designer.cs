@@ -493,6 +493,24 @@ namespace Expro.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Фото.
+        /// </summary>
+        public static string Photo {
+            get {
+                return ResourceManager.GetString("Photo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Загрузить фото.
+        /// </summary>
+        public static string PhotoUpload {
+            get {
+                return ResourceManager.GetString("PhotoUpload", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Практические документы.
         /// </summary>
         public static string PracticeDocuments {
