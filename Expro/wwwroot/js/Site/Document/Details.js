@@ -1,6 +1,13 @@
-﻿$(document).ready(function () {
+﻿var _localizer;
+
+function SetVariables(localizer) {
+    _localizer = localizer;
+    console.log(_localizer);
+}
+
+$(document).ready(function () {
     $("form#purchaseForm").submit(function () {
-        if (!confirm("Вы уверены, что хотите купить?"))
+        if (!confirm(_localizer["AreYouSureYouWantToPurchase"] + "?"))
             return false;
 
         ShowFormSpinner();

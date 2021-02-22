@@ -2,7 +2,7 @@
 @using Expro.ViewModels
 
 @{
-    ViewData["Title"] = "Статьи";
+    ViewData["Title"] = localizer["Articles"];
     ViewData["DocumentType"] = DocumentTypesEnum.ArticleDocument;
 }
 
@@ -27,10 +27,19 @@
 
     <script src="~/js/Site/Document/Index.js"></script>
     <script>
+        var localizer = {
+            "FileIsAttached": '@localizer["FileIsAttached"]',
+            "Price": '@localizer["Price"]',
+            "soum": '@localizer["soum"]',
+            "Author": '@localizer["Author"]',
+            "DatePublished": '@localizer["DatePublished"]'
+        };
+
         SetVariables(
             "@ViewData["DocumentType"]",
             @((int)DocumentContentTypesEnum.file),
-            @((int)DocumentPriceTypesEnum.Paid));
+            @((int)DocumentPriceTypesEnum.Paid),
+            localizer);
 
         InitHSPlugins();
     </script>

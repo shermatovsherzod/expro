@@ -10,6 +10,7 @@ using Expro.Services.Interfaces;
 using Expro.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Localization;
 
 namespace Expro.Controllers
 {
@@ -25,7 +26,7 @@ namespace Expro.Controllers
         private readonly IUserRatingService _userRatingService;
 
         protected string DocumentType = "";
-        protected string ErrorDocumentNotFound = "Документ не найден";
+        protected string ErrorDocumentNotFound = "";
 
         public BaseDocumentController(
             IDocumentService documentService,
@@ -35,7 +36,8 @@ namespace Expro.Controllers
             IUserService userService,
             ILawAreaService lawAreaService,
             IDocumentCounterService documentCounterService,
-            IUserRatingService userRatingService)
+            IUserRatingService userRatingService,
+            IStringLocalizer<Resources.ResourceTexts> localizer)
         {
             DocumentService = documentService;
             DocumentSearchService = documentSearchService;
@@ -45,6 +47,9 @@ namespace Expro.Controllers
             LawAreaService = lawAreaService;
             DocumentCounterService = documentCounterService;
             _userRatingService = userRatingService;
+            _localizer = localizer;
+
+            ErrorDocumentNotFound = _localizer["DocumentNotFound"];
         }
 
         public virtual IActionResult Index()
@@ -170,16 +175,16 @@ namespace Expro.Controllers
                 throw new Exception(ErrorDocumentNotFound);
 
             if (DocumentService.IsFree(document))
-                throw new Exception("Документ бесплатный!");
+                throw new Exception(_localizer["DocumentIsFree"] + "!");
 
             var curUser = accountUtil.GetCurrentUser(User);
             ApplicationUser user = _userService.GetByID(curUser.ID);
             if (user == null)
-                throw new Exception("Вы не авторизованы");
+                throw new Exception(_localizer["YouAreNotAuthorized"]);
 
             int curUserBalance = UserBalanceService.GetBalance(user);
             if (curUserBalance < document.Price)
-                throw new Exception("Недостаточно средств на балансе");
+                throw new Exception(_localizer["NotEnougthMoneyOnBalance"]);
 
             UserPurchasedDocumentService.Purchase(user, document);
 

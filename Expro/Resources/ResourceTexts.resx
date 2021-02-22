@@ -495,4 +495,64 @@
   <data name="WriteAnswer" xml:space="preserve">
     <value>Написать ответ</value>
   </data>
+  <data name="AlreadyPurchased" xml:space="preserve">
+    <value>Вы уже покупали этот материал. Нажмите &lt;a href="/{0}/{1}Purchased/Details/{2}"&gt;здесь&lt;/a&gt;, чтобы посмотреть.</value>
+  </data>
+  <data name="AreYouSureYouWantToPurchase" xml:space="preserve">
+    <value>Вы уверены, что хотите купить</value>
+  </data>
+  <data name="Article" xml:space="preserve">
+    <value>Статья</value>
+  </data>
+  <data name="ArticleNotFound" xml:space="preserve">
+    <value>Статья не найдена</value>
+  </data>
+  <data name="AuthorizeToPurchase" xml:space="preserve">
+    <value>&lt;a href="/Identity/Account/Login?returnUrl={0}"&gt;Авторизуйтесь&lt;/a&gt;, чтобы купить.</value>
+  </data>
+  <data name="DocumentIsFree" xml:space="preserve">
+    <value>Документ бесплатный</value>
+  </data>
+  <data name="DocumentNotFound" xml:space="preserve">
+    <value>Документ не найден</value>
+  </data>
+  <data name="FreeItems" xml:space="preserve">
+    <value>Бесплатные</value>
+  </data>
+  <data name="NotEnoughMoneyOnBalancePleaseReplenish" xml:space="preserve">
+    <value>На вашем балансе недостаточно средств для покупки. Пожалуйста, пополните баланс.</value>
+  </data>
+  <data name="NotEnougthMoneyOnBalance" xml:space="preserve">
+    <value>Недостаточно средств на балансе</value>
+  </data>
+  <data name="PaidItems" xml:space="preserve">
+    <value>Платные</value>
+  </data>
+  <data name="PracticeDocument" xml:space="preserve">
+    <value>Практический документ</value>
+  </data>
+  <data name="PracticeDocumentNotFound" xml:space="preserve">
+    <value>Практический документ не найден</value>
+  </data>
+  <data name="Price" xml:space="preserve">
+    <value>Цена</value>
+  </data>
+  <data name="Purchase" xml:space="preserve">
+    <value>Купить</value>
+  </data>
+  <data name="ReplenishBalanceOn" xml:space="preserve">
+    <value>Пополнить баланс на {0} сум (CLICK)</value>
+  </data>
+  <data name="SampleDocument" xml:space="preserve">
+    <value>Образцовый документ</value>
+  </data>
+  <data name="SampleDocumentNotFound" xml:space="preserve">
+    <value>Образцовый документ не найден</value>
+  </data>
+  <data name="YouAreNotAuthorized" xml:space="preserve">
+    <value>Вы не авторизованы</value>
+  </data>
+  <data name="YourBalance" xml:space="preserve">
+    <value>Ваш баланс</value>
+  </data>
 </root>

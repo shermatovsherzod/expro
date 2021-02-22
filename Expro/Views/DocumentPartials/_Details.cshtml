@@ -26,7 +26,7 @@
                     }
                     @if (Model.PriceType == DocumentPriceTypesEnum.Paid)
                     {
-                        <span class="badge badge-soft-info">Цена: @Model.PriceStr сум</span>
+                <span class="badge badge-soft-info">@localizer["Price"]: @Model.PriceStr @localizer["soum"]</span>
                     }
                 </div>
             </div>
@@ -40,7 +40,7 @@
                 }
             </div>*@
             <div class="d-flex justify-content-md-end align-items-center">
-                <span class="d-block small font-weight-bold text-cap mr-2">Поделиться:</span>
+                <span class="d-block small font-weight-bold text-cap mr-2">@localizer["Share"]:</span>
                 @*<a class="btn btn-xs btn-icon btn-soft-secondary rounded-circle ml-2" href="#">
                     <i class="fab fa-facebook-f"></i>
                 </a>
@@ -159,8 +159,8 @@ else
     else
     {
         <div>
-            <span><a href="javascript:void(0)" class="text-muted" data-toggle="popover" data-trigger="focus" @*title="Popover Header"*@ data-html="true" data-content="<a href='/Identity/Account/Login?returnUrl=@ViewData["curPageUrl"]'>Войдите</a>, чтобы лайкнуть"><i class="fa fa-thumbs-up"></i> @Model.PositiveLikesCount</a></span>
-            <span class="ml-4"><a href="javascript:void(0)" class="text-muted" data-toggle="popover" data-trigger="focus" @*title="Popover Header"*@ data-html="true" data-content="<a href='/Identity/Account/Login?returnUrl=@ViewData["curPageUrl"]'>Войдите</a>, чтобы дислайкнуть"><i class="fa fa-thumbs-down"></i> @Model.NegativeLikesCount</a></span>
+            <span><a href="javascript:void(0)" class="text-muted" data-toggle="popover" data-trigger="focus" @*title="Popover Header"*@ data-html="true" data-content="@localizer["UnauthorizedLikePopover", ViewData["curPageUrl"]]"><i class="fa fa-thumbs-up"></i> @Model.PositiveLikesCount</a></span>
+            <span class="ml-4"><a href="javascript:void(0)" class="text-muted" data-toggle="popover" data-trigger="focus" @*title="Popover Header"*@ data-html="true" data-content="@localizer["UnauthorizedDislikePopover", ViewData["curPageUrl"]]"><i class="fa fa-thumbs-down"></i> @Model.NegativeLikesCount</a></span>
         </div>
     }
 
@@ -175,20 +175,20 @@ else
         {
             if (ViewData["curUserBalance"] != null)
             {
-                <p><b>Ваш баланс:</b> @ViewData["curUserBalanceStr"] сум</p>
+                <p><b>@localizer["YourBalance"]:</b> @ViewData["curUserBalanceStr"] @localizer["soum"]</p>
                 if (ViewData["paymentAmount"] == null) //if balance is enough
                 {
                     <form asp-action="Purchase" id="purchaseForm">
                         <input type="hidden" name="DocumentID" value="@Model.ID" />
-                        <button type="submit" class="btn btn-success">Купить</button>
+                        <button type="submit" class="btn btn-success">@localizer["Purchase"]</button>
                         <div class="spinner-border spinner" style="display: none;"></div>
                     </form>
                 }
                 else
                 {
                     <div class="lert alert-soft-warning text-center rounded-0 mb-0">
-                        <p>На вашем балансе недостаточно средств для покупки. Пожалуйста, пополните баланс.</p>
-                        <p><a href="@ViewData["clickPaymentButtonUrl"]" class="btn btn-info">Пополнить баланс на <b>@ViewData["paymentAmount"] сум (CLICK)</b></a></p>
+                        <p>@localizer["NotEnoughMoneyOnBalancePleaseReplenish"]</p>
+                        <p><a href="@ViewData["clickPaymentButtonUrl"]" class="btn btn-info">@localizer["ReplenishBalanceOn", ViewData["paymentAmount"]]</a></p>
                     </div>
                 }
             }
@@ -196,19 +196,19 @@ else
             else
             {
                 <div class="lert alert-soft-info text-center rounded-0 mb-0">
-                    <a href="/Identity/Account/Login?returnUrl=@ViewData["curPageUrl"]">Авторизуйтесь</a>, чтобы купить.
+                    @Html.Raw(@localizer["AuthorizeToPurchase", ViewData["curPageUrl"]])
                 </div>
             }
         }
         else
         {
             <div class="lert alert-soft-success text-center rounded-0 mb-0">
-                Вы уже покупали этот материал. Нажмите <a href="/@ViewData["curUserArea"]/@ViewData["DocumentType"]Purchased/Details/@Model.ID">здесь</a>, чтобы посмотреть.
+                @Html.Raw(@localizer["AlreadyPurchased", ViewData["curUserArea"], ViewData["DocumentType"], Model.ID])
             </div>
         }
     }
 </div>
 
 <div>
-    <a asp-action="Index">Назад</a>
+    <a asp-action="Index">@localizer["Back"]</a>
 </div>

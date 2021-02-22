@@ -50,6 +50,7 @@ namespace Expro.Controllers
             UserBalanceService = userBalanceService;
             _userService = userService;
             _userRatingService = userRatingService;
+            _localizer = localizer;
         }
 
         public IActionResult Index()

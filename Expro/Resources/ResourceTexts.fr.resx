@@ -495,4 +495,64 @@
   <data name="WriteAnswer" xml:space="preserve">
     <value>Жавоб бериш</value>
   </data>
+  <data name="AlreadyPurchased" xml:space="preserve">
+    <value>Сиз бу материални сотиб олгансиз. Куриш учун &lt;a href="/{0}/{1}Purchased/Details/{2}"&gt;шу йерга босинг&lt;/a&gt;.</value>
+  </data>
+  <data name="AreYouSureYouWantToPurchase" xml:space="preserve">
+    <value>Сотиб олишга ишончингиз комилми?</value>
+  </data>
+  <data name="Article" xml:space="preserve">
+    <value>Мақола</value>
+  </data>
+  <data name="ArticleNotFound" xml:space="preserve">
+    <value>Мақола топилмади</value>
+  </data>
+  <data name="AuthorizeToPurchase" xml:space="preserve">
+    <value>Сотиб олиш учун &lt;a href="/Identity/Account/Login?returnUrl={0}"&gt;сайтига киринг&lt;/a&gt;</value>
+  </data>
+  <data name="DocumentIsFree" xml:space="preserve">
+    <value>Документ бепул</value>
+  </data>
+  <data name="DocumentNotFound" xml:space="preserve">
+    <value>Документ топилмади</value>
+  </data>
+  <data name="FreeItems" xml:space="preserve">
+    <value>Бепул</value>
+  </data>
+  <data name="NotEnoughMoneyOnBalancePleaseReplenish" xml:space="preserve">
+    <value>Балансингизда йетарлича маблаг мавжуд эмас. Илтимос, тулдиринг</value>
+  </data>
+  <data name="NotEnougthMoneyOnBalance" xml:space="preserve">
+    <value>Балансингизда йетарлича маблаг мавжуд эмас</value>
+  </data>
+  <data name="PaidItems" xml:space="preserve">
+    <value>Пуллик</value>
+  </data>
+  <data name="PracticeDocument" xml:space="preserve">
+    <value>Амалиёт</value>
+  </data>
+  <data name="PracticeDocumentNotFound" xml:space="preserve">
+    <value>Амалиёт топилмади</value>
+  </data>
+  <data name="Price" xml:space="preserve">
+    <value>Нарх</value>
+  </data>
+  <data name="Purchase" xml:space="preserve">
+    <value>Сотиб олиш</value>
+  </data>
+  <data name="ReplenishBalanceOn" xml:space="preserve">
+    <value>Балансни {0} сумга тулдириш (CLICK)</value>
+  </data>
+  <data name="SampleDocument" xml:space="preserve">
+    <value>Наъмунавий хужжат</value>
+  </data>
+  <data name="SampleDocumentNotFound" xml:space="preserve">
+    <value>Наъмунавий хужжат топилмади</value>
+  </data>
+  <data name="YouAreNotAuthorized" xml:space="preserve">
+    <value>Сиз руйхатдан утмагангиз</value>
+  </data>
+  <data name="YourBalance" xml:space="preserve">
+    <value>Сизнинг балансингиз</value>
+  </data>
 </root>

@@ -11,6 +11,7 @@ using Expro.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Localization;
 
 namespace Expro.Controllers
 {
@@ -25,7 +26,8 @@ namespace Expro.Controllers
             IUserService userService,
             ILawAreaService lawAreaService,
             IDocumentCounterService documentCounterService,
-            IUserRatingService userRatingService)
+            IUserRatingService userRatingService,
+            IStringLocalizer<Resources.ResourceTexts> localizer)
             : base(
                   practiceDocumentService,
                   practiceDocumentSearchService,
@@ -35,10 +37,11 @@ namespace Expro.Controllers
                   userService,
                   lawAreaService,
                   documentCounterService,
-                  userRatingService)
+                  userRatingService,
+                  localizer)
         {
             DocumentType = DocumentTypesEnum.PracticeDocument.ToString();
-            ErrorDocumentNotFound = "Практический документ не найден";
+            ErrorDocumentNotFound = _localizer["PracticeDocumentNotFound"];
         }
 
         public override IActionResult Index()

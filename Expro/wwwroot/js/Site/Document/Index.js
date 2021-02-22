@@ -1,15 +1,18 @@
 ﻿var documentType = "";
 var documentContentTypeFile = 0;
 var documentPriceTypePaid = 0;
+var _localizer;
 
 function SetVariables(
     documentTypeName,
     documentContentTypesEnumFile,
-    documentPriceTypesEnumPaid)
+    documentPriceTypesEnumPaid,
+    localizer)
 {
     documentType = documentTypeName;
     documentContentTypeFile = documentContentTypesEnumFile;
     documentPriceTypePaid = documentPriceTypesEnumPaid;
+    _localizer = localizer
 }
 
 var table;
@@ -73,7 +76,7 @@ $(document).ready(function () {
                     html += '                           <h6 class="mb-0">';
                     html += '                               <p class="text-muted">';
                     if (full.contentType == documentContentTypeFile) {
-                        html += '                               <i class="fa fa-file" aria-hidden="true"></i> Есть вложенный файл';
+                        html += '                               <i class="fa fa-file" aria-hidden="true"></i> ' + _localizer["FileIsAttached"];
                     }
                     else {
                         html += full.text;
@@ -89,7 +92,7 @@ $(document).ready(function () {
                     html += '                   </div>';
                     html += '                   <div class="col-12 col-md mt-3 mt-md-2">';
                     if (full.priceType == documentPriceTypePaid)
-                        html += '                   <span class="badge badge-soft-info">Цена: ' + full.priceStr + ' сум</span>';
+                        html += '                   <span class="badge badge-soft-info">' + _localizer["Price"] + ': ' + full.priceStr + ' ' + _localizer["soum"] + '</span>';
                     html += '                   </div>';
                     html += '               </div>';
                     html += '           </div>';
@@ -97,8 +100,8 @@ $(document).ready(function () {
                     html += '   </div>';
                     html += '   <div class="card-footer">';
                     html += '       <ul class="list-inline list-separator small text-body">';
-                    html += '           <li class="list-inline-item">Автор: ' + full.author.fullName + '</li>';
-                    html += '           <li class="list-inline-item">Дата публикации: ' + full.datePublished + '</li>';
+                    html += '           <li class="list-inline-item">' + _localizer["Author"] + ': ' + full.author.fullName + '</li>';
+                    html += '           <li class="list-inline-item">' + _localizer["DatePublished"] + ': ' + full.datePublished + '</li>';
                     html += '       </ul>';
                     html += '   </div>';
                     html += '</div>';

@@ -3,7 +3,7 @@
 @using Expro.Common
 
 @{
-    ViewData["Title"] = "Образцовый документ - детали";
+    ViewData["Title"] = localizer["SampleDocument"];
     ViewData["DocumentType"] = DocumentTypesEnum.SampleDocument;
 }
 
@@ -24,6 +24,12 @@
     <script src="~/js/Site/Document/Details.js"></script>
     <script>
         $(document).ready(function () {
+            var localizer = {
+                "AreYouSureYouWantToPurchase": '@localizer["AreYouSureYouWantToPurchase"]'
+            };
+
+            SetVariables(localizer);
+
             SetLikeType("@Constants.LikeTypes.DOCUMENT");
             InitQuill();
         });
