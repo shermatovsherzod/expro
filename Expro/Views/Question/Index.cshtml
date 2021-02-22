@@ -215,7 +215,7 @@
                             html += '                   </div>';
                             html += '                   <div class="col-12 col-md mt-3 mt-md-2">';
                             if (full.priceType == '@((int)DocumentPriceTypesEnum.Paid)')
-                                html += '                   <span class="badge badge-soft-info">' + '@localizer["Fee"]' + ': ' + full.priceStr + ' ' + '@localizer["soum"]' + '</span>';
+                                html += '                   <span class="badge badge-soft-info mr-2">' + '@localizer["Fee"]' + ': ' + full.priceStr + ' ' + '@localizer["soum"]' + '</span>';
                             html += InsertCompletenessStatus(full);
                             html += '                   </div>';
                             html += '               </div>';

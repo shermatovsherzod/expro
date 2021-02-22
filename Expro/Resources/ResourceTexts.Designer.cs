@@ -1375,6 +1375,24 @@ namespace Expro.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Статус не позволяет подтвердить его.
+        /// </summary>
+        public static string StatusDoesNotAllowToApprove {
+            get {
+                return ResourceManager.GetString("StatusDoesNotAllowToApprove", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Статус не позволяет отменить его.
+        /// </summary>
+        public static string StatusDoesNotAllowToReject {
+            get {
+                return ResourceManager.GetString("StatusDoesNotAllowToReject", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Отправить.
         /// </summary>
         public static string Submit {

@@ -600,6 +600,12 @@
   <data name="SaveAsDraft" xml:space="preserve">
     <value>Черновик сифатида сақлаш</value>
   </data>
+  <data name="StatusDoesNotAllowToApprove" xml:space="preserve">
+    <value>Тадиқлашга статус тусқинлик қиляпти</value>
+  </data>
+  <data name="StatusDoesNotAllowToReject" xml:space="preserve">
+    <value>Рад этишга статус тусқинлик қиляпти</value>
+  </data>
   <data name="SubmitForApproval" xml:space="preserve">
     <value>Тасдиқлаш учун жунатиш</value>
   </data>

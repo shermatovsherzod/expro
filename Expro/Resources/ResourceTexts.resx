@@ -600,6 +600,12 @@
   <data name="SaveAsDraft" xml:space="preserve">
     <value>Сохранить как черновик</value>
   </data>
+  <data name="StatusDoesNotAllowToApprove" xml:space="preserve">
+    <value>Статус не позволяет подтвердить его</value>
+  </data>
+  <data name="StatusDoesNotAllowToReject" xml:space="preserve">
+    <value>Статус не позволяет отменить его</value>
+  </data>
   <data name="SubmitForApproval" xml:space="preserve">
     <value>Отправить на подтверждение</value>
   </data>

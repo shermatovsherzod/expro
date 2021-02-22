@@ -10,6 +10,7 @@ using Expro.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Localization;
 
 namespace Expro.Areas.Admin.Controllers
 {
@@ -32,7 +33,8 @@ namespace Expro.Areas.Admin.Controllers
             IQuestionAdminActionsService questionAdminActionsService,
             IUserBalanceService userBalanceService,
             UserManager<ApplicationUser> userManager,
-            IQuestionStatusService questionStatusService)
+            IQuestionStatusService questionStatusService,
+            IStringLocalizer<Resources.ResourceTexts> localizer)
         {
             QuestionAdminActionsService = questionAdminActionsService;
             UserBalanceService = userBalanceService;
@@ -41,6 +43,7 @@ namespace Expro.Areas.Admin.Controllers
             QuestionStatusService = questionStatusService;
             QuestionService = questionService;
             HangfireService = hangfireService;
+            _localizer = localizer;
         }
 
         public IActionResult Index()
@@ -94,7 +97,7 @@ namespace Expro.Areas.Admin.Controllers
         {
             var question = QuestionService.GetByID(id);
             if (question == null)
-                throw new Exception("Вопрос не найден");
+                throw new Exception(_localizer["QuestionNotFound"]);
 
             QuestionDetailsForAdminVM documentVM = new QuestionDetailsForAdminVM(question);
 
@@ -108,12 +111,12 @@ namespace Expro.Areas.Admin.Controllers
             {
                 var question = QuestionService.GetByID(id);
                 if (question == null)
-                    throw new Exception("Вопрос не найден");
+                    throw new Exception(_localizer["QuestionNotFound"]);
 
                 var curUser = accountUtil.GetCurrentUser(User);
 
                 if (!QuestionAdminActionsService.ApprovingIsAllowed(question))
-                    throw new Exception("Статус вопроса не позволяет подтвердить его");
+                    throw new Exception(_localizer["StatusDoesNotAllowToApprove"]);
 
                 QuestionAdminActionsService.Approve(question, curUser.ID);
                 if (question.PriceType == DocumentPriceTypesEnum.Paid)
@@ -140,12 +143,12 @@ namespace Expro.Areas.Admin.Controllers
             {
                 var document = QuestionService.GetByID(id);
                 if (document == null)
-                    throw new Exception("Документ не найден");
+                    throw new Exception(_localizer["QuestionNotFound"]);
 
                 var curUser = accountUtil.GetCurrentUser(User);
 
                 if (!QuestionAdminActionsService.RejectingIsAllowed(document))
-                    throw new Exception("Статус вопроса не позволяет подтвердить его");
+                    throw new Exception(_localizer["StatusDoesNotAllowToReject"]);
 
                 if (document.PriceType == DocumentPriceTypesEnum.Paid)
                 {
