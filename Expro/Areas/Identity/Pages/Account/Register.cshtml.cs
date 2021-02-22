@@ -7,6 +7,7 @@ using System.Text.Encodings.Web;
 using System.Threading.Tasks;
 using Expro.Models;
 using Expro.Models.Enums;
+using Expro.Resources;
 using Expro.Services.Interfaces;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
@@ -53,33 +54,33 @@ namespace Expro.Areas.Identity.Pages.Account
         {
             [Required]
             [EmailAddress]
-            [Display(Name = "Почтовый адрес")]
+            [Display(Name = "Email", ResourceType = typeof(ResourceTexts))]
             public string Email { get; set; }
 
-            [Required]
+            [Required]           
             [StringLength(100, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 6)]
             [DataType(DataType.Password)]
             [Display(Name = "Пароль")]
             public string Password { get; set; }
 
             [DataType(DataType.Password)]
-            [Display(Name = "Подтверждение пароля")]
-            [Compare("Password", ErrorMessage = "Введенные пароли не совпадают.")]
+            [Display(Name = "lblConfirmPassword", ResourceType = typeof(ResourceTexts))]
+            [Compare("Password", ErrorMessageResourceName = "lblConfirmPasswordError", ErrorMessageResourceType = typeof(ResourceTexts))]
             public string ConfirmPassword { get; set; }
 
-            [Display(Name = "Имя")]
+            [Display(Name = "lblFirstName", ResourceType = typeof(ResourceTexts))]
             public string Name { get; set; }
 
-            [Display(Name = "Фамилия")]
+            [Display(Name = "lblLastName", ResourceType = typeof(ResourceTexts))]
             public string Surname { get; set; }
 
-            [Display(Name = "Отчество")]
+            [Display(Name = "lblPatronymicName", ResourceType = typeof(ResourceTexts))]
             public string Patronymic { get; set; }
 
-            [Display(Name = "Дата рождения")]
+            [Display(Name = "lblDateOfBirth", ResourceType = typeof(ResourceTexts))]
             public DateTime DateOfBirth { get; set; }
 
-            [Display(Name = "Пол")]
+            [Display(Name = "lblGender", ResourceType = typeof(ResourceTexts))]
             public string Gender { get; set; }
 
             [Display(Name = "Тип пользователя")]
