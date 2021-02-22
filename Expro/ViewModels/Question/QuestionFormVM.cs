@@ -12,9 +12,9 @@ namespace Expro.ViewModels
 {
     public class QuestionFreeCreateVM : BaseVM
     {
-        [Required]
         [StringLength(1024)]
-        [Display(Name = "Тема")]
+        [Required(ErrorMessageResourceType = typeof(Resources.ResourceTexts), ErrorMessageResourceName = "ErrorRequiredField")]
+        [Display(Name = "Title", ResourceType = typeof(Resources.ResourceTexts))]
         public string Title { get; set; }
 
         public QuestionFreeCreateVM() { }
@@ -44,20 +44,20 @@ namespace Expro.ViewModels
 
     public class QuestionFreeEditVM : QuestionFreeCreateVM
     {
-        [Required]
-        [Display(Name = "Направление")]
+        [Required(ErrorMessageResourceType = typeof(Resources.ResourceTexts), ErrorMessageResourceName = "ErrorRequiredField")]
+        [Display(Name = "lblLawAreas", ResourceType = typeof(Resources.ResourceTexts))]
         public List<int> LawAreas { get; set; }
 
         //public DocumentContentTypesEnum ContentType { get; set; } = DocumentContentTypesEnum.file;
 
-        [Display(Name = "Файл")]
+        [Display(Name = "File", ResourceType = typeof(Resources.ResourceTexts))]
         //[Remote("ValidateAttachment", "SampleDocument", ErrorMessage = "Обязательное поле", AdditionalFields = "DocumentContentType")]
         public int? AttachmentID { get; set; }
 
         public AttachmentDetailsVM Attachment { get; set; }
 
-        [Required]
-        [Display(Name = "Текст")]
+        [Required(ErrorMessageResourceType = typeof(Resources.ResourceTexts), ErrorMessageResourceName = "ErrorRequiredField")]
+        [Display(Name = "Text", ResourceType = typeof(Resources.ResourceTexts))]
         //[Remote("ValidateText", "SampleDocument", ErrorMessage = "Обязательное поле", AdditionalFields = "DocumentContentType")]
         public string Text { get; set; }
 
@@ -119,8 +119,8 @@ namespace Expro.ViewModels
 
     public class QuestionPaidEditVM : QuestionFreeEditVM
     {
-        [Required]
-        [Display(Name = "Вознаграждение (в сумах)")]
+        [Required(ErrorMessageResourceType = typeof(Resources.ResourceTexts), ErrorMessageResourceName = "ErrorRequiredField")]
+        [Display(Name = "FeeInSoums", ResourceType = typeof(Resources.ResourceTexts))]
         public int? Price { get; set; }
 
         public QuestionPaidEditVM() { }
