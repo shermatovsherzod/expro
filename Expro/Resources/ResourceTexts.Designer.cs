@@ -727,6 +727,15 @@ namespace Expro.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Введеные пароли не совпадают.
+        /// </summary>
+        public static string lblConfirmPasswordError {
+            get {
+                return ResourceManager.GetString("lblConfirmPasswordError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Страна.
         /// </summary>
         public static string lblCountry {
@@ -1209,6 +1218,15 @@ namespace Expro.Resources {
         public static string Register {
             get {
                 return ResourceManager.GetString("Register", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Зарегистрироваться как эксперт.
+        /// </summary>
+        public static string RegistrateAsExpert {
+            get {
+                return ResourceManager.GetString("RegistrateAsExpert", resourceCulture);
             }
         }
         

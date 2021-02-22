@@ -624,4 +624,10 @@
   <data name="YourBalance" xml:space="preserve">
     <value>Сизнинг балансингиз</value>
   </data>
+  <data name="lblConfirmPasswordError" xml:space="preserve">
+    <value>Киритилган пароллар бир бирига туғри келмайди</value>
+  </data>
+  <data name="RegistrateAsExpert" xml:space="preserve">
+    <value>Эксперт сифатида рўйхатдан ўтиш</value>
+  </data>
 </root>

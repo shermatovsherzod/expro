@@ -624,4 +624,10 @@
   <data name="YourBalance" xml:space="preserve">
     <value>Ваш баланс</value>
   </data>
+  <data name="lblConfirmPasswordError" xml:space="preserve">
+    <value>Введеные пароли не совпадают</value>
+  </data>
+  <data name="RegistrateAsExpert" xml:space="preserve">
+    <value>Зарегистрироваться как эксперт</value>
+  </data>
 </root>
