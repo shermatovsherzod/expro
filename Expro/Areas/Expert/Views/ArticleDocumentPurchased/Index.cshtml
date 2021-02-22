@@ -2,7 +2,7 @@
 @using Expro.Models.Enums
 
 @{
-    ViewData["Title"] = "Купленные Статьи";
+    ViewData["Title"] = localizer["PurchasedArticles"];
     ViewData["DocumentType"] = DocumentTypesEnum.ArticleDocument;
     ViewData["Area"] = UserAreasEnum.Expert;
 }
@@ -28,11 +28,20 @@
 
     <script src="~/js/Shared/DocumentPurchased/Index.js"></script>
     <script>
+        var localizer = {
+            "FileIsAttached": '@localizer["FileIsAttached"]',
+            "Price": '@localizer["Price"]',
+            "soum": '@localizer["soum"]',
+            "Author": '@localizer["Author"]',
+            "DatePublished": '@localizer["DatePublished"]'
+        };
+
         SetVariables(
             "@ViewData["DocumentType"]",
             "@ViewData["Area"]",
             @((int)DocumentContentTypesEnum.file),
-            @((int)DocumentPriceTypesEnum.Paid));
+            @((int)DocumentPriceTypesEnum.Paid),
+            localizer);
 
         InitHSPlugins();
     </script>

@@ -12,7 +12,7 @@ function SetVariables(
     documentType = documentTypeName;
     documentContentTypeFile = documentContentTypesEnumFile;
     documentPriceTypePaid = documentPriceTypesEnumPaid;
-    _localizer = localizer
+    _localizer = localizer;
 }
 
 var table;
@@ -92,7 +92,7 @@ $(document).ready(function () {
                     html += '                   </div>';
                     html += '                   <div class="col-12 col-md mt-3 mt-md-2">';
                     if (full.priceType == documentPriceTypePaid)
-                        html += '                   <span class="badge badge-soft-info">' + _localizer["Price"] + ': ' + full.priceStr + ' ' + _localizer["soum"] + '</span>';
+                        html += '                   <span class="badge badge-soft-info mr-2">' + _localizer["Price"] + ': ' + full.priceStr + ' ' + _localizer["soum"] + '</span>';
                     html += '                   </div>';
                     html += '               </div>';
                     html += '           </div>';

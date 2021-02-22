@@ -10,6 +10,7 @@ using Expro.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Localization;
 
 namespace Expro.Areas.Expert.Controllers
 {
@@ -34,7 +35,8 @@ namespace Expro.Areas.Expert.Controllers
             IDocumentService documentService,
             IHangfireService hangfireService,
             IDocumentStatusService documentStatusService,
-            IUserService userService)
+            IUserService userService,
+            IStringLocalizer<Resources.ResourceTexts> localizer)
         {
             DocumentSearchService = documentSearchService;
             LawAreaService = lawAreaService;
@@ -44,6 +46,7 @@ namespace Expro.Areas.Expert.Controllers
             HangfireService = hangfireService;
             DocumentStatusService = documentStatusService;
             _userService = userService;
+            _localizer = localizer;
         }
 
         public virtual IActionResult Index()
@@ -116,7 +119,7 @@ namespace Expro.Areas.Expert.Controllers
             }
             catch (Exception ex)
             {
-                ModelState.AddModelError("", "Что-то пошло не так: " + ex.Message);
+                ModelState.AddModelError("", _localizer["SomethingWentWrong"] + ": " + ex.Message);
             }
 
             return View(modelVM);
@@ -127,7 +130,7 @@ namespace Expro.Areas.Expert.Controllers
             var curUser = accountUtil.GetCurrentUser(User);
             var appUser = _userService.GetByID(curUser.ID);
             if (appUser == null)
-                throw new Exception("Пользователь не найден");
+                throw new Exception(_localizer["UserNotFound"]);
 
             ViewData["userIsAllowedToWorkWithPaidMaterials"] = 
                 _userService.UserIsAllowedToWorkWithPaidMaterials(appUser);
@@ -146,7 +149,7 @@ namespace Expro.Areas.Expert.Controllers
                     var curUser = accountUtil.GetCurrentUser(User);
                     var appUser = _userService.GetByID(curUser.ID);
                     if (appUser == null)
-                        throw new Exception("Пользователь не найден");
+                        throw new Exception(_localizer["UserNotFound"]);
 
                     userIsAllowedToWorkWithPaidMaterials =
                         _userService.UserIsAllowedToWorkWithPaidMaterials(appUser);
@@ -162,7 +165,7 @@ namespace Expro.Areas.Expert.Controllers
             }
             catch (Exception ex)
             {
-                ModelState.AddModelError("", "Что-то пошло не так: " + ex.Message);
+                ModelState.AddModelError("", _localizer["SomethingWentWrong"] + ": " + ex.Message);
             }
 
             ViewData["userIsAllowedToWorkWithPaidMaterials"] = userIsAllowedToWorkWithPaidMaterials;
@@ -174,7 +177,7 @@ namespace Expro.Areas.Expert.Controllers
         {
             var model = DocumentService.GetFreeByID(id);
             if (model == null)
-                throw new Exception("Документ не найден");
+                throw new Exception(_localizer["DocumentNotFound"]);
 
             var modelVM = new DocumentFreeEditVM(model);
 
@@ -195,7 +198,7 @@ namespace Expro.Areas.Expert.Controllers
         {
             var model = DocumentService.GetPaidByID(id);
             if (model == null)
-                throw new Exception("Документ не найден");
+                throw new Exception(_localizer["DocumentNotFound"]);
 
             var modelVM = new DocumentPaidEditVM(model);
 
@@ -224,30 +227,30 @@ namespace Expro.Areas.Expert.Controllers
                         modelFromDB = DocumentService.GetPaidByID(modelVM.ID);
 
                     if (modelFromDB == null)
-                        throw new Exception("Документ не найден");
+                        throw new Exception(_localizer["DocumentNotFound"]);
 
                     var curUser = accountUtil.GetCurrentUser(User);
 
                     if (!DocumentService.BelongsToUser(modelFromDB, curUser.ID))
-                        throw new Exception("Данный документ вам не принадлежит");
+                        throw new Exception(_localizer["DocumentDoesNotBelongToYou"]);
 
                     if (!DocumentService.EditingIsAllowed(modelFromDB))
-                        throw new Exception("Статус документа не позволяет отредактировать его");
+                        throw new Exception(_localizer["StatusDoesNotAllowToEdit"]);
 
                     if (modelVM.ContentType == DocumentContentTypesEnum.file)
                     {
                         if (!modelVM.AttachmentID.HasValue)
                         {
-                            ModelState.AddModelError("AttachmentID", "Загрузите файл");
-                            throw new Exception("Загрузите файл");
+                            ModelState.AddModelError("AttachmentID", _localizer["DoUploadFile"]);
+                            throw new Exception(_localizer["DoUploadFile"]);
                         }
                     }
                     else
                     {
                         if (string.IsNullOrWhiteSpace(modelVM.Text))
                         {
-                            ModelState.AddModelError("Text", "Наберите текст");
-                            throw new Exception("Наберите текст");
+                            ModelState.AddModelError("Text", _localizer["DoTypeText"]);
+                            throw new Exception(_localizer["DoTypeText"]);
                         }
                     }
 
@@ -270,12 +273,12 @@ namespace Expro.Areas.Expert.Controllers
                 }
                 else
                 {
-                    ModelState.AddModelError("", "Некорректные данные");
+                    ModelState.AddModelError("", _localizer["InvalidData"]);
                 }
             }
             catch (Exception ex)
             {
-                ModelState.AddModelError("", "Что-то пошло не так: " + ex.Message);
+                ModelState.AddModelError("", _localizer["SomethingWentWrong"] + ": " + ex.Message);
             }
 
             var selectedLawAreaIDs = modelVM.LawAreas;

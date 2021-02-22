@@ -3,7 +3,7 @@
 @using Expro.Common
 
 @{
-    ViewData["Title"] = "Добавить новую статью";
+    ViewData["Title"] = localizer["AddNewArticle"];
 }
 
 @functions {
@@ -24,7 +24,7 @@
             <!-- Form Group -->
             <div class="form-group">
                 <label asp-for="Title" class="control-label"></label> @{ RenderRedAsteriks(); }
-                <input asp-for="Title" class="form-control" placeholder="Дайте название" aria-label="Дайте название">
+                <input asp-for="Title" class="form-control" placeholder="" aria-label="">
                 <span asp-validation-for="Title" class="text-danger"></span>
             </div>
             <!-- End Form Group -->
@@ -35,7 +35,7 @@
     <div class="row">
         <div class="col-md-6">
             <div class="mb-7">
-                <button type="submit" class="btn btn-block btn-primary">Продолжить</button>
+                <button type="submit" class="btn btn-block btn-primary">@localizer["Continue"]</button>
                 <div class="spinner-border spinner" style="display: none;"></div>
             </div>
         </div>
@@ -43,7 +43,7 @@
 </form>
 
 <div>
-    <a asp-action="Index">Назад к списку</a>
+    <a asp-action="Index">@localizer["BackToList"]</a>
 </div>
 
 @section Scripts {

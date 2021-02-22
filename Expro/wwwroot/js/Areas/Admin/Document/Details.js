@@ -1,4 +1,9 @@
 ﻿var documentType = "";
+var _localizer;
+
+function SetVariables(localizer) {
+    _localizer = localizer;
+}
 
 function SetDocumentType(name) {
     documentType = name;
@@ -15,9 +20,9 @@ function Reject(id) {
 function ResponseToDocument(id, action) {
     var confirmationText = "";
     if (action == "Approve")
-        confirmationText = "Вы уверены, что хотите подтвердить?";
+        confirmationText = _localizer["AreYouSureYouWantToApprove"] + "?";
     else
-        confirmationText = "Вы уверены, что хотите отменить?";
+        confirmationText = _localizer["AreYouSureYouWantToReject"] + "?";
 
     if (!confirm(confirmationText))
         return;

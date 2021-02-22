@@ -495,11 +495,20 @@
   <data name="WriteAnswer" xml:space="preserve">
     <value>Жавоб бериш</value>
   </data>
+  <data name="AddNewArticle" xml:space="preserve">
+    <value>Янги мақола қушиш</value>
+  </data>
+  <data name="AddNewPracticeDocument" xml:space="preserve">
+    <value>Янги амалиёт қушиш</value>
+  </data>
   <data name="AddNewQuestion" xml:space="preserve">
     <value>Янги савол бериш</value>
   </data>
   <data name="AddNewQuestionWithFee" xml:space="preserve">
     <value>Янги мукофотли савол бериш</value>
+  </data>
+  <data name="AddNewSampleDocument" xml:space="preserve">
+    <value>Янги наъмунавий хужжат қушиш</value>
   </data>
   <data name="AlreadyPurchased" xml:space="preserve">
     <value>Сиз бу материални сотиб олгансиз. Куриш учун &lt;a href="/{0}/{1}Purchased/Details/{2}"&gt;шу йерга босинг&lt;/a&gt;.</value>
@@ -531,11 +540,20 @@
   <data name="DateModified" xml:space="preserve">
     <value>Узгартирилган сана</value>
   </data>
+  <data name="DocumentDoesNotBelongToYou" xml:space="preserve">
+    <value>Мазкур документ сизга тегишли эмас</value>
+  </data>
   <data name="DocumentIsFree" xml:space="preserve">
     <value>Документ бепул</value>
   </data>
   <data name="DocumentNotFound" xml:space="preserve">
     <value>Документ топилмади</value>
+  </data>
+  <data name="DoTypeText" xml:space="preserve">
+    <value>Матнни теринг</value>
+  </data>
+  <data name="DoUploadFile" xml:space="preserve">
+    <value>Файлни юкланг</value>
   </data>
   <data name="EditQuestion" xml:space="preserve">
     <value>Саволни узгартириш</value>
@@ -549,8 +567,17 @@
   <data name="FilterByStatus" xml:space="preserve">
     <value>Статус буйича филтр</value>
   </data>
+  <data name="Free" xml:space="preserve">
+    <value>Бепул</value>
+  </data>
   <data name="FreeItems" xml:space="preserve">
     <value>Бепул</value>
+  </data>
+  <data name="FreeMultiple" xml:space="preserve">
+    <value>Бепул</value>
+  </data>
+  <data name="InvalidData" xml:space="preserve">
+    <value>Нотугри маълумотлар</value>
   </data>
   <data name="MyQuestions" xml:space="preserve">
     <value>Менинг саволларим</value>
@@ -561,7 +588,16 @@
   <data name="NotEnougthMoneyOnBalance" xml:space="preserve">
     <value>Балансингизда йетарлича маблаг мавжуд эмас</value>
   </data>
+  <data name="Paid" xml:space="preserve">
+    <value>Пуллик</value>
+  </data>
   <data name="PaidItems" xml:space="preserve">
+    <value>Пуллик</value>
+  </data>
+  <data name="PaidMultiple" xml:space="preserve">
+    <value>Пуллик</value>
+  </data>
+  <data name="PaidShe" xml:space="preserve">
     <value>Пуллик</value>
   </data>
   <data name="PracticeDocument" xml:space="preserve">
@@ -575,6 +611,15 @@
   </data>
   <data name="Purchase" xml:space="preserve">
     <value>Сотиб олиш</value>
+  </data>
+  <data name="PurchasedArticles" xml:space="preserve">
+    <value>Сотиб олинган мақолалар</value>
+  </data>
+  <data name="PurchasedPracticeDocuments" xml:space="preserve">
+    <value>Сотиб олинган амалиётлар</value>
+  </data>
+  <data name="PurchasedSampleDocuments" xml:space="preserve">
+    <value>Сотиб олинган наъмунавий хужжатлар</value>
   </data>
   <data name="QuestionIsApprovedByAdmin" xml:space="preserve">
     <value>Савол администратор томонидан тадиқланди</value>
@@ -600,8 +645,14 @@
   <data name="SaveAsDraft" xml:space="preserve">
     <value>Черновик сифатида сақлаш</value>
   </data>
+  <data name="SomethingWentWrong" xml:space="preserve">
+    <value>Nimadir sodir bo'ldi</value>
+  </data>
   <data name="StatusDoesNotAllowToApprove" xml:space="preserve">
     <value>Тадиқлашга статус тусқинлик қиляпти</value>
+  </data>
+  <data name="StatusDoesNotAllowToEdit" xml:space="preserve">
+    <value>Узгартиришга статус тусқинлик қиляпти</value>
   </data>
   <data name="StatusDoesNotAllowToReject" xml:space="preserve">
     <value>Рад этишга статус тусқинлик қиляпти</value>
@@ -618,10 +669,97 @@
   <data name="Usual" xml:space="preserve">
     <value>Оддий</value>
   </data>
+  <data name="UsualShe" xml:space="preserve">
+    <value>Оддий</value>
+  </data>
   <data name="YouAreNotAuthorized" xml:space="preserve">
     <value>Сиз руйхатдан утмагангиз</value>
   </data>
   <data name="YourBalance" xml:space="preserve">
     <value>Сизнинг балансингиз</value>
+  </data>
+  <data name="Actions" xml:space="preserve">
+    <value>Харакатлар</value>
+  </data>
+  <data name="AddNewPaidArticle" xml:space="preserve">
+    <value>Янги пуллик мақола қушиш</value>
+  </data>
+  <data name="AddNewPaidPracticeDocument" xml:space="preserve">
+    <value>Янги пуллик амалиёт қушиш</value>
+  </data>
+  <data name="AddNewPaidSampleDocument" xml:space="preserve">
+    <value>Янги пуллик наъмунавий хужжат қушиш</value>
+  </data>
+  <data name="Approve" xml:space="preserve">
+    <value>Тадиқлаш</value>
+  </data>
+  <data name="AreYouSureYouWantToApprove" xml:space="preserve">
+    <value>Тадиклашга ишончингиз комилми</value>
+  </data>
+  <data name="AreYouSureYouWantToReject" xml:space="preserve">
+    <value>Рад этишга ишончингиз комилми</value>
+  </data>
+  <data name="ArticleIsApproved" xml:space="preserve">
+    <value>Макол тасдикланган</value>
+  </data>
+  <data name="ArticleIsRejected" xml:space="preserve">
+    <value>Макола рад этилган</value>
+  </data>
+  <data name="DocumentIsApprovedByAdmin" xml:space="preserve">
+    <value>Документ администратор томонидан тадиқланди</value>
+  </data>
+  <data name="DocumentIsRejectedByAdmin" xml:space="preserve">
+    <value>Документ администратор томонидан рад этилди</value>
+  </data>
+  <data name="DocumentIsSentForApproval" xml:space="preserve">
+    <value>Документ тасдиқлаш учун жунатилинди</value>
+  </data>
+  <data name="EditArticle" xml:space="preserve">
+    <value>Маколани узгартириш</value>
+  </data>
+  <data name="EditPracticeDocument" xml:space="preserve">
+    <value>Амалиётни узгартириш</value>
+  </data>
+  <data name="EditSampleDocument" xml:space="preserve">
+    <value>Наъмунавий хужжатни узгартириш</value>
+  </data>
+  <data name="ExpertNotFound" xml:space="preserve">
+    <value>Эксперт топилмади</value>
+  </data>
+  <data name="Language" xml:space="preserve">
+    <value>Тил</value>
+  </data>
+  <data name="NotEnoughRatingForPostingPaidArticle" xml:space="preserve">
+    <value>Чтобы получить право публиковать платные статьи, требуется, чтобы Ваш рейтинг был не меньше 100, а также должен быть подтвержден диплом (об образовании). Подробнее &lt;a href="#"&gt;читайте условия оказания клатных услуг&lt;/a&gt;</value>
+  </data>
+  <data name="NotEnoughRatingForPostingPaidPracticeDocument" xml:space="preserve">
+    <value>Пулли амалиёт ёзиш учун 100 рейтинг тўпланг ва маълумотингизни (диплом) тасдиқланг. Батафсил маълумот учун &lt;a href="#"&gt;Пулли хизмат кўрсатиш шартларини ўқинг&lt;/a&gt;</value>
+  </data>
+  <data name="NotEnoughRatingForPostingPaidSampleDocument" xml:space="preserve">
+    <value>Пулли намунавий хужжат ёзиш учун 100 рейтинг тўпланг ва маълумотингизни (диплом) тасдиқланг. Батафсил маълумот учун &lt;a href="#"&gt;Пулли хизмат кўрсатиш шартларини ўқинг&lt;/a&gt;</value>
+  </data>
+  <data name="PracticeDocumentIsApproved" xml:space="preserve">
+    <value>Амалиёт тадикланган</value>
+  </data>
+  <data name="PracticeDocumentIsRejected" xml:space="preserve">
+    <value>Амалиёт рад этилган</value>
+  </data>
+  <data name="PurchasedArticle" xml:space="preserve">
+    <value>Сотиб олинган макола</value>
+  </data>
+  <data name="PurchasedPracticeDocument" xml:space="preserve">
+    <value>Сотиб олинган амалиёт</value>
+  </data>
+  <data name="PurchasedSampleDocument" xml:space="preserve">
+    <value>Сотиб олинган наъмунавий хужжат</value>
+  </data>
+  <data name="Reject" xml:space="preserve">
+    <value>Рад этиш</value>
+  </data>
+  <data name="SampleDocumentIsApproved" xml:space="preserve">
+    <value>Наъмунавий хужжат тасдикланган</value>
+  </data>
+  <data name="SampleDocumentIsRejected" xml:space="preserve">
+    <value>Наъмунавий хужжат рад этилган</value>
   </data>
 </root>

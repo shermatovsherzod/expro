@@ -3,7 +3,7 @@
 @using Expro.Common
 
 @{
-    ViewData["Title"] = "Добавить новый платный Образцовый документ";
+    ViewData["Title"] = localizer["AddNewPaidSampleDocument"];
     bool userIsAllowedToWorkWithPaidMaterials = false;
     bool.TryParse(ViewData["userIsAllowedToWorkWithPaidMaterials"].ToString(),
         out userIsAllowedToWorkWithPaidMaterials);
@@ -29,7 +29,7 @@
                 <!-- Form Group -->
                 <div class="form-group">
                     <label asp-for="Title" class="control-label"></label> @{ RenderRedAsteriks(); }
-                    <input asp-for="Title" class="form-control" placeholder="Дайте название" aria-label="Дайте название">
+                    <input asp-for="Title" class="form-control" placeholder="" aria-label="">
                     <span asp-validation-for="Title" class="text-danger"></span>
                 </div>
                 <!-- End Form Group -->
@@ -40,7 +40,7 @@
         <div class="row">
             <div class="col-md-6">
                 <div class="mb-7">
-                    <button type="submit" class="btn btn-block btn-primary">Продолжить</button>
+                    <button type="submit" class="btn btn-block btn-primary">@localizer["Continue"]</button>
                     <div class="spinner-border spinner" style="display: none;"></div>
                 </div>
             </div>
@@ -49,13 +49,13 @@
 }
 else
 {
-    <div class="alert alert-soft-danger text-center rounded-0 mb-0" role="alert">
-        Пулли намунавий хужжат ёзиш учун 100 рейтинг тўпланг ва маълумотингизни (диплом) тасдиқланг. Батафсил маълумот учун <a href="#">Пулли хизмат кўрсатиш шартларини ўқинг</a>
-    </div>
+<div class="alert alert-soft-danger text-center rounded-0 mb-0" role="alert">
+    @localizer["NotEnoughRatingForPostingPaidSampleDocument"]
+</div>
 }
 
 <div>
-    <a asp-action="Index">Назад к списку</a>
+    <a asp-action="Index">@localizer["BackToList"]</a>
 </div>
 
 @section Scripts {

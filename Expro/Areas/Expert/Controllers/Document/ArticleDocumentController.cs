@@ -10,6 +10,7 @@ using Expro.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Localization;
 
 namespace Expro.Areas.Expert.Controllers
 {
@@ -25,7 +26,8 @@ namespace Expro.Areas.Expert.Controllers
             IArticleDocumentService articleDocumentService,
             IHangfireService hangfireService,
             IDocumentStatusService documentStatusService,
-            IUserService userService)
+            IUserService userService,
+            IStringLocalizer<Resources.ResourceTexts> localizer)
             : base(
                   articleDocumentSearchService,
                   lawAreaService,
@@ -34,7 +36,8 @@ namespace Expro.Areas.Expert.Controllers
                   articleDocumentService,
                   hangfireService,
                   documentStatusService,
-                  userService)
+                  userService,
+                  localizer)
         {
         }
 

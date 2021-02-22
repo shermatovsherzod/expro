@@ -4,7 +4,7 @@
 @using Expro.ViewModels
 
 @{
-    ViewData["Title"] = "Редактировать платную статью";
+    ViewData["Title"] = localizer["EditArticle"];
 }
 
 @functions {
@@ -24,26 +24,26 @@
     @if (ViewData["successfullySaved"] != null)
     {
         <div class="alert alert-soft-success text-center rounded-0 mb-0" role="alert">
-            Данные успешно сохранены
+            @localizer["DataSuccessfullySaved"]
         </div>
         <br />
     }
     @if (Model.StatusID == (int)DocumentStatusesEnum.WaitingForApproval)
     {
         <div class="alert alert-soft-info text-center rounded-0 mb-0" role="alert">
-            Документ отправлен на подтверждение
+            @localizer["DocumentIsSentForApproval"]
         </div>
     }
     else if (Model.StatusID == (int)DocumentStatusesEnum.Approved)
     {
         <div class="alert alert-soft-success text-center rounded-0 mb-0" role="alert">
-            Документ подтвержден администратором
+            @localizer["DocumentIsApprovedByAdmin"]
         </div>
     }
     else if (Model.StatusID == (int)DocumentStatusesEnum.Rejected)
     {
         <div class="alert alert-soft-danger text-center rounded-0 mb-0" role="alert">
-            Документ подтвержден администратором
+            @localizer["DocumentIsRejectedByAdmin"]
         </div>
     }
 
@@ -118,7 +118,7 @@
                    data-hs-file-attach-options='{
                   "textTarget": "[for=\"fileInput\"]"
                }'>
-            <label class="custom-file-label" for="fileInput">Выберите файл</label>
+            <label class="custom-file-label" for="fileInput">@localizer["SelectFile"]</label>
         </div>
 
         <div id="existingFileContainer" @existingFileContainerDisplayStyle>
@@ -162,14 +162,14 @@
 
     <div class="form-group" id="actionButtonsBox">
         <input asp-for="ActionType" type="hidden" />
-        <button type="submit" class="btn btn-info" actiontype="@DocumentActionTypesEnum.saveAsDraft">Сохранить как черновик</button>
-        <button type="submit" class="btn btn-indigo" actiontype="@DocumentActionTypesEnum.submitForApproval">Отправить на подтверждение</button>
+        <button type="submit" class="btn btn-info" actiontype="@DocumentActionTypesEnum.saveAsDraft">@localizer["SaveAsDraft"]</button>
+        <button type="submit" class="btn btn-indigo" actiontype="@DocumentActionTypesEnum.submitForApproval">@localizer["SubmitForApproval"]</button>
         <div class="spinner-border spinner" style="display: none;"></div>
     </div>
 </form>
 
 <div>
-    <a asp-action="Index">Назад к списку</a>
+    <a asp-action="Index">@localizer["BackToList"]</a>
 </div>
 
 @section CustomFrontStyles
@@ -399,7 +399,7 @@
                         //alert("File uploaded!");
                     },
                     error: function (data) {
-                        alert("Error!");
+                        alert("@localizer["Error"]!");
                     },
                     complete: function () {
                         $("#" + spinnerTagID).hide();
@@ -441,7 +441,7 @@
                     },
                     error: function (data) {
                         console.log(data);
-                        alert("Ошибка: " + data.responseJSON.errorMessage);
+                        alert("@localizer["Error"]: " + data.responseJSON.errorMessage);
                         $("#" + spinnerTagID).hide();
                         $("#" + deleteBtnID).removeAttr("disabled");
                     },

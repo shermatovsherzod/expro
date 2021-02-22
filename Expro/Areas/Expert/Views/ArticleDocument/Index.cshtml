@@ -2,7 +2,7 @@
 @using Expro.Models.Enums
 
 @{
-    ViewData["Title"] = "Статьи";
+    ViewData["Title"] = localizer["Articles"];
 }
 
 <h1>@ViewData["Title"]</h1>
@@ -15,12 +15,12 @@
             <div class="container space-2">
                 <div class="row justify-content-lg-between align-items-lg-center text-center text-lg-left">
                     <div class="col-lg-5 mb-5 mb-lg-0">
-                        <h2 class="text-white mb-0">Добавить новую статью</h2>
+                        <h2 class="text-white mb-0">@localizer["AddNewArticle"]</h2>
                     </div>
 
                     <div class="col-lg-5 text-lg-right">
-                        <a class="btn btn-light btn-wide btn-pill transition-3d-hover mx-1 mb-2" href="/Expert/ArticleDocument/CreateFree">Обычная</a>
-                        <a class="btn btn-indigo btn-wide btn-pill transition-3d-hover mx-1 mb-2" href="/Expert/ArticleDocument/CreatePaid">Платная</a>
+                        <a class="btn btn-light btn-wide btn-pill transition-3d-hover mx-1 mb-2" href="/Expert/ArticleDocument/CreateFree">@localizer["UsualShe"]</a>
+                        <a class="btn btn-indigo btn-wide btn-pill transition-3d-hover mx-1 mb-2" href="/Expert/ArticleDocument/CreatePaid">@localizer["PaidShe"]</a>
                     </div>
                 </div>
             </div>
@@ -42,7 +42,7 @@
                     data-toggle="collapse"
                     data-target="#sidebarNav">
                 <span class="d-flex justify-content-between align-items-center">
-                    <span class="h5 mb-0">View all filters</span>
+                    <span class="h5 mb-0">@localizer["ViewAllFilters"]</span>
                     <span class="navbar-toggler-default">
                         <svg width="14" height="14" viewBox="0 0 18 18" xmlns="http://www.w3.org/2000/svg">
                             <path fill="currentColor" d="M17.4,6.2H0.6C0.3,6.2,0,5.9,0,5.5V4.1c0-0.4,0.3-0.7,0.6-0.7h16.9c0.3,0,0.6,0.3,0.6,0.7v1.4C18,5.9,17.7,6.2,17.4,6.2z M17.4,14.1H0.6c-0.3,0-0.6-0.3-0.6-0.7V12c0-0.4,0.3-0.7,0.6-0.7h16.9c0.3,0,0.6,0.3,0.6,0.7v1.4C18,13.7,17.7,14.1,17.4,14.1z" />
@@ -62,7 +62,7 @@
                     <form>
                         <!-- Filter Group -->
                         <div class="mb-5">
-                            <h6 class="small text-cap">Фильтр по статусу</h6>
+                            <h6 class="small text-cap">@localizer["FilterByStatus"]</h6>
 
                             <!-- Select -->
                             <div id="statusDDBox" class="select2-custom select2-custom-sm-right">
@@ -73,7 +73,7 @@
 						"customClass": "custom-select custom-select-sm",
 						"dropdownAutoWidth": true
 					  }' asp-items="@ViewData["statuses"] as List<SelectListItem>">
-                                    <option value="">Все</option>
+                                    <option value="">@localizer["All"]</option>
                                 </select>
                             </div>
                             <!-- End Select -->
@@ -81,7 +81,7 @@
                         <!-- End Filter Group -->
                         <!-- Filter Group -->
                         <div class="mb-5">
-                            <h6 class="small text-cap">Фильтр по цене</h6>
+                            <h6 class="small text-cap">@localizer["FilterByPrice"]</h6>
 
                             <!-- Select -->
                             <div id="priceTypeDDBox" class="select2-custom select2-custom-sm-right">
@@ -92,9 +92,9 @@
 						"customClass": "custom-select custom-select-sm",
 						"dropdownAutoWidth": true
 					  }'>
-                                    <option value="">Все</option>
-                                    <option value="@DocumentPriceTypesEnum.Free">Бесплатные</option>
-                                    <option value="@DocumentPriceTypesEnum.Paid">Платные</option>
+                                    <option value="">@localizer["All"]</option>
+                                    <option value="@DocumentPriceTypesEnum.Free">@localizer["FreeMultiple"]</option>
+                                    <option value="@DocumentPriceTypesEnum.Paid">@localizer["PaidMultiple"]</option>
                                 </select>
                             </div>
                             <!-- End Select -->
@@ -218,7 +218,7 @@
                             html += '                   </div>';
                             html += '                   <div class="col-12 col-md mt-3 mt-md-2">';
                             if (full.priceType == '@((int)DocumentPriceTypesEnum.Paid)')
-                                html += '                   <span class="badge badge-soft-info">Цена: ' + full.priceStr + ' сум</span>';
+                                html += '                   <span class="badge badge-soft-info mr-2">' + '@localizer["Price"]' + ': ' + full.priceStr + ' ' + '@localizer["soum"]' + '</span>';
                             html += InsertStatusAlert(full);
                             html += '                   </div>';
                             html += '               </div>';
@@ -227,7 +227,7 @@
                             html += '   </div>';
                             html += '   <div class="card-footer">';
                             html += '       <ul class="list-inline list-separator small text-body">';
-                            html += '           <li class="list-inline-item">Дата изменения: ' + full.dateModified + '</li>';
+                            html += '           <li class="list-inline-item">' + '@localizer["DateModified"]' + ': ' + full.dateModified + '</li>';
                             html += '       </ul>';
                             html += '   </div>';
                             html += '</div>';

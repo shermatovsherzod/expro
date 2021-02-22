@@ -9,6 +9,7 @@ using Expro.Services.Interfaces;
 using Expro.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Localization;
 
 namespace Expro.Areas.Admin.Controllers
 {
@@ -24,8 +25,8 @@ namespace Expro.Areas.Admin.Controllers
         private readonly IUserService _userService;
         private readonly IUserRatingService _userRatingService;
 
-        protected string ErrorDocumentNotFound = "Документ не найден";
-        protected string ErrorUnableToConfirmDocument = "Статус документа не позволяет подтвердить его";
+        protected string ErrorDocumentNotFound = "";
+        protected string ErrorUnableToConfirmDocument = "";
 
         public BaseDocumentController(
             IDocumentService documentService,
@@ -34,7 +35,8 @@ namespace Expro.Areas.Admin.Controllers
             IDocumentAdminActionsService documentAdminActionsService,
             IHangfireService hangfireService,
             IUserService userService,
-            IUserRatingService userRatingService)
+            IUserRatingService userRatingService,
+            IStringLocalizer<Resources.ResourceTexts> localizer)
         {
             DocumentService = documentService;
             DocumentStatusService = documentStatusService;
@@ -43,6 +45,10 @@ namespace Expro.Areas.Admin.Controllers
             HangfireService = hangfireService;
             _userService = userService;
             _userRatingService = userRatingService;
+            _localizer = localizer;
+
+            ErrorDocumentNotFound = _localizer["DocumentNotFound"];
+            ErrorUnableToConfirmDocument = _localizer["StatusDoesNotAllowToApprove"];
         }
 
         public virtual IActionResult Index()
@@ -117,7 +123,7 @@ namespace Expro.Areas.Admin.Controllers
 
                 var expert = _userService.GetByID(document.CreatedBy);
                 if (expert == null)
-                    throw new Exception("Эксперт не найден");
+                    throw new Exception(_localizer["ExpertNotFound"]);
 
                 int points = 0;
                 if (DocumentService.IsFree(document))

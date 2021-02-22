@@ -2,7 +2,7 @@
 @using Expro.Models.Enums
 
 @{
-    ViewData["Title"] = "Практические документы";
+    ViewData["Title"] = localizer["PracticeDocuments"];
     ViewData["DocumentType"] = DocumentTypesEnum.PracticeDocument;
 }
 
@@ -32,7 +32,20 @@
             approved: @((int)DocumentStatusesEnum.Approved),
             rejected: @((int)DocumentStatusesEnum.Rejected)
         };
-        SetVariables("@ViewData["DocumentType"]", documentStatusesEnum, @((int)DocumentPriceTypesEnum.Paid));
+
+        var localizer = {
+            "FileIsAttached": '@localizer["FileIsAttached"]',
+            "Price": '@localizer["Price"]',
+            "soum": '@localizer["soum"]',
+            "Author": '@localizer["Author"]',
+            "DateModified": '@localizer["DateModified"]'
+        };
+
+        SetVariables(
+            "@ViewData["DocumentType"]",
+            documentStatusesEnum,
+            @((int)DocumentPriceTypesEnum.Paid),
+            localizer);
 
         InitHSPlugins();
     </script>
