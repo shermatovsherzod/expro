@@ -516,6 +516,9 @@
   <data name="DocumentNotFound" xml:space="preserve">
     <value>Документ не найден</value>
   </data>
+  <data name="FilterByStatus" xml:space="preserve">
+    <value>Фильтр по статусу</value>
+  </data>
   <data name="FreeItems" xml:space="preserve">
     <value>Бесплатные</value>
   </data>
@@ -539,6 +542,9 @@
   </data>
   <data name="Purchase" xml:space="preserve">
     <value>Купить</value>
+  </data>
+  <data name="QuestionsHavingMyAnswer" xml:space="preserve">
+    <value>Вопросы, на которые я ответил</value>
   </data>
   <data name="ReplenishBalanceOn" xml:space="preserve">
     <value>Пополнить баланс на {0} сум (CLICK)</value>

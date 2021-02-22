@@ -556,6 +556,15 @@ namespace Expro.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Фильтр по статусу.
+        /// </summary>
+        public static string FilterByStatus {
+            get {
+                return ResourceManager.GetString("FilterByStatus", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Узбекский.
         /// </summary>
         public static string fr {
@@ -1038,6 +1047,15 @@ namespace Expro.Resources {
         public static string QuestionsCount {
             get {
                 return ResourceManager.GetString("QuestionsCount", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Вопросы, на которые я ответил.
+        /// </summary>
+        public static string QuestionsHavingMyAnswer {
+            get {
+                return ResourceManager.GetString("QuestionsHavingMyAnswer", resourceCulture);
             }
         }
         

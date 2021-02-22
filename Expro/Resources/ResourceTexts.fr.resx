@@ -516,6 +516,9 @@
   <data name="DocumentNotFound" xml:space="preserve">
     <value>Документ топилмади</value>
   </data>
+  <data name="FilterByStatus" xml:space="preserve">
+    <value>Статус буйича филтр</value>
+  </data>
   <data name="FreeItems" xml:space="preserve">
     <value>Бепул</value>
   </data>
@@ -539,6 +542,9 @@
   </data>
   <data name="Purchase" xml:space="preserve">
     <value>Сотиб олиш</value>
+  </data>
+  <data name="QuestionsHavingMyAnswer" xml:space="preserve">
+    <value>Мен жавоб берган саволлар</value>
   </data>
   <data name="ReplenishBalanceOn" xml:space="preserve">
     <value>Балансни {0} сумга тулдириш (CLICK)</value>
