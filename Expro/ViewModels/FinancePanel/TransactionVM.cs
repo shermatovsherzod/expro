@@ -12,13 +12,13 @@ namespace Expro.ViewModels
 {
     public class TransactionVM
     {
-        [Display(Name = "Дата и время")]
+        [Display(Name = "DateTime", ResourceType = typeof(Resources.ResourceTexts))]
         public string DateTimeStr { get; set; }
 
-        [Display(Name = "Провайдер")]
+        [Display(Name = "Provider", ResourceType = typeof(Resources.ResourceTexts))]
         public string Provider { get; set; }
 
-        [Display(Name = "Сумма")]
+        [Display(Name = "Amount", ResourceType = typeof(Resources.ResourceTexts))]
         public int Amount { get; set; }
         public string AmountStr { get; set; }
 

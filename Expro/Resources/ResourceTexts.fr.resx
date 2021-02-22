@@ -646,7 +646,7 @@
     <value>Черновик сифатида сақлаш</value>
   </data>
   <data name="SomethingWentWrong" xml:space="preserve">
-    <value>Nimadir sodir bo'ldi</value>
+    <value>Нимадир содир булди</value>
   </data>
   <data name="StatusDoesNotAllowToApprove" xml:space="preserve">
     <value>Тадиқлашга статус тусқинлик қиляпти</value>
@@ -767,5 +767,122 @@
   </data>
   <data name="SampleDocumentIsRejected" xml:space="preserve">
     <value>Наъмунавий хужжат рад этилган</value>
+  </data>
+  <data name="AddNewRequest" xml:space="preserve">
+    <value>Янги запрос яратиш</value>
+  </data>
+  <data name="AddNewRequestForWithdrawal" xml:space="preserve">
+    <value>Пулни йечиш учун янги буюртма бериш</value>
+  </data>
+  <data name="Amount" xml:space="preserve">
+    <value>Сумма</value>
+  </data>
+  <data name="AmountIsLessThenMinimum" xml:space="preserve">
+    <value>Белгиланган сумма минимумдан кам</value>
+  </data>
+  <data name="AreYouSureYouWantToMarkAsCompleted" xml:space="preserve">
+    <value>Бажарилди деб белгилашга ишончингиз комилми</value>
+  </data>
+  <data name="Balance" xml:space="preserve">
+    <value>Баланс</value>
+  </data>
+  <data name="BalanceIsLessThan" xml:space="preserve">
+    <value>Балансингизда {0} сум йечиб олиш учун йетарлича маблаг мавжуд эмас</value>
+  </data>
+  <data name="Completed" xml:space="preserve">
+    <value>Бажарилди</value>
+  </data>
+  <data name="DateCompleted" xml:space="preserve">
+    <value>Бажарилган сана</value>
+  </data>
+  <data name="DateCreated" xml:space="preserve">
+    <value>Яратилинган сана</value>
+  </data>
+  <data name="DateTime" xml:space="preserve">
+    <value>Сана ва вакт</value>
+  </data>
+  <data name="Details" xml:space="preserve">
+    <value>Очиш</value>
+  </data>
+  <data name="Expenses" xml:space="preserve">
+    <value>Расходлар</value>
+  </data>
+  <data name="FilterByUserType" xml:space="preserve">
+    <value>Фойдаланувчи тури буйича филтр</value>
+  </data>
+  <data name="FinancePanel" xml:space="preserve">
+    <value>Финанслар</value>
+  </data>
+  <data name="Incomes" xml:space="preserve">
+    <value>Ишлаб топилган пул</value>
+  </data>
+  <data name="MarkAsCompleted" xml:space="preserve">
+    <value>Буюртмани бажариш</value>
+  </data>
+  <data name="NoExpenses" xml:space="preserve">
+    <value>Расходлар йук</value>
+  </data>
+  <data name="NoIncomes" xml:space="preserve">
+    <value>Ишлаб пул топилмаган</value>
+  </data>
+  <data name="NotEnoughMoneyToSubmitForApproval" xml:space="preserve">
+    <value>Пул йечиш учун балансингизда йетарлича маблаг мавжуд эмас</value>
+  </data>
+  <data name="NoTransactions" xml:space="preserve">
+    <value>Баланс тулдирилмаган</value>
+  </data>
+  <data name="NoUsers" xml:space="preserve">
+    <value>Фойдаланувчилар йук</value>
+  </data>
+  <data name="NoWithdrawals" xml:space="preserve">
+    <value>Пул йечиб олишлар йук</value>
+  </data>
+  <data name="Provider" xml:space="preserve">
+    <value>Провайдер</value>
+  </data>
+  <data name="PurchaseObject" xml:space="preserve">
+    <value>Нима учун</value>
+  </data>
+  <data name="PurchaseObjectAuthor" xml:space="preserve">
+    <value>Кимга</value>
+  </data>
+  <data name="PurchaseObjectPurchaser" xml:space="preserve">
+    <value>Сотиб олувчи</value>
+  </data>
+  <data name="RequestNotFound" xml:space="preserve">
+    <value>Запрос топилмади</value>
+  </data>
+  <data name="RequestSuccessfullySumbitted" xml:space="preserve">
+    <value>Запрос эсон-омон жунатилинди</value>
+  </data>
+  <data name="RequestWasCompletedEarlier" xml:space="preserve">
+    <value>Запрос аввал бажарилган</value>
+  </data>
+  <data name="SimpleUser" xml:space="preserve">
+    <value>Фойдаланувчи</value>
+  </data>
+  <data name="SimpleUsers" xml:space="preserve">
+    <value>Оддий фойдаланувчилар</value>
+  </data>
+  <data name="Status" xml:space="preserve">
+    <value>Статус</value>
+  </data>
+  <data name="Total" xml:space="preserve">
+    <value>Итого</value>
+  </data>
+  <data name="Transactions" xml:space="preserve">
+    <value>Балансни тулдириш (транзакциялар)</value>
+  </data>
+  <data name="userHasNotEnoughtMoneyForWithdrawalWarning" xml:space="preserve">
+    <value>Пулни йечиш учун буюртма бера олишингиз учун балансингизда {0} сумдан кам маблаг булиши керак эмас.</value>
+  </data>
+  <data name="Withdrawals" xml:space="preserve">
+    <value>Пул йечиб олиш</value>
+  </data>
+  <data name="WithdrawRequests" xml:space="preserve">
+    <value>Пулни йечиш учун заявкалар</value>
+  </data>
+  <data name="YouAreAllowedToWithdrawFromTo" xml:space="preserve">
+    <value>Сиз &lt;b&gt;{0}&lt;/b&gt;дан &lt;b&gt;{1}&lt;/b&gt; сумгача йечишингиз мумкин</value>
   </data>
 </root>

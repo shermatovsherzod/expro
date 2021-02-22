@@ -10,6 +10,7 @@ using Expro.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Localization;
 
 namespace Expro.Controllers
 {
@@ -25,12 +26,14 @@ namespace Expro.Controllers
             IWithdrawRequestService withdrawRequestService,
             IWithdrawRequestStatusService withdrawRequestStatusService,
             IUserBalanceService userBalanceService,
-            UserManager<ApplicationUser> userManager)
+            UserManager<ApplicationUser> userManager,
+            IStringLocalizer<Resources.ResourceTexts> localizer)
         {
             WithdrawRequestService = withdrawRequestService;
             WithdrawRequestStatusService = withdrawRequestStatusService;
             UserBalanceService = userBalanceService;
             _userManager = userManager;
+            _localizer = localizer;
         }
 
         public virtual IActionResult Index(bool? successfullyCreated)
@@ -108,13 +111,13 @@ namespace Expro.Controllers
                     int userBalance = UserBalanceService.GetBalance(user);
 
                     if (WithdrawRequestService.UserHasNotEnoughtMoneyForWithdrawal(userBalance))
-                        throw new Exception("Ваш баланс не позволяет подать заявку на вывод средств");
+                        throw new Exception(_localizer["NotEnoughMoneyToSubmitForApproval"]);
 
                     if (WithdrawRequestService.AmountIsLessThanMinimum(modelVM.Amount))
-                        throw new Exception("Указанная сумма меньше минимального порога вывода средств");
+                        throw new Exception(_localizer["AmountIsLessThenMinimum"]);
 
                     if (UserBalanceService.BalanceIsLessThan(user, modelVM.Amount))
-                        throw new Exception("На Вашем балансе недостаточно средств для снятия суммы " + modelVM.Amount);
+                        throw new Exception(_localizer["BalanceIsLessThan", modelVM.Amount]);
 
                     var model = modelVM.ToModel();
                     WithdrawRequestService.Add(model, user);
@@ -124,7 +127,7 @@ namespace Expro.Controllers
             }
             catch (Exception ex)
             {
-                ModelState.AddModelError("", "Что-то пошло не так: " + ex.Message);
+                ModelState.AddModelError("", _localizer["SomethingWentWrong"] + ": " + ex.Message);
             }
 
             ViewData["minimalAmountInBalanceForWithdrawal"] =

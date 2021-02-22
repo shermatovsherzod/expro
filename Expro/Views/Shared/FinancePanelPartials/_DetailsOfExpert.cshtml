@@ -7,14 +7,14 @@
         <img class="avatar-img" src="@Model.User.Avatar.Url" alt="Image Description">
     </div>
     <div class="media-body ml-3">
-        <small class="d-block small font-weight-bold text-cap">Эксперт</small>
+        <small class="d-block small font-weight-bold text-cap">@localizer["Expert"]</small>
         <h3 class="mb-0"><a href="#">@Model.User.FullName</a></h3>
     </div>
 </div>
 <!-- End Author -->
 
 <div class="alert alert-primary">
-    <b>@Html.DisplayNameFor(m => m.Balance):</b> <span>@Model.BalanceStr</span> сум
+    <b>@Html.DisplayNameFor(m => m.Balance):</b> <span>@Model.BalanceStr</span> @localizer["soum"]
 </div>
 
 <h4>@Html.DisplayNameFor(m => m.Incomes)</h4>
@@ -48,7 +48,7 @@
                     total += item.Amount;
                 }
                 <tr>
-                    <td><strong>Итого</strong></td>
+                    <td><strong>@localizer["Total"]</strong></td>
                     <td></td>
                     <td></td>
                     <td><span class="text-success"><b>@total.ToString(AppData.Configuration.NumberViewStringFormat)</b></span></td>
@@ -59,7 +59,7 @@
 }
 else
 {
-    <p><i>Нет пополнений</i></p>
+    <p><i>@localizer["NoIncomes"]</i></p>
 }
 <br />
 
@@ -97,7 +97,7 @@ else
                     total += item.Amount;
                 }
                 <tr>
-                    <td><strong>Итого</strong></td>
+                    <td><strong>@localizer["Total"]</strong></td>
                     <td></td>
                     <td></td>
                     <td><span class="text-danger"><b>@total.ToString(AppData.Configuration.NumberViewStringFormat)</b></span></td>
@@ -108,7 +108,7 @@ else
 }
 else
 {
-    <p><i>Нет расходов</i></p>
+    <p><i>@localizer["NoExpenses"]</i></p>
 }
 <br />
 
@@ -140,7 +140,7 @@ else
                     total += item.Amount;
                 }
                 <tr>
-                    <td><strong>Итого</strong></td>
+                    <td><strong>@localizer["Total"]</strong></td>
                     <td><span class="text-primary"><b>@total.ToString(AppData.Configuration.NumberViewStringFormat)</b></span></td>
                 </tr>
             </tbody>
@@ -149,5 +149,5 @@ else
 }
 else
 {
-    <p><i>Нет выводов средств</i></p>
+    <p><i>@localizer["NoWithdrawals"]</i></p>
 }

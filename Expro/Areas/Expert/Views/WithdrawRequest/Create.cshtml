@@ -3,7 +3,7 @@
 @using Expro.Common
 
 @{
-    ViewData["Title"] = "Добавить новый запрос на вывод средств";
+    ViewData["Title"] = localizer["AddNewRequestForWithdrawal"];
 
     int minimalAmountInBalanceForWithdrawal =
         int.Parse(ViewData["minimalAmountInBalanceForWithdrawal"].ToString());
@@ -29,8 +29,8 @@
 @if (ViewData["userHasNotEnoughtMoneyForWithdrawal"] != null)
 {
     <div class="alert alert-soft-danger text-center rounded-0 mb-2" role="alert">
-        Для того, чтобы оставить запрос на вывод средств, на Вашем балансе должно быть не менее @minimalAmountInBalanceForWithdrawalStr сумов.
-        <b>Ваш баланс:</b> @userBalanceStr сум.
+        @localizer["userHasNotEnoughtMoneyForWithdrawalWarning", minimalAmountInBalanceForWithdrawalStr]
+        <b>@localizer["YourBalance"]:</b> @userBalanceStr @localizer["soum"].
     </div>
 }
 else
@@ -38,7 +38,7 @@ else
     <div class="row">
         <div class="col-md-12">
             <div class="alert alert-soft-info text-center rounded-0 mb-2">
-                Вы можете снять от <b>@minimalAmountInBalanceForWithdrawalStr</b> до <b>@userBalanceStr</b> сум
+                @Html.Raw(localizer["YouAreAllowedToWithdrawFromTo", minimalAmountInBalanceForWithdrawalStr, userBalanceStr])
             </div>
             <form asp-action="Create" id="createForm">
                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
@@ -48,7 +48,7 @@ else
                     <span asp-validation-for="Amount" class="text-danger"></span>
                 </div>
                 <div class="form-group">
-                    <button type="submit" class="btn btn-primary">Отправить</button>
+                    <button type="submit" class="btn btn-primary">@localizer["Submit"]</button>
                     <div class="spinner-border spinner" style="display: none;"></div>
                 </div>
             </form>
@@ -57,7 +57,7 @@ else
 }
 
 <div>
-    <a asp-action="Index">Назад к списку</a>
+    <a asp-action="Index">@localizer["BackToList"]</a>
 </div>
 
 @section Scripts {

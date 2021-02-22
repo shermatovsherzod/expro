@@ -768,4 +768,121 @@
   <data name="RegistrateAsExpert" xml:space="preserve">
     <value>Зарегистрироваться как эксперт</value>
   </data>
+  <data name="AddNewRequest" xml:space="preserve">
+    <value>Добавить новый запрос</value>
+  </data>
+  <data name="AddNewRequestForWithdrawal" xml:space="preserve">
+    <value>Добавить новый запрос на вывод средств</value>
+  </data>
+  <data name="Amount" xml:space="preserve">
+    <value>Сумма</value>
+  </data>
+  <data name="AmountIsLessThenMinimum" xml:space="preserve">
+    <value>Указанная сумма меньше минимального порога вывода средств</value>
+  </data>
+  <data name="AreYouSureYouWantToMarkAsCompleted" xml:space="preserve">
+    <value>Вы уверены, что хотите отметить как Выполнено</value>
+  </data>
+  <data name="Balance" xml:space="preserve">
+    <value>Баланс</value>
+  </data>
+  <data name="BalanceIsLessThan" xml:space="preserve">
+    <value>На Вашем балансе недостаточно средств для снятия суммы {0}</value>
+  </data>
+  <data name="Completed" xml:space="preserve">
+    <value>Выполнено</value>
+  </data>
+  <data name="DateCompleted" xml:space="preserve">
+    <value>Дата выполнения</value>
+  </data>
+  <data name="DateCreated" xml:space="preserve">
+    <value>Дата создания</value>
+  </data>
+  <data name="DateTime" xml:space="preserve">
+    <value>Дата и время</value>
+  </data>
+  <data name="Details" xml:space="preserve">
+    <value>Детали</value>
+  </data>
+  <data name="Expenses" xml:space="preserve">
+    <value>Расходы</value>
+  </data>
+  <data name="FilterByUserType" xml:space="preserve">
+    <value>Фильтр по типу пользователя</value>
+  </data>
+  <data name="FinancePanel" xml:space="preserve">
+    <value>Финансы</value>
+  </data>
+  <data name="Incomes" xml:space="preserve">
+    <value>Заработки</value>
+  </data>
+  <data name="MarkAsCompleted" xml:space="preserve">
+    <value>Отметить как выполненное</value>
+  </data>
+  <data name="NoExpenses" xml:space="preserve">
+    <value>Нет расходов</value>
+  </data>
+  <data name="NoIncomes" xml:space="preserve">
+    <value>Нет заработков</value>
+  </data>
+  <data name="NotEnoughMoneyToSubmitForApproval" xml:space="preserve">
+    <value>Ваш баланс не позволяет подать заявку на вывод средств</value>
+  </data>
+  <data name="NoTransactions" xml:space="preserve">
+    <value>Нет пополнений</value>
+  </data>
+  <data name="NoUsers" xml:space="preserve">
+    <value>Нет пользователей</value>
+  </data>
+  <data name="NoWithdrawals" xml:space="preserve">
+    <value>Нет выводов средств</value>
+  </data>
+  <data name="Provider" xml:space="preserve">
+    <value>Провайдер</value>
+  </data>
+  <data name="PurchaseObject" xml:space="preserve">
+    <value>На что</value>
+  </data>
+  <data name="PurchaseObjectAuthor" xml:space="preserve">
+    <value>Кому</value>
+  </data>
+  <data name="PurchaseObjectPurchaser" xml:space="preserve">
+    <value>Покупатель</value>
+  </data>
+  <data name="RequestNotFound" xml:space="preserve">
+    <value>Запрос не найден</value>
+  </data>
+  <data name="RequestSuccessfullySumbitted" xml:space="preserve">
+    <value>Запрос успешно отправлен</value>
+  </data>
+  <data name="RequestWasCompletedEarlier" xml:space="preserve">
+    <value>Запрос ранее уже был выполнен</value>
+  </data>
+  <data name="SimpleUser" xml:space="preserve">
+    <value>Пользователь</value>
+  </data>
+  <data name="SimpleUsers" xml:space="preserve">
+    <value>Обычные пользователи</value>
+  </data>
+  <data name="Status" xml:space="preserve">
+    <value>Статус</value>
+  </data>
+  <data name="Total" xml:space="preserve">
+    <value>Итого</value>
+  </data>
+  <data name="Transactions" xml:space="preserve">
+    <value>Пополнения (транзакции)</value>
+  </data>
+  <data name="userHasNotEnoughtMoneyForWithdrawalWarning" xml:space="preserve">
+    <value>Для того, чтобы оставить запрос на вывод средств, на Вашем балансе должно быть не менее {0} сумов.</value>
+  </data>
+  <data name="Withdrawals" xml:space="preserve">
+    <value>Выводы средств</value>
+  </data>
+  <data name="WithdrawRequests" xml:space="preserve">
+    <value>Запросы на вывод средств</value>
+  </data>
+  <data name="YouAreAllowedToWithdrawFromTo" xml:space="preserve">
+    <value>Вы можете снять от &lt;b&gt;{0}&lt;/b&gt; до &lt;b&gt;{1}&lt;/b&gt; сум</value>
+  </data>
 </root>
