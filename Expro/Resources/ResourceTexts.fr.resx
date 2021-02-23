@@ -804,6 +804,9 @@
   <data name="Details" xml:space="preserve">
     <value>Очиш</value>
   </data>
+  <data name="Documents" xml:space="preserve">
+    <value>Документлар</value>
+  </data>
   <data name="Expenses" xml:space="preserve">
     <value>Расходлар</value>
   </data>
@@ -818,6 +821,21 @@
   </data>
   <data name="MarkAsCompleted" xml:space="preserve">
     <value>Буюртмани бажариш</value>
+  </data>
+  <data name="MyAnswers" xml:space="preserve">
+    <value>Менинг жавобларим</value>
+  </data>
+  <data name="MyArticles" xml:space="preserve">
+    <value>Менинг маколаларим</value>
+  </data>
+  <data name="MyCompanies" xml:space="preserve">
+    <value>Менинг компанияларим</value>
+  </data>
+  <data name="MyResumes" xml:space="preserve">
+    <value>Менинг Резюмеларим</value>
+  </data>
+  <data name="MyVacancies" xml:space="preserve">
+    <value>Менинг вакансияларим</value>
   </data>
   <data name="NoExpenses" xml:space="preserve">
     <value>Расходлар йук</value>
@@ -837,8 +855,14 @@
   <data name="NoWithdrawals" xml:space="preserve">
     <value>Пул йечиб олишлар йук</value>
   </data>
+  <data name="Others" xml:space="preserve">
+    <value>Бошкалар</value>
+  </data>
   <data name="Provider" xml:space="preserve">
     <value>Провайдер</value>
+  </data>
+  <data name="PurchasedDocuments" xml:space="preserve">
+    <value>Сотиб олинган документлар</value>
   </data>
   <data name="PurchaseObject" xml:space="preserve">
     <value>Нима учун</value>
@@ -848,6 +872,9 @@
   </data>
   <data name="PurchaseObjectPurchaser" xml:space="preserve">
     <value>Сотиб олувчи</value>
+  </data>
+  <data name="ReplenishBalance" xml:space="preserve">
+    <value>Балансни тулдириш</value>
   </data>
   <data name="RequestNotFound" xml:space="preserve">
     <value>Запрос топилмади</value>

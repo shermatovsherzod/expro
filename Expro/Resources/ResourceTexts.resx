@@ -804,6 +804,9 @@
   <data name="Details" xml:space="preserve">
     <value>Детали</value>
   </data>
+  <data name="Documents" xml:space="preserve">
+    <value>Документы</value>
+  </data>
   <data name="Expenses" xml:space="preserve">
     <value>Расходы</value>
   </data>
@@ -818,6 +821,21 @@
   </data>
   <data name="MarkAsCompleted" xml:space="preserve">
     <value>Отметить как выполненное</value>
+  </data>
+  <data name="MyAnswers" xml:space="preserve">
+    <value>Мои ответы</value>
+  </data>
+  <data name="MyArticles" xml:space="preserve">
+    <value>Мои статьи</value>
+  </data>
+  <data name="MyCompanies" xml:space="preserve">
+    <value>Мои компании</value>
+  </data>
+  <data name="MyResumes" xml:space="preserve">
+    <value>Мои резюме</value>
+  </data>
+  <data name="MyVacancies" xml:space="preserve">
+    <value>Мои вакансии</value>
   </data>
   <data name="NoExpenses" xml:space="preserve">
     <value>Нет расходов</value>
@@ -837,8 +855,14 @@
   <data name="NoWithdrawals" xml:space="preserve">
     <value>Нет выводов средств</value>
   </data>
+  <data name="Others" xml:space="preserve">
+    <value>Прочее</value>
+  </data>
   <data name="Provider" xml:space="preserve">
     <value>Провайдер</value>
+  </data>
+  <data name="PurchasedDocuments" xml:space="preserve">
+    <value>Приобретенные документы</value>
   </data>
   <data name="PurchaseObject" xml:space="preserve">
     <value>На что</value>
@@ -848,6 +872,9 @@
   </data>
   <data name="PurchaseObjectPurchaser" xml:space="preserve">
     <value>Покупатель</value>
+  </data>
+  <data name="ReplenishBalance" xml:space="preserve">
+    <value>Пополнить баланс</value>
   </data>
   <data name="RequestNotFound" xml:space="preserve">
     <value>Запрос не найден</value>
