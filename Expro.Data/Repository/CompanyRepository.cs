@@ -19,10 +19,14 @@ namespace Expro.Data.Repository
                 .Include(m => m.Logo)
                 .Include(m => m.CompanyLawAreas)
                     .ThenInclude(m => m.LawArea)
+                        .ThenInclude(m => m.NameShort)
                 .Include(m => m.Creator)
                 .Include(m => m.Region)
+                    .ThenInclude(m => m.NameShort)
                 .Include(m => m.City)
-                .Include(m => m.CompanyStatus);
+                    .ThenInclude(m => m.NameShort)
+                .Include(m => m.CompanyStatus)
+                    .ThenInclude(m => m.NameShort);
         }
     }
 }

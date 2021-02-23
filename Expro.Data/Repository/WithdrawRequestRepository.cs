@@ -18,7 +18,8 @@ namespace Expro.Data.Repository
             return DbSet
                 .Include(m => m.Creator)
                     .ThenInclude(m => m.Avatar)
-                .Include(m => m.Status);
+                .Include(m => m.Status)
+                    .ThenInclude(m => m.NameShort);
         }
 
         public WithdrawRequest GeWithRelatedDataByID(int id)
