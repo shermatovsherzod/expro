@@ -29,6 +29,7 @@ $(document).ready(function () {
         lengthChange: false,
         scrollX: true,
         lengthChange: false,
+        language: InitDataTableLanguage(),
         ajax:
         {
             url: "/" + area + "/" + documentType + "Purchased/Search",

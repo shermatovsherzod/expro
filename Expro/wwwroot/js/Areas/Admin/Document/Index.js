@@ -35,6 +35,7 @@ $(document).ready(function () {
         lengthChange: false,
         scrollX: true,
         lengthChange: false,
+        language: InitDataTableLanguage(),
         ajax:
         {
             url: "/Admin/" + documentType + "/Search",

@@ -819,6 +819,9 @@
   <data name="Incomes" xml:space="preserve">
     <value>Заработки</value>
   </data>
+  <data name="Loading" xml:space="preserve">
+    <value>Загрузка</value>
+  </data>
   <data name="MarkAsCompleted" xml:space="preserve">
     <value>Отметить как выполненное</value>
   </data>
@@ -911,5 +914,8 @@
   </data>
   <data name="YouAreAllowedToWithdrawFromTo" xml:space="preserve">
     <value>Вы можете снять от &lt;b&gt;{0}&lt;/b&gt; до &lt;b&gt;{1}&lt;/b&gt; сум</value>
+  </data>
+  <data name="ZeroRecords" xml:space="preserve">
+    <value>Нет данных</value>
   </data>
 </root>
