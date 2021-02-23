@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using Expro.Models;
 
@@ -19,7 +21,18 @@ namespace Expro.ViewModels
                 return;
 
             ID = model.ID;
-            Name = model.Name;
+
+            if (model.NameShort != null)
+            {
+                CultureInfo cultureInfo = Thread.CurrentThread.CurrentCulture;
+                if (cultureInfo.Name == "fr") //uz
+                    Name = model.NameShort.TextUz;
+                else
+                    Name = model.NameShort.TextRu;
+            }
+
+            if (string.IsNullOrWhiteSpace(Name))
+                Name = model.Name;
         }
     }
 }

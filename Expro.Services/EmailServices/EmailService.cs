@@ -74,7 +74,7 @@ namespace Expro.Services
                 {
                     await client.ConnectAsync(AppConfiguration.ExproEmailSmtpClient, AppConfiguration.ExproEmailSmtpPort, SecureSocketOptions.StartTls);
                     await client.AuthenticateAsync(AppConfiguration.ExproEmailAddress, AppConfiguration.ExproEmailPassword);
-                    //await client.SendAsync(emailMessage);
+                    await client.SendAsync(emailMessage);
 
                     await client.DisconnectAsync(true);
                 }

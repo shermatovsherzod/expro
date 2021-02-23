@@ -1,18 +1,18 @@
 ﻿@model IEnumerable<Expro.ViewModels.AppUserVM>
 
 @{
-    ViewData["Title"] = "Финансы";
+    ViewData["Title"] = localizer["FinancePanel"];
 }
 
 <h1>@ViewData["Title"]</h1>
 <br />
-<div class="row">
+@*<div class="row">
     <div class="col-12">
         <button type="button" class="btn btn-success" onclick="UpdateRatings();">Обновить рейтинги</button>
         <div class="spinner-border spinner" style="display: none;"></div>
     </div>
 </div>
-<br />
+<br />*@
 
 @if (Model.Count() > 0)
 {
@@ -47,18 +47,18 @@
                     <td>
                         @if (item.UserType == Expro.Models.Enums.UserTypesEnum.Expert)
                         {
-                            <span>Эксперт</span>
+                            <span>@localizer["Expert"]</span>
                         }
                         else
                         {
-                            <span>Пользователь</span>
+                            <span>@localizer["SimpleUser"]</span>
                         }
                     </td>
                     @*<td>@item.Points</td>
                     <td>@item.Rating</td>
                     <td>@item.DateRatingLastUpdated</td>*@
                     <td>@item.BalanceStr</td>
-                    <td><a class="btn btn-info" href="/Admin/FinancePanel/Details?userID=@item.ID">Детали</a></td>
+                    <td><a class="btn btn-info" href="/Admin/FinancePanel/Details?userID=@item.ID">@localizer["Details"]</a></td>
                 </tr>
             }
         </tbody>
@@ -66,10 +66,10 @@
 }
 else
 {
-    <p>Нет пользователей</p>
+    <p>@localizer["NoUsers"]</p>
 }
 
-@section Scripts
+@*@section Scripts
 {
     <script>
         function UpdateRatings() {
@@ -109,4 +109,4 @@ else
             });
         }
     </script>
-}
+}*@

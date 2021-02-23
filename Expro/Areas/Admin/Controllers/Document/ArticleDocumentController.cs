@@ -9,6 +9,7 @@ using Expro.Services.Interfaces;
 using Expro.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Localization;
 
 namespace Expro.Areas.Admin.Controllers
 {
@@ -23,7 +24,8 @@ namespace Expro.Areas.Admin.Controllers
             IDocumentStatusService documentStatusService,
             IArticleDocumentAdminActionsService documentAdminActionsService,
             IUserService userService,
-            IUserRatingService userRatingService)
+            IUserRatingService userRatingService,
+            IStringLocalizer<Resources.ResourceTexts> localizer)
             : base(
                   articleDocumentService,
                   documentStatusService,
@@ -31,9 +33,10 @@ namespace Expro.Areas.Admin.Controllers
                   documentAdminActionsService,
                   hangfireService,
                   userService,
-                  userRatingService)
+                  userRatingService,
+                  localizer)
         {
-            ErrorDocumentNotFound = "Статья не найдена";
+            ErrorDocumentNotFound = _localizer["ArticleNotFound"];
         }
 
         public override IActionResult Index()

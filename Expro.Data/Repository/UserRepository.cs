@@ -19,7 +19,8 @@ namespace Expro.Data.Repository
                 .Include(m => m.Avatar)
                 .Include(m => m.WorkExperience)
                 .Include(m => m.ExpertEducations)
-                .Include(m => m.UserStatus);
+                .Include(m => m.UserStatus)
+                    .ThenInclude(m => m.NameShort);
         }
 
 

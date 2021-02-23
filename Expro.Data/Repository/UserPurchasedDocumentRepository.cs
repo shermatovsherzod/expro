@@ -16,8 +16,11 @@ namespace Expro.Data.Repository
         public IQueryable<UserPurchasedDocument> GetManyWithRelatedDataAsIQueryable()
         {
             return DbSet
-                .Include(m => m.Document).ThenInclude(m => m.DocumentType)
-                .Include(m => m.Document).ThenInclude(m => m.Creator)
+                .Include(m => m.Document)
+                    .ThenInclude(m => m.DocumentType)
+                        .ThenInclude(m => m.NameShort)
+                .Include(m => m.Document)
+                    .ThenInclude(m => m.Creator)
                 .Include(m => m.User);
         }
     }

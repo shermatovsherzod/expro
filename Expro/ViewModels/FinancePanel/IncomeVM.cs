@@ -2,6 +2,7 @@
 using Expro.Common.Utilities;
 using Expro.Models;
 using Expro.Models.Enums;
+using Microsoft.Extensions.Localization;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -12,16 +13,16 @@ namespace Expro.ViewModels
 {
     public class IncomeVM
     {
-        [Display(Name = "Дата и время")]
+        [Display(Name = "DateTime", ResourceType = typeof(Resources.ResourceTexts))]
         public string DateTimeStr { get; set; }
 
-        [Display(Name = "На что")]
+        [Display(Name = "PurchaseObject", ResourceType = typeof(Resources.ResourceTexts))]
         public string PurchaseObject { get; set; }
 
-        [Display(Name = "Покупатель")]
+        [Display(Name = "PurchaseObjectPurchaser", ResourceType = typeof(Resources.ResourceTexts))]
         public AppUserVM PurchaseObjectPurchaser { get; set; }
 
-        [Display(Name = "Сумма")]
+        [Display(Name = "Amount", ResourceType = typeof(Resources.ResourceTexts))]
         public int Amount { get; set; }
         public string AmountStr { get; set; }
 
@@ -39,13 +40,15 @@ namespace Expro.ViewModels
             AmountStr = Amount.ToString(AppData.Configuration.NumberViewStringFormat);
         }
 
-        public IncomeVM(QuestionAnswer questionAnswer)
+        public IncomeVM(
+            QuestionAnswer questionAnswer,
+            IStringLocalizer<Resources.ResourceTexts> localizer)
         {
             if (questionAnswer == null)
                 return;
 
             DateTimeStr = DateTimeUtils.ConvertToString(questionAnswer.DateCreated, AppData.Configuration.DateTimeViewStringFormat);
-            PurchaseObject = "Савол";
+            PurchaseObject = localizer["Question"];
             PurchaseObjectPurchaser = new AppUserVM(questionAnswer.Question.Creator);
             if (questionAnswer.PaidFee.HasValue)
             {

@@ -10,6 +10,7 @@ using Expro.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Localization;
 
 namespace Expro.Areas.Admin.Controllers
 {
@@ -26,12 +27,14 @@ namespace Expro.Areas.Admin.Controllers
             IWithdrawRequestService withdrawRequestService,
             IWithdrawRequestStatusService withdrawRequestStatusService,
             IUserBalanceService userBalanceService,
-            UserManager<ApplicationUser> userManager)
+            UserManager<ApplicationUser> userManager,
+            IStringLocalizer<Resources.ResourceTexts> localizer)
         {
             WithdrawRequestService = withdrawRequestService;
             WithdrawRequestStatusService = withdrawRequestStatusService;
             UserBalanceService = userBalanceService;
             _userManager = userManager;
+            _localizer = localizer;
         }
 
         public IActionResult Index(bool? successfullyCreated)
@@ -87,12 +90,12 @@ namespace Expro.Areas.Admin.Controllers
             {
                 var request = WithdrawRequestService.GetByID(id);
                 if (request == null)
-                    throw new Exception("Запрос не найден");
+                    throw new Exception(_localizer["RequestNotFound"]);
 
                 var curUser = accountUtil.GetCurrentUser(User);
 
                 if (WithdrawRequestService.IsCompleted(request))
-                    throw new Exception("Запрос ранее уже был выполнен");
+                    throw new Exception(_localizer["RequestWasCompletedEarlier"]);
 
                 WithdrawRequestService.MarkAsCompleted(request, curUser.ID);
 

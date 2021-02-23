@@ -26,21 +26,21 @@
             <div class="d-flex justify-content-md-end align-items-center">
                 @*<span class="d-block small font-weight-bold text-cap mr-2">Share:</span>
 
-                    <a class="btn btn-xs btn-icon btn-soft-secondary rounded-circle ml-2" href="#">
-                        <i class="fab fa-facebook-f"></i>
-                    </a>
-                    <a class="btn btn-xs btn-icon btn-soft-secondary rounded-circle ml-2" href="#">
-                        <i class="fab fa-twitter"></i>
-                    </a>
-                    <a class="btn btn-xs btn-icon btn-soft-secondary rounded-circle ml-2" href="#">
-                        <i class="fab fa-instagram"></i>
-                    </a>
-                    <a class="btn btn-xs btn-icon btn-soft-secondary rounded-circle ml-2" href="#">
-                        <i class="fab fa-telegram"></i>
-                    </a>*@
+        <a class="btn btn-xs btn-icon btn-soft-secondary rounded-circle ml-2" href="#">
+            <i class="fab fa-facebook-f"></i>
+        </a>
+        <a class="btn btn-xs btn-icon btn-soft-secondary rounded-circle ml-2" href="#">
+            <i class="fab fa-twitter"></i>
+        </a>
+        <a class="btn btn-xs btn-icon btn-soft-secondary rounded-circle ml-2" href="#">
+            <i class="fab fa-instagram"></i>
+        </a>
+        <a class="btn btn-xs btn-icon btn-soft-secondary rounded-circle ml-2" href="#">
+            <i class="fab fa-telegram"></i>
+        </a>*@
                 @if (Model.PriceType == DocumentPriceTypesEnum.Paid)
                 {
-                    <span class="badge badge-soft-info">Вознаграждение: @Model.PriceStr сум</span>
+                    <span class="badge badge-soft-info">@localizer["Price"]: @Model.PriceStr @localizer["soum"]</span>
                 }
             </div>
         </div>
@@ -128,9 +128,9 @@ else
     }
     @if (Model.Status.ID == (int)DocumentStatusesEnum.WaitingForApproval)
     {
-        <span>Действия:</span>
-        <button type="button" class="btn btn-success" onclick="Approve(@Model.ID);">Подтвердить <i class="fas fa-check ml-1"></i></button>
-        <button type="button" class="btn btn-danger" onclick="Reject(@Model.ID);">Отменить <i class="fas fa-times ml-1"></i></button>
+    <span>@localizer["Actions"]:</span>
+        <button type="button" class="btn btn-success" onclick="Approve(@Model.ID);">@localizer["Approve"] <i class="fas fa-check ml-1"></i></button>
+        <button type="button" class="btn btn-danger" onclick="Reject(@Model.ID);">@localizer["Reject"] <i class="fas fa-times ml-1"></i></button>
         <div class="spinner-border spinner" style="display: none;"></div>
     }
     else if (Model.Status.ID == (int)DocumentStatusesEnum.Approved)
@@ -147,5 +147,5 @@ else
     }
 </div>
 <div class="mt-5">
-    <a asp-action="Index">Назад к списку</a>
+    <a asp-action="Index">@localizer["BackToList"]</a>
 </div>

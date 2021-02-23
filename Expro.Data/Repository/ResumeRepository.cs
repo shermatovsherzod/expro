@@ -18,8 +18,11 @@ namespace Expro.Data.Repository
             return DbSet
                 .Include(m => m.Creator)
                 .Include(m => m.Region)
+                    .ThenInclude(m => m.NameShort)
                 .Include(m => m.City)
-                .Include(m => m.ResumeStatus);
+                    .ThenInclude(m => m.NameShort)
+                .Include(m => m.ResumeStatus)
+                    .ThenInclude(m => m.NameShort);
         }
     }
 }

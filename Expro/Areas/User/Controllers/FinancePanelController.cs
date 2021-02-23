@@ -9,6 +9,7 @@ using Expro.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Localization;
 
 namespace Expro.Areas.User.Controllers
 {
@@ -29,7 +30,8 @@ namespace Expro.Areas.User.Controllers
             IUserPurchasedDocumentService userPurchasedDocumentService,
             IQuestionService questionService,
             IWithdrawRequestService withdrawRequestService,
-            IClickTransactionService clickTransactionService)
+            IClickTransactionService clickTransactionService,
+            IStringLocalizer<Resources.ResourceTexts> localizer)
         {
             UserBalanceService = userBalanceService;
             _userManager = userManager;
@@ -37,6 +39,7 @@ namespace Expro.Areas.User.Controllers
             QuestionService = questionService;
             WithdrawRequestService = withdrawRequestService;
             ClickTransactionService = clickTransactionService;
+            _localizer = localizer;
         }
 
         public async Task<IActionResult> Index()
@@ -56,7 +59,8 @@ namespace Expro.Areas.User.Controllers
                 userPurchases.ToList(),
                 userQuestionsWithFeeDistributed.ToList(),
                 userWithdrawRequests.ToList(),
-                clickTransactions.ToList());
+                clickTransactions.ToList(),
+                _localizer);
 
             return View(financePanelVM);
         }

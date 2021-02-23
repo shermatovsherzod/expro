@@ -2,10 +2,10 @@
 @using Expro.Models.Enums
 
 @{
-    ViewData["Title"] = "Практический документ";
+    ViewData["Title"] = localizer["PracticeDocument"];
     ViewData["DocumentType"] = DocumentTypesEnum.PracticeDocument;
-    ViewData["ApprovedStatusAlertText"] = "Практический документ подтвержден";
-    ViewData["RejectedStatusAlertText"] = "Практический документ отменен";
+    ViewData["ApprovedStatusAlertText"] = localizer["PracticeDocumentIsApproved"];
+    ViewData["RejectedStatusAlertText"] = localizer["PracticeDocumentIsRejected"];
 }
 
 <div class="w-lg-60 mx-lg-auto">
@@ -25,6 +25,12 @@
     <script src="~/js/Areas/Admin/Document/Details.js"></script>
     <script>
         $(document).ready(function () {
+            var localizer = {
+                "AreYouSureYouWantToApprove": "@Html.Raw(localizer["AreYouSureYouWantToApprove"])",
+                "AreYouSureYouWantToReject": "@Html.Raw(localizer["AreYouSureYouWantToReject"])"
+            };
+            SetVariables(localizer);
+
             SetDocumentType("@ViewData["DocumentType"]");
             InitQuill();
         });

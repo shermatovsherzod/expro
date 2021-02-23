@@ -2,6 +2,7 @@
 using Expro.Common.Utilities;
 using Expro.Models;
 using Expro.Models.Enums;
+using Microsoft.Extensions.Localization;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -12,22 +13,24 @@ namespace Expro.ViewModels
 {
     public class ExpenseVM
     {
-        [Display(Name = "Дата и время")]
+        [Display(Name = "DateTime", ResourceType = typeof(Resources.ResourceTexts))]
         public string DateTimeStr { get; set; }
 
-        [Display(Name = "На что")]
+        [Display(Name = "PurchaseObject", ResourceType = typeof(Resources.ResourceTexts))]
         public string PurchaseObject { get; set; }
 
-        [Display(Name = "Кому")]
+        [Display(Name = "PurchaseObjectAuthor", ResourceType = typeof(Resources.ResourceTexts))]
         public AppUserVM PurchaseObjectAuthor { get; set; }
 
-        [Display(Name = "Сумма")]
+        [Display(Name = "Amount", ResourceType = typeof(Resources.ResourceTexts))]
         public int Amount { get; set; }
         public string AmountStr { get; set; }
 
         public ExpenseVM() { }
 
-        public ExpenseVM(UserPurchasedDocument documentPurchased)
+        public ExpenseVM(
+            UserPurchasedDocument documentPurchased,
+            IStringLocalizer<Resources.ResourceTexts> localizer)
         {
             if (documentPurchased == null)
                 return;
@@ -39,7 +42,9 @@ namespace Expro.ViewModels
             AmountStr = Amount.ToString(AppData.Configuration.NumberViewStringFormat);
         }
 
-        public ExpenseVM(Question question)
+        public ExpenseVM(
+            Question question,
+            IStringLocalizer<Resources.ResourceTexts> localizer)
         {
             if (question == null)
                 return;
@@ -47,7 +52,7 @@ namespace Expro.ViewModels
             if (question.DateQuestionCompleted.HasValue && question.QuestionFeeIsDistributed == true)
                 DateTimeStr = DateTimeUtils.ConvertToString(question.DateQuestionCompleted.Value, AppData.Configuration.DateTimeViewStringFormat);
 
-            PurchaseObject = "Савол";
+            PurchaseObject = localizer["Question"];
 
             if (question.Price.HasValue)
             {

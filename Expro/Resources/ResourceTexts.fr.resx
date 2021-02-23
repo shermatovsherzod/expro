@@ -154,13 +154,13 @@
     <value>Мақолалар</value>
   </data>
   <data name="ArticlesCount" xml:space="preserve">
-    <value>Маколалар сони</value>
+    <value>Мақолалар сони</value>
   </data>
   <data name="AskQuestion" xml:space="preserve">
     <value>Савол бериш</value>
   </data>
   <data name="AskQuestionPopover" xml:space="preserve">
-    <value>Савол бериш учун &lt;a href='/Identity/Account/Login?returnUrl=/User/Question'&gt;сайтга киринг&lt;/a&gt; ёки &lt;a href='/Identity/Account/Register?returnUrl=/User/Question'&gt;руйхатдан утинг&lt;/a&gt;</value>
+    <value>Савол бериш учун &lt;a href='/Identity/Account/Login?returnUrl=/User/Question'&gt;сайтга киринг&lt;/a&gt; ёки &lt;a href='/Identity/Account/Register?returnUrl=/User/Question'&gt;рўйхатдан ўтинг&lt;/a&gt;</value>
   </data>
   <data name="Author" xml:space="preserve">
     <value>Муаллиф</value>
@@ -175,10 +175,10 @@
     <value>Саволни ёпиш</value>
   </data>
   <data name="Comments" xml:space="preserve">
-    <value>Комментлар</value>
+    <value>Изохлар</value>
   </data>
   <data name="CommentText" xml:space="preserve">
-    <value>Коммент матни</value>
+    <value>Изох матни</value>
   </data>
   <data name="ChangePassword" xml:space="preserve">
     <value>Парольни ўзгартириш</value>
@@ -196,22 +196,22 @@
     <value>Компаниялар каталоги</value>
   </data>
   <data name="ConfirmedOnly" xml:space="preserve">
-    <value>Факат тасдикланган</value>
+    <value>Факат тасдиқланган</value>
   </data>
   <data name="DatePublished" xml:space="preserve">
     <value>Чоп этилган сана</value>
   </data>
   <data name="DistributeFee" xml:space="preserve">
-    <value>Мукофотни булиш</value>
+    <value>Мукофотни бўлиш</value>
   </data>
   <data name="DoComment" xml:space="preserve">
-    <value>Коммент қолдириш</value>
+    <value>Изохлаш</value>
   </data>
   <data name="Contacts" xml:space="preserve">
     <value>Алоқа маълумотлари</value>
   </data>
   <data name="CountrySelect" xml:space="preserve">
-    <value>Мамалакатни танлаш</value>
+    <value>Мамлакатни танлаш</value>
   </data>
   <data name="Diploma" xml:space="preserve">
     <value>Диплом</value>
@@ -232,7 +232,7 @@
     <value>Хато</value>
   </data>
   <data name="ErrorRequiredField" xml:space="preserve">
-    <value>Мажбурий поле</value>
+    <value>Ушбу қатор тўлдирилиши шарт</value>
   </data>
   <data name="Expert" xml:space="preserve">
     <value>Эксперт</value>
@@ -259,10 +259,10 @@
     <value>Йуналиш буйича филтр</value>
   </data>
   <data name="FilterByPrice" xml:space="preserve">
-    <value>Нарх буйича филтр</value>
+    <value>Нарх бўйича филтр</value>
   </data>
   <data name="fr" xml:space="preserve">
-    <value>Узбек</value>
+    <value>Ўзбек</value>
   </data>
   <data name="FullName" xml:space="preserve">
     <value>Исм</value>
@@ -367,7 +367,7 @@
     <value>Расм юклаш</value>
   </data>
   <data name="ItMustBe100PercentInTotal" xml:space="preserve">
-    <value>Суммада 100% булиши керак</value>
+    <value>Жами 100% бўлиши керак</value>
   </data>
   <data name="NoAnswers" xml:space="preserve">
     <value>Жавоблар йуқ</value>
@@ -436,7 +436,7 @@
     <value>Минтақани танлаш</value>
   </data>
   <data name="SelectAtLeastOneAnswer" xml:space="preserve">
-    <value>Хеч булмаганда битта жавобни белгиланг</value>
+    <value>Хеч бўлмаганда битта жавобни белгиланг</value>
   </data>
   <data name="SelectFile" xml:space="preserve">
     <value>Файлни танланг</value>
@@ -448,19 +448,19 @@
     <value>Танланган жавобларда муаммо бор</value>
   </data>
   <data name="soum" xml:space="preserve">
-    <value>сум</value>
+    <value>сўм</value>
   </data>
   <data name="Submit" xml:space="preserve">
-    <value>Жунатиш</value>
+    <value>Жўнатиш</value>
   </data>
   <data name="TopExperts" xml:space="preserve">
     <value>ТОП экспертлар</value>
   </data>
   <data name="UnauthorizedDislikePopover" xml:space="preserve">
-    <value>Дислайк қуйиш учун &lt;a href='/Identity/Account/Login?returnUrl={0}'&gt;сайтга кирин&lt;/a&gt;</value>
+    <value>Дислайк қуйиш учун &lt;a href='/Identity/Account/Login?returnUrl={0}'&gt;сайтга киринг&lt;/a&gt;</value>
   </data>
   <data name="UnauthorizedLikePopover" xml:space="preserve">
-    <value>Лайк қуйиш учун &lt;a href='/Identity/Account/Login?returnUrl={0}'&gt;сайтга кирин&lt;/a&gt;</value>
+    <value>Лайк қўйиш учун &lt;a href='/Identity/Account/Login?returnUrl={0}'&gt;сайтга киринг&lt;/a&gt;</value>
   </data>
   <data name="UserNotFound" xml:space="preserve">
     <value>Фойдаланувчи топилмади</value>
@@ -478,7 +478,7 @@
     <value>Вакансиялар каталоги</value>
   </data>
   <data name="ViewAllFilters" xml:space="preserve">
-    <value>Барча филтрларни курсатиш</value>
+    <value>Барча филтрларни кўрсатиш</value>
   </data>
   <data name="WarningNotEnoughPointToGiveAnswerForQuestionWithFee" xml:space="preserve">
     <value>Пулли саволга жавоб ёзиш учун 100 рейтинг тўпланг ва маълумотингизни (диплом) тасдиқланг. Батафсил маълумот учун &lt;a href="#"&gt;Пулли хизмат кўрсатиш шартларини ўқинг&lt;/a&gt;</value>
@@ -495,14 +495,23 @@
   <data name="WriteAnswer" xml:space="preserve">
     <value>Жавоб бериш</value>
   </data>
+  <data name="AddNewArticle" xml:space="preserve">
+    <value>Янги мақола қўшиш</value>
+  </data>
+  <data name="AddNewPracticeDocument" xml:space="preserve">
+    <value>Янги амалиёт қўшиш</value>
+  </data>
   <data name="AddNewQuestion" xml:space="preserve">
     <value>Янги савол бериш</value>
   </data>
   <data name="AddNewQuestionWithFee" xml:space="preserve">
     <value>Янги мукофотли савол бериш</value>
   </data>
+  <data name="AddNewSampleDocument" xml:space="preserve">
+    <value>Янги наъмунавий хужжат қўшиш</value>
+  </data>
   <data name="AlreadyPurchased" xml:space="preserve">
-    <value>Сиз бу материални сотиб олгансиз. Куриш учун &lt;a href="/{0}/{1}Purchased/Details/{2}"&gt;шу йерга босинг&lt;/a&gt;.</value>
+    <value>Сиз бу материални сотиб олгансиз. Кўриш учун &lt;a href="/{0}/{1}Purchased/Details/{2}"&gt;шу йерга босинг&lt;/a&gt;.</value>
   </data>
   <data name="AreYouSureYouWantToPurchase" xml:space="preserve">
     <value>Сотиб олишга ишончингиз комилми?</value>
@@ -520,7 +529,7 @@
     <value>Сотиб олиш учун &lt;a href="/Identity/Account/Login?returnUrl={0}"&gt;сайтига киринг&lt;/a&gt;</value>
   </data>
   <data name="BackToList" xml:space="preserve">
-    <value>Руйхатга қайтиш</value>
+    <value>Рўйхатга қайтиш</value>
   </data>
   <data name="Continue" xml:space="preserve">
     <value>Давом этиш</value>
@@ -529,7 +538,10 @@
     <value>Маълумотлар сақланди</value>
   </data>
   <data name="DateModified" xml:space="preserve">
-    <value>Узгартирилган сана</value>
+    <value>Тахрирланган сана</value>
+  </data>
+  <data name="DocumentDoesNotBelongToYou" xml:space="preserve">
+    <value>Мазкур документ сизга тегишли эмас</value>
   </data>
   <data name="DocumentIsFree" xml:space="preserve">
     <value>Документ бепул</value>
@@ -537,31 +549,55 @@
   <data name="DocumentNotFound" xml:space="preserve">
     <value>Документ топилмади</value>
   </data>
+  <data name="DoTypeText" xml:space="preserve">
+    <value>Матнни теринг</value>
+  </data>
+  <data name="DoUploadFile" xml:space="preserve">
+    <value>Файлни юкланг</value>
+  </data>
   <data name="EditQuestion" xml:space="preserve">
-    <value>Саволни узгартириш</value>
+    <value>Саволни ўзгартириш</value>
   </data>
   <data name="FeeInSoums" xml:space="preserve">
-    <value>Мукофот (сумда)</value>
+    <value>Мукофот (сўмда)</value>
   </data>
   <data name="File" xml:space="preserve">
     <value>Файл</value>
   </data>
   <data name="FilterByStatus" xml:space="preserve">
-    <value>Статус буйича филтр</value>
+    <value>Статус бўйича филтр</value>
+  </data>
+  <data name="Free" xml:space="preserve">
+    <value>Бепул</value>
   </data>
   <data name="FreeItems" xml:space="preserve">
     <value>Бепул</value>
+  </data>
+  <data name="FreeMultiple" xml:space="preserve">
+    <value>Бепул</value>
+  </data>
+  <data name="InvalidData" xml:space="preserve">
+    <value>Нотўғри маълумотлар</value>
   </data>
   <data name="MyQuestions" xml:space="preserve">
     <value>Менинг саволларим</value>
   </data>
   <data name="NotEnoughMoneyOnBalancePleaseReplenish" xml:space="preserve">
-    <value>Балансингизда йетарлича маблаг мавжуд эмас. Илтимос, тулдиринг</value>
+    <value>Балансингизда йетарлича маблағ мавжуд эмас. Илтимос, тўлдиринг</value>
   </data>
   <data name="NotEnougthMoneyOnBalance" xml:space="preserve">
-    <value>Балансингизда йетарлича маблаг мавжуд эмас</value>
+    <value>Балансингизда йетарлича маблағ мавжуд эмас</value>
+  </data>
+  <data name="Paid" xml:space="preserve">
+    <value>Пуллик</value>
   </data>
   <data name="PaidItems" xml:space="preserve">
+    <value>Пуллик</value>
+  </data>
+  <data name="PaidMultiple" xml:space="preserve">
+    <value>Пуллик</value>
+  </data>
+  <data name="PaidShe" xml:space="preserve">
     <value>Пуллик</value>
   </data>
   <data name="PracticeDocument" xml:space="preserve">
@@ -576,20 +612,29 @@
   <data name="Purchase" xml:space="preserve">
     <value>Сотиб олиш</value>
   </data>
+  <data name="PurchasedArticles" xml:space="preserve">
+    <value>Сотиб олинган мақолалар</value>
+  </data>
+  <data name="PurchasedPracticeDocuments" xml:space="preserve">
+    <value>Сотиб олинган амалиётлар</value>
+  </data>
+  <data name="PurchasedSampleDocuments" xml:space="preserve">
+    <value>Сотиб олинган наъмунавий хужжатлар</value>
+  </data>
   <data name="QuestionIsApprovedByAdmin" xml:space="preserve">
-    <value>Савол администратор томонидан тадиқланди</value>
+    <value>Савол администратор томонидан тасдиқланди</value>
   </data>
   <data name="QuestionIsRejectedByAdmin" xml:space="preserve">
     <value>Савол администратор томонидан рад этилди</value>
   </data>
   <data name="QuestionIsSentForApproval" xml:space="preserve">
-    <value>Савол тасдиқлаш учун жунатилинди</value>
+    <value>Савол тасдиқлаш учун жўнатилди</value>
   </data>
   <data name="QuestionsHavingMyAnswer" xml:space="preserve">
     <value>Мен жавоб берган саволлар</value>
   </data>
   <data name="ReplenishBalanceOn" xml:space="preserve">
-    <value>Балансни {0} сумга тулдириш (CLICK)</value>
+    <value>Балансни {0} сумга тўлдириш (CLICK)</value>
   </data>
   <data name="SampleDocument" xml:space="preserve">
     <value>Наъмунавий хужжат</value>
@@ -600,14 +645,20 @@
   <data name="SaveAsDraft" xml:space="preserve">
     <value>Черновик сифатида сақлаш</value>
   </data>
+  <data name="SomethingWentWrong" xml:space="preserve">
+    <value>Нимадир содир булди</value>
+  </data>
   <data name="StatusDoesNotAllowToApprove" xml:space="preserve">
-    <value>Тадиқлашга статус тусқинлик қиляпти</value>
+    <value>Тасдиқлашга статус тўсқинлик қиляпти</value>
+  </data>
+  <data name="StatusDoesNotAllowToEdit" xml:space="preserve">
+    <value>Тахрирлашга статус тўсқинлик қиляпти</value>
   </data>
   <data name="StatusDoesNotAllowToReject" xml:space="preserve">
-    <value>Рад этишга статус тусқинлик қиляпти</value>
+    <value>Рад этишга статус тўсқинлик қиляпти</value>
   </data>
   <data name="SubmitForApproval" xml:space="preserve">
-    <value>Тасдиқлаш учун жунатиш</value>
+    <value>Тасдиқлаш учун жўнатиш</value>
   </data>
   <data name="Text" xml:space="preserve">
     <value>Матн</value>
@@ -618,19 +669,259 @@
   <data name="Usual" xml:space="preserve">
     <value>Оддий</value>
   </data>
+  <data name="UsualShe" xml:space="preserve">
+    <value>Оддий</value>
+  </data>
   <data name="YouAreNotAuthorized" xml:space="preserve">
-    <value>Сиз руйхатдан утмагангиз</value>
+    <value>Сиз рўйхатдан ўтмагангиз</value>
   </data>
   <data name="YourBalance" xml:space="preserve">
     <value>Сизнинг балансингиз</value>
   </data>
   <data name="lblConfirmPasswordError" xml:space="preserve">
-    <value>Киритилган пароллар бир бирига туғри келмайди</value>
+    <value>Киритилган пароллар бир бирига тўғри келмаяпти</value>
   </data>
   <data name="RegisterAsASimpleUser" xml:space="preserve">
     <value>Фойдаланувчи сифатида рўйхатдан ўтиш</value>
   </data>
   <data name="RegistrateAsExpert" xml:space="preserve">
     <value>Эксперт сифатида рўйхатдан ўтиш</value>
+  </data>
+  <data name="Actions" xml:space="preserve">
+    <value>Харакатлар</value>
+  </data>
+  <data name="AddNewPaidArticle" xml:space="preserve">
+    <value>Янги пуллик мақола қўшиш</value>
+  </data>
+  <data name="AddNewPaidPracticeDocument" xml:space="preserve">
+    <value>Янги пуллик амалиёт қўшиш</value>
+  </data>
+  <data name="AddNewPaidSampleDocument" xml:space="preserve">
+    <value>Янги пуллик наъмунавий хужжат қўшиш</value>
+  </data>
+  <data name="Approve" xml:space="preserve">
+    <value>Тасдиқлаш</value>
+  </data>
+  <data name="AreYouSureYouWantToApprove" xml:space="preserve">
+    <value>Тасдиқлашга ишончингиз комилми</value>
+  </data>
+  <data name="AreYouSureYouWantToReject" xml:space="preserve">
+    <value>Рад этишга ишончингиз комилми</value>
+  </data>
+  <data name="ArticleIsApproved" xml:space="preserve">
+    <value>Мақола тасдиқланган</value>
+  </data>
+  <data name="ArticleIsRejected" xml:space="preserve">
+    <value>Мақола рад этилган</value>
+  </data>
+  <data name="DocumentIsApprovedByAdmin" xml:space="preserve">
+    <value>Документ администратор томонидан тасдиқланди</value>
+  </data>
+  <data name="DocumentIsRejectedByAdmin" xml:space="preserve">
+    <value>Документ администратор томонидан рад этилди</value>
+  </data>
+  <data name="DocumentIsSentForApproval" xml:space="preserve">
+    <value>Документ тасдиқлаш учун жунатилди</value>
+  </data>
+  <data name="EditArticle" xml:space="preserve">
+    <value>Мақолани тахрирлаш</value>
+  </data>
+  <data name="EditPracticeDocument" xml:space="preserve">
+    <value>Амалиётни тахрирлаш</value>
+  </data>
+  <data name="EditSampleDocument" xml:space="preserve">
+    <value>Наъмунавий хужжатни тахрирлаш</value>
+  </data>
+  <data name="ExpertNotFound" xml:space="preserve">
+    <value>Эксперт топилмади</value>
+  </data>
+  <data name="Language" xml:space="preserve">
+    <value>Тил</value>
+  </data>
+  <data name="NotEnoughRatingForPostingPaidArticle" xml:space="preserve">
+    <value>Пулли макола ёзиш учун 100 рейтинг тўпланг ва маълумотингизни (диплом) тасдиқланг. Батафсил маълумот учун &lt;a href="#"&gt;Пулли хизмат кўрсатиш шартларини ўқинг&lt;/a&gt;</value>
+  </data>
+  <data name="NotEnoughRatingForPostingPaidPracticeDocument" xml:space="preserve">
+    <value>Пулли амалиёт ёзиш учун 100 рейтинг тўпланг ва маълумотингизни (диплом) тасдиқланг. Батафсил маълумот учун &lt;a href="#"&gt;Пулли хизмат кўрсатиш шартларини ўқинг&lt;/a&gt;</value>
+  </data>
+  <data name="NotEnoughRatingForPostingPaidSampleDocument" xml:space="preserve">
+    <value>Пулли намунавий хужжат ёзиш учун 100 рейтинг тўпланг ва маълумотингизни (диплом) тасдиқланг. Батафсил маълумот учун &lt;a href="#"&gt;Пулли хизмат кўрсатиш шартларини ўқинг&lt;/a&gt;</value>
+  </data>
+  <data name="PracticeDocumentIsApproved" xml:space="preserve">
+    <value>Амалиёт тасдиқланган</value>
+  </data>
+  <data name="PracticeDocumentIsRejected" xml:space="preserve">
+    <value>Амалиёт рад этилган</value>
+  </data>
+  <data name="PurchasedArticle" xml:space="preserve">
+    <value>Сотиб олинган мақола</value>
+  </data>
+  <data name="PurchasedPracticeDocument" xml:space="preserve">
+    <value>Сотиб олинган амалиёт</value>
+  </data>
+  <data name="PurchasedSampleDocument" xml:space="preserve">
+    <value>Сотиб олинган наъмунавий хужжат</value>
+  </data>
+  <data name="Reject" xml:space="preserve">
+    <value>Рад этиш</value>
+  </data>
+  <data name="SampleDocumentIsApproved" xml:space="preserve">
+    <value>Наъмунавий хужжат тасдиўланган</value>
+  </data>
+  <data name="SampleDocumentIsRejected" xml:space="preserve">
+    <value>Наъмунавий хужжат рад этилган</value>
+  </data>
+  <data name="AddNewRequest" xml:space="preserve">
+    <value>Янги буюртма яратиш</value>
+  </data>
+  <data name="AddNewRequestForWithdrawal" xml:space="preserve">
+    <value>Пулни йечиш учун янги буюртма бериш</value>
+  </data>
+  <data name="Amount" xml:space="preserve">
+    <value>Сумма</value>
+  </data>
+  <data name="AmountIsLessThenMinimum" xml:space="preserve">
+    <value>Белгиланган сумма минимумдан кам</value>
+  </data>
+  <data name="AreYouSureYouWantToMarkAsCompleted" xml:space="preserve">
+    <value>Бажарилди деб белгилашга ишончингиз комилми</value>
+  </data>
+  <data name="Balance" xml:space="preserve">
+    <value>Баланс</value>
+  </data>
+  <data name="BalanceIsLessThan" xml:space="preserve">
+    <value>Балансингизда {0} сум йечиб олиш учун йетарлича маблағ мавжуд эмас</value>
+  </data>
+  <data name="Completed" xml:space="preserve">
+    <value>Бажарилди</value>
+  </data>
+  <data name="DateCompleted" xml:space="preserve">
+    <value>Бажарилган сана</value>
+  </data>
+  <data name="DateCreated" xml:space="preserve">
+    <value>Яратилинган сана</value>
+  </data>
+  <data name="DateTime" xml:space="preserve">
+    <value>Сана ва вақт</value>
+  </data>
+  <data name="Details" xml:space="preserve">
+    <value>Очиш</value>
+  </data>
+  <data name="Documents" xml:space="preserve">
+    <value>Документлар</value>
+  </data>
+  <data name="Expenses" xml:space="preserve">
+    <value>Харажатлар</value>
+  </data>
+  <data name="FilterByUserType" xml:space="preserve">
+    <value>Фойдаланувчи тури бўйича филтр</value>
+  </data>
+  <data name="FinancePanel" xml:space="preserve">
+    <value>Финанслар</value>
+  </data>
+  <data name="Incomes" xml:space="preserve">
+    <value>Ишлаб топилган маблағ</value>
+  </data>
+  <data name="Loading" xml:space="preserve">
+    <value>Юкланяпти</value>
+  </data>
+  <data name="MarkAsCompleted" xml:space="preserve">
+    <value>Буюртмани бажариш</value>
+  </data>
+  <data name="MyAnswers" xml:space="preserve">
+    <value>Менинг жавобларим</value>
+  </data>
+  <data name="MyArticles" xml:space="preserve">
+    <value>Менинг мақолаларим</value>
+  </data>
+  <data name="MyCompanies" xml:space="preserve">
+    <value>Менинг компанияларим</value>
+  </data>
+  <data name="MyResumes" xml:space="preserve">
+    <value>Менинг резюмеларим</value>
+  </data>
+  <data name="MyVacancies" xml:space="preserve">
+    <value>Менинг вакансияларим</value>
+  </data>
+  <data name="NoExpenses" xml:space="preserve">
+    <value>Харажатлар йук</value>
+  </data>
+  <data name="NoIncomes" xml:space="preserve">
+    <value>Ишлаб пул топилмаган</value>
+  </data>
+  <data name="NotEnoughMoneyToSubmitForApproval" xml:space="preserve">
+    <value>Пул йечиш учун балансингизда йетарлича маблағ мавжуд эмас</value>
+  </data>
+  <data name="NoTransactions" xml:space="preserve">
+    <value>Баланс тўлдирилмаган</value>
+  </data>
+  <data name="NoUsers" xml:space="preserve">
+    <value>Фойдаланувчилар йўк</value>
+  </data>
+  <data name="NoWithdrawals" xml:space="preserve">
+    <value>Пул йечиб олишга буюртмалар йук</value>
+  </data>
+  <data name="Others" xml:space="preserve">
+    <value>Бошқалар</value>
+  </data>
+  <data name="Provider" xml:space="preserve">
+    <value>Провайдер</value>
+  </data>
+  <data name="PurchasedDocuments" xml:space="preserve">
+    <value>Сотиб олинган документлар</value>
+  </data>
+  <data name="PurchaseObject" xml:space="preserve">
+    <value>Нима учун</value>
+  </data>
+  <data name="PurchaseObjectAuthor" xml:space="preserve">
+    <value>Кимга</value>
+  </data>
+  <data name="PurchaseObjectPurchaser" xml:space="preserve">
+    <value>Сотиб олувчи</value>
+  </data>
+  <data name="ReplenishBalance" xml:space="preserve">
+    <value>Балансни тўлдириш</value>
+  </data>
+  <data name="RequestNotFound" xml:space="preserve">
+    <value>Буюртма топилмади</value>
+  </data>
+  <data name="RequestSuccessfullySumbitted" xml:space="preserve">
+    <value>Буюртма муваффақиятли жунатилинди</value>
+  </data>
+  <data name="RequestWasCompletedEarlier" xml:space="preserve">
+    <value>Буюртма аввал бажарилган</value>
+  </data>
+  <data name="SimpleUser" xml:space="preserve">
+    <value>Фойдаланувчи</value>
+  </data>
+  <data name="SimpleUsers" xml:space="preserve">
+    <value>Оддий фойдаланувчилар</value>
+  </data>
+  <data name="Status" xml:space="preserve">
+    <value>Статус</value>
+  </data>
+  <data name="Total" xml:space="preserve">
+    <value>Жами</value>
+  </data>
+  <data name="Transactions" xml:space="preserve">
+    <value>Балансни тўлдириш (транзакциялар)</value>
+  </data>
+  <data name="userHasNotEnoughtMoneyForWithdrawalWarning" xml:space="preserve">
+    <value>Пулни йечиш учун буюртма бера олишингиз учун балансингизда {0} сумдан кам маблаг булиши керак эмас.</value>
+  </data>
+  <data name="Withdrawals" xml:space="preserve">
+    <value>Пул йечиб олишга буюртмалар</value>
+  </data>
+  <data name="WithdrawRequests" xml:space="preserve">
+    <value>Пулни йечиш учун буюртмалар</value>
+  </data>
+  <data name="YouAreAllowedToWithdrawFromTo" xml:space="preserve">
+    <value>Сиз &lt;b&gt;{0}&lt;/b&gt;дан &lt;b&gt;{1}&lt;/b&gt; сўмгача йечиб олишингиз мумкин</value>
+  </data>
+  <data name="ZeroRecords" xml:space="preserve">
+    <value>Маълумотлар йук</value>
+  </data>
+  <data name="Help" xml:space="preserve">
+    <value>Ёрдам</value>
   </data>
 </root>

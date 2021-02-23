@@ -10,6 +10,7 @@ using Expro.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Localization;
 
 namespace Expro.Areas.Expert.Controllers
 {
@@ -20,19 +21,17 @@ namespace Expro.Areas.Expert.Controllers
         public ArticleDocumentPurchasedController(
             IArticleDocumentService articleDocumentService,
             IArticleDocumentSearchService articleDocumentSearchService,
-            UserManager<ApplicationUser> userManager,
             ILawAreaService lawAreaService,
             IDocumentCounterService documentCounterService,
-            IUserRatingService userRatingService)
+            IStringLocalizer<Resources.ResourceTexts> localizer)
             : base(
                   articleDocumentService,
                   articleDocumentSearchService,
-                  userManager,
                   lawAreaService,
                   documentCounterService,
-                  userRatingService)
+                  localizer)
         {
-            ErrorDocumentNotFound = "Статья не найдена";
+            ErrorDocumentNotFound = _localizer["ArticleNotFound"];
             //Area = UserAreasEnum.Expert;
         }
 

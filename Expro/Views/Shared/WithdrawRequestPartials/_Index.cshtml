@@ -4,20 +4,20 @@
 @if (ViewData["successfullyCreated"] != null)
 {
     <div class="alert alert-soft-success text-center rounded-0 mb-2" role="alert">
-        Запрос успешно отправлен
+        @localizer["RequestSuccessfullySumbitted"]
     </div>
 }
 
 <div class="row">
     <div class="col-12">
-        <a href="/@ViewData["Area"]/WithdrawRequest/Create" class="btn btn-info">Добавить новый запрос <i class="fas fa-plus ml-1"></i></a>
+        <a href="/@ViewData["Area"]/WithdrawRequest/Create" class="btn btn-info">@localizer["AddNewRequest"] <i class="fas fa-plus ml-1"></i></a>
     </div>
 </div>
 <br />
 
 <div class="row">
     <div class="col-sm-4" id="filtersBox">
-        Фильтр по статусу: <br />
+        @localizer["FilterByStatus"]: <br />
         <!-- Select -->
         <div id="statusDDBox" class="select2-custom select2-custom-sm-right">
             <select id="statusDD" class="js-custom-select custom-select-sm" style="opacity: 0;"
@@ -27,7 +27,7 @@
 						"customClass": "custom-select custom-select-sm",
 						"dropdownAutoWidth": true
 					  }' asp-items="@ViewData["statuses"] as List<SelectListItem>">
-                <option value="">Все</option>
+                <option value="">@localizer["All"]</option>
             </select>
         </div>
         <!-- End Select -->

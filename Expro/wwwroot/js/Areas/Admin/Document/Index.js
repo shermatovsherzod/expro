@@ -10,15 +10,18 @@ var documentStatuses =
 //var documentStatusRejected = 0;
 
 var documentPriceTypePaid = 0;
+var _localizer;
 
 function SetVariables(
     documentTypeName,
     documentStatusesEnum,
-    documentPriceTypesEnumPaid)
+    documentPriceTypesEnumPaid,
+    localizer)
 {
     documentType = documentTypeName;
     documentStatuses = documentStatusesEnum;
     documentPriceTypePaid = documentPriceTypesEnumPaid;
+    _localizer = localizer;
 }
 
 var table;
@@ -32,6 +35,7 @@ $(document).ready(function () {
         lengthChange: false,
         scrollX: true,
         lengthChange: false,
+        language: InitDataTableLanguage(),
         ajax:
         {
             url: "/Admin/" + documentType + "/Search",
@@ -83,7 +87,7 @@ $(document).ready(function () {
                     html += '                   </div>';
                     html += '                   <div class="col-12 col-md mt-3 mt-md-2">';
                     if (full.priceType == documentPriceTypePaid)
-                        html += '                   <span class="badge badge-soft-info">Цена: ' + full.priceStr + ' сум</span>';
+                        html += '                   <span class="badge badge-soft-info mr-2">' + _localizer["Price"] + ': ' + full.priceStr + ' ' + _localizer["soum"] + '</span>';
                     html += InsertStatusAlert(full);
                     html += '                   </div>';
                     html += '               </div>';
@@ -92,8 +96,8 @@ $(document).ready(function () {
                     html += '   </div>';
                     html += '   <div class="card-footer">';
                     html += '       <ul class="list-inline list-separator small text-body">';
-                    html += '           <li class="list-inline-item">Автор: ' + full.author.fullName + '</li>';
-                    html += '           <li class="list-inline-item">Дата изменения: ' + full.dateModified + '</li>';
+                    html += '           <li class="list-inline-item">' + _localizer["Author"] + ': ' + full.author.fullName + '</li>';
+                    html += '           <li class="list-inline-item">' + _localizer["DateModified"] + ': ' + full.dateModified + '</li>';
                     html += '       </ul>';
                     html += '   </div>';
                     html += '</div>';

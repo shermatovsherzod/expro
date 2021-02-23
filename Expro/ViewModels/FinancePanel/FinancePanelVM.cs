@@ -1,5 +1,6 @@
 ﻿using Expro.Common;
 using Expro.Models;
+using Microsoft.Extensions.Localization;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -12,14 +13,15 @@ namespace Expro.ViewModels
     {
         public AppUserVM User { get; set; }
         public string UserFullName { get;set; }
-        [Display(Name = "Баланс")]
+
+        [Display(Name = "Balance", ResourceType = typeof(Resources.ResourceTexts))]
         public int Balance { get; set; }
         public string BalanceStr { get; set; }
 
-        [Display(Name = "Расходы")]
+        [Display(Name = "Expenses", ResourceType = typeof(Resources.ResourceTexts))]
         public List<ExpenseVM> Expenses { get; set; }
 
-        [Display(Name = "Выводы средств")]
+        [Display(Name = "Withdrawals", ResourceType = typeof(Resources.ResourceTexts))]
         public List<WithdrawalVM> Withdrawals { get; set; }
 
         public FinancePanelVM() { }
@@ -29,7 +31,8 @@ namespace Expro.ViewModels
             int balance,
             List<UserPurchasedDocument> documentsPurchased,
             List<Question> questions,
-            List<WithdrawRequest> withdrawRequests)
+            List<WithdrawRequest> withdrawRequests,
+            IStringLocalizer<Resources.ResourceTexts> localizer)
         {
             User = new AppUserVM(user);
             Balance = balance;
@@ -40,7 +43,7 @@ namespace Expro.ViewModels
             {
                 foreach (var item in documentsPurchased)
                 {
-                    Expenses.Add(new ExpenseVM(item));
+                    Expenses.Add(new ExpenseVM(item, localizer));
                 }
             }
             
@@ -48,7 +51,7 @@ namespace Expro.ViewModels
             {
                 foreach (var item in questions)
                 {
-                    Expenses.Add(new ExpenseVM(item));
+                    Expenses.Add(new ExpenseVM(item, localizer));
                 }
             }
 
@@ -65,7 +68,7 @@ namespace Expro.ViewModels
 
     public class UserFinancePanelVM : FinancePanelVM
     {
-        [Display(Name = "Пополнения")]
+        [Display(Name = "Transactions", ResourceType = typeof(Resources.ResourceTexts))]
         public List<TransactionVM> Transactions { get; set; }
 
         public UserFinancePanelVM() { }
@@ -75,13 +78,15 @@ namespace Expro.ViewModels
             List<UserPurchasedDocument> documentsPurchased,
             List<Question> questions,
             List<WithdrawRequest> withdrawRequests,
-            List<ClickTransaction> clickTransactions)
+            List<ClickTransaction> clickTransactions,
+            IStringLocalizer<Resources.ResourceTexts> localizer)
             : base(
                   user,
                   balance,
                   documentsPurchased,
                   questions,
-                  withdrawRequests)
+                  withdrawRequests,
+                  localizer)
         {
             Transactions = new List<TransactionVM>();
             if (clickTransactions != null && clickTransactions.Count > 0)
@@ -96,7 +101,7 @@ namespace Expro.ViewModels
 
     public class ExpertFinancePanelVM : FinancePanelVM
     {
-        [Display(Name = "Заработки")]
+        [Display(Name = "Incomes", ResourceType = typeof(Resources.ResourceTexts))]
         public List<IncomeVM> Incomes { get; set; }
 
         public ExpertFinancePanelVM() { }
@@ -107,13 +112,15 @@ namespace Expro.ViewModels
             List<Question> questions,
             List<WithdrawRequest> withdrawRequests,
             List<UserPurchasedDocument> documentsSold,
-            List<QuestionAnswer> questionAnswers)
+            List<QuestionAnswer> questionAnswers,
+            IStringLocalizer<Resources.ResourceTexts> localizer)
             : base(
                   user,
                   balance,
                   documentsPurchased,
                   questions,
-                  withdrawRequests)
+                  withdrawRequests,
+                  localizer)
         {
             Incomes = new List<IncomeVM>();
             if (documentsSold != null && documentsSold.Count > 0)
@@ -128,7 +135,7 @@ namespace Expro.ViewModels
             {
                 foreach (var item in questionAnswers)
                 {
-                    Incomes.Add(new IncomeVM(item));
+                    Incomes.Add(new IncomeVM(item, localizer));
                 }
             }
         }

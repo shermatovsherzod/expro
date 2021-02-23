@@ -51,7 +51,7 @@
                                             data-toggle="collapse"
                                             data-target="#sidebarNavExample2">
                                         <span class="d-flex justify-content-between align-items-center">
-                                            <span class="h5 mb-0">View all categories</span>
+                                            <span class="h5 mb-0">@localizer["ViewAllFilters"]</span>
                                             <span class="navbar-toggler-default">
                                                 <svg width="14" height="14" viewBox="0 0 18 18" xmlns="http://www.w3.org/2000/svg">
                                                     <path fill="currentColor" d="M17.4,6.2H0.6C0.3,6.2,0,5.9,0,5.5V4.1c0-0.4,0.3-0.7,0.6-0.7h16.9c0.3,0,0.6,0.3,0.6,0.7v1.4C18,5.9,17.7,6.2,17.4,6.2z M17.4,14.1H0.6c-0.3,0-0.6-0.3-0.6-0.7V12c0-0.4,0.3-0.7,0.6-0.7h16.9c0.3,0,0.6,0.3,0.6,0.7v1.4C18,13.7,17.7,14.1,17.4,14.1z" />
@@ -67,26 +67,36 @@
                                     <!-- End Responsive Toggle Button -->
 
                                     <div id="sidebarNavExample2" class="collapse navbar-collapse">
-                                        <div class="mt-5 mt-lg-0">
-                                            <h2 class="h4"><a class="text-inherit" href="#">Artificial Intelligence</a></h2>
-
+                                        <div class="mt-5">
+                                            <h3 class="h4"><a class="text-inherit" href="#">@localizer["Experts"]</a></h3>
                                             <!-- Nav Link -->
-
                                             <a class="dropdown-item d-flex justify-content-between align-items-center px-0" href="/Admin/Experts">Эксперты</a>
                                             <a class="dropdown-item d-flex justify-content-between align-items-center px-0" href="/Admin/Feedback">Отзывы</a>
+                                        </div>
+
+                                        <div class="mt-5">
+                                            <h3 class="h4"><a class="text-inherit" href="#">@localizer["Documents"]</a></h3>
+                                            <!-- Nav Link -->
+                                            <a class="dropdown-item d-flex justify-content-between align-items-center px-0" href="/Admin/Question">Вопросы</a>
                                             <a class="dropdown-item d-flex justify-content-between align-items-center px-0" href="/Admin/ArticleDocument">Статьи</a>
                                             <a class="dropdown-item d-flex justify-content-between align-items-center px-0" href="/Admin/PracticeDocument">Практические документы</a>
                                             <a class="dropdown-item d-flex justify-content-between align-items-center px-0" href="/Admin/SampleDocument">Образцовые документы</a>
+                                        </div>
+
+                                        <div class="mt-5">
+                                            <h3 class="h4"><a class="text-inherit" href="#">@localizer["FinancePanel"]</a></h3>
+                                            <!-- Nav Link -->
                                             <a class="dropdown-item d-flex justify-content-between align-items-center px-0" href="/Admin/WithdrawRequest">Запросы на вывод средств</a>
-                                            <a class="dropdown-item d-flex justify-content-between align-items-center px-0" href="/Admin/Question">Вопросы</a>
                                             <a class="dropdown-item d-flex justify-content-between align-items-center px-0" href="/Admin/FinancePanel">Финансы</a>
+                                        </div>
+                                        <div class="mt-5">
+                                            <h3 class="h4"><a class="text-inherit" href="#">@localizer["Others"]</a></h3>
                                             <a class="dropdown-item d-flex justify-content-between align-items-center px-0" href="/Admin/Vacancy">Вакансии</a>
                                             <a class="dropdown-item d-flex justify-content-between align-items-center px-0" href="/Admin/Resume">Резюме</a>
                                             <a class="dropdown-item d-flex justify-content-between align-items-center px-0" href="/Admin/Company">Компании</a>
-
                                             <a class="dropdown-item d-flex justify-content-between align-items-center px-0" href="/Admin/EmailSending">Отправить email</a>
 
-                                            <a class="dropdown-item d-flex justify-content-between align-items-center px-0" href="#">
+                                            @*<a class="dropdown-item d-flex justify-content-between align-items-center px-0" href="#">
                                                 AI Product Manager
                                                 <span class="badge bg-soft-secondary badge-pill">30+</span>
                                             </a>
@@ -121,10 +131,10 @@
                                                 <span class="link-collapse-active">View less</span>
                                                 <span class="link-icon ml-1">+</span>
                                             </a>
-                                            <!-- End Link -->
+                                            <!-- End Link -->*@
                                         </div>
 
-                                        <div class="mt-5">
+                                        @*<div class="mt-5">
                                             <h3 class="h4"><a class="text-inherit" href="#">Data Science</a></h3>
 
                                             <!-- Nav Link -->
@@ -262,7 +272,7 @@
                                                 Interviewing
                                             </a>
                                             <!-- End Nav Link -->
-                                        </div>
+                                        </div>*@
                                     </div>
                                 </div>
                             </div>
@@ -320,6 +330,7 @@
     <partial name="_FirebaseConfig" />
     <script src="~/js/signalr/dist/browser/signalr.js"></script>
     <script src="~/js/Site/userTrackerHub_signalr.js"></script>
+    <script src="~/js/DataTableLanguage.js"></script>
 
     <!-- JS Implementing Plugins -->
     <script src="~/lib/frontTheme/vendor/hs-header/dist/hs-header.min.js"></script>
@@ -334,6 +345,12 @@
 
     <!-- JS Plugins Init. -->
     <script>
+        var datatablesLocalizer = {
+            "Loading": "@Html.Raw(localizer["Loading"])",
+            "ZeroRecords": "@Html.Raw(localizer["ZeroRecords"])"
+        };
+        SetDataTablesLocalizer(datatablesLocalizer);
+
         $(document).on('ready', function () {
             // INITIALIZATION OF HEADER
             // =======================================================

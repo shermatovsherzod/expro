@@ -10,6 +10,7 @@ using Expro.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Localization;
 
 namespace Expro.Areas.Expert.Controllers
 {
@@ -21,12 +22,14 @@ namespace Expro.Areas.Expert.Controllers
             IWithdrawRequestService withdrawRequestService,
             IWithdrawRequestStatusService withdrawRequestStatusService,
             IUserBalanceService userBalanceService,
-            UserManager<ApplicationUser> userManager)
+            UserManager<ApplicationUser> userManager,
+            IStringLocalizer<Resources.ResourceTexts> localizer)
             : base(
                   withdrawRequestService,
                   withdrawRequestStatusService,
                   userBalanceService,
-                  userManager)
+                  userManager,
+                  localizer)
         {
         }
 

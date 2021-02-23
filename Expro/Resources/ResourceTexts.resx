@@ -495,11 +495,20 @@
   <data name="WriteAnswer" xml:space="preserve">
     <value>Написать ответ</value>
   </data>
+  <data name="AddNewArticle" xml:space="preserve">
+    <value>Добавить новую статью</value>
+  </data>
+  <data name="AddNewPracticeDocument" xml:space="preserve">
+    <value>Добавить новый практический документ</value>
+  </data>
   <data name="AddNewQuestion" xml:space="preserve">
     <value>Задать новый вопрос</value>
   </data>
   <data name="AddNewQuestionWithFee" xml:space="preserve">
     <value>Задать новый вопрос с вознаграждением</value>
+  </data>
+  <data name="AddNewSampleDocument" xml:space="preserve">
+    <value>Добавить новый образцовый документ</value>
   </data>
   <data name="AlreadyPurchased" xml:space="preserve">
     <value>Вы уже покупали этот материал. Нажмите &lt;a href="/{0}/{1}Purchased/Details/{2}"&gt;здесь&lt;/a&gt;, чтобы посмотреть.</value>
@@ -531,11 +540,20 @@
   <data name="DateModified" xml:space="preserve">
     <value>Дата изменения</value>
   </data>
+  <data name="DocumentDoesNotBelongToYou" xml:space="preserve">
+    <value>Данный документ вам не принадлежит</value>
+  </data>
   <data name="DocumentIsFree" xml:space="preserve">
     <value>Документ бесплатный</value>
   </data>
   <data name="DocumentNotFound" xml:space="preserve">
     <value>Документ не найден</value>
+  </data>
+  <data name="DoTypeText" xml:space="preserve">
+    <value>Наберите текст</value>
+  </data>
+  <data name="DoUploadFile" xml:space="preserve">
+    <value>Загрузите файл</value>
   </data>
   <data name="EditQuestion" xml:space="preserve">
     <value>Редактировать вопрос</value>
@@ -549,8 +567,17 @@
   <data name="FilterByStatus" xml:space="preserve">
     <value>Фильтр по статусу</value>
   </data>
+  <data name="Free" xml:space="preserve">
+    <value>Обычный</value>
+  </data>
   <data name="FreeItems" xml:space="preserve">
     <value>Бесплатные</value>
+  </data>
+  <data name="FreeMultiple" xml:space="preserve">
+    <value>Бесплатные</value>
+  </data>
+  <data name="InvalidData" xml:space="preserve">
+    <value>Некорректные данные</value>
   </data>
   <data name="MyQuestions" xml:space="preserve">
     <value>Мои вопросы</value>
@@ -561,8 +588,17 @@
   <data name="NotEnougthMoneyOnBalance" xml:space="preserve">
     <value>Недостаточно средств на балансе</value>
   </data>
+  <data name="Paid" xml:space="preserve">
+    <value>Платный</value>
+  </data>
   <data name="PaidItems" xml:space="preserve">
     <value>Платные</value>
+  </data>
+  <data name="PaidMultiple" xml:space="preserve">
+    <value>Платные</value>
+  </data>
+  <data name="PaidShe" xml:space="preserve">
+    <value>Платная</value>
   </data>
   <data name="PracticeDocument" xml:space="preserve">
     <value>Практический документ</value>
@@ -575,6 +611,15 @@
   </data>
   <data name="Purchase" xml:space="preserve">
     <value>Купить</value>
+  </data>
+  <data name="PurchasedArticles" xml:space="preserve">
+    <value>Купленные статьи</value>
+  </data>
+  <data name="PurchasedPracticeDocuments" xml:space="preserve">
+    <value>Купленные практические документы</value>
+  </data>
+  <data name="PurchasedSampleDocuments" xml:space="preserve">
+    <value>Купленные образцовые документы</value>
   </data>
   <data name="QuestionIsApprovedByAdmin" xml:space="preserve">
     <value>Вопрос подтвержден администратором</value>
@@ -600,8 +645,14 @@
   <data name="SaveAsDraft" xml:space="preserve">
     <value>Сохранить как черновик</value>
   </data>
+  <data name="SomethingWentWrong" xml:space="preserve">
+    <value>Что-то пошло не так</value>
+  </data>
   <data name="StatusDoesNotAllowToApprove" xml:space="preserve">
     <value>Статус не позволяет подтвердить его</value>
+  </data>
+  <data name="StatusDoesNotAllowToEdit" xml:space="preserve">
+    <value>Статус не позволяет отредактировать его</value>
   </data>
   <data name="StatusDoesNotAllowToReject" xml:space="preserve">
     <value>Статус не позволяет отменить его</value>
@@ -618,11 +669,98 @@
   <data name="Usual" xml:space="preserve">
     <value>Обычный</value>
   </data>
+  <data name="UsualShe" xml:space="preserve">
+    <value>Обычная</value>
+  </data>
   <data name="YouAreNotAuthorized" xml:space="preserve">
     <value>Вы не авторизованы</value>
   </data>
   <data name="YourBalance" xml:space="preserve">
     <value>Ваш баланс</value>
+  </data>
+  <data name="Actions" xml:space="preserve">
+    <value>Действия</value>
+  </data>
+  <data name="AddNewPaidArticle" xml:space="preserve">
+    <value>Добавить новую платную статью</value>
+  </data>
+  <data name="AddNewPaidPracticeDocument" xml:space="preserve">
+    <value>Добавить новый платный практический документ</value>
+  </data>
+  <data name="AddNewPaidSampleDocument" xml:space="preserve">
+    <value>Добавить новый образцовый документ</value>
+  </data>
+  <data name="Approve" xml:space="preserve">
+    <value>Подтвердить</value>
+  </data>
+  <data name="AreYouSureYouWantToApprove" xml:space="preserve">
+    <value>Вы уверены, что хотите подтвердить</value>
+  </data>
+  <data name="AreYouSureYouWantToReject" xml:space="preserve">
+    <value>Вы уверены, что хотите отменить</value>
+  </data>
+  <data name="ArticleIsApproved" xml:space="preserve">
+    <value>Статья подтверждена</value>
+  </data>
+  <data name="ArticleIsRejected" xml:space="preserve">
+    <value>Статья отменена</value>
+  </data>
+  <data name="DocumentIsApprovedByAdmin" xml:space="preserve">
+    <value>Документ подтвержден администратором</value>
+  </data>
+  <data name="DocumentIsRejectedByAdmin" xml:space="preserve">
+    <value>Документ подтвержден администратором</value>
+  </data>
+  <data name="DocumentIsSentForApproval" xml:space="preserve">
+    <value>Документ отправлен на подтверждение</value>
+  </data>
+  <data name="EditArticle" xml:space="preserve">
+    <value>Редактировать статью</value>
+  </data>
+  <data name="EditPracticeDocument" xml:space="preserve">
+    <value>Редактировать практический документ</value>
+  </data>
+  <data name="EditSampleDocument" xml:space="preserve">
+    <value>Редактировать Образцовый документ</value>
+  </data>
+  <data name="ExpertNotFound" xml:space="preserve">
+    <value>Эксперт не найден</value>
+  </data>
+  <data name="Language" xml:space="preserve">
+    <value>Язык</value>
+  </data>
+  <data name="NotEnoughRatingForPostingPaidArticle" xml:space="preserve">
+    <value>Чтобы получить право публиковать платные статьи, требуется, чтобы Ваш рейтинг был не меньше 100, а также должен быть подтвержден диплом (об образовании). &lt;a href="#"&gt;Читайте условия оказания клатных услуг&lt;/a&gt;</value>
+  </data>
+  <data name="NotEnoughRatingForPostingPaidPracticeDocument" xml:space="preserve">
+    <value>Чтобы получить право публиковать платные практические документы, требуется, чтобы Ваш рейтинг был не меньше 100, а также должен быть подтвержден диплом (об образовании). Подробнее &lt;a href="#"&gt;читайте условия оказания клатных услуг&lt;/a&gt;</value>
+  </data>
+  <data name="NotEnoughRatingForPostingPaidSampleDocument" xml:space="preserve">
+    <value>asdf</value>
+  </data>
+  <data name="PracticeDocumentIsApproved" xml:space="preserve">
+    <value>Практический документ подтвержден</value>
+  </data>
+  <data name="PracticeDocumentIsRejected" xml:space="preserve">
+    <value>Практический документ отменен</value>
+  </data>
+  <data name="PurchasedArticle" xml:space="preserve">
+    <value>Купленная статья</value>
+  </data>
+  <data name="PurchasedPracticeDocument" xml:space="preserve">
+    <value>Купленный практический документ</value>
+  </data>
+  <data name="PurchasedSampleDocument" xml:space="preserve">
+    <value>Купленный образцовый документ</value>
+  </data>
+  <data name="Reject" xml:space="preserve">
+    <value>Отменить</value>
+  </data>
+  <data name="SampleDocumentIsApproved" xml:space="preserve">
+    <value>Образцовый документ подтвержден</value>
+  </data>
+  <data name="SampleDocumentIsRejected" xml:space="preserve">
+    <value>Образцовый документ отменен</value>
   </data>
   <data name="lblConfirmPasswordError" xml:space="preserve">
     <value>Введеные пароли не совпадают</value>
@@ -632,5 +770,158 @@
   </data>
   <data name="RegistrateAsExpert" xml:space="preserve">
     <value>Зарегистрироваться как эксперт</value>
+  </data>
+  <data name="AddNewRequest" xml:space="preserve">
+    <value>Добавить новый запрос</value>
+  </data>
+  <data name="AddNewRequestForWithdrawal" xml:space="preserve">
+    <value>Добавить новый запрос на вывод средств</value>
+  </data>
+  <data name="Amount" xml:space="preserve">
+    <value>Сумма</value>
+  </data>
+  <data name="AmountIsLessThenMinimum" xml:space="preserve">
+    <value>Указанная сумма меньше минимального порога вывода средств</value>
+  </data>
+  <data name="AreYouSureYouWantToMarkAsCompleted" xml:space="preserve">
+    <value>Вы уверены, что хотите отметить как Выполнено</value>
+  </data>
+  <data name="Balance" xml:space="preserve">
+    <value>Баланс</value>
+  </data>
+  <data name="BalanceIsLessThan" xml:space="preserve">
+    <value>На Вашем балансе недостаточно средств для снятия суммы {0}</value>
+  </data>
+  <data name="Completed" xml:space="preserve">
+    <value>Выполнено</value>
+  </data>
+  <data name="DateCompleted" xml:space="preserve">
+    <value>Дата выполнения</value>
+  </data>
+  <data name="DateCreated" xml:space="preserve">
+    <value>Дата создания</value>
+  </data>
+  <data name="DateTime" xml:space="preserve">
+    <value>Дата и время</value>
+  </data>
+  <data name="Details" xml:space="preserve">
+    <value>Детали</value>
+  </data>
+  <data name="Documents" xml:space="preserve">
+    <value>Документы</value>
+  </data>
+  <data name="Expenses" xml:space="preserve">
+    <value>Расходы</value>
+  </data>
+  <data name="FilterByUserType" xml:space="preserve">
+    <value>Фильтр по типу пользователя</value>
+  </data>
+  <data name="FinancePanel" xml:space="preserve">
+    <value>Финансы</value>
+  </data>
+  <data name="Incomes" xml:space="preserve">
+    <value>Заработки</value>
+  </data>
+  <data name="Loading" xml:space="preserve">
+    <value>Загрузка</value>
+  </data>
+  <data name="MarkAsCompleted" xml:space="preserve">
+    <value>Отметить как выполненное</value>
+  </data>
+  <data name="MyAnswers" xml:space="preserve">
+    <value>Мои ответы</value>
+  </data>
+  <data name="MyArticles" xml:space="preserve">
+    <value>Мои статьи</value>
+  </data>
+  <data name="MyCompanies" xml:space="preserve">
+    <value>Мои компании</value>
+  </data>
+  <data name="MyResumes" xml:space="preserve">
+    <value>Мои резюме</value>
+  </data>
+  <data name="MyVacancies" xml:space="preserve">
+    <value>Мои вакансии</value>
+  </data>
+  <data name="NoExpenses" xml:space="preserve">
+    <value>Нет расходов</value>
+  </data>
+  <data name="NoIncomes" xml:space="preserve">
+    <value>Нет заработков</value>
+  </data>
+  <data name="NotEnoughMoneyToSubmitForApproval" xml:space="preserve">
+    <value>Ваш баланс не позволяет подать заявку на вывод средств</value>
+  </data>
+  <data name="NoTransactions" xml:space="preserve">
+    <value>Нет пополнений</value>
+  </data>
+  <data name="NoUsers" xml:space="preserve">
+    <value>Нет пользователей</value>
+  </data>
+  <data name="NoWithdrawals" xml:space="preserve">
+    <value>Нет выводов средств</value>
+  </data>
+  <data name="Others" xml:space="preserve">
+    <value>Прочее</value>
+  </data>
+  <data name="Provider" xml:space="preserve">
+    <value>Провайдер</value>
+  </data>
+  <data name="PurchasedDocuments" xml:space="preserve">
+    <value>Приобретенные документы</value>
+  </data>
+  <data name="PurchaseObject" xml:space="preserve">
+    <value>На что</value>
+  </data>
+  <data name="PurchaseObjectAuthor" xml:space="preserve">
+    <value>Кому</value>
+  </data>
+  <data name="PurchaseObjectPurchaser" xml:space="preserve">
+    <value>Покупатель</value>
+  </data>
+  <data name="ReplenishBalance" xml:space="preserve">
+    <value>Пополнить баланс</value>
+  </data>
+  <data name="RequestNotFound" xml:space="preserve">
+    <value>Запрос не найден</value>
+  </data>
+  <data name="RequestSuccessfullySumbitted" xml:space="preserve">
+    <value>Запрос успешно отправлен</value>
+  </data>
+  <data name="RequestWasCompletedEarlier" xml:space="preserve">
+    <value>Запрос ранее уже был выполнен</value>
+  </data>
+  <data name="SimpleUser" xml:space="preserve">
+    <value>Пользователь</value>
+  </data>
+  <data name="SimpleUsers" xml:space="preserve">
+    <value>Обычные пользователи</value>
+  </data>
+  <data name="Status" xml:space="preserve">
+    <value>Статус</value>
+  </data>
+  <data name="Total" xml:space="preserve">
+    <value>Итого</value>
+  </data>
+  <data name="Transactions" xml:space="preserve">
+    <value>Пополнения (транзакции)</value>
+  </data>
+  <data name="userHasNotEnoughtMoneyForWithdrawalWarning" xml:space="preserve">
+    <value>Для того, чтобы оставить запрос на вывод средств, на Вашем балансе должно быть не менее {0} сумов.</value>
+  </data>
+  <data name="Withdrawals" xml:space="preserve">
+    <value>Выводы средств</value>
+  </data>
+  <data name="WithdrawRequests" xml:space="preserve">
+    <value>Запросы на вывод средств</value>
+  </data>
+  <data name="YouAreAllowedToWithdrawFromTo" xml:space="preserve">
+    <value>Вы можете снять от &lt;b&gt;{0}&lt;/b&gt; до &lt;b&gt;{1}&lt;/b&gt; сум</value>
+  </data>
+  <data name="ZeroRecords" xml:space="preserve">
+    <value>Нет данных</value>
+  </data>
+  <data name="Help" xml:space="preserve">
+    <value>Помощь</value>
   </data>
 </root>

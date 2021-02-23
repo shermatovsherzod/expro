@@ -16,16 +16,20 @@ namespace Expro.Data.Repository
         public IQueryable<Document> GetManyWithRelatedDataAsIQueryable()
         {
             return DbSet
-                .Include(m => m.DocumentLawAreas).ThenInclude(m => m.LawArea)
+                .Include(m => m.DocumentLawAreas)
+                    .ThenInclude(m => m.LawArea)
+                        .ThenInclude(m => m.NameShort)
                 .Include(m => m.Creator)
                     .ThenInclude(m => m.Avatar)
-                .Include(m => m.DocumentStatus);
+                .Include(m => m.DocumentStatus)
+                    .ThenInclude(m => m.NameShort);
         }
 
         public Document GeWithRelatedDataByID(int id)
         {
             return GetManyWithRelatedDataAsIQueryable()
                 .Include(m => m.Language)
+                    .ThenInclude(m => m.NameShort)
                 .Include(m => m.Attachment)
                 .Include(m => m.DocumentLikes)
                     .ThenInclude(m => m.Like)

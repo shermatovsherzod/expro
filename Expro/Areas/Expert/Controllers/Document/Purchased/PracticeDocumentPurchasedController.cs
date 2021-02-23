@@ -10,6 +10,7 @@ using Expro.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Localization;
 
 namespace Expro.Areas.Expert.Controllers
 {
@@ -20,19 +21,17 @@ namespace Expro.Areas.Expert.Controllers
         public PracticeDocumentPurchasedController(
             IPracticeDocumentService practiceDocumentService,
             IPracticeDocumentSearchService practiceDocumentSearchService,
-            UserManager<ApplicationUser> userManager,
             ILawAreaService lawAreaService,
             IDocumentCounterService documentCounterService,
-            IUserRatingService userRatingService)
+            IStringLocalizer<Resources.ResourceTexts> localizer)
             : base(
                   practiceDocumentService,
                   practiceDocumentSearchService,
-                  userManager,
                   lawAreaService,
                   documentCounterService,
-                  userRatingService)
+                  localizer)
         {
-            ErrorDocumentNotFound = "Практический документ не найден";
+            ErrorDocumentNotFound = _localizer["PracticeDocumentNotFound"];
         }
 
         public override IActionResult Index()

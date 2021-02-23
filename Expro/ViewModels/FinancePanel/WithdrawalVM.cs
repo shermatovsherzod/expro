@@ -12,13 +12,13 @@ namespace Expro.ViewModels
 {
     public class WithdrawalVM
     {
-        [Display(Name = "Дата и время")]
+        [Display(Name = "DateTime", ResourceType = typeof(Resources.ResourceTexts))]
         public string DateTimeStr { get; set; }
 
-        [Display(Name = "Статус")]
+        [Display(Name = "Status", ResourceType = typeof(Resources.ResourceTexts))]
         public BaseDropdownableDetailsVM Status { get; set; }
 
-        [Display(Name = "Сумма")]
+        [Display(Name = "Amount", ResourceType = typeof(Resources.ResourceTexts))]
         public int Amount { get; set; }
         public string AmountStr { get; set; }
 

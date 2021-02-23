@@ -10,6 +10,7 @@ using Expro.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Localization;
 
 namespace Expro.Controllers
 {
@@ -18,28 +19,26 @@ namespace Expro.Controllers
     {
         private readonly IDocumentService DocumentService;
         private readonly IDocumentSearchService DocumentSearchService;
-        private readonly UserManager<ApplicationUser> _userManager;
         private readonly ILawAreaService LawAreaService;
         private readonly IDocumentCounterService DocumentCounterService;
-        private readonly IUserRatingService _userRatingService;
 
-        protected string ErrorDocumentNotFound = "Документ не найден";
+        protected string ErrorDocumentNotFound = "";
         //protected UserAreasEnum Area;
 
         public BaseDocumentPurchasedController(
             IDocumentService documentService,
             IDocumentSearchService documentSearchService,
-            UserManager<ApplicationUser> userManager,
             ILawAreaService lawAreaService,
             IDocumentCounterService documentCounterService,
-            IUserRatingService userRatingService)
+            IStringLocalizer<Resources.ResourceTexts> localizer)
         {
             this.DocumentService = documentService;
             DocumentSearchService = documentSearchService;
-            _userManager = userManager;
             LawAreaService = lawAreaService;
             DocumentCounterService = documentCounterService;
-            _userRatingService = userRatingService;
+            _localizer = localizer;
+
+            ErrorDocumentNotFound = _localizer["DocumentNotFound"];
         }
 
         public virtual IActionResult Index()

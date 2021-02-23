@@ -2,7 +2,6 @@
 
 function SetVariables(localizer) {
     _localizer = localizer;
-    console.log(_localizer);
 }
 
 $(document).ready(function () {
