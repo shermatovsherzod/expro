@@ -1222,6 +1222,15 @@ namespace Expro.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Зарегистрироваться как пользователь.
+        /// </summary>
+        public static string RegisterAsASimpleUser {
+            get {
+                return ResourceManager.GetString("RegisterAsASimpleUser", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Зарегистрироваться как эксперт.
         /// </summary>
         public static string RegistrateAsExpert {

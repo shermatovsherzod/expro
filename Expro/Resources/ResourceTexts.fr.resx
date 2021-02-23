@@ -627,6 +627,9 @@
   <data name="lblConfirmPasswordError" xml:space="preserve">
     <value>Киритилган пароллар бир бирига туғри келмайди</value>
   </data>
+  <data name="RegisterAsASimpleUser" xml:space="preserve">
+    <value>Фойдаланувчи сифатида рўйхатдан ўтиш</value>
+  </data>
   <data name="RegistrateAsExpert" xml:space="preserve">
     <value>Эксперт сифатида рўйхатдан ўтиш</value>
   </data>
