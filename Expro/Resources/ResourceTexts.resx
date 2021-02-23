@@ -924,4 +924,10 @@
   <data name="Help" xml:space="preserve">
     <value>Помощь</value>
   </data>
+  <data name="RegisterConfirmation" xml:space="preserve">
+    <value>Подтверждение регистрации</value>
+  </data>
+  <data name="ConfirmationEmailSent" xml:space="preserve">
+    <value>Вам напочту отправлено письмо для подтверждения аккаунта.</value>
+  </data>
 </root>

@@ -924,4 +924,10 @@
   <data name="Help" xml:space="preserve">
     <value>Ёрдам</value>
   </data>
+  <data name="RegisterConfirmation" xml:space="preserve">
+    <value>Рўйхатдан ўтганликни тасдиқлаш</value>
+  </data>
+  <data name="ConfirmationEmailSent" xml:space="preserve">
+    <value>Сизга рўйхатдан ўтганингизни тасдиқлаш учун хат юборилди</value>
+  </data>
 </root>

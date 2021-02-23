@@ -31,6 +31,7 @@ namespace Expro.Areas.Identity.Pages.Account
         private readonly IRegionService _regionService;
         private readonly ICityService _cityService;
         //private readonly IEmailSender _emailSender;
+        private readonly IEmailService _emailSender;
         private readonly IUserBalanceService _userBalanceService;
 
         public RegisterExpertModel(
@@ -40,7 +41,7 @@ namespace Expro.Areas.Identity.Pages.Account
             ILawAreaService lawAreaService,
             IRegionService regionService,
             ICityService cityService,
-
+            IEmailService emailSender,
             //IEmailSender emailSender
             IUserBalanceService userBalanceService)
         {
@@ -48,6 +49,7 @@ namespace Expro.Areas.Identity.Pages.Account
             _signInManager = signInManager;
             _logger = logger;
             //_emailSender = emailSender;
+            _emailSender = emailSender;
             _lawAreaService = lawAreaService;
             _regionService = regionService;
             _cityService = cityService;
@@ -161,9 +163,9 @@ namespace Expro.Areas.Identity.Pages.Account
                         values: new { area = "Identity", userId = user.Id, code = code, returnUrl = returnUrl },
                         protocol: Request.Scheme);
 
-                    //string emailSubject = "Confirm your email";
+                    string emailSubject = "Confirm your email";
                     string emailBody = $"Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.";
-                    //await _emailSender.SendEmailAsync(Input.Email, emailSubject, emailBody);
+                    await _emailSender.SendEmailAsync(Input.Email, emailSubject, emailBody);
 
                     if (_userManager.Options.SignIn.RequireConfirmedAccount)
                     {

@@ -556,6 +556,15 @@ namespace Expro.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Вам напочту отправлено письмо для подтверждения аккаунта..
+        /// </summary>
+        public static string ConfirmationEmailSent {
+            get {
+                return ResourceManager.GetString("ConfirmationEmailSent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Только подтвержденные.
         /// </summary>
         public static string ConfirmedOnly {
@@ -1920,6 +1929,15 @@ namespace Expro.Resources {
         public static string RegisterAsASimpleUser {
             get {
                 return ResourceManager.GetString("RegisterAsASimpleUser", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Подтверждение регистрации.
+        /// </summary>
+        public static string RegisterConfirmation {
+            get {
+                return ResourceManager.GetString("RegisterConfirmation", resourceCulture);
             }
         }
         

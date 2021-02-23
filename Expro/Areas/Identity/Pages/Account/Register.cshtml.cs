@@ -27,6 +27,8 @@ namespace Expro.Areas.Identity.Pages.Account
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly ILogger<RegisterModel> _logger;
         //private readonly IEmailSender _emailSender;
+        private readonly IEmailService _emailSender;
+
         private readonly IUserBalanceService _userBalanceService;
 
         public RegisterModel(
@@ -34,12 +36,14 @@ namespace Expro.Areas.Identity.Pages.Account
             SignInManager<ApplicationUser> signInManager,
             ILogger<RegisterModel> logger,
             //IEmailSender emailSender
+            IEmailService emailSender,
             IUserBalanceService userBalanceService)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _logger = logger;
             //_emailSender = emailSender;
+            _emailSender = emailSender;
             _userBalanceService = userBalanceService;
         }
 
@@ -129,9 +133,9 @@ namespace Expro.Areas.Identity.Pages.Account
                         values: new { area = "Identity", userId = user.Id, code = code, returnUrl = returnUrl },
                         protocol: Request.Scheme);
 
-                    //string emailSubject = "Confirm your email";
+                    string emailSubject = "Confirm your email";
                     string emailBody = $"Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.";
-                    //await _emailSender.SendEmailAsync(Input.Email, emailSubject, emailBody);
+                    await _emailSender.SendEmailAsync(Input.Email, emailSubject, emailBody);
 
                     if (_userManager.Options.SignIn.RequireConfirmedAccount)
                     {
