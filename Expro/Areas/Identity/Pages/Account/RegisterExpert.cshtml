@@ -32,7 +32,7 @@
     <!-- Form Group -->
     <div class="js-form-message form-group">
         <label class="input-label" asp-for="Input.PatronymicName"></label>
-        <input class="form-control" asp-for="Input.PatronymicName" placeholder="" aria-label="" required
+        <input class="form-control" asp-for="Input.PatronymicName" placeholder="@localizer["lblPatronymicName"]" aria-label="" required
                data-msg="Please fill field.">
         <span asp-validation-for="Input.PatronymicName"></span>
     </div>
@@ -40,7 +40,7 @@
     <!-- Form Group -->
     <div class="js-form-message form-group">
         <label class="input-label" asp-for="Input.PhoneNumber"></label>
-        <input class="form-control" asp-for="Input.PhoneNumber" placeholder="" aria-label="" required
+        <input class="form-control" asp-for="Input.PhoneNumber" placeholder="@localizer["lblPhoneNumber"]" aria-label="" required
                data-msg="Please fill field.">
         <span asp-validation-for="Input.PhoneNumber"></span>
     </div>
@@ -52,7 +52,7 @@
                 asp-items="@ViewData["lawAreas"] as IEnumerable<SelectListItem>" class="js-custom-select custom-select" size="1" multiple style="opacity: 0;"
                 data-hs-select2-options='{
           "minimumResultsForSearch": "Infinity"
-        }'>
+        }'>          
         </select>
     </div>
     <!-- End Select -->
@@ -62,7 +62,7 @@
         <select asp-for="Input.RegionID"
                 asp-items="@ViewData["regions"] as IEnumerable<SelectListItem>"
                 class="form-control">
-            <option disabled selected>--- Выбрать регион ---</option>
+            <option disabled selected>--- @localizer["SelectRegion"] ---</option>
         </select>
         <span asp-validation-for="Input.RegionID" class="text-danger"></span>
     </div>
@@ -73,7 +73,7 @@
         <select asp-for="Input.CityID"
                 asp-items="@ViewData["cities"] as IEnumerable<SelectListItem>"
                 class="form-control">
-            <option disabled selected>--- Выбрать город ---</option>
+            <option disabled selected>--- @localizer["SelectCity"] ---</option>
         </select>
         <span asp-validation-for="Input.CityID" class="text-danger"></span>
     </div>
@@ -81,7 +81,7 @@
     <!-- Form Group -->
     <div class="js-form-message form-group">
         <label class="input-label" asp-for="Input.CityOther"></label>
-        <input class="form-control" asp-for="Input.CityOther" placeholder="" aria-label="" required
+        <input class="form-control" asp-for="Input.CityOther" placeholder="@localizer["lblCityOther"]" aria-label="" required
                data-msg="Please fill field.">
         <span asp-validation-for="Input.CityOther"></span>
     </div>
@@ -89,7 +89,7 @@
     <!-- Form Group -->
     <div class="js-form-message form-group">
         <label class="input-label" style="float:left;" asp-for="Input.Email"></label><span class="text-danger">*</span>
-        <input class="form-control" asp-for="Input.Email" placeholder="Емейл" aria-label="" required
+        <input class="form-control" asp-for="Input.Email" placeholder="@localizer["Email"]" aria-label="" required
                data-msg="Please fill field.">
         <span asp-validation-for="Input.Email"></span>
     </div>
@@ -137,7 +137,7 @@
 
 @section Scripts {
 
-    <partial name="_ValidationScriptsPartial" />
+    @*<partial name="_ValidationScriptsPartial" />*@
     <script>
         $(document).ready(function () {
             var cityID = Number("@cityID");
