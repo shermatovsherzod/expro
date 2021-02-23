@@ -918,4 +918,7 @@
   <data name="ZeroRecords" xml:space="preserve">
     <value>Нет данных</value>
   </data>
+  <data name="Help" xml:space="preserve">
+    <value>Помощь</value>
+  </data>
 </root>

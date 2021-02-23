@@ -20,32 +20,44 @@
                 int.TryParse(userTypeClaim.Value, out userTypeInt);
                 if (Enum.IsDefined(typeof(UserTypesEnum), userTypeInt))
                 {
+                    string userHomePageUrl = "";
+
                     if ((UserTypesEnum)userTypeInt == UserTypesEnum.Admin)
                     {
-                        <div class="hs-unfold">
+                        userHomePageUrl = "/Admin/Home";
+                        @*<div class="hs-unfold">
                             <a href="/Admin/Home" class="js-hs-unfold-invoker btn btn-xs btn-ghost-secondary" title="Manage">Hello @User.Identity.Name!</a>
-                        </div>
+                        </div>*@
                         @*<div class="hs-unfold">
                             <a href="/Admin/Profile" class="js-hs-unfold-invoker btn btn-xs btn-ghost-secondary" title="Manage">Hello @User.Identity.Name!</a>
                         </div>*@
                     }
                     else if ((UserTypesEnum)userTypeInt == UserTypesEnum.Expert)
                     {
-                        <div class="hs-unfold">
+                        userHomePageUrl = "/Expert/Home";
+                        @*<div class="hs-unfold">
                             <a href="/Expert/Home" class="js-hs-unfold-invoker btn btn-xs btn-ghost-secondary" title="Manage">Hello @User.Identity.Name!</a>
-                        </div>
+                        </div>*@
                         @*<div class="hs-unfold">
                             <a href="/Expert/ExpertProfileMainInfo" class="js-hs-unfold-invoker btn btn-xs btn-ghost-secondary" title="Manage">Hello @User.Identity.Name!</a>
                         </div>*@
                     }
                     else if ((UserTypesEnum)userTypeInt == UserTypesEnum.SimpleUser)
                     {
-                        <div class="hs-unfold">
+                        userHomePageUrl = "/User/Home";
+                        @*<div class="hs-unfold">
                             <a href="/User/Home" class="js-hs-unfold-invoker btn btn-xs btn-ghost-secondary" title="Manage">Hello @User.Identity.Name!</a>
-                        </div>
+                        </div>*@
                         @*<div class="hs-unfold">
                             <a href="/User/Profile" class="js-hs-unfold-invoker btn btn-xs btn-ghost-secondary" title="Manage">Hello @User.Identity.Name!</a>
                         </div>*@
+                    }
+
+                    if (!string.IsNullOrWhiteSpace(userHomePageUrl))
+                    {
+                        <div class="hs-unfold">
+                            <a href="@userHomePageUrl" class="js-hs-unfold-invoker btn btn-xs btn-ghost-secondary" title="Manage">@User.Identity.Name</a>
+                        </div>
                     }
                 }
             }
