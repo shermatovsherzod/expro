@@ -933,6 +933,21 @@
   <data name="EmailConfirmed" xml:space="preserve">
     <value>Емейл успешно подтвержден.</value>
   </data>
+  <data name="ExpertApproved" xml:space="preserve">
+    <value>Эксперт подтвержден</value>
+  </data>
+  <data name="ExpertNotApproved" xml:space="preserve">
+    <value>Эксперт не подтвержден</value>
+  </data>
+  <data name="ExpertRejected" xml:space="preserve">
+    <value>Эксперту отказано</value>
+  </data>
+  <data name="ExpertRequestForApproval" xml:space="preserve">
+    <value>Запрос на подтверждение</value>
+  </data>
+  <data name="ExpertWaitingForApproval" xml:space="preserve">
+    <value>Ожидание подтверждения</value>
+  </data>
   <data name="InvalidLoginAttempt" xml:space="preserve">
     <value>Логин или пароль неправильные</value>
   </data>

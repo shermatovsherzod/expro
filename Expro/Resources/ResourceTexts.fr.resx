@@ -933,6 +933,21 @@
   <data name="EmailConfirmed" xml:space="preserve">
     <value>Емейл муваффақиятли тасдиқланди.</value>
   </data>
+  <data name="ExpertApproved" xml:space="preserve">
+    <value>Эксперт тасдиқланган</value>
+  </data>
+  <data name="ExpertNotApproved" xml:space="preserve">
+    <value>Эксперт тасдиқланмаган</value>
+  </data>
+  <data name="ExpertRejected" xml:space="preserve">
+    <value>Экспертга рад этилди</value>
+  </data>
+  <data name="ExpertRequestForApproval" xml:space="preserve">
+    <value>Тасдиқлашга жўнатиш</value>
+  </data>
+  <data name="ExpertWaitingForApproval" xml:space="preserve">
+    <value>Тасдиқланиши кутилмоқда</value>
+  </data>
   <data name="InvalidLoginAttempt" xml:space="preserve">
     <value>Логин ё пароль нотўғри</value>
   </data>

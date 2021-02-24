@@ -889,11 +889,47 @@ namespace Expro.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Эксперт подтвержден.
+        /// </summary>
+        public static string ExpertApproved {
+            get {
+                return ResourceManager.GetString("ExpertApproved", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Эксперт не подтвержден.
+        /// </summary>
+        public static string ExpertNotApproved {
+            get {
+                return ResourceManager.GetString("ExpertNotApproved", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Эксперт не найден.
         /// </summary>
         public static string ExpertNotFound {
             get {
                 return ResourceManager.GetString("ExpertNotFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Эксперту отказано.
+        /// </summary>
+        public static string ExpertRejected {
+            get {
+                return ResourceManager.GetString("ExpertRejected", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Запрос на подтверждение.
+        /// </summary>
+        public static string ExpertRequestForApproval {
+            get {
+                return ResourceManager.GetString("ExpertRequestForApproval", resourceCulture);
             }
         }
         
@@ -912,6 +948,15 @@ namespace Expro.Resources {
         public static string ExpertsCount {
             get {
                 return ResourceManager.GetString("ExpertsCount", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ожидание подтверждения.
+        /// </summary>
+        public static string ExpertWaitingForApproval {
+            get {
+                return ResourceManager.GetString("ExpertWaitingForApproval", resourceCulture);
             }
         }
         
