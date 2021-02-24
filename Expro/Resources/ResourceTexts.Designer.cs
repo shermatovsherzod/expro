@@ -1096,6 +1096,15 @@ namespace Expro.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Логин или пароль неправильные.
+        /// </summary>
+        public static string InvalidLoginAttempt {
+            get {
+                return ResourceManager.GetString("InvalidLoginAttempt", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Суммарно должно быть 100%.
         /// </summary>
         public static string ItMustBe100PercentInTotal {

@@ -933,4 +933,7 @@
   <data name="EmailConfirmed" xml:space="preserve">
     <value>Емейл успешно подтвержден.</value>
   </data>
+  <data name="InvalidLoginAttempt" xml:space="preserve">
+    <value>Логин или пароль неправильные</value>
+  </data>
 </root>

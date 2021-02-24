@@ -907,13 +907,13 @@
     <value>Балансни тўлдириш (транзакциялар)</value>
   </data>
   <data name="userHasNotEnoughtMoneyForWithdrawalWarning" xml:space="preserve">
-    <value>Пулни йечиш учун буюртма бера олишингиз учун балансингизда {0} сумдан кам маблаг булиши керак эмас.</value>
+    <value>Пулни ечиш учун буюртма бера олишингиз учун балансингизда {0} сумдан кам маблаг булиши керак эмас.</value>
   </data>
   <data name="Withdrawals" xml:space="preserve">
-    <value>Пул йечиб олишга буюртмалар</value>
+    <value>Пул ечиб олишга буюртмалар</value>
   </data>
   <data name="WithdrawRequests" xml:space="preserve">
-    <value>Пулни йечиш учун буюртмалар</value>
+    <value>Пулни ечиш учун буюртмалар</value>
   </data>
   <data name="YouAreAllowedToWithdrawFromTo" xml:space="preserve">
     <value>Сиз &lt;b&gt;{0}&lt;/b&gt;дан &lt;b&gt;{1}&lt;/b&gt; сўмгача йечиб олишингиз мумкин</value>
@@ -932,5 +932,8 @@
   </data>
   <data name="EmailConfirmed" xml:space="preserve">
     <value>Емейл муваффақиятли тасдиқланди.</value>
+  </data>
+  <data name="InvalidLoginAttempt" xml:space="preserve">
+    <value>Логин ё пароль нотўғри</value>
   </data>
 </root>
