@@ -930,4 +930,7 @@
   <data name="ConfirmationEmailSent" xml:space="preserve">
     <value>Вам напочту отправлено письмо для подтверждения аккаунта.</value>
   </data>
+  <data name="EmailConfirmed" xml:space="preserve">
+    <value>Емейл успешно подтвержден.</value>
+  </data>
 </root>
