@@ -8,41 +8,42 @@
 
 @if (Model.UserStatusID == (int)ExpertApproveStatusEnum.NotApproved)
 {
-    <div class='alert alert-danger' role='alert'>@Model.UserStatusName</div>
-    <button class="btn btn-primary" onclick="profileConfirmationRequestByExpert()">Запросить подтверждение</button>
+    <div class='alert alert-soft-danger' role='alert'>@localizer["ExpertNotApproved"]</div>
+    <button class="btn btn-primary" onclick="profileConfirmationRequestByExpert()">@localizer["ExpertRequestForApproval"]</button>
 }
 
 @if (Model.UserStatusID == (int)ExpertApproveStatusEnum.WaitingForApproval)
 {
-    <div class='alert alert-info' role='alert'>@Model.UserStatusName</div>   
+    <div class='alert alert-info' role='alert'>@localizer["ExpertWaitingForApproval"]</div>   
 }
 
 @if (Model.UserStatusID == (int)ExpertApproveStatusEnum.Approved)
 {
-    <div class='alert alert-success' role='alert'>@Model.UserStatusName</div>
+<div class='alert alert-success' role='alert'>@localizer["ExpertApproved"]</div>
    
 }
 
 @if (Model.UserStatusID == (int)ExpertApproveStatusEnum.Rejected)
 {
-    <div class='alert alert-danger' role='alert'>@Model.UserStatusName</div>
-    <button class="btn btn-primary" onclick="profileConfirmationRequestByExpert()">Запросить подтверждение</button>
+    <div class='alert alert-danger' role='alert'>@localizer["ExpertRejected"]</div>
+    <button class="btn btn-primary" onclick="profileConfirmationRequestByExpert()">
+        @localizer["ExpertRequestForApproval"]</button>
 }
 
 
 
-<script>
-    function profileConfirmationRequestByExpert() {
-        $.ajax({
-            type: "POST",
-            url: "/Expert/Home/ProfileConfirmationRequestByExpert/",
-            success: function () {
-                window.location.reload();
-            },
-            error: function () {
-                alert('Ошибка');
+        <script>
+            function profileConfirmationRequestByExpert() {
+                $.ajax({
+                    type: "POST",
+                    url: "/Expert/Home/ProfileConfirmationRequestByExpert/",
+                    success: function () {
+                        window.location.reload();
+                    },
+                    error: function () {
+                        alert('Ошибка');
+                    }
+                });
             }
-        });
-    }
 
-</script>
+        </script>

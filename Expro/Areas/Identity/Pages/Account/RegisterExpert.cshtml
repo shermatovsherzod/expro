@@ -1,7 +1,7 @@
 ﻿@page
 @model RegisterExpertModel
 @{
-    ViewData["Title"] = "Регистрация эксперта";
+    ViewData["Title"] = localizer["RegistrateAsExpert"];
     Layout = "_LayoutFrontRegistration";
     int? cityID = Model?.Input?.CityID;
 }
@@ -10,21 +10,21 @@
     <!-- Title -->
     <div class="mb-5 mb-md-7 text-sm-center">
         <h1 class="h2 mb-0">@ViewData["Title"]</h1>
-        <p><a href="/Identity/Account/Register">Зарегистрироваться как пользователь</a></p>
+        <p><a href="/Identity/Account/Register">@localizer["RegisterAsASimpleUser"]</a></p>
     </div>
 
     <!-- Form Group -->
     <div class="js-form-message form-group">
-        <label class="input-label" asp-for="Input.LastName"></label>
-        <input class="form-control" asp-for="Input.LastName" placeholder="" aria-label="" required
+        <label class="input-label" style="float:left;" asp-for="Input.LastName"></label><span class="text-danger">*</span>
+        <input class="form-control" asp-for="Input.LastName" placeholder="@localizer["lblLastName"]" aria-label="" required
                data-msg="Please fill field.">
         <span asp-validation-for="Input.LastName"></span>
     </div>
     <!-- End Form Group -->
     <!-- Form Group -->
     <div class="js-form-message form-group">
-        <label class="input-label" asp-for="Input.FirstName"></label>
-        <input class="form-control" asp-for="Input.FirstName" placeholder="" aria-label="" required
+        <label class="input-label" style="float:left;" asp-for="Input.FirstName"></label><span class="text-danger">*</span>
+        <input class="form-control" asp-for="Input.FirstName" placeholder="@localizer["lblFirstName"]" aria-label="" required
                data-msg="Please fill field.">
         <span asp-validation-for="Input.FirstName"></span>
     </div>
@@ -32,37 +32,37 @@
     <!-- Form Group -->
     <div class="js-form-message form-group">
         <label class="input-label" asp-for="Input.PatronymicName"></label>
-        <input class="form-control" asp-for="Input.PatronymicName" placeholder="" aria-label="" required
+        <input class="form-control" asp-for="Input.PatronymicName" placeholder="@localizer["lblPatronymicName"]" aria-label="" required
                data-msg="Please fill field.">
         <span asp-validation-for="Input.PatronymicName"></span>
     </div>
     <!-- End Form Group -->
     <!-- Form Group -->
     <div class="js-form-message form-group">
-        <label class="input-label" asp-for="Input.PhoneNumber"></label>
-        <input class="form-control" asp-for="Input.PhoneNumber" placeholder="" aria-label="" required
+        <label class="input-label"  style="float:left;" asp-for="Input.PhoneNumber"></label><span class="text-danger">*</span>
+        <input class="form-control" asp-for="Input.PhoneNumber" placeholder="@localizer["lblPhoneNumber"]" aria-label="" required
                data-msg="Please fill field.">
         <span asp-validation-for="Input.PhoneNumber"></span>
     </div>
     <!-- End Form Group -->
     <!-- Select -->
     <div class="js-form-message form-group">
-        <label class="input-label" asp-for="Input.LawAreas"></label>
+        <label class="input-label" style="float:left;" asp-for="Input.LawAreas"></label><span class="text-danger">*</span>
         <select asp-for="Input.LawAreas"
                 asp-items="@ViewData["lawAreas"] as IEnumerable<SelectListItem>" class="js-custom-select custom-select" size="1" multiple style="opacity: 0;"
                 data-hs-select2-options='{
           "minimumResultsForSearch": "Infinity"
-        }'>
+        }'>          
         </select>
     </div>
     <!-- End Select -->
     <!-- Form Group -->
     <div class="js-form-message form-group">
-        <label class="input-label" asp-for="Input.RegionID"></label>
+        <label class="input-label" style="float:left;" asp-for="Input.RegionID"></label>
         <select asp-for="Input.RegionID"
                 asp-items="@ViewData["regions"] as IEnumerable<SelectListItem>"
                 class="form-control">
-            <option disabled selected>--- Выбрать регион ---</option>
+            <option disabled selected>--- @localizer["SelectRegion"] ---</option>
         </select>
         <span asp-validation-for="Input.RegionID" class="text-danger"></span>
     </div>
@@ -73,7 +73,7 @@
         <select asp-for="Input.CityID"
                 asp-items="@ViewData["cities"] as IEnumerable<SelectListItem>"
                 class="form-control">
-            <option disabled selected>--- Выбрать город ---</option>
+            <option disabled selected>--- @localizer["SelectCity"] ---</option>
         </select>
         <span asp-validation-for="Input.CityID" class="text-danger"></span>
     </div>
@@ -81,22 +81,22 @@
     <!-- Form Group -->
     <div class="js-form-message form-group">
         <label class="input-label" asp-for="Input.CityOther"></label>
-        <input class="form-control" asp-for="Input.CityOther" placeholder="" aria-label="" required
+        <input class="form-control" asp-for="Input.CityOther" placeholder="@localizer["lblCityOther"]" aria-label="" required
                data-msg="Please fill field.">
         <span asp-validation-for="Input.CityOther"></span>
     </div>
     <!-- End Form Group -->
     <!-- Form Group -->
     <div class="js-form-message form-group">
-        <label class="input-label" asp-for="Input.Email"></label>
-        <input class="form-control" asp-for="Input.Email" placeholder="Емейл" aria-label="" required
+        <label class="input-label" style="float:left;" asp-for="Input.Email"></label><span class="text-danger">*</span>
+        <input class="form-control" asp-for="Input.Email" placeholder="@localizer["Email"]" aria-label="" required
                data-msg="Please fill field.">
         <span asp-validation-for="Input.Email"></span>
     </div>
     <!-- End Form Group -->
     <!-- Form Group -->
     <div class="js-form-message form-group">
-        <label class="input-label" asp-for="Input.Password"></label>
+        <label class="input-label" style="float:left;" asp-for="Input.Password"></label><span class="text-danger">*</span>
         <input class="form-control" asp-for="Input.Password" placeholder="******" aria-label="" required
                data-msg="Please fill field.">
         <span asp-validation-for="Input.Password"></span>
@@ -104,14 +104,14 @@
     <!-- End Form Group -->
     <!-- Form Group -->
     <div class="js-form-message form-group">
-        <label class="input-label" asp-for="Input.ConfirmPassword"></label>
+        <label class="input-label" style="float:left;" asp-for="Input.ConfirmPassword"></label><span class="text-danger">*</span>
         <input class="form-control" asp-for="Input.ConfirmPassword" placeholder="******" aria-label="" required
                data-msg="Please fill field.">
         <span asp-validation-for="Input.ConfirmPassword"></span>
     </div>
     <!-- End Form Group -->
 
-    <div class="text-center"><button type="submit" class="btn btn-primary">Регистрация</button></div>
+    <div class="text-center"><button type="submit" class="btn btn-primary">@localizer["Register"]</button></div>
 
     <!-- Form Group -->
     @*<div class="js-form-message form-group">
@@ -137,7 +137,7 @@
 
 @section Scripts {
 
-    <partial name="_ValidationScriptsPartial" />
+    @*<partial name="_ValidationScriptsPartial" />*@
     <script>
         $(document).ready(function () {
             var cityID = Number("@cityID");

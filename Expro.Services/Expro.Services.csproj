@@ -18,4 +18,10 @@
     <ProjectReference Include="..\Expro.Models\Expro.Models.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Reference Include="Microsoft.Exchange.WebServices">
+      <HintPath>..\Expro\Microsoft.Exchange.WebServices.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
 </Project>

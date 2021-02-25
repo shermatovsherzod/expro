@@ -681,6 +681,9 @@
   <data name="lblConfirmPasswordError" xml:space="preserve">
     <value>Киритилган пароллар бир бирига тўғри келмаяпти</value>
   </data>
+  <data name="RegisterAsASimpleUser" xml:space="preserve">
+    <value>Фойдаланувчи сифатида рўйхатдан ўтиш</value>
+  </data>
   <data name="RegistrateAsExpert" xml:space="preserve">
     <value>Эксперт сифатида рўйхатдан ўтиш</value>
   </data>
@@ -904,13 +907,13 @@
     <value>Балансни тўлдириш (транзакциялар)</value>
   </data>
   <data name="userHasNotEnoughtMoneyForWithdrawalWarning" xml:space="preserve">
-    <value>Пулни йечиш учун буюртма бера олишингиз учун балансингизда {0} сумдан кам маблаг булиши керак эмас.</value>
+    <value>Пулни ечиш учун буюртма бера олишингиз учун балансингизда {0} сумдан кам маблаг булиши керак эмас.</value>
   </data>
   <data name="Withdrawals" xml:space="preserve">
-    <value>Пул йечиб олишга буюртмалар</value>
+    <value>Пул ечиб олишга буюртмалар</value>
   </data>
   <data name="WithdrawRequests" xml:space="preserve">
-    <value>Пулни йечиш учун буюртмалар</value>
+    <value>Пулни ечиш учун буюртмалар</value>
   </data>
   <data name="YouAreAllowedToWithdrawFromTo" xml:space="preserve">
     <value>Сиз &lt;b&gt;{0}&lt;/b&gt;дан &lt;b&gt;{1}&lt;/b&gt; сўмгача йечиб олишингиз мумкин</value>
@@ -920,5 +923,32 @@
   </data>
   <data name="Help" xml:space="preserve">
     <value>Ёрдам</value>
+  </data>
+  <data name="RegisterConfirmation" xml:space="preserve">
+    <value>Рўйхатдан ўтганликни тасдиқлаш</value>
+  </data>
+  <data name="ConfirmationEmailSent" xml:space="preserve">
+    <value>Сизга рўйхатдан ўтганингизни тасдиқлаш учун хат юборилди</value>
+  </data>
+  <data name="EmailConfirmed" xml:space="preserve">
+    <value>Емейл муваффақиятли тасдиқланди.</value>
+  </data>
+  <data name="ExpertApproved" xml:space="preserve">
+    <value>Эксперт тасдиқланган</value>
+  </data>
+  <data name="ExpertNotApproved" xml:space="preserve">
+    <value>Эксперт тасдиқланмаган</value>
+  </data>
+  <data name="ExpertRejected" xml:space="preserve">
+    <value>Экспертга рад этилди</value>
+  </data>
+  <data name="ExpertRequestForApproval" xml:space="preserve">
+    <value>Тасдиқлашга жўнатиш</value>
+  </data>
+  <data name="ExpertWaitingForApproval" xml:space="preserve">
+    <value>Тасдиқланиши кутилмоқда</value>
+  </data>
+  <data name="InvalidLoginAttempt" xml:space="preserve">
+    <value>Логин ё пароль нотўғри</value>
   </data>
 </root>

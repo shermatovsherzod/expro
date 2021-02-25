@@ -765,6 +765,9 @@
   <data name="lblConfirmPasswordError" xml:space="preserve">
     <value>Введеные пароли не совпадают</value>
   </data>
+  <data name="RegisterAsASimpleUser" xml:space="preserve">
+    <value>Зарегистрироваться как пользователь</value>
+  </data>
   <data name="RegistrateAsExpert" xml:space="preserve">
     <value>Зарегистрироваться как эксперт</value>
   </data>
@@ -920,5 +923,32 @@
   </data>
   <data name="Help" xml:space="preserve">
     <value>Помощь</value>
+  </data>
+  <data name="RegisterConfirmation" xml:space="preserve">
+    <value>Подтверждение регистрации</value>
+  </data>
+  <data name="ConfirmationEmailSent" xml:space="preserve">
+    <value>Вам напочту отправлено письмо для подтверждения аккаунта.</value>
+  </data>
+  <data name="EmailConfirmed" xml:space="preserve">
+    <value>Емейл успешно подтвержден.</value>
+  </data>
+  <data name="ExpertApproved" xml:space="preserve">
+    <value>Эксперт подтвержден</value>
+  </data>
+  <data name="ExpertNotApproved" xml:space="preserve">
+    <value>Эксперт не подтвержден</value>
+  </data>
+  <data name="ExpertRejected" xml:space="preserve">
+    <value>Эксперту отказано</value>
+  </data>
+  <data name="ExpertRequestForApproval" xml:space="preserve">
+    <value>Запрос на подтверждение</value>
+  </data>
+  <data name="ExpertWaitingForApproval" xml:space="preserve">
+    <value>Ожидание подтверждения</value>
+  </data>
+  <data name="InvalidLoginAttempt" xml:space="preserve">
+    <value>Логин или пароль неправильные</value>
   </data>
 </root>
