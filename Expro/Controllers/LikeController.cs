@@ -16,7 +16,7 @@ using Microsoft.Extensions.Logging;
 
 namespace Expro.Controllers
 {
-    [Authorize]
+    //[Authorize]
     public class LikeController : BaseController
     {
         private readonly ILikeService _likeService;

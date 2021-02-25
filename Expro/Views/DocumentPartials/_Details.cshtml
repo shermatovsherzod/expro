@@ -159,8 +159,10 @@ else
     else
     {
         <div>
-            <span><a href="javascript:void(0)" class="text-muted" data-toggle="popover" data-trigger="focus" @*title="Popover Header"*@ data-html="true" data-content="@localizer["UnauthorizedLikePopover", ViewData["curPageUrl"]]"><i class="fa fa-thumbs-up"></i> @Model.PositiveLikesCount</a></span>
-            <span class="ml-4"><a href="javascript:void(0)" class="text-muted" data-toggle="popover" data-trigger="focus" @*title="Popover Header"*@ data-html="true" data-content="@localizer["UnauthorizedDislikePopover", ViewData["curPageUrl"]]"><i class="fa fa-thumbs-down"></i> @Model.NegativeLikesCount</a></span>
+            @*<span><a href="javascript:void(0)" class="text-muted" data-toggle="popover" data-trigger="focus" data-html="true" data-content="@localizer["UnauthorizedLikePopover", ViewData["curPageUrl"]]"><i class="fa fa-thumbs-up"></i> @Model.PositiveLikesCount</a></span>
+            <span class="ml-4"><a href="javascript:void(0)" class="text-muted" data-toggle="popover" data-trigger="focus" data-html="true" data-content="@localizer["UnauthorizedDislikePopover", ViewData["curPageUrl"]]"><i class="fa fa-thumbs-down"></i> @Model.NegativeLikesCount</a></span>*@
+            <span><a href="javascript:void(0)" class="text-muted" onclick="Like(@Model.ID)"><i class="fa fa-thumbs-up"></i> @Model.PositiveLikesCount</a></span>
+            <span class="ml-4"><a href="javascript:void(0)" class="text-muted" onclick="Dislike(@Model.ID)"><i class="fa fa-thumbs-down"></i> @Model.NegativeLikesCount</a></span>
         </div>
     }
 

@@ -206,9 +206,10 @@
                                     </div>
                                 }
 
-                                @if (User.Identity.IsAuthenticated)
-                                {
-                                    <div class="mt-5" id="likesInfoBox_@answer.ID">
+                                <div class="mt-5" id="likesInfoBox_@answer.ID">
+                                    @if (User.Identity.IsAuthenticated)
+                                    {
+                                    
                                         @if (answer.ViewerUserHasLikeOrDislike.HasValue)
                                         {
                                             if (answer.ViewerUserHasLikeOrDislike.Value == true)
@@ -227,17 +228,19 @@
                                             <span><a href="javascript:void(0)" class="text-muted" onclick="Like(@answer.ID)"><i class="fa fa-thumbs-up"></i> @answer.PositiveLikesCount</a></span>
                                             <span class="ml-4"><a href="javascript:void(0)" class="text-muted" onclick="Dislike(@answer.ID)"><i class="fa fa-thumbs-down"></i> @answer.NegativeLikesCount</a></span>
                                         }
+                                    }
+                                    else
+                                    {
+                                        <div>
+                                            @*<span><a href="javascript:void(0)" class="text-muted" data-toggle="popover" data-trigger="focus" data-html="true" data-content="@localizer["UnauthorizedLikePopover", ViewData["curPageUrl"]]"><i class="fa fa-thumbs-up"></i> @answer.PositiveLikesCount</a></span>
+                                            <span class="ml-4"><a href="javascript:void(0)" class="text-muted" data-toggle="popover" data-trigger="focus" data-html="true" data-content="@localizer["UnauthorizedDislikePopover", ViewData["curPageUrl"]]"><i class="fa fa-thumbs-down"></i> @answer.NegativeLikesCount</a></span>*@
+                                            <span><a href="javascript:void(0)" class="text-muted" onclick="Like(@answer.ID)"><i class="fa fa-thumbs-up"></i> @answer.PositiveLikesCount</a></span>
+                                            <span class="ml-4"><a href="javascript:void(0)" class="text-muted" onclick="Dislike(@answer.ID)"><i class="fa fa-thumbs-down"></i> @answer.NegativeLikesCount</a></span>
+                                        </div>
+                                    }
 
-                                        <div class="spinner-border spinner" style="display: none;"></div>
-                                    </div>
-                                }
-                                else
-                                {
-                                    <div>
-                                        <span><a href="javascript:void(0)" class="text-muted" data-toggle="popover" data-trigger="focus" @*title="Popover Header"*@ data-html="true" data-content="@localizer["UnauthorizedLikePopover", ViewData["curPageUrl"]]"><i class="fa fa-thumbs-up"></i> @answer.PositiveLikesCount</a></span>
-                                        <span class="ml-4"><a href="javascript:void(0)" class="text-muted" data-toggle="popover" data-trigger="focus" @*title="Popover Header"*@ data-html="true" data-content="@localizer["UnauthorizedDislikePopover", ViewData["curPageUrl"]]"><i class="fa fa-thumbs-down"></i> @answer.NegativeLikesCount</a></span>
-                                    </div>
-                                }
+                                    <div class="spinner-border spinner" style="display: none;"></div>
+                                </div>
 
                                 @if (curUserIsAllowedToComment.Value && !Model.IsCompleted)
                                 {
