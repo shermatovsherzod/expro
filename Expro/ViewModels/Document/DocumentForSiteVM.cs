@@ -74,7 +74,7 @@ namespace Expro.ViewModels
             }
 
             Author = new AppUserVM(model.Creator);
-            DatePublished = DateTimeUtils.ConvertToString(model.DateApproved);
+            DatePublished = DateTimeUtils.ConvertToString(model.DatePublished);
         }
     }
 

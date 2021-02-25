@@ -119,6 +119,7 @@ namespace Expro.ViewModels
 
     public class QuestionPaidEditVM : QuestionFreeEditVM
     {
+        [Range(1, int.MaxValue, ErrorMessageResourceType = typeof(Resources.ResourceTexts), ErrorMessageResourceName = "ErrorMustBePositive")]
         [Required(ErrorMessageResourceType = typeof(Resources.ResourceTexts), ErrorMessageResourceName = "ErrorRequiredField")]
         [Display(Name = "FeeInSoums", ResourceType = typeof(Resources.ResourceTexts))]
         public int? Price { get; set; }

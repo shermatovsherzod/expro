@@ -9,6 +9,7 @@ namespace Expro.Services.Interfaces
     {
         Question GetFreeByID(int id);
         Question GetPaidByID(int id);
+        bool StatusIsApproved(Question entity);
         bool EditingIsAllowed(Question entity);
         bool BelongsToUser(Question entity, string userID);
         bool AttachedFileIsAllowedToBeDeleted(Question entity);
@@ -26,5 +27,7 @@ namespace Expro.Services.Interfaces
         bool IsCompleted(Question question);
         IQueryable<Question> GetAllWhereFeeIsDistributedByCreator(string creatorID);
         IQueryable<Question> GetRandomQuestions(int count);
+        bool SettingAsPaidIsAllowed(Question question);
+        void SetAsPaid(Question question, int fee, string userID);
     }
 }

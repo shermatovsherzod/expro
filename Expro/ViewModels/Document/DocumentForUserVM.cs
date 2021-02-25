@@ -62,7 +62,7 @@ namespace Expro.ViewModels
                 .Select(m => new BaseDropdownableDetailsVM(m.LawArea))
                 .ToList();
 
-            DatePublished = DateTimeUtils.ConvertToString(model.DateApproved);
+            DatePublished = DateTimeUtils.ConvertToString(model.DatePublished);
         }
     }
 

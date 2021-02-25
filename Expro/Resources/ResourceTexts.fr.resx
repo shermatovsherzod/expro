@@ -951,4 +951,7 @@
   <data name="InvalidLoginAttempt" xml:space="preserve">
     <value>Логин ё пароль нотўғри</value>
   </data>
+  <data name="ErrorMustBePositive" xml:space="preserve">
+    <value>Ижобий сон киритинг</value>
+  </data>
 </root>

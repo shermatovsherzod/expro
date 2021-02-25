@@ -79,6 +79,14 @@ namespace Expro.Services
             return entity.DocumentStatusID == (int)DocumentStatusesEnum.Pending;
         }
 
+        public bool StatusIsApproved(Question entity)
+        {
+            if (entity == null)
+                return false;
+
+            return entity.DocumentStatusID == (int)DocumentStatusesEnum.Approved;
+        }
+
         public bool EditingIsAllowed(Question entity)
         {
             return StatusIsPending(entity);
@@ -252,7 +260,7 @@ namespace Expro.Services
             if (!question.DateApproved.HasValue)
                 return false;
 
-            if (question.DateApproved.Value.AddDays(1) < now)
+            if (question.DateApproved.Value.AddDays(1) > now)
                 //if (question.DateApproved.Value.AddMinutes(10) < now)
                 return true;
 
@@ -279,6 +287,35 @@ namespace Expro.Services
             List<int> randomlySelectedIDs = RandomUtils.ExtractRandomInts(allApprovedIDs, count);
 
             return GetAllApproved().Where(m => randomlySelectedIDs.Contains(m.ID));
+        }
+
+        public bool SettingAsPaidIsAllowed(Question question)
+        {
+            return StatusIsPending(question) || StatusIsApproved(question) && !IsCompleted(question);
+        }
+
+        public void SetAsPaid(Question question, int fee, string userID)
+        {
+            if (StatusIsPending(question))
+            {
+                question.PriceType = DocumentPriceTypesEnum.Paid;
+                question.Price = fee;
+                Update(question, userID);
+            }
+            else if (StatusIsApproved(question))
+            {
+                if (!IsCompleted(question))
+                {
+                    question.PriceType = DocumentPriceTypesEnum.Paid;
+                    question.Price = fee;
+                    question.DatePublished = DateTime.Now;
+
+                    question.QuestionCompletionDeadline = DateTimeUtils.RoundToUp(question.DatePublished.Value
+                        .AddMinutes(AppConfiguration.QuestionCompletionDeadlinePeriodInMinutes));
+
+                    Update(question, userID);
+                }
+            }
         }
     }
 }

@@ -126,6 +126,16 @@
     </div>
 </div>
 
+<!-- Fee set popup -->
+<!-- Modal -->
+<div class="modal fade" id="feeSetModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            @{await Html.RenderPartialAsync("_SetAsPaidForm", new QuestionSetAsPaidFormVM());}
+        </div>
+    </div>
+</div>
+
 <link href="~/lib/DataTables-1.10.22/datatables.css" rel="stylesheet" />
 
 @section CustomFrontStyles
@@ -135,6 +145,8 @@
 
 @section Scripts
 {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+
     <script src="~/lib/DataTables-1.10.22/datatables.js"></script>
     <script src="~/lib/frontTheme/vendor/select2/dist/js/select2.full.min.js"></script>
 
@@ -198,13 +210,20 @@
                             //html += '                       </div>';
                             html += '                       <div class="d-none d-sm-block">';
                             for (var i = 0; i < full.lawAreas.length; i++) {
-                                html += '                       <span class="badge badge-primary">' + full.lawAreas[i].name + '</span>';
+                                html += '                       <span class="badge badge-soft-primary">' + full.lawAreas[i].name + '</span>';
                             }
                             html += '                       </div>';
                             html += '                   </div>';
+                            //html += '                   <div class="col-auto order-md-3">';
+                            //html += '                   </div>';
                             html += '                   <div class="col-12 col-md mt-3 mt-md-2">';
                             if (full.priceType == '@((int)DocumentPriceTypesEnum.Paid)')
-                                html += '                   <span class="badge badge-soft-info">' + '@localizer["Fee"]' + ': ' + full.priceStr + ' ' + '@localizer["soum"]' + '</span>';
+                                html += '                   <span class="badge badge-soft-info mr-2">' + '@localizer["Fee"]' + ': ' + full.priceStr + ' ' + '@localizer["soum"]' + '</span>';
+                            else if (full.status.id == "@((int)DocumentStatusesEnum.Pending)"
+                                || full.status.id == "@((int)DocumentStatusesEnum.Approved)" && !full.isCompleted)
+                            {
+                                html += '                   <button type="button" class="btn btn-xs btn-soft-dark mb-1 mt-2 mr-2" onclick="ShowFeeSetPopup(' + full.id + ');" data-toggle="modal" data-target="#feeSetModal">Назначить вознаграждение</button>';
+                            }
                             html += InsertStatusAlert(full);
                             html += InsertCompletenessStatus(full);
                             html += '                   </div>';
@@ -295,6 +314,11 @@
             //$('.js-ion-range-slider').each(function () {
             //    var ionRangeSlider = $.HSCore.components.HSIonRangeSlider.init($(this));
             //});
+        }
+
+        function ShowFeeSetPopup(id) {
+            //alert("asdf");
+            $("form#setAsPaidForm input#ID").val(id);
         }
     </script>
 }

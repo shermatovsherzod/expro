@@ -34,8 +34,10 @@ namespace Expro.Services
 
         public virtual void Approve(T entity, string userID)
         {
+            var now = DateTime.Now;
             entity.DocumentStatusID = (int)DocumentStatusesEnum.Approved;
-            entity.DateApproved = DateTime.Now;
+            entity.DateApproved = now;
+            entity.DatePublished = now;
 
             Update(entity, userID);
         }

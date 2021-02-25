@@ -13,6 +13,7 @@ namespace Expro.Models
 
         public DateTime? DateSubmittedForApproval { get; set; }
         public DateTime? DateApproved { get; set; }
+        public DateTime? DatePublished { get; set; }
         public DateTime? DateRejected { get; set; }
         public DateTime? RejectionDeadline { get; set; }
         public string RejectionJobID { get; set; }

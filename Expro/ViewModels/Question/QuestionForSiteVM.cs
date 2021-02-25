@@ -72,7 +72,7 @@ namespace Expro.ViewModels
             }
 
             Author = new AppUserVM(model.Creator);
-            DatePublished = DateTimeUtils.ConvertToString(model.DateApproved);
+            DatePublished = DateTimeUtils.ConvertToString(model.DatePublished);
 
             IsCompleted = model.QuestionIsCompleted ?? false;
             FeeIsDistributed = model.QuestionFeeIsDistributed ?? false;

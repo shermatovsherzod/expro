@@ -26,6 +26,7 @@ namespace Expro.Areas.User.Controllers
         private readonly IQuestionStatusService QuestionStatusService;
         private readonly IUserBalanceService UserBalanceService;
         private readonly UserManager<ApplicationUser> _userManager;
+        private readonly IUserService _userService;
 
         public QuestionController(
             IQuestionSearchService questionSearchService,
@@ -36,7 +37,8 @@ namespace Expro.Areas.User.Controllers
             IHangfireService hangfireService,
             IQuestionStatusService questionStatusService,
             IUserBalanceService userBalanceService,
-            UserManager<ApplicationUser> userManager)
+            UserManager<ApplicationUser> userManager,
+            IUserService userService)
         {
             QuestionSearchService = questionSearchService;
             LawAreaService = lawAreaService;
@@ -47,6 +49,7 @@ namespace Expro.Areas.User.Controllers
             QuestionStatusService = questionStatusService;
             UserBalanceService = userBalanceService;
             _userManager = userManager;
+            _userService = userService;
         }
 
         public IActionResult Index()
@@ -169,9 +172,9 @@ namespace Expro.Areas.User.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> EditFree(QuestionFreeEditVM modelVM)
+        public IActionResult EditFree(QuestionFreeEditVM modelVM)
         {
-            return await EditSharedPost(modelVM, DocumentPriceTypesEnum.Free);
+            return EditSharedPost(modelVM, DocumentPriceTypesEnum.Free);
         }
 
 
@@ -190,12 +193,12 @@ namespace Expro.Areas.User.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> EditPaid(QuestionPaidEditVM modelVM)
+        public IActionResult EditPaid(QuestionPaidEditVM modelVM)
         {
-            return await EditSharedPost(modelVM, DocumentPriceTypesEnum.Paid);
+            return EditSharedPost(modelVM, DocumentPriceTypesEnum.Paid);
         }
 
-        private async Task<IActionResult> EditSharedPost(QuestionFreeEditVM modelVM, DocumentPriceTypesEnum priceType)
+        private IActionResult EditSharedPost(QuestionFreeEditVM modelVM, DocumentPriceTypesEnum priceType)
         {
             try
             {
@@ -224,7 +227,7 @@ namespace Expro.Areas.User.Controllers
 
                     if (modelVM.ActionType == DocumentActionTypesEnum.submitForApproval)
                     {
-                        ApplicationUser curAppUser = await _userManager.GetUserAsync(User);
+                        ApplicationUser curAppUser = _userService.GetByID(curUser.ID);
                         int curUserBalance = UserBalanceService.GetBalance(curAppUser);
                         if (curUserBalance < model.Price)
                             throw new Exception("На Вашем балансе недостаточно средств");
@@ -266,6 +269,48 @@ namespace Expro.Areas.User.Controllers
             }
 
             return View(modelVM);
+        }
+
+        //ajax
+        [HttpPost]
+        public IActionResult SetAsPaid(QuestionSetAsPaidFormVM setAsPaidFormVM)
+        {
+            try
+            {
+                if (!ModelState.IsValid)
+                    throw new Exception("Что-то не то");
+
+                var curUser = accountUtil.GetCurrentUser(User);
+                ApplicationUser curAppUser = _userService.GetByID(curUser.ID);
+                int curUserBalance = UserBalanceService.GetBalance(curAppUser);
+                if (curUserBalance < setAsPaidFormVM.Price)
+                    throw new Exception("На Вашем балансе недостаточно средств");
+
+                Question question = QuestionService.GetFreeByID(setAsPaidFormVM.ID);
+                if (question == null)
+                    throw new Exception("Вопрос не найден");
+
+                if (!QuestionService.BelongsToUser(question, curUser.ID))
+                    throw new Exception("Данный вопрос вам не принадлежит");
+
+                if (!QuestionService.SettingAsPaidIsAllowed(question))
+                    throw new Exception("Невозможно назначить вознаграждение");
+
+                QuestionService.SetAsPaid(question, setAsPaidFormVM.Price, curUser.ID);
+
+                if (QuestionService.StatusIsApproved(question)
+                    && !QuestionService.IsCompleted(question))
+                {
+                    question.QuestionCompletionJobID = HangfireService.CreateJobForQuestionCompletionDeadline(question);
+                    QuestionService.Update(question);
+                }
+
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return CustomBadRequest(ex);
+            }
         }
 
         private void PrepareViewData(List<int> selectedLawAreaIDs)

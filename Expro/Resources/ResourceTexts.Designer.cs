@@ -862,6 +862,15 @@ namespace Expro.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Введите положительное число.
+        /// </summary>
+        public static string ErrorMustBePositive {
+            get {
+                return ResourceManager.GetString("ErrorMustBePositive", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Обязательное поле.
         /// </summary>
         public static string ErrorRequiredField {
