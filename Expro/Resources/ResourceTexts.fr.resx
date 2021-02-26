@@ -673,7 +673,7 @@
     <value>Оддий</value>
   </data>
   <data name="YouAreNotAuthorized" xml:space="preserve">
-    <value>Сиз рўйхатдан ўтмагангиз</value>
+    <value>Сиз рўйхатдан ўтмагансиз</value>
   </data>
   <data name="YourBalance" xml:space="preserve">
     <value>Сизнинг балансингиз</value>
@@ -850,7 +850,7 @@
     <value>Ишлаб пул топилмаган</value>
   </data>
   <data name="NotEnoughMoneyToSubmitForApproval" xml:space="preserve">
-    <value>Пул йечиш учун балансингизда йетарлича маблағ мавжуд эмас</value>
+    <value>Пул йечиш учун балансингизда етарлича маблағ мавжуд эмас</value>
   </data>
   <data name="NoTransactions" xml:space="preserve">
     <value>Баланс тўлдирилмаган</value>
@@ -916,10 +916,10 @@
     <value>Пулни ечиш учун буюртмалар</value>
   </data>
   <data name="YouAreAllowedToWithdrawFromTo" xml:space="preserve">
-    <value>Сиз &lt;b&gt;{0}&lt;/b&gt;дан &lt;b&gt;{1}&lt;/b&gt; сўмгача йечиб олишингиз мумкин</value>
+    <value>Сиз &lt;b&gt;{0}&lt;/b&gt;дан &lt;b&gt;{1}&lt;/b&gt; сўмгача ечиб олишингиз мумкин</value>
   </data>
   <data name="ZeroRecords" xml:space="preserve">
-    <value>Маълумотлар йук</value>
+    <value>Маълумотлар йўқ</value>
   </data>
   <data name="Help" xml:space="preserve">
     <value>Ёрдам</value>
