@@ -58,6 +58,39 @@ namespace Expro.Services
         }
 
 
+        //public async Task SendEmailAsync(
+        //    List<Tuple<string, string>> emails,
+        //    string subjectUz, string subjectRu,
+        //    string messageUz, string messageRu)
+        //{
+        //    foreach (var email in emails)
+        //    {
+        //        Microsoft.Exchange.WebServices.Data.ExchangeService service = new Microsoft.Exchange.WebServices.Data.ExchangeService(Microsoft.Exchange.WebServices.Data.ExchangeVersion.Exchange2013);
+        //        service.Credentials = new System.Net.NetworkCredential("rmasimov@wiut.uz", "samsung");
+        //        service.Url = new Uri("https://mail.wiut.uz/ews/exchange.asmx");
+        //        Microsoft.Exchange.WebServices.Data.EmailMessage emailMessage = new Microsoft.Exchange.WebServices.Data.EmailMessage(service);
+        //        emailMessage.Subject = subjectUz + " | " + subjectRu;
+
+        //        emailMessage.ToRecipients.Add(email.Item1);
+        //        string message = @"" + Appeal(email.Item2, "uz") + @"
+
+        //                    " + messageUz + @"
+
+        //                    " + Footer("uz") + @"
+
+        //                    " + Appeal(email.Item2, "ru") + @"
+
+        //                    " + messageRu + @"
+
+        //                    " + Footer("ru");
+
+        //        emailMessage.Body = new Microsoft.Exchange.WebServices.Data.MessageBody(Microsoft.Exchange.WebServices.Data.BodyType.HTML, message);
+        //        emailMessage.SendAndSaveCopy();
+        //    }
+        //}
+
+
+        //Mirazam
         public async Task SendEmailAsync(
             List<Tuple<string, string>> emails,
             string subjectUz, string subjectRu,
@@ -65,69 +98,36 @@ namespace Expro.Services
         {
             foreach (var email in emails)
             {
-                Microsoft.Exchange.WebServices.Data.ExchangeService service = new Microsoft.Exchange.WebServices.Data.ExchangeService(Microsoft.Exchange.WebServices.Data.ExchangeVersion.Exchange2013);
-                service.Credentials = new System.Net.NetworkCredential("rmasimov@wiut.uz", "samsung");
-                service.Url = new Uri("https://mail.wiut.uz/ews/exchange.asmx");
-                Microsoft.Exchange.WebServices.Data.EmailMessage emailMessage = new Microsoft.Exchange.WebServices.Data.EmailMessage(service);
+                var emailMessage = new MimeMessage();
+
+                emailMessage.From.Add(new MailboxAddress("Администрация сайта Expro.Uz", AppConfiguration.ExproEmailAddress));
+                emailMessage.To.Add(new MailboxAddress("", email.Item1));
                 emailMessage.Subject = subjectUz + " | " + subjectRu;
+                emailMessage.Body = new TextPart(MimeKit.Text.TextFormat.Html)
+                {
+                    Text = @"" + Appeal(email.Item2, "uz") + @"
 
-                emailMessage.ToRecipients.Add(email.Item1);
-                string message = @"" + Appeal(email.Item2, "uz") + @"
+        " + messageUz + @"
 
-                            " + messageUz + @"
+        " + Footer("uz") + @"
 
-                            " + Footer("uz") + @"
+        " + Appeal(email.Item2, "ru") + @"
 
-                            " + Appeal(email.Item2, "ru") + @"
+        " + messageRu + @"
 
-                            " + messageRu + @"
+        " + Footer("ru")
+                };
 
-                            " + Footer("ru");
+                using (var client = new SmtpClient())
+                {
+                    await client.ConnectAsync(AppConfiguration.ExproEmailSmtpClient, 0, SecureSocketOptions.StartTls);
+                    await client.AuthenticateAsync("mb8803", AppConfiguration.ExproEmailPassword);
+                    await client.SendAsync(emailMessage);
 
-                emailMessage.Body = new Microsoft.Exchange.WebServices.Data.MessageBody(Microsoft.Exchange.WebServices.Data.BodyType.HTML, message);
-                emailMessage.SendAndSaveCopy();
+                    await client.DisconnectAsync(true);
+                }
             }
         }
-
-
-        //Mirazam
-        //        public async Task SendEmailAsync(
-        //            List<Tuple<string, string>> emails,
-        //            string subjectUz, string subjectRu,
-        //            string messageUz, string messageRu)
-        //        {
-        //            foreach (var email in emails)
-        //            {
-        //                var emailMessage = new MimeMessage();
-
-        //                emailMessage.From.Add(new MailboxAddress("Администрация сайта Expro.Uz", AppConfiguration.ExproEmailAddress));
-        //                emailMessage.To.Add(new MailboxAddress("", email.Item1));
-        //                emailMessage.Subject = subjectUz + " | " + subjectRu;
-        //                emailMessage.Body = new TextPart(MimeKit.Text.TextFormat.Html)
-        //                {
-        //                    Text = @"" + Appeal(email.Item2, "uz") + @"
-
-        //" + messageUz + @"
-
-        //" + Footer("uz") + @"
-
-        //" + Appeal(email.Item2, "ru") + @"
-
-        //" + messageRu + @"
-
-        //" + Footer("ru")
-        //                };
-
-        //                using (var client = new SmtpClient())
-        //                {
-        //                    await client.ConnectAsync(AppConfiguration.ExproEmailSmtpClient, AppConfiguration.ExproEmailSmtpPort, SecureSocketOptions.StartTls);
-        //                    await client.AuthenticateAsync(AppConfiguration.ExproEmailAddress, AppConfiguration.ExproEmailPassword);
-        //                    await client.SendAsync(emailMessage);
-
-        //                    await client.DisconnectAsync(true);
-        //                }
-        //            }
-        //        }
 
         private string Appeal(string fullName, string lang = "uz")
         {
