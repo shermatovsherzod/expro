@@ -32,18 +32,17 @@
     <!-- Form Group -->
     <div class="js-form-message form-group">
         <label class="input-label" asp-for="Input.PatronymicName"></label>
-        <input class="form-control" asp-for="Input.PatronymicName" placeholder="@localizer["lblPatronymicName"]" aria-label="" required
-               data-msg="Please fill field.">
+        <input class="form-control" asp-for="Input.PatronymicName" placeholder="@localizer["lblPatronymicName"]" aria-label="">
         <span asp-validation-for="Input.PatronymicName"></span>
     </div>
     <!-- End Form Group -->
     <!-- Form Group -->
-    <div class="js-form-message form-group">
+    @*<div class="js-form-message form-group">
         <label class="input-label"  style="float:left;" asp-for="Input.PhoneNumber"></label><span class="text-danger">*</span>
         <input class="form-control" asp-for="Input.PhoneNumber" placeholder="@localizer["lblPhoneNumber"]" aria-label="" required
                data-msg="Please fill field.">
         <span asp-validation-for="Input.PhoneNumber"></span>
-    </div>
+    </div>*@
     <!-- End Form Group -->
     <!-- Select -->
     <div class="js-form-message form-group">
