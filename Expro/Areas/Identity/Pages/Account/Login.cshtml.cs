@@ -101,6 +101,11 @@ namespace Expro.Areas.Identity.Pages.Account
                     _logger.LogWarning("User account locked out.");
                     return RedirectToPage("./Lockout");
                 }
+                if (result.IsNotAllowed)
+                {
+                    ModelState.AddModelError(string.Empty, _localizer["EmailNotConfirmed"]);
+                    return Page();
+                }
                 else
                 {
                     ModelState.AddModelError(string.Empty, _localizer["InvalidLoginAttempt"] );

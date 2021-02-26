@@ -954,4 +954,7 @@
   <data name="ErrorMustBePositive" xml:space="preserve">
     <value>Введите положительное число</value>
   </data>
+  <data name="EmailNotConfirmed" xml:space="preserve">
+    <value>Емейл не подтвержден.</value>
+  </data>
 </root>

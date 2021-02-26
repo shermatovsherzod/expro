@@ -98,7 +98,7 @@ namespace Expro.Areas.Identity.Pages.Account
             //[Display(Name = "Тип пользователя")]
             //public int UserType { get; set; }
 
-            [Required]
+            //[Required]
             [Display(Name = "Телефон")]
             public string PhoneNumber { get; set; }
 

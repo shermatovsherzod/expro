@@ -16,24 +16,43 @@ namespace Expro.Services
     {
         UserManager<ApplicationUser> _userManager;
         IUserService _userService;
+        private readonly IEmailService _emailService;
         public ExpertsListAdminActionsService()
         {
 
         }
 
-        public ExpertsListAdminActionsService(UserManager<ApplicationUser> userManager, IUserService userService)
+        public ExpertsListAdminActionsService(UserManager<ApplicationUser> userManager, IUserService userService, IEmailService emailService)
         {
             _userManager = userManager;
             _userService = userService;
+            _emailService = emailService;
         }
 
         public bool Approve(ApplicationUser entity)
         {
             entity.UserStatusID = (int)ExpertApproveStatusEnum.Approved;
             entity.DateApproved = DateTime.Now;
+
             try
             {
-                _userService.Update(entity);
+                _userService.Update(entity);              
+
+                string subjectUz = "Эксперт тасдиқланди";
+                string subjectRu = "Эксперт подтвержден";
+
+                string messageUz = "Эксперт тасдиқланди.";
+                string messageRu = "Эксперт подтвержден.";
+
+                List<Tuple<string, string>> emails = new List<Tuple<string, string>>();
+
+                emails.Add(new Tuple<string, string>(entity.Email, "Пользователь"));
+
+                _emailService.SendEmailAsync(
+                    emails,
+                    subjectUz, subjectRu,
+                    messageUz, messageRu);
+
                 return true;
             }
             catch (Exception ex)
@@ -45,10 +64,26 @@ namespace Expro.Services
         public bool Reject(ApplicationUser entity)
         {
             entity.UserStatusID = (int)ExpertApproveStatusEnum.Rejected;
-            entity.DateRejected = DateTime.Now;          
+            entity.DateRejected = DateTime.Now;
             try
             {
-                _userService.Update(entity);
+                _userService.Update(entity);              
+
+                string subjectUz = "Эксперт тасдиқланмади";
+                string subjectRu = "Эксперту отказано.";
+
+                string messageUz = "Эксперт тасдиқланмади. Илтимос, маълумотларингизни қайта текширинг.";
+                string messageRu = "Эксперту отказано. Пожалуйста, проверьте введенные данные.";
+               
+                List<Tuple<string, string>> emails = new List<Tuple<string, string>>();
+
+                emails.Add(new Tuple<string, string>(entity.Email, "Пользователь"));               
+
+                _emailService.SendEmailAsync(
+                    emails,
+                    subjectUz, subjectRu,
+                    messageUz, messageRu);
+
                 return true;
             }
             catch (Exception ex)
