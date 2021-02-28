@@ -22,38 +22,39 @@ namespace Expro.Services
 
         public async Task SendEmailAsync(string email, string subject, string message)
         {
-            //var emailMessage = new MimeMessage();
+            var emailMessage = new MimeMessage();
 
-            //emailMessage.From.Add(new MailboxAddress("Администрация сайта Expro.Uz", AppConfiguration.ExproEmailAddress));
-            //emailMessage.To.Add(new MailboxAddress("", email));
-            //emailMessage.Subject = subject;
-            //emailMessage.Body = new TextPart(MimeKit.Text.TextFormat.Html)
-            //{
-            //    Text = message
-            //};
-
-
-            //using (var client = new SmtpClient())
-            //{
-            //    await client.ConnectAsync(AppConfiguration.ExproEmailSmtpClient, AppConfiguration.ExproEmailSmtpPort, SecureSocketOptions.SslOnConnect);
-            //    await client.AuthenticateAsync(AppConfiguration.ExproEmailAddress, AppConfiguration.ExproEmailPassword);
-            //    await client.SendAsync(emailMessage);
-
-            //    await client.DisconnectAsync(true);
-            //}
+            emailMessage.From.Add(new MailboxAddress("Администрация сайта Expro.Uz", AppConfiguration.ExproEmailAddress));
+            emailMessage.To.Add(new MailboxAddress("", email));
+            emailMessage.Subject = subject;
+            emailMessage.Body = new TextPart(MimeKit.Text.TextFormat.Html)
+            {
+                Text = message
+            };
 
 
+            using (var client = new SmtpClient())
+            {
+                //await client.ConnectAsync(AppConfiguration.ExproEmailSmtpClient, AppConfiguration.ExproEmailSmtpPort, SecureSocketOptions.SslOnConnect);
+                await client.ConnectAsync(AppConfiguration.ExproEmailSmtpClient, AppConfiguration.ExproEmailSmtpPort, SecureSocketOptions.StartTls);
+                await client.AuthenticateAsync(AppConfiguration.ExproEmailUsername, AppConfiguration.ExproEmailPassword);
+                await client.SendAsync(emailMessage);
+
+                await client.DisconnectAsync(true);
+            }
 
 
-            Microsoft.Exchange.WebServices.Data.ExchangeService service = new Microsoft.Exchange.WebServices.Data.ExchangeService(Microsoft.Exchange.WebServices.Data.ExchangeVersion.Exchange2013);
-            service.Credentials = new System.Net.NetworkCredential("rmasimov@wiut.uz", "samsung");
-            service.Url = new Uri("https://mail.wiut.uz/ews/exchange.asmx");
-            Microsoft.Exchange.WebServices.Data.EmailMessage emailMessage = new Microsoft.Exchange.WebServices.Data.EmailMessage(service);
-            emailMessage.Subject = "Администрация сайта Expro.Uz";
-            emailMessage.Body = new Microsoft.Exchange.WebServices.Data.MessageBody(Microsoft.Exchange.WebServices.Data.BodyType.HTML, message);
-            emailMessage.ToRecipients.Add(email);
 
-            emailMessage.SendAndSaveCopy();
+
+            //Microsoft.Exchange.WebServices.Data.ExchangeService service = new Microsoft.Exchange.WebServices.Data.ExchangeService(Microsoft.Exchange.WebServices.Data.ExchangeVersion.Exchange2013);
+            //service.Credentials = new System.Net.NetworkCredential("rmasimov@wiut.uz", "samsung");
+            //service.Url = new Uri("https://mail.wiut.uz/ews/exchange.asmx");
+            //Microsoft.Exchange.WebServices.Data.EmailMessage emailMessage = new Microsoft.Exchange.WebServices.Data.EmailMessage(service);
+            //emailMessage.Subject = "Администрация сайта Expro.Uz";
+            //emailMessage.Body = new Microsoft.Exchange.WebServices.Data.MessageBody(Microsoft.Exchange.WebServices.Data.BodyType.HTML, message);
+            //emailMessage.ToRecipients.Add(email);
+
+            //emailMessage.SendAndSaveCopy();
 
         }
 
@@ -91,21 +92,16 @@ namespace Expro.Services
 
 
         //Mirazam
-        public async Task SendEmailAsync(
+        public async Task SendAutomaticallyGeneratedEmailAsync(
             List<Tuple<string, string>> emails,
             string subjectUz, string subjectRu,
             string messageUz, string messageRu)
         {
             foreach (var email in emails)
             {
-                var emailMessage = new MimeMessage();
-
-                emailMessage.From.Add(new MailboxAddress("Администрация сайта Expro.Uz", AppConfiguration.ExproEmailAddress));
-                emailMessage.To.Add(new MailboxAddress("", email.Item1));
-                emailMessage.Subject = subjectUz + " | " + subjectRu;
-                emailMessage.Body = new TextPart(MimeKit.Text.TextFormat.Html)
-                {
-                    Text = @"" + Appeal(email.Item2, "uz") + @"
+                string emailBox = email.Item1;
+                string subject = subjectUz + " | " + subjectRu;
+                string bodyText = @"" + Appeal(email.Item2, "uz") + @"
 
         " + messageUz + @"
 
@@ -115,17 +111,9 @@ namespace Expro.Services
 
         " + messageRu + @"
 
-        " + Footer("ru")
-                };
+        " + Footer("ru");
 
-                using (var client = new SmtpClient())
-                {
-                    await client.ConnectAsync(AppConfiguration.ExproEmailSmtpClient, 0, SecureSocketOptions.StartTls);
-                    await client.AuthenticateAsync("mb8803", AppConfiguration.ExproEmailPassword);
-                    await client.SendAsync(emailMessage);
-
-                    await client.DisconnectAsync(true);
-                }
+                await SendEmailAsync(emailBox, subject, bodyText);
             }
         }
 

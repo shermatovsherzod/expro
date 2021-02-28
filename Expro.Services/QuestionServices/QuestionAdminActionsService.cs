@@ -59,7 +59,7 @@ namespace Expro.Services
                 string messageUz = "Савол администратор томонидан тасдиқланди. <a href='" + questionUrl + "'>" + entity.Title + "</a>";
                 string messageRu = "Вопрос подтвержден администратором. <a href='" + questionUrl + "'>" + entity.Title + "</a>";
 
-                await _emailService.SendEmailAsync(
+                await _emailService.SendAutomaticallyGeneratedEmailAsync(
                     emailsWithNames,
                     subjectUz, subjectRu,
                     messageUz, messageRu);
@@ -84,7 +84,7 @@ namespace Expro.Services
                 string messageUz = "Савол администратор томонидан рад этилди. <a href='" + questionUrl + "'>" + entity.Title + "</a>";
                 string messageRu = "Вопрос отменен администратором. <a href='" + questionUrl + "'>" + entity.Title + "</a>";
 
-                await _emailService.SendEmailAsync(
+                await _emailService.SendAutomaticallyGeneratedEmailAsync(
                     emailsWithNames,
                     subjectUz, subjectRu,
                     messageUz, messageRu);

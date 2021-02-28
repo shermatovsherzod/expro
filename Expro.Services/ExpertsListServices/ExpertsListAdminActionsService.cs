@@ -48,7 +48,7 @@ namespace Expro.Services
 
                 emails.Add(new Tuple<string, string>(entity.Email, "Пользователь"));
 
-                _emailService.SendEmailAsync(
+                _emailService.SendAutomaticallyGeneratedEmailAsync(
                     emails,
                     subjectUz, subjectRu,
                     messageUz, messageRu);
@@ -79,7 +79,7 @@ namespace Expro.Services
 
                 emails.Add(new Tuple<string, string>(entity.Email, "Пользователь"));               
 
-                _emailService.SendEmailAsync(
+                _emailService.SendAutomaticallyGeneratedEmailAsync(
                     emails,
                     subjectUz, subjectRu,
                     messageUz, messageRu);

@@ -59,7 +59,7 @@ namespace Expro.Services
                 string messageUz = "Янги намунавий хужжат тасдиқлашга жўнатилинди. <a href='" + documentUrl + "'>" + entity.Title + "</a>";
                 string messageRu = "Поступил новый образцовый документ на подтверждение. <a href='" + documentUrl + "'>" + entity.Title + "</a>";
 
-                await _emailService.SendEmailAsync(
+                await _emailService.SendAutomaticallyGeneratedEmailAsync(
                     adminEmailsWithNames,
                     subjectUz, subjectRu,
                     messageUz, messageRu);
@@ -116,7 +116,7 @@ namespace Expro.Services
                 string messageUz = "Янги мақола тасдиқлашга жўнатилинди. <a href='" + documentUrl + "'>" + entity.Title + "</a>";
                 string messageRu = "Поступила новая статья на подтверждение. <a href='" + documentUrl + "'>" + entity.Title + "</a>";
 
-                await _emailService.SendEmailAsync(
+                await _emailService.SendAutomaticallyGeneratedEmailAsync(
                     adminEmailsWithNames,
                     subjectUz, subjectRu,
                     messageUz, messageRu);
@@ -172,7 +172,7 @@ namespace Expro.Services
                 string messageUz = "Янги амалиёт тасдиқлашга жўнатилинди. <a href='" + documentUrl + "'>" + entity.Title + "</a>";
                 string messageRu = "Поступил новый практический документ на подтверждение. <a href='" + documentUrl + "'>" + entity.Title + "</a>";
 
-                await _emailService.SendEmailAsync(
+                await _emailService.SendAutomaticallyGeneratedEmailAsync(
                     adminEmailsWithNames,
                     subjectUz, subjectRu,
                     messageUz, messageRu);

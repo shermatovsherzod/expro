@@ -98,7 +98,7 @@ namespace Expro.Services
                 string messageUz = "Мақолани сотиб олганингиз учут рахмат <a href='" + documentUrl + "'>" + document.Title + "</a>";
                 string messageRu = "Спасибо за покупку статьи <a href='" + documentUrl + "'>" + document.Title + "</a>";
 
-                _emailService.SendEmailAsync(
+                _emailService.SendAutomaticallyGeneratedEmailAsync(
                     emailsWithNames,
                     subjectUz, subjectRu,
                     messageUz, messageRu);
@@ -115,7 +115,7 @@ namespace Expro.Services
                 messageUz = "Сизнинг мақолангизни сотиб олишди <a href='" + documentUrl + "'>" + document.Title + "</a>";
                 messageRu = "Вашу статью купили <a href='" + documentUrl + "'>" + document.Title + "</a>";
 
-                await _emailService.SendEmailAsync(
+                await _emailService.SendAutomaticallyGeneratedEmailAsync(
                     emailsWithNames,
                     subjectUz, subjectRu,
                     messageUz, messageRu);
@@ -157,7 +157,7 @@ namespace Expro.Services
                 string messageUz = "Намунавий хужжатни сотиб олганингиз учут рахмат <a href='" + documentUrl + "'>" + document.Title + "</a>";
                 string messageRu = "Спасибо за покупку образцового документа <a href='" + documentUrl + "'>" + document.Title + "</a>";
 
-                _emailService.SendEmailAsync(
+                _emailService.SendAutomaticallyGeneratedEmailAsync(
                     emailsWithNames,
                     subjectUz, subjectRu,
                     messageUz, messageRu);
@@ -174,7 +174,7 @@ namespace Expro.Services
                 messageUz = "Сизнинг намунавий хужжатингизни сотиб олишди <a href='" + documentUrl + "'>" + document.Title + "</a>";
                 messageRu = "Ваш образцовый документ купили <a href='" + documentUrl + "'>" + document.Title + "</a>";
 
-                await _emailService.SendEmailAsync(
+                await _emailService.SendAutomaticallyGeneratedEmailAsync(
                     emailsWithNames,
                     subjectUz, subjectRu,
                     messageUz, messageRu);
@@ -216,7 +216,7 @@ namespace Expro.Services
                 string messageUz = "Амалиётни сотиб олганингиз учут рахмат <a href='" + documentUrl + "'>" + document.Title + "</a>";
                 string messageRu = "Спасибо за покупку статьи <a href='" + documentUrl + "'>" + document.Title + "</a>";
 
-                _emailService.SendEmailAsync(
+                _emailService.SendAutomaticallyGeneratedEmailAsync(
                     emailsWithNames,
                     subjectUz, subjectRu,
                     messageUz, messageRu);
@@ -233,7 +233,7 @@ namespace Expro.Services
                 messageUz = "Сизнинг амалиётингизни сотиб олишди <a href='" + documentUrl + "'>" + document.Title + "</a>";
                 messageRu = "Ваш практический документ купили <a href='" + documentUrl + "'>" + document.Title + "</a>";
 
-                await _emailService.SendEmailAsync(
+                await _emailService.SendAutomaticallyGeneratedEmailAsync(
                     emailsWithNames,
                     subjectUz, subjectRu,
                     messageUz, messageRu);

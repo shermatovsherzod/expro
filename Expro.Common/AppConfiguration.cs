@@ -65,6 +65,7 @@ namespace Expro.Common
         /// From email
         /// </summary>
         public string ExproEmailAddress { get; set; }
+        public string ExproEmailUsername { get; set; }
         public string ExproEmailPassword { get; set; }
         public string ExproEmailSmtpClient { get; set; }
         public int ExproEmailSmtpPort { get; set; }

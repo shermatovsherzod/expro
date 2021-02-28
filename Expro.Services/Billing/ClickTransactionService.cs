@@ -50,7 +50,7 @@ namespace Expro.Services
                 string messageUz = "Балансингиз " + amount + " сўмга тўлдирилди. Баланс: " + user.Balance + " сўм.";
                 string messageRu = "Ваш баланс пополнен на " + amount + " сум. Баланс: " + user.Balance + " сум.";
 
-                await _emailService.SendEmailAsync(
+                await _emailService.SendAutomaticallyGeneratedEmailAsync(
                     emailsWithNames,
                     subjectUz, subjectRu,
                     messageUz, messageRu);

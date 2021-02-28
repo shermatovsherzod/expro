@@ -53,7 +53,7 @@ namespace Expro.Services
                 string messageUz = "Сизнинг саволингизга (<a href='" + questionUrl + "'>\"" + question.Title + "\"</a>) " + answerGiverFullName + " жавоб берди.";
                 string messageRu = answerGiverFullName + " ответил на Ваш вопрос (<a href='" + questionUrl + "'>\"" + question.Title + "\"</a>)";
 
-                await _emailService.SendEmailAsync(
+                await _emailService.SendAutomaticallyGeneratedEmailAsync(
                     emailsWithNames,
                     subjectUz, subjectRu,
                     messageUz, messageRu);

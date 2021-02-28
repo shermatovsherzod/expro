@@ -136,7 +136,7 @@ namespace Expro.Services
                 string messageUz = "Янги савол тасдиқлашга жўнатилинди. <a href='" + questionUrl + "'>" + entity.Title + "</a>";
                 string messageRu = "Поступил новый вопрос на подтверждение. <a href='" + questionUrl + "'>" + entity.Title + "</a>";
 
-                await _emailService.SendEmailAsync(
+                await _emailService.SendAutomaticallyGeneratedEmailAsync(
                     adminEmailsWithNames,
                     subjectUz, subjectRu,
                     messageUz, messageRu);
@@ -232,7 +232,7 @@ namespace Expro.Services
                         string messageUz = "Саволга (<a href='" + questionUrl + "'>\"" + question.Title + "\"</a>) жавоб учун " + answer.PaidFee.Value + " сум мукофот олинди.";
                         string messageRu = "Получено вознаграждение в размере " + answer.PaidFee.Value + " сум за ответил на вопрос (<a href='" + questionUrl + "'>\"" + question.Title + "\"</a>)";
 
-                        await _emailService.SendEmailAsync(
+                        await _emailService.SendAutomaticallyGeneratedEmailAsync(
                             emailsWithNames,
                             subjectUz, subjectRu,
                             messageUz, messageRu);

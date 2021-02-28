@@ -101,7 +101,7 @@ namespace Expro.Services
 
                 if (!string.IsNullOrWhiteSpace(subjectUz))
                 {
-                    _emailService.SendEmailAsync(
+                    _emailService.SendAutomaticallyGeneratedEmailAsync(
                         emailsWithNames,
                         subjectUz, subjectRu,
                         messageUz, messageRu);
@@ -146,7 +146,7 @@ namespace Expro.Services
                 string messageUz = "Савол администратор томонидан рад этилди. <a href='" + questionUrl + "'>" + question.Title + "</a>";
                 string messageRu = "Вопрос отменен администратором. <a href='" + questionUrl + "'>" + question.Title + "</a>";
 
-                _emailService.SendEmailAsync(
+                _emailService.SendAutomaticallyGeneratedEmailAsync(
                     emailsWithNames,
                     subjectUz, subjectRu,
                     messageUz, messageRu);
