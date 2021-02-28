@@ -957,13 +957,31 @@
   <data name="EmailNotConfirmed" xml:space="preserve">
     <value>Емейл тасдиқланмаган</value>
   </data>
+  <data name="AdditionalInformation" xml:space="preserve">
+    <value>Қўшимча маълумот</value>
+  </data>
   <data name="EnterYourEmail" xml:space="preserve">
     <value>Емейингизни киритинг.</value>
   </data>
   <data name="ForgotYourPassword" xml:space="preserve">
     <value>Паролингизни унутдингизми?</value>
   </data>
+  <data name="Languages" xml:space="preserve">
+    <value>Тиллар</value>
+  </data>
+  <data name="PersonalInformation" xml:space="preserve">
+    <value>Шахсий маълумот</value>
+  </data>
+  <data name="RegistrationInfo" xml:space="preserve">
+    <value>Рўйхатдан ўтиш маълумотлари</value>
+  </data>
   <data name="Send" xml:space="preserve">
     <value>Жўнатиш</value>
+  </data>
+  <data name="View" xml:space="preserve">
+    <value>Кўриш</value>
+  </data>
+  <data name="ViewRatingAndFeedback" xml:space="preserve">
+    <value>Рейтинг ва мулохазаларни кўриш</value>
   </data>
 </root>

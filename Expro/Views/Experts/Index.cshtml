@@ -1,5 +1,5 @@
 ﻿@{
-    ViewData["Title"] = "Эксперты";
+    ViewData["Title"] = localizer["Experts"];
 }
 <div class="text-center">
     <h4>@ViewData["Title"]</h4>
@@ -68,17 +68,17 @@
                             html += '<h1 class="h3">' + full.firstName + ' ' + full.lastName + ' <img class="avatar avatar-xs mb-3" src="/lib/frontTheme/svg/illustrations/top-vendor.svg" alt="Review rating" data-toggle="tooltip" data-placement="top" title="" data-original-title="Эксперт подтвержден"></h1>';
                             html += '<div class="d-block">';
                             html += '<a class="btn btn-xs btn-outline-primary font-weight-bold text-nowrap ml-1" href="/Experts/Details/' + full.id + '">';
-                            html += 'Просмотр</a>';
+                            html += '@localizer["View"]</a>';
                             html += '</div>';
                             html += '</div>';
                             html += '<div class="row text-body font-size-1 mb-2">';
                             html += '<div class="col-auto">';
                             html += '<span class="h6">' + full.points + '</span>';
-                            html += '<span> Points</span>';
+                            html += '<span> Балл</span>';
                             html += '</div>';
                             html += '<div class="col-auto">';
                             html += '<span class="h6">' + full.rating + '</span>';
-                            html += '<span> Rating</span>';
+                            html += '<span> Рейтинг</span>';
                             html += '</div>';
                             html += '</div>';
                             html += '<p class="mb-0">' + full.aboutMe + '</p > ';

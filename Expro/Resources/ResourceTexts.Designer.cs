@@ -106,6 +106,15 @@ namespace Expro.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Дополнительная информация.
+        /// </summary>
+        public static string AdditionalInformation {
+            get {
+                return ResourceManager.GetString("AdditionalInformation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Добавить новую статью.
         /// </summary>
         public static string AddNewArticle {
@@ -1204,6 +1213,15 @@ namespace Expro.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Языки.
+        /// </summary>
+        public static string Languages {
+            get {
+                return ResourceManager.GetString("Languages", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Город.
         /// </summary>
         public static string lblCity {
@@ -1708,6 +1726,15 @@ namespace Expro.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Личная информация.
+        /// </summary>
+        public static string PersonalInformation {
+            get {
+                return ResourceManager.GetString("PersonalInformation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Фото.
         /// </summary>
         public static string Photo {
@@ -2046,6 +2073,15 @@ namespace Expro.Resources {
         public static string RegistrateAsExpert {
             get {
                 return ResourceManager.GetString("RegistrateAsExpert", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Регистрационная информация.
+        /// </summary>
+        public static string RegistrationInfo {
+            get {
+                return ResourceManager.GetString("RegistrationInfo", resourceCulture);
             }
         }
         
@@ -2500,11 +2536,29 @@ namespace Expro.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Просмотр.
+        /// </summary>
+        public static string View {
+            get {
+                return ResourceManager.GetString("View", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Показать все фильтры.
         /// </summary>
         public static string ViewAllFilters {
             get {
                 return ResourceManager.GetString("ViewAllFilters", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Просмотреть рейтинг и отзывы.
+        /// </summary>
+        public static string ViewRatingAndFeedback {
+            get {
+                return ResourceManager.GetString("ViewRatingAndFeedback", resourceCulture);
             }
         }
         

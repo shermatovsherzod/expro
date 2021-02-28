@@ -957,13 +957,31 @@
   <data name="EmailNotConfirmed" xml:space="preserve">
     <value>Емейл не подтвержден.</value>
   </data>
+  <data name="AdditionalInformation" xml:space="preserve">
+    <value>Дополнительная информация</value>
+  </data>
   <data name="EnterYourEmail" xml:space="preserve">
     <value>Введите Ваш емейл.</value>
   </data>
   <data name="ForgotYourPassword" xml:space="preserve">
     <value>Забыли пароль?</value>
   </data>
+  <data name="Languages" xml:space="preserve">
+    <value>Языки</value>
+  </data>
+  <data name="PersonalInformation" xml:space="preserve">
+    <value>Личная информация</value>
+  </data>
+  <data name="RegistrationInfo" xml:space="preserve">
+    <value>Регистрационная информация</value>
+  </data>
   <data name="Send" xml:space="preserve">
     <value>Отправить</value>
+  </data>
+  <data name="View" xml:space="preserve">
+    <value>Просмотр</value>
+  </data>
+  <data name="ViewRatingAndFeedback" xml:space="preserve">
+    <value>Просмотреть рейтинг и отзывы</value>
   </data>
 </root>
