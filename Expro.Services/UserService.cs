@@ -6,6 +6,7 @@ using Expro.Models.Enums;
 using Expro.Services.Interfaces;
 using Microsoft.Extensions.Options;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace Expro.Services
@@ -88,6 +89,16 @@ namespace Expro.Services
                 .ThenByDescending(m => m.Points)
                 .ThenByDescending(m => m.FeedbacksWrittenToThisExpert.Average(n => n.Stars))
                 .Take(count);
+        }
+
+        private IQueryable<ApplicationUser> GetAdmins()
+        {
+            return GetAsIQueryable().Where(m => m.UserType == UserTypesEnum.Admin);
+        }
+
+        public List<string> GetAdminEmails()
+        {
+            return GetAdmins().Select(m => m.Email).ToList();
         }
     }
 }

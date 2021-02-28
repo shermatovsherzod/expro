@@ -709,10 +709,10 @@
     <value>Рад этишга ишончингиз комилми</value>
   </data>
   <data name="ArticleIsApproved" xml:space="preserve">
-    <value>Мақола тасдиқланган</value>
+    <value>Мақола тасдиқланди</value>
   </data>
   <data name="ArticleIsRejected" xml:space="preserve">
-    <value>Мақола рад этилган</value>
+    <value>Мақола рад этилди</value>
   </data>
   <data name="DocumentIsApprovedByAdmin" xml:space="preserve">
     <value>Документ администратор томонидан тасдиқланди</value>
@@ -748,10 +748,10 @@
     <value>Пулли намунавий хужжат ёзиш учун 100 рейтинг тўпланг ва маълумотингизни (диплом) тасдиқланг. Батафсил маълумот учун &lt;a href="#"&gt;Пулли хизмат кўрсатиш шартларини ўқинг&lt;/a&gt;</value>
   </data>
   <data name="PracticeDocumentIsApproved" xml:space="preserve">
-    <value>Амалиёт тасдиқланган</value>
+    <value>Амалиёт тасдиқланди</value>
   </data>
   <data name="PracticeDocumentIsRejected" xml:space="preserve">
-    <value>Амалиёт рад этилган</value>
+    <value>Амалиёт рад этилди</value>
   </data>
   <data name="PurchasedArticle" xml:space="preserve">
     <value>Сотиб олинган мақола</value>
@@ -766,10 +766,10 @@
     <value>Рад этиш</value>
   </data>
   <data name="SampleDocumentIsApproved" xml:space="preserve">
-    <value>Наъмунавий хужжат тасдиўланган</value>
+    <value>Наъмунавий хужжат тасдиқланди</value>
   </data>
   <data name="SampleDocumentIsRejected" xml:space="preserve">
-    <value>Наъмунавий хужжат рад этилган</value>
+    <value>Наъмунавий хужжат рад этилди</value>
   </data>
   <data name="AddNewRequest" xml:space="preserve">
     <value>Янги буюртма яратиш</value>

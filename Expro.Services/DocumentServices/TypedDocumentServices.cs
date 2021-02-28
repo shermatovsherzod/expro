@@ -15,11 +15,13 @@ namespace Expro.Services
     public class SampleDocumentService : DocumentService, ISampleDocumentService
     {
         private readonly IEmailService _emailService;
+        private readonly IUserService _userService;
 
         public SampleDocumentService(
             IDocumentRepository repository,
             IUnitOfWork unitOfWork,
             IEmailService emailService,
+            IUserService userService,
             IOptionsSnapshot<AppConfiguration> settings = null)
             : base(repository, unitOfWork, settings)
         {
@@ -32,6 +34,7 @@ namespace Expro.Services
             PointsForDocumentPaidLike = Constants.PointsFor.DOCUMENT.SAMPLE.PAID_LIKE;
 
             _emailService = emailService;
+            _userService = userService;
         }
 
         public async override void SubmitForApproval(Document entity, string userID)
@@ -40,7 +43,7 @@ namespace Expro.Services
 
             try
             {
-                List<string> adminEmails = AppConfiguration.AdminEmails.Split(';').ToList();
+                List<string> adminEmails = _userService.GetAdminEmails();
                 List<Tuple<string, string>> adminEmailsWithNames = new List<Tuple<string, string>>();
                 foreach (var item in adminEmails)
                 {
@@ -71,11 +74,13 @@ namespace Expro.Services
     public class ArticleDocumentService : DocumentService, IArticleDocumentService
     {
         private readonly IEmailService _emailService;
+        private readonly IUserService _userService;
 
         public ArticleDocumentService(
             IDocumentRepository repository,
             IUnitOfWork unitOfWork,
             IEmailService emailService,
+            IUserService userService,
             IOptionsSnapshot<AppConfiguration> settings = null)
             : base(repository, unitOfWork, settings)
         {
@@ -88,7 +93,7 @@ namespace Expro.Services
             PointsForDocumentPaidLike = Constants.PointsFor.DOCUMENT.ARTICLE.PAID_LIKE;
 
             _emailService = emailService;
-
+            _userService = userService;
         }
 
         public async override void SubmitForApproval(Document entity, string userID)
@@ -97,7 +102,7 @@ namespace Expro.Services
 
             try
             {
-                List<string> adminEmails = AppConfiguration.AdminEmails.Split(';').ToList();
+                List<string> adminEmails = _userService.GetAdminEmails();
                 List<Tuple<string, string>> adminEmailsWithNames = new List<Tuple<string, string>>();
                 foreach (var item in adminEmails)
                 {
@@ -128,11 +133,13 @@ namespace Expro.Services
     public class PracticeDocumentService : DocumentService, IPracticeDocumentService
     {
         private readonly IEmailService _emailService;
+        private readonly IUserService _userService;
 
         public PracticeDocumentService(
             IDocumentRepository repository,
             IUnitOfWork unitOfWork,
             IEmailService emailService,
+            IUserService userService,
             IOptionsSnapshot<AppConfiguration> settings = null)
             : base(repository, unitOfWork, settings)
         {
@@ -145,6 +152,7 @@ namespace Expro.Services
             PointsForDocumentPaidLike = Constants.PointsFor.DOCUMENT.PRACTICE.PAID_LIKE;
 
             _emailService = emailService;
+            _userService = userService;
         }
 
         public async override void SubmitForApproval(Document entity, string userID)
@@ -153,7 +161,7 @@ namespace Expro.Services
 
             try
             {
-                List<string> adminEmails = AppConfiguration.AdminEmails.Split(';').ToList();
+                List<string> adminEmails = _userService.GetAdminEmails();
                 List<Tuple<string, string>> adminEmailsWithNames = new List<Tuple<string, string>>();
                 foreach (var item in adminEmails)
                 {

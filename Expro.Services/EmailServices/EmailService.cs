@@ -32,7 +32,6 @@ namespace Expro.Services
                 Text = message
             };
 
-
             using (var client = new SmtpClient())
             {
                 //await client.ConnectAsync(AppConfiguration.ExproEmailSmtpClient, AppConfiguration.ExproEmailSmtpPort, SecureSocketOptions.SslOnConnect);
@@ -105,7 +104,7 @@ namespace Expro.Services
 
         " + messageUz + @"
 
-        " + Footer("uz") + @"
+        " + Footer("uz") + @"<br>
 
         " + Appeal(email.Item2, "ru") + @"
 
@@ -119,24 +118,24 @@ namespace Expro.Services
 
         private string Appeal(string fullName, string lang = "uz")
         {
-            string result;
+            string result = "<p>";
             if (lang == "uz")
-                result = "Хурматли ";
+                result += "Хурматли ";
             else
-                result = "Уважаемый(ая), ";
+                result += "Уважаемый(ая), ";
 
-            return result + fullName;
+            return result + fullName + "</p>";
         }
 
         private string Footer(string lang = "uz")
         {
             string result;
             if (lang == "uz")
-                result = @"Бу автоматик равишда жунатилинган хат. Илтимос, жавоб ёзманг.
-Expro жамоаси.";
+                result = @"<p>Бу автоматик равишда жунатилинган хат. Илтимос, жавоб ёзманг.<br>
+Expro жамоаси.</p>";
             else
-                result = @"Это автоматически отправленное письмо. Пожалуйста, не отвечайте на него.
-Команда Expro.";
+                result = @"<p>Это автоматически отправленное письмо. Пожалуйста, не отвечайте на него.<br>
+<p>Команда Expro.</p>";
 
             return result;
         }

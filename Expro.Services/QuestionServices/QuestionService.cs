@@ -17,20 +17,20 @@ namespace Expro.Services
     {
         private IQuestionRepository _questionRepository;
         private readonly IEmailService _emailService;
-        //private readonly IUserService _userService;
+        private readonly IUserService _userService;
 
         protected AppConfiguration AppConfiguration { get; set; }
 
         public QuestionService(IQuestionRepository repository,
                            IUnitOfWork unitOfWork,
                            IEmailService emailService,
-                           //IUserService userService,
+                           IUserService userService,
                            IOptionsSnapshot<AppConfiguration> settings = null)
             : base(repository, unitOfWork)
         {
             _questionRepository = repository;
             _emailService = emailService;
-            //_userService = userService;
+            _userService = userService;
 
             if (settings != null)
                 AppConfiguration = settings.Value;
@@ -117,7 +117,7 @@ namespace Expro.Services
 
             try
             {
-                List<string> adminEmails = AppConfiguration.AdminEmails.Split(';').ToList();
+                List<string> adminEmails = _userService.GetAdminEmails();
                 List<Tuple<string, string>> adminEmailsWithNames = new List<Tuple<string, string>>();
                 foreach (var item in adminEmails)
                 {

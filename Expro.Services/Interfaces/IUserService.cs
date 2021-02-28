@@ -1,4 +1,5 @@
 ﻿using Expro.Models;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace Expro.Services.Interfaces
@@ -15,5 +16,6 @@ namespace Expro.Services.Interfaces
         IQueryable<ApplicationUser> GetAllExpertsAndSimpleUsers();        
         ApplicationUser GetWithRelatedDataByID(string id);
         IQueryable<ApplicationUser> GetTopExperts(int count);
+        List<string> GetAdminEmails();
     }
 }

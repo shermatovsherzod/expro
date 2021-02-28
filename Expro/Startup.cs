@@ -94,7 +94,11 @@ namespace Expro
             ConfigureFirebase();
 
             //Hangfire
+#if DEBUG
             string connectionString = "Data Source=209.159.151.3\\SQLEXPRESS,1433;Initial Catalog=Expro;User Id=sa;Password=TD9N9CkDmQFNZ7HZ;";
+#else
+            string connectionString = "Data Source=INT-VM;Initial Catalog=Expro;User Id=sa;Password=44c2n8savJP8!;";
+#endif
             services.AddHangfire(config =>
                 config.UseSqlServerStorage(
                     connectionString,
