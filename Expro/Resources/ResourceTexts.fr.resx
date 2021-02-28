@@ -957,4 +957,13 @@
   <data name="EmailNotConfirmed" xml:space="preserve">
     <value>Емейл тасдиқланмаган</value>
   </data>
+  <data name="EnterYourEmail" xml:space="preserve">
+    <value>Емейингизни киритинг.</value>
+  </data>
+  <data name="ForgotYourPassword" xml:space="preserve">
+    <value>Паролингизни унутдингизми?</value>
+  </data>
+  <data name="Send" xml:space="preserve">
+    <value>Жўнатиш</value>
+  </data>
 </root>

@@ -957,4 +957,13 @@
   <data name="EmailNotConfirmed" xml:space="preserve">
     <value>Емейл не подтвержден.</value>
   </data>
+  <data name="EnterYourEmail" xml:space="preserve">
+    <value>Введите Ваш емейл.</value>
+  </data>
+  <data name="ForgotYourPassword" xml:space="preserve">
+    <value>Забыли пароль?</value>
+  </data>
+  <data name="Send" xml:space="preserve">
+    <value>Отправить</value>
+  </data>
 </root>
