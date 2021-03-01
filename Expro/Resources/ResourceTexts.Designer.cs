@@ -583,6 +583,15 @@ namespace Expro.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Подтвердите элетронный почтовый адрес.
+        /// </summary>
+        public static string ConfirmYourEmail {
+            get {
+                return ResourceManager.GetString("ConfirmYourEmail", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Контакты.
         /// </summary>
         public static string Contacts {
@@ -835,7 +844,7 @@ namespace Expro.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Почта.
+        ///   Looks up a localized string similar to Электрон почта адреси.
         /// </summary>
         public static string Email {
             get {

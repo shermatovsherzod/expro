@@ -133,9 +133,20 @@ namespace Expro.Areas.Identity.Pages.Account
                         values: new { area = "Identity", userId = user.Id, code = code, returnUrl = returnUrl },
                         protocol: Request.Scheme);
 
-                    string emailSubject = "Confirm your email";
-                    string emailBody = $"Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.";
-                    await _emailSender.SendEmailAsync(Input.Email, emailSubject, emailBody);
+                    string subjectUz = "Электрон почта адресингизни тасдиқланг";
+                    string subjectRu = "Подтвердите адрес своей электронной почты";
+
+                    string messageUz = $"Илтимос, электрон почта адресингизни тасдиқланг:  <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>тасдиқлаш</a>.";
+                    string messageRu = $"Пожалуйста, подтвердите свой почтовый адрес <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>подтвердить</a>.";
+
+                    List<Tuple<string, string>> emails = new List<Tuple<string, string>>();
+
+                    emails.Add(new Tuple<string, string>(Input.Email, "Пользователь"));
+
+                    await _emailSender.SendAutomaticallyGeneratedEmailAsync(
+                        emails,
+                        subjectUz, subjectRu,
+                        messageUz, messageRu);
 
                     if (_userManager.Options.SignIn.RequireConfirmedAccount)
                     {

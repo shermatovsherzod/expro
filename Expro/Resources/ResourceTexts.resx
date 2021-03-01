@@ -223,7 +223,7 @@
     <value>Комментировать</value>
   </data>
   <data name="Email" xml:space="preserve">
-    <value>Почта</value>
+    <value>Электрон почта адреси</value>
   </data>
   <data name="Enter" xml:space="preserve">
     <value>Вход</value>
@@ -1022,5 +1022,8 @@
   </data>
   <data name="YouHaveSuccessfullyLoggedOutOfTheApplication" xml:space="preserve">
     <value>Вы вышли с сайта</value>
+  </data>
+  <data name="ConfirmYourEmail" xml:space="preserve">
+    <value>Подтвердите элетронный почтовый адрес</value>
   </data>
 </root>

@@ -223,7 +223,7 @@
     <value>Маълумоти</value>
   </data>
   <data name="Email" xml:space="preserve">
-    <value>Емейл</value>
+    <value>Адрес электронной почты</value>
   </data>
   <data name="Enter" xml:space="preserve">
     <value>Кириш</value>
@@ -1022,5 +1022,8 @@
   </data>
   <data name="YouHaveSuccessfullyLoggedOutOfTheApplication" xml:space="preserve">
     <value>Сиз веб сайтдан чиқдингиз</value>
+  </data>
+  <data name="ConfirmYourEmail" xml:space="preserve">
+    <value>Электрон почта адресингизни тасдиқланг</value>
   </data>
 </root>
