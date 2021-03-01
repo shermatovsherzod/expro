@@ -41,54 +41,7 @@ namespace Expro.Services
 
                 await client.DisconnectAsync(true);
             }
-
-
-
-
-            //Microsoft.Exchange.WebServices.Data.ExchangeService service = new Microsoft.Exchange.WebServices.Data.ExchangeService(Microsoft.Exchange.WebServices.Data.ExchangeVersion.Exchange2013);
-            //service.Credentials = new System.Net.NetworkCredential("rmasimov@wiut.uz", "samsung");
-            //service.Url = new Uri("https://mail.wiut.uz/ews/exchange.asmx");
-            //Microsoft.Exchange.WebServices.Data.EmailMessage emailMessage = new Microsoft.Exchange.WebServices.Data.EmailMessage(service);
-            //emailMessage.Subject = "Администрация сайта Expro.Uz";
-            //emailMessage.Body = new Microsoft.Exchange.WebServices.Data.MessageBody(Microsoft.Exchange.WebServices.Data.BodyType.HTML, message);
-            //emailMessage.ToRecipients.Add(email);
-
-            //emailMessage.SendAndSaveCopy();
-
         }
-
-
-        //public async Task SendEmailAsync(
-        //    List<Tuple<string, string>> emails,
-        //    string subjectUz, string subjectRu,
-        //    string messageUz, string messageRu)
-        //{
-        //    foreach (var email in emails)
-        //    {
-        //        Microsoft.Exchange.WebServices.Data.ExchangeService service = new Microsoft.Exchange.WebServices.Data.ExchangeService(Microsoft.Exchange.WebServices.Data.ExchangeVersion.Exchange2013);
-        //        service.Credentials = new System.Net.NetworkCredential("rmasimov@wiut.uz", "samsung");
-        //        service.Url = new Uri("https://mail.wiut.uz/ews/exchange.asmx");
-        //        Microsoft.Exchange.WebServices.Data.EmailMessage emailMessage = new Microsoft.Exchange.WebServices.Data.EmailMessage(service);
-        //        emailMessage.Subject = subjectUz + " | " + subjectRu;
-
-        //        emailMessage.ToRecipients.Add(email.Item1);
-        //        string message = @"" + Appeal(email.Item2, "uz") + @"
-
-        //                    " + messageUz + @"
-
-        //                    " + Footer("uz") + @"
-
-        //                    " + Appeal(email.Item2, "ru") + @"
-
-        //                    " + messageRu + @"
-
-        //                    " + Footer("ru");
-
-        //        emailMessage.Body = new Microsoft.Exchange.WebServices.Data.MessageBody(Microsoft.Exchange.WebServices.Data.BodyType.HTML, message);
-        //        emailMessage.SendAndSaveCopy();
-        //    }
-        //}
-
 
         //Mirazam
         public async Task SendAutomaticallyGeneratedEmailAsync(
