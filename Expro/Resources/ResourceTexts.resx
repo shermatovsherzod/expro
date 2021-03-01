@@ -984,4 +984,43 @@
   <data name="ViewRatingAndFeedback" xml:space="preserve">
     <value>Просмотреть рейтинг и отзывы</value>
   </data>
+  <data name="EmailConfirm" xml:space="preserve">
+    <value>Подтверждение емейла</value>
+  </data>
+  <data name="ErrorConfirmingYourEmail" xml:space="preserve">
+    <value>Произошла ошибка при подтверждении Вашего емейла.</value>
+  </data>
+  <data name="Link" xml:space="preserve">
+    <value>ссылка</value>
+  </data>
+  <data name="NewPassword" xml:space="preserve">
+    <value>Новый пароль</value>
+  </data>
+  <data name="PasswordCompareError" xml:space="preserve">
+    <value>Введенные пароли не совпадают.</value>
+  </data>
+  <data name="PleaseResetYourPasswordBy" xml:space="preserve">
+    <value>Пожалуйста, обновите пароль по ссылке </value>
+  </data>
+  <data name="ResetPassword" xml:space="preserve">
+    <value>Обновить пароль</value>
+  </data>
+  <data name="ThankYouForConfirmingYourEmail" xml:space="preserve">
+    <value>Спасибо за то что подтвердили свой емейл.</value>
+  </data>
+  <data name="ForgotPasswordConfirmation" xml:space="preserve">
+    <value>Восстановление забытого пароля</value>
+  </data>
+  <data name="PleaseCheckYourEmailToResetYourPassword" xml:space="preserve">
+    <value>Пожалуйста, для обновления пароля провеьте почту</value>
+  </data>
+  <data name="Reset" xml:space="preserve">
+    <value>Обновить</value>
+  </data>
+  <data name="Save" xml:space="preserve">
+    <value>Сохранить</value>
+  </data>
+  <data name="YouHaveSuccessfullyLoggedOutOfTheApplication" xml:space="preserve">
+    <value>Вы вышли с сайта</value>
+  </data>
 </root>

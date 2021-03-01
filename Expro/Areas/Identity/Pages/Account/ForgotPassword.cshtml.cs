@@ -12,6 +12,8 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.WebUtilities;
 using Expro.Models;
 using Expro.Services.Interfaces;
+using Microsoft.Extensions.Localization;
+using Expro.Resources;
 
 namespace Expro.Areas.Identity.Pages.Account
 {
@@ -19,14 +21,14 @@ namespace Expro.Areas.Identity.Pages.Account
     public class ForgotPasswordModel : PageModel
     {
         private readonly UserManager<ApplicationUser> _userManager;
-        //private readonly IEmailSender _emailSender;
         private readonly IEmailService _emailSender;
+        IStringLocalizer<ResourceTexts> _localizer;
 
-
-        public ForgotPasswordModel(UserManager<ApplicationUser> userManager, IEmailService emailSender)
+        public ForgotPasswordModel(UserManager<ApplicationUser> userManager, IEmailService emailSender, IStringLocalizer<ResourceTexts> localizer)
         {
             _userManager = userManager;
             _emailSender = emailSender;
+            _localizer = localizer;
         }
 
         [BindProperty]
@@ -62,8 +64,8 @@ namespace Expro.Areas.Identity.Pages.Account
 
                 await _emailSender.SendEmailAsync(
                     Input.Email,
-                    "Reset Password",
-                    $"Please reset your password by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");
+                    _localizer["ResetPassword"],
+                    _localizer["PleaseResetYourPasswordBy"] + $" <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>" + _localizer["Link"] + "</a>.");
 
                 return RedirectToPage("./ForgotPasswordConfirmation");
             }

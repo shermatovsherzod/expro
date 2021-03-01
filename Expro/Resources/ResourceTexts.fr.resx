@@ -583,7 +583,7 @@
     <value>Менинг саволларим</value>
   </data>
   <data name="NotEnoughMoneyOnBalancePleaseReplenish" xml:space="preserve">
-    <value>Балансингизда йетарлича маблағ мавжуд эмас. Илтимос, тўлдиринг</value>
+    <value>Балансингизда етарлича маблағ мавжуд эмас. Илтимос, тўлдиринг</value>
   </data>
   <data name="NotEnougthMoneyOnBalance" xml:space="preserve">
     <value>Балансингизда йетарлича маблағ мавжуд эмас</value>
@@ -850,7 +850,7 @@
     <value>Ишлаб пул топилмаган</value>
   </data>
   <data name="NotEnoughMoneyToSubmitForApproval" xml:space="preserve">
-    <value>Пул йечиш учун балансингизда етарлича маблағ мавжуд эмас</value>
+    <value>Пул ечиш учун балансингизда етарлича маблағ мавжуд эмас</value>
   </data>
   <data name="NoTransactions" xml:space="preserve">
     <value>Баланс тўлдирилмаган</value>
@@ -983,5 +983,44 @@
   </data>
   <data name="ViewRatingAndFeedback" xml:space="preserve">
     <value>Рейтинг ва мулохазаларни кўриш</value>
+  </data>
+  <data name="EmailConfirm" xml:space="preserve">
+    <value>Емейлни тасдиқлаш</value>
+  </data>
+  <data name="ErrorConfirmingYourEmail" xml:space="preserve">
+    <value>Емейлингизни тасдиқлашда хатолик рўй берди.</value>
+  </data>
+  <data name="Link" xml:space="preserve">
+    <value>хавола</value>
+  </data>
+  <data name="NewPassword" xml:space="preserve">
+    <value>Янги пароль</value>
+  </data>
+  <data name="PasswordCompareError" xml:space="preserve">
+    <value>Киритилган пароллар бир бирига тўғри келмайди</value>
+  </data>
+  <data name="PleaseResetYourPasswordBy" xml:space="preserve">
+    <value>Илтимос, паролингизни қуйидаги хаволага босинг </value>
+  </data>
+  <data name="ResetPassword" xml:space="preserve">
+    <value>Парольни янгилаш</value>
+  </data>
+  <data name="ThankYouForConfirmingYourEmail" xml:space="preserve">
+    <value>Емейлингизни тасдиқлаганиз учун рахмат.</value>
+  </data>
+  <data name="ForgotPasswordConfirmation" xml:space="preserve">
+    <value>Унутилган парольни тиклаш</value>
+  </data>
+  <data name="PleaseCheckYourEmailToResetYourPassword" xml:space="preserve">
+    <value>Илтимос, паролингизни янгилаш учун емейлингизни текширинг</value>
+  </data>
+  <data name="Reset" xml:space="preserve">
+    <value>Янгилаш</value>
+  </data>
+  <data name="Save" xml:space="preserve">
+    <value>Сақлаш</value>
+  </data>
+  <data name="YouHaveSuccessfullyLoggedOutOfTheApplication" xml:space="preserve">
+    <value>Сиз веб сайтдан чиқдингиз</value>
   </data>
 </root>
