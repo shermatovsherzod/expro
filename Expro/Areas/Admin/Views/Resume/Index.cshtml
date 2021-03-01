@@ -2,18 +2,19 @@
 @using Expro.Models.Enums
 
 @{
-    ViewData["Title"] = "Резюме";  
+    ViewData["Title"] = "Резюме";
 }
 
-<h1>@ViewData["Title"]</h1>
+<h3>@ViewData["Title"]</h3>
 <br />
 
 <div class="row">
     <div class="col-sm-4">
-        Фильтр по статусу: <br />
+        @localizer["FilterByStatus"]:
+        <br />
         <select id="statusDD" asp-items="@ViewData["statuses"] as List<SelectListItem>" class="form-control">
-            <option value="">Все</option>
-        </select>      
+            <option value="">@localizer["All"]</option>
+        </select>
         <br />
     </div>
 </div>
@@ -61,7 +62,7 @@
                 },
                 columns: [
                     {
-                        "data": 0, 
+                        "data": 0,
                         "render": function (data, type, full, meta) {
                             var html = '';
                             html += '<div class="card">';
@@ -69,11 +70,11 @@
                             html += '<h4 class="card-title">Резюме: ' + full.firstName + ' ' + full.lastName+'</h4>';
                             html += '<p class="card-text">';
                             html += '<ul>';
-                            html += '<li>Дата рождения ' + full.dateOfBirth+'</li>';
-                            html += '<li>Образование ' + full.education+'</li>';                                          
-                            html += '</ul>';                                        
+                            html += '<li>' +'@localizer["lblDateOfBirth"]' + ' ' + full.dateOfBirth+'</li>';
+                            html += '<li>' + '@localizer["Education"]' +' '+ full.education+'</li>';
+                            html += '</ul>';
                             html += '</p>';
-                            html += '<a href="/Admin/Resume/Details/' + full.id + '" class="card-link">Просмотр</a>';                                   
+                            html += '<a href="/Admin/Resume/Details/' + full.id + '" class="card-link">'+'@localizer["View"]'+'</a>';
                             html += '</div>';
                             html += '</div>';
 
@@ -88,7 +89,7 @@
                     $("#tableBox .spinner").show();
                 })
                 .on('draw.dt', function () {
-                    $("#tableBox .spinner").hide();                    
+                    $("#tableBox .spinner").hide();
                 });
 
             $("#statusDD").change(function () {
