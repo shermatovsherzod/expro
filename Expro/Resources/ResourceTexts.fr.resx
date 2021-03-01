@@ -1026,4 +1026,13 @@
   <data name="ConfirmYourEmail" xml:space="preserve">
     <value>Электрон почта адресингизни тасдиқланг</value>
   </data>
+  <data name="Description" xml:space="preserve">
+    <value>Тавсифи</value>
+  </data>
+  <data name="Requirements" xml:space="preserve">
+    <value>Талаблар</value>
+  </data>
+  <data name="Responsibility" xml:space="preserve">
+    <value>Маъсулиятлар</value>
+  </data>
 </root>
