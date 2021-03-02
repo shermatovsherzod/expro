@@ -28,6 +28,10 @@ namespace Expro.Models
         [StringLength(256)]
         public string CityOther { get; set; }
 
+        [ForeignKey("LawAreaParent")]
+        public int? LawAreaParentID { get; set; }
+        public virtual LawArea LawAreaParent { get; set; }
+
         public virtual ICollection<CompanyLawArea> CompanyLawAreas { get; set; }
 
         [StringLength(4000)]

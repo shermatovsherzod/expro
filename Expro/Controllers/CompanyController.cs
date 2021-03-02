@@ -43,7 +43,10 @@ namespace Expro.Controllers
         }
 
         [HttpPost]
-        public IActionResult Search(int draw, int? start = null, int? length = null, int[] lawAreas = null)
+        public IActionResult Search(
+            int draw, int? start = null, int? length = null,
+            int? lawAreaParent = null,
+            int[] lawAreas = null)
         {
             int recordsTotal = 0;
             int recordsFiltered = 0;
@@ -62,6 +65,7 @@ namespace Expro.Controllers
                 null,
                 null,
                 null,
+                lawAreaParent,
                 lawAreas
             );
 

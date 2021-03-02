@@ -32,7 +32,7 @@ namespace Expro.Controllers
             IDocumentCounterService documentCounterService,
             IStringLocalizer<Resources.ResourceTexts> localizer)
         {
-            this.DocumentService = documentService;
+            DocumentService = documentService;
             DocumentSearchService = documentSearchService;
             LawAreaService = lawAreaService;
             DocumentCounterService = documentCounterService;
@@ -62,6 +62,7 @@ namespace Expro.Controllers
             int draw, int? start = null, int? length = null,
             int? statusID = null, 
             DocumentPriceTypesEnum? priceType = null,
+            int? lawAreaParent = null,
             int[] lawAreas = null)
         {
             int recordsTotal = 0;
@@ -84,6 +85,7 @@ namespace Expro.Controllers
                 priceType,
                 curUser.ID,
                 curUser.ID,
+                lawAreaParent,
                 lawAreas
             );
 

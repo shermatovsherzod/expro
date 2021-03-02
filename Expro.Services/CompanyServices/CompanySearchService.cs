@@ -32,6 +32,7 @@ namespace Expro.Services
             UserTypesEnum? curUserType,
             int? statusID,          
             string authorID,
+            int? lawAreaParent,
             int[] lawAreas)
         {
             recordsTotal = 0;
@@ -56,7 +57,7 @@ namespace Expro.Services
 
                 recordsTotal = companies.Count();
 
-                companies = ApplyFilters(companies, statusID, lawAreas);
+                companies = ApplyFilters(companies, statusID, lawAreaParent, lawAreas);
 
                 recordsFiltered = companies.Count();
 
@@ -77,14 +78,21 @@ namespace Expro.Services
         protected IQueryable<Company> ApplyFilters(
             IQueryable<Company> companies,           
             int? statusID,
+            int? lawAreaParent,
             int[] lawAreas)
         {
-            if (lawAreas != null && lawAreas.Length > 0)
+            if (lawAreaParent.HasValue)
             {
                 companies = companies
-                    .Where(m => m.CompanyLawAreas
-                        .Select(n => n.LawAreaID)
-                        .Any(n => lawAreas.Contains(n)));
+                    .Where(m => m.LawAreaParentID == lawAreaParent);
+
+                if (lawAreas != null && lawAreas.Length > 0)
+                {
+                    companies = companies
+                        .Where(m => m.CompanyLawAreas
+                            .Select(n => n.LawAreaID)
+                            .Any(n => lawAreas.Contains(n)));
+                }
             }
 
             if (statusID.HasValue)

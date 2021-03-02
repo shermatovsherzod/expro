@@ -33,8 +33,9 @@ namespace Expro.ViewModels
         [StringLength(256)]
         public string CityOther { get; set; }
 
-        [Required(ErrorMessage = "Поле Направление обязательно для заполнения")]
-        [Display(Name = "Направление")]
+        [Display(Name = "lblLawAreas", ResourceType = typeof(Resources.ResourceTexts))]
+        [Required(ErrorMessageResourceType = typeof(Resources.ResourceTexts), ErrorMessageResourceName = "ErrorRequiredField")]
+        public int LawAreaParentID { get; set; }
         public List<int> LawAreas { get; set; }
 
         [StringLength(100)]
@@ -70,7 +71,8 @@ namespace Expro.ViewModels
             RegionID = model.RegionID;
             CityID = model.CityID;
             CityOther = model.CityOther;
-            LawAreas = model.CompanyLawAreas != null ? model.CompanyLawAreas.Select(r => (int)r.LawAreaID).ToList() : null;
+            LawAreaParentID = model.LawAreaParentID ?? 0;
+            LawAreas = model.CompanyLawAreas != null ? model.CompanyLawAreas.Select(r => r.LawAreaID).ToList() : null;
             WebSite = model.WebSite;
             PhoneNumber = model.PhoneNumber;
             Email = model.Email;

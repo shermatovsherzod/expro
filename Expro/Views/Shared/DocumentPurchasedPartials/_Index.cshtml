@@ -1,7 +1,7 @@
 ﻿@using Expro.ViewModels
 @using Expro.Models.Enums
 
-<div class="col-lg-3 order-lg-2 mb-5 mb-lg-0">
+@*<div class="col-lg-3 order-lg-2 mb-5 mb-lg-0">
     <!-- Navbar -->
     <div class="navbar-expand-lg navbar-expand-lg-collapse-block navbar-light">
         <!-- Responsive Toggle Button -->
@@ -31,27 +31,6 @@
                 <!-- Filter Form -->
                 <form>
                     <!-- Filter Group -->
-                    <!--<div class="mb-5">
-                        <h6 class="small text-cap">Фильтр по цене</h6>-->
-
-                        <!-- Select -->
-                        <!--<div id="priceTypeDDBox" class="select2-custom select2-custom-sm-right">
-                            <select id="priceTypeDD" class="js-custom-select custom-select-sm" style="opacity: 0;"
-                                    data-hs-select2-options='{
-						"dropdownParent": "#priceTypeDDBox",
-						"minimumResultsForSearch": "Infinity",
-						"customClass": "custom-select custom-select-sm",
-						"dropdownAutoWidth": true
-					  }'>
-                                <option value="">Все</option>
-                                <option value="@DocumentPriceTypesEnum.Free">Бесплатные</option>
-                                <option value="@DocumentPriceTypesEnum.Paid">Платные</option>
-                            </select>
-                        </div>-->
-                        <!-- End Select -->
-                    <!--</div>-->
-                    <!-- End Filter Group -->
-                    <!-- Filter Group -->
                     <div class="mb-5">
                         <h6 class="small text-cap">@localizer["FilterByLawArea"]</h6>
 
@@ -65,7 +44,6 @@
                                         <input type="checkbox" class="custom-control-input" name="lawAreasCheckbox" value="@parentItems[i].Value" id="lawAreaCheckbox_@parentItems[i].Value">
                                         <label class="custom-control-label" for="lawAreaCheckbox_@parentItems[i].Value">@parentItems[i].Text</label>
                                     </div>
-                                    @*<small>2</small>*@
                                 </div>
 
                                 var childItems = items.Where(m => m.ParentValue == parentItems[i].Value).ToList();
@@ -76,16 +54,12 @@
                                             <input type="checkbox" class="custom-control-input" name="lawAreasCheckbox" value="@childItem.Value" id="lawAreaCheckbox_@childItem.Value">
                                             <label class="custom-control-label" for="lawAreaCheckbox_@childItem.Value">@childItem.Text</label>
                                         </div>
-                                        @*<small>2</small>*@
                                     </div>
                                 }
                             }
                         }
                     </div>
                     <!-- End Filter Group -->
-                    @*<button type="button" class="btn btn-sm btn-block btn-white">
-                            <i class="fas fa-redo fa-sm mr-1"></i> Reset all
-                        </button>*@
                 </form>
                 <!-- End Filter Form -->
             </div>
@@ -93,6 +67,7 @@
     </div>
     <!-- End Navbar -->
 </div>
+*@
 <div class="col-lg-9">
     <div id="tableBox">
         <div class="spinner-border spinner" style="display: none;"></div>

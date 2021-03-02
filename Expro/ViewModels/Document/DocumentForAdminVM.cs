@@ -48,9 +48,12 @@ namespace Expro.ViewModels
             else
                 Title = model.Title.Substring(0, 100) + "...";
 
-            LawAreas = model.DocumentLawAreas
+            LawAreas = new List<BaseDropdownableDetailsVM>();
+            if (model.LawAreaParent != null)
+                LawAreas.Add(new BaseDropdownableDetailsVM(model.LawAreaParent));
+            LawAreas.AddRange(model.DocumentLawAreas
                 .Select(m => new BaseDropdownableDetailsVM(m.LawArea))
-                .ToList();
+                .ToList());
 
             PriceType = model.PriceType;
             if (PriceType == DocumentPriceTypesEnum.Paid)

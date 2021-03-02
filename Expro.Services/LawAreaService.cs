@@ -69,7 +69,7 @@ namespace Expro.Services
             if (model.DocumentLawAreas == null)
                 model.DocumentLawAreas = new List<DocumentLawArea>();
 
-            HashSet<int> talentLawAreas = new HashSet<int>(model.DocumentLawAreas
+            HashSet<int> documentLawAreas = new HashSet<int>(model.DocumentLawAreas
                 .Select(m => m.LawAreaID));
 
             List<LawArea> allLawAreas = GetAll().ToList();
@@ -77,7 +77,7 @@ namespace Expro.Services
             {
                 if (selectedCategoriesHS.Contains(lawArea.ID))
                 {
-                    if (!talentLawAreas.Contains(lawArea.ID))
+                    if (!documentLawAreas.Contains(lawArea.ID))
                     {
                         model.DocumentLawAreas.Add(new DocumentLawArea()
                         {
@@ -89,7 +89,7 @@ namespace Expro.Services
                 }
                 else
                 {
-                    if (talentLawAreas.Contains(lawArea.ID))
+                    if (documentLawAreas.Contains(lawArea.ID))
                     {
                         var lawAreaa = model.DocumentLawAreas.FirstOrDefault(m => m.LawAreaID == lawArea.ID);
                         if (lawAreaa != null)
@@ -98,30 +98,29 @@ namespace Expro.Services
                 }
             }
 
-            List<DocumentLawArea> parentLawAreasToBeAdded = new List<DocumentLawArea>();
-            foreach (var item in model.DocumentLawAreas)
-            {
-                if (item.LawArea.ParentID.HasValue)
-                {
-                    if (parentLawAreasToBeAdded.FirstOrDefault(m => m.LawAreaID == item.LawArea.ParentID.Value) == null
-                        && model.DocumentLawAreas.FirstOrDefault(m => m.LawAreaID == item.LawArea.ParentID.Value) == null)
-                    {
-                        parentLawAreasToBeAdded.Add(new DocumentLawArea()
-                        {
-                            LawAreaID = item.LawArea.ParentID.Value,
-                            Document = model
-                        });
-                    }
-                }
-            }
-
-            if (parentLawAreasToBeAdded.Count > 0)
-            {
-                foreach (var item in parentLawAreasToBeAdded)
-                {
-                    model.DocumentLawAreas.Add(item);
-                }
-            }
+            //List<DocumentLawArea> parentLawAreasToBeAdded = new List<DocumentLawArea>();
+            //foreach (var item in model.DocumentLawAreas)
+            //{
+            //    if (item.LawArea.ParentID.HasValue)
+            //    {
+            //        if (parentLawAreasToBeAdded.FirstOrDefault(m => m.LawAreaID == item.LawArea.ParentID.Value) == null
+            //            && model.DocumentLawAreas.FirstOrDefault(m => m.LawAreaID == item.LawArea.ParentID.Value) == null)
+            //        {
+            //            parentLawAreasToBeAdded.Add(new DocumentLawArea()
+            //            {
+            //                LawAreaID = item.LawArea.ParentID.Value,
+            //                Document = model
+            //            });
+            //        }
+            //    }
+            //}
+            //if (parentLawAreasToBeAdded.Count > 0)
+            //{
+            //    foreach (var item in parentLawAreasToBeAdded)
+            //    {
+            //        model.DocumentLawAreas.Add(item);
+            //    }
+            //}
         }
 
         public void UpdateQuestionLawAreas(Question model, List<int> selectedLawAreas)
@@ -165,30 +164,30 @@ namespace Expro.Services
                 }
             }
 
-            List<QuestionLawArea> parentLawAreasToBeAdded = new List<QuestionLawArea>();
-            foreach (var item in model.QuestionLawAreas)
-            {
-                if (item.LawArea.ParentID.HasValue)
-                {
-                    if (parentLawAreasToBeAdded.FirstOrDefault(m => m.LawAreaID == item.LawArea.ParentID.Value) == null
-                        && model.QuestionLawAreas.FirstOrDefault(m => m.LawAreaID == item.LawArea.ParentID.Value) == null)
-                    {
-                        parentLawAreasToBeAdded.Add(new QuestionLawArea()
-                        {
-                            LawAreaID = item.LawArea.ParentID.Value,
-                            Question = model
-                        });
-                    }
-                }
-            }
+            //List<QuestionLawArea> parentLawAreasToBeAdded = new List<QuestionLawArea>();
+            //foreach (var item in model.QuestionLawAreas)
+            //{
+            //    if (item.LawArea.ParentID.HasValue)
+            //    {
+            //        if (parentLawAreasToBeAdded.FirstOrDefault(m => m.LawAreaID == item.LawArea.ParentID.Value) == null
+            //            && model.QuestionLawAreas.FirstOrDefault(m => m.LawAreaID == item.LawArea.ParentID.Value) == null)
+            //        {
+            //            parentLawAreasToBeAdded.Add(new QuestionLawArea()
+            //            {
+            //                LawAreaID = item.LawArea.ParentID.Value,
+            //                Question = model
+            //            });
+            //        }
+            //    }
+            //}
 
-            if (parentLawAreasToBeAdded.Count > 0)
-            {
-                foreach (var item in parentLawAreasToBeAdded)
-                {
-                    model.QuestionLawAreas.Add(item);
-                }
-            }
+            //if (parentLawAreasToBeAdded.Count > 0)
+            //{
+            //    foreach (var item in parentLawAreasToBeAdded)
+            //    {
+            //        model.QuestionLawAreas.Add(item);
+            //    }
+            //}
         }
 
         public void UpdateCompanyLawAreas(Company model, List<int> selectedLawAreas)
@@ -232,30 +231,30 @@ namespace Expro.Services
                 }
             }
 
-            List<CompanyLawArea> parentLawAreasToBeAdded = new List<CompanyLawArea>();
-            foreach (var item in model.CompanyLawAreas)
-            {
-                if (item.LawArea.ParentID.HasValue)
-                {
-                    if (parentLawAreasToBeAdded.FirstOrDefault(m => m.LawAreaID == item.LawArea.ParentID.Value) == null
-                        && model.CompanyLawAreas.FirstOrDefault(m => m.LawAreaID == item.LawArea.ParentID.Value) == null)
-                    {
-                        parentLawAreasToBeAdded.Add(new CompanyLawArea()
-                        {
-                            LawAreaID = item.LawArea.ParentID.Value,
-                            Company = model
-                        });
-                    }
-                }
-            }
+            //List<CompanyLawArea> parentLawAreasToBeAdded = new List<CompanyLawArea>();
+            //foreach (var item in model.CompanyLawAreas)
+            //{
+            //    if (item.LawArea.ParentID.HasValue)
+            //    {
+            //        if (parentLawAreasToBeAdded.FirstOrDefault(m => m.LawAreaID == item.LawArea.ParentID.Value) == null
+            //            && model.CompanyLawAreas.FirstOrDefault(m => m.LawAreaID == item.LawArea.ParentID.Value) == null)
+            //        {
+            //            parentLawAreasToBeAdded.Add(new CompanyLawArea()
+            //            {
+            //                LawAreaID = item.LawArea.ParentID.Value,
+            //                Company = model
+            //            });
+            //        }
+            //    }
+            //}
 
-            if (parentLawAreasToBeAdded.Count > 0)
-            {
-                foreach (var item in parentLawAreasToBeAdded)
-                {
-                    model.CompanyLawAreas.Add(item);
-                }
-            }
+            //if (parentLawAreasToBeAdded.Count > 0)
+            //{
+            //    foreach (var item in parentLawAreasToBeAdded)
+            //    {
+            //        model.CompanyLawAreas.Add(item);
+            //    }
+            //}
         }
 
 

@@ -1,9 +1,13 @@
 ﻿@page
 @model RegisterExpertModel
+@using Expro.ViewModels
+
 @{
     ViewData["Title"] = localizer["RegistrateAsExpert"];
     Layout = "_LayoutFrontRegistration";
     int? cityID = Model?.Input?.CityID;
+    var lawAreasWithParent = ViewData["lawAreas"] as List<SelectListItemWithParent>;
+    int selectedLawArea = Model?.Input?.LawAreaParentID ?? 0;
 }
 
 <form class="js-validate w-md-75 w-lg-50 mx-md-auto" asp-route-returnUrl="@Model.ReturnUrl" method="post">
@@ -38,20 +42,39 @@
     <!-- End Form Group -->
     <!-- Form Group -->
     @*<div class="js-form-message form-group">
-        <label class="input-label"  style="float:left;" asp-for="Input.PhoneNumber"></label><span class="text-danger">*</span>
-        <input class="form-control" asp-for="Input.PhoneNumber" placeholder="@localizer["lblPhoneNumber"]" aria-label="" required
-               data-msg="Please fill field.">
-        <span asp-validation-for="Input.PhoneNumber"></span>
-    </div>*@
+            <label class="input-label"  style="float:left;" asp-for="Input.PhoneNumber"></label><span class="text-danger">*</span>
+            <input class="form-control" asp-for="Input.PhoneNumber" placeholder="@localizer["lblPhoneNumber"]" aria-label="" required
+                   data-msg="Please fill field.">
+            <span asp-validation-for="Input.PhoneNumber"></span>
+        </div>*@
     <!-- End Form Group -->
     <!-- Select -->
     <div class="js-form-message form-group">
-        <label class="input-label" style="float:left;" asp-for="Input.LawAreas"></label><span class="text-danger">*</span>
-        <select asp-for="Input.LawAreas"
-                asp-items="@ViewData["lawAreas"] as IEnumerable<SelectListItem>" class="js-custom-select custom-select" size="1" multiple style="opacity: 0;"
+        <label class="input-label" style="float:left;" asp-for="Input.LawAreaParentID"></label><span class="text-danger">*</span>
+        <select asp-for="Input.LawAreaParentID" class="js-custom-select custom-select" size="1" style="opacity: 0;"
                 data-hs-select2-options='{
           "minimumResultsForSearch": "Infinity"
-        }'>          
+        }'>
+            @{
+                var parentItems = lawAreasWithParent.Where(m => m.ParentValue == "").ToList();
+
+                <option value=""></option>
+                for (int i = 0; i < parentItems.Count; i++)
+                {
+                    <option value="@parentItems[i].Value">@parentItems[i].Text</option>
+                }
+            }
+        </select>
+        <span asp-validation-for="Input.LawAreaParentID" class="text-danger"></span>
+    </div>
+    <!-- End Select -->
+    <!-- Select -->
+    <div class="js-form-message form-group">
+        <label class="input-label" style="float:left;"></label>
+        <select asp-for="Input.LawAreas" class="js-custom-select custom-select" size="1" multiple style="opacity: 0;"
+                data-hs-select2-options='{
+          "minimumResultsForSearch": "Infinity"
+        }'>
         </select>
     </div>
     <!-- End Select -->
@@ -137,6 +160,23 @@
 @section Scripts {
 
     @*<partial name="_ValidationScriptsPartial" />*@
+    <script src="~/js/LawAreaPickersBinder.js"></script>
+
+    <script>
+        var lawAreasWithParent = @Html.Raw(Json.Serialize(lawAreasWithParent));
+        var selectedParentLawArea = @selectedLawArea;
+        var selectedChildLawAreas = @Html.Raw(Json.Serialize(Model?.Input?.LawAreas ?? null));
+
+        $(document).ready(function () {
+            BindLawAreaPickers(
+                "select#Input_LawAreaParentID",
+                "select#Input_LawAreas",
+                lawAreasWithParent,
+                selectedParentLawArea,
+                selectedChildLawAreas);
+        });
+    </script>
+
     <script>
         $(document).ready(function () {
             var cityID = Number("@cityID");

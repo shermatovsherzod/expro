@@ -58,9 +58,13 @@ namespace Expro.ViewModels
 
             //Status = new BaseDropdownableDetailsVM(model.DocumentStatus);
             Author = new AppUserVM(model.Creator);
-            LawAreas = model.DocumentLawAreas
+
+            LawAreas = new List<BaseDropdownableDetailsVM>();
+            if (model.LawAreaParent != null)
+                LawAreas.Add(new BaseDropdownableDetailsVM(model.LawAreaParent));
+            LawAreas.AddRange(model.DocumentLawAreas
                 .Select(m => new BaseDropdownableDetailsVM(m.LawArea))
-                .ToList();
+                .ToList());
 
             DatePublished = DateTimeUtils.ConvertToString(model.DatePublished);
         }

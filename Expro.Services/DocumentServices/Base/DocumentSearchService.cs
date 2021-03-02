@@ -34,6 +34,7 @@ namespace Expro.Services
             DocumentPriceTypesEnum? priceType,
             string authorID,
             string purchasedUserID,
+            int? lawAreaParent,
             int[] lawAreas)
         {
             recordsTotal = 0;
@@ -62,7 +63,7 @@ namespace Expro.Services
 
                 recordsTotal = documents.Count();
 
-                documents = ApplyFilters(documents, lawAreas, statusID, priceType);
+                documents = ApplyFilters(documents, lawAreaParent, lawAreas, statusID, priceType);
 
                 recordsFiltered = documents.Count();
 
@@ -82,17 +83,25 @@ namespace Expro.Services
 
         protected IQueryable<Document> ApplyFilters(
             IQueryable<Document> documents,
+            int? lawAreaParent,
             int[] lawAreas,
             int? statusID,
             DocumentPriceTypesEnum? priceType)
         {
-            if (lawAreas != null && lawAreas.Length > 0)
+            if (lawAreaParent.HasValue)
             {
                 documents = documents
-                    .Where(m => m.DocumentLawAreas
-                        .Select(n => n.LawAreaID)
-                        .Any(n => lawAreas.Contains(n)));
+                    .Where(m => m.LawAreaParentID == lawAreaParent);
+
+                if (lawAreas != null && lawAreas.Length > 0)
+                {
+                    documents = documents
+                        .Where(m => m.DocumentLawAreas
+                            .Select(n => n.LawAreaID)
+                            .Any(n => lawAreas.Contains(n)));
+                }
             }
+            
 
             if (statusID.HasValue)
             {

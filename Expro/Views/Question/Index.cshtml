@@ -4,6 +4,8 @@
 @{
     ViewData["Title"] = localizer["Questions"];
     //ViewData["DocumentType"] = DocumentTypesEnum.QuestionDocument;
+
+    var lawAreasWithParent = ViewData["lawAreas"] as List<SelectListItemWithParent>;
 }
 
 <h1>@ViewData["Title"]</h1>
@@ -64,32 +66,40 @@
                         <div class="mb-5">
                             <h6 class="small text-cap">@localizer["FilterByLawArea"]</h6>
 
-                            @{
-                                var items = ViewData["lawAreas"] as List<SelectListItemWithParent>;
-                                var parentItems = items.Where(m => m.ParentValue == "").ToList();
-                                for (int i = 0; i < parentItems.Count; i++)
-                                {
-                                    <div class="d-flex align-items-center justify-content-between mb-2">
-                                        <div class="custom-control custom-checkbox">
-                                            <input type="checkbox" class="custom-control-input" name="lawAreasCheckbox" value="@parentItems[i].Value" id="lawAreaCheckbox_@parentItems[i].Value">
-                                            <label class="custom-control-label" for="lawAreaCheckbox_@parentItems[i].Value">@parentItems[i].Text</label>
-                                        </div>
-                                        @*<small>2</small>*@
-                                    </div>
+                            <!-- Select -->
+                            <div id="lawAreaParentDDBox" class="select2-custom select2-custom-sm-right">
+                                <select id="LawAreaParentID" class="js-custom-select custom-select-sm" style="opacity: 0;"
+                                        data-hs-select2-options='{
+						                "dropdownParent": "#lawAreaParentDDBox",
+						                "minimumResultsForSearch": "Infinity",
+						                "customClass": "custom-select custom-select-sm",
+						                "dropdownAutoWidth": true
+					                  }'>
+                                    @{
+                                        var parentItems = lawAreasWithParent.Where(m => m.ParentValue == "").ToList();
 
-                                    var childItems = items.Where(m => m.ParentValue == parentItems[i].Value).ToList();
-                                    foreach (var childItem in childItems)
-                                    {
-                                        <div class="d-flex align-items-center justify-content-between mb-2 ml-3">
-                                            <div class="custom-control custom-checkbox">
-                                                <input type="checkbox" class="custom-control-input" name="lawAreasCheckbox" value="@childItem.Value" id="lawAreaCheckbox_@childItem.Value">
-                                                <label class="custom-control-label" for="lawAreaCheckbox_@childItem.Value">@childItem.Text</label>
-                                            </div>
-                                            @*<small>2</small>*@
-                                        </div>
+                                        <option value="">@localizer["All"]</option>
+                                        for (int i = 0; i < parentItems.Count; i++)
+                                        {
+                                            <option value="@parentItems[i].Value">@parentItems[i].Text</option>
+                                        }
                                     }
-                                }
-                            }
+                                </select>
+                            </div>
+                            <!-- End Select -->
+                            <br />
+                            <!-- Select -->
+                            <div id="lawAreaDDBox" class="select2-custom select2-custom-sm-right">
+                                <select id="LawAreas" class="js-custom-select custom-select-sm" multiple style="opacity: 0;"
+                                        data-hs-select2-options='{
+						                "dropdownParent": "#lawAreaDDBox",
+						                "minimumResultsForSearch": "Infinity",
+						                "customClass": "custom-select custom-select-sm",
+						                "dropdownAutoWidth": true
+					                  }'>
+                                </select>
+                            </div>
+                            <!-- End Select -->
                         </div>
                         <!-- End Filter Group -->
                         @*<button type="button" class="btn btn-sm btn-block btn-white">
@@ -120,6 +130,12 @@
 
 <link href="~/lib/DataTables-1.10.22/datatables.css" rel="stylesheet" />
 
+<style>
+    .select2-custom .select2-selection__rendered {
+        overflow-x: auto !important;
+    }
+</style>
+
 @section CustomFrontStyles
 {
     <link rel="stylesheet" href="~/lib/frontTheme/vendor/select2/dist/css/select2.min.css">
@@ -129,6 +145,18 @@
 {
     <script src="~/lib/DataTables-1.10.22/datatables.js"></script>
     <script src="~/lib/frontTheme/vendor/select2/dist/js/select2.full.min.js"></script>
+    <script src="~/js/LawAreaPickersBinder.js"></script>
+
+    <script>
+        var lawAreasWithParent = @Html.Raw(Json.Serialize(lawAreasWithParent));
+
+        $(document).ready(function () {
+            BindLawAreaPickers(
+                "select#LawAreaParentID",
+                "select#LawAreas",
+                lawAreasWithParent);
+        });
+    </script>
 
     <script>
         InitHSPlugins();
@@ -164,11 +192,22 @@
                     data: function (d) {
                         d.priceType = $("#priceTypeDD").val();
 
-                        var lawAreasCheckboxValues = new Array();
-                        $.each($("input[name='lawAreasCheckbox']:checked"), function () {
-                            lawAreasCheckboxValues.push(Number($(this).val()));
-                        });
-                        d.lawAreas = lawAreasCheckboxValues;
+                        var lawAreasValues = new Array();
+
+                        var lawAreaParentID = $("select#LawAreaParentID").val();
+                        if (lawAreaParentID != "")
+                            d.lawAreaParent = Number(lawAreaParentID);
+
+                        var lawAreas = $("select#LawAreas").val();
+                        if (lawAreas.length > 0) {
+                            for (var i = 0; i < lawAreas.length; i++) {
+                                lawAreasValues.push(Number(lawAreas[i]));
+                            }
+                        }
+                        //$.each($("input[name='lawAreasCheckbox']:checked"), function () {
+                        //    lawAreasCheckboxValues.push(Number($(this).val()));
+                        //});
+                        d.lawAreas = lawAreasValues;
                     },
                     //complete: function () {
                     //    StartLoadingImagesAsync();
@@ -247,7 +286,7 @@
                     //console.log('Redraw took at: ' + (new Date().getTime() - startTime) + 'mS');
                 });
 
-            $("#statusDD, #priceTypeDD, input[name=lawAreasCheckbox]").change(function () {
+            $("#statusDD, #priceTypeDD, select#LawAreaParentID, select#LawAreas").change(function () {
                 table.draw();
             });
         });

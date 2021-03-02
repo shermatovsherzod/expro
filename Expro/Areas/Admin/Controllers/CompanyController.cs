@@ -53,7 +53,7 @@ namespace Expro.Areas.Admin.Controllers
 
         [HttpPost]
         public IActionResult Search(int draw, int? start = null, int? length = null,  
-            int? statusID = null, int[] lawAreas = null)
+            int? statusID = null)
         {
             int recordsTotal = 0;
             int recordsFiltered = 0;
@@ -70,8 +70,8 @@ namespace Expro.Areas.Admin.Controllers
                 UserTypesEnum.Admin,
                 statusID,
                 null,
-                lawAreas
-            );
+                null,
+                null);
 
             dynamic data = new CompanyDetailsVM().GetListOfCompanyDetailsVM(dataIQueryable);
 

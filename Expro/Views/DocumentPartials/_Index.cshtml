@@ -1,6 +1,10 @@
 ﻿@using Expro.Models.Enums
 @using Expro.ViewModels
 
+@{ 
+    var lawAreasWithParent = ViewData["lawAreas"] as List<SelectListItemWithParent>;
+}
+
 <div class="col-lg-3 order-lg-2 mb-5 mb-lg-0">
     <!-- Navbar -->
     <div class="navbar-expand-lg navbar-expand-lg-collapse-block navbar-light">
@@ -44,8 +48,8 @@
 						"dropdownAutoWidth": true
 					  }'>
                                 <option value="">Все</option>
-                                <option value="@DocumentPriceTypesEnum.Free">@localizer["ViewAllFilters"]</option>
-                                <option value="@DocumentPriceTypesEnum.Paid">@localizer["ViewAllFilters"]</option>
+                                <option value="@DocumentPriceTypesEnum.Free">@localizer["Free"]</option>
+                                <option value="@DocumentPriceTypesEnum.Paid">@localizer["Paid"]</option>
                             </select>
                         </div>
                         <!-- End Select -->
@@ -55,9 +59,46 @@
                     <div class="mb-5">
                         <h6 class="small text-cap">@localizer["FilterByLawArea"]</h6>
 
-                        @{
+                        <!-- Select -->
+                        <div id="lawAreaParentDDBox" class="select2-custom select2-custom-sm-right">
+                            <select id="LawAreaParentID" class="js-custom-select custom-select-sm" style="opacity: 0;"
+                                    data-hs-select2-options='{
+						                "dropdownParent": "#lawAreaParentDDBox",
+						                "minimumResultsForSearch": "Infinity",
+						                "customClass": "custom-select custom-select-sm",
+						                "dropdownAutoWidth": true
+					                  }'>
+                                @{
+                                    var parentItems = lawAreasWithParent.Where(m => m.ParentValue == "").ToList();
+
+                                    <option value="">@localizer["All"]</option>
+                                    for (int i = 0; i < parentItems.Count; i++)
+                                    {
+                                        <option value="@parentItems[i].Value">@parentItems[i].Text</option>
+                                    }
+                                }
+                            </select>
+                        </div>
+                        <!-- End Select -->
+                        <br />
+                        <!-- Select -->
+                        <div id="lawAreaDDBox" class="select2-custom select2-custom-sm-right">
+                            <select id="LawAreas" class="js-custom-select custom-select-sm" multiple style="opacity: 0;"
+                                    data-hs-select2-options='{
+						                "dropdownParent": "#lawAreaDDBox",
+						                "minimumResultsForSearch": "Infinity",
+						                "customClass": "custom-select custom-select-sm",
+						                "dropdownAutoWidth": true
+					                  }'>
+                            </select>
+                        </div>
+                        <!-- End Select -->
+
+
+
+                        @*@{
                             var items = ViewData["lawAreas"] as List<SelectListItemWithParent>;
-                            var parentItems = items.Where(m => m.ParentValue == "").ToList();
+                            parentItems = items.Where(m => m.ParentValue == "").ToList();
                             for (int i = 0; i < parentItems.Count; i++)
                             {
                                 <div class="d-flex align-items-center justify-content-between mb-2">
@@ -65,7 +106,6 @@
                                         <input type="checkbox" class="custom-control-input" name="lawAreasCheckbox" value="@parentItems[i].Value" id="lawAreaCheckbox_@parentItems[i].Value">
                                         <label class="custom-control-label" for="lawAreaCheckbox_@parentItems[i].Value">@parentItems[i].Text</label>
                                     </div>
-                                    @*<small>2</small>*@
                                 </div>
 
                                 var childItems = items.Where(m => m.ParentValue == parentItems[i].Value).ToList();
@@ -76,11 +116,10 @@
                                             <input type="checkbox" class="custom-control-input" name="lawAreasCheckbox" value="@childItem.Value" id="lawAreaCheckbox_@childItem.Value">
                                             <label class="custom-control-label" for="lawAreaCheckbox_@childItem.Value">@childItem.Text</label>
                                         </div>
-                                        @*<small>2</small>*@
                                     </div>
                                 }
                             }
-                        }
+                        }*@
                     </div>
                     <!-- End Filter Group -->
                     @*<button type="button" class="btn btn-sm btn-block btn-white">
@@ -107,3 +146,9 @@
         <div class="spinner-border spinner" style="display: none;"></div>
     </div>
 </div>
+
+<style>
+    .select2-custom .select2-selection__rendered {
+        overflow-x: auto !important;
+    }
+</style>

@@ -13,6 +13,10 @@ namespace Expro.Models
         [StringLength(1024)]
         public string Title { get; set; }
 
+        [ForeignKey("LawAreaParent")]
+        public int? LawAreaParentID { get; set; }
+        public virtual LawArea LawAreaParent { get; set; }
+
         public virtual ICollection<QuestionLawArea> QuestionLawAreas { get; set; }
 
         [ForeignKey("Attachment")]

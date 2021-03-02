@@ -16,6 +16,8 @@ namespace Expro.Data.Repository
         public IQueryable<Question> GetManyWithRelatedDataAsIQueryable()
         {
             return DbSet
+                .Include(m => m.LawAreaParent)
+                    .ThenInclude(m => m.NameShort)
                 .Include(m => m.QuestionLawAreas)
                     .ThenInclude(m => m.LawArea)
                         .ThenInclude(m => m.NameShort)

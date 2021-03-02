@@ -65,7 +65,7 @@ namespace Expro.Areas.Identity.Pages.Account
 
         public class InputExpertModel
         {
-            [Required]
+            [Required(ErrorMessageResourceType = typeof(Resources.ResourceTexts), ErrorMessageResourceName = "ErrorRequiredField")]
             [EmailAddress]
             [Display(Name = "Почтовый адрес")]
             public string Email { get; set; }
@@ -81,12 +81,12 @@ namespace Expro.Areas.Identity.Pages.Account
             [Compare("Password", ErrorMessage = "Введенные пароли не совпадают.")]
             public string ConfirmPassword { get; set; }
 
-            [Required]
+            [Required(ErrorMessageResourceType = typeof(Resources.ResourceTexts), ErrorMessageResourceName = "ErrorRequiredField")]
             [Display(Name = "Имя")]
             [StringLength(256)]
             public string FirstName { get; set; }
 
-            [Required]
+            [Required(ErrorMessageResourceType = typeof(Resources.ResourceTexts), ErrorMessageResourceName = "ErrorRequiredField")]
             [Display(Name = "Фамилия")]
             [StringLength(256)]
             public string LastName { get; set; }
@@ -103,6 +103,7 @@ namespace Expro.Areas.Identity.Pages.Account
             public string PhoneNumber { get; set; }
 
             [Display(Name = "Регион")]
+            [Required(ErrorMessageResourceType = typeof(Resources.ResourceTexts), ErrorMessageResourceName = "ErrorRequiredField")]
             public int RegionID { get; set; }
 
             [Display(Name = "Город")]
@@ -113,8 +114,9 @@ namespace Expro.Areas.Identity.Pages.Account
             //[Remote("ValidateFrom", "VideoRequest", ErrorMessage = "Введите город", AdditionalFields = "TypeID")]
             public string CityOther { get; set; }
 
-            [Required]
-            [Display(Name = "Направление")]
+            [Required(ErrorMessageResourceType = typeof(Resources.ResourceTexts), ErrorMessageResourceName = "ErrorRequiredField")]
+            [Display(Name = "lblLawAreas", ResourceType = typeof(Resources.ResourceTexts))]
+            public int LawAreaParentID { get; set; }
             public List<int> LawAreas { get; set; }
         }
 
@@ -122,7 +124,16 @@ namespace Expro.Areas.Identity.Pages.Account
         {
             ReturnUrl = returnUrl;
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
-            ViewData["lawAreas"] = _lawAreaService.GetAsGroupedSelectList();          
+            //ViewData["lawAreas"] = _lawAreaService.GetAsGroupedSelectList();          
+            ViewData["lawAreas"] = _lawAreaService.GetAsIQueryable()
+                .Select(m => new SelectListItemWithParent()
+                {
+                    Value = m.ID.ToString(),
+                    Text = m.Name,
+                    Selected = false,
+                    ParentValue = m.ParentID.HasValue ? m.ParentID.Value.ToString() : ""
+                }).ToList();
+
             ViewData["regions"] = _regionService.GetAsSelectList();
         }
 
@@ -145,7 +156,8 @@ namespace Expro.Areas.Identity.Pages.Account
                     CityID = Input.CityID == 0 ? null : Input.CityID,
                     CityOther = Input.CityID == null ? Input.CityOther : null,
                     DateRegistered = DateTime.Now,
-                    UserStatusID = 1
+                    UserStatusID = 1,
+                    LawAreaParentID = Input.LawAreaParentID
                 };
                 _userBalanceService.AssignAccountNumber(user);
                 _lawAreaService.UpdateUserLawAreas(user, Input.LawAreas);

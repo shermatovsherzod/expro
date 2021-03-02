@@ -33,6 +33,10 @@ namespace Expro.Models
         public int? GenderID { get; set; }
         public virtual Gender Gender { get; set; }
 
+        [ForeignKey("LawAreaParent")]
+        public int? LawAreaParentID { get; set; }
+        public virtual LawArea LawAreaParent { get; set; }
+
         public virtual ICollection<UserLawArea> UserLawAreas { get; set; }
 
         [ForeignKey("Region")]

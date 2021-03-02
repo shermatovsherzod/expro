@@ -57,7 +57,7 @@
                             <!-- End Select -->
                         </div>
                         <!-- End Filter Group -->
-                        <!-- Filter Group -->
+                        @*<!-- Filter Group -->
                         <div class="mb-5">
                             <h6 class="small text-cap">Фильтр по направлению</h6>
 
@@ -71,7 +71,6 @@
                                             <input type="checkbox" class="custom-control-input" name="lawAreasCheckbox" value="@parentItems[i].Value" id="lawAreaCheckbox_@parentItems[i].Value">
                                             <label class="custom-control-label" for="lawAreaCheckbox_@parentItems[i].Value">@parentItems[i].Text</label>
                                         </div>
-                                        @*<small>2</small>*@
                                     </div>
 
                                     var childItems = items.Where(m => m.ParentValue == parentItems[i].Value).ToList();
@@ -82,13 +81,12 @@
                                                 <input type="checkbox" class="custom-control-input" name="lawAreasCheckbox" value="@childItem.Value" id="lawAreaCheckbox_@childItem.Value">
                                                 <label class="custom-control-label" for="lawAreaCheckbox_@childItem.Value">@childItem.Text</label>
                                             </div>
-                                            @*<small>2</small>*@
                                         </div>
                                     }
                                 }
                             }
                         </div>
-                        <!-- End Filter Group -->
+                        <!-- End Filter Group -->*@
                         @*<button type="button" class="btn btn-sm btn-block btn-white">
             <i class="fas fa-redo fa-sm mr-1"></i> Reset all
         </button>*@

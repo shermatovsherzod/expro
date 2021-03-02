@@ -59,9 +59,12 @@ namespace Expro.ViewModels
                     model.Price.Value.ToString(AppData.Configuration.NumberViewStringFormat) : "0";
             }
 
-            LawAreas = model.QuestionLawAreas
+            LawAreas = new List<BaseDropdownableDetailsVM>();
+            if (model.LawAreaParent != null)
+                LawAreas.Add(new BaseDropdownableDetailsVM(model.LawAreaParent));
+            LawAreas.AddRange(model.QuestionLawAreas
                 .Select(m => new BaseDropdownableDetailsVM(m.LawArea))
-                .ToList();
+                .ToList());
 
             Status = new BaseDropdownableDetailsVM(model.DocumentStatus);
             DateModified = DateTimeUtils.ConvertToString(model.DateModified);

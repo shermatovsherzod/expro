@@ -17,6 +17,8 @@ namespace Expro.Data.Repository
         {
             return DbSet
                 .Include(m => m.Logo)
+                .Include(m => m.LawAreaParent)
+                    .ThenInclude(m => m.NameShort)
                 .Include(m => m.CompanyLawAreas)
                     .ThenInclude(m => m.LawArea)
                         .ThenInclude(m => m.NameShort)

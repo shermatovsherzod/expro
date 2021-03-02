@@ -45,9 +45,10 @@ namespace Expro.Areas.Expert.Controllers
             int draw, int? start = null, int? length = null,
             int? statusID = null,
             DocumentPriceTypesEnum? priceType = null,
+            int? lawAreaParent = null,
             int[] lawAreas = null)
         {
-            return base.Search(draw, start, length, statusID, priceType, lawAreas);
+            return base.Search(draw, start, length, statusID, priceType, lawAreaParent, lawAreas);
         }
 
         public override IActionResult Details(int id)

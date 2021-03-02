@@ -71,6 +71,7 @@ namespace Expro.Controllers
             int draw, int? start = null, int? length = null,
             int? statusID = null, 
             DocumentPriceTypesEnum? priceType = null,
+            int? lawAreaParent = null,
             int[] lawAreas = null)
         {
             int recordsTotal = 0;
@@ -90,6 +91,7 @@ namespace Expro.Controllers
                 priceType,
                 null,
                 null,
+                lawAreaParent,
                 lawAreas
             );
 

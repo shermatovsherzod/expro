@@ -44,8 +44,9 @@ namespace Expro.ViewModels
 
     public class QuestionFreeEditVM : QuestionFreeCreateVM
     {
-        [Required(ErrorMessageResourceType = typeof(Resources.ResourceTexts), ErrorMessageResourceName = "ErrorRequiredField")]
         [Display(Name = "lblLawAreas", ResourceType = typeof(Resources.ResourceTexts))]
+        [Required(ErrorMessageResourceType = typeof(Resources.ResourceTexts), ErrorMessageResourceName = "ErrorRequiredField")]
+        public int LawAreaParentID { get; set; }
         public List<int> LawAreas { get; set; }
 
         //public DocumentContentTypesEnum ContentType { get; set; } = DocumentContentTypesEnum.file;
@@ -74,6 +75,7 @@ namespace Expro.ViewModels
             if (model == null)
                 return;
 
+            LawAreaParentID = model.LawAreaParentID ?? 0;
             LawAreas = model.QuestionLawAreas?
                 .Select(m => m.LawAreaID)
                 .ToList()

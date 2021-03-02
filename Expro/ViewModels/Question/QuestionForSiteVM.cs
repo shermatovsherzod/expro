@@ -51,9 +51,12 @@ namespace Expro.ViewModels
             else
                 Title = model.Title.Substring(0, 100) + "...";
 
-            LawAreas = model.QuestionLawAreas
+            LawAreas = new List<BaseDropdownableDetailsVM>();
+            if (model.LawAreaParent != null)
+                LawAreas.Add(new BaseDropdownableDetailsVM(model.LawAreaParent));
+            LawAreas.AddRange(model.QuestionLawAreas
                 .Select(m => new BaseDropdownableDetailsVM(m.LawArea))
-                .ToList();
+                .ToList());
 
             if (!string.IsNullOrWhiteSpace(model.Text))
             {

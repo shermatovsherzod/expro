@@ -36,11 +36,22 @@ $(document).ready(function () {
             data: function (d) {
                 d.priceType = $("#priceTypeDD").val();
 
-                var lawAreasCheckboxValues = new Array();
-                $.each($("input[name='lawAreasCheckbox']:checked"), function () {
-                    lawAreasCheckboxValues.push(Number($(this).val()));
-                });
-                d.lawAreas = lawAreasCheckboxValues;
+                var lawAreasValues = new Array();
+
+                var lawAreaParentID = $("select#LawAreaParentID").val();
+                if (lawAreaParentID != "")
+                    d.lawAreaParent = Number(lawAreaParentID);
+
+                var lawAreas = $("select#LawAreas").val();
+                if (lawAreas.length > 0) {
+                    for (var i = 0; i < lawAreas.length; i++) {
+                        lawAreasValues.push(Number(lawAreas[i]));
+                    }
+                }
+                //$.each($("input[name='lawAreasCheckbox']:checked"), function () {
+                //    lawAreasCheckboxValues.push(Number($(this).val()));
+                //});
+                d.lawAreas = lawAreasValues;
             },
             //complete: function () {
             //    StartLoadingImagesAsync();
@@ -123,7 +134,7 @@ $(document).ready(function () {
             //console.log('Redraw took at: ' + (new Date().getTime() - startTime) + 'mS');
         });
 
-    $("#statusDD, #priceTypeDD, input[name=lawAreasCheckbox]").change(function () {
+    $("#statusDD, #priceTypeDD, select#LawAreaParentID, select#LawAreas").change(function () {
         table.draw();
     });
 });

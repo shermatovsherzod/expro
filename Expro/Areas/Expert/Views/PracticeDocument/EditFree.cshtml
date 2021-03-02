@@ -5,6 +5,7 @@
 
 @{
     ViewData["Title"] = localizer["EditPracticeDocument"];
+    var lawAreasWithParent = ViewData["lawAreas"] as List<SelectListItemWithParent>;
 }
 
 @functions {
@@ -68,30 +69,34 @@
     </div>
 
     <div class="form-group">
-        <label asp-for="LawAreas" class="control-label"></label> @{ RenderRedAsteriks(); }
-        <div>
-            <select asp-for="LawAreas"
-                    class="js-custom-select custom-select" size="1" multiple style="opacity: 0;"
-                    data-hs-select2-options='{
-                      "minimumResultsForSearch": "Infinity"
-                    }'>
-                @{
-                    var items = ViewData["lawAreas"] as List<SelectListItemWithParent>;
-                    var parentItems = items.Where(m => m.ParentValue == "").ToList();
-                    for (int i = 0; i < parentItems.Count; i++)
-                    {
-                        <option value="@parentItems[i].Value" data-option-template="<b>@parentItems[i].Text</b>">@parentItems[i].Text</option>
+        <label asp-for="LawAreaParentID" class="control-label"></label>
+        <select asp-for="LawAreaParentID"
+                class="js-custom-select custom-select" size="1" style="opacity: 0;"
+                data-hs-select2-options='{
+                    "minimumResultsForSearch": "Infinity"
+                }'>
+            @{
+                var parentItems = lawAreasWithParent.Where(m => m.ParentValue == "").ToList();
 
-                        var childItems = items.Where(m => m.ParentValue == parentItems[i].Value).ToList();
-                        foreach (var childItem in childItems)
-                        {
-                            <option value="@childItem.Value" data-option-template="- @childItem.Text">@childItem.Text</option>
-                        }
-                    }
+                <option value=""></option>
+                for (int i = 0; i < parentItems.Count; i++)
+                {
+                    <option value="@parentItems[i].Value">@parentItems[i].Text</option>
                 }
-            </select>
-            <!-- End Select -->
-        </div>
+            }
+        </select>
+        <!-- End Select -->
+        <span asp-validation-for="LawAreaParentID" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <select asp-for="LawAreas"
+                class="js-custom-select custom-select" size="1" multiple style="opacity: 0;"
+                data-hs-select2-options='{
+                    "minimumResultsForSearch": "Infinity"
+                }'>
+        </select>
+        <!-- End Select -->
         <span asp-validation-for="LawAreas" class="text-danger"></span>
     </div>
 
@@ -178,6 +183,22 @@
     <script src="~/lib/frontTheme/vendor/select2/dist/js/select2.full.min.js"></script>
     <script src="~/lib/frontTheme/vendor/hs-file-attach/dist/hs-file-attach.min.js"></script>
     <script src="~/lib/frontTheme/vendor/quill/dist/quill.min.js"></script>
+    <script src="~/js/LawAreaPickersBinder.js"></script>
+
+    <script>
+        var lawAreasWithParent = @Html.Raw(Json.Serialize(lawAreasWithParent));
+        var selectedParentLawArea = @Model.LawAreaParentID;
+        var selectedChildLawAreas = @Html.Raw(Json.Serialize(Model.LawAreas));
+
+        $(document).ready(function () {
+            BindLawAreaPickers(
+                "select#LawAreaParentID",
+                "select#LawAreas",
+                lawAreasWithParent,
+                selectedParentLawArea,
+                selectedChildLawAreas);
+        });
+    </script>
 
     <script>
         var input;
@@ -199,7 +220,7 @@
             {
                 $("form input, form select, form textarea").attr("disabled", "disabled");
                 $("form #existingFileContainer button").attr("disabled", "disabled");
-                $('#LawAreas').prop('disabled', true);
+                $('#LawAreas, #LawAreaParentID').prop('disabled', true);
                 $("#actionButtonsBox").html("");
                 quill.disable();
             }

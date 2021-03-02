@@ -4,14 +4,16 @@ using Expro.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Expro.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210301064249_Document_addedLawAreaParent_Nullable")]
+    partial class Document_addedLawAreaParent_Nullable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -268,9 +270,6 @@ namespace Expro.Data.Migrations
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
 
-                    b.Property<int?>("LawAreaParentID")
-                        .HasColumnType("int");
-
                     b.Property<int?>("LogoID")
                         .HasColumnType("int");
 
@@ -299,8 +298,6 @@ namespace Expro.Data.Migrations
                     b.HasIndex("CompanyStatusID");
 
                     b.HasIndex("CreatedBy");
-
-                    b.HasIndex("LawAreaParentID");
 
                     b.HasIndex("LogoID");
 
@@ -859,9 +856,6 @@ namespace Expro.Data.Migrations
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
 
-                    b.Property<int?>("LawAreaParentID")
-                        .HasColumnType("int");
-
                     b.Property<string>("ModifiedBy")
                         .HasColumnType("nvarchar(450)");
 
@@ -910,8 +904,6 @@ namespace Expro.Data.Migrations
                     b.HasIndex("CreatedBy");
 
                     b.HasIndex("DocumentStatusID");
-
-                    b.HasIndex("LawAreaParentID");
 
                     b.HasIndex("ModifiedBy");
 
@@ -1753,9 +1745,6 @@ namespace Expro.Data.Migrations
                         .HasColumnType("nvarchar(256)")
                         .HasMaxLength(256);
 
-                    b.Property<int?>("LawAreaParentID")
-                        .HasColumnType("int");
-
                     b.Property<string>("PatronymicName")
                         .HasColumnType("nvarchar(256)")
                         .HasMaxLength(256);
@@ -1791,8 +1780,6 @@ namespace Expro.Data.Migrations
                     b.HasIndex("CityID");
 
                     b.HasIndex("GenderID");
-
-                    b.HasIndex("LawAreaParentID");
 
                     b.HasIndex("RegionID");
 
@@ -1868,10 +1855,6 @@ namespace Expro.Data.Migrations
                     b.HasOne("Expro.Models.ApplicationUser", "Creator")
                         .WithMany()
                         .HasForeignKey("CreatedBy");
-
-                    b.HasOne("Expro.Models.LawArea", "LawAreaParent")
-                        .WithMany()
-                        .HasForeignKey("LawAreaParentID");
 
                     b.HasOne("Expro.Models.Attachment", "Logo")
                         .WithMany()
@@ -2098,10 +2081,6 @@ namespace Expro.Data.Migrations
                         .HasForeignKey("DocumentStatusID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.HasOne("Expro.Models.LawArea", "LawAreaParent")
-                        .WithMany()
-                        .HasForeignKey("LawAreaParentID");
 
                     b.HasOne("Expro.Models.ApplicationUser", "Modifier")
                         .WithMany()
@@ -2389,10 +2368,6 @@ namespace Expro.Data.Migrations
                     b.HasOne("Expro.Models.Gender", "Gender")
                         .WithMany()
                         .HasForeignKey("GenderID");
-
-                    b.HasOne("Expro.Models.LawArea", "LawAreaParent")
-                        .WithMany()
-                        .HasForeignKey("LawAreaParentID");
 
                     b.HasOne("Expro.Models.Region", "Region")
                         .WithMany()

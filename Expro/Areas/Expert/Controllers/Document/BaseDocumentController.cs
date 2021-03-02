@@ -80,6 +80,7 @@ namespace Expro.Areas.Expert.Controllers
                 priceType,
                 curUser.ID,
                 null,
+                null,
                 null
             );
 
@@ -297,6 +298,7 @@ namespace Expro.Areas.Expert.Controllers
 
         private void PrepareViewData(List<int> selectedLawAreaIDs)
         {
+            //ViewData["lawAreas"] = LawAreaService
             ViewData["lawAreas"] = LawAreaService.GetAsIQueryable()
                 .Select(m => new SelectListItemWithParent()
                 {

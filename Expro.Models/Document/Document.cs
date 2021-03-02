@@ -21,6 +21,10 @@ namespace Expro.Models
         public int? LanguageID { get; set; }
         public virtual Language Language { get; set; }
 
+        [ForeignKey("LawAreaParent")]
+        public int? LawAreaParentID { get; set; }
+        public virtual LawArea LawAreaParent { get; set; }
+
         public virtual ICollection<DocumentLawArea> DocumentLawAreas { get; set; }
 
         public DocumentContentTypesEnum ContentType { get; set; } = DocumentContentTypesEnum.text;

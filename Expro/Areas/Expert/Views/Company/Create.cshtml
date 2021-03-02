@@ -6,6 +6,8 @@
 @{
     ViewData["Title"] = "Добавление компании";
     int? cityID = Model?.CityID;
+    var lawAreasWithParent = ViewData["lawAreas"] as List<SelectListItemWithParent>;
+    int selectedLawArea = Model?.LawAreaParentID ?? 0;
 }
 
 <form asp-controller="Company" asp-action="Create"
@@ -89,7 +91,30 @@
 
     <div class="row">
         <div class="col-md-3">
-            <label asp-for="@Model.LawAreas"></label>
+            <label asp-for="@Model.LawAreaParentID"></label>
+        </div>
+        <div class="col-md-9">
+            <select asp-for="LawAreaParentID"
+                    class="js-custom-select custom-select" size="1" style="opacity: 0;"
+                    data-hs-select2-options='{
+                    "minimumResultsForSearch": "Infinity"
+                }'>
+                @{
+                    var parentItems = lawAreasWithParent.Where(m => m.ParentValue == "").ToList();
+
+                    <option value=""></option>
+                    for (int i = 0; i < parentItems.Count; i++)
+                    {
+                        <option value="@parentItems[i].Value">@parentItems[i].Text</option>
+                    }
+                }
+            </select>
+            <span asp-validation-for="@Model.LawAreaParentID" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-3">
+            @*<label asp-for="@Model.LawAreas"></label>*@
         </div>
         <div class="col-md-9">
             <select asp-for="LawAreas"
@@ -97,26 +122,10 @@
                     data-hs-select2-options='{
                     "minimumResultsForSearch": "Infinity"
                 }'>
-                @{
-                    var items = ViewData["lawAreas"] as List<SelectListItemWithParent>;
-                    var parentItems = items.Where(m => m.ParentValue == "").ToList();
-                    for (int i = 0; i < parentItems.Count; i++)
-                    {
-                        <option value="@parentItems[i].Value" data-option-template="<b>@parentItems[i].Text</b>">@parentItems[i].Text</option>
-
-                        var childItems = items.Where(m => m.ParentValue == parentItems[i].Value).ToList();
-                        foreach (var childItem in childItems)
-                        {
-                            <option value="@childItem.Value" data-option-template="- @childItem.Text">@childItem.Text</option>
-                        }
-                    }
-                }
             </select>
-
             <span asp-validation-for="@Model.LawAreas" class="text-danger"></span>
         </div>
     </div>
-
 
     <div class="row">
         <div class="col-md-3">
@@ -239,6 +248,22 @@
     <script src="~/lib/frontTheme/vendor/select2/dist/js/select2.full.min.js"></script>
     <script src="~/lib/frontTheme/vendor/hs-file-attach/dist/hs-file-attach.min.js"></script>
     <script src="~/lib/frontTheme/vendor/quill/dist/quill.min.js"></script>
+    <script src="~/js/LawAreaPickersBinder.js"></script>
+
+    <script>
+        var lawAreasWithParent = @Html.Raw(Json.Serialize(lawAreasWithParent));
+        var selectedParentLawArea = @selectedLawArea;
+        var selectedChildLawAreas = @Html.Raw(Json.Serialize(Model?.LawAreas ?? null));
+
+        $(document).ready(function () {
+            BindLawAreaPickers(
+                "select#LawAreaParentID",
+                "select#LawAreas",
+                lawAreasWithParent,
+                selectedParentLawArea,
+                selectedChildLawAreas);
+        });
+    </script>
 
     <script>
         $(document).ready(function () {

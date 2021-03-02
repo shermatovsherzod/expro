@@ -60,9 +60,13 @@ namespace Expro.ViewModels
             Address = model.Address;
             CompanyDescription = model.CompanyDescription;
 
-            LawAreas = model.CompanyLawAreas
+            LawAreas = new List<BaseDropdownableDetailsVM>();
+            if (model.LawAreaParent != null)
+                LawAreas.Add(new BaseDropdownableDetailsVM(model.LawAreaParent));
+            LawAreas.AddRange(model.CompanyLawAreas
                 .Select(m => new BaseDropdownableDetailsVM(m.LawArea))
-                .ToList();
+                .ToList());
+            
 
             Status = new BaseDropdownableDetailsVM(model.CompanyStatus);
             DateModified = DateTimeUtils.ConvertToString(model.DateModified);

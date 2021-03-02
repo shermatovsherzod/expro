@@ -83,6 +83,7 @@ namespace Expro.Areas.User.Controllers
                 priceType,
                 curUser.ID,
                 null,
+                null,
                 null
             );
 

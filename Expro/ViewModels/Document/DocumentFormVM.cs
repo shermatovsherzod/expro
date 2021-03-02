@@ -47,8 +47,9 @@ namespace Expro.ViewModels
         [Display(Name = "Language", ResourceType = typeof(Resources.ResourceTexts))]
         public int LanguageID { get; set; }
 
-        [Required(ErrorMessageResourceType = typeof(Resources.ResourceTexts), ErrorMessageResourceName = "ErrorRequiredField")]
         [Display(Name = "lblLawAreas", ResourceType = typeof(Resources.ResourceTexts))]
+        [Required(ErrorMessageResourceType = typeof(Resources.ResourceTexts), ErrorMessageResourceName = "ErrorRequiredField")]
+        public int LawAreaParentID { get; set; }
         public List<int> LawAreas { get; set; }
 
         public DocumentContentTypesEnum ContentType { get; set; }// = DocumentContentTypesEnum.file;
@@ -77,6 +78,7 @@ namespace Expro.ViewModels
                 return;
             
             LanguageID = model.LanguageID ?? 0;
+            LawAreaParentID = model.LawAreaParentID ?? 0;
             LawAreas = model.DocumentLawAreas?
                 .Select(m => m.LawAreaID)
                 .ToList() 
@@ -101,7 +103,7 @@ namespace Expro.ViewModels
 
             //model.Title = this.Title;
             mmodel.LanguageID = this.LanguageID;
-            //model.DocumentLawAreas
+            mmodel.LawAreaParentID = this.LawAreaParentID;
             mmodel.ContentType = this.ContentType;
             //model.AttachmentID = this.AttachmentID;
             mmodel.Text = this.Text;
