@@ -1,10 +1,13 @@
 ﻿@model Expro.ViewModels.ExpertProfileMainInfoEditVM
+@using Expro.ViewModels
+
 @{
     Layout = "_LayoutProfile";
     ViewData["Title"] = localizer["MainInfo"];
 
     <link href="~/lib/Gijgo/gijgo.min.css" rel="stylesheet" />
     int? cityID = Model?.CityID;
+    var lawAreasWithParent = ViewData["lawAreas"] as List<SelectListItemWithParent>;
 }
 
 
@@ -92,13 +95,36 @@
     </div>
     <!-- End Form Group -->
     <!-- Select -->
-    <div class="row form-group">        
+    <div class="row form-group">
         <div class="col-sm-3 col-form-label">
-            <label asp-for="@Model.LawAreas" style="float:left;" class="input-label"></label><span class="text-danger">*</span>
+            <label asp-for="@Model.LawAreaParentID" style="float:left;" class="input-label"></label><span class="text-danger">*</span>
         </div>
         <div class="col-sm-9">
-            <select asp-for="@Model.LawAreas"
-                    asp-items="@ViewData["lawAreas"] as IEnumerable<SelectListItem>" class="js-custom-select custom-select" size="1" multiple style="opacity: 0;"
+            <select asp-for="@Model.LawAreaParentID" class="js-custom-select custom-select" size="1" style="opacity: 0;"
+                    data-hs-select2-options='{
+                      "minimumResultsForSearch": "Infinity"
+                    }'>
+                @{
+                    var parentItems = lawAreasWithParent.Where(m => m.ParentValue == "").ToList();
+
+                    <option value=""></option>
+                    for (int i = 0; i < parentItems.Count; i++)
+                    {
+                        <option value="@parentItems[i].Value">@parentItems[i].Text</option>
+                    }
+                }
+            </select>
+            <span asp-validation-for="@Model.LawAreaParentID"></span>
+        </div>
+    </div>
+    <!-- End Select -->
+    <!-- Select -->
+    <div class="row form-group">
+        <div class="col-sm-3 col-form-label">
+            <label style="float:left;" class="input-label"></label>
+        </div>
+        <div class="col-sm-9">
+            <select asp-for="@Model.LawAreas" class="js-custom-select custom-select" size="1" multiple style="opacity: 0;"
                     data-hs-select2-options='{
           "minimumResultsForSearch": "Infinity"
         }'>
@@ -110,7 +136,7 @@
     <div class="row form-group">
         <div class="col-sm-3 col-form-label">
             <label asp-for="@Model.DateOfBirth" style="float:left;" class="input-label"></label><span class="text-danger">*</span>
-        </div>       
+        </div>
         <div class="col-sm-9">
             <input type="text" asp-for="@Model.DateOfBirth" class="form-control" placeholder="@localizer["lblDateOfBirth"]" onkeydown="event.preventDefault()" />
             <span asp-validation-for="@Model.DateOfBirth"></span>
@@ -121,7 +147,7 @@
     <div class="row form-group">
         <div class="col-sm-3 col-form-label">
             <label asp-for="@Model.GenderID" style="float:left;" class="input-label"></label>
-        </div>       
+        </div>
         <div class="col-sm-9">
             <select asp-for="@Model.GenderID" asp-items="@ViewData["gender"] as IEnumerable<SelectListItem>" class="js-custom-select custom-select" size="1" style="opacity: 0;"
                     data-hs-select2-options='{
@@ -143,6 +169,22 @@
 
 
 @section Scripts {
+    <script src="~/js/LawAreaPickersBinder.js"></script>
+
+    <script>
+        var lawAreasWithParent = @Html.Raw(Json.Serialize(lawAreasWithParent));
+        var selectedParentLawArea = @Model.LawAreaParentID;
+        var selectedChildLawAreas = @Html.Raw(Json.Serialize(Model.LawAreas));
+
+        $(document).ready(function () {
+            BindLawAreaPickers(
+                "select#LawAreaParentID",
+                "select#LawAreas",
+                lawAreasWithParent,
+                selectedParentLawArea,
+                selectedChildLawAreas);
+        });
+    </script>
 
     <script>
         $(document).ready(function () {

@@ -72,6 +72,7 @@ namespace Expro.Areas.Expert.Controllers.ExpertProfile
                 user.CityOther = vmodel.CityOther;
                 user.DateOfBirth = DateTimeUtils.ConvertToDateTime(vmodel.DateOfBirth, AppData.Configuration.DateViewStringFormat);
                 user.GenderID = vmodel.GenderID;
+                user.LawAreaParentID = vmodel.LawAreaParentID;
                 _lawAreaService.UpdateUserLawAreas(user, vmodel.LawAreas);
                 IdentityResult result = await _userManager.UpdateAsync(user);
 
@@ -89,10 +90,18 @@ namespace Expro.Areas.Expert.Controllers.ExpertProfile
         private void ExpertProfileMainInfoViewData(ApplicationUser user)
         {
             ViewData["country"] = _countryService.GetAsSelectList();         
-            ViewData["regions"] = _regionService.GetAsSelectListOne(user.RegionID);
-            ViewData["cities"] = _cityService.GetAsSelectListOne(user.CityID);
-            ViewData["gender"] = _genderService.GetAsSelectListOne(user.GenderID);           
-            ViewData["lawAreas"] = _lawAreaService.GetAsGroupedSelectListForUser(user);
+            ViewData["regions"] = _regionService.GetAsSelectListOne(user.RegionID ?? 0);
+            ViewData["cities"] = _cityService.GetAsSelectListOne(user.CityID ?? 0);
+            ViewData["gender"] = _genderService.GetAsSelectListOne(user.GenderID ?? 0);
+            //ViewData["lawAreas"] = _lawAreaService.GetAsGroupedSelectListForUser(user);
+            ViewData["lawAreas"] = _lawAreaService.GetAsIQueryable()
+                .Select(m => new SelectListItemWithParent()
+                {
+                    Value = m.ID.ToString(),
+                    Text = m.Name,
+                    Selected = false,
+                    ParentValue = m.ParentID.HasValue ? m.ParentID.Value.ToString() : ""
+                }).ToList();
         }
     }
 }

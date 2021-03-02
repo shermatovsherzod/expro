@@ -27,6 +27,8 @@ namespace Expro.ViewModels
 
         [Required(ErrorMessage = "Поле Направление обязательно для заполнения")]
         [Display(Name = "lblLawAreas", ResourceType = typeof(ResourceTexts))]
+        public int LawAreaParentID { get; set; }
+
         public List<int> LawAreas { get; set; }
 
         [Display(Name = "lblDateOfBirth", ResourceType = typeof(ResourceTexts))]
@@ -48,6 +50,7 @@ namespace Expro.ViewModels
             RegionID = user.Region?.ID;
             CityID = user.City?.ID;
             CityOther = user.CityOther;
+            LawAreaParentID = user.LawAreaParentID ?? 0;
             LawAreas = user.UserLawAreas != null ? user.UserLawAreas.Select(r => (int)r.LawAreaID).ToList() : null;
             DateOfBirth = DateTimeUtils.ConvertToString(user.DateOfBirth);
             GenderID = user.Gender?.ID;

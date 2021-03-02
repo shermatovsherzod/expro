@@ -118,8 +118,13 @@ namespace Expro.ViewModels
             Fax = model.Fax;
             WebSite = model.WebSite;
             RegionStr = model.RegionID != null ? model.Region.Name : "";
-            CityStr = model.CityID != null ? model.City.Name : "";            
-            LawAreasName = model.UserLawAreas != null ? model.UserLawAreas.Select(c => c.LawArea.Name).ToList() : null;
+            CityStr = model.CityID != null ? model.City.Name : "";
+            LawAreasName = new List<string>();
+            if (model.LawAreaParentID.HasValue)
+                LawAreasName.Add(model.LawAreaParent.Name);
+            if (model.UserLawAreas != null)
+                LawAreasName.AddRange(model.UserLawAreas.Select(c => c.LawArea.Name));
+            //LawAreasName = model.UserLawAreas != null ? model.UserLawAreas.Select(c => c.LawArea.Name).ToList() : null;
             Status = model.UserStatusID;
             Avatar = new AttachmentDetailsVM(model.Avatar);
             WorkExperience = new ExpertProfileWorkExperienceDetailsVM().GetListOfExpertProfileWorkExperienceDetailsVM(model.WorkExperience);
