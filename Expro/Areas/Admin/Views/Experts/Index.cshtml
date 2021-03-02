@@ -2,7 +2,7 @@
 @using Expro.Models.Enums
 
 @{
-    ViewData["Title"] = "Эксперты";    
+    ViewData["Title"] = localizer["Experts"];    
 }
 @section CustomFrontStyles{
     <link rel="stylesheet" href="~/lib/frontTheme/vendor/select2/dist/css/select2.min.css">
@@ -13,7 +13,7 @@
 
 
 <div class="form-group">
-    <label class="input-label" for="statusDD">Фильтр по статусу:</label>
+    <label class="input-label" for="statusDD">@localizer["FilterByStatus"]:</label>
 
     <select id="statusDD" name="statusDD" asp-items="@ViewData["statuses"] as List<SelectListItem>" class="js-custom-select custom-select form-control">
         <option value="">@localizer["All"]</option>
@@ -29,12 +29,12 @@
         <table id="list" class="table table-borderless table-thead-bordered table-nowrap table-align-middle" width="100%">
             <thead class="thead-light">
                 <tr>
-                    <th>Name</th>
-                    <th>Status</th>
-                    <th>Points</th>
-                    <th>Rating</th>
-                    <th>Rating last updated date</th>
-                    <th style="width: 5%;">View</th>
+                    <th>@localizer["Expert"]</th>
+                    <th>Статус</th>
+                    <th>Балл</th>
+                    <th>Рейтинг</th>
+                    <th>@localizer["RatingLastUpdatedDate"]</th>
+                    <th style="width: 5%;">@localizer["View"]</th>
                 </tr>
             </thead>
             <tbody>
@@ -53,7 +53,7 @@
 
 
     <script>
-      
+
         var table;
 
         $(document).ready(function () {
@@ -109,16 +109,16 @@
                             var html = '';
 
                             if (full.userStatusID == 1) {
-                                html += '<div class="alert alert-soft-secondary" role="alert">Не подтвержден</div>'
+                                html += '<div class="alert alert-soft-secondary" role="alert">' +'@localizer["ExpertNotApproved"]' +'</div>'
                             }
                             if (full.userStatusID == 2) {
-                                html += '<div class="alert alert-soft-warning" role="alert">Ожидание подтверждения</div>'
+                                html += '<div class="alert alert-soft-warning" role="alert">' +'@localizer["ExpertWaitingForApproval"]' +'</div>'
                             }
                             if (full.userStatusID == 3) {
-                                html += '<div class="alert alert-soft-success" role="alert">Подтвержден</div>'
+                                html += '<div class="alert alert-soft-success" role="alert">' +'@localizer["ExpertApproved"]' +'</div>'
                             }
                             if (full.userStatusID == 4) {
-                                html += '<div class="alert alert-soft-danger" role="alert">Отказано</div>'
+                                html += '<div class="alert alert-soft-danger" role="alert">' +'@localizer["ExpertRejected"]' +'</div>'
                             }
                             return html;
                         }

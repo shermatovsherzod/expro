@@ -1042,6 +1042,24 @@ namespace Expro.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Отзыв.
+        /// </summary>
+        public static string Feedback {
+            get {
+                return ResourceManager.GetString("Feedback", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Отзывы.
+        /// </summary>
+        public static string Feedbacks {
+            get {
+                return ResourceManager.GetString("Feedbacks", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Вознаграждение (в сумах).
         /// </summary>
         public static string FeeInSoums {
@@ -1524,6 +1542,15 @@ namespace Expro.Resources {
         public static string Logout {
             get {
                 return ResourceManager.GetString("Logout", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Отправить емейл.
+        /// </summary>
+        public static string MailSend {
+            get {
+                return ResourceManager.GetString("MailSend", resourceCulture);
             }
         }
         
@@ -2127,6 +2154,15 @@ namespace Expro.Resources {
         public static string RandomGUID {
             get {
                 return ResourceManager.GetString("RandomGUID", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Дата последнего обновления рейтинга.
+        /// </summary>
+        public static string RatingLastUpdatedDate {
+            get {
+                return ResourceManager.GetString("RatingLastUpdatedDate", resourceCulture);
             }
         }
         

@@ -1035,4 +1035,16 @@
   <data name="Responsibility" xml:space="preserve">
     <value>Ответственности</value>
   </data>
+  <data name="Feedback" xml:space="preserve">
+    <value>Отзыв</value>
+  </data>
+  <data name="Feedbacks" xml:space="preserve">
+    <value>Отзывы</value>
+  </data>
+  <data name="MailSend" xml:space="preserve">
+    <value>Отправить емейл</value>
+  </data>
+  <data name="RatingLastUpdatedDate" xml:space="preserve">
+    <value>Дата последнего обновления рейтинга</value>
+  </data>
 </root>

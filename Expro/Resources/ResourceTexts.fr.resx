@@ -1035,4 +1035,16 @@
   <data name="Responsibility" xml:space="preserve">
     <value>Маъсулиятлар</value>
   </data>
+  <data name="Feedback" xml:space="preserve">
+    <value>Мулохаза</value>
+  </data>
+  <data name="Feedbacks" xml:space="preserve">
+    <value>Мулохазалар</value>
+  </data>
+  <data name="MailSend" xml:space="preserve">
+    <value>Емейл жўнатиш</value>
+  </data>
+  <data name="RatingLastUpdatedDate" xml:space="preserve">
+    <value>Рейтингни охирги янгиланиш санаси</value>
+  </data>
 </root>
