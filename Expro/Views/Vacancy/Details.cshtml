@@ -70,7 +70,7 @@
     <div class="w-lg-75 mx-lg-auto">
         <div class="row mb-3">
             <div class="col-6">
-                <h3>Описание</h3>
+                <h3>@localizer["Description"]</h3>
             </div>
 
             <!--<div class="col-6 text-right">-->
@@ -101,7 +101,7 @@
         </div>
         <!-- End Row -->
 
-        <h5>Требования:</h5>
+        <h5>@localizer["Requirements"]:</h5>
         <!-- Quill -->
         <div class="quill-custom Text">
             <div class="js-quill"
@@ -116,7 +116,7 @@
         </div>
         <!-- End Quill -->
 
-        <h5>Ответственности:</h5>
+        <h5>@localizer["Responsibility"]:</h5>
         <!-- Quill -->
         <div class="quill-custom Text">
             <div class="js-quill"
@@ -131,7 +131,7 @@
         </div>
         <!-- End Quill -->
 
-        <h5>Контакты:</h5>
+        <h5>@localizer["Contacts"]:</h5>
         <ul style="list-style-type:none; padding: 0;">
             <li><i class="fa fa-user"></i> @Model.ContactPerson</li>
             <li><i class="fa fa-phone"></i> @Model.PhoneNumber</li>
@@ -140,7 +140,7 @@
         <hr />
 
         <div>
-            <a asp-action="Index">Назад к списку</a>
+            <a asp-action="Index">@localizer["BackToList"]</a>
         </div>
     </div>
 </div>

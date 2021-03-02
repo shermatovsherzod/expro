@@ -583,6 +583,15 @@ namespace Expro.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Подтвердите элетронный почтовый адрес.
+        /// </summary>
+        public static string ConfirmYourEmail {
+            get {
+                return ResourceManager.GetString("ConfirmYourEmail", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Контакты.
         /// </summary>
         public static string Contacts {
@@ -660,6 +669,15 @@ namespace Expro.Resources {
         public static string DateTime {
             get {
                 return ResourceManager.GetString("DateTime", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Описание.
+        /// </summary>
+        public static string Description {
+            get {
+                return ResourceManager.GetString("Description", resourceCulture);
             }
         }
         
@@ -835,11 +853,20 @@ namespace Expro.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Почта.
+        ///   Looks up a localized string similar to Электрон почта адреси.
         /// </summary>
         public static string Email {
             get {
                 return ResourceManager.GetString("Email", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Подтверждение емейла.
+        /// </summary>
+        public static string EmailConfirm {
+            get {
+                return ResourceManager.GetString("EmailConfirm", resourceCulture);
             }
         }
         
@@ -885,6 +912,15 @@ namespace Expro.Resources {
         public static string Error {
             get {
                 return ResourceManager.GetString("Error", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Произошла ошибка при подтверждении Вашего емейла..
+        /// </summary>
+        public static string ErrorConfirmingYourEmail {
+            get {
+                return ResourceManager.GetString("ErrorConfirmingYourEmail", resourceCulture);
             }
         }
         
@@ -1006,6 +1042,24 @@ namespace Expro.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Отзыв.
+        /// </summary>
+        public static string Feedback {
+            get {
+                return ResourceManager.GetString("Feedback", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Отзывы.
+        /// </summary>
+        public static string Feedbacks {
+            get {
+                return ResourceManager.GetString("Feedbacks", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Вознаграждение (в сумах).
         /// </summary>
         public static string FeeInSoums {
@@ -1092,6 +1146,15 @@ namespace Expro.Resources {
         public static string FinancePanel {
             get {
                 return ResourceManager.GetString("FinancePanel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Восстановление забытого пароля.
+        /// </summary>
+        public static string ForgotPasswordConfirmation {
+            get {
+                return ResourceManager.GetString("ForgotPasswordConfirmation", resourceCulture);
             }
         }
         
@@ -1447,6 +1510,15 @@ namespace Expro.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to ссылка.
+        /// </summary>
+        public static string Link {
+            get {
+                return ResourceManager.GetString("Link", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Загрузка.
         /// </summary>
         public static string Loading {
@@ -1470,6 +1542,15 @@ namespace Expro.Resources {
         public static string Logout {
             get {
                 return ResourceManager.GetString("Logout", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Отправить емейл.
+        /// </summary>
+        public static string MailSend {
+            get {
+                return ResourceManager.GetString("MailSend", resourceCulture);
             }
         }
         
@@ -1551,6 +1632,15 @@ namespace Expro.Resources {
         public static string MyVacancies {
             get {
                 return ResourceManager.GetString("MyVacancies", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Новый пароль.
+        /// </summary>
+        public static string NewPassword {
+            get {
+                return ResourceManager.GetString("NewPassword", resourceCulture);
             }
         }
         
@@ -1708,6 +1798,15 @@ namespace Expro.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Введенные пароли не совпадают..
+        /// </summary>
+        public static string PasswordCompareError {
+            get {
+                return ResourceManager.GetString("PasswordCompareError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Период.
         /// </summary>
         public static string PeriodOfWork {
@@ -1749,6 +1848,24 @@ namespace Expro.Resources {
         public static string PhotoUpload {
             get {
                 return ResourceManager.GetString("PhotoUpload", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Пожалуйста, для обновления пароля провеьте почту.
+        /// </summary>
+        public static string PleaseCheckYourEmailToResetYourPassword {
+            get {
+                return ResourceManager.GetString("PleaseCheckYourEmailToResetYourPassword", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Пожалуйста, обновите пароль по ссылке .
+        /// </summary>
+        public static string PleaseResetYourPasswordBy {
+            get {
+                return ResourceManager.GetString("PleaseResetYourPasswordBy", resourceCulture);
             }
         }
         
@@ -2041,6 +2158,15 @@ namespace Expro.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Дата последнего обновления рейтинга.
+        /// </summary>
+        public static string RatingLastUpdatedDate {
+            get {
+                return ResourceManager.GetString("RatingLastUpdatedDate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Регистрация.
         /// </summary>
         public static string Register {
@@ -2140,6 +2266,42 @@ namespace Expro.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Требования.
+        /// </summary>
+        public static string Requirements {
+            get {
+                return ResourceManager.GetString("Requirements", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Обновить.
+        /// </summary>
+        public static string Reset {
+            get {
+                return ResourceManager.GetString("Reset", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Обновить пароль.
+        /// </summary>
+        public static string ResetPassword {
+            get {
+                return ResourceManager.GetString("ResetPassword", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ответственности.
+        /// </summary>
+        public static string Responsibility {
+            get {
+                return ResourceManager.GetString("Responsibility", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Резюме.
         /// </summary>
         public static string Resume {
@@ -2217,6 +2379,15 @@ namespace Expro.Resources {
         public static string SampleDocumentsCount {
             get {
                 return ResourceManager.GetString("SampleDocumentsCount", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Сохранить.
+        /// </summary>
+        public static string Save {
+            get {
+                return ResourceManager.GetString("Save", resourceCulture);
             }
         }
         
@@ -2406,6 +2577,15 @@ namespace Expro.Resources {
         public static string Text {
             get {
                 return ResourceManager.GetString("Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Спасибо за то что подтвердили свой емейл..
+        /// </summary>
+        public static string ThankYouForConfirmingYourEmail {
+            get {
+                return ResourceManager.GetString("ThankYouForConfirmingYourEmail", resourceCulture);
             }
         }
         
@@ -2640,6 +2820,15 @@ namespace Expro.Resources {
         public static string YouAreNotAuthorized {
             get {
                 return ResourceManager.GetString("YouAreNotAuthorized", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Вы вышли с сайта.
+        /// </summary>
+        public static string YouHaveSuccessfullyLoggedOutOfTheApplication {
+            get {
+                return ResourceManager.GetString("YouHaveSuccessfullyLoggedOutOfTheApplication", resourceCulture);
             }
         }
         

@@ -7,6 +7,7 @@ using System.Text.Encodings.Web;
 using System.Threading.Tasks;
 using Expro.Models;
 using Expro.Models.Enums;
+using Expro.Resources;
 using Expro.Services.Interfaces;
 using Expro.ViewModels;
 using Microsoft.AspNetCore.Authentication;
@@ -17,6 +18,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.WebUtilities;
+using Microsoft.Extensions.Localization;
 using Microsoft.Extensions.Logging;
 
 namespace Expro.Areas.Identity.Pages.Account
@@ -33,6 +35,7 @@ namespace Expro.Areas.Identity.Pages.Account
         //private readonly IEmailSender _emailSender;
         private readonly IEmailService _emailSender;
         private readonly IUserBalanceService _userBalanceService;
+        IStringLocalizer<ResourceTexts> _localizer;
 
         public RegisterExpertModel(
             UserManager<ApplicationUser> userManager,
@@ -43,7 +46,9 @@ namespace Expro.Areas.Identity.Pages.Account
             ICityService cityService,
             IEmailService emailSender,
             //IEmailSender emailSender
-            IUserBalanceService userBalanceService)
+            IUserBalanceService userBalanceService,
+            IStringLocalizer<ResourceTexts> localizer
+            )
         {
             _userManager = userManager;
             _signInManager = signInManager;
@@ -54,6 +59,7 @@ namespace Expro.Areas.Identity.Pages.Account
             _regionService = regionService;
             _cityService = cityService;
             _userBalanceService = userBalanceService;
+            _localizer = localizer;
         }
 
         [BindProperty]
@@ -67,7 +73,7 @@ namespace Expro.Areas.Identity.Pages.Account
         {
             [Required(ErrorMessageResourceType = typeof(Resources.ResourceTexts), ErrorMessageResourceName = "ErrorRequiredField")]
             [EmailAddress]
-            [Display(Name = "Почтовый адрес")]
+            [Display(Name = "Email", ResourceType = typeof(ResourceTexts))]
             public string Email { get; set; }
 
             [Required]
@@ -77,21 +83,21 @@ namespace Expro.Areas.Identity.Pages.Account
             public string Password { get; set; }
 
             [DataType(DataType.Password)]
-            [Display(Name = "Подтверждение пароля")]
-            [Compare("Password", ErrorMessage = "Введенные пароли не совпадают.")]
+            [Display(Name = "lblConfirmPassword", ResourceType = typeof(ResourceTexts))]
+            [Compare("Password", ErrorMessageResourceName = "lblConfirmPasswordError", ErrorMessageResourceType = typeof(ResourceTexts))]
             public string ConfirmPassword { get; set; }
 
-            [Required(ErrorMessageResourceType = typeof(Resources.ResourceTexts), ErrorMessageResourceName = "ErrorRequiredField")]
-            [Display(Name = "Имя")]
+            [Required]
+            [Display(Name = "lblFirstName", ResourceType = typeof(ResourceTexts))]
             [StringLength(256)]
             public string FirstName { get; set; }
 
-            [Required(ErrorMessageResourceType = typeof(Resources.ResourceTexts), ErrorMessageResourceName = "ErrorRequiredField")]
-            [Display(Name = "Фамилия")]
+            [Required]
+            [Display(Name = "lblLastName", ResourceType = typeof(ResourceTexts))]
             [StringLength(256)]
             public string LastName { get; set; }
 
-            [Display(Name = "Отчество")]
+            [Display(Name = "lblPatronymicName", ResourceType = typeof(ResourceTexts))]
             [StringLength(256)]
             public string PatronymicName { get; set; }
 
@@ -99,17 +105,16 @@ namespace Expro.Areas.Identity.Pages.Account
             //public int UserType { get; set; }
 
             //[Required]
-            [Display(Name = "Телефон")]
+            [Display(Name = "lblPhoneNumber", ResourceType = typeof(ResourceTexts))]
             public string PhoneNumber { get; set; }
 
-            [Display(Name = "Регион")]
-            [Required(ErrorMessageResourceType = typeof(Resources.ResourceTexts), ErrorMessageResourceName = "ErrorRequiredField")]
+            [Display(Name = "lblRegion", ResourceType = typeof(ResourceTexts))]
             public int RegionID { get; set; }
 
-            [Display(Name = "Город")]
+            [Display(Name = "lblCity", ResourceType = typeof(ResourceTexts))]
             public int? CityID { get; set; }
 
-            [Display(Name = "Другой город")]
+            [Display(Name = "lblCityOther", ResourceType = typeof(ResourceTexts))]
             [StringLength(256)]
             //[Remote("ValidateFrom", "VideoRequest", ErrorMessage = "Введите город", AdditionalFields = "TypeID")]
             public string CityOther { get; set; }
@@ -175,9 +180,21 @@ namespace Expro.Areas.Identity.Pages.Account
                         values: new { area = "Identity", userId = user.Id, code = code, returnUrl = returnUrl },
                         protocol: Request.Scheme);
 
-                    string emailSubject = "Confirm your email";
-                    string emailBody = $"Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.";
-                    await _emailSender.SendEmailAsync(Input.Email, emailSubject, emailBody);
+
+                    string subjectUz = "Электрон почта адресингизни тасдиқланг";
+                    string subjectRu = "Подтвердите адрес своей электронной почты";
+
+                    string messageUz = $"Илтимос, электрон почта адресингизни тасдиқланг:  <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>тасдиқлаш</a>.";
+                    string messageRu = $"Пожалуйста, подтвердите свой почтовый адрес <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>подтвердить</a>.";
+
+                    List<Tuple<string, string>> emails = new List<Tuple<string, string>>();
+
+                    emails.Add(new Tuple<string, string>(Input.Email, "Пользователь"));
+
+                    await _emailSender.SendAutomaticallyGeneratedEmailAsync(
+                        emails,
+                        subjectUz, subjectRu,
+                        messageUz, messageRu);
 
                     if (_userManager.Options.SignIn.RequireConfirmedAccount)
                     {

@@ -4,11 +4,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Expro.Models;
+using Expro.Resources;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.WebUtilities;
+using Microsoft.Extensions.Localization;
 
 namespace Expro.Areas.Identity.Pages.Account
 {
@@ -16,10 +18,12 @@ namespace Expro.Areas.Identity.Pages.Account
     public class ConfirmEmailModel : PageModel
     {
         private readonly UserManager<ApplicationUser> _userManager;
+        IStringLocalizer<ResourceTexts> _localizer;
 
-        public ConfirmEmailModel(UserManager<ApplicationUser> userManager)
+        public ConfirmEmailModel(UserManager<ApplicationUser> userManager, IStringLocalizer<Resources.ResourceTexts> localizer)
         {
             _userManager = userManager;
+            _localizer = localizer;
         }
 
         [TempData]
@@ -40,7 +44,8 @@ namespace Expro.Areas.Identity.Pages.Account
 
             code = Encoding.UTF8.GetString(WebEncoders.Base64UrlDecode(code));
             var result = await _userManager.ConfirmEmailAsync(user, code);
-            StatusMessage = result.Succeeded ? "Thank you for confirming your email." : "Error confirming your email.";
+           
+            StatusMessage = result.Succeeded ? _localizer["ThankYouForConfirmingYourEmail"] : _localizer["ErrorConfirmingYourEmail"];
             return Page();
         }
     }

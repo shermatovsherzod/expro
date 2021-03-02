@@ -7,6 +7,7 @@ using System.Text.Encodings.Web;
 using System.Threading.Tasks;
 using Expro.Models;
 using Expro.Models.Enums;
+using Expro.Resources;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -49,12 +50,12 @@ namespace Expro.Areas.Identity.Pages.Account
 
             [DataType(DataType.Password)]
             [StringLength(100, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 6)]
-            [Display(Name = "Новый пароль")]         
+            [Display(Name = "NewPassword", ResourceType = typeof(ResourceTexts))]
             public string NewPassword { get; set; }
 
-            [DataType(DataType.Password)]
-            [Display(Name = "Подтверждение пароля")]
-            [Compare("NewPassword", ErrorMessage = "Введенные пароли не совпадают.")]
+            [DataType(DataType.Password)]        
+            [Display(Name = "lblConfirmPasswordError", ResourceType = typeof(ResourceTexts))]
+            [Compare("NewPassword", ErrorMessage = "PasswordCompareError", ErrorMessageResourceType = typeof(ResourceTexts))]
             public string ConfirmPassword { get; set; }        
 
         }
