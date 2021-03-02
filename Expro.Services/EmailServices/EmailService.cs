@@ -35,9 +35,11 @@ namespace Expro.Services
             using (var client = new SmtpClient())
             {
                 //await client.ConnectAsync(AppConfiguration.ExproEmailSmtpClient, AppConfiguration.ExproEmailSmtpPort, SecureSocketOptions.SslOnConnect);
-                await client.ConnectAsync(AppConfiguration.ExproEmailSmtpClient, AppConfiguration.ExproEmailSmtpPort, SecureSocketOptions.StartTls);
-                await client.AuthenticateAsync(AppConfiguration.ExproEmailUsername, AppConfiguration.ExproEmailPassword);
-                await client.SendAsync(emailMessage);
+              
+                
+                //await client.ConnectAsync(AppConfiguration.ExproEmailSmtpClient, AppConfiguration.ExproEmailSmtpPort, SecureSocketOptions.StartTls);
+                //await client.AuthenticateAsync(AppConfiguration.ExproEmailUsername, AppConfiguration.ExproEmailPassword);
+                //await client.SendAsync(emailMessage);
 
                 await client.DisconnectAsync(true);
             }
