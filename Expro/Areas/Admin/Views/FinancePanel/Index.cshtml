@@ -6,13 +6,7 @@
 
 <h1>@ViewData["Title"]</h1>
 <br />
-@*<div class="row">
-    <div class="col-12">
-        <button type="button" class="btn btn-success" onclick="UpdateRatings();">Обновить рейтинги</button>
-        <div class="spinner-border spinner" style="display: none;"></div>
-    </div>
-</div>
-<br />*@
+
 
 @if (Model.Count() > 0)
 {
@@ -68,45 +62,3 @@ else
 {
     <p>@localizer["NoUsers"]</p>
 }
-
-@*@section Scripts
-{
-    <script>
-        function UpdateRatings() {
-            var confirmationText = "Вы уверены, что хотите обновить рейтинги?";
-            if (!confirm(confirmationText))
-                return;
-
-            $.ajax({
-                type: "POST",
-                url: "/Admin/Rating/UpdateRatings",
-                //data: {
-                //    id: requestID
-                //},
-                //data: JSON.stringify({
-                //    id: requestID
-                //}),
-                contentType: "application/json; charset=utf-8",
-                //dataType: "json",
-                beforeSend: function (data) {
-                    $(".btn").attr("disabled", "disabled");
-                    $(".spinner").show();
-                },
-                success: function (data) {
-                    alert("success");
-                    //alert(data);
-                    location.reload();
-                },
-                error: function (data) {
-                    console.log(data);
-                    alert("Ajax error (status code = " + data.status + "): " + data.statusText);
-                },
-                complete: function (data) {
-                    //alert("completed");
-                    $(".btn").removeAttr("disabled");
-                    $(".spinner").hide();
-                }
-            });
-        }
-    </script>
-}*@

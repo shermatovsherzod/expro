@@ -2,15 +2,22 @@
 @using Expro.Models.Enums
 
 @{
-    ViewData["Title"] = localizer["Experts"];    
+    ViewData["Title"] = localizer["Experts"];
 }
 @section CustomFrontStyles{
     <link rel="stylesheet" href="~/lib/frontTheme/vendor/select2/dist/css/select2.min.css">
 }
 
-<h4>@ViewData["Title"]</h4>
+<h1>@ViewData["Title"]</h1>
 <br />
 
+<div class="row">
+    <div class="col-12">
+        <button type="button" class="btn btn-success" onclick="UpdateRatings();">Обновить рейтинги</button>
+        <div class="spinner-border spinner" style="display: none;"></div>
+    </div>
+</div>
+<br />
 
 <div class="form-group">
     <label class="input-label" for="statusDD">@localizer["FilterByStatus"]:</label>
@@ -53,7 +60,6 @@
 
 
     <script>
-
         var table;
 
         $(document).ready(function () {
@@ -174,6 +180,43 @@
                 table.draw();
             });
         });
+
+        function UpdateRatings() {
+            var confirmationText = "Вы уверены, что хотите обновить рейтинги?";
+            if (!confirm(confirmationText))
+                return;
+
+            $.ajax({
+                type: "POST",
+                url: "/Admin/Rating/UpdateRatings",
+                //data: {
+                //    id: requestID
+                //},
+                //data: JSON.stringify({
+                //    id: requestID
+                //}),
+                contentType: "application/json; charset=utf-8",
+                //dataType: "json",
+                beforeSend: function (data) {
+                    $(".btn").attr("disabled", "disabled");
+                    $(".spinner").show();
+                },
+                success: function (data) {
+                    alert("Рейтинги обновлены!");
+                    //alert(data);
+                    location.reload();
+                },
+                error: function (data) {
+                    console.log(data);
+                    alert("Ajax error (status code = " + data.status + "): " + data.statusText);
+                    $(".btn").removeAttr("disabled");
+                    $(".spinner").hide();
+                },
+                complete: function (data) {
+                    //alert("completed");
+                }
+            });
+        }
     </script>
 
     <script>
@@ -184,5 +227,5 @@
         });
     </script>
 
-    
+
 }
