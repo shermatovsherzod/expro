@@ -1,10 +1,14 @@
 ﻿function BindRegionPickers(regionInputSelect, cityInputSelect) {
     $(regionInputSelect).change(function () {
-        var selectedRegion = $(this).val();
-        if (selectedRegion == "")
-            return;
+        var value = $(this).val();
+        if (value == undefined || value == "") {
+            $(cityInputSelect).html("");
+            $(cityInputSelect).trigger("change", [false]);
 
-        LoadCitiesByRegion(selectedRegion, cityInputSelect);
+            return;
+        }
+
+        LoadCitiesByRegion(value, cityInputSelect);
     });
 }
 
@@ -27,7 +31,7 @@ function LoadCitiesByRegion(regionID, cityInputSelect) {
                         .append("<option value='" + item.value + "'>" + item.text + "</option>");
 
                 });
-            $(cityInputSelect).change();
+            $(cityInputSelect).trigger("change", [false]);;
         },
         error: function (data) {
             console.log(data);

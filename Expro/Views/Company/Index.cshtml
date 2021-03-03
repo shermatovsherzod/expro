@@ -37,7 +37,7 @@
             <div id="sidebarNav" class="collapse navbar-collapse">
                 <div class="pt-4 pt-lg-0">
                     <!-- Filter Form -->
-                    <form>
+                    <form class="filterForm">
                         <!-- Filter Group -->
                         <div class="mb-5">
                             <h6 class="small text-cap">Фильтр по региону</h6>
@@ -111,9 +111,9 @@
                             <!-- End Select -->
                         </div>
                         <!-- End Filter Group -->
-                        @*<button type="button" class="btn btn-sm btn-block btn-white">
-                                <i class="fas fa-redo fa-sm mr-1"></i> Reset all
-                            </button>*@
+                        <button type="button" class="btn btn-sm btn-block btn-white resetBtn">
+                            <i class="fas fa-redo fa-sm mr-1"></i> @localizer["ResetAll"]
+                        </button>
                     </form>
                     <!-- End Filter Form -->
                 </div>
@@ -148,8 +148,10 @@
 {
     <script src="~/lib/DataTables-1.10.22/datatables.js"></script>
     <script src="~/lib/frontTheme/vendor/select2/dist/js/select2.full.min.js"></script>
+
     <script src="~/js/LawAreaPickersBinder.js"></script>
     <script src="~/js/RegionPickersBinder.js"></script>
+    <script src="~/js/ResetAllButtonInitializer.js"></script>
 
     <script>
         var lawAreasWithParent = @Html.Raw(Json.Serialize(lawAreasWithParent));
@@ -166,6 +168,8 @@
 
     <script>
         InitHSPlugins();
+        InitResetAllButton();
+
         var table;
 
         $(document).ready(function () {
@@ -277,8 +281,11 @@
                     $("#tableBox .spinner").hide();
                 });
 
-            $("select#LawAreaParentID, select#LawAreas, select#RegionID, select#CityID").change(function () {
-                table.draw();
+            $("select#LawAreaParentID, select#LawAreas, select#RegionID, select#CityID").change(function (event, redrawTable) {
+                //console.log(redrawTable);
+                if (redrawTable != false) {
+                    table.draw();
+                }
             });
         });
 

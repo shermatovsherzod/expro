@@ -134,8 +134,11 @@ $(document).ready(function () {
             //console.log('Redraw took at: ' + (new Date().getTime() - startTime) + 'mS');
         });
 
-    $("#statusDD, #priceTypeDD, select#LawAreaParentID, select#LawAreas").change(function () {
-        table.draw();
+    $("#statusDD, #priceTypeDD, select#LawAreaParentID, select#LawAreas").change(function (event, redrawTable) {
+        //console.log(redrawTable);
+        if (redrawTable != false) {
+            table.draw();
+        }
     });
 });
 

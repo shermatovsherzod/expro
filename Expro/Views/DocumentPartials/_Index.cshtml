@@ -33,7 +33,7 @@
         <div id="sidebarNav" class="collapse navbar-collapse">
             <div class="pt-4 pt-lg-0">
                 <!-- Filter Form -->
-                <form>
+                <form class="filterForm">
                     <!-- Filter Group -->
                     <div class="mb-5">
                         <h6 class="small text-cap">@localizer["FilterByPrice"]</h6>
@@ -93,38 +93,11 @@
                             </select>
                         </div>
                         <!-- End Select -->
-
-
-
-                        @*@{
-                            var items = ViewData["lawAreas"] as List<SelectListItemWithParent>;
-                            parentItems = items.Where(m => m.ParentValue == "").ToList();
-                            for (int i = 0; i < parentItems.Count; i++)
-                            {
-                                <div class="d-flex align-items-center justify-content-between mb-2">
-                                    <div class="custom-control custom-checkbox">
-                                        <input type="checkbox" class="custom-control-input" name="lawAreasCheckbox" value="@parentItems[i].Value" id="lawAreaCheckbox_@parentItems[i].Value">
-                                        <label class="custom-control-label" for="lawAreaCheckbox_@parentItems[i].Value">@parentItems[i].Text</label>
-                                    </div>
-                                </div>
-
-                                var childItems = items.Where(m => m.ParentValue == parentItems[i].Value).ToList();
-                                foreach (var childItem in childItems)
-                                {
-                                    <div class="d-flex align-items-center justify-content-between mb-2 ml-3">
-                                        <div class="custom-control custom-checkbox">
-                                            <input type="checkbox" class="custom-control-input" name="lawAreasCheckbox" value="@childItem.Value" id="lawAreaCheckbox_@childItem.Value">
-                                            <label class="custom-control-label" for="lawAreaCheckbox_@childItem.Value">@childItem.Text</label>
-                                        </div>
-                                    </div>
-                                }
-                            }
-                        }*@
                     </div>
                     <!-- End Filter Group -->
-                    @*<button type="button" class="btn btn-sm btn-block btn-white">
-                            <i class="fas fa-redo fa-sm mr-1"></i> Reset all
-                        </button>*@
+                    <button type="button" class="btn btn-sm btn-block btn-white resetBtn">
+                        <i class="fas fa-redo fa-sm mr-1"></i> @localizer["ResetAll"]
+                    </button>
                 </form>
                 <!-- End Filter Form -->
             </div>

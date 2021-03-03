@@ -1047,4 +1047,7 @@
   <data name="RatingLastUpdatedDate" xml:space="preserve">
     <value>Рейтингни охирги янгиланиш санаси</value>
   </data>
+  <data name="ResetAll" xml:space="preserve">
+    <value>Қайтариш</value>
+  </data>
 </root>

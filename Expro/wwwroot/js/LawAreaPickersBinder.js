@@ -18,7 +18,13 @@ function BindLawAreaPickers(
     $(parentLawAreaInputSelect).change(function () {
         var value = $(this).val();
         if (value == undefined || value == "")
+        {
+            $(childLawAreasInputSelect).html("");
+            $(childLawAreasInputSelect).trigger("change", [false]);
+            _selectedChildLawAreas = undefined;
+
             return;
+        }
 
         _selectedParentLawArea = "" + value;
 
@@ -35,12 +41,14 @@ function BindLawAreaPickers(
         }
 
         $(childLawAreasInputSelect).html(html);
-        $(childLawAreasInputSelect).change();
+        $(childLawAreasInputSelect).trigger("change", [false]);
         _selectedChildLawAreas = undefined;
     });
 
-    if (selectedParentLawArea != undefined || selectedParentLawArea != "")
+    if (selectedParentLawArea != undefined || selectedParentLawArea != "") {
         $(parentLawAreaInputSelect).change();
+    }
+        
 }
 
 function IsChildLawArea(item) {

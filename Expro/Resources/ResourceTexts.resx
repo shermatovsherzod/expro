@@ -1047,4 +1047,7 @@
   <data name="RatingLastUpdatedDate" xml:space="preserve">
     <value>Дата последнего обновления рейтинга</value>
   </data>
+  <data name="ResetAll" xml:space="preserve">
+    <value>Сбросить все</value>
+  </data>
 </root>
