@@ -1050,4 +1050,7 @@
   <data name="ResetAll" xml:space="preserve">
     <value>Қайтариш</value>
   </data>
+  <data name="Users" xml:space="preserve">
+    <value>Фойдаланувчилар</value>
+  </data>
 </root>

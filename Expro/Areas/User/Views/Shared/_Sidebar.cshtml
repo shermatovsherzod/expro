@@ -1,0 +1,78 @@
+﻿<!-- Navbar -->
+<div class="navbar-expand-lg navbar-expand-lg-collapse-block navbar-light">
+    <div id="sidebarNav" class="collapse navbar-collapse navbar-vertical">
+        <!-- Card -->
+        <div class="card mb-5">
+            <div class="card-body">
+                <!-- Avatar -->
+                @await Component.InvokeAsync("SimpleUserShortInfo")
+                <!-- End Avatar -->
+
+                @await Component.InvokeAsync("SimpleUserDocumentsPurchased")
+
+                @await Component.InvokeAsync("SimpleUserOtherItems")
+
+                @await Component.InvokeAsync("UserBalance")
+
+                @await Component.InvokeAsync("TermsOfUse")
+                <!-- Nav -->
+                <!-- List -->
+                <!-- End List -->
+                <!--<h6 class="text-cap small">Shopping</h6>-->
+                <!-- List -->
+                <!--<ul class="nav nav-sub nav-sm nav-tabs nav-list-y-2 mb-4">
+        <li class="nav-item">
+            <a class="nav-link " href="account-orders.html">
+                <i class="fas fa-shopping-basket nav-icon"></i> Your orders
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link " href="account-wishlist.html">
+                <i class="fas fa-heart nav-icon"></i> Wishlist
+                <span class="badge badge-soft-dark badge-pill nav-link-badge">2</span>
+            </a>
+        </li>
+    </ul>-->
+                <!-- End List -->
+                <!--<h6 class="text-cap small">Billing</h6>-->
+                <!-- List -->
+                <!--<ul class="nav nav-sub nav-sm nav-tabs nav-list-y-2">
+        <li class="nav-item">
+            <a class="nav-link " href="account-billing.html">
+                <i class="fas fa-credit-card nav-icon"></i> Plans &amp; payment
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link " href="account-address.html">
+                <i class="fas fa-map-marker-alt nav-icon"></i> Address
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link " href="account-teams.html">
+                <i class="fas fa-users nav-icon"></i> Teams
+                <span class="badge badge-soft-dark badge-pill nav-link-badge">+2 new users</span>
+            </a>
+        </li>
+    </ul>-->
+                <!-- End List -->
+
+                <div class="d-lg-none">
+                    <div class="dropdown-divider"></div>
+
+                    <!-- List -->
+                    <ul class="nav nav-sub nav-sm nav-tabs nav-list-y-2">
+                        <li class="nav-item">
+                            <a class="nav-link text-primary" href="#">
+                                <i class="fas fa-sign-out-alt nav-icon"></i> Log out
+                            </a>
+                        </li>
+                    </ul>
+                    <!-- End List -->
+                </div>
+                <!-- End Nav -->
+            </div>
+        </div>
+        <!-- End Card -->
+    </div>
+</div>
+<!-- End Navbar -->

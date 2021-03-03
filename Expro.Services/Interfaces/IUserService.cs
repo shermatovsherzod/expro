@@ -11,6 +11,7 @@ namespace Expro.Services.Interfaces
         IQueryable<ApplicationUser> GetAllForAdmin();
 
         IQueryable<ApplicationUser> GetAllExpertsForAdmin();
+        IQueryable<ApplicationUser> GetAllSimpleUsersForAdmin();
 
         IQueryable<ApplicationUser> GetAllApprovedExperts();
         IQueryable<ApplicationUser> GetAllExpertsAndSimpleUsers();        

@@ -64,6 +64,11 @@ namespace Expro.Services
             return GetManyWithRelatedDataAsIQueryable().Where(c => c.UserType == UserTypesEnum.Expert);
         }
 
+        public IQueryable<ApplicationUser> GetAllSimpleUsersForAdmin()
+        {
+            return GetManyWithRelatedDataAsIQueryable().Where(c => c.UserType == UserTypesEnum.SimpleUser);
+        }
+
         public IQueryable<ApplicationUser> GetAllApprovedExperts()
         {
             return GetManyWithRelatedDataAsIQueryable().Where(c => c.UserStatusID == (int)ExpertApproveStatusEnum.Approved && c.UserType == UserTypesEnum.Expert);

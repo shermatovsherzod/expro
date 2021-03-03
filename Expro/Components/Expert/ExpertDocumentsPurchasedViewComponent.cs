@@ -11,18 +11,21 @@ using System.Threading.Tasks;
 
 namespace Expro.Components
 {
-    public class ExpertDocumentsViewComponent : BaseViewComponent
+    public class ExpertDocumentsPurchasedViewComponent : BaseViewComponent
     {
+        private readonly IQuestionService _questionService;
         private readonly IArticleDocumentService _articleDocumentService;
         private readonly IPracticeDocumentService _practiceDocumentService;
         private readonly ISampleDocumentService _sampleDocumentService;
 
-        public ExpertDocumentsViewComponent(
+        public ExpertDocumentsPurchasedViewComponent(
+            IQuestionService questionService,
             IArticleDocumentService articleDocumentService,
             IPracticeDocumentService practiceDocumentService,
             ISampleDocumentService sampleDocumentService)
             : base()
         {
+            _questionService = questionService;
             _articleDocumentService = articleDocumentService;
             _practiceDocumentService = practiceDocumentService;
             _sampleDocumentService = sampleDocumentService;
@@ -31,14 +34,15 @@ namespace Expro.Components
         public override IViewComponentResult Invoke()
         {
             var curUser = accountUtil.GetCurrentUser(HttpContext.User);
-            DocumentsCountVM vmodel = new DocumentsCountVM()
+            ExpertDocumentsPurchasedCountVM vmodel = new ExpertDocumentsPurchasedCountVM()
             {
-                ArticleDocumentsCount = _articleDocumentService.GetAllByCreator(curUser.ID).Count(),
-                PracticeDocumentsCount = _practiceDocumentService.GetAllByCreator(curUser.ID).Count(),
-                SampleDocumentsCount = _sampleDocumentService.GetAllByCreator(curUser.ID).Count(),
+                AnsweredQuestionsCount = _questionService.GetAllAnsweredByUser(curUser.ID).Count(),
+                ArticleDocumentsCount = _articleDocumentService.GetAllPurchasedByUser(curUser.ID).Count(),
+                PracticeDocumentsCount = _practiceDocumentService.GetAllPurchasedByUser(curUser.ID).Count(),
+                SampleDocumentsCount = _sampleDocumentService.GetAllPurchasedByUser(curUser.ID).Count()
             };
 
-            return View("ExpertDocuments", vmodel);
+            return View("ExpertDocumentsPurchased", vmodel);
         }
     }
 }

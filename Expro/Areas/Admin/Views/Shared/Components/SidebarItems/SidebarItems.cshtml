@@ -1,0 +1,60 @@
+﻿@model Expro.ViewModels.AdminSidebarItemsCountVM;
+@{
+    ViewData["Title"] = "Admin sidebar items";
+}
+
+<div class="mt-5">
+    <h2 class="h4"><a class="text-inherit" href="#">@localizer["Users"]</a></h2>
+    <!-- Nav Link -->
+    <a class="dropdown-item d-flex justify-content-between align-items-center px-0" href="#">
+        @localizer["SimpleUsers"]
+        <span class="badge bg-soft-secondary badge-pill">@Model.SimpleUsersCount</span>
+    </a>
+    <a class="dropdown-item d-flex justify-content-between align-items-center px-0" href="/Admin/Experts">
+        @localizer["Experts"]
+        <span class="badge bg-soft-secondary badge-pill">@Model.ExpertsCount</span>
+    </a>
+    <a class="dropdown-item d-flex justify-content-between align-items-center px-0" href="/Admin/Feedback">@localizer["Feedbacks"]</a>
+</div>
+
+<div class="mt-5">
+    <h2 class="h4"><a class="text-inherit" href="#">@localizer["Documents"]</a></h2>
+    <!-- Nav Link -->
+    <a class="dropdown-item d-flex justify-content-between align-items-center px-0" href="/Admin/Question">
+        @localizer["Questions"]
+        <span class="badge bg-soft-secondary badge-pill">@Model.QuestionsCount</span>
+    </a>
+    <a class="dropdown-item d-flex justify-content-between align-items-center px-0" href="/Admin/ArticleDocument">
+        @localizer["Articles"]
+        <span class="badge bg-soft-secondary badge-pill">@Model.ArticleDocumentsCount</span>
+    </a>
+    <a class="dropdown-item d-flex justify-content-between align-items-center px-0" href="/Admin/PracticeDocument">
+        @localizer["PracticeDocuments"]
+        <span class="badge bg-soft-secondary badge-pill">@Model.PracticeDocumentsCount</span>
+    </a>
+    <a class="dropdown-item d-flex justify-content-between align-items-center px-0" href="/Admin/SampleDocument">
+        @localizer["SampleDocuments"]
+        <span class="badge bg-soft-secondary badge-pill">@Model.SampleDocumentsCount</span>
+    </a>
+</div>
+
+<div class="mt-5">
+    <h3 class="h4"><a class="text-inherit" href="#">@localizer["FinancePanel"]</a></h3>
+    <!-- Nav Link -->
+    <a class="dropdown-item d-flex justify-content-between align-items-center px-0" href="/Admin/WithdrawRequest">@localizer["WithdrawRequests"]</a>
+    <a class="dropdown-item d-flex justify-content-between align-items-center px-0" href="/Admin/FinancePanel">@localizer["FinancePanel"]</a>
+</div>
+<div class="mt-5">
+    <h3 class="h4"><a class="text-inherit" href="#">@localizer["Others"]</a></h3>
+    <a class="dropdown-item d-flex justify-content-between align-items-center px-0" href="/Admin/Company">
+        @localizer["Companies"]
+        <span class="badge bg-soft-secondary badge-pill">@Model.CompaniesCount</span>
+    </a>
+    <a class="dropdown-item d-flex justify-content-between align-items-center px-0" href="/Admin/Vacancy">
+        @localizer["Vacancies"] <span class="badge bg-soft-secondary badge-pill">@Model.VacanciesCount</span>
+    </a>
+    <a class="dropdown-item d-flex justify-content-between align-items-center px-0" href="/Admin/Resume">
+        @localizer["Resumes"] <span class="badge bg-soft-secondary badge-pill">@Model.ResumesCount</span>
+    </a>
+    <a class="dropdown-item d-flex justify-content-between align-items-center px-0" href="/Admin/EmailSending">@localizer["MailSend"]</a>
+</div>
