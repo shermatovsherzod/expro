@@ -18,30 +18,50 @@ namespace Expro.Controllers
         private readonly IExpertsListSearchService _expertsListSearchService;
         private readonly IUserService _userService;
         private readonly IExpertsListAdminActionsService _expertsListAdminActionsService;
-     
+        private readonly ILawAreaService _lawAreaService;
+        private readonly IRegionService _regionService;
 
         public BaseExpertsController(
             IExpertsListSearchService expertsListSearchService,
             IUserService userService,
             IExpertsListAdminActionsService expertsListAdminActionsService,
-            IStringLocalizer<Resources.ResourceTexts> localizer
-          
+            IStringLocalizer<Resources.ResourceTexts> localizer,
+            ILawAreaService lawAreaService,
+            IRegionService regionService
             )
         {
             _expertsListSearchService = expertsListSearchService;
             _userService = userService;
             _expertsListAdminActionsService = expertsListAdminActionsService;
             _localizer = localizer;
+            _lawAreaService = lawAreaService;
+            _regionService = regionService;
         }
 
         public virtual IActionResult Index()
         {
+            ViewData["lawAreas"] = _lawAreaService.GetAsIQueryable()
+                .Select(m => new SelectListItemWithParent()
+                {
+                    Value = m.ID.ToString(),
+                    Text = m.Name,
+                    Selected = false,
+                    ParentValue = m.ParentID.HasValue ? m.ParentID.Value.ToString() : ""
+                }).ToList();
+
+            ViewData["regions"] = _regionService.GetAsSelectList();
+
             return View();
         }
 
         [HttpPost]
         public virtual IActionResult Search(
-           int draw, int? start = null, int? length = null, int? statusID = null)
+            int draw, int? start = null, int? length = null, 
+            int? statusID = null,
+            int? lawAreaParent = null,
+            int[] lawAreas = null,
+            int? regionID = null,
+            int? cityID = null)
         {
             int recordsTotal = 0;
             int recordsFiltered = 0;
@@ -59,8 +79,11 @@ namespace Expro.Controllers
 
                 curUser.UserType,
                 statusID,
-                ""
-            );
+                "",
+                lawAreaParent,
+                lawAreas,
+                regionID,
+                cityID);
 
             dynamic data = new ExpertListInfoVM().GetExpertListInfoVM(dataIQueryable);
 

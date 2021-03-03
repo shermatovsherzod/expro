@@ -16,7 +16,10 @@ namespace Expro.Services.Interfaces
 
             UserTypesEnum? curUserType,
             int? statusID,           
-            string authorID
-           );
+            string authorID,
+            int? lawAreaParent,
+            int[] lawAreas,
+            int? regionID,
+            int? cityID);
     }
 }

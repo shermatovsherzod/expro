@@ -25,13 +25,16 @@ namespace Expro.Areas.Admin.Controllers
              IUserService userService,
              IExpertStatusService expertStatusService,
              IExpertsListAdminActionsService expertsListAdminActionsService,
-             IStringLocalizer<Resources.ResourceTexts> localizer             
+             IStringLocalizer<Resources.ResourceTexts> localizer,
+             ILawAreaService lawAreaService,
+             IRegionService regionService
            ) : base(
                expertsListSearchService,
                userService,
                expertsListAdminActionsService,
-               localizer
-               )
+               localizer,
+               lawAreaService,
+               regionService)
         {
             _expertStatusService = expertStatusService;       
         }
@@ -43,7 +46,13 @@ namespace Expro.Areas.Admin.Controllers
         }
 
         [HttpPost]
-        public override IActionResult Search(int draw, int? start = null, int? length = null, int? statusID = null)
+        public override IActionResult Search(
+            int draw, int? start = null, int? length = null, 
+            int? statusID = null,
+            int? lawAreaParent = null,
+            int[] lawAreas = null,
+            int? regionID = null,
+            int? cityID = null)
         {
             return base.Search(draw, start, length, statusID);
         }

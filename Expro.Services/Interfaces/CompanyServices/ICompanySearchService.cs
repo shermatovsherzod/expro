@@ -18,6 +18,8 @@ namespace Expro.Services.Interfaces
             int? statusID,           
             string authorID,
             int? lawAreaParent,
-            int[] lawAreas);
+            int[] lawAreas,
+            int? regionID,
+            int? cityID);
     }
 }

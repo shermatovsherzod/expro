@@ -39,27 +39,38 @@
                     <!-- Filter Form -->
                     <form>
                         <!-- Filter Group -->
-                        <!--<div class="mb-5">
-                            <h6 class="small text-cap">Фильтр по статусу</h6>-->
+                        <div class="mb-5">
+                            <h6 class="small text-cap">Фильтр по региону</h6>
 
                             <!-- Select -->
-                            <!--<div id="statusDDBox" class="select2-custom select2-custom-sm-right">
-                                <select id="statusDD" class="js-custom-select custom-select-sm" style="opacity: 0;"
+                            <div id="regionDDBox" class="select2-custom select2-custom-sm-right">
+                                <select id="RegionID" class="js-custom-select custom-select-sm" style="opacity: 0;"
+                                        asp-items="@ViewData["regions"] as List<SelectListItem>"
                                         data-hs-select2-options='{
-						"dropdownParent": "#statusDDBox",
-						"minimumResultsForSearch": "Infinity",
-						"customClass": "custom-select custom-select-sm",
-						"dropdownAutoWidth": true
-					  }' asp-items="@ViewData["statuses"] as List<SelectListItem>">
-                                    <option value="">Все</option>
+						                "dropdownParent": "#regionDDBox",
+						                "minimumResultsForSearch": "Infinity",
+						                "customClass": "custom-select custom-select-sm",
+						                "dropdownAutoWidth": true
+					                  }'>
+                                    <option value="">@localizer["All"]</option>
                                 </select>
-                            </div>-->
+                            </div>
                             <!-- End Select -->
-                        <!--</div>-->
+                            <br />
+                            <!-- Select -->
+                            <div id="citiesDDBox" class="select2-custom select2-custom-sm-right">
+                                <select id="CityID" class="js-custom-select custom-select-sm" style="opacity: 0;"
+                                        data-hs-select2-options='{
+						                "dropdownParent": "#citiesDDBox",
+						                "minimumResultsForSearch": "Infinity",
+						                "customClass": "custom-select custom-select-sm",
+						                "dropdownAutoWidth": true
+					                  }'>
+                                </select>
+                            </div>
+                            <!-- End Select -->
+                        </div>
                         <!-- End Filter Group -->
-                        @*<button type="button" class="btn btn-sm btn-block btn-white">
-                                <i class="fas fa-redo fa-sm mr-1"></i> Reset all
-                            </button>*@
                     </form>
                     <!-- End Filter Form -->
                 </div>
@@ -94,6 +105,13 @@
 {
     <script src="~/lib/DataTables-1.10.22/datatables.js"></script>
     <script src="~/lib/frontTheme/vendor/select2/dist/js/select2.full.min.js"></script>
+    <script src="~/js/RegionPickersBinder.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            BindRegionPickers("select#RegionID", "select#CityID");
+        });
+    </script>
 
     <script>
         InitHSPlugins();
@@ -116,6 +134,13 @@
                     datatype: "json",
                     data: function (d) {
                         //d.statusID = $("#statusDD").val();
+
+                        var regionID = $("select#RegionID").val();
+                        if (regionID != "")
+                            d.regionID = Number(regionID);
+                        var cityID = $("select#CityID").val();
+                        if (cityID != "")
+                            d.cityID = Number(cityID);
                     },
                 },
                 columns: [
@@ -181,9 +206,9 @@
                     //console.log('Redraw took at: ' + (new Date().getTime() - startTime) + 'mS');
                 });
 
-            //$("#statusDD").change(function () {
-            //    table.draw();
-            //});
+            $("select#RegionID, select#CityID").change(function () {
+                table.draw();
+            });
         });
 
         function InitHSPlugins() {

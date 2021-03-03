@@ -32,8 +32,11 @@ namespace Expro.Services
 
             UserTypesEnum? curUserType,
             int? statusID,
-            string authorID
-            )
+            string authorID,
+            int? lawAreaParent,
+            int[] lawAreas,
+            int? regionID,
+            int? cityID)
         {
             recordsTotal = 0;
             recordsFiltered = 0;
@@ -55,7 +58,7 @@ namespace Expro.Services
 
                 recordsTotal = experts.Count();
 
-                experts = ApplyFilters(experts, statusID);
+                experts = ApplyFilters(experts, statusID, lawAreaParent, lawAreas, regionID, cityID);
 
                 recordsFiltered = experts.Count();
 
@@ -75,33 +78,61 @@ namespace Expro.Services
 
         protected IQueryable<ApplicationUser> ApplyFilters(
             IQueryable<ApplicationUser> experts,
-            int? statusID
-           )
+            int? statusID,
+            int? lawAreaParent,
+            int[] lawAreas,
+            int? regionID,
+            int? cityID)
         {
             if (statusID.HasValue)
             {
-                if (statusID.Value == (int)ExpertApproveStatusEnum.Approved)
-                {
-                    experts = experts
-                        .Where(m => m.UserStatusID == (int)ExpertApproveStatusEnum.Approved);
+                experts = experts
+                    .Where(m => m.UserStatusID == statusID.Value);
+                //if (statusID.Value == (int)ExpertApproveStatusEnum.Approved)
+                //{
+                //    experts = experts
+                //        .Where(m => m.UserStatusID == (int)ExpertApproveStatusEnum.Approved);
+                //}
+                //else if (statusID.Value == (int)ExpertApproveStatusEnum.Rejected)
+                //{
+                //    experts = experts
+                //        .Where(m => m.UserStatusID == (int)ExpertApproveStatusEnum.Rejected);
+                //}
+                //else if (statusID.Value == (int)ExpertApproveStatusEnum.NotApproved)
+                //{
+                //    experts = experts
+                //        .Where(m => m.UserStatusID == (int)ExpertApproveStatusEnum.NotApproved);
+                //}
+                //else if (statusID.Value == (int)ExpertApproveStatusEnum.WaitingForApproval)
+                //{
+                //    experts = experts
+                //        .Where(m => m.UserStatusID == (int)ExpertApproveStatusEnum.WaitingForApproval);
+                //}
+            }
 
-                }
-                else if (statusID.Value == (int)ExpertApproveStatusEnum.Rejected)
-                {
-                    experts = experts
-                        .Where(m => m.UserStatusID == (int)ExpertApproveStatusEnum.Rejected);
+            if (lawAreaParent.HasValue)
+            {
+                experts = experts
+                    .Where(m => m.LawAreaParentID == lawAreaParent);
 
-                }
-                else if (statusID.Value == (int)ExpertApproveStatusEnum.NotApproved)
+                if (lawAreas != null && lawAreas.Length > 0)
                 {
                     experts = experts
-                        .Where(m => m.UserStatusID == (int)ExpertApproveStatusEnum.NotApproved);
+                        .Where(m => m.UserLawAreas
+                            .Select(n => n.LawAreaID)
+                            .Any(n => lawAreas.Contains(n)));
+                }
+            }
 
-                }
-                else if (statusID.Value == (int)ExpertApproveStatusEnum.WaitingForApproval)
+            if (regionID.HasValue)
+            {
+                experts = experts
+                    .Where(m => m.RegionID == regionID);
+
+                if (cityID.HasValue)
                 {
                     experts = experts
-                        .Where(m => m.UserStatusID == (int)ExpertApproveStatusEnum.WaitingForApproval);
+                        .Where(m => m.CityID == cityID);
                 }
             }
 

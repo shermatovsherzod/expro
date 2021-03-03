@@ -18,27 +18,34 @@ namespace Expro.Controllers
         private readonly IResumeSearchService _resumeSearchService;
         private readonly IResumeService _resumeService;
         private readonly IResumeAdminActionsService _resumeAdminActionsService;
+        private readonly IRegionService _regionService;
 
         public ResumeController(
              IResumeSearchService resumeSearchService,
              IResumeService resumeService,
              IResumeStatusService resumeStatusService,
-             IResumeAdminActionsService resumeAdminActionsService)
+             IResumeAdminActionsService resumeAdminActionsService,
+             IRegionService regionService)
         {
             _resumeStatusService = resumeStatusService;
             _resumeSearchService = resumeSearchService;
             _resumeService = resumeService;
             _resumeAdminActionsService = resumeAdminActionsService;
+            _regionService = regionService;
         }
 
         public IActionResult Index()
         {
-            ViewData["statuses"] = _resumeStatusService.GetAsSelectList();
+            //ViewData["statuses"] = _resumeStatusService.GetAsSelectList();
+            ViewData["regions"] = _regionService.GetAsSelectList();
             return View();
         }
 
         [HttpPost]
-        public IActionResult Search(int draw, int? start = null, int? length = null)
+        public IActionResult Search(
+            int draw, int? start = null, int? length = null,
+            int? regionID = null,
+            int? cityID = null)
         {
             int recordsTotal = 0;
             int recordsFiltered = 0;
@@ -54,7 +61,9 @@ namespace Expro.Controllers
 
                 null,
                 null,
-                null
+                null,
+                regionID,
+                cityID
             );
 
             dynamic data = new ResumeDetailsVM().GetListOfResumeDetailsVM(dataIQueryable);

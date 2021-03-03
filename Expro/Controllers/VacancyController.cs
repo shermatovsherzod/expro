@@ -18,27 +18,35 @@ namespace Expro.Controllers
         private readonly IVacancySearchService _vacancySearchService;
         private readonly IVacancyService _vacancyService;
         private readonly IVacancyAdminActionsService _vacancyAdminActionsService;
+        private readonly IRegionService _regionService;
 
         public VacancyController(
              IVacancySearchService vacancySearchService,
              IVacancyService vacancyService,
              IVacancyStatusService vacancyStatusService,
-             IVacancyAdminActionsService vacancyAdminActionsService)
+             IVacancyAdminActionsService vacancyAdminActionsService,
+             IRegionService regionService)
         {
             _vacancyStatusService = vacancyStatusService;
             _vacancySearchService = vacancySearchService;
             _vacancyService = vacancyService;
             _vacancyAdminActionsService = vacancyAdminActionsService;
+            _regionService = regionService;
         }
 
         public IActionResult Index()
         {
-            ViewData["statuses"] = _vacancyStatusService.GetAsSelectList();
+            //ViewData["statuses"] = _vacancyStatusService.GetAsSelectList();
+            ViewData["regions"] = _regionService.GetAsSelectList();
+
             return View();
         }
 
         [HttpPost]
-        public IActionResult Search(int draw, int? start = null, int? length = null)
+        public IActionResult Search(
+            int draw, int? start = null, int? length = null,
+            int? regionID = null,
+            int? cityID = null)
         {
             int recordsTotal = 0;
             int recordsFiltered = 0;
@@ -54,7 +62,9 @@ namespace Expro.Controllers
 
                 null,
                 null,
-                null
+                null,
+                regionID,
+                cityID
             );
 
             dynamic data = new VacancyDetailsVM().GetListOfVacancyDetailsVM(dataIQueryable);

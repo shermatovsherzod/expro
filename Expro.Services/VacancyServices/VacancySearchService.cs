@@ -31,8 +31,9 @@ namespace Expro.Services
 
             UserTypesEnum? curUserType,
             int? statusID,          
-            string authorID
-            )
+            string authorID,
+            int? regionID,
+            int? cityID)
         {
             recordsTotal = 0;
             recordsFiltered = 0;
@@ -56,7 +57,7 @@ namespace Expro.Services
 
                 recordsTotal = vacancies.Count();
 
-                vacancies = ApplyFilters(vacancies, statusID);
+                vacancies = ApplyFilters(vacancies, statusID, regionID, cityID);
 
                 recordsFiltered = vacancies.Count();
 
@@ -76,8 +77,9 @@ namespace Expro.Services
 
         protected IQueryable<Vacancy> ApplyFilters(
             IQueryable<Vacancy> vacancies,           
-            int? statusID
-           )
+            int? statusID,
+            int? regionID,
+            int? cityID)
         {
             if (statusID.HasValue)
             {
@@ -104,7 +106,19 @@ namespace Expro.Services
                     vacancies = vacancies
                         .Where(m => m.VacancyStatusID == (int)VacancyStatusEnum.WaitingForApproval);
                 }
-            }          
+            }
+
+            if (regionID.HasValue)
+            {
+                vacancies = vacancies
+                    .Where(m => m.RegionID == regionID);
+
+                if (cityID.HasValue)
+                {
+                    vacancies = vacancies
+                        .Where(m => m.CityID == cityID);
+                }
+            }
 
             return vacancies;
         }

@@ -17,15 +17,18 @@ namespace Expro.Controllers
         private readonly ICompanySearchService _companySearchService;
         private readonly ICompanyService _companyService;
         private readonly ILawAreaService _lawAreaService;
+        private readonly IRegionService _regionService;
 
         public CompanyController(
              ICompanySearchService companySearchService,
              ICompanyService companyService,
-             ILawAreaService lawAreaService)
+             ILawAreaService lawAreaService,
+             IRegionService regionService)
         {
             _companySearchService = companySearchService;
             _companyService = companyService;
             _lawAreaService = lawAreaService;
+            _regionService = regionService;
         }
 
         public IActionResult Index()
@@ -39,6 +42,8 @@ namespace Expro.Controllers
                     ParentValue = m.ParentID.HasValue ? m.ParentID.Value.ToString() : ""
                 }).ToList();
 
+            ViewData["regions"] = _regionService.GetAsSelectList();
+
             return View();
         }
 
@@ -46,7 +51,9 @@ namespace Expro.Controllers
         public IActionResult Search(
             int draw, int? start = null, int? length = null,
             int? lawAreaParent = null,
-            int[] lawAreas = null)
+            int[] lawAreas = null,
+            int? regionID = null,
+            int? cityID = null)
         {
             int recordsTotal = 0;
             int recordsFiltered = 0;
@@ -66,7 +73,9 @@ namespace Expro.Controllers
                 null,
                 null,
                 lawAreaParent,
-                lawAreas
+                lawAreas,
+                regionID,
+                cityID
             );
 
             dynamic data = new CompanyDetailsVM().GetListOfCompanyDetailsVM(dataIQueryable);

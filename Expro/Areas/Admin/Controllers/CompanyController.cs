@@ -71,6 +71,8 @@ namespace Expro.Areas.Admin.Controllers
                 statusID,
                 null,
                 null,
+                null,
+                null,
                 null);
 
             dynamic data = new CompanyDetailsVM().GetListOfCompanyDetailsVM(dataIQueryable);

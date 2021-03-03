@@ -53,7 +53,9 @@ namespace Expro.Controllers
 
                 curUser.UserType,
                 statusID,
-                ""
+                "",
+                null,
+                null
             );
 
             dynamic data = new ResumeDetailsVM().GetListOfResumeDetailsVM(dataIQueryable);
