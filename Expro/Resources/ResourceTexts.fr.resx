@@ -1077,8 +1077,20 @@
   <data name="AboutCompany" xml:space="preserve">
     <value>Компания хақида</value>
   </data>
+  <data name="AbouteMeMoreDetails" xml:space="preserve">
+    <value>Бу ерга ўзингиз ҳақингизда тўлиқроқ маълумот ёзинг (иш тажрибангиз, ва ҳ.к.)</value>
+  </data>
   <data name="Address" xml:space="preserve">
     <value>Манзил</value>
+  </data>
+  <data name="AddVacancy" xml:space="preserve">
+    <value>Вакансия қўшиш</value>
+  </data>
+  <data name="AddVacation" xml:space="preserve">
+    <value>Вакансия қўшиш</value>
+  </data>
+  <data name="Approved" xml:space="preserve">
+    <value>Тасдиқланган</value>
   </data>
   <data name="AreYouSureToReject" xml:space="preserve">
     <value>Хақиқатдан хам рад этмоқчимисиз</value>
@@ -1089,8 +1101,20 @@
   <data name="CompanyRejected" xml:space="preserve">
     <value>Компания рад этилган</value>
   </data>
+  <data name="ContactPerson" xml:space="preserve">
+    <value>Алоқа учун шахс</value>
+  </data>
+  <data name="EditVacation" xml:space="preserve">
+    <value>Вакансияни тахрирлаш</value>
+  </data>
   <data name="Links" xml:space="preserve">
     <value>Хаволалар</value>
+  </data>
+  <data name="RefreshRatings" xml:space="preserve">
+    <value>Рейтингларни янгилаш</value>
+  </data>
+  <data name="Rejected" xml:space="preserve">
+    <value>Рад этилган</value>
   </data>
   <data name="ResumeApproved" xml:space="preserve">
     <value>Резюме тасдиқланган</value>
@@ -1098,10 +1122,22 @@
   <data name="ResumeRejected" xml:space="preserve">
     <value>Резюме рад этилган</value>
   </data>
+  <data name="Salary" xml:space="preserve">
+    <value>Иш хақи</value>
+  </data>
+  <data name="ShortDescription" xml:space="preserve">
+    <value>Қисқача маълумот беринг</value>
+  </data>
+  <data name="VacancyAdded" xml:space="preserve">
+    <value>Вакансия мувафақиятли қўшилди</value>
+  </data>
   <data name="VacancyApproved" xml:space="preserve">
     <value>Вакансия тасдиқланган</value>
   </data>
   <data name="VacancyRejected" xml:space="preserve">
     <value>Вакансия рад этилган</value>
+  </data>
+  <data name="WatingForApproval" xml:space="preserve">
+    <value>Тасдиқланиши кутилмоқда</value>
   </data>
 </root>

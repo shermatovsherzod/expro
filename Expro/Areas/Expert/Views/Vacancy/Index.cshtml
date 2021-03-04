@@ -3,7 +3,7 @@
 @using Expro.Models.Enums
 
 @{
-    ViewData["Title"] = "Вакансии";
+    ViewData["Title"] = localizer["Vacancies"];
     @*<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">*@
 }
 
@@ -12,15 +12,15 @@
 
 @if (ViewData["successfullyCreated"] != null)
 {
-    <div class="alert alert-soft-success text-center rounded-0 mb-0" role="alert">
-        Вакансия успешно добавлена
-    </div>
+<div class="alert alert-soft-success text-center rounded-0 mb-0" role="alert">
+    @localizer["VacancyAdded"]  
+</div>
     <br />
 }
 
 <div class="row">
     <div class="col-md-12">
-        @Html.ActionLink("Добавить вакансию", "Create", "Vacancy", null, new { @class = "btn btn-primary" })
+        @Html.ActionLink(localizer["AddVacation"], "Create", "Vacancy", null, new { @class = "btn btn-primary" })
     </div>
 </div>
 

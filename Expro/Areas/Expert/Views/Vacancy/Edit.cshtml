@@ -4,234 +4,244 @@
 @using Expro.Models.Enums
 
 @{
-    ViewData["Title"] = "Редактирование вакансии";
+    ViewData["Title"] = localizer["EditVacation"];
     int? cityID = Model?.CityID;
 }
 
-<form asp-controller="Vacancy" asp-action="Edit"
-      id="editVacancyForm"
-      onsubmit="SubmitVacancyForm()"
-      data-ajax="true"
-      data-ajax-method="POST"
-      data-ajax-failure="PostFailure"
-      data-ajax-success="PostSuccess"
-      data-ajax-complete="PostCompleted">
+    <form asp-controller="Vacancy" asp-action="Edit"
+          id="editVacancyForm"
+          onsubmit="SubmitVacancyForm()"
+          data-ajax="true"
+          data-ajax-method="POST"
+          data-ajax-failure="PostFailure"
+          data-ajax-success="PostSuccess"
+          data-ajax-complete="PostCompleted">
 
-    <div class="border-bottom mb-4">
-        <h2>@ViewData["Title"]</h2>
-        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-    </div>
-    <input asp-for="StatusID" type="hidden" />
+        <div class="border-bottom mb-4">
+            <h2>@ViewData["Title"]</h2>
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        </div>
+        <input asp-for="StatusID" type="hidden" />
 
-    @if (ViewData["successfullySaved"] != null)
-    {
-        <div class="alert alert-soft-success text-center rounded-0 mb-0" role="alert">
-            Данные успешно сохранены
-        </div>
-        <br />
-    }
-    @if (Model.StatusID == (int)DocumentStatusesEnum.WaitingForApproval)
-    {
-        <div class="alert alert-soft-info text-center rounded-0 mb-0" role="alert">
-            Отправлена на подтверждение
-        </div>
-    }
-    else if (Model.StatusID == (int)DocumentStatusesEnum.Approved)
-    {
-        <div class="alert alert-soft-success text-center rounded-0 mb-0" role="alert">
-            Подтверждена администратором
-        </div>
-    }
-    else if (Model.StatusID == (int)DocumentStatusesEnum.Rejected)
-    {
-        <div class="alert alert-soft-danger text-center rounded-0 mb-0" role="alert">
-            Отклонена администратором
-        </div>
-    }
+        @if (ViewData["successfullySaved"] != null)
+        {
+            <div class="alert alert-soft-success text-center rounded-0 mb-0" role="alert">
+                @localizer["DataSuccessfullySaved"]
+            </div>
+            <br />
+        }
+        @if (Model.StatusID == (int)DocumentStatusesEnum.WaitingForApproval)
+        {
+            <div class="alert alert-soft-info text-center rounded-0 mb-0" role="alert">
+                @localizer["WatingForApproval"]
+            </div>
+        }
+        else if (Model.StatusID == (int)DocumentStatusesEnum.Approved)
+        {
+            <div class="alert alert-soft-success text-center rounded-0 mb-0" role="alert">
+                @localizer["Approved"]
+            </div>
+        }
+        else if (Model.StatusID == (int)DocumentStatusesEnum.Rejected)
+        {
+            <div class="alert alert-soft-danger text-center rounded-0 mb-0" role="alert">
+                @localizer["Rejected"]
+            </div>
+        }
 
-    <div class="row">
-        <div class="col-md-3">
-            <label asp-for="@Model.Position"></label>
+        <div class="row">
+            <div class="col-md-3">
+                <label>@localizer["lblPosition"]</label>
+            </div>
+            <div class="col-md-9">
+                <p>
+                    <input asp-for="@Model.Position" class="form-control" />
+                    <span asp-validation-for="@Model.Position" class="text-danger"></span>
+                </p>
+            </div>
         </div>
-        <div class="col-md-9">
-            <p>
-                <input asp-for="@Model.Position" class="form-control" />
-                <span asp-validation-for="@Model.Position" class="text-danger"></span>
-            </p>
-        </div>
-    </div>
 
-    <div class="row">
-        <div class="col-md-3">
-            <label asp-for="@Model.Company"></label>
+        <div class="row">
+            <div class="col-md-3">
+                <label>Компания</label>
+            </div>
+            <div class="col-md-9">
+                <p>
+                    <input asp-for="@Model.Company" class="form-control" />
+                    <span asp-validation-for="@Model.Company" class="text-danger"></span>
+                </p>
+            </div>
         </div>
-        <div class="col-md-9">
-            <p>
-                <input asp-for="@Model.Company" class="form-control" />
-                <span asp-validation-for="@Model.Company" class="text-danger"></span>
-            </p>
-        </div>
-    </div>
 
-    <div class="row">
-        <div class="col-md-3">
-            <label asp-for="@Model.RegionID"></label>
-        </div>
-        <div class="col-md-9">
-            <select asp-for="@Model.RegionID"
-                    asp-items="@ViewData["regions"] as IEnumerable<SelectListItem>"
-                    class="js-custom-select custom-select" size="1" style="opacity: 0;"
-                    data-hs-select2-options='{
+        <div class="row">
+            <div class="col-md-3">
+                <label>@localizer["lblRegion"]</label>
+            </div>
+            <div class="col-md-9">
+                <select asp-for="@Model.RegionID"
+                        asp-items="@ViewData["regions"] as IEnumerable<SelectListItem>"
+                        class="js-custom-select custom-select" size="1" style="opacity: 0;"
+                        data-hs-select2-options='{
                       "minimumResultsForSearch": "Infinity"
                     }'>
-                <option disabled selected>--- Выбрать регион ---</option>
-            </select>
-            <span asp-validation-for="@Model.RegionID" class="text-danger"></span>
+                    <option disabled selected>--- @localizer["SelectRegion"] ---</option>
+                </select>
+                <span asp-validation-for="@Model.RegionID" class="text-danger"></span>
+            </div>
         </div>
-    </div>
-
-    <div class="row">
-        <div class="col-md-3">
-            <label asp-for="@Model.CityID"></label>
+        <div class="row">
+            <div class="col-md-12">
+                <br />
+            </div>
         </div>
-        <div class="col-md-9">
-            <select asp-for="@Model.CityID"
-                    asp-items="@ViewData["cities"] as IEnumerable<SelectListItem>"
-                    class="js-custom-select custom-select" size="1" style="opacity: 0;"
-                    data-hs-select2-options='{
+        <div class="row">
+            <div class="col-md-3">
+                <label>@localizer["lblCity"]</label>
+            </div>
+            <div class="col-md-9">
+                <select asp-for="@Model.CityID"
+                        asp-items="@ViewData["cities"] as IEnumerable<SelectListItem>"
+                        class="js-custom-select custom-select" size="1" style="opacity: 0;"
+                        data-hs-select2-options='{
                     "minimumResultsForSearch": "Infinity"
                 }'>
-                <option disabled selected>--- Выбрать город ---</option>
-            </select>
-            <span asp-validation-for="@Model.CityID" class="text-danger"></span>
+                    <option disabled selected>--- @localizer["SelectCity"] ---</option>
+                </select>
+                <span asp-validation-for="@Model.CityID" class="text-danger"></span>
+            </div>
         </div>
-    </div>
+        <div class="row">
+            <div class="col-md-12">
+                <br />
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-3">
+                <label>@localizer["lblCityOther"]</label>
+            </div>
+            <div class="col-md-9">
+                <p>
+                    <input asp-for="@Model.CityOther" class="form-control" />
+                    <span asp-validation-for="@Model.CityOther" class="text-danger"></span>
+                </p>
+            </div>
+        </div>
 
-    <div class="row">
-        <div class="col-md-3">
-            <label asp-for="@Model.CityOther"></label>
-        </div>
-        <div class="col-md-9">
-            <p>
-                <input asp-for="@Model.CityOther" class="form-control" />
-                <span asp-validation-for="@Model.CityOther" class="text-danger"></span>
-            </p>
-        </div>
-    </div>
-
-    <div class="row">
-        <div class="col-md-3">
-            <label asp-for="@Model.Responsibility"></label>
-        </div>
-        <div class="col-md-9">
-            <!-- Quill -->
-            <div class="quill-custom Responsibility">
-                <div class="js-quill" style="min-height: 15rem;"
-                     data-hs-quill-options='{
-                   "placeholder": "Опишите в двух словах...",
+        <div class="row">
+            <div class="col-md-3">
+                <label>@localizer["Responsibility"]</label>
+            </div>
+            <div class="col-md-9">
+                <!-- Quill -->
+                <div class="quill-custom Responsibility">
+                    <div class="js-quill" style="min-height: 15rem;"
+                         data-hs-quill-options='{
+                   "placeholder": "@localizer["ShortDescription"]...",
                     "modules": {
                       "toolbar": [["bold", "italic", "underline", "strike", "link", "image", "blockquote", "code", {"list": "bullet"}]]
                     }
                    }'>
-                    @Html.Raw(Model.Responsibility)
+                        @Html.Raw(Model.Responsibility)
+                    </div>
                 </div>
+                <br />
+                <!-- End Quill -->
+                <textarea asp-for="Responsibility" class="form-control" style="display: none;"></textarea>
+                <span asp-validation-for="Responsibility" class="text-danger"></span>
             </div>
-            <br />
-            <!-- End Quill -->
-            <textarea asp-for="Responsibility" class="form-control" style="display: none;"></textarea>
-            <span asp-validation-for="Responsibility" class="text-danger"></span>
         </div>
-    </div>
 
-    <div class="row">
-        <div class="col-md-3">
-            <label asp-for="@Model.Requirements"></label>
-        </div>
-        <div class="col-md-9">
-            <!-- Quill -->
-            <div class="quill-custom Requirements">
-                <div class="js-quill" style="min-height: 15rem;"
-                     data-hs-quill-options='{
-                   "placeholder": "Опишите в двух словах...",
+        <div class="row">
+            <div class="col-md-3">
+                <label>@localizer["Requirements"]</label>
+            </div>
+            <div class="col-md-9">
+                <!-- Quill -->
+                <div class="quill-custom Requirements">
+                    <div class="js-quill" style="min-height: 15rem;"
+                         data-hs-quill-options='{
+                   "placeholder": "@localizer["ShortDescription"]...",
                     "modules": {
                       "toolbar": [["bold", "italic", "underline", "strike", "link", "image", "blockquote", "code", {"list": "bullet"}]]
                     }
                    }'>
-                    @Html.Raw(Model.Requirements)
+                        @Html.Raw(Model.Requirements)
+                    </div>
+                </div>
+                <br />
+                <!-- End Quill -->
+                <textarea asp-for="Requirements" class="form-control" style="display: none;"></textarea>
+                <span asp-validation-for="Requirements" class="text-danger"></span>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-3">
+                <label>@localizer["Salary"]</label>
+            </div>
+            <div class="col-md-9">
+                <p>
+                    <input asp-for="@Model.Salary" class="form-control" />
+                    <span asp-validation-for="@Model.Salary" class="text-danger"></span>
+                </p>
+            </div>
+        </div>
+
+        <h3>@localizer["Contacts"]</h3>
+
+        <div class="row">
+            <div class="col-md-3">
+                <label>@localizer["ContactPerson"]</label>
+            </div>
+            <div class="col-md-9">
+                <p>
+                    <input asp-for="@Model.ContactPerson" class="form-control" />
+                    <span asp-validation-for="@Model.ContactPerson" class="text-danger"></span>
+                </p>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-3">
+                <label>@localizer["lblPhoneNumber"]</label>
+            </div>
+            <div class="col-md-9">
+                <p>
+                    <input asp-for="@Model.PhoneNumber" class="form-control" />
+                    <span asp-validation-for="@Model.PhoneNumber" class="text-danger"></span>
+                </p>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-3">
+                <label>@localizer["Email"]</label>
+            </div>
+            <div class="col-md-9">
+                <p>
+                    <input asp-for="@Model.Email" class="form-control" />
+                    <span asp-validation-for="@Model.Email" class="text-danger"></span>
+                </p>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="form-group" id="actionButtonsBox">
+                    <input asp-for="ActionType" type="hidden" />
+                    <button type="submit" class="btn btn-info" actiontype="@DocumentActionTypesEnum.saveAsDraft">@localizer["SaveAsDraft"]</button>
+                    <button type="submit" class="btn btn-indigo" actiontype="@DocumentActionTypesEnum.submitForApproval">@localizer["SubmitForApproval"]</button>
+                    <div class="spinner-border spinner" style="display: none;"></div>
                 </div>
             </div>
-            <br />
-            <!-- End Quill -->
-            <textarea asp-for="Requirements" class="form-control" style="display: none;"></textarea>
-            <span asp-validation-for="Requirements" class="text-danger"></span>
         </div>
-    </div>
+    </form>
 
-    <div class="row">
-        <div class="col-md-3">
-            <label asp-for="@Model.Salary"></label>
-        </div>
-        <div class="col-md-9">
-            <p>
-                <input asp-for="@Model.Salary" class="form-control" />
-                <span asp-validation-for="@Model.Salary" class="text-danger"></span>
-            </p>
-        </div>
-    </div>
-
-    <h3>Контакты</h3>
-
-    <div class="row">
-        <div class="col-md-3">
-            <label asp-for="@Model.ContactPerson"></label>
-        </div>
-        <div class="col-md-9">
-            <p>
-                <input asp-for="@Model.ContactPerson" class="form-control" />
-                <span asp-validation-for="@Model.ContactPerson" class="text-danger"></span>
-            </p>
-        </div>
-    </div>
-
-    <div class="row">
-        <div class="col-md-3">
-            <label asp-for="@Model.PhoneNumber"></label>
-        </div>
-        <div class="col-md-9">
-            <p>
-                <input asp-for="@Model.PhoneNumber" class="form-control" />
-                <span asp-validation-for="@Model.PhoneNumber" class="text-danger"></span>
-            </p>
-        </div>
-    </div>
-
-    <div class="row">
-        <div class="col-md-3">
-            <label asp-for="@Model.Email"></label>
-        </div>
-        <div class="col-md-9">
-            <p>
-                <input asp-for="@Model.Email" class="form-control" />
-                <span asp-validation-for="@Model.Email" class="text-danger"></span>
-            </p>
-        </div>
-    </div>
-
-    <div class="row">
-        <div class="col-sm-12">
-            <div class="form-group" id="actionButtonsBox">
-                <input asp-for="ActionType" type="hidden" />
-                <button type="submit" class="btn btn-info" actiontype="@DocumentActionTypesEnum.saveAsDraft">Сохранить как черновик</button>
-                <button type="submit" class="btn btn-indigo" actiontype="@DocumentActionTypesEnum.submitForApproval">Отправить на подтверждение</button>
-                <div class="spinner-border spinner" style="display: none;"></div>
-            </div>
-        </div>
-    </div>
-</form>
-
-<div class="row">
-    <a asp-action="Index">Вернутся к списку</a>
+<div class="mt-5">
+    <a asp-action="Index">@localizer["BackToList"]</a>
 </div>
+<br />
+<br />
 
 @section CustomFrontStyles
 {
@@ -307,7 +317,7 @@
                 contentType: "application/json; charset=utf-8",
                 //dataType: "json",
                 success: function (data) {
-                    $("#CityID").empty().append($("<option>").text("--- Выбрать город ---").attr('disabled', 'disabled').attr('selected', 'selected'));
+                    $("#CityID").empty().append($("<option>").text("--- @localizer["SelectCity"] ---").attr('disabled', 'disabled').attr('selected', 'selected'));
                     $.each(data,
                         function (i, item) {
                             var isSelected = "";

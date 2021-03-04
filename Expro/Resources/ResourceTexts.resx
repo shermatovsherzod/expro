@@ -1077,8 +1077,20 @@
   <data name="AboutCompany" xml:space="preserve">
     <value>О компании</value>
   </data>
+  <data name="AbouteMeMoreDetails" xml:space="preserve">
+    <value>Здесь опишите более подробную информацию о себе (ваш опыт работы и т.п.)</value>
+  </data>
   <data name="Address" xml:space="preserve">
     <value>Адрес</value>
+  </data>
+  <data name="AddVacancy" xml:space="preserve">
+    <value>Добавить вакансию</value>
+  </data>
+  <data name="AddVacation" xml:space="preserve">
+    <value>Добавить вакансию</value>
+  </data>
+  <data name="Approved" xml:space="preserve">
+    <value>Подтвержден</value>
   </data>
   <data name="AreYouSureToReject" xml:space="preserve">
     <value>Вы уверены, что хотите отказать</value>
@@ -1089,8 +1101,20 @@
   <data name="CompanyRejected" xml:space="preserve">
     <value>Компании отказано</value>
   </data>
+  <data name="ContactPerson" xml:space="preserve">
+    <value>Контактное лицо</value>
+  </data>
+  <data name="EditVacation" xml:space="preserve">
+    <value>Редактирование вакансии</value>
+  </data>
   <data name="Links" xml:space="preserve">
     <value>Ссылки</value>
+  </data>
+  <data name="RefreshRatings" xml:space="preserve">
+    <value>Обновить рейтинги</value>
+  </data>
+  <data name="Rejected" xml:space="preserve">
+    <value>Отклонена</value>
   </data>
   <data name="ResumeApproved" xml:space="preserve">
     <value>Резюме подтверждено</value>
@@ -1098,10 +1122,22 @@
   <data name="ResumeRejected" xml:space="preserve">
     <value>Резюме отказано</value>
   </data>
+  <data name="Salary" xml:space="preserve">
+    <value>Оплата</value>
+  </data>
+  <data name="ShortDescription" xml:space="preserve">
+    <value>Опишите в двух словах</value>
+  </data>
+  <data name="VacancyAdded" xml:space="preserve">
+    <value>Вакансия успешно добавлена</value>
+  </data>
   <data name="VacancyApproved" xml:space="preserve">
     <value>Вакансия подтверждена</value>
   </data>
   <data name="VacancyRejected" xml:space="preserve">
     <value>Вакансии отказано</value>
+  </data>
+  <data name="WatingForApproval" xml:space="preserve">
+    <value>Ожидание подтверждения</value>
   </data>
 </root>
