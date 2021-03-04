@@ -1062,4 +1062,16 @@
   <data name="QuestionWithFeeIsPublished" xml:space="preserve">
     <value>Вопрос опубликован</value>
   </data>
+  <data name="ExpertHomePage" xml:space="preserve">
+    <value>Личная страница эксперта</value>
+  </data>
+  <data name="TypeTextBrieflyHere" xml:space="preserve">
+    <value>Здесь опишите подробней...</value>
+  </data>
+  <data name="TypeYourQuestionBrieflyHere" xml:space="preserve">
+    <value>Здесь опишите свой вопрос подробней...</value>
+  </data>
+  <data name="SampleDocumentTitle" xml:space="preserve">
+    <value>Название документа</value>
+  </data>
 </root>

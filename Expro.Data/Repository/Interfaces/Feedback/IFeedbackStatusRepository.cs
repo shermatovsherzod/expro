@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Expro.Data.Repository.Interfaces
 {
-    public interface IFeedbackStatusRepository : IBaseCRUDRepository<FeedbackStatus>
+    public interface IFeedbackStatusRepository : IBaseDropdownableRepository<FeedbackStatus>
     {
     }
 }

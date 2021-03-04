@@ -2,7 +2,7 @@
 
 namespace Expro.Data.Repository.Interfaces
 {
-    public interface ILawAreaRepository : IBaseCRUDRepository<LawArea>
+    public interface ILawAreaRepository : IBaseDropdownableRepository<LawArea>
     {
     }
 }

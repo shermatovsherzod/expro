@@ -6,7 +6,7 @@ using System.Linq;
 
 namespace Expro.Data.Repository
 {
-    public class CompanyStatusRepository : BaseCRUDRepository<CompanyStatus>, ICompanyStatusRepository
+    public class CompanyStatusRepository : BaseDropdownableRepository<CompanyStatus>, ICompanyStatusRepository
     {
         public CompanyStatusRepository(IDatabaseFactory databaseFactory)
             : base(databaseFactory)

@@ -4,7 +4,7 @@ using Expro.Models;
 
 namespace Expro.Data.Repository
 {
-    public class WithdrawRequestStatusRepository : BaseCRUDRepository<WithdrawRequestStatus>, IWithdrawRequestStatusRepository
+    public class WithdrawRequestStatusRepository : BaseDropdownableRepository<WithdrawRequestStatus>, IWithdrawRequestStatusRepository
     {
         public WithdrawRequestStatusRepository(IDatabaseFactory databaseFactory)
             : base(databaseFactory)

@@ -2,7 +2,7 @@
 
 namespace Expro.Data.Repository.Interfaces
 {
-    public interface IGenderRepository : IBaseCRUDRepository<Gender>
+    public interface IGenderRepository : IBaseDropdownableRepository<Gender>
     {
     }
 }

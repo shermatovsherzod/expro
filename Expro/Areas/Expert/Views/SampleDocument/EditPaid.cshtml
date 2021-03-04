@@ -50,7 +50,7 @@
 
     <!-- Form Group -->
     <div class="form-group">
-        <label asp-for="Title" class="control-label"></label>
+        <label for="Title" class="control-label">@localizer["SampleDocumentTitle"]</label> @{ RenderRedAsteriks(); }
         <input asp-for="Title" class="form-control" />
         <span asp-validation-for="Title" class="text-danger"></span>
     </div>
@@ -147,7 +147,7 @@
         <div class="quill-custom Text">
             <div class="js-quill" style="min-height: 15rem;"
                  data-hs-quill-options='{
-                   "placeholder": "Type your message...",
+                   "placeholder": "@localizer["TypeTextBrieflyHere"]",
                     "modules": {
                       "toolbar": [["bold", "italic", "underline", "strike", "link", "image", "blockquote", "code", {"list": "bullet"}]]
                     }

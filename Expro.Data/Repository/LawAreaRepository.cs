@@ -4,7 +4,7 @@ using Expro.Models;
 
 namespace Expro.Data.Repository
 {
-    public class LawAreaRepository : BaseCRUDRepository<LawArea>, ILawAreaRepository
+    public class LawAreaRepository : BaseDropdownableRepository<LawArea>, ILawAreaRepository
     {
         public LawAreaRepository(IDatabaseFactory databaseFactory)
             : base(databaseFactory)

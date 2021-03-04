@@ -4,7 +4,7 @@ using Expro.Models;
 
 namespace Expro.Data.Repository
 {
-    public class DocumentStatusRepository : BaseCRUDRepository<DocumentStatus>, IDocumentStatusRepository
+    public class DocumentStatusRepository : BaseDropdownableRepository<DocumentStatus>, IDocumentStatusRepository
     {
         public DocumentStatusRepository(IDatabaseFactory databaseFactory)
             : base(databaseFactory)

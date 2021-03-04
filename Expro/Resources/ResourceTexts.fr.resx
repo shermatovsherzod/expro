@@ -1062,4 +1062,16 @@
   <data name="QuestionWithFeeIsPublished" xml:space="preserve">
     <value>Саволингиз сайтда чоп этилди.</value>
   </data>
+  <data name="ExpertHomePage" xml:space="preserve">
+    <value>Экспертнинг шахсий саҳифаси</value>
+  </data>
+  <data name="TypeTextBrieflyHere" xml:space="preserve">
+    <value>Бу ерга батафсил ёзинг...</value>
+  </data>
+  <data name="TypeYourQuestionBrieflyHere" xml:space="preserve">
+    <value>Бу ерга саволингизни батафсил ёзинг...</value>
+  </data>
+  <data name="SampleDocumentTitle" xml:space="preserve">
+    <value>Намунавий хужжат номи</value>
+  </data>
 </root>

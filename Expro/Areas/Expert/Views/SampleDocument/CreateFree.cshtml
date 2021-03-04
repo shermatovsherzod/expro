@@ -23,7 +23,7 @@
         <div class="col-md-6">
             <!-- Form Group -->
             <div class="form-group">
-                <label asp-for="Title" class="control-label"></label> @{ RenderRedAsteriks(); }
+                <label for="Title" class="control-label">@localizer["SampleDocumentTitle"]</label> @{ RenderRedAsteriks(); }
                 <input asp-for="Title" class="form-control" placeholder="" aria-label="">
                 <span asp-validation-for="Title" class="text-danger"></span>
             </div>

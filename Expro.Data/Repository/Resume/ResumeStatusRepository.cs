@@ -6,7 +6,7 @@ using System.Linq;
 
 namespace Expro.Data.Repository
 {
-    public class ResumeStatusRepository : BaseCRUDRepository<ResumeStatus>, IResumeStatusRepository
+    public class ResumeStatusRepository : BaseDropdownableRepository<ResumeStatus>, IResumeStatusRepository
     {
         public ResumeStatusRepository(IDatabaseFactory databaseFactory)
             : base(databaseFactory)

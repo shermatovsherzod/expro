@@ -2,7 +2,7 @@
 
 namespace Expro.Data.Repository.Interfaces
 {
-    public interface IUserStatusRepository : IBaseCRUDRepository<UserStatus>
+    public interface IUserStatusRepository : IBaseDropdownableRepository<UserStatus>
     {
     }
 }

@@ -10,8 +10,8 @@ namespace Expro.Data.Infrastructure
 {
     public abstract class BaseCRUDRepository<T> where T : BaseModel
     {
-        private ApplicationDbContext _dataContext;
-        private readonly DbSet<T> _dbset;
+        protected ApplicationDbContext _dataContext;
+        protected readonly DbSet<T> _dbset;
 
         protected BaseCRUDRepository(IDatabaseFactory databaseFactory)
         {

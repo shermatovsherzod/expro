@@ -14,6 +14,7 @@ namespace Expro.Services.Interfaces
         IQueryable<ApplicationUser> GetAllSimpleUsersForAdmin();
 
         IQueryable<ApplicationUser> GetAllApprovedExperts();
+        IQueryable<ApplicationUser> GetAllExpertsForSite();
         IQueryable<ApplicationUser> GetAllExpertsAndSimpleUsers();        
         ApplicationUser GetWithRelatedDataByID(string id);
         IQueryable<ApplicationUser> GetTopExperts(int count);

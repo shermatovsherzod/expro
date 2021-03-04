@@ -979,6 +979,15 @@ namespace Expro.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Личная страница эксперта.
+        /// </summary>
+        public static string ExpertHomePage {
+            get {
+                return ResourceManager.GetString("ExpertHomePage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Эксперт не подтвержден.
         /// </summary>
         public static string ExpertNotApproved {
@@ -2419,6 +2428,15 @@ namespace Expro.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Название документа.
+        /// </summary>
+        public static string SampleDocumentTitle {
+            get {
+                return ResourceManager.GetString("SampleDocumentTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Сохранить.
         /// </summary>
         public static string Save {
@@ -2658,6 +2676,24 @@ namespace Expro.Resources {
         public static string Transactions {
             get {
                 return ResourceManager.GetString("Transactions", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Здесь опишите подробней....
+        /// </summary>
+        public static string TypeTextBrieflyHere {
+            get {
+                return ResourceManager.GetString("TypeTextBrieflyHere", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Здесь опишите свой вопрос подробней....
+        /// </summary>
+        public static string TypeYourQuestionBrieflyHere {
+            get {
+                return ResourceManager.GetString("TypeYourQuestionBrieflyHere", resourceCulture);
             }
         }
         

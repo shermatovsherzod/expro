@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Expro.Data.Repository.Interfaces
 {
-    public interface IResumeStatusRepository : IBaseCRUDRepository<ResumeStatus>
+    public interface IResumeStatusRepository : IBaseDropdownableRepository<ResumeStatus>
     {
     }
 }

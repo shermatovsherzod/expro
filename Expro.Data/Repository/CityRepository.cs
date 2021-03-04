@@ -4,7 +4,7 @@ using Expro.Models;
 
 namespace Expro.Data.Repository
 {
-    public class CityRepository : BaseCRUDRepository<City>, ICityRepository
+    public class CityRepository : BaseDropdownableRepository<City>, ICityRepository
     {
         public CityRepository(IDatabaseFactory databaseFactory)
             : base(databaseFactory)

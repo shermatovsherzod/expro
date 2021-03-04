@@ -19,7 +19,6 @@ namespace Expro.ViewModels
         [Display(Name = "lblFax", ResourceType = typeof(ResourceTexts))]
         public string Fax { get; set; }
 
-        [Required]
         [Display(Name = "lblWebSite", ResourceType = typeof(ResourceTexts))]
         public string WebSite { get; set; }
 

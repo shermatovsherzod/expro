@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Expro.Data.Repository.Interfaces
 {
-    public interface ICompanyStatusRepository : IBaseCRUDRepository<CompanyStatus>
+    public interface ICompanyStatusRepository : IBaseDropdownableRepository<CompanyStatus>
     {
     }
 }

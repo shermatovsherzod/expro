@@ -54,14 +54,9 @@ namespace Expro.Controllers
 
         public virtual IActionResult Index()
         {
-            ViewData["lawAreas"] = LawAreaService.GetAsIQueryable()
-                .Select(m => new SelectListItemWithParent()
-                {
-                    Value = m.ID.ToString(),
-                    Text = m.Name,
-                    Selected = false,
-                    ParentValue = m.ParentID.HasValue ? m.ParentID.Value.ToString() : ""
-                }).ToList();
+            ViewData["lawAreas"] = LawAreaService.GetWithLocalizedNameAsIQueryable()
+                .Select(m => new SelectListItemWithParent(m))
+                .ToList();
 
             return View();
         }

@@ -4,7 +4,7 @@ using Expro.Models;
 
 namespace Expro.Data.Repository
 {
-    public class RegionRepository : BaseCRUDRepository<Region>, IRegionRepository
+    public class RegionRepository : BaseDropdownableRepository<Region>, IRegionRepository
     {
         public RegionRepository(IDatabaseFactory databaseFactory)
             : base(databaseFactory)

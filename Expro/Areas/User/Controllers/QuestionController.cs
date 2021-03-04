@@ -355,14 +355,9 @@ namespace Expro.Areas.User.Controllers
 
         private void PrepareViewData(List<int> selectedLawAreaIDs)
         {
-            ViewData["lawAreas"] = LawAreaService.GetAsIQueryable()
-                .Select(m => new SelectListItemWithParent()
-                {
-                    Value = m.ID.ToString(),
-                    Text = m.Name,
-                    Selected = selectedLawAreaIDs != null && selectedLawAreaIDs.Contains(m.ID),
-                    ParentValue = m.ParentID.HasValue ? m.ParentID.Value.ToString() : ""
-                }).ToList();
+            ViewData["lawAreas"] = LawAreaService.GetWithLocalizedNameAsIQueryable()
+                .Select(m => new SelectListItemWithParent(m))
+                .ToList();
 
             ViewData["languages"] = LanguageService.GetAsSelectList();
         }

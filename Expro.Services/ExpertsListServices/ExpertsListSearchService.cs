@@ -54,7 +54,8 @@ namespace Expro.Services
                         experts = _userService.GetAllApprovedExperts();
                 }
                 else
-                    experts = _userService.GetAllApprovedExperts();
+                    //experts = _userService.GetAllApprovedExperts();
+                    experts = _userService.GetAllExpertsForSite();
 
                 recordsTotal = experts.Count();
 

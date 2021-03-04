@@ -2,7 +2,7 @@
 
 namespace Expro.Data.Repository.Interfaces
 {
-    public interface ILanguageRepository : IBaseCRUDRepository<Language>
+    public interface ILanguageRepository : IBaseDropdownableRepository<Language>
     {
     }
 }

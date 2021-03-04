@@ -2,7 +2,7 @@
 
 namespace Expro.Data.Repository.Interfaces
 {
-    public interface ICityRepository : IBaseCRUDRepository<City>
+    public interface ICityRepository : IBaseDropdownableRepository<City>
     {
     }
 }
