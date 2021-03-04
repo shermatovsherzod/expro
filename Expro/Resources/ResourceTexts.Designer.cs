@@ -2869,6 +2869,24 @@ namespace Expro.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Вакансия подтверждена.
+        /// </summary>
+        public static string VacancyApproved {
+            get {
+                return ResourceManager.GetString("VacancyApproved", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Вакансии отказано.
+        /// </summary>
+        public static string VacancyRejected {
+            get {
+                return ResourceManager.GetString("VacancyRejected", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Просмотр.
         /// </summary>
         public static string View {

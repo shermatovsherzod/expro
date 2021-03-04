@@ -1098,4 +1098,10 @@
   <data name="ResumeRejected" xml:space="preserve">
     <value>Резюме рад этилган</value>
   </data>
+  <data name="VacancyApproved" xml:space="preserve">
+    <value>Вакансия тасдиқланган</value>
+  </data>
+  <data name="VacancyRejected" xml:space="preserve">
+    <value>Вакансия рад этилган</value>
+  </data>
 </root>
