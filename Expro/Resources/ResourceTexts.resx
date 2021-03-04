@@ -1053,4 +1053,13 @@
   <data name="Users" xml:space="preserve">
     <value>Пользователи</value>
   </data>
+  <data name="DoPublish" xml:space="preserve">
+    <value>Опубликовать</value>
+  </data>
+  <data name="QuestionIsPublished" xml:space="preserve">
+    <value>Вопрос опубликован. Ждите ответ от экспертов! Для того, чтобы повысить шансы получить более качественный и полный ответ, при желании можете &lt;a href='/User/Question/'&gt;назначить вознаграждение&lt;/a&gt;</value>
+  </data>
+  <data name="QuestionWithFeeIsPublished" xml:space="preserve">
+    <value>Вопрос опубликован</value>
+  </data>
 </root>

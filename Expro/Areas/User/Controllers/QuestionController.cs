@@ -139,22 +139,21 @@ namespace Expro.Areas.User.Controllers
                     LawAreaService.UpdateQuestionLawAreas(model, modelVM.LawAreas);
                     QuestionService.Add(model, curUser.ID);
 
-                    if (modelVM.ActionType == DocumentActionTypesEnum.submitForApproval)
+                    if (modelVM.ActionType == DocumentActionTypesEnum.publish)
                     {
-                        ApplicationUser curAppUser = _userService.GetByID(curUser.ID);
-                        int curUserBalance = UserBalanceService.GetBalance(curAppUser);
-                        if (curUserBalance < model.Price)
-                            throw new Exception("На Вашем балансе недостаточно средств");
-
-                        QuestionService.SubmitForApproval(model, curUser.ID);
-
                         if (priceType == DocumentPriceTypesEnum.Paid)
+                        {
+                            ApplicationUser curAppUser = _userService.GetByID(curUser.ID);
+                            int curUserBalance = UserBalanceService.GetBalance(curAppUser);
+                            if (curUserBalance < model.Price)
+                                throw new Exception("На Вашем балансе недостаточно средств");
+
                             UserBalanceService.TakeOffBalance(curAppUser, model.Price.Value);
+                        }
 
-                        model.RejectionJobID = HangfireService.CreateJobForQuestionRejectionDeadline(model);
-                        QuestionService.Update(model);
+                        QuestionService.Publish(model, curUser.ID);
 
-                        modelVM.StatusID = (int)DocumentStatusesEnum.WaitingForApproval;
+                        modelVM.StatusID = (int)DocumentStatusesEnum.Approved;
                     }
                     else
                         QuestionService.Update(model, curUser.ID);
@@ -245,25 +244,46 @@ namespace Expro.Areas.User.Controllers
                     LawAreaService.UpdateQuestionLawAreas(model, modelVM.LawAreas);
                     modelVM.LawAreas = model.QuestionLawAreas.Select(m => m.LawAreaID).ToList();
 
-                    if (modelVM.ActionType == DocumentActionTypesEnum.submitForApproval)
+                    if (modelVM.ActionType == DocumentActionTypesEnum.publish)
                     {
-                        ApplicationUser curAppUser = _userService.GetByID(curUser.ID);
-                        int curUserBalance = UserBalanceService.GetBalance(curAppUser);
-                        if (curUserBalance < model.Price)
-                            throw new Exception("На Вашем балансе недостаточно средств");
-
-                        QuestionService.SubmitForApproval(model, curUser.ID);
-
                         if (priceType == DocumentPriceTypesEnum.Paid)
+                        {
+                            ApplicationUser curAppUser = _userService.GetByID(curUser.ID);
+                            int curUserBalance = UserBalanceService.GetBalance(curAppUser);
+                            if (curUserBalance < model.Price)
+                                throw new Exception("На Вашем балансе недостаточно средств");
+
                             UserBalanceService.TakeOffBalance(curAppUser, model.Price.Value);
+                        }
 
-                        model.RejectionJobID = HangfireService.CreateJobForQuestionRejectionDeadline(model);
-                        QuestionService.Update(model);
+                        QuestionService.Publish(model, curUser.ID);
 
-                        modelVM.StatusID = (int)DocumentStatusesEnum.WaitingForApproval;
+                        modelVM.StatusID = (int)DocumentStatusesEnum.Approved;
                     }
                     else
                         QuestionService.Update(model, curUser.ID);
+
+
+
+                    //if (modelVM.ActionType == DocumentActionTypesEnum.submitForApproval)
+                    //{
+                    //    ApplicationUser curAppUser = _userService.GetByID(curUser.ID);
+                    //    int curUserBalance = UserBalanceService.GetBalance(curAppUser);
+                    //    if (curUserBalance < model.Price)
+                    //        throw new Exception("На Вашем балансе недостаточно средств");
+
+                    //    QuestionService.SubmitForApproval(model, curUser.ID);
+
+                    //    if (priceType == DocumentPriceTypesEnum.Paid)
+                    //        UserBalanceService.TakeOffBalance(curAppUser, model.Price.Value);
+
+                    //    model.RejectionJobID = HangfireService.CreateJobForQuestionRejectionDeadline(model);
+                    //    QuestionService.Update(model);
+
+                    //    modelVM.StatusID = (int)DocumentStatusesEnum.WaitingForApproval;
+                    //}
+                    //else
+                    //    QuestionService.Update(model, curUser.ID);
 
                     ViewData["successfullySaved"] = true;
                 }

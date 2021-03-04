@@ -1053,4 +1053,13 @@
   <data name="Users" xml:space="preserve">
     <value>Фойдаланувчилар</value>
   </data>
+  <data name="DoPublish" xml:space="preserve">
+    <value>Чоп этиш</value>
+  </data>
+  <data name="QuestionIsPublished" xml:space="preserve">
+    <value>Саволингиз сайтда чоп этилди. Экспертларнинг жавобини кутинг!  Саволингизга сифатлироқ ва тўлиқроқ жавоб олишни истасангиз саволингизга бериладиган жавоб учун &lt;a href='/User/Question/'&gt;мукофот белгиланг&lt;/a&gt;</value>
+  </data>
+  <data name="QuestionWithFeeIsPublished" xml:space="preserve">
+    <value>Саволингиз сайтда чоп этилди.</value>
+  </data>
 </root>

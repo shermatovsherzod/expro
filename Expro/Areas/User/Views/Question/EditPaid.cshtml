@@ -38,7 +38,7 @@
     else if (Model.StatusID == (int)DocumentStatusesEnum.Approved)
     {
         <div class="alert alert-soft-success text-center rounded-0 mb-0" role="alert">
-            @localizer["QuestionIsApprovedByAdmin"]
+            @localizer["QuestionWithFeeIsPublished"]
         </div>
     }
     else if (Model.StatusID == (int)DocumentStatusesEnum.Rejected)
@@ -153,7 +153,7 @@
     <div class="form-group" id="actionButtonsBox">
         <input asp-for="ActionType" type="hidden" />
         <button type="submit" class="btn btn-info" actiontype="@DocumentActionTypesEnum.saveAsDraft">@localizer["SaveAsDraft"]</button>
-        <button type="submit" class="btn btn-indigo" actiontype="@DocumentActionTypesEnum.submitForApproval">@localizer["SubmitForApproval"]</button>
+        <button type="submit" class="btn btn-indigo" actiontype="@DocumentActionTypesEnum.publish">@localizer["DoPublish"]</button>
         <div class="spinner-border spinner" style="display: none;"></div>
     </div>
 </form>

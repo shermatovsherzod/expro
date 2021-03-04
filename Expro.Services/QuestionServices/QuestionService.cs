@@ -105,6 +105,16 @@ namespace Expro.Services
             return EditingIsAllowed(entity);
         }
 
+        public void Publish(Question entity, string userID)
+        {
+            var now = DateTime.Now;
+            entity.DocumentStatusID = (int)DocumentStatusesEnum.Approved;
+            entity.DateApproved = now;
+            entity.DatePublished = now;
+
+            Update(entity, userID);
+        }
+
         public async void SubmitForApproval(Question entity, string userID)
         {
             entity.DocumentStatusID = (int)DocumentStatusesEnum.WaitingForApproval;

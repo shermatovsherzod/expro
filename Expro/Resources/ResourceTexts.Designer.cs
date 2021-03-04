@@ -790,6 +790,15 @@ namespace Expro.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Опубликовать.
+        /// </summary>
+        public static string DoPublish {
+            get {
+                return ResourceManager.GetString("DoPublish", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Наберите текст.
         /// </summary>
         public static string DoTypeText {
@@ -2077,6 +2086,15 @@ namespace Expro.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Вопрос опубликован. Ждите ответ от экспертов! Для того, чтобы повысить шансы получить более качественный и полный ответ, при желании можете &lt;a href=&apos;/User/Question/&apos;&gt;назначить вознаграждение&lt;/a&gt;.
+        /// </summary>
+        public static string QuestionIsPublished {
+            get {
+                return ResourceManager.GetString("QuestionIsPublished", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Вопрос отменен администратором.
         /// </summary>
         public static string QuestionIsRejectedByAdmin {
@@ -2145,6 +2163,15 @@ namespace Expro.Resources {
         public static string QuestionSolved {
             get {
                 return ResourceManager.GetString("QuestionSolved", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Вопрос опубликован.
+        /// </summary>
+        public static string QuestionWithFeeIsPublished {
+            get {
+                return ResourceManager.GetString("QuestionWithFeeIsPublished", resourceCulture);
             }
         }
         

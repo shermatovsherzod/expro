@@ -13,6 +13,7 @@ namespace Expro.Services.Interfaces
         bool EditingIsAllowed(Question entity);
         bool BelongsToUser(Question entity, string userID);
         bool AttachedFileIsAllowedToBeDeleted(Question entity);
+        void Publish(Question entity, string userID);
         void SubmitForApproval(Question entity, string userID);
         IQueryable<Question> GetAllForAdmin();
         IQueryable<Question> GetAllApproved();

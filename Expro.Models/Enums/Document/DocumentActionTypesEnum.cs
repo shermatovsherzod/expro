@@ -7,6 +7,7 @@ namespace Expro.Models.Enums
     public enum DocumentActionTypesEnum
     {
         saveAsDraft,
-        submitForApproval
+        submitForApproval,
+        publish
     }
 }
