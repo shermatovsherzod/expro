@@ -96,6 +96,7 @@ namespace Expro.ViewModels
         {
             var mmodel = base.ToModel(model);
             mmodel.Text = this.Text;
+            mmodel.LawAreaParentID = this.LawAreaParentID;
 
             return mmodel;
         }
@@ -141,7 +142,7 @@ namespace Expro.ViewModels
         {
             var mmodel = base.ToModel(model);
             mmodel.Price = this.Price;
-            //model.PriceType = DocumentPriceTypesEnum.Paid;
+            mmodel.PriceType = DocumentPriceTypesEnum.Paid;
 
             return mmodel;
         }

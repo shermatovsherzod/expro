@@ -58,7 +58,7 @@
     <!-- End Form Group -->
 
     <div class="form-group">
-        <label asp-for="LawAreaParentID" class="control-label"></label>
+        <label asp-for="LawAreaParentID" class="control-label"></label> @{ RenderRedAsteriks(); }
         <select asp-for="LawAreaParentID"
                 class="js-custom-select custom-select" size="1" style="opacity: 0;"
                 data-hs-select2-options='{
@@ -155,7 +155,7 @@
 </form>
 
 <div>
-    <a asp-action="Index">@localizer["AddNewQuestionWithFee"]Назад к списку</a>
+    <a asp-action="Index">@localizer["BackToList"]</a>
 </div>
 
 @section CustomFrontStyles
@@ -341,7 +341,6 @@
                         DownloadUrl: "",
                         FileType: fileType,
                         ModelID: modelID,
-                        @*GUID: "@ViewData["fileGuid"]"*@
                     };
                     //console.log(uploadTask.snapshot.ref);
 
@@ -367,7 +366,7 @@
             );
         }
 
-        function FileAjaxUpload2(input, file, attachment, spinnerTagID, imgPreviewContainerTagID) {
+        function FileAjaxUpload2(input, file, attachment, spinnerTagID) {
             if (file) {
                 $.ajax({
                     url: "/Attachment/Save",

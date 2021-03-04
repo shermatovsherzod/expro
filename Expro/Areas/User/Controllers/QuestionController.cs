@@ -103,39 +103,31 @@ namespace Expro.Areas.User.Controllers
 
         public IActionResult CreateFree()
         {
+            PrepareViewData(null);
+
             return View();
         }
 
         [HttpPost]
-        public IActionResult CreateFree(QuestionFreeCreateVM modelVM)
+        public IActionResult CreateFree(QuestionFreeEditVM modelVM)
         {
-            try
-            {
-                if (ModelState.IsValid)
-                {
-                    var curUser = accountUtil.GetCurrentUser(User);
-
-                    var model = modelVM.ToModel();
-                    QuestionService.Add(model, curUser.ID);
-
-                    return RedirectToAction("EditFree", new { id = model.ID });
-                }
-            }
-            catch (Exception ex)
-            {
-                ModelState.AddModelError("", "Что-то пошло не так: " + ex.Message);
-            }
-
-            return View(modelVM);
+            return CreateSharedPost(modelVM, DocumentPriceTypesEnum.Free);
         }
 
         public IActionResult CreatePaid()
         {
+            PrepareViewData(null);
+
             return View();
         }
 
         [HttpPost]
-        public IActionResult CreatePaid(QuestionPaidCreateVM modelVM)
+        public IActionResult CreatePaid(QuestionPaidEditVM modelVM)
+        {
+            return CreateSharedPost(modelVM, DocumentPriceTypesEnum.Paid);
+        }
+
+        private IActionResult CreateSharedPost(QuestionFreeEditVM modelVM, DocumentPriceTypesEnum priceType)
         {
             try
             {
@@ -144,20 +136,42 @@ namespace Expro.Areas.User.Controllers
                     var curUser = accountUtil.GetCurrentUser(User);
 
                     var model = modelVM.ToModel();
+                    LawAreaService.UpdateQuestionLawAreas(model, modelVM.LawAreas);
                     QuestionService.Add(model, curUser.ID);
 
-                    return RedirectToAction("EditPaid", new { id = model.ID });
+                    if (modelVM.ActionType == DocumentActionTypesEnum.submitForApproval)
+                    {
+                        ApplicationUser curAppUser = _userService.GetByID(curUser.ID);
+                        int curUserBalance = UserBalanceService.GetBalance(curAppUser);
+                        if (curUserBalance < model.Price)
+                            throw new Exception("На Вашем балансе недостаточно средств");
+
+                        QuestionService.SubmitForApproval(model, curUser.ID);
+
+                        if (priceType == DocumentPriceTypesEnum.Paid)
+                            UserBalanceService.TakeOffBalance(curAppUser, model.Price.Value);
+
+                        model.RejectionJobID = HangfireService.CreateJobForQuestionRejectionDeadline(model);
+                        QuestionService.Update(model);
+
+                        modelVM.StatusID = (int)DocumentStatusesEnum.WaitingForApproval;
+                    }
+                    else
+                        QuestionService.Update(model, curUser.ID);
+
+                    return Ok(new { id = model.ID });
                 }
+                else
+                    throw new Exception("Неверные данные");
             }
             catch (Exception ex)
             {
-                ModelState.AddModelError("", "Что-то пошло не так: " + ex.Message);
+                return CustomBadRequest(ex);
+                //ModelState.AddModelError("", "Что-то пошло не так: " + ex.Message);
             }
-
-            return View(modelVM);
         }
 
-        public IActionResult EditFree(int id)
+        public IActionResult EditFree(int id, bool? successfullyCreated = null)
         {
             var model = QuestionService.GetFreeByID(id);
             if (model == null)
@@ -166,8 +180,10 @@ namespace Expro.Areas.User.Controllers
             var modelVM = new QuestionFreeEditVM(model);
 
             var selectedLawAreaIDs = model.QuestionLawAreas.Select(m => m.LawAreaID).ToList();
-
             PrepareViewData(selectedLawAreaIDs);
+
+            if (successfullyCreated.HasValue)
+                ViewData["successfullySaved"] = successfullyCreated.Value;
 
             return View(modelVM);
         }
@@ -179,7 +195,7 @@ namespace Expro.Areas.User.Controllers
         }
 
 
-        public IActionResult EditPaid(int id)
+        public IActionResult EditPaid(int id, bool? successfullyCreated = null)
         {
             var model = QuestionService.GetPaidByID(id);
             if (model == null)
@@ -189,6 +205,9 @@ namespace Expro.Areas.User.Controllers
 
             var selectedLawAreaIDs = model.QuestionLawAreas.Select(m => m.LawAreaID).ToList();
             PrepareViewData(selectedLawAreaIDs);
+
+            if (successfullyCreated.HasValue)
+                ViewData["successfullySaved"] = successfullyCreated.Value;
 
             return View(modelVM);
         }
@@ -321,7 +340,7 @@ namespace Expro.Areas.User.Controllers
                 {
                     Value = m.ID.ToString(),
                     Text = m.Name,
-                    Selected = selectedLawAreaIDs.Contains(m.ID),
+                    Selected = selectedLawAreaIDs != null && selectedLawAreaIDs.Contains(m.ID),
                     ParentValue = m.ParentID.HasValue ? m.ParentID.Value.ToString() : ""
                 }).ToList();
 

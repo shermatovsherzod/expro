@@ -282,11 +282,12 @@ namespace Expro.Services
 
         public IQueryable<Question> GetRandomQuestions(int count)
         {
-            List<int> allApprovedIDs = GetAllApproved().Select(m => m.ID).ToList();
+            return GetAllApproved().OrderByDescending(m => m.ID).Take(count);
+            //List<int> allApprovedIDs = GetAllApproved().Select(m => m.ID).ToList();
 
-            List<int> randomlySelectedIDs = RandomUtils.ExtractRandomInts(allApprovedIDs, count);
+            //List<int> randomlySelectedIDs = RandomUtils.ExtractRandomInts(allApprovedIDs, count);
 
-            return GetAllApproved().Where(m => randomlySelectedIDs.Contains(m.ID));
+            //return GetAllApproved().Where(m => randomlySelectedIDs.Contains(m.ID));
         }
 
         public bool SettingAsPaidIsAllowed(Question question)
