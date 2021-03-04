@@ -2,8 +2,8 @@
 @using Expro.Models.Enums
 @{
     ViewData["Title"] = "Компания";
-    ViewData["ApprovedStatusAlertText"] = "Компания подтверждена";
-    ViewData["RejectedStatusAlertText"] = "Компания отменена";
+    ViewData["ApprovedStatusAlertText"] = localizer["CompanyApproved"];
+    ViewData["RejectedStatusAlertText"] = localizer["CompanyRejected"];
 }
 
 <!-- Page Header -->
@@ -73,14 +73,14 @@
                 </span>
 
                 <!-- Nav -->
-                <ul class="js-scroll-nav nav nav-tabs page-header-tabs bg-white" id="pageHeaderTab" role="tablist"
+                @*<ul class="js-scroll-nav nav nav-tabs page-header-tabs bg-white" id="pageHeaderTab" role="tablist"
                     data-hs-scroll-nav-options='{
                 "customOffsetTop": 40
               }'>
                     <li class="nav-item active">
                         <a class="nav-link" href="#about-section">About</a>
                     </li>
-                    @*<li class="nav-item">
+                    <li class="nav-item">
                             <a class="nav-link" href="#jobs-section">Jobs <span class="badge badge-info badge-pill ml-1">+9</span></a>
                         </li>
                         <li class="nav-item">
@@ -91,8 +91,8 @@
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="#locations-section">Locations</a>
-                        </li>*@
-                </ul>
+                        </li>
+                </ul>*@
                 <!-- End Nav -->
             </div>
         </div>
@@ -102,19 +102,19 @@
 <!-- End Page Header -->
 <!-- About Section -->
 <div id="about-section" class="container space-top-1">
-    <h3>О компании</h3>
+    <h3>@localizer["AboutCompany"]</h3>
 
     <div class="row mb-5">
         <div class="col-md-3 order-md-2 mb-3 mb-md-0">
             <div class="pl-md-4">
                 <ul class="list-unstyled list-article">
                     <li>
-                        <span class="h5 d-block">Регион</span>
+                        <span class="h5 d-block">@localizer["lblRegion"]</span>
                         <span class="d-block font-size-1">@Model.Region.Name, @Model.City.Name</span>
                     </li>
 
                     <li>
-                        <span class="h5 d-block">Адрес</span>
+                        <span class="h5 d-block">@localizer["Address"]</span>
                         <span class="d-block font-size-1">@Model.Address</span>
                     </li>
 
@@ -124,12 +124,12 @@
                     </li>
 
                     <li>
-                        <span class="h5 d-block">Email</span>
+                        <span class="h5 d-block">@localizer["Email"]</span>
                         <span class="d-block font-size-1">@Model.Email</span>
                     </li>
 
                     <li>
-                        <span class="h5 d-block">Ссылки</span>
+                        <span class="h5 d-block">@localizer["Links"]</span>
 
                         <ul class="list-inline">
                             <li class="list-inline-item">
@@ -183,37 +183,47 @@
         </div>
     </div>
 
-    <div class="mt-5 mb-3">
-        @*@{
-                string dateAdminResponsed = "";
-                if (!string.IsNullOrWhiteSpace(Model.DateAdminResponsed))
-                {
-                    dateAdminResponsed = "(" + Model.DateAdminResponsed + ")";
-                }
-            }*@
+
+    <div class="mt-5">
         @if (Model.Status.ID == (int)DocumentStatusesEnum.WaitingForApproval)
         {
-            <span>Действия:</span>
-            <button type="button" class="btn btn-success" onclick="Approve(@Model.ID);">Подтвердить <i class="fas fa-check ml-1"></i></button>
-            <button type="button" class="btn btn-danger" onclick="Reject(@Model.ID);">Отменить <i class="fas fa-times ml-1"></i></button>
+            <span>@localizer["Actions"]:</span>
+            <button type="button" class="btn btn-success" onclick="Approve(@Model.ID);">@localizer["Approve"] <i class="fas fa-check ml-1"></i></button>
+            <button type="button" class="btn btn-danger" onclick="Reject(@Model.ID);">@localizer["Reject"] <i class="fas fa-times ml-1"></i></button>
             <div class="spinner-border spinner" style="display: none;"></div>
         }
         else if (Model.Status.ID == (int)DocumentStatusesEnum.Approved)
         {
-            <div class="alert alert-soft-success text-center rounded-0 mb-0" role="alert">
-                @ViewData["ApprovedStatusAlertText"] @*@dateAdminResponsed*@
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="alert alert-soft-success text-center rounded-0 mb-0" role="alert">
+                        @ViewData["ApprovedStatusAlertText"]
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <button type="button" class="btn btn-danger" onclick="Reject(@Model.ID);">@localizer["Reject"] <i class="fas fa-times ml-1"></i></button>
+                </div>
             </div>
         }
         else if (Model.Status.ID == (int)DocumentStatusesEnum.Rejected)
         {
-            <div class="alert alert-soft-danger text-center rounded-0 mb-0" role="alert">
-                @ViewData["RejectedStatusAlertText"] @*@dateAdminResponsed*@
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="alert alert-soft-danger text-center rounded-0 mb-0" role="alert">
+                        @ViewData["RejectedStatusAlertText"]
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <button type="button" class="btn btn-success" onclick="Approve(@Model.ID);">@localizer["Approve"] <i class="fas fa-check ml-1"></i></button>
+                </div>
             </div>
         }
     </div>
-    <div>
-        <a asp-action="Index">Назад к списку</a>
+    <div class="mt-5">
+        <a asp-action="Index">@localizer["BackToList"]</a>
     </div>
+    <br />
+    <br />
 </div>
 
 <style>

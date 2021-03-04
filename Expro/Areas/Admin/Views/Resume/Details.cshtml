@@ -1,124 +1,169 @@
-﻿@*@model Expro.ViewModels.ResumeDetailsVM
+﻿@model Expro.ViewModels.ResumeDetailsVM
 @using Expro.Models.Enums
 @{
-    ViewData["Title"] = "Details";
-    ViewData["ApprovedStatusAlertText"] = "Резюме подтверждено";
-    ViewData["RejectedStatusAlertText"] = "Резюме отменен";
+    ViewData["Title"] = "Резюме";
+    ViewData["ApprovedStatusAlertText"] = localizer["ResumeApproved"];
+    ViewData["RejectedStatusAlertText"] = localizer["ResumeRejected"];
 }
 
-<div>
-    <h4>Резюме</h4>
-    <hr />
-    <dl class="row">
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.ID)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.ID)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.FirstName)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.FirstName)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.LastName)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.LastName)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.PatronymicName)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.PatronymicName)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Contact)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Contact)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.DateOfBirth)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.DateOfBirth)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Region)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Region)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.City)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.City)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.CityOther)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.CityOther)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Education)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Education)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.GraduationDate)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.GraduationDate)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.WorkExperience)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.WorkExperience)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Languages)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Languages)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.OtherInfo)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.OtherInfo)
-        </dd>
 
-        <dt class="col-sm-2">
-            Действия:
-        </dt>
-        <dd class="col-sm-10">
-            @if (Model.Status == (int)ResumeStatusEnum.WaitingForApproval)
-            {
-                <button type="button" class="btn btn-success" onclick="Approve(@Model.ID);">Подтвердить</button>
-                <button type="button" class="btn btn-danger" onclick="Reject(@Model.ID);">Отменить</button>
-            }
-            else if (Model.Status == (int)ResumeStatusEnum.Approved)
-            {
-                <div class="alert alert-success">@ViewData["ApprovedStatusAlertText"]</div>
-            }
-            else if (Model.Status == (int)ResumeStatusEnum.Rejected)
-            {
-                <div class="alert alert-danger">@ViewData["RejectedStatusAlertText"]</div>
-            }
-            <div class="spinner-border spinner" style="display: none;"></div>
-        </dd>
-    </dl>
+<!-- Page Header -->
+<div class="container">
+    <div class="page-header">
+        <!-- Media -->
+        <div class="d-flex align-items-lg-center">
+            <div class="media-body">
+                <div class="row">
+                    <div class="col-lg mb-3 mb-lg-0">
+                        <h1 class="h2 mb-1">@Model.LastName @Model.FirstName @Model.PatronymicName</h1>
+
+                        <ul class="list-inline list-separator font-size-1">
+                            <li class="list-inline-item">
+                                <i class="fas fa-map-marker-alt text-primary mr-1"></i> @Model.Region.Name, @Model.City.Name
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <!-- End Row -->
+            </div>
+        </div>
+        <!-- End Media -->
+    </div>
 </div>
-<div>
-    <a asp-action="Index">Back to List</a>
+
+<!-- End Page Header -->
+<!-- Description Section -->
+<div class="container space-2">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="mb-8">
+                <div class="mb-3">
+                    <h3>@localizer["Contacts"]</h3>
+                </div>
+                <p>@Html.Raw(Model.Contact)</p>
+                <div class="mb-3">
+                    <h3>@localizer["PersonalInformation"]</h3>
+                </div>
+                <!-- Row -->
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="mb-4">
+                            <h5>@localizer["lblDateOfBirth"]</h5>
+                            <p>@Model.DateOfBirth</p>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="mb-4">
+                            <h5>@localizer["Languages"]</h5>
+                            <p>@Model.Languages</p>
+                        </div>
+                        <div class="mb-4">
+
+                        </div>
+                    </div>
+                </div>
+                <!-- End Row -->
+            </div>
+
+
+            <div class="mb-8">
+                <div class="mb-3">
+                    <h3>@localizer["Workexperience"]</h3>
+                </div>
+                <!-- Step -->
+                <ul class="step step-icon-sm">
+
+                    <li class="step-item">
+                        <div class="step-content-wrapper">
+                            <div class="step-avatar step-avatar-sm">
+                                <img class="step-avatar-img" src="~/lib/frontTheme/svg/brands/slack.svg" alt="Image Description" />
+                            </div>
+                            <div class="step-content">
+                                <p class="text-body mb-0">@Model.WorkExperience</p>
+                            </div>
+                        </div>
+                    </li>
+
+                </ul>
+                <!-- End Step -->
+            </div>
+
+            <div class="mb-8">
+                <div class="mb-3">
+                    <h3>@localizer["Education"]</h3>
+                </div>
+
+                <!-- Step -->
+                <ul class="step step-icon-sm">
+
+                    <li class="step-item">
+                        <div class="step-content-wrapper">
+                            <span class="step-icon step-icon-soft-dark">
+                                <i class="fas fa-graduation-cap"></i>
+                            </span>
+                            <div class="step-content">
+                                <p class="text-body mb-0">@Html.Raw(Model.Education)</p>
+                                <small class="d-block">@Model.GraduationDate</small>
+                            </div>
+                        </div>
+                    </li>
+
+                </ul>
+                <!-- End Step -->
+            </div>
+
+            <div class="mb-8">
+                <div class="mb-3">
+                    <h3>@localizer["AdditionalInformation"]</h3>
+                </div>
+                <p>@Html.Raw(Model.OtherInfo)</p>
+            </div>
+        </div>
+    </div>
 </div>
+
+
+<div class="mt-5">
+    @if (Model.Status.ID == (int)DocumentStatusesEnum.WaitingForApproval)
+    {
+        <span>@localizer["Actions"]:</span>
+        <button type="button" class="btn btn-success" onclick="Approve(@Model.ID);">@localizer["Approve"] <i class="fas fa-check ml-1"></i></button>
+        <button type="button" class="btn btn-danger" onclick="Reject(@Model.ID);">@localizer["Reject"] <i class="fas fa-times ml-1"></i></button>
+        <div class="spinner-border spinner" style="display: none;"></div>
+    }
+    else if (Model.Status.ID == (int)DocumentStatusesEnum.Approved)
+    {
+        <div class="row">
+            <div class="col-md-6">
+                <div class="alert alert-soft-success text-center rounded-0 mb-0" role="alert">
+                    @ViewData["ApprovedStatusAlertText"]
+                </div>
+            </div>
+            <div class="col-md-6">
+                <button type="button" class="btn btn-danger" onclick="Reject(@Model.ID);">@localizer["Reject"] <i class="fas fa-times ml-1"></i></button>
+            </div>
+        </div>
+    }
+    else if (Model.Status.ID == (int)DocumentStatusesEnum.Rejected)
+    {
+        <div class="row">
+            <div class="col-md-6">
+                <div class="alert alert-soft-danger text-center rounded-0 mb-0" role="alert">
+                    @ViewData["RejectedStatusAlertText"]
+                </div>
+            </div>
+            <div class="col-md-6">
+                <button type="button" class="btn btn-success" onclick="Approve(@Model.ID);">@localizer["Approve"] <i class="fas fa-check ml-1"></i></button>
+            </div>
+        </div>
+    }
+</div>
+
+<div class="mt-5">
+    <a asp-action="Index">@localizer["BackToList"]</a>
+</div>
+<br />
+<br />
 
 
 <script>
@@ -127,13 +172,13 @@
         if (confirm("Вы уверены, что хотите подтвердить?")) {
             $.ajax({
                 type: "POST",
-                url: "/Admin/Resume/Approve/" + id,               
-                contentType: "application/json; charset=utf-8",                
+                url: "/Admin/Resume/Approve/" + id,
+                contentType: "application/json; charset=utf-8",
                 beforeSend: function (data) {
                     $(".btn").attr("disabled", "disabled");
                     ShowFormSpinner();
                 },
-                success: function (data) {                    
+                success: function (data) {
                     location.reload();
                 },
                 error: function (data) {
@@ -167,10 +212,10 @@
         }
     }
 
-   
-   
+
+
 
     function ShowFormSpinner() {
         $(".spinner").show();
     }
-</script>*@
+</script>

@@ -61,6 +61,15 @@ namespace Expro.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to О компании.
+        /// </summary>
+        public static string AboutCompany {
+            get {
+                return ResourceManager.GetString("AboutCompany", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Обо мне.
         /// </summary>
         public static string AboutMe {
@@ -205,6 +214,15 @@ namespace Expro.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Адрес.
+        /// </summary>
+        public static string Address {
+            get {
+                return ResourceManager.GetString("Address", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Добавить опыть работы.
         /// </summary>
         public static string AddWorkexperience {
@@ -300,6 +318,15 @@ namespace Expro.Resources {
         public static string AreYouSureToCloseQuestionWithoutFeeDistribution {
             get {
                 return ResourceManager.GetString("AreYouSureToCloseQuestionWithoutFeeDistribution", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Вы уверены, что хотите отказать.
+        /// </summary>
+        public static string AreYouSureToReject {
+            get {
+                return ResourceManager.GetString("AreYouSureToReject", resourceCulture);
             }
         }
         
@@ -552,6 +579,24 @@ namespace Expro.Resources {
         public static string CompaniesCatalog {
             get {
                 return ResourceManager.GetString("CompaniesCatalog", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Компания подтверждена.
+        /// </summary>
+        public static string CompanyApproved {
+            get {
+                return ResourceManager.GetString("CompanyApproved", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Компании отказано.
+        /// </summary>
+        public static string CompanyRejected {
+            get {
+                return ResourceManager.GetString("CompanyRejected", resourceCulture);
             }
         }
         
@@ -1537,6 +1582,15 @@ namespace Expro.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Ссылки.
+        /// </summary>
+        public static string Links {
+            get {
+                return ResourceManager.GetString("Links", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Загрузка.
         /// </summary>
         public static string Loading {
@@ -2356,11 +2410,29 @@ namespace Expro.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Резюме подтверждено.
+        /// </summary>
+        public static string ResumeApproved {
+            get {
+                return ResourceManager.GetString("ResumeApproved", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Каталог резюме.
         /// </summary>
         public static string ResumeCatalog {
             get {
                 return ResourceManager.GetString("ResumeCatalog", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Резюме отказано.
+        /// </summary>
+        public static string ResumeRejected {
+            get {
+                return ResourceManager.GetString("ResumeRejected", resourceCulture);
             }
         }
         

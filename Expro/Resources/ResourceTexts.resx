@@ -1074,4 +1074,28 @@
   <data name="SampleDocumentTitle" xml:space="preserve">
     <value>Название документа</value>
   </data>
+  <data name="AboutCompany" xml:space="preserve">
+    <value>О компании</value>
+  </data>
+  <data name="Address" xml:space="preserve">
+    <value>Адрес</value>
+  </data>
+  <data name="AreYouSureToReject" xml:space="preserve">
+    <value>Вы уверены, что хотите отказать</value>
+  </data>
+  <data name="CompanyApproved" xml:space="preserve">
+    <value>Компания подтверждена</value>
+  </data>
+  <data name="CompanyRejected" xml:space="preserve">
+    <value>Компании отказано</value>
+  </data>
+  <data name="Links" xml:space="preserve">
+    <value>Ссылки</value>
+  </data>
+  <data name="ResumeApproved" xml:space="preserve">
+    <value>Резюме подтверждено</value>
+  </data>
+  <data name="ResumeRejected" xml:space="preserve">
+    <value>Резюме отказано</value>
+  </data>
 </root>

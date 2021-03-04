@@ -1074,4 +1074,28 @@
   <data name="SampleDocumentTitle" xml:space="preserve">
     <value>Намунавий хужжат номи</value>
   </data>
+  <data name="AboutCompany" xml:space="preserve">
+    <value>Компания хақида</value>
+  </data>
+  <data name="Address" xml:space="preserve">
+    <value>Манзил</value>
+  </data>
+  <data name="AreYouSureToReject" xml:space="preserve">
+    <value>Хақиқатдан хам рад этмоқчимисиз</value>
+  </data>
+  <data name="CompanyApproved" xml:space="preserve">
+    <value>Компания тасдиқланган</value>
+  </data>
+  <data name="CompanyRejected" xml:space="preserve">
+    <value>Компания рад этилган</value>
+  </data>
+  <data name="Links" xml:space="preserve">
+    <value>Хаволалар</value>
+  </data>
+  <data name="ResumeApproved" xml:space="preserve">
+    <value>Резюме тасдиқланган</value>
+  </data>
+  <data name="ResumeRejected" xml:space="preserve">
+    <value>Резюме рад этилган</value>
+  </data>
 </root>
