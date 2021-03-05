@@ -146,5 +146,23 @@ namespace Expro.Controllers
                 return CustomBadRequest(ex);
             }
         }
+
+        [HttpPost]
+        public virtual IActionResult ApproveEmail(string id)
+        {
+            try
+            {
+                var expert = _userService.GetByID(id);
+                if (expert == null)
+                    throw new Exception("Эксперт не найден");
+
+                _expertsListAdminActionsService.ApproveEmail(expert);
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return CustomBadRequest(ex);
+            }
+        }
     }
 }

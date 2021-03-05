@@ -28,7 +28,7 @@ namespace Expro.ViewModels
 
         [Display(Name = "Регион")]
         public string RegionStr { get; set; }
-        
+
         [Display(Name = "Город")]
         public string CityStr { get; set; }
 
@@ -37,7 +37,7 @@ namespace Expro.ViewModels
 
         [Display(Name = "Дата рождения")]
         public string DateOfBirth { get; set; }
-        
+
         [Display(Name = "Пол")]
         public string GenderStr { get; set; }
 
@@ -52,7 +52,7 @@ namespace Expro.ViewModels
 
         [Display(Name = "Статус")]
         public string UserStatusStr { get; set; }
-        
+
         [Display(Name = "Имя пользователя")]
         public string UserName { get; set; }
 
@@ -73,7 +73,7 @@ namespace Expro.ViewModels
 
         [Display(Name = "Сайт")]
         public string WebSite { get; set; }
-        
+
         [Display(Name = "Направление")]
         public List<string> LawAreasName { get; set; }
 
@@ -92,6 +92,8 @@ namespace Expro.ViewModels
         public string DateRejectedStr { get; set; }
         public string DateSubmittedForApprovalStr { get; set; }
 
+        public bool EmailConfirmed { get; set; }
+
         public ProfileExpertFullInfoVM(ApplicationUser model)
         {
             if (model == null)
@@ -99,9 +101,9 @@ namespace Expro.ViewModels
             Id = model.Id;
             FirstName = model.FirstName;
             LastName = model.LastName;
-            PatronymicName = model.PatronymicName;           
+            PatronymicName = model.PatronymicName;
             CityOther = model.CityOther;
-            DateOfBirth = model.DateOfBirth != DateTime.MinValue ? DateTimeUtils.ConvertToString(model.DateOfBirth, AppData.Configuration.DateViewStringFormat) : "";            
+            DateOfBirth = model.DateOfBirth != DateTime.MinValue ? DateTimeUtils.ConvertToString(model.DateOfBirth, AppData.Configuration.DateViewStringFormat) : "";
             GenderStr = model.GenderID != null ? model.Gender.Name : "";
             DateRegistered = DateTimeUtils.ConvertToString(model.DateRegistered, AppData.Configuration.DateTimeViewStringFormat);
             UserStatusID = model.UserStatusID;
@@ -130,6 +132,7 @@ namespace Expro.ViewModels
             WorkExperience = new ExpertProfileWorkExperienceDetailsVM().GetListOfExpertProfileWorkExperienceDetailsVM(model.WorkExperience);
             Education = new ExpertProfileEducationDetailsVM().GetListOfExpertProfileEducationDetailsVM(model.ExpertEducations);
             IsOnline = model.IsOnline == true ? true : false;
+            EmailConfirmed = model.EmailConfirmed;
         }
 
         public List<ProfileExpertFullInfoVM> GetListOfExpertFullInfoVM(IQueryable<ApplicationUser> models)
@@ -142,13 +145,13 @@ namespace Expro.ViewModels
                 Id = s.Id,
                 FirstName = s.FirstName,
                 LastName = s.LastName,
-                PatronymicName = s.PatronymicName,                
+                PatronymicName = s.PatronymicName,
                 CityOther = s.CityOther,
-                DateOfBirth = s.DateOfBirth != DateTime.MinValue ? DateTimeUtils.ConvertToString(s.DateOfBirth, AppData.Configuration.DateViewStringFormat) : "",                
+                DateOfBirth = s.DateOfBirth != DateTime.MinValue ? DateTimeUtils.ConvertToString(s.DateOfBirth, AppData.Configuration.DateViewStringFormat) : "",
                 GenderStr = s.GenderID != null ? s.Gender.Name : "",
                 DateRegistered = DateTimeUtils.ConvertToString(s.DateRegistered, AppData.Configuration.DateTimeViewStringFormat),
                 UserStatusID = s.UserStatusID,
-                UserStatusStr = s.UserStatus.Name,                
+                UserStatusStr = s.UserStatus.Name,
                 DateApprovedStr = DateTimeUtils.ConvertToString(s.DateApproved, AppData.Configuration.DateTimeViewStringFormat),
                 DateRejectedStr = DateTimeUtils.ConvertToString(s.DateRejected, AppData.Configuration.DateTimeViewStringFormat),
                 DateSubmittedForApprovalStr = DateTimeUtils.ConvertToString(s.DateSubmittedForApproval, AppData.Configuration.DateTimeViewStringFormat),
@@ -161,10 +164,11 @@ namespace Expro.ViewModels
                 Fax = s.Fax,
                 WebSite = s.WebSite,
                 RegionStr = s.RegionID != null ? s.Region.Name : "",
-                CityStr = s.CityID != null ? s.City.Name : "",                
+                CityStr = s.CityID != null ? s.City.Name : "",
                 LawAreasName = s.UserLawAreas != null ? s.UserLawAreas.Select(c => c.LawArea.Name).ToList() : null,
                 Status = s.UserStatusID,
-                IsOnline = s.IsOnline == true ? true : false
+                IsOnline = s.IsOnline == true ? true : false,
+                EmailConfirmed = s.EmailConfirmed
             }).ToList();
         }
     }

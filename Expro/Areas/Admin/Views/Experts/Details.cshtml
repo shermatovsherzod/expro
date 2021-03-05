@@ -1,11 +1,11 @@
 ﻿@model Expro.ViewModels.ProfileExpertFullInfoVM
 @using Expro.Models.Enums
 @{
-    ViewData["Title"] = "Эксперты";
-    ViewData["ApprovedStatusAlertText"] = "Эксперт подтвержден";
-    ViewData["RejectedStatusAlertText"] = "Эксперту отказано";
-    ViewData["WaitingForApprovalAlertText"] = "Ожидание подтверждения";
-    ViewData["NotApprovedAlertText"] = "Эксперт не отправлял данные на подтверждение";
+    ViewData["Title"] = "Эксперт";
+    ViewData["ApprovedStatusAlertText"] = localizer["ExpertApproved"];
+    ViewData["RejectedStatusAlertText"] = localizer["ExpertRejected"];
+    ViewData["WaitingForApprovalAlertText"] = localizer["ExpertWaitingForApproval"];
+    ViewData["NotApprovedAlertText"] = localizer["ExpertNotApproved"];
 }
 
 <!-- Page Header -->
@@ -58,10 +58,7 @@
                 <div class="mb-3">
                     <h3>@localizer["AboutMe"]</h3>
                 </div>
-
                 <p>@Model.AboutMe</p>
-
-
 
                 <div class="mb-3">
                     <h3>@localizer["PersonalInformation"]</h3>
@@ -91,7 +88,6 @@
                     </div>
                 </div>
                 <!-- End Row -->
-
 
                 <div class="mb-3">
                     <h3>@localizer["RegistrationInfo"]</h3>
@@ -191,7 +187,7 @@
                                     <h5>@item.University - @item.Faculty</h5>
                                     <span class="d-block text-dark">@item.Country, @item.City</span>
                                     <small class="d-block">@localizer["lblGraduationYear"] @item.GraduationYear</small>
-                                    <a href="@item.Diploma.Url" target="_blank" download="@item.Diploma.DisplayName" >@item.Diploma.DisplayName</a>                                    
+                                    <a href="@item.Diploma.Url" target="_blank" download="@item.Diploma.DisplayName">@item.Diploma.DisplayName</a>
                                 </div>
                             </div>
                         </li>
@@ -274,19 +270,35 @@
 
                 @if (Model.Status == (int)ExpertApproveStatusEnum.WaitingForApproval)
                 {
-                    <button type="button" class="btn btn-success" onclick="Approve('@Model.Id');">Подтвердить</button>
-                    <button type="button" class="btn btn-danger" onclick="Reject('@Model.Id');">Отменить</button>
+                    <button type="button" class="btn btn-success" onclick="Approve('@Model.Id');">@localizer["Approve"]</button>
+                    <button type="button" class="btn btn-danger" onclick="Reject('@Model.Id');">@localizer["Reject"]</button>
                 }
                 else if (Model.Status == (int)ExpertApproveStatusEnum.Rejected)
                 {
-                    <button type="button" class="btn btn-success" onclick="Approve('@Model.Id');">Подтвердить эксперта</button>
+                    <button type="button" class="btn btn-success" onclick="Approve('@Model.Id');">@localizer["Approve"]</button>
                 }
                 else if (Model.Status == (int)ExpertApproveStatusEnum.Approved)
                 {
-                    <button type="button" class="btn btn-danger" onclick="Reject('@Model.Id');">Эксперту отказать</button>
+                    <button type="button" class="btn btn-danger" onclick="Reject('@Model.Id');">@localizer["Reject"]</button>
                 }
 
                 <div class="spinner-border spinner" style="display: none;"></div>
+            </div>
+        </div>
+    </div>
+    <div class="row space-2">
+        <div class="col-md-12">
+            <div class="col-md-6">
+                @if (Model.EmailConfirmed)
+                {
+                    <div class="alert alert-success">@localizer["EmailConfirmed"]</div>
+                }
+                else
+                {
+                    <button type="button" class="btn btn-success" onclick="ApproveEmail('@Model.Id');">@localizer["EmailConfirm"]</button>
+                }
+            </div>
+            <div class="col-md-6">
             </div>
         </div>
     </div>
@@ -321,6 +333,30 @@
             $.ajax({
                 type: "POST",
                 url: "/Admin/Experts/Reject/" + id,
+                contentType: "application/json; charset=utf-8",
+                beforeSend: function (data) {
+                    $(".btn").attr("disabled", "disabled");
+                    ShowFormSpinner();
+                },
+                success: function (data) {
+                    location.reload();
+                },
+                error: function (data) {
+                    alert("Ajax error (status code = " + data.status + "): " + data.statusText);
+                },
+                complete: function (data) {
+                }
+            });
+        }
+    }
+
+
+    function ApproveEmail(id) {
+
+        if (confirm("Вы уверены, что хотите подтвердить адрес электронной почты?")) {
+            $.ajax({
+                type: "POST",
+                url: "/Admin/Experts/ApproveEmail/" + id,
                 contentType: "application/json; charset=utf-8",
                 beforeSend: function (data) {
                     $(".btn").attr("disabled", "disabled");

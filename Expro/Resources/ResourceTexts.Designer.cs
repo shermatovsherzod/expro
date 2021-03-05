@@ -763,6 +763,15 @@ namespace Expro.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Удалить.
+        /// </summary>
+        public static string Delete {
+            get {
+                return ResourceManager.GetString("Delete", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Описание.
         /// </summary>
         public static string Description {
@@ -1164,6 +1173,24 @@ namespace Expro.Resources {
         public static string Feedback {
             get {
                 return ResourceManager.GetString("Feedback", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Отзыв эксперту.
+        /// </summary>
+        public static string FeedbackFor {
+            get {
+                return ResourceManager.GetString("FeedbackFor", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Отзыв от.
+        /// </summary>
+        public static string FeedbackFrom {
+            get {
+                return ResourceManager.GetString("FeedbackFrom", resourceCulture);
             }
         }
         
@@ -1884,6 +1911,15 @@ namespace Expro.Resources {
         public static string Others {
             get {
                 return ResourceManager.GetString("Others", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Общий рейтинг.
+        /// </summary>
+        public static string OverallRating {
+            get {
+                return ResourceManager.GetString("OverallRating", resourceCulture);
             }
         }
         

@@ -1140,4 +1140,16 @@
   <data name="WatingForApproval" xml:space="preserve">
     <value>Тасдиқланиши кутилмоқда</value>
   </data>
+  <data name="Delete" xml:space="preserve">
+    <value>Ўчириш</value>
+  </data>
+  <data name="FeedbackFor" xml:space="preserve">
+    <value>Экспертга мулохаза</value>
+  </data>
+  <data name="FeedbackFrom" xml:space="preserve">
+    <value>Мулохоза қолдирган шахс</value>
+  </data>
+  <data name="OverallRating" xml:space="preserve">
+    <value>Умумий рейтинг</value>
+  </data>
 </root>

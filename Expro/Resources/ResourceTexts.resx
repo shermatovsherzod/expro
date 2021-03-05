@@ -1140,4 +1140,16 @@
   <data name="WatingForApproval" xml:space="preserve">
     <value>Ожидание подтверждения</value>
   </data>
+  <data name="Delete" xml:space="preserve">
+    <value>Удалить</value>
+  </data>
+  <data name="FeedbackFor" xml:space="preserve">
+    <value>Отзыв эксперту</value>
+  </data>
+  <data name="FeedbackFrom" xml:space="preserve">
+    <value>Отзыв от</value>
+  </data>
+  <data name="OverallRating" xml:space="preserve">
+    <value>Общий рейтинг</value>
+  </data>
 </root>

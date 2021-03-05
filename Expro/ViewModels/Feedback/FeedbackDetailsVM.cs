@@ -39,14 +39,14 @@ namespace Expro.ViewModels
                 return;
             ID = model.ID;
             Stars = model.Stars;
-            FeedbackText = model.FeedbackText;
+            FeedbackText = model.FeedbackText != null ? model.FeedbackText : "";
             Status = model.FeedbackStatusID;
             FeedbackToUserFullName = model.ToUser.FirstName + " " + model.ToUser.LastName;
             FeedbackCreatedUserFullName = model.Creator.FirstName + " " + model.Creator.LastName;
             FeedbackDateCreated = model.DateCreated != DateTime.MinValue ? DateTimeUtils.ConvertToString(model.DateCreated, AppData.Configuration.DateViewStringFormat) : "";
             FeedbackCreatedUserAvatar = new AttachmentDetailsVM(model.Creator.Avatar);
 
-           
+
         }
 
         public List<FeedbackDetailsVM> GetListOfFeedbackDetailsVM(IQueryable<Feedback> models)
@@ -58,7 +58,7 @@ namespace Expro.ViewModels
             {
                 ID = s.ID,
                 Stars = s.Stars,
-                FeedbackText = s.FeedbackText,
+                FeedbackText = s.FeedbackText != null ? s.FeedbackText : "",
                 FeedbackToUserFullName = s.ToUser.FirstName + " " + s.ToUser.LastName,
                 Status = s.FeedbackStatusID,
                 FeedbackCreatedUserFullName = s.Creator.FirstName + " " + s.Creator.LastName,

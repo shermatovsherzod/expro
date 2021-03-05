@@ -74,5 +74,11 @@ namespace Expro.Areas.Admin.Controllers
         {
             return base.Reject(id);
         }
+
+        [HttpPost]
+        public override IActionResult ApproveEmail(string id)
+        {
+            return base.ApproveEmail(id);
+        }
     }
 }

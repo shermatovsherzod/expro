@@ -9,5 +9,6 @@ namespace Expro.Services.Interfaces
     {
         bool Approve(ApplicationUser entity);
         bool Reject(ApplicationUser entity);
+        bool ApproveEmail(ApplicationUser entity);
     }
 }

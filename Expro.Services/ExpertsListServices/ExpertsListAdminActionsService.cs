@@ -91,5 +91,21 @@ namespace Expro.Services
                 return false;
             }
         }
+
+        public bool ApproveEmail(ApplicationUser entity)
+        {            
+            entity.EmailConfirmed = true;
+
+            try
+            {
+                _userService.Update(entity);               
+
+                return true;
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
     }
 }

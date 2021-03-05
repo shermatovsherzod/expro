@@ -2,7 +2,7 @@
 @using Expro.Models.Enums
 
 @{
-    ViewData["Title"] = "Отзыв";
+    ViewData["Title"] = localizer["Feedback"];
 }
 
 <h6>@ViewData["Title"]</h6>
@@ -16,9 +16,9 @@
         <table id="list" class="table table-borderless table-thead-bordered table-align-middle" width="100%">
             <thead class="thead-light">
                 <tr>
-                    <th>Отзыв от</th>
-                    <th>Отзыв эксперту</th>
-                    <th>Удалить</th>
+                    <th>@localizer["FeedbackFrom"]</th>
+                    <th>@localizer["FeedbackFor"]</th>
+                    <th>@localizer["Delete"]</th>
                 </tr>
             </thead>
             <tbody>
