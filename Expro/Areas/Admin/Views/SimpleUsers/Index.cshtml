@@ -1,0 +1,121 @@
+﻿@using Expro.ViewModels
+@using Expro.Models.Enums
+
+@{
+    ViewData["Title"] = localizer["Users"];
+}
+@section CustomFrontStyles{
+    <link rel="stylesheet" href="~/lib/frontTheme/vendor/select2/dist/css/select2.min.css">
+}
+
+<h1>@ViewData["Title"]</h1>
+<br />
+
+<div id="tableBox">
+    <div class="spinner-border spinner" style="display: none;"></div>
+    <div class="table-responsive">
+        <table id="list" class="table table-borderless table-thead-bordered table-nowrap table-align-middle" width="100%">
+            <thead class="thead-light">
+                <tr>
+                    <th>@localizer["Users"]</th>
+                    <th style="width: 5%;">@localizer["View"]</th>
+                </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+    </div>
+    <div class="spinner-border spinner" style="display: none;"></div>
+</div>
+
+<link href="~/lib/DataTables-1.10.22/datatables.css" rel="stylesheet" />
+
+@section Scripts
+{
+    <script src="~/lib/frontTheme/vendor/select2/dist/js/select2.full.min.js"></script>
+    <script src="~/lib/DataTables-1.10.22/datatables.js"></script>
+
+
+    <script>
+        var table;
+
+        $(document).ready(function () {
+            table = $("table#list").DataTable({
+                searching: false,
+                ordering: false,
+                processing: true,
+                serverSide: true,
+                lengthChange: false,
+                scrollX: true,
+                lengthChange: false,
+                language: InitDataTableLanguage(),
+                ajax:
+                {
+                    url: "/Admin/SimpleUsers/Search",
+                    type: "POST",
+                    datatype: "json",
+                    data: function (d) {
+                        d.statusID = $("#statusDD").val();
+                    },
+                },
+                columns: [
+                    {
+                        "data": 0,
+                        "render": function (data, type, full, meta) {
+
+                            var html = '';
+                            html += '<div class="media align-items-center">';
+                            html += '<div class="avatar avatar-circle mr-3"><img class="avatar-img" src = "' + full.avatar.url + '" alt = "">'
+
+                            if (full.isOnline) {
+                                html += '<span class="avatar-status avatar-sm-status avatar-success" ></span > ';
+                            }
+                            html += '</div><div class="media-body">';
+                            html += '<a class="d-inline-block text-dark" href="/Admin/SimpleUsers/Details/' + full.id + '">';
+                            html += '<h6 class="text-hover-primary mb-0">' + full.firstName + ' ' + full.lastName;
+                            html += '</h6 > ';
+                            html += '</a>';
+                            html += '<small class="d-block">' + full.email + ' </small>';
+                            html += '</div>';
+                            html += '</div>';
+
+                            return html;
+                        }
+                    },
+                    {
+                        "data": 2,
+                        "render": function (data, type, full, meta) {
+                            var html = '';
+                            html += ' <a class="text-body" href="/Admin/SimpleUsers/Details/' + full.id + '" data-toggle="tooltip" data-placement="top" title="Locked"><i class="fas fa-eye" ></i></a >';
+
+                            return html;
+                        }
+                    }
+                ]
+            });
+
+            table
+                .on('preDraw', function () {
+                    $("#tableBox .spinner").show();
+                })
+                .on('draw.dt', function () {
+                    $("#tableBox .spinner").hide();
+                });
+
+            $("#statusDD").change(function () {
+                table.draw();
+            });
+        });
+      
+    </script>
+
+    <script>
+        // INITIALIZATION OF SELECT2
+        // =======================================================
+        $('.js-custom-select').each(function () {
+            var select2 = $.HSCore.components.HSSelect2.init($(this));
+        });
+    </script>
+
+
+}

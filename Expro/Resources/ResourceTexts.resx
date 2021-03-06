@@ -223,7 +223,7 @@
     <value>Комментировать</value>
   </data>
   <data name="Email" xml:space="preserve">
-    <value>Электрон почта адреси</value>
+    <value>Адрес электронной почты</value>
   </data>
   <data name="Enter" xml:space="preserve">
     <value>Вход</value>

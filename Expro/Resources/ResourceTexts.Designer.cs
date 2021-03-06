@@ -970,7 +970,7 @@ namespace Expro.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Электрон почта адреси.
+        ///   Looks up a localized string similar to Адрес электронной почты.
         /// </summary>
         public static string Email {
             get {

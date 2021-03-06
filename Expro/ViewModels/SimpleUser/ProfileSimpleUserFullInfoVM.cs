@@ -9,65 +9,66 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 
-namespace Expro.ViewModels.SimpleUser
+namespace Expro.ViewModels
 {
-    public class ProfileSimpleUserVM
+    public class ProfileSimpleUserFullInfoVM
     {
-        public ProfileSimpleUserVM(){}
 
-        [Required]
+        public ProfileSimpleUserFullInfoVM() { }
+
+        public string Id { get; set; }
+
         [Display(Name = "lblFirstName", ResourceType = typeof(ResourceTexts))]
-        [StringLength(256)]
         public string FirstName { get; set; }
 
-        [Required]
         [Display(Name = "lblLastName", ResourceType = typeof(ResourceTexts))]
-        [StringLength(256)]
         public string LastName { get; set; }
 
         [Display(Name = "lblPatronymicName", ResourceType = typeof(ResourceTexts))]
-        [StringLength(256)]
         public string PatronymicName { get; set; }
 
         [Display(Name = "lblRegion", ResourceType = typeof(ResourceTexts))]
-        public int? RegionID { get; set; }
-
-        [Display(Name = "lblRegion", ResourceType = typeof(ResourceTexts))]
-        public string Region { get; set; }
+        public string RegionStr { get; set; }
 
         [Display(Name = "lblCity", ResourceType = typeof(ResourceTexts))]
-        public int? CityID { get; set; }
+        public string CityStr { get; set; }
 
         [Display(Name = "lblCityOther", ResourceType = typeof(ResourceTexts))]
-        [StringLength(256)]
-        //[Remote("ValidateFrom", "VideoRequest", ErrorMessage = "Введите город", AdditionalFields = "TypeID")]
         public string CityOther { get; set; }
 
         [Display(Name = "lblDateOfBirth", ResourceType = typeof(ResourceTexts))]
-        [Required(ErrorMessage = "Поле Дата рождения обязательно для заполнения")]
         public string DateOfBirth { get; set; }
 
         [Display(Name = "lblGender", ResourceType = typeof(ResourceTexts))]
-        public int? GenderID { get; set; }
+        public string GenderStr { get; set; }
 
         [Display(Name = "lblDateRegistered", ResourceType = typeof(ResourceTexts))]
         public string DateRegistered { get; set; }
 
-        public ProfileSimpleUserVM(ApplicationUser model) 
+        [Display(Name = "Email", ResourceType = typeof(ResourceTexts))]
+        public string Email { get; set; }
+
+        public bool EmailConfirmed { get; set; }
+        public AttachmentDetailsVM Avatar { get; set; }
+        public bool IsOnline { get; set; }
+        public ProfileSimpleUserFullInfoVM(ApplicationUser model)
         {
             if (model == null)
                 return;
-
+            Id = model.Id;
             FirstName = model.FirstName;
             LastName = model.LastName;
             PatronymicName = model.PatronymicName;
-            RegionID = model.RegionID;
-            CityID = model.CityID;
             CityOther = model.CityOther;
             DateOfBirth = DateTimeUtils.ConvertToString(model.DateOfBirth);
-            GenderID = model.GenderID;
-            Region = model.Region != null ? model.Region.Name : "";
+            GenderStr = model.Gender != null ? model.Gender.Name : "";
+            RegionStr = model.Region != null ? model.Region.Name : "";
+            CityStr = model.City != null ? model.City.Name : "";
             DateRegistered = DateTimeUtils.ConvertToString(model.DateRegistered);
+            Email = model.Email;
+            EmailConfirmed = model.EmailConfirmed;
+            Avatar = new AttachmentDetailsVM(model.Avatar);
+            IsOnline = model.IsOnline == true ? true : false;
         }
     }
 }

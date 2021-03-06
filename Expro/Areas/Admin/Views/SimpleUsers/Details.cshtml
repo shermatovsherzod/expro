@@ -1,0 +1,133 @@
+﻿@model Expro.ViewModels.ProfileSimpleUserFullInfoVM
+
+@{
+    ViewData["Title"] = localizer["Users"];   
+}
+
+<!-- Page Header -->
+<div class="container">
+    <div class="page-header">
+        <!-- Media -->
+        <div class="d-flex align-items-lg-center">
+            <div class="avatar avatar-xxl avatar-circle mr-4">
+                <img class="avatar-img" src="@Model.Avatar.Url" alt="@Model.LastName @Model.FirstName @Model.PatronymicName">
+                @if (Model.IsOnline)
+                {
+                    <span class="avatar-status avatar-sm-status avatar-success"></span>
+                }
+            </div>
+
+            <div class="media-body">
+                <div class="row">
+                    <div class="col-lg mb-3 mb-lg-0">
+                        <h1 class="h2 mb-1">@Model.LastName @Model.FirstName @Model.PatronymicName</h1>
+
+                        <ul class="list-inline list-separator font-size-1">
+                            <li class="list-inline-item">
+                                <i class="fas fa-map-marker-alt text-primary mr-1"></i> @Model.RegionStr @Model.CityStr
+                            </li>
+                            <li class="list-inline-item">@Model.Email</li>                            
+                        </ul>
+                    </div>
+                </div>
+                <!-- End Row -->
+            </div>
+        </div>
+        <!-- End Media -->
+    </div>
+</div>
+<!-- End Page Header -->
+<!-- Description Section -->
+<div class="container space-2">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="mb-8">              
+
+                <div class="mb-3">
+                    <h3>@localizer["PersonalInformation"]</h3>
+                </div>
+                <!-- Row -->
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="mb-4">
+                            <h5>@localizer["lblDateOfBirth"]</h5>
+                            <p>@Model.DateOfBirth</p>
+                        </div>
+                        <div class="mb-4">
+                            <h5>@localizer["lblGender"]</h5>
+                            <p>@Model.GenderStr</p>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                    </div>
+                </div>
+                <!-- End Row -->
+
+                <div class="mb-3">
+                    <h3>@localizer["RegistrationInfo"]</h3>
+                </div>
+                <!-- Row -->
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="mb-4">
+                            <h5>Дата регистрации</h5>
+                            <p>@Model.DateRegistered</p>
+                        </div>
+                    </div>                   
+                </div>
+                <!-- End Row -->
+            </div>       
+
+            
+        </div>
+    </div>
+</div>
+<!-- Description Section -->
+<div class="container space-2">    
+    <div class="row space-2">
+        <div class="col-md-12">
+            <div class="col-md-6">
+                @if (Model.EmailConfirmed)
+                {
+                    <div class="alert alert-success">@localizer["EmailConfirmed"]</div>
+                }
+                else
+                {
+                    <button type="button" class="btn btn-success" onclick="ApproveEmail('@Model.Id');">@localizer["EmailConfirm"]</button>
+                }
+            </div>
+            <div class="col-md-6">
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+
+    function ApproveEmail(id) {
+
+        if (confirm("Вы уверены, что хотите подтвердить адрес электронной почты?")) {
+            $.ajax({
+                type: "POST",
+                url: "/Admin/Experts/ApproveEmail/" + id,
+                contentType: "application/json; charset=utf-8",
+                beforeSend: function (data) {
+                    $(".btn").attr("disabled", "disabled");
+                    ShowFormSpinner();
+                },
+                success: function (data) {
+                    location.reload();
+                },
+                error: function (data) {
+                    alert("Ajax error (status code = " + data.status + "): " + data.statusText);
+                },
+                complete: function (data) {
+                }
+            });
+        }
+    }
+
+    function ShowFormSpinner() {
+        $(".spinner").show();
+    }
+</script>
