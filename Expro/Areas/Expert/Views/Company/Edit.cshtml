@@ -25,13 +25,13 @@
     </div>
     <input asp-for="StatusID" type="hidden" />
 
-    @if (ViewData["successfullySaved"] != null)
+    @*@if (ViewData["successfullySaved"] != null)
     {
         <div class="alert alert-soft-success text-center rounded-0 mb-0" role="alert">
             Данные успешно сохранены
         </div>
         <br />
-    }
+    }*@
     @if (Model.StatusID == (int)DocumentStatusesEnum.WaitingForApproval)
     {
         <div class="alert alert-soft-info text-center rounded-0 mb-0" role="alert">
@@ -475,7 +475,7 @@
             }
             else {
                 var file = fileInput.files[0];
-                UploadToFirebaseStorageAnswerFile(file);
+                UploadToFirebaseStorageCompanyLogo(file);
             }
         }
 
@@ -486,9 +486,10 @@
             //$("#editCompanyForm .spinner").hide();
         }
 
-        function UploadToFirebaseStorageAnswerFile(file) {
+        function UploadToFirebaseStorageCompanyLogo(file) {
             var displayName = file.name;
-            var extension = file.name.split('.')[1];
+            var tmp = displayName.split('.');
+            var extension = tmp[tmp.length - 1];
 
             // Create a root reference
             var storageRef = firebase.storage().ref();

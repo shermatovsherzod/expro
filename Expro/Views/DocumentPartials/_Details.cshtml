@@ -17,7 +17,7 @@
                     <img class="avatar-img" src="@Model.Author.Avatar?.Url" alt="Image Description">
                 </div>
                 <div class="media-body font-size-1 ml-3">
-                    <span class="h6"><span>@Model.Author.FullName</span> @*<button type="button" class="btn btn-xs btn-soft-primary font-weight-bold transition-3d-hover py-1 px-2 ml-1">Follow</button>*@</span>
+                    <span class="h6"><span><a href="/Experts/Details/@Model.Author.ID">@Model.Author.FullName</a></span> @*<button type="button" class="btn btn-xs btn-soft-primary font-weight-bold transition-3d-hover py-1 px-2 ml-1">Follow</button>*@</span>
                     <span class="d-block text-muted">@Model.DatePublished</span>
                     <span class=""><i class="fa fa-eye" aria-hidden="true"></i> @Model.NumberOfViews</span>
                     @if (Model.PriceType == DocumentPriceTypesEnum.Paid)

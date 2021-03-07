@@ -59,6 +59,17 @@ namespace Expro.Controllers
                 .Select(m => new SelectListItemWithParent(m))
                 .ToList();
 
+            bool showAddNewQuestionButton = false;
+
+            if (User.Identity.IsAuthenticated)
+            {
+                var curUser = accountUtil.GetCurrentUser(User);
+                if (curUser.IsSimpleUser)
+                    showAddNewQuestionButton = true;
+            }
+            ViewData["showAddNewQuestionButton"] = showAddNewQuestionButton;
+
+
             return View();
         }
 

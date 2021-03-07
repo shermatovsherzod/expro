@@ -23,13 +23,13 @@
         </div>
         <input asp-for="StatusID" type="hidden" />
 
-        @if (ViewData["successfullySaved"] != null)
+        @*@if (ViewData["successfullySaved"] != null)
         {
             <div class="alert alert-soft-success text-center rounded-0 mb-0" role="alert">
                 @localizer["DataSuccessfullySaved"]
             </div>
             <br />
-        }
+        }*@
         @if (Model.StatusID == (int)DocumentStatusesEnum.WaitingForApproval)
         {
             <div class="alert alert-soft-info text-center rounded-0 mb-0" role="alert">

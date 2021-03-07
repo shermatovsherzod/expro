@@ -18,29 +18,39 @@
         <div class="quill-custom Text">
             <div class="js-quill editorEditMode" style="min-height: 15rem;"
                  data-hs-quill-options='{
-                   "placeholder": "Type your message...",
+                   "placeholder": "@localizer["WriteAnswerTextHere"]...",
                     "modules": {
                       "toolbar": [["bold", "italic", "underline", "strike", "link", "image", "blockquote", "code", {"list": "bullet"}]]
                     }
                    }'>
-                
+
             </div>
         </div>
         <!-- End Quill -->
         <textarea asp-for="Text" class="form-control" style="display: none;"></textarea>
         <span asp-validation-for="Text" class="text-danger"></span>
     </div>
+    @*<div class="form-group">
+            <label for="addAnswerFormAttachment" class="control-label"></label>
+            <div class="custom-file">
+                <input type="file" class="js-file-attach custom-file-input" id="addAnswerFormAttachment"
+                       accept=".doc, .docx, .rtf, .xml, .xls, .xlsx, .ppt, .pptx, text/plain, application/pdf, image/*"
+                       data-hs-file-attach-options='{
+                      "textTarget": "[for=\"addAnswerFormAttachment\"]"
+                   }'>
+                <label class="custom-file-label" for="addAnswerFormAttachment">@localizer["SelectFile"]</label>
+            </div>
+        </div>*@
     <div class="form-group">
-        <label for="attachmentID" class="control-label"></label>
-        <div class="custom-file">
-            <input type="file" class="js-file-attach custom-file-input" id="addAnswerFormAttachment"
+        <div class="btn btn-sm btn-light file-attachment-btn">
+            @localizer["SelectFile"]
+            <input type="file" class="js-file-attach file-attachment-btn-label" id="addAnswerFormAttachment"
                    accept=".doc, .docx, .rtf, .xml, .xls, .xlsx, .ppt, .pptx, text/plain, application/pdf, image/*"
                    data-hs-file-attach-options='{
-                  "textTarget": "[for=\"addAnswerFormAttachment\"]"
+                    "textTarget": "#answerTextSelectedFileName"
                }'>
-            <label class="custom-file-label" for="addAnswerFormAttachment">@localizer["SelectFile"]</label>
         </div>
-        @*<input type="file" id="addAnswerFormAttachment" class="form-control" />*@
+        <span id="answerTextSelectedFileName"></span>
     </div>
     <div class="form-group">
         <button type="submit" class="btn btn-primary">@localizer["Submit"]</button>
@@ -96,7 +106,7 @@
 
         questionFileInput = document.getElementById('addAnswerFormAttachment')
         //questionFileInput = $("#addAnswerForm input#attachment");
-        console.log(questionFileInput);
+        //console.log(questionFileInput);
         if (!(questionFileInput.files && questionFileInput.files[0])) {
             //$("#" + spinnerTagID).hide();
             //alert("no file is selected");
@@ -117,7 +127,8 @@
 
     function UploadToFirebaseStorageAnswerFile(file) {
         var displayName = file.name;
-        var extension = file.name.split('.')[1];
+        var tmp = displayName.split('.');
+        var extension = tmp[tmp.length - 1];
 
         // Create a root reference
         var storageRef = firebase.storage().ref();

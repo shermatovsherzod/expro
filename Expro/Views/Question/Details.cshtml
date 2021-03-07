@@ -173,7 +173,7 @@
                                     <div class="media-body">
                                         <div class="d-flex justify-content-between align-items-center">
                                             <span class="h5 mb-0">
-                                                @answer.Author.FullName
+                                                <a href="/Experts/Details/@answer.Author.ID">@answer.Author.FullName</a>
                                                 @if (!string.IsNullOrWhiteSpace(answer.PaidFeeStr))
                                                 {
                                                     <span class="badge badge-success">@localizer["FeePaid"]: @answer.PaidFeeStr @localizer["soum"]</span>
