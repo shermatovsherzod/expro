@@ -44,6 +44,26 @@ namespace Expro.Controllers
 
             ViewData["regions"] = _regionService.GetAsSelectList();
 
+            bool showAddNewItemButton = false;
+
+            if (User.Identity.IsAuthenticated)
+            {
+                var curUser = accountUtil.GetCurrentUser(User);
+                ViewData["curUserType"] = curUser.UserType?.ToString();
+
+                if (curUser.IsSimpleUser)
+                {
+                    showAddNewItemButton = true;
+                    ViewData["curUserArea"] = UserAreasEnum.User.ToString();
+                }
+                else if (curUser.IsExpert)
+                {
+                    showAddNewItemButton = true;
+                    ViewData["curUserArea"] = UserAreasEnum.Expert.ToString();
+                }
+            }
+            ViewData["showAddNewItemButton"] = showAddNewItemButton;
+
             return View();
         }
 

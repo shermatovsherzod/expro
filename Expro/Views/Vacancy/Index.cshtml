@@ -3,10 +3,20 @@
 
 @{
     ViewData["Title"] = localizer["Vacancies"];
+    var showAddNewItemButton = ViewData["showAddNewItemButton"] as bool?;
 }
 
-<h3>@ViewData["Title"]</h3>
+<h1>@ViewData["Title"]</h1>
 <br />
+
+@if (showAddNewItemButton == true)
+{
+    <div class="row">
+        <div class="col-md-12">
+            <a class="btn btn-primary" href="/@ViewData["curUserArea"]/Vacancy/Create">Добавить вакансию</a>
+        </div>
+    </div>
+}
 
 <div class="row">
     <div class="col-lg-3 order-lg-2 mb-5 mb-lg-0">
@@ -108,7 +118,7 @@
 {
     <script src="~/lib/DataTables-1.10.22/datatables.js"></script>
     <script src="~/lib/frontTheme/vendor/select2/dist/js/select2.full.min.js"></script>
-    
+
     <script src="~/js/RegionPickersBinder.js"></script>
     <script src="~/js/ResetAllButtonInitializer.js"></script>
 

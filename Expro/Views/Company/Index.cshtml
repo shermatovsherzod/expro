@@ -3,10 +3,20 @@
 @{
     ViewData["Title"] = "Компании";
     var lawAreasWithParent = ViewData["lawAreas"] as List<SelectListItemWithParent>;
+    var showAddNewItemButton = ViewData["showAddNewItemButton"] as bool?;
 }
 
 <h1>@ViewData["Title"]</h1>
 <br />
+
+@if (showAddNewItemButton == true)
+{
+    <div class="row">
+        <div class="col-md-12">
+            <a class="btn btn-primary" href="/@ViewData["curUserArea"]/Company/Create">Добавить компанию</a>
+        </div>
+    </div>
+}
 
 <div class="row">
     <div class="col-lg-3 order-lg-2 mb-5 mb-lg-0">
