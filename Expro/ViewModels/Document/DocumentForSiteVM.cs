@@ -27,6 +27,9 @@ namespace Expro.ViewModels
         [Display(Name = "Текст")]
         public string Text { get; set; }
 
+        [Display(Name = "Файл")]
+        public AttachmentDetailsVM Attachment { get; set; }
+
         public DocumentPriceTypesEnum PriceType { get; set; }
 
         [Display(Name = "Цена")]
@@ -68,6 +71,8 @@ namespace Expro.ViewModels
                     Text = model.Text.Substring(0, 200) + "...";
             }
 
+            Attachment = new AttachmentDetailsVM(model.Attachment);
+
             PriceType = model.PriceType;
             if (PriceType == DocumentPriceTypesEnum.Paid)
             {
@@ -85,9 +90,6 @@ namespace Expro.ViewModels
     {
         [Display(Name = "Язык")]
         public BaseDropdownableDetailsVM Language { get; set; }
-
-        [Display(Name = "Файл")]
-        public AttachmentDetailsVM Attachment { get; set; }
 
         [Display(Name = "Просмотры")]
         public int NumberOfViews { get; set; }
@@ -109,7 +111,6 @@ namespace Expro.ViewModels
 
             Title = model.Title;
             Language = new BaseDropdownableDetailsVM(model.Language);
-            Attachment = new AttachmentDetailsVM(model.Attachment);
             NumberOfViews = model.NumberOfViews;
             NumberOfPurchases = model.NumberOfPurchases;
             if (!string.IsNullOrWhiteSpace(model.Text))

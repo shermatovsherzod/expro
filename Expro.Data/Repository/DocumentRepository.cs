@@ -24,7 +24,8 @@ namespace Expro.Data.Repository
                 .Include(m => m.Creator)
                     .ThenInclude(m => m.Avatar)
                 .Include(m => m.DocumentStatus)
-                    .ThenInclude(m => m.NameShort);
+                    .ThenInclude(m => m.NameShort)
+                .Include(m => m.Attachment);
         }
 
         public Document GeWithRelatedDataByID(int id)
@@ -32,7 +33,6 @@ namespace Expro.Data.Repository
             return GetManyWithRelatedDataAsIQueryable()
                 .Include(m => m.Language)
                     .ThenInclude(m => m.NameShort)
-                .Include(m => m.Attachment)
                 .Include(m => m.DocumentLikes)
                     .ThenInclude(m => m.Like)
                 .FirstOrDefault(m => m.ID == id);
