@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Expro.Resources;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -12,26 +13,26 @@ namespace Expro.Models
 
         public int ID { get; set; }
 
-        [Required]
+        [Required(ErrorMessageResourceName = "RequiredField", ErrorMessageResourceType = typeof(ResourceTexts))]
         [Display(Name = "Страна")]
         public int CountryID { get; set; }
 
-        [Required]
+        [Required(ErrorMessageResourceName = "RequiredField", ErrorMessageResourceType = typeof(ResourceTexts))]
         [Display(Name = "Город")]
         [StringLength(256)]
-        public string City { get; set; }      
+        public string City { get; set; }
 
-        [Required]
+        [Required(ErrorMessageResourceName = "RequiredField", ErrorMessageResourceType = typeof(ResourceTexts))]
         [Display(Name = "ВУЗ")]
         [StringLength(256)]
         public string University { get; set; }
 
-        [Required]
+        [Required(ErrorMessageResourceName = "RequiredField", ErrorMessageResourceType = typeof(ResourceTexts))]
         [Display(Name = "Факультет")]
         [StringLength(256)]
         public string Faculty { get; set; }
 
-        [Required]
+        [Required(ErrorMessageResourceName = "RequiredField", ErrorMessageResourceType = typeof(ResourceTexts))]
         [Display(Name = "Год окончания")]
         public int GraduationYear { get; set; }
 
@@ -59,23 +60,23 @@ namespace Expro.Models
         [Display(Name = "Страна")]
         public string Country { get; set; }
 
-        [Required]
+        [Required(ErrorMessageResourceName = "RequiredField", ErrorMessageResourceType = typeof(ResourceTexts))]
         [Display(Name = "Страна")]
         public int CountryID { get; set; }
 
-        [Required]
+        [Required(ErrorMessageResourceName = "RequiredField", ErrorMessageResourceType = typeof(ResourceTexts))]
         [Display(Name = "Город")]
         public string City { get; set; }
 
-        [Required]
+        [Required(ErrorMessageResourceName = "RequiredField", ErrorMessageResourceType = typeof(ResourceTexts))]
         [Display(Name = "ВУЗ")]
         public string University { get; set; }
 
-        [Required]
+        [Required(ErrorMessageResourceName = "RequiredField", ErrorMessageResourceType = typeof(ResourceTexts))]
         [Display(Name = "Факультет")]
         public string Faculty { get; set; }
 
-        [Required]
+        [Required(ErrorMessageResourceName = "RequiredField", ErrorMessageResourceType = typeof(ResourceTexts))]
         [Display(Name = "Год окончания")]
         public int GraduationYear { get; set; }
 

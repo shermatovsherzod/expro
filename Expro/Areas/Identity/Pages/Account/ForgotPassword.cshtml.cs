@@ -36,7 +36,7 @@ namespace Expro.Areas.Identity.Pages.Account
 
         public class InputModel
         {
-            [Required]
+            [Required(ErrorMessageResourceName = "RequiredField", ErrorMessageResourceType = typeof(ResourceTexts))]
             [EmailAddress]
             public string Email { get; set; }
         }

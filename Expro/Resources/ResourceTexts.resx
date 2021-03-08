@@ -1152,13 +1152,40 @@
   <data name="OverallRating" xml:space="preserve">
     <value>Общий рейтинг</value>
   </data>
-  <data name="SampleDocumentIsSentForApproval" xml:space="preserve">
-    <value>Документ отправлен администратору на подтверждение. Публикуется после подтверждения администратором</value>
+  <data name="AddCompany" xml:space="preserve">
+    <value>Добавить компанию</value>
   </data>
-  <data name="WriteAnswerTextHere" xml:space="preserve">
-    <value>Напишите ответ здесь</value>
+  <data name="AddLogo" xml:space="preserve">
+    <value>Загрузить логотип</value>
   </data>
-  <data name="DoTypeTextAndOrUploadFile" xml:space="preserve">
-    <value>Введите текст и/или загрузите файл</value>
+  <data name="AddResume" xml:space="preserve">
+    <value>Добавить резюме</value>
+  </data>
+  <data name="CompanyAdded" xml:space="preserve">
+    <value>Компания успешно добавлена</value>
+  </data>
+  <data name="CompanyEdit" xml:space="preserve">
+    <value>Редактирование компании</value>
+  </data>
+  <data name="CompanyName" xml:space="preserve">
+    <value>Название компании</value>
+  </data>
+  <data name="OtherInfo" xml:space="preserve">
+    <value>Дополнительная информация</value>
+  </data>
+  <data name="ResumeAdded" xml:space="preserve">
+    <value>Резюме успешно добавлен</value>
+  </data>
+  <data name="ResumeEdit" xml:space="preserve">
+    <value>Редактирование резюме</value>
+  </data>
+  <data name="String1" xml:space="preserve">
+    <value />
+  </data>
+  <data name="WaitingForApproval" xml:space="preserve">
+    <value>Ожидание подтверждения</value>
+  </data>
+  <data name="RequiredField" xml:space="preserve">
+    <value>Обязательное поле</value>
   </data>
 </root>

@@ -1,6 +1,7 @@
 ﻿using Expro.Common.Utilities;
 using Expro.Models;
 using Expro.Models.Enums;
+using Expro.Resources;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -14,44 +15,44 @@ namespace Expro.ViewModels
         public CompanyEditVM() { }
         public int ID { get; set; }
 
-        [Required]
+        [Required(ErrorMessageResourceName = "RequiredField", ErrorMessageResourceType = typeof(ResourceTexts))]
         [StringLength(256)]
-        [Display(Name = "Название компании")]
+        [Display(Name = "CompanyName", ResourceType = typeof(Resources.ResourceTexts))]
         public string CompanyName { get; set; }
 
         [StringLength(4000)]
-        [Display(Name = "О компании")]
+        [Display(Name = "AboutCompany", ResourceType = typeof(Resources.ResourceTexts))]
         public string CompanyDescription { get; set; }
 
-        [Display(Name = "Регион")]
+        [Display(Name = "lblRegion", ResourceType = typeof(Resources.ResourceTexts))]
         public int? RegionID { get; set; }
 
-        [Display(Name = "Город")]
+        [Display(Name = "lblCity", ResourceType = typeof(Resources.ResourceTexts))]
         public int? CityID { get; set; }
 
-        [Display(Name = "Другой город")]
+        [Display(Name = "lblCityOther", ResourceType = typeof(Resources.ResourceTexts))]
         [StringLength(256)]
         public string CityOther { get; set; }
 
         [Display(Name = "lblLawAreas", ResourceType = typeof(Resources.ResourceTexts))]
-        [Required(ErrorMessageResourceType = typeof(Resources.ResourceTexts), ErrorMessageResourceName = "ErrorRequiredField")]
+        [Required(ErrorMessageResourceName = "RequiredField", ErrorMessageResourceType = typeof(ResourceTexts))]
         public int LawAreaParentID { get; set; }
         public List<int> LawAreas { get; set; }
 
         [StringLength(100)]
-        [Display(Name = "Сайт")]
+        [Display(Name = "lblWebSite", ResourceType = typeof(Resources.ResourceTexts))]
         public string WebSite { get; set; }
 
         [StringLength(100)]
-        [Display(Name = "Номер телефона")]
+        [Display(Name = "lblPhoneNumber", ResourceType = typeof(Resources.ResourceTexts))]
         public string PhoneNumber { get; set; }
 
         [StringLength(100)]
-        [Display(Name = "Емейл")]
+        [Display(Name = "Email", ResourceType = typeof(Resources.ResourceTexts))]
         public string Email { get; set; }
 
         [StringLength(256)]
-        [Display(Name = "Адрес")]
+        [Display(Name = "Address", ResourceType = typeof(Resources.ResourceTexts))]
         public string Address { get; set; }
 
         public DocumentActionTypesEnum ActionType { get; set; } = DocumentActionTypesEnum.saveAsDraft;

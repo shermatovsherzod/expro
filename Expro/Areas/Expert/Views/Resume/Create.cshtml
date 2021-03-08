@@ -1,7 +1,8 @@
 ﻿@model ResumeEditVM
 @using Expro.ViewModels
+@using Expro.Models.Enums
 @{
-    ViewData["Title"] = "Добавить резюме";
+    ViewData["Title"] = localizer["AddResume"];
     <link href="~/lib/Gijgo/gijgo.min.css" rel="stylesheet" />
     int? cityID = Model?.CityID;
 }
@@ -81,12 +82,16 @@
                     data-hs-select2-options='{
                     "minimumResultsForSearch": "Infinity"
                 }'>
-                <option disabled selected>--- Выбрать регион ---</option>
+                <option disabled selected>--- @localizer["SelectRegion"] ---</option>
             </select>
             <span asp-validation-for="@Model.RegionID" class="text-danger"></span>
         </div>
     </div>
-
+    <div class="row">
+        <div class="col-md-12">
+            <br />
+        </div>
+    </div>
     <div class="row">
         <div class="col-md-3">
             <label asp-for="@Model.CityID"></label>
@@ -98,12 +103,16 @@
                     data-hs-select2-options='{
                     "minimumResultsForSearch": "Infinity"
                 }'>
-                <option disabled selected>--- Выбрать город ---</option>
+                <option disabled selected>--- @localizer["SelectCity"] ---</option>
             </select>
             <span asp-validation-for="@Model.CityID" class="text-danger"></span>
         </div>
     </div>
-
+    <div class="row">
+        <div class="col-md-12">
+            <br />
+        </div>
+    </div>
     <div class="row">
         <div class="col-md-3">
             <label asp-for="@Model.CityOther"></label>
@@ -115,7 +124,11 @@
             </p>
         </div>
     </div>
-
+    <div class="row">
+        <div class="col-md-12">
+            <br />
+        </div>
+    </div>
     <div class="row">
         <div class="col-md-3">
             <label asp-for="@Model.Contact"></label>
@@ -210,7 +223,7 @@
             <div class="quill-custom OtherInfo">
                 <div class="js-quill" style="min-height: 15rem;"
                      data-hs-quill-options='{
-                   "placeholder": "Опишите в двух словах...",
+                   "placeholder": "@localizer["ShortDescription"]...",
                     "modules": {
                       "toolbar": [["bold", "italic", "underline", "strike", "link", "image", "blockquote", "code", {"list": "bullet"}]]
                     }
@@ -227,15 +240,21 @@
 
     <div class="row">
         <div class="col-sm-12">
-            <button type="submit" class="btn btn-success">Сохранить</button>
-            <div class="spinner-border spinner" style="display: none;"></div>
+            <div class="form-group" id="actionButtonsBox">
+                <input asp-for="ActionType" type="hidden" />
+                <button type="submit" class="btn btn-info" actiontype="@DocumentActionTypesEnum.saveAsDraft">@localizer["SaveAsDraft"]</button>
+                <button type="submit" class="btn btn-indigo" actiontype="@DocumentActionTypesEnum.submitForApproval">@localizer["SubmitForApproval"]</button>
+                <div class="spinner-border spinner" style="display: none;"></div>
+            </div>
         </div>
     </div>
 </form>
 
-<div class="row">
-    <a asp-action="Index">Вернутся к списку</a>
+<div class="mt-5">
+    <a asp-action="Index">@localizer["BackToList"]</a>
 </div>
+<br />
+<br />
 
 @section CustomFrontStyles
 {
@@ -293,6 +312,10 @@
             });
 
             LoadCitiesByRegion($("#RegionID").val(), cityID);
+
+            $("form button[type=submit]").click(function (ev) {
+                $("form input#ActionType").val($(this).attr("actiontype"));
+            });
         });
 
         function LoadCitiesByRegion(regionID, selectedCityID) {
@@ -309,7 +332,7 @@
                 contentType: "application/json; charset=utf-8",
                 //dataType: "json",
                 success: function (data) {
-                    $("#CityID").empty().append($("<option>").text("--- Выбрать город ---").attr('disabled', 'disabled').attr('selected', 'selected'));
+                    $("#CityID").empty().append($("<option>").text("--- @localizer["SelectCity"] ---").attr('disabled', 'disabled').attr('selected', 'selected'));
                     $.each(data,
                         function (i, item) {
                             var isSelected = "";

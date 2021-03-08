@@ -1,4 +1,5 @@
 ﻿using Expro.Models;
+using Expro.Resources;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -12,7 +13,7 @@ namespace Expro.Models
         public ExpertProfileWorkExperienceFormVM() { }
         public int ID { get; set; }
 
-        [Required]
+        [Required(ErrorMessageResourceName = "RequiredField", ErrorMessageResourceType = typeof(ResourceTexts))]
         [Display(Name = "Страна")]
         public int CountryID { get; set; }
 
@@ -21,21 +22,21 @@ namespace Expro.Models
         [StringLength(256)]
         public string City { get; set; }
 
-        [Required]
+        [Required(ErrorMessageResourceName = "RequiredField", ErrorMessageResourceType = typeof(ResourceTexts))]
         [Display(Name = "Место работы")]
         [StringLength(256)]
         public string PlaceOfWork { get; set; }
 
-        [Required]
+        [Required(ErrorMessageResourceName = "RequiredField", ErrorMessageResourceType = typeof(ResourceTexts))]
         [Display(Name = "Должность")]
         [StringLength(256)]
         public string Position { get; set; }
 
-        [Required]
+        [Required(ErrorMessageResourceName = "RequiredField", ErrorMessageResourceType = typeof(ResourceTexts))]
         [Display(Name = "С")]
         public string WorkPeriodFrom { get; set; }
 
-        [Required]
+        [Required(ErrorMessageResourceName = "RequiredField", ErrorMessageResourceType = typeof(ResourceTexts))]
         [Display(Name = "По")]
         public string WorkPeriodTo { get; set; }
 

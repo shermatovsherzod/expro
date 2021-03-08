@@ -1,4 +1,5 @@
 ﻿using Expro.Models;
+using Expro.Resources;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -15,7 +16,7 @@ namespace Expro.ViewModels.Expert
         //[Display(Name = "Email")]
         //public string Email { get; set; }
 
-        [Required]
+        [Required(ErrorMessageResourceName = "RequiredField", ErrorMessageResourceType = typeof(ResourceTexts))]
         [Display(Name = "Номер телефона")]
         public string PhoneNumber { get; set; }
 
@@ -23,7 +24,7 @@ namespace Expro.ViewModels.Expert
         [Display(Name = "Факс")]
         public string Fax { get; set; }
 
-        [Required]
+        [Required(ErrorMessageResourceName = "RequiredField", ErrorMessageResourceType = typeof(ResourceTexts))]
         [Display(Name = "Веб сайт")]
         public string WebSite { get; set; }
 

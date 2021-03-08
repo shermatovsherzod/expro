@@ -25,14 +25,14 @@ namespace Expro.ViewModels
         [StringLength(256)]
         public string CityOther { get; set; }
 
-        [Required(ErrorMessage = "Поле Направление обязательно для заполнения")]
+        [Required(ErrorMessageResourceName = "RequiredField", ErrorMessageResourceType = typeof(ResourceTexts))]
         [Display(Name = "lblLawAreas", ResourceType = typeof(ResourceTexts))]
         public int LawAreaParentID { get; set; }
 
         public List<int> LawAreas { get; set; }
 
         [Display(Name = "lblDateOfBirth", ResourceType = typeof(ResourceTexts))]
-        [Required(ErrorMessage = "Поле Дата рождения обязательно для заполнения")]
+        [Required(ErrorMessageResourceName = "RequiredField", ErrorMessageResourceType = typeof(ResourceTexts))]
         public string DateOfBirth { get; set; }        
 
         [Display(Name = "lblGender", ResourceType = typeof(ResourceTexts))]

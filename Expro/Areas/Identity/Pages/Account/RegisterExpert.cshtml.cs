@@ -71,12 +71,12 @@ namespace Expro.Areas.Identity.Pages.Account
 
         public class InputExpertModel
         {
-            [Required(ErrorMessageResourceType = typeof(Resources.ResourceTexts), ErrorMessageResourceName = "ErrorRequiredField")]
+            [Required(ErrorMessageResourceName = "RequiredField", ErrorMessageResourceType = typeof(ResourceTexts))]
             [EmailAddress]
             [Display(Name = "Email", ResourceType = typeof(ResourceTexts))]
             public string Email { get; set; }
 
-            [Required]
+            [Required(ErrorMessageResourceName = "RequiredField", ErrorMessageResourceType = typeof(ResourceTexts))]
             [StringLength(100, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 6)]
             [DataType(DataType.Password)]
             [Display(Name = "Пароль")]
@@ -87,12 +87,12 @@ namespace Expro.Areas.Identity.Pages.Account
             [Compare("Password", ErrorMessageResourceName = "lblConfirmPasswordError", ErrorMessageResourceType = typeof(ResourceTexts))]
             public string ConfirmPassword { get; set; }
 
-            [Required]
+            [Required(ErrorMessageResourceName = "RequiredField", ErrorMessageResourceType = typeof(ResourceTexts))]
             [Display(Name = "lblFirstName", ResourceType = typeof(ResourceTexts))]
             [StringLength(256)]
             public string FirstName { get; set; }
 
-            [Required]
+            [Required(ErrorMessageResourceName = "RequiredField", ErrorMessageResourceType = typeof(ResourceTexts))]
             [Display(Name = "lblLastName", ResourceType = typeof(ResourceTexts))]
             [StringLength(256)]
             public string LastName { get; set; }
@@ -119,7 +119,7 @@ namespace Expro.Areas.Identity.Pages.Account
             //[Remote("ValidateFrom", "VideoRequest", ErrorMessage = "Введите город", AdditionalFields = "TypeID")]
             public string CityOther { get; set; }
 
-            [Required(ErrorMessageResourceType = typeof(Resources.ResourceTexts), ErrorMessageResourceName = "ErrorRequiredField")]
+            [Required(ErrorMessageResourceName = "RequiredField", ErrorMessageResourceType = typeof(ResourceTexts))]
             [Display(Name = "lblLawAreas", ResourceType = typeof(Resources.ResourceTexts))]
             public int LawAreaParentID { get; set; }
             public List<int> LawAreas { get; set; }

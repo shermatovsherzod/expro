@@ -57,10 +57,13 @@ namespace Expro.Areas.Expert.Controllers
                 if (ModelState.IsValid && user != null)
                 {
                     Resume model = new Resume();
-                    model.ResumeStatusID = (int)ResumeStatusEnum.WaitingForApproval;
+                    model.ResumeStatusID = (int)ResumeStatusEnum.NotApproved;
                     PropertyCopier.CopyTo(vmodel, model);
-
                     _resumeService.Add(model, user.ID);
+
+                    if (vmodel.ActionType == DocumentActionTypesEnum.submitForApproval)
+                        _resumeService.SubmitForApproval(model, user.ID);
+                   
 
                     //return RedirectToAction("Index");
                     return Ok(new { id = model.ID });
@@ -98,6 +101,48 @@ namespace Expro.Areas.Expert.Controllers
             return View(vmodel);
         }
 
+        //[HttpPost]
+        //public IActionResult Edit(ResumeEditVM vmodel)
+        //{
+        //    try
+        //    {
+        //        var user = accountUtil.GetCurrentUser(User);
+
+        //        if (!_resumeService.ResumeBelongsToUser(vmodel.ID, user.ID))
+        //        {
+        //            throw new Exception("Редактирование невозможно");
+        //        }
+            
+        //        //GetResumeViewDataForEdit(vmodel);
+            
+        //        if (ModelState.IsValid && user != null)
+        //        {
+        //            Resume model = _resumeService.GetActiveByID(vmodel.ID);
+        //            model.ResumeStatusID = (int)ResumeStatusEnum.WaitingForApproval;
+        //            PropertyCopier.CopyTo(vmodel, model);
+
+        //            if (vmodel.ActionType == DocumentActionTypesEnum.submitForApproval)
+        //            {
+        //                _resumeService.SubmitForApproval(model, user.ID);
+
+        //                //vmodel.StatusID = (int)DocumentStatusesEnum.WaitingForApproval;
+        //            }
+        //            else
+        //                _resumeService.Update(model, user.ID);
+
+        //            return Ok();
+        //        }
+        //        else
+        //            //throw new Exception("Неверные данные");
+        //            return BadRequest(ModelState);
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        return CustomBadRequest(ex);
+        //    }
+        //}
+
+
         [HttpPost]
         public IActionResult Edit(ResumeEditVM vmodel)
         {
@@ -109,14 +154,13 @@ namespace Expro.Areas.Expert.Controllers
                 {
                     throw new Exception("Редактирование невозможно");
                 }
-            
-                //GetResumeViewDataForEdit(vmodel);
-            
+
+                GetResumeViewDataForEdit(vmodel);
+
                 if (ModelState.IsValid && user != null)
                 {
                     Resume model = _resumeService.GetActiveByID(vmodel.ID);
-                    model.ResumeStatusID = (int)ResumeStatusEnum.WaitingForApproval;
-                    PropertyCopier.CopyTo(vmodel, model);
+                    PropertyCopier.CopyTo(vmodel, model);                 
 
                     if (vmodel.ActionType == DocumentActionTypesEnum.submitForApproval)
                     {
@@ -127,6 +171,7 @@ namespace Expro.Areas.Expert.Controllers
                     else
                         _resumeService.Update(model, user.ID);
 
+                    //return RedirectToAction("Index");
                     return Ok();
                 }
                 else

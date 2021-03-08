@@ -3,7 +3,7 @@
 @using Expro.Models.Enums
 
 @{
-    ViewData["Title"] = "Резюме";
+    ViewData["Title"] = localizer["MyResumes"];
     @*<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">*@
 }
 
@@ -13,14 +13,14 @@
 @if (ViewData["successfullyCreated"] != null)
 {
     <div class="alert alert-soft-success text-center rounded-0 mb-0" role="alert">
-        Резюме успешно добавлен
+        @localizer["ResumeAdded"]
     </div>
     <br />
 }
 
 <div class="row">
     <div class="col-md-12">
-        @Html.ActionLink("Добавить резюме", "Create", "Resume", null, new { @class = "btn btn-primary" })
+        @Html.ActionLink(localizer["AddResume"], "Create", "Resume", null, new { @class = "btn btn-primary" })
     </div>
 </div>
 
@@ -85,13 +85,13 @@
                                     <ul class="list-inline list-separator small text-body">
                                         <li class="list-inline-item"><i class="fa fa-location-arrow"></i> @item.Region.Name, @item.City.Name</li>
                                         @*@if (!string.IsNullOrWhiteSpace(item.PhoneNumber))
-                                        {
-                                            <li class="list-inline-item"><i class="fa fa-phone"></i> @item.PhoneNumber</li>
-                                        }
-                                        @if (!string.IsNullOrWhiteSpace(item.Email))
-                                        {
-                                            <li class="list-inline-item"><i class="fa fa-envelope"></i> @item.Email</li>
-                                        }*@
+                                            {
+                                                <li class="list-inline-item"><i class="fa fa-phone"></i> @item.PhoneNumber</li>
+                                            }
+                                            @if (!string.IsNullOrWhiteSpace(item.Email))
+                                            {
+                                                <li class="list-inline-item"><i class="fa fa-envelope"></i> @item.Email</li>
+                                            }*@
                                     </ul>
                                 </div>
                             </div>

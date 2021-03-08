@@ -43,7 +43,7 @@ namespace Expro.Areas.Identity.Pages.Account
 
         public class InputModel
         {
-            [Required]           
+            [Required(ErrorMessageResourceName = "RequiredField", ErrorMessageResourceType = typeof(ResourceTexts))]
             [DataType(DataType.Password)]
             [Display(Name = "Пароль")]
             public string Password { get; set; }

@@ -4,7 +4,7 @@
 
 @{
     Layout = "_Layout";
-    ViewData["Title"] = "Компании";
+    ViewData["Title"] = localizer["MyCompanies"];
     @*<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">*@
 }
 
@@ -14,14 +14,14 @@
 @if (ViewData["successfullyCreated"] != null)
 {
     <div class="alert alert-soft-success text-center rounded-0 mb-0" role="alert">
-        Компания успешно добавлена
+        @localizer["CompanyAdded"]
     </div>
     <br />
 }
 
 <div class="row">
     <div class="col-md-12">
-        @Html.ActionLink("Добавить компанию", "Create", "Company", null, new { @class = "btn btn-primary" })
+        @Html.ActionLink(localizer["AddCompany"], "Create", "Company", null, new { @class = "btn btn-primary" })
     </div>
 </div>
 
