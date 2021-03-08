@@ -86,14 +86,17 @@ $(document).ready(function () {
                     html += '                       </h3>';
                     html += '                       <div class="d-none d-sm-inline-block">';
                     html += '                           <h6 class="mb-0">';
-                    html += '                               <p class="text-muted">';
                     if (full.text != null) {
+                        html += '                           <p class="text-muted">';
                         html += full.text;
+                        html += '                           </p>';
                     }
-                    if (full.contentType == documentContentTypeFile) {
+                    if (full.attachment.id > 0) {
+                        html += '                           <p class="text-muted">';
                         html += '                               <i class="fa fa-file" aria-hidden="true"></i> ' + _localizer["FileIsAttached"];
+                        html += '                           </p>';
                     }
-                    html += '                               </p>';
+                    
                     html += '                           </h6>';
                     html += '                       </div>';
                     html += '                       <div class="d-none d-sm-block">';
