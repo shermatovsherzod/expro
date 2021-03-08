@@ -6,10 +6,36 @@
     //ViewData["DocumentType"] = DocumentTypesEnum.QuestionDocument;
 
     var lawAreasWithParent = ViewData["lawAreas"] as List<SelectListItemWithParent>;
+    var showAddNewQuestionButton = ViewData["showAddNewQuestionButton"] as bool?;
 }
 
 <h1>@ViewData["Title"]</h1>
 <br />
+
+@if (showAddNewQuestionButton == true)
+{
+    <div class="row">
+        <div class="col-12">
+            <!-- CTA Section -->
+            <div class="bg-primary">
+                <div class="container space-2">
+                    <div class="row justify-content-lg-between align-items-lg-center text-center text-lg-left">
+                        <div class="col-lg-5 mb-5 mb-lg-0">
+                            <h2 class="text-white mb-0">@localizer["AskQuestionTheExperts"]</h2>
+                        </div>
+
+                        <div class="col-lg-5 text-lg-right">
+                            <a class="btn btn-light btn-wide btn-pill transition-3d-hover mx-1 mb-2" href="/User/Question/CreateFree">@localizer["Usual"]</a>
+                            <a class="btn btn-indigo btn-wide btn-pill transition-3d-hover mx-1 mb-2" href="/User/Question/CreatePaid">@localizer["WithFee"]</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- End CTA Section -->
+        </div>
+    </div>
+    <br />
+}
 
 <div class="row">
     <div class="col-lg-3 order-lg-2 mb-5 mb-lg-0">

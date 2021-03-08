@@ -27,7 +27,7 @@ namespace Expro.Models
 
         public virtual ICollection<DocumentLawArea> DocumentLawAreas { get; set; }
 
-        public DocumentContentTypesEnum ContentType { get; set; } = DocumentContentTypesEnum.text;
+        //public DocumentContentTypesEnum ContentType { get; set; } = DocumentContentTypesEnum.text;
 
         [ForeignKey("Attachment")]
         public int? AttachmentID { get; set; }

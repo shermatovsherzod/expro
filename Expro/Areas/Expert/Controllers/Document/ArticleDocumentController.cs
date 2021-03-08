@@ -84,7 +84,7 @@ namespace Expro.Areas.Expert.Controllers
         [HttpPost]
         public override IActionResult EditFree(DocumentFreeEditVM modelVM)
         {
-            modelVM.ContentType = DocumentContentTypesEnum.text;
+            //modelVM.ContentType = DocumentContentTypesEnum.text;
 
             return base.EditFree(modelVM);
         }
@@ -97,7 +97,7 @@ namespace Expro.Areas.Expert.Controllers
         [HttpPost]
         public override IActionResult EditPaid(DocumentPaidEditVM modelVM)
         {
-            modelVM.ContentType = DocumentContentTypesEnum.text;
+            //modelVM.ContentType = DocumentContentTypesEnum.text;
 
             return base.EditPaid(modelVM);
         }

@@ -47,7 +47,7 @@
                 <div class="row justify-content-lg-center">
                     <div class="col-md-3 mb-7 mb-md-0">
                         <!-- Stats -->
-                        <a class="d-block text-center px-md-3" href="#">
+                        <a class="d-block text-center px-md-3" href="/Question">
                             <figure class="max-w-8rem mx-auto">
                                 <img class="img-fluid" src="/lib/frontTheme/svg/icons/icon-4.svg" alt="SVG">
                             </figure>
@@ -60,7 +60,7 @@
 
                     <div class="col-md-3 mb-7 mb-md-0">
                         <!-- Stats -->
-                        <a class="d-block text-center column-divider-md column-divider-20deg px-md-3" href="#">
+                        <a class="d-block text-center column-divider-md column-divider-20deg px-md-3" href="/ArticleDocument">
                             <figure class="max-w-8rem mx-auto">
                                 <img class="img-fluid" src="/lib/frontTheme/svg/icons/icon-37.svg" alt="SVG">
                             </figure>
@@ -73,7 +73,7 @@
 
                     <div class="col-md-3">
                         <!-- Stats -->
-                        <a class="d-block text-center column-divider-md column-divider-20deg px-md-3" href="#">
+                        <a class="d-block text-center column-divider-md column-divider-20deg px-md-3" href="/SampleDocument">
                             <figure class="max-w-8rem mx-auto">
                                 <img class="img-fluid" src="./lib/frontTheme/svg/icons/icon-19.svg" alt="SVG">
                             </figure>
@@ -85,7 +85,7 @@
                     </div>
                     <div class="col-md-3">
                         <!-- Stats -->
-                        <a class="d-block text-center column-divider-md column-divider-20deg px-md-3" href="#">
+                        <a class="d-block text-center column-divider-md column-divider-20deg px-md-3" href="/Experts">
                             @*<img class="clients mb-3" src="/lib/frontTheme/svg/clients-logo/hubspot-original.svg" alt="Image Description">*@
                             <figure class="max-w-8rem mx-auto">
                                 <img class="img-fluid" src="/lib/frontTheme/svg/icons/icon-7.svg" alt="SVG">
@@ -197,7 +197,7 @@
                             </div>
 
                             @*<span class="d-block small font-weight-bold text-cap mb-1">Founder / CEO</span>*@
-                            <h4 class="text-lh-sm">@item.FullName</h4>
+                            <h4 class="text-lh-sm"><a href="/Experts/Details/@item.Id">@item.FullName</a></h4>
                             <p class="font-size-1">@Html.Raw(item.AboutMe)</p>
                         </div>
 

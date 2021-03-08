@@ -22,13 +22,13 @@
     </div>
     <input asp-for="StatusID" type="hidden" />
 
-    @if (ViewData["successfullySaved"] != null)
-    {
-        <div class="alert alert-soft-success text-center rounded-0 mb-0" role="alert">
-            @localizer["DataSuccessfullySaved"]
-        </div>
-        <br />
-    }
+    @*@if (ViewData["successfullySaved"] != null)
+        {
+            <div class="alert alert-soft-success text-center rounded-0 mb-0" role="alert">
+                @localizer["DataSuccessfullySaved"]
+            </div>
+            <br />
+        }*@
     @if (Model.StatusID == (int)DocumentStatusesEnum.WaitingForApproval)
     {
         <div class="alert alert-soft-info text-center rounded-0 mb-0" role="alert">
@@ -101,7 +101,25 @@
     </div>
 
     <div class="form-group">
-        <input asp-for="ContentType" type="radio" value="@DocumentContentTypesEnum.file">
+        <label asp-for="Text" class="control-label"></label>
+        <!-- Quill -->
+        <div class="quill-custom Text">
+            <div class="js-quill" style="min-height: 15rem;"
+                 data-hs-quill-options='{
+                   "placeholder": "@localizer["TypeTextBrieflyHere"]",
+                    "modules": {
+                      "toolbar": [["bold", "italic", "underline", "strike", "link", "image", "blockquote", "code", {"list": "bullet"}]]
+                    }
+                   }'>
+                @Html.Raw(Model.Text)
+            </div>
+        </div>
+        <!-- End Quill -->
+        <textarea asp-for="Text" class="form-control" style="display: none;"></textarea>
+        <span asp-validation-for="Text" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
         <label asp-for="AttachmentID" class="control-label"></label>
         <input asp-for="AttachmentID" type="hidden" />
         @{
@@ -119,12 +137,15 @@
         }
 
         <div class="custom-file" @fileInputDisplayStyle>
-            <input type="file" class="js-file-attach custom-file-input" id="fileInput"
-                    accept=".doc, .docx, .rtf, .xml, .xls, .xlsx, .ppt, .pptx, text/plain, application/pdf, image/*"
-                    data-hs-file-attach-options='{
-                    "textTarget": "[for=\"fileInput\"]"
-               }'>
-            <label class="custom-file-label" for="fileInput">@localizer["SelectFile"]</label>
+            <div class="btn btn-sm btn-light file-attachment-btn">
+                @localizer["SelectFile"]
+                <input type="file" class="js-file-attach file-attachment-btn-label" id="fileInput"
+                       accept="@Constants.FILE_FORMATS_ALLOWED_FOR_DOCUMENTS"
+                       data-hs-file-attach-options='{
+                        "textTarget": "#documentSelectedFileName"
+                   }'>
+            </div>
+            <span id="documentSelectedFileName"></span>
         </div>
 
         <div id="existingFileContainer" @existingFileContainerDisplayStyle>
@@ -138,26 +159,6 @@
 
         <div class="spinner-border spinner" id="fileUploadSpinner" style="display: none;"></div>
         <span asp-validation-for="AttachmentID" class="text-danger"></span>
-    </div>
-
-    <div class="form-group">
-        <input asp-for="ContentType" type="radio" value="@DocumentContentTypesEnum.text">
-        <label asp-for="Text" class="control-label"></label>
-        <!-- Quill -->
-        <div class="quill-custom Text">
-            <div class="js-quill" style="min-height: 15rem;"
-                 data-hs-quill-options='{
-                   "placeholder": "@localizer["TypeTextBrieflyHere"]",
-                    "modules": {
-                      "toolbar": [["bold", "italic", "underline", "strike", "link", "image", "blockquote", "code", {"list": "bullet"}]]
-                    }
-                   }'>
-                @Html.Raw(Model.Text)
-            </div>
-        </div>
-        <!-- End Quill -->
-        <textarea asp-for="Text" class="form-control" style="display: none;"></textarea>
-        <span asp-validation-for="Text" class="text-danger"></span>
     </div>
 
     <div class="form-group" id="actionButtonsBox">
@@ -315,7 +316,8 @@
         function UploadToFirebaseStorage(file)
         {
             var displayName = file.name;
-            var extension = file.name.split('.')[1];
+            var tmp = displayName.split('.');
+            var extension = tmp[tmp.length - 1];
 
             // Create a root reference
             var storageRef = firebase.storage().ref();
@@ -410,7 +412,7 @@
 
                         $("#existingFileContainer").html(html);
                         $("#existingFileContainer").show();
-                        $("#fileInput").parent().hide();
+                        $(".custom-file").hide();
 
                         //alert("File uploaded!");
                     },
@@ -481,13 +483,13 @@
                 // File deleted successfully
                 $("#" + spinnerTagID).hide();
                 $("#existingFileContainer").html("");
-                $("#fileInput").parent().show();
+                $(".custom-file").show();
             }).catch(function (error) {
                 // Uh-oh, an error occurred!
                 console.log(error);
                 $("#" + spinnerTagID).hide();
                 $("#existingFileContainer").html("");
-                $("#fileInput").parent().show();
+                $(".custom-file").show();
             });
         }
     </script>

@@ -20,20 +20,16 @@
         <span asp-validation-for="Text" class="text-danger"></span>
     </div>
     <div class="form-group">
-        <label for="attachment" class="control-label"></label>
-        <div class="custom-file">
-            <input type="file" class="js-file-attach custom-file-input" id="attachment"
+        <div class="btn btn-sm btn-light file-attachment-btn">
+            @localizer["SelectFile"]
+            <input type="file" class="js-file-attach file-attachment-btn-label" id="attachment"
                    accept=".doc, .docx, .rtf, .xml, .xls, .xlsx, .ppt, .pptx, text/plain, application/pdf, image/*"
                    data-hs-file-attach-options='{
-                  "textTarget": "[for=\"attachment\"]"
+                    "textTarget": "#commentTextSelectedFileName"
                }'>
-            <label class="custom-file-label" for="attachment">@localizer["SelectFile"]</label>
         </div>
+        <span id="commentTextSelectedFileName"></span>
     </div>
-    @*<div class="form-group">
-        <label for="attachmentID" class="control-label"></label>
-        <input type="file" id="attachment" class="form-control" />
-    </div>*@
     <div class="form-group">
         <button type="submit" class="btn btn-primary">@localizer["Submit"]</button>
         <div class="spinner-border spinner" style="display: none;"></div>
@@ -117,7 +113,8 @@
 
     function UploadToFirebaseStorage(file) {
         var displayName = file.name;
-        var extension = file.name.split('.')[1];
+        var tmp = displayName.split('.');
+        var extension = tmp[tmp.length - 1];
 
         // Create a root reference
         var storageRef = firebase.storage().ref();

@@ -238,22 +238,27 @@ namespace Expro.Areas.Expert.Controllers
                     if (!DocumentService.EditingIsAllowed(modelFromDB))
                         throw new Exception(_localizer["StatusDoesNotAllowToEdit"]);
 
-                    if (modelVM.ContentType == DocumentContentTypesEnum.file)
+                    if (string.IsNullOrWhiteSpace(modelVM.Text) && !modelVM.AttachmentID.HasValue)
                     {
-                        if (!modelVM.AttachmentID.HasValue)
-                        {
-                            ModelState.AddModelError("AttachmentID", _localizer["DoUploadFile"]);
-                            throw new Exception(_localizer["DoUploadFile"]);
-                        }
+                        throw new Exception(_localizer["DoTypeTextAndOrUploadFile"]);
                     }
-                    else
-                    {
-                        if (string.IsNullOrWhiteSpace(modelVM.Text))
-                        {
-                            ModelState.AddModelError("Text", _localizer["DoTypeText"]);
-                            throw new Exception(_localizer["DoTypeText"]);
-                        }
-                    }
+
+                    //if (modelVM.ContentType == DocumentContentTypesEnum.file)
+                    //{
+                    //    if (!modelVM.AttachmentID.HasValue)
+                    //    {
+                    //        ModelState.AddModelError("AttachmentID", _localizer["DoUploadFile"]);
+                    //        throw new Exception(_localizer["DoUploadFile"]);
+                    //    }
+                    //}
+                    //else
+                    //{
+                    //    if (string.IsNullOrWhiteSpace(modelVM.Text))
+                    //    {
+                    //        ModelState.AddModelError("Text", _localizer["DoTypeText"]);
+                    //        throw new Exception(_localizer["DoTypeText"]);
+                    //    }
+                    //}
 
                     var model = modelVM.ToModel(modelFromDB);
                     LawAreaService.UpdateDocumentLawAreas(model, modelVM.LawAreas);

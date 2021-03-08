@@ -44,7 +44,7 @@ namespace Expro.Services
         {
             entity.DocumentTypeID = (int)_documentType;
             entity.DocumentStatusID = (int)DocumentStatusesEnum.Pending;
-            entity.ContentType = DocumentContentTypesEnum.text;
+            //entity.ContentType = DocumentContentTypesEnum.text;
 
             base.Add(entity, creatorID);
         }

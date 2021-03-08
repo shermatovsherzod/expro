@@ -92,12 +92,15 @@
         <label asp-for="AttachmentID" class="control-label"></label>
         <input asp-for="AttachmentID" type="hidden" />
         <div class="custom-file">
-            <input type="file" class="js-file-attach custom-file-input" id="fileInput"
-                   accept=".doc, .docx, .rtf, .xml, .xls, .xlsx, .ppt, .pptx, text/plain, application/pdf, image/*"
-                   data-hs-file-attach-options='{
-                  "textTarget": "[for=\"fileInput\"]"
-               }'>
-            <label class="custom-file-label" for="fileInput">@localizer["SelectFile"]</label>
+            <div class="btn btn-sm btn-light file-attachment-btn">
+                @localizer["SelectFile"]
+                <input type="file" class="js-file-attach file-attachment-btn-label" id="fileInput"
+                       accept="@Constants.FILE_FORMATS_ALLOWED_FOR_DOCUMENTS"
+                       data-hs-file-attach-options='{
+                        "textTarget": "#documentSelectedFileName"
+                   }'>
+            </div>
+            <span id="documentSelectedFileName"></span>
         </div>
 
         @*<div class="spinner-border spinner" id="fileUploadSpinner" style="display: none;"></div>*@
@@ -261,7 +264,8 @@
 
         function UploadToFirebaseStorageAnswerFile(file) {
             var displayName = file.name;
-            var extension = file.name.split('.')[1];
+            var tmp = displayName.split('.');
+            var extension = tmp[tmp.length - 1];
 
             // Create a root reference
             var storageRef = firebase.storage().ref();

@@ -1185,4 +1185,13 @@
   <data name="RequiredField" xml:space="preserve">
     <value>Мажбурий майдон</value>
   </data>
+  <data name="SampleDocumentIsSentForApproval" xml:space="preserve">
+    <value>Ҳужжат жўнатилди, администратор томонидан тасдиқлангач чоп этилади</value>
+  </data>
+  <data name="WriteAnswerTextHere" xml:space="preserve">
+    <value>Жавобни шу ерга ёзинг</value>
+  </data>
+  <data name="DoTypeTextAndOrUploadFile" xml:space="preserve">
+    <value>Матн теринг ва/ёки илова юкланг</value>
+  </data>
 </root>

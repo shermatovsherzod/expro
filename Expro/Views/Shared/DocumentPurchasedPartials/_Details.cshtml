@@ -52,17 +52,7 @@
     <h2 class="h2">@Model.Title</h2>
 </div>
 
-@if (Model.ContentType == DocumentContentTypesEnum.file)
-{
-    @if (Model.Attachment != null && Model.Attachment.ID > 0)
-    {
-        <div class="mt-5 mb-5">
-            <i class="fa fa-file" aria-hidden="true"></i>
-            <a href="@Model.Attachment.Url">@Model.Attachment.DisplayName</a>
-        </div>
-    }
-}
-else
+@if (!string.IsNullOrWhiteSpace(Model.Text))
 {
     <!-- Quill -->
     <div class="quill-custom Text">
@@ -77,6 +67,14 @@ else
         </div>
     </div>
     <!-- End Quill -->
+}
+
+@if (Model.Attachment != null && Model.Attachment.ID > 0)
+{
+    <div class="mt-5 mb-5">
+        <i class="fa fa-file" aria-hidden="true"></i>
+        <a href="@Model.Attachment.Url">@Model.Attachment.DisplayName</a>
+    </div>
 }
 
 <div>

@@ -461,7 +461,8 @@
 
         function UploadToFirebaseStorageAnswerFile(file) {
             var displayName = file.name;
-            var extension = file.name.split('.')[1];
+            var tmp = displayName.split('.');
+            var extension = tmp[tmp.length - 1];
 
             // Create a root reference
             var storageRef = firebase.storage().ref();

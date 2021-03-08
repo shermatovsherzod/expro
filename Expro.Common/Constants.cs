@@ -7,6 +7,7 @@ namespace Expro.Common
 {
     public static class Constants
     {
+        public static readonly string FILE_FORMATS_ALLOWED_FOR_DOCUMENTS = ".doc, .docx, .rtf, .xml, .xls, .xlsx, .ppt, .pptx, text/plain, application/pdf, image/*";
         public static class PointsFor
         {
             public static readonly int QUESTION_ANSWER = 5;

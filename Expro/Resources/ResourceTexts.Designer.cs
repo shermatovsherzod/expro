@@ -961,6 +961,15 @@ namespace Expro.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Введите текст и/или загрузите файл.
+        /// </summary>
+        public static string DoTypeTextAndOrUploadFile {
+            get {
+                return ResourceManager.GetString("DoTypeTextAndOrUploadFile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Загрузите файл.
         /// </summary>
         public static string DoUploadFile {
@@ -2680,6 +2689,15 @@ namespace Expro.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Документ отправлен администратору на подтверждение. Публикуется после подтверждения администратором.
+        /// </summary>
+        public static string SampleDocumentIsSentForApproval {
+            get {
+                return ResourceManager.GetString("SampleDocumentIsSentForApproval", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Образцовый документ не найден.
         /// </summary>
         public static string SampleDocumentNotFound {
@@ -3225,6 +3243,15 @@ namespace Expro.Resources {
         public static string WriteAnswer {
             get {
                 return ResourceManager.GetString("WriteAnswer", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Напишите ответ здесь.
+        /// </summary>
+        public static string WriteAnswerTextHere {
+            get {
+                return ResourceManager.GetString("WriteAnswerTextHere", resourceCulture);
             }
         }
         
