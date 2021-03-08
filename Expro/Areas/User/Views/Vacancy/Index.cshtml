@@ -3,8 +3,7 @@
 @using Expro.Models.Enums
 
 @{
-    Layout = "_Layout";
-    ViewData["Title"] = "Вакансии";
+    ViewData["Title"] = localizer["Vacancies"];
     @*<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">*@
 }
 
@@ -14,14 +13,14 @@
 @if (ViewData["successfullyCreated"] != null)
 {
     <div class="alert alert-soft-success text-center rounded-0 mb-0" role="alert">
-        Вакансия успешно добавлена
+        @localizer["VacancyAdded"]
     </div>
     <br />
 }
 
 <div class="row">
     <div class="col-md-12">
-        @Html.ActionLink("Добавить вакансию", "Create", "Vacancy", null, new { @class = "btn btn-primary" })
+        @Html.ActionLink(localizer["AddVacation"], "Create", "Vacancy", null, new { @class = "btn btn-primary" })
     </div>
 </div>
 
@@ -30,24 +29,14 @@
         <br />
         <table id="list" width="100%">
             <thead>
-                <tr>
-                    @*<th>Название компании</th>
-                        <th>Должность</th>
-                        <th>Действия</th>*@
+                <tr>                   
                     <th></th>
                 </tr>
             </thead>
             <tbody>
                 @foreach (var item in Model)
                 {
-                    <tr>
-                        @*<td>@item.Company</td>
-                            <td>@item.Position</td>
-                            <td>
-                                <a href="/Expert/Vacancy/Details/@item.ID"><i class="fas fa-eye"></i></a>
-                                <a href="/Expert/Vacancy/Edit/@item.ID"><i class="fas fa-pencil-alt"></i></a>
-                                <a href="/Expert/Vacancy/Delete/@item.ID"><i class="far fa-trash-alt"></i></a>
-                            </td>*@
+                    <tr>                      
                         <td>
                             <div class="card card-bordered card-hover-shadow mb-5">
                                 <div class="card-body">
@@ -125,7 +114,8 @@
                 ordering: false,
                 lengthChange: false,
                 scrollX: true,
-                lengthChange: false
+                lengthChange: false,
+                language: InitDataTableLanguage(),
             });
         });
     </script>

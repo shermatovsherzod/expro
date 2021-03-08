@@ -1194,4 +1194,10 @@
   <data name="DoTypeTextAndOrUploadFile" xml:space="preserve">
     <value>Матн теринг ва/ёки илова юкланг</value>
   </data>
+  <data name="ResumeEdited" xml:space="preserve">
+    <value>Резюме муваффаққиятли тахрирланди</value>
+  </data>
+  <data name="FilterByRegion" xml:space="preserve">
+    <value>Минтақа бўйича фильтрлаш</value>
+  </data>
 </root>

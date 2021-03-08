@@ -1188,4 +1188,10 @@
   <data name="RequiredField" xml:space="preserve">
     <value>Обязательное поле</value>
   </data>
+  <data name="ResumeEdited" xml:space="preserve">
+    <value>Резюме успешно отредактировано</value>
+  </data>
+  <data name="FilterByRegion" xml:space="preserve">
+    <value>Фильтр по региону</value>
+  </data>
 </root>
