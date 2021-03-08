@@ -12,7 +12,7 @@ namespace Expro.ViewModels
     {
         public ExpertProfileContactEditVM() { }
 
-        [Required]
+        [Required(ErrorMessageResourceName = "RequiredField", ErrorMessageResourceType = typeof(ResourceTexts))]
         [Display(Name = "lblPhoneNumber", ResourceType = typeof(ResourceTexts))]
         public string PhoneNumber { get; set; }
         

@@ -16,12 +16,12 @@ namespace Expro.ViewModels
         public ResumeEditVM() { }
         public int ID { get; set; }
 
-       // [Required(ErrorMessageResourceName = "RequiredField", ErrorMessageResourceType = typeof(ResourceTexts))]
+        [Required(ErrorMessageResourceName = "RequiredField", ErrorMessageResourceType = typeof(ResourceTexts))]
         [StringLength(100)]
         [Display(Name = "lblFirstName", ResourceType = typeof(ResourceTexts))]
         public string FirstName { get; set; }
 
-        [Required]
+        [Required(ErrorMessageResourceName = "RequiredField", ErrorMessageResourceType = typeof(ResourceTexts))]
         [StringLength(100)]
         [Display(Name = "lblLastName", ResourceType = typeof(ResourceTexts))]
         public string LastName { get; set; }
@@ -31,11 +31,11 @@ namespace Expro.ViewModels
         public string PatronymicName { get; set; }
 
         [StringLength(400)]
-        [Required]
+        [Required(ErrorMessageResourceName = "RequiredField", ErrorMessageResourceType = typeof(ResourceTexts))]
         [Display(Name = "Contacts", ResourceType = typeof(ResourceTexts))]
         public string Contact { get; set; }
 
-        [Required]
+        [Required(ErrorMessageResourceName = "RequiredField", ErrorMessageResourceType = typeof(ResourceTexts))]
         [Display(Name = "lblDateOfBirth", ResourceType = typeof(ResourceTexts))]
         public string DateOfBirth { get; set; }
 

@@ -13,7 +13,7 @@ namespace Expro.ViewModels
         public ExpertProfileWorkExperienceEditVM() { }
         public int ID { get; set; }
 
-        [Required]
+        [Required(ErrorMessageResourceName = "RequiredField", ErrorMessageResourceType = typeof(ResourceTexts))]
         [Display(Name = "lblCountry", ResourceType = typeof(ResourceTexts))]
         public int CountryID { get; set; }
 
@@ -22,21 +22,21 @@ namespace Expro.ViewModels
         [StringLength(256)]
         public string City { get; set; }
 
-        [Required]
+        [Required(ErrorMessageResourceName = "RequiredField", ErrorMessageResourceType = typeof(ResourceTexts))]
         [Display(Name = "lblPlaceOfWork", ResourceType = typeof(ResourceTexts))]
         [StringLength(256)]
         public string PlaceOfWork { get; set; }
 
-        [Required]
+        [Required(ErrorMessageResourceName = "RequiredField", ErrorMessageResourceType = typeof(ResourceTexts))]
         [Display(Name = "lblPosition", ResourceType = typeof(ResourceTexts))]
         [StringLength(256)]
         public string Position { get; set; }
 
-        [Required]
+        [Required(ErrorMessageResourceName = "RequiredField", ErrorMessageResourceType = typeof(ResourceTexts))]
         [Display(Name = "lblWorkPeriodFrom", ResourceType = typeof(ResourceTexts))]
         public string WorkPeriodFrom { get; set; }
 
-        [Required]
+        [Required(ErrorMessageResourceName = "RequiredField", ErrorMessageResourceType = typeof(ResourceTexts))]
         [Display(Name = "lblWorkPeriodTo", ResourceType = typeof(ResourceTexts))]
         public string WorkPeriodTo { get; set; }
 

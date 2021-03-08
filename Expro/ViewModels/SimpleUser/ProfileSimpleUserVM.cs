@@ -15,12 +15,12 @@ namespace Expro.ViewModels.SimpleUser
     {
         public ProfileSimpleUserVM(){}
 
-        [Required]
+        [Required(ErrorMessageResourceName = "RequiredField", ErrorMessageResourceType = typeof(ResourceTexts))]
         [Display(Name = "lblFirstName", ResourceType = typeof(ResourceTexts))]
         [StringLength(256)]
         public string FirstName { get; set; }
 
-        [Required]
+        [Required(ErrorMessageResourceName = "RequiredField", ErrorMessageResourceType = typeof(ResourceTexts))]
         [Display(Name = "lblLastName", ResourceType = typeof(ResourceTexts))]
         [StringLength(256)]
         public string LastName { get; set; }

@@ -1,6 +1,7 @@
 ﻿using Expro.Common.Utilities;
 using Expro.Models;
 using Expro.Models.Enums;
+using Expro.Resources;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -14,7 +15,7 @@ namespace Expro.ViewModels
         public CompanyEditVM() { }
         public int ID { get; set; }
 
-        [Required]
+        [Required(ErrorMessageResourceName = "RequiredField", ErrorMessageResourceType = typeof(ResourceTexts))]
         [StringLength(256)]
         [Display(Name = "CompanyName", ResourceType = typeof(Resources.ResourceTexts))]
         public string CompanyName { get; set; }
@@ -34,7 +35,7 @@ namespace Expro.ViewModels
         public string CityOther { get; set; }
 
         [Display(Name = "lblLawAreas", ResourceType = typeof(Resources.ResourceTexts))]
-        [Required(ErrorMessageResourceType = typeof(Resources.ResourceTexts), ErrorMessageResourceName = "ErrorRequiredField")]
+        [Required(ErrorMessageResourceName = "RequiredField", ErrorMessageResourceType = typeof(ResourceTexts))]
         public int LawAreaParentID { get; set; }
         public List<int> LawAreas { get; set; }
 

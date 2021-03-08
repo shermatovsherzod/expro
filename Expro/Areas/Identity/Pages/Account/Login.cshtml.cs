@@ -13,6 +13,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
 using Expro.Models;
 using Microsoft.Extensions.Localization;
+using Expro.Resources;
 
 namespace Expro.Areas.Identity.Pages.Account
 {
@@ -47,12 +48,12 @@ namespace Expro.Areas.Identity.Pages.Account
 
         public class InputModel
         {
-            [Required(ErrorMessageResourceType = typeof(Resources.ResourceTexts), ErrorMessageResourceName = "ErrorRequiredField")]
+            [Required(ErrorMessageResourceName = "RequiredField", ErrorMessageResourceType = typeof(ResourceTexts))]
             [Display(Name = "Email", ResourceType = typeof(Resources.ResourceTexts))]
             [EmailAddress]
             public string Email { get; set; }
 
-            [Required]
+            [Required(ErrorMessageResourceName = "RequiredField", ErrorMessageResourceType = typeof(ResourceTexts))]
             [Display(Name = "Пароль")]
             [DataType(DataType.Password)]
             public string Password { get; set; }

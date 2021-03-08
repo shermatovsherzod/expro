@@ -1,5 +1,6 @@
 ﻿using Expro.Common.Utilities;
 using Expro.Models.Enums;
+using Expro.Resources;
 using Expro.ViewModels;
 using System;
 using System.Collections.Generic;
@@ -17,12 +18,12 @@ namespace Expro.Models
         }
         public string Id { get; set; }
 
-        [Required]
+        [Required(ErrorMessageResourceName = "RequiredField", ErrorMessageResourceType = typeof(ResourceTexts))]
         [Display(Name = "Имя")]
         [StringLength(256)]
         public string FirstName { get; set; }
 
-        [Required]
+        [Required(ErrorMessageResourceName = "RequiredField", ErrorMessageResourceType = typeof(ResourceTexts))]
         [Display(Name = "Фамилия")]
         [StringLength(256)]
         public string LastName { get; set; }

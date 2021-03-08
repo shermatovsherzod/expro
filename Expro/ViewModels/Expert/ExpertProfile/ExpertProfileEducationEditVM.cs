@@ -14,26 +14,26 @@ namespace Expro.ViewModels
 
         public int ID { get; set; }
 
-        [Required]
+        [Required(ErrorMessageResourceName = "RequiredField", ErrorMessageResourceType = typeof(ResourceTexts))]
         [Display(Name = "lblCountry", ResourceType = typeof(ResourceTexts))]
         public int CountryID { get; set; }
 
-        [Required]
+        [Required(ErrorMessageResourceName = "RequiredField", ErrorMessageResourceType = typeof(ResourceTexts))]
         [Display(Name = "lblCity", ResourceType = typeof(ResourceTexts))]
         [StringLength(256)]
-        public string City { get; set; }      
+        public string City { get; set; }
 
-        [Required]
+        [Required(ErrorMessageResourceName = "RequiredField", ErrorMessageResourceType = typeof(ResourceTexts))]
         [Display(Name = "lblUniversity", ResourceType = typeof(ResourceTexts))]
         [StringLength(256)]
         public string University { get; set; }
 
-        [Required]
+        [Required(ErrorMessageResourceName = "RequiredField", ErrorMessageResourceType = typeof(ResourceTexts))]
         [Display(Name = "lblFaculty", ResourceType = typeof(ResourceTexts))]
         [StringLength(256)]
         public string Faculty { get; set; }
 
-        [Required]
+        [Required(ErrorMessageResourceName = "RequiredField", ErrorMessageResourceType = typeof(ResourceTexts))]
         [Display(Name = "lblGraduationYear", ResourceType = typeof(ResourceTexts))]
         public int GraduationYear { get; set; }
 

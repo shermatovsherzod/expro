@@ -1,5 +1,6 @@
 ﻿using Expro.Models;
 using Expro.Models.Enums;
+using Expro.Resources;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -17,7 +18,7 @@ namespace Expro.ViewModels
         [Display(Name = "Должность")]
         public string Position { get; set; }
 
-        [Required]
+        [Required(ErrorMessageResourceName = "RequiredField", ErrorMessageResourceType = typeof(ResourceTexts))]
         [StringLength(256)]
         [Display(Name = "Название компании")]
         public string Company { get; set; }
@@ -34,32 +35,32 @@ namespace Expro.ViewModels
 
         [StringLength(2000)]
         [Display(Name = "Ответственности")]
-        [Required]
+        [Required(ErrorMessageResourceName = "RequiredField", ErrorMessageResourceType = typeof(ResourceTexts))]
         public string Responsibility { get; set; }
 
         [StringLength(2000)]
         [Display(Name = "Требования")]
-        [Required]
+        [Required(ErrorMessageResourceName = "RequiredField", ErrorMessageResourceType = typeof(ResourceTexts))]
         public string Requirements { get; set; }
 
         [StringLength(256)]
         [Display(Name = "Заработная плата")]
-        [Required]
+        [Required(ErrorMessageResourceName = "RequiredField", ErrorMessageResourceType = typeof(ResourceTexts))]
         public string Salary { get; set; }
 
         [StringLength(256)]
         [Display(Name = "Контактное лицо")]
-        [Required]
+        [Required(ErrorMessageResourceName = "RequiredField", ErrorMessageResourceType = typeof(ResourceTexts))]
         public string ContactPerson { get; set; }
 
         [StringLength(256)]
         [Display(Name = "Номер телефона")]
-        [Required]
+        [Required(ErrorMessageResourceName = "RequiredField", ErrorMessageResourceType = typeof(ResourceTexts))]
         public string PhoneNumber { get; set; }
 
         [StringLength(100)]
         [Display(Name = "Емейл")]
-        [Required]
+        [Required(ErrorMessageResourceName = "RequiredField", ErrorMessageResourceType = typeof(ResourceTexts))]
         public string Email { get; set; }
 
         public DocumentActionTypesEnum ActionType { get; set; } = DocumentActionTypesEnum.saveAsDraft;
