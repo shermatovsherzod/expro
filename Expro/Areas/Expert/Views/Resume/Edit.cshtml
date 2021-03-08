@@ -364,6 +364,9 @@
             });
 
             LoadCitiesByRegion($("#RegionID").val(), cityID);
+            $("form button[type=submit]").click(function (ev) {
+                $("form input#ActionType").val($(this).attr("actiontype"));
+            });
         });
 
         function LoadCitiesByRegion(regionID, selectedCityID) {

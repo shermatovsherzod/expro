@@ -4,7 +4,7 @@
 @using Expro.Models.Enums
 
 @{
-    ViewData["Title"] = "Добавление компании";
+    ViewData["Title"] = localizer["AddCompany"];
     int? cityID = Model?.CityID;
     var lawAreasWithParent = ViewData["lawAreas"] as List<SelectListItemWithParent>;
     int selectedLawArea = Model?.LawAreaParentID ?? 0;
@@ -26,7 +26,7 @@
 
     <!-- Form Group -->
     <div class="row form-group">
-        <label class="col-sm-3 col-form-label input-label">Лого</label>
+        <label class="col-sm-3 col-form-label input-label">Логотип</label>
         <div class="col-sm-9">
             <div class="d-flex align-items-center">
                 <!-- Avatar -->
@@ -34,7 +34,7 @@
                     <img id="avatarImg" class="avatar-img" src="~/lib/frontTheme/img/160x160/img38.jpg" alt="Image Description">
                 </label>
                 <div class="btn btn-sm btn-primary file-attachment-btn">
-                    Загрузить лого
+                    @localizer["AddLogo"]
                     <input type="file" class="js-file-attach file-attachment-btn-label" id="addCompanyFormAttachment" accept="image/*"
                            data-hs-file-attach-options='{
                               "textTarget": "#avatarImg",
@@ -47,7 +47,7 @@
                 </div>
                 <!-- End Avatar -->
 
-                <button type="button" class="js-file-attach-reset-img btn btn-sm btn-white ml-2">Удалить</button>
+                <button type="button" class="js-file-attach-reset-img btn btn-sm btn-white ml-2">@localizer["Delete"]</button>
             </div>
         </div>
     </div>
@@ -55,7 +55,7 @@
 
     <div class="row">
         <div class="col-md-3">
-            <label asp-for="@Model.CompanyName"></label>
+            <label asp-for="@Model.CompanyName"></label><span class="text-danger">*</span>
         </div>
         <div class="col-md-9">
             <p>
@@ -91,7 +91,7 @@
 
     <div class="row">
         <div class="col-md-3">
-            <label asp-for="@Model.LawAreaParentID"></label>
+            <label asp-for="@Model.LawAreaParentID"></label><span class="text-danger">*</span>
         </div>
         <div class="col-md-9">
             <select asp-for="LawAreaParentID"
@@ -113,6 +113,11 @@
         </div>
     </div>
     <div class="row">
+        <div class="col-md-12">
+            <br />
+        </div>
+    </div>
+    <div class="row">
         <div class="col-md-3">
             @*<label asp-for="@Model.LawAreas"></label>*@
         </div>
@@ -124,6 +129,11 @@
                 }'>
             </select>
             <span asp-validation-for="@Model.LawAreas" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <br />
         </div>
     </div>
 
@@ -138,12 +148,16 @@
                     data-hs-select2-options='{
                     "minimumResultsForSearch": "Infinity"
                 }'>
-                <option disabled selected>--- Выбрать регион ---</option>
+                <option disabled selected>--- @localizer["SelectRegion"] ---</option>
             </select>
             <span asp-validation-for="@Model.RegionID" class="text-danger"></span>
         </div>
     </div>
-
+    <div class="row">
+        <div class="col-md-12">
+            <br />
+        </div>
+    </div>
     <div class="row">
         <div class="col-md-3">
             <label asp-for="@Model.CityID"></label>
@@ -155,12 +169,16 @@
                     data-hs-select2-options='{
                     "minimumResultsForSearch": "Infinity"
                 }'>
-                <option disabled selected>--- Выбрать город ---</option>
+                <option disabled selected>--- @localizer["SelectCity"] ---</option>
             </select>
             <span asp-validation-for="@Model.CityID" class="text-danger"></span>
         </div>
     </div>
-
+    <div class="row">
+        <div class="col-md-12">
+            <br />
+        </div>
+    </div>
     <div class="row">
         <div class="col-md-3">
             <label asp-for="@Model.CityOther"></label>
@@ -224,17 +242,19 @@
         <div class="col-sm-12">
             <div class="form-group" id="actionButtonsBox">
                 <input asp-for="ActionType" type="hidden" />
-                <button type="submit" class="btn btn-info" actiontype="@DocumentActionTypesEnum.saveAsDraft">Сохранить как черновик</button>
-                <button type="submit" class="btn btn-indigo" actiontype="@DocumentActionTypesEnum.submitForApproval">Отправить на подтверждение</button>
+                <button type="submit" class="btn btn-info" actiontype="@DocumentActionTypesEnum.saveAsDraft">@localizer["SaveAsDraft"]</button>
+                <button type="submit" class="btn btn-indigo" actiontype="@DocumentActionTypesEnum.submitForApproval">@localizer["SubmitForApproval"]</button>
                 <div class="spinner-border spinner" style="display: none;"></div>
             </div>
         </div>
     </div>
 </form>
 
-<div class="row">
+<div class="mt-5">
     <a asp-action="Index">@localizer["BackToList"]</a>
 </div>
+<br />
+<br />
 
 @section CustomFrontStyles
 {
@@ -312,7 +332,7 @@
                 contentType: "application/json; charset=utf-8",
                 //dataType: "json",
                 success: function (data) {
-                    $("#CityID").empty().append($("<option>").text("--- Выбрать город ---").attr('disabled', 'disabled').attr('selected', 'selected'));
+                    $("#CityID").empty().append($("<option>").text("--- @localizer["SelectCity"] ---").attr('disabled', 'disabled').attr('selected', 'selected'));
                     $.each(data,
                         function (i, item) {
                             var isSelected = "";
@@ -428,7 +448,7 @@
             }
             else {
                 var file = fileInput.files[0];
-                UploadToFirebaseStorageCompanyLogo(file);
+                UploadToFirebaseStorageAnswerFile(file);
             }
         }
 
@@ -439,7 +459,7 @@
             //$("#addCompanyForm .spinner").hide();
         }
 
-        function UploadToFirebaseStorageCompanyLogo(file) {
+        function UploadToFirebaseStorageAnswerFile(file) {
             var displayName = file.name;
             var tmp = displayName.split('.');
             var extension = tmp[tmp.length - 1];
