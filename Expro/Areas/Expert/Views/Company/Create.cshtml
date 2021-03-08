@@ -55,7 +55,7 @@
 
         <div class="row">
             <div class="col-md-3">
-                <label asp-for="@Model.CompanyName"></label>
+                <label asp-for="@Model.CompanyName"></label><span class="text-danger">*</span>
             </div>
             <div class="col-md-9">
                 <p>
@@ -91,7 +91,7 @@
 
         <div class="row">
             <div class="col-md-3">
-                <label asp-for="@Model.LawAreaParentID"></label>
+                <label asp-for="@Model.LawAreaParentID"></label><span class="text-danger">*</span>
             </div>
             <div class="col-md-9">
                 <select asp-for="LawAreaParentID"

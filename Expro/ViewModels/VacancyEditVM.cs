@@ -16,6 +16,7 @@ namespace Expro.ViewModels
 
         [StringLength(400)]
         [Display(Name = "Должность")]
+        [Required(ErrorMessageResourceName = "RequiredField", ErrorMessageResourceType = typeof(ResourceTexts))]
         public string Position { get; set; }
 
         [Required(ErrorMessageResourceName = "RequiredField", ErrorMessageResourceType = typeof(ResourceTexts))]
@@ -60,7 +61,7 @@ namespace Expro.ViewModels
 
         [StringLength(100)]
         [Display(Name = "Емейл")]
-        [Required(ErrorMessageResourceName = "RequiredField", ErrorMessageResourceType = typeof(ResourceTexts))]
+        //[Required(ErrorMessageResourceName = "RequiredField", ErrorMessageResourceType = typeof(ResourceTexts))]
         public string Email { get; set; }
 
         public DocumentActionTypesEnum ActionType { get; set; } = DocumentActionTypesEnum.saveAsDraft;

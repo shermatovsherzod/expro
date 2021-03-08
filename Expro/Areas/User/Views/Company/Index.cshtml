@@ -4,21 +4,24 @@
 
 @{
     Layout = "_Layout";
-    ViewData["Title"] = "Компании";
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
+    ViewData["Title"] = localizer["MyCompanies"];
+    @*<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">*@
 }
+
+<h2>@ViewData["Title"]</h2>
+<hr />
 
 @if (ViewData["successfullyCreated"] != null)
 {
     <div class="alert alert-soft-success text-center rounded-0 mb-0" role="alert">
-        Компания успешно добавлена
+        @localizer["CompanyAdded"]
     </div>
     <br />
 }
 
 <div class="row">
     <div class="col-md-12">
-        @Html.ActionLink("Добавить компанию", "Create", "Company", null, new { @class = "btn btn-primary" })
+        @Html.ActionLink(localizer["AddCompany"], "Create", "Company", null, new { @class = "btn btn-primary" })
     </div>
 </div>
 
@@ -28,33 +31,13 @@
         <table id="list" width="100%">
             <thead>
                 <tr>
-                    @*<th>Логотип</th>
-                        <th>Название компании</th>
-                        <th>Веб сайт</th>
-                        <th>Телефон</th>
-                        <th>Емейл</th>
-                        <th>Действия</th>*@
                     <th></th>
                 </tr>
             </thead>
             <tbody>
-                @{
-                    List<CompanyDetailsVM> _list = ViewData["companyListVM"] as List<CompanyDetailsVM>;
-                }
-
                 @foreach (var item in Model)
                 {
                     <tr>
-                        @*<td>@item.Logo.Url</td>
-                            <td>@item.CompanyName</td>
-                            <td>@item.WebSite</td>
-                            <td>@item.PhoneNumber</td>
-                            <td>@item.Email</td>
-                            <td>
-                                <a href="/User/Company/Details/@item.ID"><i class="fas fa-eye"></i></a>
-                                <a href="/User/Company/Edit/@item.ID"><i class="fas fa-pencil-alt"></i></a>
-                                <a href="/User/Company/Delete/@item.ID"><i class="far fa-trash-alt"></i></a>
-                            </td>*@
                         <td>
                             <div class="card card-bordered card-hover-shadow mb-5">
                                 <div class="card-body">
@@ -72,7 +55,7 @@
                                             <div class="row">
                                                 <div class="col col-md-8">
                                                     <h3 class="mb-0">
-                                                        <a class="text-dark" href="/User/Company/Edit/@item.ID" target="_blank">@item.CompanyName</a>
+                                                        <a class="text-dark" href="/Expert/Company/Edit/@item.ID" target="_blank">@item.CompanyName</a>
                                                     </h3>
                                                     <div class="d-none d-sm-block">
                                                         @foreach (var lawArea in item.LawAreas)
@@ -82,7 +65,6 @@
                                                     </div>
                                                 </div>
                                                 <div class="col-12 col-md mt-3 mt-md-2">
-                                                    @*<span class="d-block font-size-1 text-body mb-1">$125k-$135k yearly</span>*@
 
                                                     @{
                                                         string badgeClass = "";
@@ -147,7 +129,8 @@
                 ordering: false,
                 lengthChange: false,
                 scrollX: true,
-                lengthChange: false
+                lengthChange: false,
+                language: InitDataTableLanguage(),
             });
         });
     </script>
