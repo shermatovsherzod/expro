@@ -1,7 +1,7 @@
 ﻿@using Expro.ViewModels
 
 @{
-    ViewData["Title"] = "Компании";
+    ViewData["Title"] = localizer["Companies"];
     var lawAreasWithParent = ViewData["lawAreas"] as List<SelectListItemWithParent>;
     var showAddNewItemButton = ViewData["showAddNewItemButton"] as bool?;
 }
@@ -13,7 +13,7 @@
 {
     <div class="row">
         <div class="col-md-12">
-            <a class="btn btn-primary" href="/@ViewData["curUserArea"]/Company/Create">Добавить компанию</a>
+            <a class="btn btn-primary" href="/@ViewData["curUserArea"]/Company/Create">@localizer["AddCompany"]</a>
         </div>
     </div>
 }
@@ -50,7 +50,7 @@
                     <form class="filterForm">
                         <!-- Filter Group -->
                         <div class="mb-5">
-                            <h6 class="small text-cap">Фильтр по региону</h6>
+                            <h6 class="small text-cap">@localizer["FilterByRegion"]</h6>
 
                             <!-- Select -->
                             <div id="regionDDBox" class="select2-custom select2-custom-sm-right">
@@ -83,7 +83,7 @@
                         <!-- End Filter Group -->
                         <!-- Filter Group -->
                         <div class="mb-5">
-                            <h6 class="small text-cap">Фильтр по направлению</h6>
+                            <h6 class="small text-cap">@localizer["FilterByLawArea"]</h6>
 
                             <!-- Select -->
                             <div id="lawAreaParentDDBox" class="select2-custom select2-custom-sm-right">

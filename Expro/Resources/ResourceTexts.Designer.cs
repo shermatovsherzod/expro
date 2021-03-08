@@ -1321,6 +1321,15 @@ namespace Expro.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Фильтр по региону.
+        /// </summary>
+        public static string FilterByRegion {
+            get {
+                return ResourceManager.GetString("FilterByRegion", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Фильтр по статусу.
         /// </summary>
         public static string FilterByStatus {
