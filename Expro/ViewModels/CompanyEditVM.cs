@@ -16,20 +16,20 @@ namespace Expro.ViewModels
 
         [Required]
         [StringLength(256)]
-        [Display(Name = "Название компании")]
+        [Display(Name = "CompanyName", ResourceType = typeof(Resources.ResourceTexts))]
         public string CompanyName { get; set; }
 
         [StringLength(4000)]
-        [Display(Name = "О компании")]
+        [Display(Name = "AboutCompany", ResourceType = typeof(Resources.ResourceTexts))]
         public string CompanyDescription { get; set; }
 
-        [Display(Name = "Регион")]
+        [Display(Name = "lblRegion", ResourceType = typeof(Resources.ResourceTexts))]
         public int? RegionID { get; set; }
 
-        [Display(Name = "Город")]
+        [Display(Name = "lblCity", ResourceType = typeof(Resources.ResourceTexts))]
         public int? CityID { get; set; }
 
-        [Display(Name = "Другой город")]
+        [Display(Name = "lblCityOther", ResourceType = typeof(Resources.ResourceTexts))]
         [StringLength(256)]
         public string CityOther { get; set; }
 
@@ -39,19 +39,19 @@ namespace Expro.ViewModels
         public List<int> LawAreas { get; set; }
 
         [StringLength(100)]
-        [Display(Name = "Сайт")]
+        [Display(Name = "lblWebSite", ResourceType = typeof(Resources.ResourceTexts))]
         public string WebSite { get; set; }
 
         [StringLength(100)]
-        [Display(Name = "Номер телефона")]
+        [Display(Name = "lblPhoneNumber", ResourceType = typeof(Resources.ResourceTexts))]
         public string PhoneNumber { get; set; }
 
         [StringLength(100)]
-        [Display(Name = "Емейл")]
+        [Display(Name = "Email", ResourceType = typeof(Resources.ResourceTexts))]
         public string Email { get; set; }
 
         [StringLength(256)]
-        [Display(Name = "Адрес")]
+        [Display(Name = "Address", ResourceType = typeof(Resources.ResourceTexts))]
         public string Address { get; set; }
 
         public DocumentActionTypesEnum ActionType { get; set; } = DocumentActionTypesEnum.saveAsDraft;

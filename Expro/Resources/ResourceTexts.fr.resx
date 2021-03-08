@@ -223,7 +223,7 @@
     <value>Маълумоти</value>
   </data>
   <data name="Email" xml:space="preserve">
-    <value>Адрес электронной почты</value>
+    <value>Электрон почта манзили</value>
   </data>
   <data name="Enter" xml:space="preserve">
     <value>Кириш</value>
@@ -1151,5 +1151,38 @@
   </data>
   <data name="OverallRating" xml:space="preserve">
     <value>Умумий рейтинг</value>
+  </data>
+  <data name="AddCompany" xml:space="preserve">
+    <value>Компания қўшиш</value>
+  </data>
+  <data name="AddLogo" xml:space="preserve">
+    <value>Логотип қўшиш</value>
+  </data>
+  <data name="AddResume" xml:space="preserve">
+    <value>Резюме қўшиш</value>
+  </data>
+  <data name="CompanyAdded" xml:space="preserve">
+    <value>Компания муваффақиятли қўшилди</value>
+  </data>
+  <data name="CompanyEdit" xml:space="preserve">
+    <value>Компанияни тахрирлаш</value>
+  </data>
+  <data name="CompanyName" xml:space="preserve">
+    <value>Компания номи</value>
+  </data>
+  <data name="OtherInfo" xml:space="preserve">
+    <value>Қўшимча маълумот</value>
+  </data>
+  <data name="ResumeAdded" xml:space="preserve">
+    <value>Резюме муваффақиятли қўшилди</value>
+  </data>
+  <data name="ResumeEdit" xml:space="preserve">
+    <value>Резюмени тахрирлаш</value>
+  </data>
+  <data name="WaitingForApproval" xml:space="preserve">
+    <value>Тасдиқланиши кутилмоқда</value>
+  </data>
+  <data name="RequiredField" xml:space="preserve">
+    <value>Мажбурий майдон</value>
   </data>
 </root>
