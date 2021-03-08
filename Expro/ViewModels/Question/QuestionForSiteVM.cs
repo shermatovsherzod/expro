@@ -106,7 +106,7 @@ namespace Expro.ViewModels
             Attachment = new AttachmentDetailsVM(model.Attachment);
 
             Answers = new List<QuestionAnswerDetailsVM>();
-            foreach (var item in model.Answers)
+            foreach (var item in model.Answers.Where(m => m.IsDeleted == false))
             {
                 Answers.Add(new QuestionAnswerDetailsVM(item, viewerUserID));
             }

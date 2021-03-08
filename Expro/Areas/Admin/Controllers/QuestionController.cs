@@ -25,6 +25,7 @@ namespace Expro.Areas.Admin.Controllers
         private readonly IQuestionStatusService QuestionStatusService;
         private readonly IQuestionService QuestionService;
         private readonly IHangfireService HangfireService;
+        private readonly IQuestionAnswerService _questionAnswerService;
 
         public QuestionController(
             IQuestionService questionService,
@@ -34,6 +35,7 @@ namespace Expro.Areas.Admin.Controllers
             IUserBalanceService userBalanceService,
             UserManager<ApplicationUser> userManager,
             IQuestionStatusService questionStatusService,
+            IQuestionAnswerService questionAnswerService,
             IStringLocalizer<Resources.ResourceTexts> localizer)
         {
             QuestionAdminActionsService = questionAdminActionsService;
@@ -43,6 +45,7 @@ namespace Expro.Areas.Admin.Controllers
             QuestionStatusService = questionStatusService;
             QuestionService = questionService;
             HangfireService = hangfireService;
+            _questionAnswerService = questionAnswerService;
             _localizer = localizer;
         }
 
@@ -159,6 +162,27 @@ namespace Expro.Areas.Admin.Controllers
                 QuestionAdminActionsService.Reject(document, curUser.ID);
                 
                 HangfireService.CancelJob(document.RejectionJobID);
+
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return CustomBadRequest(ex);
+            }
+        }
+
+        [HttpPost]
+        public IActionResult MarkAnswerAsDeleted(int answerID)
+        {
+            try
+            {
+                var answer = _questionAnswerService.GetByID(answerID);
+                if (answer == null)
+                    throw new Exception(_localizer["QuestionAnswerNotFound"]);
+
+                var curUser = accountUtil.GetCurrentUser(User);
+
+                _questionAnswerService.Delete(answer, curUser.ID);
 
                 return Ok();
             }

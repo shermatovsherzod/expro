@@ -1200,4 +1200,7 @@
   <data name="FilterByRegion" xml:space="preserve">
     <value>Минтақа бўйича фильтрлаш</value>
   </data>
+  <data name="QuestionAnswerNotFound" xml:space="preserve">
+    <value>Жавоб топилмади</value>
+  </data>
 </root>

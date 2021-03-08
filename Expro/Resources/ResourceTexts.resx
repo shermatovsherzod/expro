@@ -1194,4 +1194,7 @@
   <data name="FilterByRegion" xml:space="preserve">
     <value>Фильтр по региону</value>
   </data>
+  <data name="QuestionAnswerNotFound" xml:space="preserve">
+    <value>Ответ не найден</value>
+  </data>
 </root>

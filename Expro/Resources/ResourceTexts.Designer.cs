@@ -2275,6 +2275,15 @@ namespace Expro.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Ответ не найден.
+        /// </summary>
+        public static string QuestionAnswerNotFound {
+            get {
+                return ResourceManager.GetString("QuestionAnswerNotFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Вопрос закрыт.
         /// </summary>
         public static string QuestionClosed {

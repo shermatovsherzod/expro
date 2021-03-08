@@ -192,6 +192,12 @@
                                             </span>
                                             <small class="text-muted">@answer.DatePublished</small>
                                         </div>
+                                        @if (showAdminActions == true)
+                                        {
+                                            <div class="d-flex justify-content-md-end align-items-center">
+                                                <button type="button" class="btn btn-danger btn-xs" onclick="MarkAnswerAsDeleted(@answer.ID);">@localizer["Delete"] <i class="fas fa-times ml-1"></i></button>
+                                            </div>
+                                        }
                                     </div>
                                 </div>
 
@@ -288,8 +294,6 @@
                         paddingInt = currentComment.DepthLevel * 20;
                         string paddingStr = paddingInt + "px";
 
-
-
                         <li class="mb-5">
                             <div class="border-left border-3 pl-4" style="margin-left: @paddingStr">
                                 <div class="media align-items-center mb-2">
@@ -305,6 +309,12 @@
                                             <span class="h5 mb-0">@currentComment.Author.FullName</span>
                                             <small class="text-muted">@currentComment.DatePublished</small>
                                         </div>
+                                        @if (showAdminActions == true)
+                                        {
+                                            <div class="d-flex justify-content-md-end align-items-center">
+                                                <button type="button" class="btn btn-danger btn-xs" onclick="DeleteComment(@currentComment.ID);">@localizer["Delete"] <i class="fas fa-times ml-1"></i></button>
+                                            </div>
+                                        }
                                     </div>
                                 </div>
 
@@ -623,6 +633,78 @@
                 error: function (data) {
                     alert("Ajax error (status code = " + data.status + "): " + data.statusText);
                     $(".adminActions .spinner").hide();
+                },
+                complete: function (data) {
+                    //alert("completed");
+                    //$(".btn").removeAttr("disabled");
+                }
+            });
+        }
+
+        function MarkAnswerAsDeleted(answerID) {
+            var confirmationText = "Вы уверены, что хотите удалить ответ?";
+
+            if (!confirm(confirmationText))
+                return;
+
+            $.ajax({
+                type: "POST",
+                url: "/Admin/Question/MarkAnswerAsDeleted?answerID=" + answerID,
+                //data: {
+                //    id: requestID
+                //},
+                //data: JSON.stringify({
+                //    id: requestID
+                //}),
+                contentType: "application/json; charset=utf-8",
+                //dataType: "json",
+                beforeSend: function (data) {
+                    $(".btn").attr("disabled", "disabled");
+                },
+                success: function (data) {
+                    //alert("success");
+                    //alert(data);
+                    location.reload();
+                },
+                error: function (data) {
+                    alert("Ajax error (status code = " + data.status + "): " + data.statusText);
+                    $(".btn").removeAttr("disabled");
+                },
+                complete: function (data) {
+                    //alert("completed");
+                    //$(".btn").removeAttr("disabled");
+                }
+            });
+        }
+
+        function DeleteComment(commentID) {
+            var confirmationText = "Вы уверены, что хотите удалить комментарий?";
+
+            if (!confirm(confirmationText))
+                return;
+
+            $.ajax({
+                type: "POST",
+                url: "/Comment/Delete?id=" + commentID,
+                //data: {
+                //    id: requestID
+                //},
+                //data: JSON.stringify({
+                //    id: requestID
+                //}),
+                contentType: "application/json; charset=utf-8",
+                //dataType: "json",
+                beforeSend: function (data) {
+                    $(".btn").attr("disabled", "disabled");
+                },
+                success: function (data) {
+                    //alert("success");
+                    //alert(data);
+                    location.reload();
+                },
+                error: function (data) {
+                    alert("Ajax error (status code = " + data.status + "): " + data.statusText);
+                    $(".btn").removeAttr("disabled");
                 },
                 complete: function (data) {
                     //alert("completed");
