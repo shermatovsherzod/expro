@@ -1,7 +1,9 @@
-﻿var _localizer;
+﻿var _documentType = "";
+var _localizer;
 
-function SetVariables(localizer) {
+function SetVariables(localizer, documentType) {
     _localizer = localizer;
+    _documentType = documentType;
 }
 
 $(document).ready(function () {
@@ -107,4 +109,41 @@ function InitQuill() {
     var quill = $.HSCore.components.HSQuill.init('.js-quill', options);
 
     return quill;
+}
+
+function Reject(id) {
+    var confirmationText = _localizer["AreYouSureYouWantToReject"] + "?";
+
+    if (!confirm(confirmationText))
+        return;
+
+    $.ajax({
+        type: "POST",
+        url: "/Admin/" + _documentType + "/Reject/" + id,
+        //data: {
+        //    id: requestID
+        //},
+        //data: JSON.stringify({
+        //    id: requestID
+        //}),
+        contentType: "application/json; charset=utf-8",
+        //dataType: "json",
+        beforeSend: function (data) {
+            $(".btn").attr("disabled", "disabled");
+            $(".adminActions .spinner").show();
+        },
+        success: function (data) {
+            //alert("success");
+            //alert(data);
+            location.replace("/" + _documentType);
+        },
+        error: function (data) {
+            alert("Ajax error (status code = " + data.status + "): " + data.statusText);
+            $(".adminActions .spinner").hide();
+        },
+        complete: function (data) {
+            //alert("completed");
+            //$(".btn").removeAttr("disabled");
+        }
+    });
 }

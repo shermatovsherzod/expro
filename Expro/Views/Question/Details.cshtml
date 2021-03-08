@@ -10,6 +10,8 @@
     bool? curUserIsAllowedToComment = ViewData["curUserIsAllowedToComment"] as bool?;
     bool? curUserIsAllowedToDistributeFee = ViewData["curUserIsAllowedToDistributeFee"] as bool?;
     bool? curUserIsAllowedToComplete = ViewData["curUserIsAllowedToComplete"] as bool?;
+
+    bool? showAdminActions = ViewData["showAdminActions"] as bool?;
 }
 
 <div class="w-lg-60 mx-lg-auto">
@@ -53,6 +55,15 @@
                         <i class="fab fa-telegram"></i>
                     </a>
                 </div>
+                @if (showAdminActions == true)
+                {
+                    <div class="d-flex justify-content-md-end align-items-center">
+                        <span class="adminActions">
+                            <button type="button" class="btn btn-danger btn-xs" onclick="Reject(@Model.ID);">@localizer["Reject"] <i class="fas fa-times ml-1"></i></button>
+                            <span class="spinner-border spinner" style="display: none;"></span>
+                        </span>
+                    </div>
+                }
             </div>
         </div>
     </div>
@@ -579,6 +590,45 @@
 
         function Dislike(answerID) {
             Like(answerID, false);
+        }
+    </script>
+
+    <script>
+        function Reject(id) {
+            var confirmationText = "Вы уверены, что хотите отменить?";
+
+            if (!confirm(confirmationText))
+                return;
+
+            $.ajax({
+                type: "POST",
+                url: "/Admin/Question/Reject/" + id,
+                //data: {
+                //    id: requestID
+                //},
+                //data: JSON.stringify({
+                //    id: requestID
+                //}),
+                contentType: "application/json; charset=utf-8",
+                //dataType: "json",
+                beforeSend: function (data) {
+                    $(".btn").attr("disabled", "disabled");
+                    $(".adminActions .spinner").show();
+                },
+                success: function (data) {
+                    //alert("success");
+                    //alert(data);
+                    location.replace("/Question");
+                },
+                error: function (data) {
+                    alert("Ajax error (status code = " + data.status + "): " + data.statusText);
+                    $(".adminActions .spinner").hide();
+                },
+                complete: function (data) {
+                    //alert("completed");
+                    //$(".btn").removeAttr("disabled");
+                }
+            });
         }
     </script>
 }

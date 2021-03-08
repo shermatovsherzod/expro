@@ -1,6 +1,10 @@
 ﻿@model Expro.ViewModels.DocumentDetailsForSiteVM
 @using Expro.Models.Enums
 
+@{ 
+    bool? showAdminActions = ViewData["showAdminActions"] as bool?;
+}
+
 @*<dt class="col-sm-2">
         @Html.DisplayNameFor(model => model.Language)
     </dt>
@@ -23,9 +27,6 @@
                     @if (Model.PriceType == DocumentPriceTypesEnum.Paid)
                     {
                         <span class="ml-4"><i class="fa fa-shopping-cart" aria-hidden="true"></i> @Model.NumberOfPurchases</span>
-                    }
-                    @if (Model.PriceType == DocumentPriceTypesEnum.Paid)
-                    {
                         <span class="badge badge-soft-info">@localizer["Price"]: @Model.PriceStr @localizer["soum"]</span>
                     }
                 </div>
@@ -58,6 +59,16 @@
                     <i class="fab fa-telegram"></i>
                 </a>
             </div>
+
+            @if (showAdminActions == true)
+            {
+                <div class="d-flex justify-content-md-end align-items-center">
+                    <span class="adminActions">
+                        <button type="button" class="btn btn-danger btn-xs" onclick="Reject(@Model.ID);">@localizer["Reject"] <i class="fas fa-times ml-1"></i></button>
+                        <span class="spinner-border spinner" style="display: none;"></span>
+                    </span>
+                </div>
+            }
         </div>
     </div>
 </div>

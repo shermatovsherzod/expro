@@ -27,6 +27,14 @@ namespace Expro.Services
             return entity.DocumentStatusID == (int)DocumentStatusesEnum.WaitingForApproval;
         }
 
+        bool IsApproved(T entity)
+        {
+            if (entity == null)
+                return false;
+
+            return entity.DocumentStatusID == (int)DocumentStatusesEnum.Approved;
+        }
+
         public bool ApprovingIsAllowed(T entity)
         {
             return StatusIsWaitingForApproval(entity);
@@ -44,7 +52,7 @@ namespace Expro.Services
 
         public bool RejectingIsAllowed(T entity)
         {
-            return StatusIsWaitingForApproval(entity);
+            return StatusIsWaitingForApproval(entity) || IsApproved(entity);
         }
 
         public virtual void Reject(T entity, string userID)
@@ -60,7 +68,7 @@ namespace Expro.Services
 
         public void RejectionDeadlineReaches(T model)
         {
-            if (!RejectingIsAllowed(model))
+            if (!StatusIsWaitingForApproval(model))
                 return;
 
             Reject(model, null);

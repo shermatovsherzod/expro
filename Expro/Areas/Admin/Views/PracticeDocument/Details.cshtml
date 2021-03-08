@@ -29,9 +29,8 @@
                 "AreYouSureYouWantToApprove": "@Html.Raw(localizer["AreYouSureYouWantToApprove"])",
                 "AreYouSureYouWantToReject": "@Html.Raw(localizer["AreYouSureYouWantToReject"])"
             };
-            SetVariables(localizer);
+            SetVariables(localizer, "@ViewData["DocumentType"]");
 
-            SetDocumentType("@ViewData["DocumentType"]");
             InitQuill();
         });
     </script>

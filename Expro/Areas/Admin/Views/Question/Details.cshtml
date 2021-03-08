@@ -43,7 +43,7 @@
                         </a>*@
                     @if (Model.PriceType == DocumentPriceTypesEnum.Paid)
                     {
-                        <span class="badge badge-soft-info">Вознаграждение: @Model.PriceStr сум</span>
+                        <span class="badge badge-soft-info">@localizer["Fee"]: @Model.PriceStr @localizer["soum"]</span>
                     }
                 </div>
             </div>
@@ -126,9 +126,9 @@
         }
         @if (Model.Status.ID == (int)DocumentStatusesEnum.WaitingForApproval)
         {
-            <span>Действия:</span>
-            <button type="button" class="btn btn-success" onclick="Approve(@Model.ID);">Подтвердить <i class="fas fa-check ml-1"></i></button>
-            <button type="button" class="btn btn-danger" onclick="Reject(@Model.ID);">Отменить <i class="fas fa-times ml-1"></i></button>
+            <span>@localizer["Actions"]:</span>
+            <button type="button" class="btn btn-success btn-xs" onclick="Approve(@Model.ID);">@localizer["Approve"] <i class="fas fa-check ml-1"></i></button>
+            <button type="button" class="btn btn-danger btn-xs" onclick="Reject(@Model.ID);">@localizer["Reject"] <i class="fas fa-times ml-1"></i></button>
             <div class="spinner-border spinner" style="display: none;"></div>
         }
         else if (Model.Status.ID == (int)DocumentStatusesEnum.Approved)
@@ -136,6 +136,10 @@
             <div class="alert alert-soft-success text-center rounded-0 mb-0" role="alert">
                 @ViewData["ApprovedStatusAlertText"] @dateAdminResponsed
             </div>
+            <br />
+            <span>@localizer["Actions"]:</span>
+            <button type="button" class="btn btn-danger btn-xs" onclick="Reject(@Model.ID);">@localizer["Reject"] <i class="fas fa-times ml-1"></i></button>
+            <div class="spinner-border spinner" style="display: none;"></div>
         }
         else if (Model.Status.ID == (int)DocumentStatusesEnum.Rejected)
         {
@@ -145,7 +149,7 @@
         }
     </div>
     <div class="mt-5">
-        <a asp-action="Index">Назад к списку</a>
+        <a asp-action="Index">@localizer["BackToList"]</a>
     </div>
 </div>
 

@@ -25,10 +25,11 @@
     <script>
         $(document).ready(function () {
             var localizer = {
-                "AreYouSureYouWantToPurchase": '@localizer["AreYouSureYouWantToPurchase"]'
+                "AreYouSureYouWantToPurchase": "@Html.Raw(localizer["AreYouSureYouWantToPurchase"])",
+                "AreYouSureYouWantToReject": "@Html.Raw(localizer["AreYouSureYouWantToReject"])"
             };
 
-            SetVariables(localizer);
+            SetVariables(localizer, "@ViewData["DocumentType"]");
 
             SetLikeType("@Constants.LikeTypes.DOCUMENT");
             InitQuill();

@@ -174,6 +174,15 @@ namespace Expro.Controllers
             ViewData["curUserIsAllowedToComplete"] = curUserIsAllowedToComplete;
             ViewData["curPageUrl"] = Request.Path.Value;
 
+            bool showAdminActions = false;
+            if (User.Identity.IsAuthenticated)
+            {
+                var curUserr = accountUtil.GetCurrentUser(User);
+                if (curUserr.IsAdmin)
+                    showAdminActions = true;
+            }
+            ViewData["showAdminActions"] = showAdminActions;
+
             return View(documentVM);
         }
 

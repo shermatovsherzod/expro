@@ -1,12 +1,9 @@
-﻿var documentType = "";
+﻿var _documentType = "";
 var _localizer;
 
-function SetVariables(localizer) {
+function SetVariables(localizer, documentType) {
     _localizer = localizer;
-}
-
-function SetDocumentType(name) {
-    documentType = name;
+    _documentType = documentType;
 }
 
 function Approve(id) {
@@ -29,7 +26,7 @@ function ResponseToDocument(id, action) {
 
     $.ajax({
         type: "POST",
-        url: "/Admin/" + documentType + "/" + action + "/" + id,
+        url: "/Admin/" + _documentType + "/" + action + "/" + id,
         //data: {
         //    id: requestID
         //},
