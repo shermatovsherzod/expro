@@ -78,7 +78,7 @@ namespace Expro.ViewModels
         //[Display(Name = "Направление")]
         //public List<BaseDropdownableDetailsVM> LawAreas { get; set; }
 
-        public DocumentContentTypesEnum ContentType { get; set; } = DocumentContentTypesEnum.file;
+        //public DocumentContentTypesEnum ContentType { get; set; } = DocumentContentTypesEnum.file;
 
         [Display(Name = "Файл")]
         public AttachmentDetailsVM Attachment { get; set; }
@@ -97,7 +97,7 @@ namespace Expro.ViewModels
             Title = model.Title;
             Language = new BaseDropdownableDetailsVM(model.Language);
 
-            ContentType = model.ContentType;
+            //ContentType = model.ContentType;
             Attachment = new AttachmentDetailsVM(model.Attachment);
             if (!string.IsNullOrWhiteSpace(model.Text))
                 Text = model.Text;

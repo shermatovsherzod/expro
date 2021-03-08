@@ -23,12 +23,12 @@
     <input asp-for="StatusID" type="hidden" />
 
     @*@if (ViewData["successfullySaved"] != null)
-    {
-        <div class="alert alert-soft-success text-center rounded-0 mb-0" role="alert">
-            @localizer["DataSuccessfullySaved"]
-        </div>
-        <br />
-    }*@
+        {
+            <div class="alert alert-soft-success text-center rounded-0 mb-0" role="alert">
+                @localizer["DataSuccessfullySaved"]
+            </div>
+            <br />
+        }*@
     @if (Model.StatusID == (int)DocumentStatusesEnum.WaitingForApproval)
     {
         <div class="alert alert-soft-info text-center rounded-0 mb-0" role="alert">
@@ -101,7 +101,25 @@
     </div>
 
     <div class="form-group">
-        <input asp-for="ContentType" type="radio" value="@DocumentContentTypesEnum.file">
+        <label asp-for="Text" class="control-label"></label>
+        <!-- Quill -->
+        <div class="quill-custom Text">
+            <div class="js-quill" style="min-height: 15rem;"
+                 data-hs-quill-options='{
+                   "placeholder": "@localizer["TypeTextBrieflyHere"]",
+                    "modules": {
+                      "toolbar": [["bold", "italic", "underline", "strike", "link", "image", "blockquote", "code", {"list": "bullet"}]]
+                    }
+                   }'>
+                @Html.Raw(Model.Text)
+            </div>
+        </div>
+        <!-- End Quill -->
+        <textarea asp-for="Text" class="form-control" style="display: none;"></textarea>
+        <span asp-validation-for="Text" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
         <label asp-for="AttachmentID" class="control-label"></label>
         <input asp-for="AttachmentID" type="hidden" />
         @{
@@ -141,26 +159,6 @@
 
         <div class="spinner-border spinner" id="fileUploadSpinner" style="display: none;"></div>
         <span asp-validation-for="AttachmentID" class="text-danger"></span>
-    </div>
-
-    <div class="form-group">
-        <input asp-for="ContentType" type="radio" value="@DocumentContentTypesEnum.text">
-        <label asp-for="Text" class="control-label"></label>
-        <!-- Quill -->
-        <div class="quill-custom Text">
-            <div class="js-quill" style="min-height: 15rem;"
-                 data-hs-quill-options='{
-                   "placeholder": "@localizer["TypeTextBrieflyHere"]",
-                    "modules": {
-                      "toolbar": [["bold", "italic", "underline", "strike", "link", "image", "blockquote", "code", {"list": "bullet"}]]
-                    }
-                   }'>
-                @Html.Raw(Model.Text)
-            </div>
-        </div>
-        <!-- End Quill -->
-        <textarea asp-for="Text" class="form-control" style="display: none;"></textarea>
-        <span asp-validation-for="Text" class="text-danger"></span>
     </div>
 
     <div class="form-group">

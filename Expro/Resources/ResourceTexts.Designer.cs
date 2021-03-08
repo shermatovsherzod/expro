@@ -907,6 +907,15 @@ namespace Expro.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Введите текст и/или загрузите файл.
+        /// </summary>
+        public static string DoTypeTextAndOrUploadFile {
+            get {
+                return ResourceManager.GetString("DoTypeTextAndOrUploadFile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Загрузите файл.
         /// </summary>
         public static string DoUploadFile {

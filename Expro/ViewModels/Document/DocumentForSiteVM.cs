@@ -21,8 +21,8 @@ namespace Expro.ViewModels
         [Display(Name = "Направление")]
         public List<BaseDropdownableDetailsVM> LawAreas { get; set; }
 
-        [Display(Name = "Содержимое")]
-        public DocumentContentTypesEnum ContentType { get; set; } = DocumentContentTypesEnum.file;
+        //[Display(Name = "Содержимое")]
+        //public DocumentContentTypesEnum ContentType { get; set; } = DocumentContentTypesEnum.file;
 
         [Display(Name = "Текст")]
         public string Text { get; set; }
@@ -58,7 +58,7 @@ namespace Expro.ViewModels
                 .Select(m => new BaseDropdownableDetailsVM(m.LawArea))
                 .ToList());
 
-            ContentType = model.ContentType;
+            //ContentType = model.ContentType;
 
             if (!string.IsNullOrWhiteSpace(model.Text))
             {

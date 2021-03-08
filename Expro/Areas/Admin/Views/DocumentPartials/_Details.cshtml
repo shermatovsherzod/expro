@@ -2,11 +2,11 @@
 @using Expro.Models.Enums
 
 @*<dt class="col-sm-2">
-    @Html.DisplayNameFor(model => model.Language)
-</dt>
-<dd class="col-sm-10">
-    @Html.DisplayFor(model => model.Language.Name)
-</dd>*@
+        @Html.DisplayNameFor(model => model.Language)
+    </dt>
+    <dd class="col-sm-10">
+        @Html.DisplayFor(model => model.Language.Name)
+    </dd>*@
 
 <!-- Author -->
 <div class="border-top border-bottom py-4 mb-5">
@@ -26,18 +26,18 @@
             <div class="d-flex justify-content-md-end align-items-center">
                 @*<span class="d-block small font-weight-bold text-cap mr-2">Share:</span>
 
-        <a class="btn btn-xs btn-icon btn-soft-secondary rounded-circle ml-2" href="#">
-            <i class="fab fa-facebook-f"></i>
-        </a>
-        <a class="btn btn-xs btn-icon btn-soft-secondary rounded-circle ml-2" href="#">
-            <i class="fab fa-twitter"></i>
-        </a>
-        <a class="btn btn-xs btn-icon btn-soft-secondary rounded-circle ml-2" href="#">
-            <i class="fab fa-instagram"></i>
-        </a>
-        <a class="btn btn-xs btn-icon btn-soft-secondary rounded-circle ml-2" href="#">
-            <i class="fab fa-telegram"></i>
-        </a>*@
+                    <a class="btn btn-xs btn-icon btn-soft-secondary rounded-circle ml-2" href="#">
+                        <i class="fab fa-facebook-f"></i>
+                    </a>
+                    <a class="btn btn-xs btn-icon btn-soft-secondary rounded-circle ml-2" href="#">
+                        <i class="fab fa-twitter"></i>
+                    </a>
+                    <a class="btn btn-xs btn-icon btn-soft-secondary rounded-circle ml-2" href="#">
+                        <i class="fab fa-instagram"></i>
+                    </a>
+                    <a class="btn btn-xs btn-icon btn-soft-secondary rounded-circle ml-2" href="#">
+                        <i class="fab fa-telegram"></i>
+                    </a>*@
                 @if (Model.PriceType == DocumentPriceTypesEnum.Paid)
                 {
                     <span class="badge badge-soft-info">@localizer["Price"]: @Model.PriceStr @localizer["soum"]</span>
@@ -52,17 +52,7 @@
     <h2 class="h2">@Model.Title</h2>
 </div>
 
-@if (Model.ContentType == DocumentContentTypesEnum.file)
-{
-    @if (Model.Attachment != null && Model.Attachment.ID > 0)
-    {
-        <div class="mt-5">
-            <i class="fa fa-file" aria-hidden="true"></i>
-            <a href="@Model.Attachment.Url">@Model.Attachment.DisplayName</a>
-        </div>
-    }
-}
-else
+@if (!string.IsNullOrWhiteSpace(Model.Text))
 {
     <!-- Quill -->
     <div class="quill-custom Text">
@@ -77,6 +67,14 @@ else
         </div>
     </div>
     <!-- End Quill -->
+}
+
+@if (Model.Attachment != null && Model.Attachment.ID > 0)
+{
+    <div class="mt-5">
+        <i class="fa fa-file" aria-hidden="true"></i>
+        <a href="@Model.Attachment.Url">@Model.Attachment.DisplayName</a>
+    </div>
 }
 
 <!-- Badges -->
@@ -128,7 +126,7 @@ else
     }
     @if (Model.Status.ID == (int)DocumentStatusesEnum.WaitingForApproval)
     {
-    <span>@localizer["Actions"]:</span>
+        <span>@localizer["Actions"]:</span>
         <button type="button" class="btn btn-success" onclick="Approve(@Model.ID);">@localizer["Approve"] <i class="fas fa-check ml-1"></i></button>
         <button type="button" class="btn btn-danger" onclick="Reject(@Model.ID);">@localizer["Reject"] <i class="fas fa-times ml-1"></i></button>
         <div class="spinner-border spinner" style="display: none;"></div>

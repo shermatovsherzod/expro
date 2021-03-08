@@ -1158,4 +1158,7 @@
   <data name="WriteAnswerTextHere" xml:space="preserve">
     <value>Напишите ответ здесь</value>
   </data>
+  <data name="DoTypeTextAndOrUploadFile" xml:space="preserve">
+    <value>Введите текст и/или загрузите файл</value>
+  </data>
 </root>

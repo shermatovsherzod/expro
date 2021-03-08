@@ -87,11 +87,11 @@ $(document).ready(function () {
                     html += '                       <div class="d-none d-sm-inline-block">';
                     html += '                           <h6 class="mb-0">';
                     html += '                               <p class="text-muted">';
+                    if (full.text != null) {
+                        html += full.text;
+                    }
                     if (full.contentType == documentContentTypeFile) {
                         html += '                               <i class="fa fa-file" aria-hidden="true"></i> ' + _localizer["FileIsAttached"];
-                    }
-                    else {
-                        html += full.text;
                     }
                     html += '                               </p>';
                     html += '                           </h6>';

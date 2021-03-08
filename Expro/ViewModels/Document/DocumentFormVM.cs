@@ -52,7 +52,7 @@ namespace Expro.ViewModels
         public int LawAreaParentID { get; set; }
         public List<int> LawAreas { get; set; }
 
-        public DocumentContentTypesEnum ContentType { get; set; }// = DocumentContentTypesEnum.file;
+        //public DocumentContentTypesEnum ContentType { get; set; }// = DocumentContentTypesEnum.file;
 
         [Display(Name = "File", ResourceType = typeof(Resources.ResourceTexts))]
         //[Remote("ValidateAttachment", "SampleDocument", ErrorMessage = "Обязательное поле", AdditionalFields = "DocumentContentType")]
@@ -84,7 +84,7 @@ namespace Expro.ViewModels
                 .ToList() 
                 ?? new List<int>();
 
-            ContentType = model.ContentType;
+            //ContentType = model.ContentType;
             Text = model.Text;
             if (model.AttachmentID.HasValue)
             {   
@@ -104,7 +104,7 @@ namespace Expro.ViewModels
             //model.Title = this.Title;
             mmodel.LanguageID = this.LanguageID;
             mmodel.LawAreaParentID = this.LawAreaParentID;
-            mmodel.ContentType = this.ContentType;
+            //mmodel.ContentType = this.ContentType;
             //model.AttachmentID = this.AttachmentID;
             mmodel.Text = this.Text;
 
