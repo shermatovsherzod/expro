@@ -1227,4 +1227,49 @@
   <data name="VacancySentForApproval" xml:space="preserve">
     <value>Вакансия отправлена администратору на подтверждение. После подтверждения администратора размещается на сайте.</value>
   </data>
+  <data name="AboutProject" xml:space="preserve">
+    <value>О проекте</value>
+  </data>
+  <data name="AnyQuestions" xml:space="preserve">
+    <value>Есть вопрос?</value>
+  </data>
+  <data name="Ask" xml:space="preserve">
+    <value>Спросите у экспертов и получайте консультации!</value>
+  </data>
+  <data name="BecomeAnExpert" xml:space="preserve">
+    <value>Стать экспертом проекта</value>
+  </data>
+  <data name="ConditionsForThePaidServices" xml:space="preserve">
+    <value>Условия оказания платных услуг</value>
+  </data>
+  <data name="CopyRight" xml:space="preserve">
+    <value>Expro 2021. Все права защищены</value>
+  </data>
+  <data name="ForExperts" xml:space="preserve">
+    <value>Экспертам</value>
+  </data>
+  <data name="ForUsers" xml:space="preserve">
+    <value>Пользователям</value>
+  </data>
+  <data name="HowToUseTheSite" xml:space="preserve">
+    <value>Как пользоваться сайтом?</value>
+  </data>
+  <data name="OurAddress" xml:space="preserve">
+    <value>Узбекистан, Ташкент, С.Азимов 68</value>
+  </data>
+  <data name="OurPartners" xml:space="preserve">
+    <value>Наши партнеры</value>
+  </data>
+  <data name="OurVacancies" xml:space="preserve">
+    <value>Наши вакансии</value>
+  </data>
+  <data name="RatingOfExpert" xml:space="preserve">
+    <value>Рейтинг эксперта</value>
+  </data>
+  <data name="Resumes" xml:space="preserve">
+    <value>Резюме</value>
+  </data>
+  <data name="TermsOfUse" xml:space="preserve">
+    <value>Условия пользования</value>
+  </data>
 </root>

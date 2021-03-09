@@ -1236,4 +1236,49 @@
   <data name="VacancySentForApproval" xml:space="preserve">
     <value>Вакансия администраторга тасдиқлаш учун жўнатилди. Администратор томонидан тасдиқлангач чоп этилади.</value>
   </data>
+  <data name="AboutProject" xml:space="preserve">
+    <value>Лойиҳа ҳақида</value>
+  </data>
+  <data name="AnyQuestions" xml:space="preserve">
+    <value>Саволингиз борми?</value>
+  </data>
+  <data name="Ask" xml:space="preserve">
+    <value>Экспертлардан сўранг ва маслаҳат олинг!</value>
+  </data>
+  <data name="BecomeAnExpert" xml:space="preserve">
+    <value>Лойиҳа эксперти бўлиш</value>
+  </data>
+  <data name="ConditionsForThePaidServices" xml:space="preserve">
+    <value>Пулли хизмат кўрсатиш шартлари</value>
+  </data>
+  <data name="CopyRight" xml:space="preserve">
+    <value>Expro 2021. Барча ҳуқуқлар ҳимояланган</value>
+  </data>
+  <data name="ForExperts" xml:space="preserve">
+    <value>Экспертларга</value>
+  </data>
+  <data name="ForUsers" xml:space="preserve">
+    <value>Фойдаланувчиларга</value>
+  </data>
+  <data name="HowToUseTheSite" xml:space="preserve">
+    <value>Сайтдан қандай фойдаланаман?</value>
+  </data>
+  <data name="OurAddress" xml:space="preserve">
+    <value>Ўзбекистон, Тошкент, С.Азимов 68</value>
+  </data>
+  <data name="OurPartners" xml:space="preserve">
+    <value>Ҳамкорларимиз</value>
+  </data>
+  <data name="OurVacancies" xml:space="preserve">
+    <value>Вакансияларимиз</value>
+  </data>
+  <data name="RatingOfExpert" xml:space="preserve">
+    <value>Эксперт рейтинги</value>
+  </data>
+  <data name="Resumes" xml:space="preserve">
+    <value>Резюмелар</value>
+  </data>
+  <data name="TermsOfUse" xml:space="preserve">
+    <value>Фойдаланиш шартлари</value>
+  </data>
 </root>
