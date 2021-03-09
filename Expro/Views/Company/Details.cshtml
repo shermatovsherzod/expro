@@ -75,9 +75,9 @@
                     data-hs-scroll-nav-options='{
                 "customOffsetTop": 40
               }'>
-                    <li class="nav-item active">
+                    @*<li class="nav-item active">
                         <a class="nav-link" href="#about-section">About</a>
-                    </li>
+                    </li>*@
                     @*<li class="nav-item">
                             <a class="nav-link" href="#jobs-section">Jobs <span class="badge badge-info badge-pill ml-1">+9</span></a>
                         </li>
@@ -100,34 +100,34 @@
 <!-- End Page Header -->
 <!-- About Section -->
 <div id="about-section" class="container space-top-1">
-    <h3>О компании</h3>
+    <h3>@localizer["AboutCompany"]</h3>
 
     <div class="row mb-5">
         <div class="col-md-3 order-md-2 mb-3 mb-md-0">
             <div class="pl-md-4">
                 <ul class="list-unstyled list-article">
                     <li>
-                        <span class="h5 d-block">Регион</span>
+                        <span class="h5 d-block">@localizer["lblRegion"]</span>
                         <span class="d-block font-size-1">@Model.Region.Name, @Model.City.Name</span>
                     </li>
 
                     <li>
-                        <span class="h5 d-block">Адрес</span>
+                        <span class="h5 d-block">@localizer["Address"]</span>
                         <span class="d-block font-size-1">@Model.Address</span>
                     </li>
 
                     <li>
-                        <span class="h5 d-block">Телефон</span>
+                        <span class="h5 d-block">@localizer["PhoneNumber"]</span>
                         <span class="d-block font-size-1">@Model.PhoneNumber</span>
                     </li>
 
                     <li>
-                        <span class="h5 d-block">Email</span>
+                        <span class="h5 d-block">@localizer["Email"]</span>
                         <span class="d-block font-size-1">@Model.Email</span>
                     </li>
 
                     <li>
-                        <span class="h5 d-block">Ссылки</span>
+                        <span class="h5 d-block">@localizer["CompanyLink"]</span>
 
                         <ul class="list-inline">
                             <li class="list-inline-item">
@@ -181,8 +181,8 @@
         </div>
     </div>
 
-    <div>
-        <a asp-action="Index">Назад к списку</a>
+    <div class="mt-5">
+        <a asp-action="Index">@localizer["BackToList"]</a>
     </div>
 </div>
 

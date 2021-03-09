@@ -35,7 +35,7 @@
     @if (Model.StatusID == (int)DocumentStatusesEnum.WaitingForApproval)
     {
         <div class="alert alert-soft-info text-center rounded-0 mb-0" role="alert">
-            @localizer["WaitingForApproval"]
+            @localizer["CompanySentForApproval"]
         </div>
     }
     else if (Model.StatusID == (int)DocumentStatusesEnum.Approved)

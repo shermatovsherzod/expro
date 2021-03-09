@@ -1107,8 +1107,8 @@
   <data name="EditVacation" xml:space="preserve">
     <value>Вакансияни тахрирлаш</value>
   </data>
-  <data name="Links" xml:space="preserve">
-    <value>Хаволалар</value>
+  <data name="CompanyLink" xml:space="preserve">
+    <value>Компания сайти</value>
   </data>
   <data name="RefreshRatings" xml:space="preserve">
     <value>Рейтингларни янгилаш</value>
@@ -1220,5 +1220,20 @@
   </data>
   <data name="QuestionsAndAnswers" xml:space="preserve">
     <value>Савол-жавоблар</value>
+  </data>
+  <data name="CompanySentForApproval" xml:space="preserve">
+    <value>Компаниянгиз ҳақидаги маълумот администраторга тасдиқлаш учун жўнатилди. Администратор томонидан тасдиқлангач чоп этилади.</value>
+  </data>
+  <data name="EnterValidEmail" xml:space="preserve">
+    <value>Илтимос, электрон почта манзилини тўғри киритинг.</value>
+  </data>
+  <data name="PasswordInvalid" xml:space="preserve">
+    <value>Паролингиз хато, қайта киритиб кўринг.</value>
+  </data>
+  <data name="PhoneNumber" xml:space="preserve">
+    <value>Телефон рақами</value>
+  </data>
+  <data name="VacancySentForApproval" xml:space="preserve">
+    <value>Вакансия администраторга тасдиқлаш учун жўнатилди. Администратор томонидан тасдиқлангач чоп этилади.</value>
   </data>
 </root>

@@ -1107,8 +1107,8 @@
   <data name="EditVacation" xml:space="preserve">
     <value>Редактирование вакансии</value>
   </data>
-  <data name="Links" xml:space="preserve">
-    <value>Ссылки</value>
+  <data name="CompanyLink" xml:space="preserve">
+    <value>Сайт компании</value>
   </data>
   <data name="RefreshRatings" xml:space="preserve">
     <value>Обновить рейтинги</value>
@@ -1211,5 +1211,20 @@
   </data>
   <data name="QuestionsAndAnswers" xml:space="preserve">
     <value>Вопросы и ответы</value>
+  </data>
+  <data name="CompanySentForApproval" xml:space="preserve">
+    <value>Информация о Вашей компании отправлена администратору на подтверждение. После подтверждения администратора размещается на сайте.</value>
+  </data>
+  <data name="EnterValidEmail" xml:space="preserve">
+    <value>Пожалуйста, введите корректный адрес электронной почты.</value>
+  </data>
+  <data name="PasswordInvalid" xml:space="preserve">
+    <value>Неправильный пароль, попробуйте заново.</value>
+  </data>
+  <data name="PhoneNumber" xml:space="preserve">
+    <value>Номер телефона</value>
+  </data>
+  <data name="VacancySentForApproval" xml:space="preserve">
+    <value>Вакансия отправлена администратору на подтверждение. После подтверждения администратора размещается на сайте.</value>
   </data>
 </root>

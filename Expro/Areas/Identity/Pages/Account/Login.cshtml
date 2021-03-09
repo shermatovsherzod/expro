@@ -20,7 +20,7 @@
     <div class="js-form-message form-group">
         <label class="input-label" asp-for="Input.Email"></label>
         <input type="email" asp-for="Input.Email" class="form-control" name="email" id="signinSrEmail" tabindex="1" placeholder="@localizer["Email"]" aria-label="Email" required
-               data-msg="Please enter a valid email address.">
+               data-msg="@localizer["EnterValidEmail"]">
         <span asp-validation-for="Input.Email" class="text-danger"></span>
     </div>
     <!-- End Form Group -->
@@ -33,7 +33,7 @@
             </span>
         </label>
         <input type="password" asp-for="Input.Password" class="form-control" name="password" id="signinSrPassword" tabindex="2" placeholder="********" aria-label="********" required
-               data-msg="Your password is invalid. Please try again.">
+               data-msg="@localizer["PasswordInvalid"]">
         <span asp-validation-for="Input.Password" class="text-danger"></span>
     </div>
     <!-- End Form Group -->
