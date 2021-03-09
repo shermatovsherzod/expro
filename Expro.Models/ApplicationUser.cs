@@ -110,5 +110,8 @@ namespace Expro.Models
         public virtual ICollection<Feedback> FeedbacksWrittenToThisExpert { get; set; }
         [InverseProperty("Creator")]
         public virtual ICollection<Feedback> FeedbacksCreatedByThisUser { get; set; }
+
+        public bool? IsBlocked { get; set; }
+        public DateTime? DateBlocked { get; set; }
     }
 }

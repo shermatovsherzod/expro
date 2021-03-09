@@ -16,7 +16,7 @@ namespace Expro.Controllers
     public class BaseExpertsController : BaseController
     {
         private readonly IExpertsListSearchService _expertsListSearchService;
-        private readonly IUserService _userService;
+        protected readonly IUserService _userService;
         private readonly IExpertsListAdminActionsService _expertsListAdminActionsService;
         private readonly ILawAreaService _lawAreaService;
         private readonly IRegionService _regionService;

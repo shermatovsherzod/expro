@@ -1197,4 +1197,7 @@
   <data name="QuestionAnswerNotFound" xml:space="preserve">
     <value>Ответ не найден</value>
   </data>
+  <data name="YourAccountIsBlocked" xml:space="preserve">
+    <value>Ваша страница заблокирована администратором. Для активизации страницы обращайтесь администратору сайта</value>
+  </data>
 </root>

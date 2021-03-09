@@ -19,5 +19,9 @@ namespace Expro.Services.Interfaces
         ApplicationUser GetWithRelatedDataByID(string id);
         IQueryable<ApplicationUser> GetTopExperts(int count);
         List<string> GetAdminEmails();
+
+        void Block(ApplicationUser user);
+        void Unblock(ApplicationUser user);
+        bool IsBlocked(ApplicationUser user);
     }
 }

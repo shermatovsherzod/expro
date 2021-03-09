@@ -17,7 +17,7 @@ namespace Expro.Controllers
     public class BaseSimpleUsersController : BaseController
     {
         private readonly ISimpleUsersListSearchService _simpleUsersListSearchService;
-        private readonly IUserService _userService;
+        protected readonly IUserService _userService;
         private readonly ISimpleUsersListAdminActionsService _simpleUsersListAdminActionsService;       
         private readonly IRegionService _regionService;
 

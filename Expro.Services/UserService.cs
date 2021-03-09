@@ -81,7 +81,8 @@ namespace Expro.Services
         public IQueryable<ApplicationUser> GetAllExpertsForSite()
         {
             return GetManyWithRelatedDataAsIQueryable()
-                .Where(c => c.UserType == UserTypesEnum.Expert);
+                .Where(c => c.UserType == UserTypesEnum.Expert
+                    && c.IsBlocked != true);
         }
 
         public ApplicationUser GetWithRelatedDataByID(string id)
@@ -114,6 +115,26 @@ namespace Expro.Services
         public List<string> GetAdminEmails()
         {
             return GetAdmins().Select(m => m.Email).ToList();
+        }
+
+        public void Block(ApplicationUser user)
+        {
+            user.IsBlocked = true;
+            user.DateBlocked = DateTime.Now;
+
+            Update(user);
+        }
+
+        public void Unblock(ApplicationUser user)
+        {
+            user.IsBlocked = false;
+
+            Update(user);
+        }
+
+        public bool IsBlocked(ApplicationUser user)
+        {
+            return user.IsBlocked ?? false;
         }
     }
 }

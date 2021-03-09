@@ -17,6 +17,7 @@
         <table id="list" class="table table-borderless table-thead-bordered table-nowrap table-align-middle" width="100%">
             <thead class="thead-light">
                 <tr>
+                    <th>Блок</th>
                     <th>@localizer["Users"]</th>
                     <th style="width: 5%;">@localizer["View"]</th>
                 </tr>
@@ -33,6 +34,7 @@
 @section Scripts
 {
     <script src="~/lib/frontTheme/vendor/select2/dist/js/select2.full.min.js"></script>
+    <script src="~/lib/frontTheme/vendor/hs-toggle-switch/dist/hs-toggle-switch.min.js"></script>
     <script src="~/lib/DataTables-1.10.22/datatables.js"></script>
 
 
@@ -61,6 +63,21 @@
                 columns: [
                     {
                         "data": 0,
+                        "render": function (data, type, full, meta) {
+                            var html = '<label class="toggle-switch mx-2" for="userBlockSwitch_' + full.id + '">';
+                            var checked = "";
+                            if (full.isBlocked)
+                                checked = "checked";
+                            html += '       <input type="checkbox" class="js-toggle-switch toggle-switch-input" id="userBlockSwitch_' + full.id + '" ' + checked + ' >';
+                            html += '       <span class="toggle-switch-label">';
+                            html += '           <span class="toggle-switch-indicator"></span>';
+                            html += '       </span>';
+                            html += '   </label>';
+                            return html;
+                        }
+                    },
+                    {
+                        "data": 1,
                         "render": function (data, type, full, meta) {
 
                             var html = '';
@@ -100,13 +117,56 @@
                 })
                 .on('draw.dt', function () {
                     $("#tableBox .spinner").hide();
+                    InitUserBlockSwitch();
                 });
 
             $("#statusDD").change(function () {
                 table.draw();
             });
         });
-      
+
+        function InitUserBlockSwitch() {
+            $('.js-toggle-switch').each(function () {
+                var toggleSwitch = new HSToggleSwitch($(this)).init();
+
+                $($(this)).change(function () {
+                    var isChecked = $(this).prop("checked");
+                    var userID = $(this).attr("id").split("_")[1];
+
+                    if (isChecked)
+                        BlockUser(userID);
+                    else
+                        UnblockUser(userID);
+                });
+            });
+        }
+
+        function BlockUser(id, unblock) {
+            var blockAction = "Block";
+            if (unblock == true)
+                blockAction = "Unblock";
+
+            $.ajax({
+                type: "POST",
+                url: "/Admin/SimpleUsers/" + blockAction + "/" + id,
+                contentType: "application/json; charset=utf-8",
+                beforeSend: function (data) {
+                    $(".btn").attr("disabled", "disabled");
+                },
+                success: function (data) {
+                    //location.reload();
+                },
+                error: function (data) {
+                    alert("Ajax error (status code = " + data.status + "): " + data.statusText);
+                },
+                complete: function (data) {
+                }
+            });
+        }
+
+        function UnblockUser(id) {
+            BlockUser(id, true);
+        }
     </script>
 
     <script>

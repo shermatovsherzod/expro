@@ -30,6 +30,8 @@ namespace Expro.ViewModels
 
         public bool IsOnline { get; set; }
 
+        public bool IsBlocked { get; set; }
+
         public SimpleUserListInfoVM(ApplicationUser model)
         {
             if (model == null)
@@ -39,7 +41,8 @@ namespace Expro.ViewModels
             LastName = model.LastName;
             Avatar = new AttachmentDetailsVM(model.Avatar);
             Email = model.Email;
-            IsOnline = model.IsOnline ?? false;          
+            IsOnline = model.IsOnline ?? false;
+            IsBlocked = model.IsBlocked ?? false;
         }
 
         public List<SimpleUserListInfoVM> GetSimpleUserListInfoVM(IQueryable<ApplicationUser> models)
@@ -55,6 +58,7 @@ namespace Expro.ViewModels
                 Avatar = new AttachmentDetailsVM(model.Avatar),
                 Email = model.Email,
                 IsOnline = model.IsOnline ?? false,               
+                IsBlocked = model.IsBlocked ?? false
             }).ToList();
         }
     }

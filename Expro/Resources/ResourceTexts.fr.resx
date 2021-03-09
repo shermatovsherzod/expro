@@ -1203,4 +1203,7 @@
   <data name="QuestionAnswerNotFound" xml:space="preserve">
     <value>Жавоб топилмади</value>
   </data>
+  <data name="YourAccountIsBlocked" xml:space="preserve">
+    <value>Сизнинг сахифангиз сайт администратори томонидан блокланган. Саҳифангизни қайта тиклаш учун сайт администраторига мурожаат қилинг</value>
+  </data>
 </root>

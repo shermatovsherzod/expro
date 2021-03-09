@@ -47,6 +47,8 @@ namespace Expro.ViewModels
 
         public bool IsOnline { get; set; }
 
+        public bool IsBlocked { get; set; }
+
         public ExpertListInfoVM(ApplicationUser model)
         {
             if (model == null)
@@ -65,6 +67,7 @@ namespace Expro.ViewModels
                 model.DateRatingLastUpdated,
                 AppData.Configuration.DateTimeViewStringFormat) : "";
             AboutMe = model.AboutMe != null ? model.AboutMe : "";
+            IsBlocked = model.IsBlocked ?? false;
         }
 
         public List<ExpertListInfoVM> GetExpertListInfoVM(IQueryable<ApplicationUser> models)
@@ -87,7 +90,8 @@ namespace Expro.ViewModels
                 DateRatingLastUpdated = model.DateRatingLastUpdated != null ? DateTimeUtils.ConvertToString(
                 model.DateRatingLastUpdated,
                 AppData.Configuration.DateTimeViewStringFormat) : "",
-                AboutMe = model.AboutMe != null ? model.AboutMe : ""
+                AboutMe = model.AboutMe != null ? model.AboutMe : "",
+                IsBlocked = model.IsBlocked ?? false
             }).ToList();
         }
     }

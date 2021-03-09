@@ -22,26 +22,26 @@ namespace Expro.Areas.Admin.Controllers
              ISimpleUsersListSearchService simpleUsersListSearchService,
              IUserService userService,
              ISimpleUsersListAdminActionsService simpleUsersListAdminActionsService,
-             IStringLocalizer<Resources.ResourceTexts> localizer,         
+             IStringLocalizer<Resources.ResourceTexts> localizer,
              IRegionService regionService
            ) : base(
                simpleUsersListSearchService,
                userService,
                simpleUsersListAdminActionsService,
-               localizer,             
+               localizer,
                regionService)
         {
-           
+
         }
 
         public override IActionResult Index()
-        {           
+        {
             return base.Index();
         }
 
         [HttpPost]
         public override IActionResult Search(
-            int draw, int? start = null, int? length = null,           
+            int draw, int? start = null, int? length = null,
             int? regionID = null,
             int? cityID = null)
         {
@@ -50,14 +50,50 @@ namespace Expro.Areas.Admin.Controllers
 
 
         public override IActionResult Details(string id)
-        {          
+        {
             return base.Details(id);
-        }     
+        }
 
         [HttpPost]
         public override IActionResult ApproveEmail(string id)
         {
             return base.ApproveEmail(id);
+        }
+
+        [HttpPost]
+        public IActionResult Block(string id)
+        {
+            try
+            {
+                var appUser = _userService.GetByID(id);
+                if (appUser == null)
+                    throw new Exception("Пользователь не найден");
+
+                _userService.Block(appUser);
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return CustomBadRequest(ex);
+            }
+        }
+
+        [HttpPost]
+        public IActionResult Unblock(string id)
+        {
+            try
+            {
+                var appUser = _userService.GetByID(id);
+                if (appUser == null)
+                    throw new Exception("Пользователь не найден");
+
+                _userService.Unblock(appUser);
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return CustomBadRequest(ex);
+            }
         }
     }
 }

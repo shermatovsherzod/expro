@@ -80,5 +80,41 @@ namespace Expro.Areas.Admin.Controllers
         {
             return base.ApproveEmail(id);
         }
+
+        [HttpPost]
+        public IActionResult Block(string id)
+        {
+            try
+            {
+                var appUser = _userService.GetByID(id);
+                if (appUser == null)
+                    throw new Exception("Пользователь не найден");
+
+                _userService.Block(appUser);
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return CustomBadRequest(ex);
+            }
+        }
+
+        [HttpPost]
+        public IActionResult Unblock(string id)
+        {
+            try
+            {
+                var appUser = _userService.GetByID(id);
+                if (appUser == null)
+                    throw new Exception("Пользователь не найден");
+
+                _userService.Unblock(appUser);
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return CustomBadRequest(ex);
+            }
+        }
     }
 }

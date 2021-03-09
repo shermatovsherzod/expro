@@ -3283,6 +3283,15 @@ namespace Expro.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Ваша страница заблокирована администратором. Для активизации страницы обращайтесь администратору сайта.
+        /// </summary>
+        public static string YourAccountIsBlocked {
+            get {
+                return ResourceManager.GetString("YourAccountIsBlocked", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Ваш баланс.
         /// </summary>
         public static string YourBalance {
