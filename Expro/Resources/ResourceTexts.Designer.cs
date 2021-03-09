@@ -286,6 +286,15 @@ namespace Expro.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Админ.
+        /// </summary>
+        public static string Admin {
+            get {
+                return ResourceManager.GetString("Admin", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Все.
         /// </summary>
         public static string All {
@@ -376,7 +385,7 @@ namespace Expro.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Вы уверены, что хотите закрыть вопрос, не распределив гонорар?.
+        ///   Looks up a localized string similar to Вы уверены, что хотите закрыть вопрос, не распределив гонорар.
         /// </summary>
         public static string AreYouSureToCloseQuestionWithoutFeeDistribution {
             get {
@@ -399,6 +408,24 @@ namespace Expro.Resources {
         public static string AreYouSureYouWantToApprove {
             get {
                 return ResourceManager.GetString("AreYouSureYouWantToApprove", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Вы уверены, что хотите удалить ответ.
+        /// </summary>
+        public static string AreYouSureYouWantToDeleteAnswer {
+            get {
+                return ResourceManager.GetString("AreYouSureYouWantToDeleteAnswer", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Вы уверены, что хотите удалить комментарий.
+        /// </summary>
+        public static string AreYouSureYouWantToDeleteComment {
+            get {
+                return ResourceManager.GetString("AreYouSureYouWantToDeleteComment", resourceCulture);
             }
         }
         
@@ -2275,6 +2302,15 @@ namespace Expro.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Вопрос.
+        /// </summary>
+        public static string Question {
+            get {
+                return ResourceManager.GetString("Question", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Ответ не найден.
         /// </summary>
         public static string QuestionAnswerNotFound {
@@ -2370,6 +2406,15 @@ namespace Expro.Resources {
         public static string Questions_ {
             get {
                 return ResourceManager.GetString("Questions?", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Вопросы и ответы.
+        /// </summary>
+        public static string QuestionsAndAnswers {
+            get {
+                return ResourceManager.GetString("QuestionsAndAnswers", resourceCulture);
             }
         }
         
@@ -2919,15 +2964,6 @@ namespace Expro.Resources {
         public static string StatusDoesNotAllowToReject {
             get {
                 return ResourceManager.GetString("StatusDoesNotAllowToReject", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to .
-        /// </summary>
-        public static string String1 {
-            get {
-                return ResourceManager.GetString("String1", resourceCulture);
             }
         }
         

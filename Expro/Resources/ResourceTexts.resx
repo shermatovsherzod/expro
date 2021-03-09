@@ -148,7 +148,7 @@
     <value>Текст ответа</value>
   </data>
   <data name="AreYouSureToCloseQuestionWithoutFeeDistribution" xml:space="preserve">
-    <value>Вы уверены, что хотите закрыть вопрос, не распределив гонорар?</value>
+    <value>Вы уверены, что хотите закрыть вопрос, не распределив гонорар</value>
   </data>
   <data name="Articles" xml:space="preserve">
     <value>Статьи</value>
@@ -1179,9 +1179,6 @@
   <data name="ResumeEdit" xml:space="preserve">
     <value>Редактирование резюме</value>
   </data>
-  <data name="String1" xml:space="preserve">
-    <value />
-  </data>
   <data name="WaitingForApproval" xml:space="preserve">
     <value>Ожидание подтверждения</value>
   </data>
@@ -1199,5 +1196,20 @@
   </data>
   <data name="YourAccountIsBlocked" xml:space="preserve">
     <value>Ваша страница заблокирована администратором. Для активизации страницы обращайтесь администратору сайта</value>
+  </data>
+  <data name="Admin" xml:space="preserve">
+    <value>Админ</value>
+  </data>
+  <data name="AreYouSureYouWantToDeleteAnswer" xml:space="preserve">
+    <value>Вы уверены, что хотите удалить ответ</value>
+  </data>
+  <data name="AreYouSureYouWantToDeleteComment" xml:space="preserve">
+    <value>Вы уверены, что хотите удалить комментарий</value>
+  </data>
+  <data name="Question" xml:space="preserve">
+    <value>Вопрос</value>
+  </data>
+  <data name="QuestionsAndAnswers" xml:space="preserve">
+    <value>Вопросы и ответы</value>
   </data>
 </root>

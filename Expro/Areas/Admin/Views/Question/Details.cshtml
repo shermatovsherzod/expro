@@ -2,10 +2,10 @@
 @using Expro.Models.Enums
 
 @{
-    ViewData["Title"] = "Вопрос";
+    ViewData["Title"] = localizer["Question"];
     //ViewData["DocumentType"] = DocumentTypesEnum.QuestionDocument;
-    ViewData["ApprovedStatusAlertText"] = "Вопрос подтвержден";
-    ViewData["RejectedStatusAlertText"] = "Вопрос отменен";
+    ViewData["ApprovedStatusAlertText"] = localizer["QuestionIsApprovedByAdmin"];
+    ViewData["RejectedStatusAlertText"] = localizer["QuestionIsRejectedByAdmin"];
 }
 
 <div class="w-lg-60 mx-lg-auto">
@@ -199,9 +199,9 @@
         function ResponseToDocument(id, action) {
             var confirmationText = "";
             if (action == "Approve")
-                confirmationText = "Вы уверены, что хотите подтвердить?";
+                confirmationText = "@Html.Raw(localizer["AreYouSureYouWantToApprove"])" + "?";
             else
-                confirmationText = "Вы уверены, что хотите отменить?";
+                confirmationText = "@Html.Raw(localizer["AreYouSureYouWantToReject"])" + "?";
 
             if (!confirm(confirmationText))
                 return;

@@ -519,7 +519,7 @@
         }
 
         function CloseQuestion() {
-            if (!confirm("@localizer["AreYouSureToCloseQuestionWithoutFeeDistribution"]"))
+            if (!confirm("@Html.Raw(localizer["AreYouSureToCloseQuestionWithoutFeeDistribution"])" + "?"))
                 return;
 
             $.ajax({
@@ -605,7 +605,7 @@
 
     <script>
         function Reject(id) {
-            var confirmationText = "Вы уверены, что хотите отменить?";
+            var confirmationText = "@Html.Raw(localizer["AreYouSureYouWantToReject"])" + "?";
 
             if (!confirm(confirmationText))
                 return;
@@ -642,7 +642,7 @@
         }
 
         function MarkAnswerAsDeleted(answerID) {
-            var confirmationText = "Вы уверены, что хотите удалить ответ?";
+            var confirmationText = "@Html.Raw(localizer["AreYouSureYouWantToDeleteAnswer"])" + "?";
 
             if (!confirm(confirmationText))
                 return;
@@ -678,7 +678,7 @@
         }
 
         function DeleteComment(commentID) {
-            var confirmationText = "Вы уверены, что хотите удалить комментарий?";
+            var confirmationText = "@Html.Raw(localizer["AreYouSureYouWantToDeleteComment"])" + "?""";
 
             if (!confirm(confirmationText))
                 return;
