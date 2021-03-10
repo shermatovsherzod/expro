@@ -1302,4 +1302,10 @@
   <data name="SimpleUserHomePage" xml:space="preserve">
     <value>Фойдаланувчининг шахсий саҳифаси</value>
   </data>
+  <data name="FileSizeMustNotBeGreaterThan" xml:space="preserve">
+    <value>Файл хажми {0} МБдан катта бўлиши мумкин эмас</value>
+  </data>
+  <data name="SetFee" xml:space="preserve">
+    <value>Мукофот белгилаш</value>
+  </data>
 </root>

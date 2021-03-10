@@ -18,7 +18,6 @@
 
 <form asp-controller="Question" asp-action="CreatePaid"
       id="addForm"
-      onsubmit="SubmitForm()"
       data-ajax="true"
       data-ajax-method="POST"
       data-ajax-failure="PostFailure"
@@ -97,7 +96,8 @@
                 <input type="file" class="js-file-attach file-attachment-btn-label" id="fileInput"
                        accept="@Constants.FILE_FORMATS_ALLOWED_FOR_DOCUMENTS"
                        data-hs-file-attach-options='{
-                        "textTarget": "#documentSelectedFileName"
+                        "textTarget": "#documentSelectedFileName",
+                       "maxFileSize": 10240
                    }'>
             </div>
             <span id="documentSelectedFileName"></span>
@@ -162,6 +162,30 @@
 
             $("form button[type=submit]").click(function (ev) {
                 $("form input#ActionType").val($(this).attr("actiontype"));
+
+                $("form#addForm").submit(function (event) {
+                    var isValid = $('#addForm').valid();
+                    if (isValid) {
+                        fileInput = document.getElementById('fileInput');
+                        if (fileInput.files && fileInput.files[0]) {
+                            var file = fileInput.files[0];
+                            var fileSizeInKB = file.size / 1024;
+                            if (fileSizeInKB > Number("@AppData.Configuration.FileMaxLengthInKB")) {
+                                alert("@Html.Raw(localizer["FileSizeMustNotBeGreaterThan", AppData.Configuration.FileMaxLengthInKB / 1024])");
+                                return false;
+                            }
+                        }
+
+                        $("#addForm .spinner").show();
+
+                        DisableFormElements();
+
+                        return true;
+                    }
+                    else
+                        return false;
+                    //event.preventDefault();
+                });
             });
         });
 
@@ -215,19 +239,6 @@
 
         var fileInput;
         var modelID = 0;
-
-        function SubmitForm() {
-            var isValid = $('#addForm').valid();
-            if (isValid) {
-                $("#addForm .spinner").show();
-
-                DisableFormElements();
-
-                return true;
-            }
-            else
-                return false;
-        }
 
         function DisableFormElements() {
             $("#addForm input").attr("readonly", "readonly");

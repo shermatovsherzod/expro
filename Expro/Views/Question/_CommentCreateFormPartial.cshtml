@@ -7,7 +7,8 @@
     string commentType = ViewData["commentType"].ToString();
 }
 
-<form asp-action="Save" asp-controller="Comment" id="addCommentForm" onsubmit="SubmitCommentForm()"
+<form asp-action="Save" asp-controller="Comment"
+      id="addCommentForm"
       data-ajax="true"
       data-ajax-method="POST"
       data-ajax-failure="CommentPostFailure"
@@ -25,7 +26,8 @@
             <input type="file" class="js-file-attach file-attachment-btn-label" id="attachment"
                    accept=".doc, .docx, .rtf, .xml, .xls, .xlsx, .ppt, .pptx, text/plain, application/pdf, image/*"
                    data-hs-file-attach-options='{
-                    "textTarget": "#commentTextSelectedFileName"
+                    "textTarget": "#commentTextSelectedFileName",
+                   "maxFileSize": 10240
                }'>
         </div>
         <span id="commentTextSelectedFileName"></span>
@@ -51,21 +53,34 @@
             parentCommentdID = parentID;
     }
 
-    function SubmitCommentForm() {
-        var isValid = $('#addCommentForm').valid();
-        if (isValid) {
-            ShowCommentFormSpinner();
-            DisableCommentFormElements();
+    function InitCommentCreateFormSubmitter() {
+        $("form#addCommentForm").submit(function (event) {
+            var isValid = $('#addCommentForm').valid();
+            if (isValid) {
+                var fileInput = document.getElementById('attachment');
+                if (fileInput.files && fileInput.files[0]) {
+                    var file = fileInput.files[0];
+                    var fileSizeInKB = file.size / 1024;
+                    if (fileSizeInKB > Number("@AppData.Configuration.FileMaxLengthInKB")) {
+                        alert("@Html.Raw(localizer["FileSizeMustNotBeGreaterThan", AppData.Configuration.FileMaxLengthInKB / 1024])");
+                        return false;
+                    }
+                }
 
-            $('#addCommentForm')
-                .append("<input type='hidden' name='ObjectID' value='" + commentObjectID + "' />")
-                .append("<input type='hidden' name='ParentID' value='" + parentCommentdID + "' />")
-                .append("<input type='hidden' name='CommentType' value='@commentType' />");
+                ShowCommentFormSpinner();
+                DisableCommentFormElements();
 
-            return true;
-        }
-        else
-            return false;
+                $('#addCommentForm')
+                    .append("<input type='hidden' name='ObjectID' value='" + commentObjectID + "' />")
+                    .append("<input type='hidden' name='ParentID' value='" + parentCommentdID + "' />")
+                    .append("<input type='hidden' name='CommentType' value='@commentType' />");
+
+                return true;
+            }
+            else
+                return false;
+            //event.preventDefault();
+        });
     }
 
     function ShowCommentFormSpinner() {
@@ -91,7 +106,7 @@
 
         commentFileinput = document.getElementById('attachment')
         //commentFileinput = $("#addCommentForm input#attachment");
-        console.log(commentFileinput);
+        //console.log(commentFileinput);
         if (!(commentFileinput.files && commentFileinput.files[0])) {
             //$("#" + spinnerTagID).hide();
             //alert("no file is selected");
@@ -106,7 +121,7 @@
     }
 
     function CommentPostCompleted(data) {
-        console.log(data);
+        //console.log(data);
         //alert("completed");
         //$("#addCommentForm .spinner").hide();
     }

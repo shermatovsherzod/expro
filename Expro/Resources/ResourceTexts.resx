@@ -1293,4 +1293,10 @@
   <data name="SimpleUserHomePage" xml:space="preserve">
     <value>Личная страница пользователя</value>
   </data>
+  <data name="FileSizeMustNotBeGreaterThan" xml:space="preserve">
+    <value>Рамер файла не должен превышать {0} МБ</value>
+  </data>
+  <data name="SetFee" xml:space="preserve">
+    <value>Назначить вознаграждение</value>
+  </data>
 </root>

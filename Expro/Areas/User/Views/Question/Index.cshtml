@@ -225,7 +225,7 @@
                             else if (full.status.id == "@((int)DocumentStatusesEnum.Pending)"
                                 || full.status.id == "@((int)DocumentStatusesEnum.Approved)" && !full.isCompleted)
                             {
-                                html += '                   <button type="button" class="btn btn-xs btn-soft-dark mb-1 mt-2 mr-2" onclick="ShowFeeSetPopup(' + full.id + ');" data-toggle="modal" data-target="#feeSetModal">Назначить вознаграждение</button>';
+                                html += '                   <button type="button" class="btn btn-xs btn-soft-dark mb-1 mt-2 mr-2" onclick="ShowFeeSetPopup(' + full.id + ');" data-toggle="modal" data-target="#feeSetModal">' + '@localizer["SetFee"]' + '</button>';
                             }
                             html += InsertStatusAlert(full);
                             html += InsertCompletenessStatus(full);

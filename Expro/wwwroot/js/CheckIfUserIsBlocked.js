@@ -11,7 +11,7 @@
     Http.onreadystatechange = (e) => {
         if (Http.responseText != undefined && Http.responseText != "") {
             var responseJSON = JSON.parse(Http.responseText);
-            console.log(responseJSON);
+            //console.log(responseJSON);
             if (responseJSON.isBlocked)
                 location.replace("/Account/Block");
         }

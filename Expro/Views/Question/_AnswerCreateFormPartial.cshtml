@@ -5,7 +5,8 @@
     int documentID = int.Parse(ViewData["objectID"].ToString());
 }
 
-<form asp-action="AddAnswer" asp-controller="Question" id="addAnswerForm" onsubmit="SubmitAnswerForm()"
+<form asp-action="AddAnswer" asp-controller="Question" 
+      id="addAnswerForm"
       data-ajax="true"
       data-ajax-method="POST"
       data-ajax-failure="AnswerPostFailure"
@@ -47,7 +48,8 @@
             <input type="file" class="js-file-attach file-attachment-btn-label" id="addAnswerFormAttachment"
                    accept=".doc, .docx, .rtf, .xml, .xls, .xlsx, .ppt, .pptx, text/plain, application/pdf, image/*"
                    data-hs-file-attach-options='{
-                    "textTarget": "#answerTextSelectedFileName"
+                    "textTarget": "#answerTextSelectedFileName",
+                   "maxFileSize": 10240
                }'>
         </div>
         <span id="answerTextSelectedFileName"></span>
@@ -62,29 +64,38 @@
     var questionFileInput;
     var answerID = 0;
 
-    function SubmitAnswerForm() {
-        var isValid = $('#addAnswerForm').valid();
-        if (isValid) {
-            $("#addAnswerForm .spinner").show();
+    function InitAnswerCreateFormSubmitter() {
+        $("form#addAnswerForm").submit(function (event) {
+            var isValid = $('#addAnswerForm').valid();
+            if (isValid) {
+                var fileInput = document.getElementById('addAnswerFormAttachment');
+                if (fileInput.files && fileInput.files[0]) {
+                    var file = fileInput.files[0];
+                    var fileSizeInKB = file.size / 1024;
+                    if (fileSizeInKB > Number("@AppData.Configuration.FileMaxLengthInKB")) {
+                        alert("@Html.Raw(localizer["FileSizeMustNotBeGreaterThan", AppData.Configuration.FileMaxLengthInKB / 1024])");
+                        return false;
+                    }
+                }
 
-            DisableAnswerFormElements();
+                $("#addAnswerForm .spinner").show();
 
-            if ($("#addAnswerForm input[name=QuestionID]").length)
-                $("#addAnswerForm input[name=QuestionID]").val(@documentID);
-            else {
-                $('#addAnswerForm')
-                    .append("<input type='hidden' name='QuestionID' value='@documentID' />");
+                DisableAnswerFormElements();
+
+                if ($("#addAnswerForm input[name=QuestionID]").length)
+                    $("#addAnswerForm input[name=QuestionID]").val(@documentID);
+                else {
+                    $('#addAnswerForm')
+                        .append("<input type='hidden' name='QuestionID' value='@documentID' />");
+                }
+
+                return true;
             }
-
-            return true;
-        }
-        else
-            return false;
-    }
-
-    function ShowAnswerFormSpinner() {
-
-    }
+            else
+                return false;
+            //event.preventDefault();
+        });
+    };
 
     function DisableAnswerFormElements() {
         $("#addAnswerForm input").attr("readonly", "readonly");
@@ -93,14 +104,14 @@
     }
 
     function AnswerPostFailure(data) {
-        alert("@localizer["Error"]: " + data.responseJSON.errorMessage);
+        alert("@Html.Raw(localizer["Error"]): " + data.responseJSON.errorMessage);
         //console.log(data);
         $("#addAnswerForm .spinner").hide();
     }
 
     function AnswerPostSuccess(data) {
         //alert("success");
-        console.log(data);
+        //console.log(data);
         answerID = data.id;
         //alert("success");
 

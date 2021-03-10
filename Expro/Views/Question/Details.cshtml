@@ -430,6 +430,8 @@
             InitFileUploader();
             InitSelectpicker();
 
+            InitAnswerCreateFormSubmitter();
+            InitCommentCreateFormSubmitter();
             //var addAnswerForm = document.getElementById("addAnswerForm");
             //$.validator.unobtrusive.parse(addAnswerForm);
         });
@@ -678,7 +680,7 @@
         }
 
         function DeleteComment(commentID) {
-            var confirmationText = "@Html.Raw(localizer["AreYouSureYouWantToDeleteComment"])" + "?""";
+            var confirmationText = "@Html.Raw(localizer["AreYouSureYouWantToDeleteComment"])" + "?";
 
             if (!confirm(confirmationText))
                 return;

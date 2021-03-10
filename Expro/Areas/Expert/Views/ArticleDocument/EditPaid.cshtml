@@ -142,7 +142,8 @@
                 <input type="file" class="js-file-attach file-attachment-btn-label" id="fileInput"
                        accept="@Constants.FILE_FORMATS_ALLOWED_FOR_DOCUMENTS"
                        data-hs-file-attach-options='{
-                        "textTarget": "#documentSelectedFileName"
+                        "textTarget": "#documentSelectedFileName",
+                       "maxFileSize": 10240
                    }'>
             </div>
             <span id="documentSelectedFileName"></span>
@@ -239,14 +240,19 @@
 
 
             $("#fileInput").change(function () {
-                $("#" + spinnerTagID).show();
                 var input = this;
                 if (!(input.files && input.files[0])) {
-                    $("#" + spinnerTagID).hide();
                     return;
                 }
 
                 var file = input.files[0];
+                var fileSizeInKB = file.size / 1024;
+                if (fileSizeInKB > Number("@AppData.Configuration.FileMaxLengthInKB")) {
+                    alert("@Html.Raw(localizer["FileSizeMustNotBeGreaterThan", AppData.Configuration.FileMaxLengthInKB / 1024])");
+                    return;
+                }
+
+                $("#" + spinnerTagID).show();
                 UploadToFirebaseStorage(file);
             });
         });

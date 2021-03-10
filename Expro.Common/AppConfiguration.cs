@@ -71,5 +71,9 @@ namespace Expro.Common
         public int ExproEmailSmtpPort { get; set; }
         public bool ExproEmailEnableSsl { get; set; }
 
+        /// <summary>
+        /// 5mb
+        /// </summary>
+        public int FileMaxLengthInKB { get; set; }
     }
 }

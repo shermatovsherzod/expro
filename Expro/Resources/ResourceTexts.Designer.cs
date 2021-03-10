@@ -1456,6 +1456,15 @@ namespace Expro.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Рамер файла не должен превышать {0} МБ.
+        /// </summary>
+        public static string FileSizeMustNotBeGreaterThan {
+            get {
+                return ResourceManager.GetString("FileSizeMustNotBeGreaterThan", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Фильтр по направлению.
         /// </summary>
         public static string FilterByLawArea {
@@ -3081,6 +3090,15 @@ namespace Expro.Resources {
         public static string Send {
             get {
                 return ResourceManager.GetString("Send", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Назначить вознаграждение.
+        /// </summary>
+        public static string SetFee {
+            get {
+                return ResourceManager.GetString("SetFee", resourceCulture);
             }
         }
         
