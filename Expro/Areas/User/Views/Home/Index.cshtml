@@ -1,73 +1,130 @@
-﻿
-@{
-    ViewData["Title"] = "Index";
-    Layout = "_Layout";
+﻿@{
+    ViewData["Title"] = localizer["SimpleUserHomePage"];
 }
 
-@*<form role="form">
+<h1>@ViewData["Title"]</h1>
 
-    <div class="form-group">
-
-        <label for="exampleInputPassword1">
-            Отправить вопрос
-        </label>
-        <textarea class="form-control" placeholder="Напишите вопрос..."></textarea>
-
-    </div>
-
-    <button type="submit" class="btn btn-primary">
-        Отправить
-    </button>
-</form>
 <div class="row">
-    <div class="col-md-12">
+    <div class="col-12">
+        <!-- CTA Section -->
+        <div class="bg-primary">
+            <div class="container space-2">
+                <div class="row justify-content-lg-between align-items-lg-center text-center text-lg-left">
+                    <div class="col-lg-5 mb-5 mb-lg-0">
+                        <h2 class="text-white mb-0">@localizer["AskQuestionTheExperts"]</h2>
+                    </div>
 
+                    <div class="col-lg-5 text-lg-right">
+                        <a class="btn btn-light btn-wide btn-pill transition-3d-hover mx-1 mb-2" href="/User/Question/CreateFree">@localizer["Usual"]</a>
+                        <a class="btn btn-indigo btn-wide btn-pill transition-3d-hover mx-1 mb-2" href="/User/Question/CreatePaid">@localizer["WithFee"]</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- End CTA Section -->
     </div>
 </div>
+<br />
+
 <div class="row">
-    <div class="col-md-6">
-        <dl>
-            <dt>
-                Вопросы
-            </dt>
-            <dd>
-                Все вопросы на сайте
-            </dd>
-
-        </dl>
+    <div class="col-sm-6 col-lg-3 mb-5">
+        <!-- Card -->
+        <div class="card card-bordered card-hover-shadow h-100">
+            <div class="card-body">
+                <div class="row mb-3">
+                    <div class="col">
+                        <div class="media align-items-center">
+                            <img class="avatar avatar-sm mr-3" src="/lib/frontTheme/svg/icons/icon-13.svg" alt="Image Description">
+                            <div class="media-body">
+                                <h3 class="mb-0">
+                                    <a class="text-dark" href="/Question">@localizer["Questions"]</a>
+                                    <img class="avatar avatar-xss ml-1" src="/lib/frontTheme/svg/illustrations/top-vendor.svg" alt="Review rating" data-toggle="tooltip" data-placement="top" title="@localizer["ConfirmedOnly"]">
+                                </h3>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- End Row -->
+                <h6 class="mb-3">
+                    <a class="text-dark" href="/Question">@localizer["AllQuestionsOnSite"]</a>
+                </h6>
+            </div>
+        </div>
+        <!-- End Card -->
     </div>
-    <div class="col-md-6">
-        <dl>
-            <dt>
-                Статьи
-            </dt>
-            <dd>
-                Все статьи на сайте
-            </dd>
-
-        </dl>
+    <div class="col-sm-6 col-lg-3 mb-5">
+        <!-- Card -->
+        <div class="card card-bordered card-hover-shadow h-100">
+            <div class="card-body">
+                <div class="row mb-3">
+                    <div class="col">
+                        <div class="media align-items-center">
+                            <img class="avatar avatar-sm mr-3" src="/lib/frontTheme/svg/icons/icon-13.svg" alt="Image Description">
+                            <div class="media-body">
+                                <h3 class="mb-0">
+                                    <a class="text-dark" href="/ArticleDocument">@localizer["Articles"]</a>
+                                    <img class="avatar avatar-xss ml-1" src="/lib/frontTheme/svg/illustrations/top-vendor.svg" alt="Review rating" data-toggle="tooltip" data-placement="top" title="@localizer["ConfirmedOnly"]">
+                                </h3>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- End Row -->
+                <h6 class="mb-3">
+                    <a class="text-dark" href="/ArticleDocument">@localizer["AllArticlesOnSite"]</a>
+                </h6>
+            </div>
+        </div>
+        <!-- End Card -->
+    </div>
+    <div class="col-sm-6 col-lg-3 mb-5">
+        <!-- Card -->
+        <div class="card card-bordered card-hover-shadow h-100">
+            <div class="card-body">
+                <div class="row mb-3">
+                    <div class="col">
+                        <div class="media align-items-center">
+                            <img class="avatar avatar-sm mr-3" src="/lib/frontTheme/svg/icons/icon-13.svg" alt="Image Description">
+                            <div class="media-body">
+                                <h3 class="mb-0">
+                                    <a class="text-dark" href="/PracticeDocument">@localizer["PracticeDocuments"]</a>
+                                    <img class="avatar avatar-xss ml-1" src="/lib/frontTheme/svg/illustrations/top-vendor.svg" alt="Review rating" data-toggle="tooltip" data-placement="top" title="@localizer["ConfirmedOnly"]">
+                                </h3>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- End Row -->
+                <h6 class="mb-3">
+                    <a class="text-dark" href="/PracticeDocument">@localizer["AllPracticeDocumentsOnSite"]</a>
+                </h6>
+            </div>
+        </div>
+        <!-- End Card -->
+    </div>
+    <div class="col-sm-6 col-lg-3 mb-5">
+        <!-- Card -->
+        <div class="card card-bordered card-hover-shadow h-100">
+            <div class="card-body">
+                <div class="row mb-3">
+                    <div class="col">
+                        <div class="media align-items-center">
+                            <img class="avatar avatar-sm mr-3" src="/lib/frontTheme/svg/icons/icon-13.svg" alt="Image Description">
+                            <div class="media-body">
+                                <h3 class="mb-0">
+                                    <a class="text-dark" href="/SampleDocument">@localizer["SampleDocuments"]</a>
+                                    <img class="avatar avatar-xss ml-1" src="/lib/frontTheme/svg/illustrations/top-vendor.svg" alt="Review rating" data-toggle="tooltip" data-placement="top" title="@localizer["ConfirmedOnly"]">
+                                </h3>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- End Row -->
+                <h6 class="mb-3">
+                    <a class="text-dark" href="/SampleDocument">@localizer["AllSampleDocumentsOnSite"]</a>
+                </h6>
+            </div>
+        </div>
+        <!-- End Card -->
     </div>
 </div>
-<div class="row">
-    <div class="col-md-6">
-        <dl>
-            <dt>
-                Практика
-            </dt>
-            <dd>
-               Все документы на сайте
-            </dd>
-        </dl>
-    </div>
-    <div class="col-md-6">
-        <dl>
-            <dt>
-               Образцы документов
-            </dt>
-            <dd>
-               Все образцы документов на сайте
-            </dd>
-
-        </dl>
-    </div>
-</div>*@

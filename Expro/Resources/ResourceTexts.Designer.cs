@@ -313,11 +313,47 @@ namespace Expro.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Все статьи на сайте.
+        /// </summary>
+        public static string AllArticlesOnSite {
+            get {
+                return ResourceManager.GetString("AllArticlesOnSite", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Все эксперты.
         /// </summary>
         public static string AllExperts {
             get {
                 return ResourceManager.GetString("AllExperts", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Все практические документы на сайте.
+        /// </summary>
+        public static string AllPracticeDocumentsOnSite {
+            get {
+                return ResourceManager.GetString("AllPracticeDocumentsOnSite", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Все вопросы на сайте.
+        /// </summary>
+        public static string AllQuestionsOnSite {
+            get {
+                return ResourceManager.GetString("AllQuestionsOnSite", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Все образцовые документы на сайте.
+        /// </summary>
+        public static string AllSampleDocumentsOnSite {
+            get {
+                return ResourceManager.GetString("AllSampleDocumentsOnSite", resourceCulture);
             }
         }
         
@@ -3072,6 +3108,15 @@ namespace Expro.Resources {
         public static string SimpleUser {
             get {
                 return ResourceManager.GetString("SimpleUser", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Личная страница пользователя.
+        /// </summary>
+        public static string SimpleUserHomePage {
+            get {
+                return ResourceManager.GetString("SimpleUserHomePage", resourceCulture);
             }
         }
         

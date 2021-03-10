@@ -1278,4 +1278,19 @@
   <data name="LinkNotFoundMessage" xml:space="preserve">
     <value>Искомая страница не найдена</value>
   </data>
+  <data name="AllArticlesOnSite" xml:space="preserve">
+    <value>Все статьи на сайте</value>
+  </data>
+  <data name="AllPracticeDocumentsOnSite" xml:space="preserve">
+    <value>Все практические документы на сайте</value>
+  </data>
+  <data name="AllQuestionsOnSite" xml:space="preserve">
+    <value>Все вопросы на сайте</value>
+  </data>
+  <data name="AllSampleDocumentsOnSite" xml:space="preserve">
+    <value>Все образцовые документы на сайте</value>
+  </data>
+  <data name="SimpleUserHomePage" xml:space="preserve">
+    <value>Личная страница пользователя</value>
+  </data>
 </root>
