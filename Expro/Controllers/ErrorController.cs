@@ -27,6 +27,13 @@ namespace Expro.Controllers
             
             _logger.LogError(exception, BuildErrorMessageForLogging(null, pathFeature.Path, false));
 
+            string message = "";
+            if (exception != null)
+                message = exception.Message;
+            if (exception.InnerException != null)
+                message += exception.InnerException.Message;
+            ViewData["message"] = message;
+
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
 

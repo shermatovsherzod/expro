@@ -1252,7 +1252,7 @@
     <value>Пулли хизмат кўрсатиш шартлари</value>
   </data>
   <data name="CopyRight" xml:space="preserve">
-    <value>Expro 2021. Барча ҳуқуқлар ҳимояланган</value>
+    <value>Барча ҳуқуқлар ҳимояланган</value>
   </data>
   <data name="ForExperts" xml:space="preserve">
     <value>Экспертларга</value>
@@ -1280,5 +1280,11 @@
   </data>
   <data name="TermsOfUse" xml:space="preserve">
     <value>Фойдаланиш шартлари</value>
+  </data>
+  <data name="BackHome" xml:space="preserve">
+    <value>Бош саҳифага</value>
+  </data>
+  <data name="LinkNotFoundMessage" xml:space="preserve">
+    <value>Сиз қидираётган саҳифа топилмади</value>
   </data>
 </root>

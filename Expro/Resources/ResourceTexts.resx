@@ -1243,7 +1243,7 @@
     <value>Условия оказания платных услуг</value>
   </data>
   <data name="CopyRight" xml:space="preserve">
-    <value>Expro 2021. Все права защищены</value>
+    <value>Все права защищены</value>
   </data>
   <data name="ForExperts" xml:space="preserve">
     <value>Экспертам</value>
@@ -1271,5 +1271,11 @@
   </data>
   <data name="TermsOfUse" xml:space="preserve">
     <value>Условия пользования</value>
+  </data>
+  <data name="BackHome" xml:space="preserve">
+    <value>На главную</value>
+  </data>
+  <data name="LinkNotFoundMessage" xml:space="preserve">
+    <value>Искомая страница не найдена</value>
   </data>
 </root>

@@ -592,6 +592,15 @@ namespace Expro.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to На главную.
+        /// </summary>
+        public static string BackHome {
+            get {
+                return ResourceManager.GetString("BackHome", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Назад к списку.
         /// </summary>
         public static string BackToList {
@@ -844,7 +853,7 @@ namespace Expro.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Expro 2021. Все права защищены.
+        ///   Looks up a localized string similar to Все права защищены.
         /// </summary>
         public static string CopyRight {
             get {
@@ -1857,6 +1866,15 @@ namespace Expro.Resources {
         public static string Link {
             get {
                 return ResourceManager.GetString("Link", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Искомая страница не найдена.
+        /// </summary>
+        public static string LinkNotFoundMessage {
+            get {
+                return ResourceManager.GetString("LinkNotFoundMessage", resourceCulture);
             }
         }
         
