@@ -1308,4 +1308,7 @@
   <data name="SetFee" xml:space="preserve">
     <value>Мукофот белгилаш</value>
   </data>
+  <data name="LegalDocuments" xml:space="preserve">
+    <value>Хуқуқий хужжатлар</value>
+  </data>
 </root>

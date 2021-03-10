@@ -1,0 +1,13 @@
+﻿
+@{
+    ViewData["Title"] = localizer["AboutProject"];
+}
+
+@if (System.Globalization.CultureInfo.CurrentCulture.Name == "fr")
+{
+    await Html.RenderPartialAsync("_AboutProjectUz");
+}
+else
+{
+    await Html.RenderPartialAsync("_AboutProjectRu");
+}

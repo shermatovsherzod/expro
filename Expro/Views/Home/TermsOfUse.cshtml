@@ -1,0 +1,13 @@
+﻿
+@{
+    ViewData["Title"] = localizer["TermsOfUse"];
+}
+
+@if (System.Globalization.CultureInfo.CurrentCulture.Name == "fr")
+{
+    await Html.RenderPartialAsync("_TermsOfUseUz");
+}
+else
+{
+    await Html.RenderPartialAsync("_TermsOfUseRu");
+}
