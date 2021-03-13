@@ -162,6 +162,7 @@ namespace Expro.Areas.Admin.Controllers
                 QuestionAdminActionsService.Reject(document, curUser.ID);
                 
                 HangfireService.CancelJob(document.RejectionJobID);
+                HangfireService.CancelJob(document.QuestionCompletionJobID);
 
                 return Ok();
             }

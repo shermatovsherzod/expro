@@ -154,6 +154,12 @@ namespace Expro.Areas.User.Controllers
                         QuestionService.Publish(model, curUser.ID);
 
                         modelVM.StatusID = (int)DocumentStatusesEnum.Approved;
+
+                        if (!QuestionService.IsFree(model))
+                        {
+                            model.QuestionCompletionJobID = HangfireService.CreateJobForQuestionCompletionDeadline(model);
+                            QuestionService.Update(model);
+                        }
                     }
                     else
                         QuestionService.Update(model, curUser.ID);
@@ -259,6 +265,12 @@ namespace Expro.Areas.User.Controllers
                         QuestionService.Publish(model, curUser.ID);
 
                         modelVM.StatusID = (int)DocumentStatusesEnum.Approved;
+
+                        if (!QuestionService.IsFree(model))
+                        {
+                            model.QuestionCompletionJobID = HangfireService.CreateJobForQuestionCompletionDeadline(model);
+                            QuestionService.Update(model);
+                        }
                     }
                     else
                         QuestionService.Update(model, curUser.ID);

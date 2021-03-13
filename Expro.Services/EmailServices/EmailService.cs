@@ -34,13 +34,13 @@ namespace Expro.Services
 
             using (var client = new SmtpClient())
             {
+#if DEBUG
+#else
                 //await client.ConnectAsync(AppConfiguration.ExproEmailSmtpClient, AppConfiguration.ExproEmailSmtpPort, SecureSocketOptions.SslOnConnect);
-              
-                
                 //await client.ConnectAsync(AppConfiguration.ExproEmailSmtpClient, AppConfiguration.ExproEmailSmtpPort, SecureSocketOptions.StartTls);
                 //await client.AuthenticateAsync(AppConfiguration.ExproEmailUsername, AppConfiguration.ExproEmailPassword);
                 //await client.SendAsync(emailMessage);
-
+#endif
                 await client.DisconnectAsync(true);
             }
         }

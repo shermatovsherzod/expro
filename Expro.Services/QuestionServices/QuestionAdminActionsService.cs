@@ -41,8 +41,8 @@ namespace Expro.Services
         {
             base.Approve(entity, userID);
 
-            entity.QuestionCompletionDeadline = DateTimeUtils.RoundToUp(entity.DatePublished.Value
-                .AddMinutes(AppConfiguration.QuestionCompletionDeadlinePeriodInMinutes));
+            //entity.QuestionCompletionDeadline = DateTimeUtils.RoundToUp(entity.DatePublished.Value
+            //    .AddMinutes(AppConfiguration.QuestionCompletionDeadlinePeriodInMinutes));
 
             Update(entity, userID);
 

@@ -112,6 +112,12 @@ namespace Expro.Services
             entity.DateApproved = now;
             entity.DatePublished = now;
 
+            if (!IsFree(entity))
+            {
+                entity.QuestionCompletionDeadline = DateTimeUtils.RoundToUp(entity.DatePublished.Value
+                    .AddMinutes(AppConfiguration.QuestionCompletionDeadlinePeriodInMinutes));
+            }
+
             Update(entity, userID);
         }
 

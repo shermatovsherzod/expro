@@ -21,11 +21,12 @@
     <!-- CSS Front Template -->
     @RenderSection("CustomFrontStyles", required: false)
     <link rel="stylesheet" href="~/lib/frontTheme/css/theme.min.css">
-    
+
     <script src="~/js/CheckIfUserIsBlocked.js"></script>
     <script>
         CheckIfUserIsBlocked("@User.Identity.IsAuthenticated");
     </script>
+    <meta name="mailru-domain" content="J0Rlyz2ZWrWNCqyd" />
 </head>
 <body>
     <style>
