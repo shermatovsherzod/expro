@@ -46,7 +46,7 @@ namespace Expro.Controllers
 
             _logger = logger;
 
-            if (settings != null) 
+            if (settings != null)
                 AppConfiguration = settings.Value;
         }
 
@@ -132,6 +132,16 @@ namespace Expro.Controllers
         public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+        }
+
+        public IActionResult AboutProject()
+        {           
+            return View();
+        }
+
+        public IActionResult TermsOfUse()
+        {
+            return View();
         }
     }
 }

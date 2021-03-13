@@ -1906,6 +1906,15 @@ namespace Expro.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Правовые документы.
+        /// </summary>
+        public static string LegalDocuments {
+            get {
+                return ResourceManager.GetString("LegalDocuments", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to ссылка.
         /// </summary>
         public static string Link {

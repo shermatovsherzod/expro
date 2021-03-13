@@ -1299,4 +1299,7 @@
   <data name="SetFee" xml:space="preserve">
     <value>Назначить вознаграждение</value>
   </data>
+  <data name="LegalDocuments" xml:space="preserve">
+    <value>Правовые документы</value>
+  </data>
 </root>
