@@ -256,10 +256,10 @@
     <value>Файл бириктирилган</value>
   </data>
   <data name="FilterByLawArea" xml:space="preserve">
-    <value>Йуналиш буйича филтр</value>
+    <value>Йуналиш буйича саралаш</value>
   </data>
   <data name="FilterByPrice" xml:space="preserve">
-    <value>Нарх бўйича филтр</value>
+    <value>Нарх бўйича саралаш</value>
   </data>
   <data name="fr" xml:space="preserve">
     <value>Ўзбек</value>
@@ -430,7 +430,7 @@
     <value>Барчасини очиш</value>
   </data>
   <data name="SelectCity" xml:space="preserve">
-    <value>Шаҳарни танлаш</value>
+    <value>Шахарни танлаш</value>
   </data>
   <data name="SelectRegion" xml:space="preserve">
     <value>Минтақани танлаш</value>
@@ -478,7 +478,7 @@
     <value>Вакансиялар каталоги</value>
   </data>
   <data name="ViewAllFilters" xml:space="preserve">
-    <value>Барча филтрларни кўрсатиш</value>
+    <value>Барча саралаш вариантларини кўрсатиш</value>
   </data>
   <data name="WarningNotEnoughPointToGiveAnswerForQuestionWithFee" xml:space="preserve">
     <value>Пулли саволга жавоб ёзиш учун 100 рейтинг тўпланг ва маълумотингизни (диплом) тасдиқланг. Батафсил маълумот учун &lt;a href="#"&gt;Пулли хизмат кўрсатиш шартларини ўқинг&lt;/a&gt;</value>
@@ -565,7 +565,7 @@
     <value>Файл</value>
   </data>
   <data name="FilterByStatus" xml:space="preserve">
-    <value>Статус бўйича филтр</value>
+    <value>Статус бўйича саралаш</value>
   </data>
   <data name="Free" xml:space="preserve">
     <value>Бепул</value>
@@ -814,7 +814,7 @@
     <value>Харажатлар</value>
   </data>
   <data name="FilterByUserType" xml:space="preserve">
-    <value>Фойдаланувчи тури бўйича филтр</value>
+    <value>Фойдаланувчи тури бўйича саралаш</value>
   </data>
   <data name="FinancePanel" xml:space="preserve">
     <value>Финанслар</value>
@@ -928,7 +928,7 @@
     <value>Рўйхатдан ўтганликни тасдиқлаш</value>
   </data>
   <data name="ConfirmationEmailSent" xml:space="preserve">
-    <value>Сизга рўйхатдан ўтганингизни тасдиқлаш учун хат юборилди</value>
+    <value>Электрон почтангизга сайтда рўйхатдан ўтганлигингизни тасдиқлаш учун хавола юборилди. Почтангизга юборилган хавола орқали рўйхатдан ўтишни якунланг.</value>
   </data>
   <data name="EmailConfirmed" xml:space="preserve">
     <value>Емейл муваффақиятли тасдиқланди.</value>
@@ -1198,7 +1198,7 @@
     <value>Резюме муваффаққиятли тахрирланди</value>
   </data>
   <data name="FilterByRegion" xml:space="preserve">
-    <value>Минтақа бўйича фильтрлаш</value>
+    <value>Минтақа бўйича саралаш</value>
   </data>
   <data name="QuestionAnswerNotFound" xml:space="preserve">
     <value>Жавоб топилмади</value>
@@ -1310,5 +1310,38 @@
   </data>
   <data name="LegalDocuments" xml:space="preserve">
     <value>Хуқуқий хужжатлар</value>
+  </data>
+  <data name="UserName" xml:space="preserve">
+    <value>Фойдаланувчи логини</value>
+  </data>
+  <data name="Aphorism1" xml:space="preserve">
+    <value>Мен учун куч ким тарафдалиги эмас, қонун ким тарафдалиги муҳим.</value>
+  </data>
+  <data name="Aphorism1Owner" xml:space="preserve">
+    <value>Виктор Гюго</value>
+  </data>
+  <data name="Aphorism2" xml:space="preserve">
+    <value>Ҳар қандай шаклдаги солиқ - шунчаки икки зарардан бирини танлашдир.</value>
+  </data>
+  <data name="Aphorism2Owner" xml:space="preserve">
+    <value>Давид Рикардо</value>
+  </data>
+  <data name="Aphorism3" xml:space="preserve">
+    <value>Битта виждонсиз хисобчи душман армиясидан кўра дахшатлироқдир.</value>
+  </data>
+  <data name="Aphorism3Owner" xml:space="preserve">
+    <value>Наполеон Бонапарт</value>
+  </data>
+  <data name="FilterQuestionsByPrice" xml:space="preserve">
+    <value>Саволларни саралаш</value>
+  </data>
+  <data name="FreeQuestion" xml:space="preserve">
+    <value>Бепул</value>
+  </data>
+  <data name="OurPartners1" xml:space="preserve">
+    <value>Бизнинг ҳамкорларимиз</value>
+  </data>
+  <data name="PaidQuestion" xml:space="preserve">
+    <value>Пулли</value>
   </data>
 </root>

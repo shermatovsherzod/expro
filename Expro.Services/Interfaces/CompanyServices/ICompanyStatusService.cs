@@ -4,8 +4,8 @@ using System.Collections.Generic;
 
 namespace Expro.Services.Interfaces
 {  
-    public interface ICompanyStatusService
+    public interface ICompanyStatusService : IBaseDropdownableService<CompanyStatus>
     {
-        List<SelectListItem> GetAsSelectList();
+       // List<SelectListItem> GetAsSelectList();
     }
 }

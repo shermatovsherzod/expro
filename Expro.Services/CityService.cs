@@ -4,7 +4,9 @@ using Expro.Models;
 using Expro.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
+using System.Threading;
 
 namespace Expro.Services
 {
@@ -27,20 +29,51 @@ namespace Expro.Services
 
         public List<SelectListItem> GetByRegionIDAsSelectList(int regionID, int[] selected = null, bool includeOther = false)
         {
-            var result = GetByRegionID(regionID)
-                .Select(item => new SelectListItem()
+            CultureInfo cultureInfo = Thread.CurrentThread.CurrentCulture;
+
+
+            var items = GetByRegionID(regionID).ToList();
+
+            var result = new List<SelectListItem>();
+            foreach (var item in items)
+            {
+                var selectListItem = new SelectListItem();
+                selectListItem.Value = item.ID.ToString();
+
+                if (item.NameShort != null)
                 {
-                    Value = item.ID.ToString(),
-                    Text = item.Name.ToString(),
-                    Selected = (selected != null && selected.Contains(item.ID))
-                }).ToList();
+                    if (cultureInfo.Name == "fr") //uz
+                        selectListItem.Text = item.NameShort.TextUz;
+                    else
+                        selectListItem.Text = item.NameShort.TextRu;
+                }
+                if (string.IsNullOrWhiteSpace(selectListItem.Text))
+                    selectListItem.Text = item.Name;
+
+                selectListItem.Selected = (selected != null && selected.Contains(item.ID));
+
+                result.Add(selectListItem);
+            }
+
+            //.Select(item => new SelectListItem()
+            //{
+            //    Value = item.ID.ToString(),
+            //    Text = item.Name.ToString(),
+            //    Selected = (selected != null && selected.Contains(item.ID))
+            //}).ToList();
 
             if (includeOther)
             {
+                string otherCity = "";
+                if (cultureInfo.Name == "fr") //uz
+                    otherCity="Бошқа шаҳар";
+                else
+                    otherCity = "Другой город";
+
                 result.Add(new SelectListItem()
                 {
                     Value = "0",
-                    Text = "Другой город",
+                    Text = otherCity,
                     Selected = (selected != null && selected.Contains(0))
                 });
             }

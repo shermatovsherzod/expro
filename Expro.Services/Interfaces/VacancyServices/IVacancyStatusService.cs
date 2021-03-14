@@ -4,8 +4,8 @@ using System.Collections.Generic;
 
 namespace Expro.Services.Interfaces
 {  
-    public interface IVacancyStatusService 
+    public interface IVacancyStatusService  :IBaseDropdownableService<VacancyStatus>
     {
-        List<SelectListItem> GetAsSelectList();
+        //List<SelectListItem> GetAsSelectList();
     }
 }
