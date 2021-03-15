@@ -8,88 +8,96 @@
 
 
 <!-- Form -->
-<form class="js-validate" id="account" method="post">
-    <div asp-validation-summary="All" class="text-danger"></div>
-    <!-- Title -->
-    <div class="mb-5 mb-md-7">
-        <h1 class="h2">@localizer["Welcome"]</h1>
-        @*<p>Login to manage your account.</p>*@
-    </div>
-    <!-- End Title -->
-    <!-- Form Group -->
-    <div class="js-form-message form-group">
-        <label class="input-label" asp-for="Input.Email"></label>
-        <input type="email" asp-for="Input.Email" class="form-control" name="email" id="signinSrEmail" tabindex="1" placeholder="@localizer["Email"]" aria-label="Email" required
-               data-msg="@localizer["EnterValidEmail"]">
-        <span asp-validation-for="Input.Email" class="text-danger"></span>
-    </div>
-    <!-- End Form Group -->
-    <!-- Form Group -->
-    <div class="js-form-message form-group">
-        <label class="input-label" for="signinSrPassword" tabindex="0">
-            <span class="d-flex justify-content-between align-items-center">
-                <label asp-for="Input.Password"></label>
-                <a class="link-underline font-weight-normal" href="/Identity/Account/ForgotPassword">@localizer["ForgotYourPassword"]</a>
-            </span>
-        </label>
-        <input type="password" asp-for="Input.Password" class="form-control" name="password" id="signinSrPassword" tabindex="2" placeholder="********" aria-label="********" required
-               data-msg="@localizer["PasswordInvalid"]">
-        <span asp-validation-for="Input.Password" class="text-danger"></span>
-    </div>
-    <!-- End Form Group -->
-    <!-- Button -->
-    <div class="row align-items-center mb-5">
-        <div class="col-sm-6 mb-3 mb-sm-0">
-            <span class="font-size-1 text-muted">@localizer["DoNotHaveAccess"]</span>
-            <a class="font-size-1 font-weight-bold" href="/Identity/Account/Register">@localizer["Register"]</a>
+    <form class="js-validate" id="account" method="post">
+        <div asp-validation-summary="All" class="text-danger"></div>
+        <!-- Title -->
+        <div class="mb-5 mb-md-7">
+            <h1 class="h2">@localizer["Welcome"]</h1>
+            @*<p>Login to manage your account.</p>*@
+        </div>
+        <!-- End Title -->
+        <!-- Form Group -->
+        <div class="js-form-message form-group">
+            <label class="input-label" asp-for="Input.Email"></label>
+            <input type="email" asp-for="Input.Email" class="form-control" name="email" id="signinSrEmail" tabindex="1" placeholder="@localizer["Email"]" aria-label="Email" required
+                   data-msg="@localizer["EnterValidEmail"]">
+            <span asp-validation-for="Input.Email" class="text-danger"></span>
         </div>
 
-        <div class="col-sm-6 text-sm-right">
-            <button type="submit" class="btn btn-primary transition-3d-hover">@localizer["Enter"]</button>
+        <!-- Form Group -->
+        @*<div class="js-form-message form-group">
+            <label class="input-label" style="float:left;" asp-for="Input.UserName" ></label><span class="text-danger">*</span>
+            <input class="form-control" asp-for="Input.UserName" placeholder="@localizer["UserName"]" aria-label="" required
+                   data-msg="@localizer["RequiredField"]">
+            <span asp-validation-for="Input.UserName"></span>
+        </div>*@
+
+        <!-- End Form Group -->
+        <!-- Form Group -->
+        <div class="js-form-message form-group">
+            <label class="input-label" for="signinSrPassword" tabindex="0">
+                <span class="d-flex justify-content-between align-items-center">
+                    <label asp-for="Input.Password"></label>
+                    <a class="link-underline font-weight-normal" href="/Identity/Account/ForgotPassword">@localizer["ForgotYourPassword"]</a>
+                </span>
+            </label>
+            <input type="password" asp-for="Input.Password" class="form-control" name="password" id="signinSrPassword" tabindex="2" placeholder="********" aria-label="********" required
+                   data-msg="@localizer["PasswordInvalid"]">
+            <span asp-validation-for="Input.Password" class="text-danger"></span>
         </div>
-    </div>
-    <!-- End Button -->
-</form>
+        <!-- End Form Group -->
+        <!-- Button -->
+        <div class="row align-items-center mb-5">
+            <div class="col-sm-6 mb-3 mb-sm-0">
+                <span class="font-size-1 text-muted">@localizer["DoNotHaveAccess"]</span>
+                <a class="font-size-1 font-weight-bold" href="/Identity/Account/Register">@localizer["Register"]</a>
+            </div>
+
+            <div class="col-sm-6 text-sm-right">
+                <button type="submit" class="btn btn-primary transition-3d-hover">@localizer["Enter"]</button>
+            </div>
+        </div>
+        <!-- End Button -->
+    </form>
 <!-- End Form -->
-
 @*<div class="row">
-    <div class="col-md-4"></div>
-    <div class="col-md-4">
-        <section>
-            <form id="account" method="post">
-                <h4>Войти</h4>
-                <hr />
-                <div asp-validation-summary="All" class="text-danger"></div>
-                <div class="form-group">
+        <div class="col-md-4"></div>
+        <div class="col-md-4">
+            <section>
+                <form id="account" method="post">
+                    <h4>Войти</h4>
+                    <hr />
+                    <div asp-validation-summary="All" class="text-danger"></div>
+                    <div class="form-group">
 
-                </div>
-                <div class="form-group">
-
-                </div>
-                <div class="form-group">
-                    <div class="checkbox">
-                        <label asp-for="Input.RememberMe">
-                            <input asp-for="Input.RememberMe" />
-                            @Html.DisplayNameFor(m => m.Input.RememberMe)
-                        </label>
                     </div>
-                </div>
-                <div class="form-group">
-                    <button type="submit" class="btn btn-primary">Войти</button>
-                </div>
-                <div class="form-group">
-                    <p>
-                        <a id="forgot-password" asp-page="./ForgotPassword">Забыли свой пароль?</a>
-                    </p>
-                    <p>
-                        <a asp-page="./Register" asp-route-returnUrl="@Model.ReturnUrl">Регистрация</a>
-                    </p>
-                </div>
-            </form>
-        </section>
-    </div>
-    <div class="col-md-4"></div>
-</div>*@
+                    <div class="form-group">
+
+                    </div>
+                    <div class="form-group">
+                        <div class="checkbox">
+                            <label asp-for="Input.RememberMe">
+                                <input asp-for="Input.RememberMe" />
+                                @Html.DisplayNameFor(m => m.Input.RememberMe)
+                            </label>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-primary">Войти</button>
+                    </div>
+                    <div class="form-group">
+                        <p>
+                            <a id="forgot-password" asp-page="./ForgotPassword">Забыли свой пароль?</a>
+                        </p>
+                        <p>
+                            <a asp-page="./Register" asp-route-returnUrl="@Model.ReturnUrl">Регистрация</a>
+                        </p>
+                    </div>
+                </form>
+            </section>
+        </div>
+        <div class="col-md-4"></div>
+    </div>*@
 
 @section Scripts {
     @*<partial name="_ValidationScriptsPartial" />*@

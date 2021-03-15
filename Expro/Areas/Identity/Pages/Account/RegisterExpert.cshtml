@@ -10,133 +10,141 @@
     int selectedLawArea = Model?.Input?.LawAreaParentID ?? 0;
 }
 
-<form class="js-validate w-md-75 w-lg-50 mx-md-auto" asp-route-returnUrl="@Model.ReturnUrl" method="post">
-    <!-- Title -->
-    <div class="mb-5 mb-md-7 text-sm-center">
-        <h1 class="h2 mb-0">@ViewData["Title"]</h1>
-        <p><a href="/Identity/Account/Register">@localizer["RegisterAsASimpleUser"]</a></p>
-    </div>
+    <form class="js-validate w-md-75 w-lg-50 mx-md-auto" asp-route-returnUrl="@Model.ReturnUrl" method="post">
+        <!-- Title -->
+        <div class="mb-5 mb-md-7 text-sm-center">
+            <h1 class="h2 mb-0">@ViewData["Title"]</h1>
+            <p><a href="/Identity/Account/Register">@localizer["RegisterAsASimpleUser"]</a></p>
+        </div>
 
-    <!-- Form Group -->
-    <div class="js-form-message form-group">
-        <label class="input-label" style="float:left;" asp-for="Input.LastName"></label><span class="text-danger">*</span>
-        <input class="form-control" asp-for="Input.LastName" placeholder="@localizer["lblLastName"]" aria-label="" required
-               data-msg="Please fill field.">
-        <span asp-validation-for="Input.LastName"></span>
-    </div>
-    <!-- End Form Group -->
-    <!-- Form Group -->
-    <div class="js-form-message form-group">
-        <label class="input-label" style="float:left;" asp-for="Input.FirstName"></label><span class="text-danger">*</span>
-        <input class="form-control" asp-for="Input.FirstName" placeholder="@localizer["lblFirstName"]" aria-label="" required
-               data-msg="Please fill field.">
-        <span asp-validation-for="Input.FirstName"></span>
-    </div>
-    <!-- End Form Group -->
-    <!-- Form Group -->
-    <div class="js-form-message form-group">
-        <label class="input-label" asp-for="Input.PatronymicName"></label>
-        <input class="form-control" asp-for="Input.PatronymicName" placeholder="@localizer["lblPatronymicName"]" aria-label="">
-        <span asp-validation-for="Input.PatronymicName"></span>
-    </div>
-    <!-- End Form Group -->
-    <!-- Form Group -->
-    @*<div class="js-form-message form-group">
+        <!-- Form Group -->
+        @*<div class="js-form-message form-group">
+            <label class="input-label" style="float:left;" asp-for="Input.UserName"></label><span class="text-danger">*</span>
+            <input class="form-control" asp-for="Input.UserName" placeholder="@localizer["UserName"]" aria-label="" required
+                   data-msg="@localizer["RequiredField"]">
+            <span asp-validation-for="Input.UserName"></span>
+        </div>*@
+        <!-- End Form Group -->
+        <!-- Form Group -->
+        <div class="js-form-message form-group">
+            <label class="input-label" style="float:left;" asp-for="Input.LastName"></label><span class="text-danger">*</span>
+            <input class="form-control" asp-for="Input.LastName" placeholder="@localizer["lblLastName"]" aria-label="" required
+                   data-msg="Please fill field.">
+            <span asp-validation-for="Input.LastName"></span>
+        </div>
+        <!-- End Form Group -->
+        <!-- Form Group -->
+        <div class="js-form-message form-group">
+            <label class="input-label" style="float:left;" asp-for="Input.FirstName"></label><span class="text-danger">*</span>
+            <input class="form-control" asp-for="Input.FirstName" placeholder="@localizer["lblFirstName"]" aria-label="" required
+                   data-msg="Please fill field.">
+            <span asp-validation-for="Input.FirstName"></span>
+        </div>
+        <!-- End Form Group -->
+        <!-- Form Group -->
+        <div class="js-form-message form-group">
+            <label class="input-label" asp-for="Input.PatronymicName"></label>
+            <input class="form-control" asp-for="Input.PatronymicName" placeholder="@localizer["lblPatronymicName"]" aria-label="">
+            <span asp-validation-for="Input.PatronymicName"></span>
+        </div>
+        <!-- End Form Group -->
+        <!-- Form Group -->
+        @*<div class="js-form-message form-group">
             <label class="input-label"  style="float:left;" asp-for="Input.PhoneNumber"></label><span class="text-danger">*</span>
             <input class="form-control" asp-for="Input.PhoneNumber" placeholder="@localizer["lblPhoneNumber"]" aria-label="" required
                    data-msg="Please fill field.">
             <span asp-validation-for="Input.PhoneNumber"></span>
         </div>*@
-    <!-- End Form Group -->
-    <!-- Select -->
-    <div class="js-form-message form-group">
-        <label class="input-label" style="float:left;" asp-for="Input.LawAreaParentID"></label><span class="text-danger">*</span>
-        <select asp-for="Input.LawAreaParentID" class="js-custom-select custom-select" size="1" style="opacity: 0;"
-                data-hs-select2-options='{
+        <!-- End Form Group -->
+        <!-- Select -->
+        <div class="js-form-message form-group">
+            <label class="input-label" style="float:left;" asp-for="Input.LawAreaParentID"></label><span class="text-danger">*</span>
+            <select asp-for="Input.LawAreaParentID" class="js-custom-select custom-select" size="1" style="opacity: 0;"
+                    data-hs-select2-options='{
           "minimumResultsForSearch": "Infinity"
         }'>
-            @{
-                var parentItems = lawAreasWithParent.Where(m => m.ParentValue == "").ToList();
+                @{
+                    var parentItems = lawAreasWithParent.Where(m => m.ParentValue == "").ToList();
 
-                <option value=""></option>
-                for (int i = 0; i < parentItems.Count; i++)
-                {
-                    <option value="@parentItems[i].Value">@parentItems[i].Text</option>
+                    <option value=""></option>
+                    for (int i = 0; i < parentItems.Count; i++)
+                    {
+                        <option value="@parentItems[i].Value">@parentItems[i].Text</option>
+                    }
                 }
-            }
-        </select>
-        <span asp-validation-for="Input.LawAreaParentID" class="text-danger"></span>
-    </div>
-    <!-- End Select -->
-    <!-- Select -->
-    <div class="js-form-message form-group">
-        <label class="input-label" style="float:left;"></label>
-        <select asp-for="Input.LawAreas" class="js-custom-select custom-select" size="1" multiple style="opacity: 0;"
-                data-hs-select2-options='{
+            </select>
+            <span asp-validation-for="Input.LawAreaParentID" class="text-danger"></span>
+        </div>
+        <!-- End Select -->
+        <!-- Select -->
+        <div class="js-form-message form-group">
+            <label class="input-label" style="float:left;"></label>
+            <select asp-for="Input.LawAreas" class="js-custom-select custom-select" size="1" multiple style="opacity: 0;"
+                    data-hs-select2-options='{
           "minimumResultsForSearch": "Infinity"
         }'>
-        </select>
-    </div>
-    <!-- End Select -->
-    <!-- Form Group -->
-    <div class="js-form-message form-group">
-        <label class="input-label" style="float:left;" asp-for="Input.RegionID"></label>
-        <select asp-for="Input.RegionID"
-                asp-items="@ViewData["regions"] as IEnumerable<SelectListItem>"
-                class="form-control">
-            <option disabled selected>--- @localizer["SelectRegion"] ---</option>
-        </select>
-        <span asp-validation-for="Input.RegionID" class="text-danger"></span>
-    </div>
-    <!-- End Form Group -->
-    <!-- Form Group -->
-    <div class="js-form-message form-group">
-        <label class="input-label" asp-for="Input.CityID"></label>
-        <select asp-for="Input.CityID"
-                asp-items="@ViewData["cities"] as IEnumerable<SelectListItem>"
-                class="form-control">
-            <option disabled selected>--- @localizer["SelectCity"] ---</option>
-        </select>
-        <span asp-validation-for="Input.CityID" class="text-danger"></span>
-    </div>
-    <!-- End Form Group -->
-    <!-- Form Group -->
-    <div class="js-form-message form-group">
-        <label class="input-label" asp-for="Input.CityOther"></label>
-        <input class="form-control" asp-for="Input.CityOther" placeholder="@localizer["lblCityOther"]" aria-label="" required
-               data-msg="Please fill field.">
-        <span asp-validation-for="Input.CityOther"></span>
-    </div>
-    <!-- End Form Group -->
-    <!-- Form Group -->
-    <div class="js-form-message form-group">
-        <label class="input-label" style="float:left;" asp-for="Input.Email"></label><span class="text-danger">*</span>
-        <input class="form-control" asp-for="Input.Email" placeholder="@localizer["Email"]" aria-label="" required
-               data-msg="Please fill field.">
-        <span asp-validation-for="Input.Email"></span>
-    </div>
-    <!-- End Form Group -->
-    <!-- Form Group -->
-    <div class="js-form-message form-group">
-        <label class="input-label" style="float:left;" asp-for="Input.Password"></label><span class="text-danger">*</span>
-        <input class="form-control" asp-for="Input.Password" placeholder="******" aria-label="" required
-               data-msg="Please fill field.">
-        <span asp-validation-for="Input.Password"></span>
-    </div>
-    <!-- End Form Group -->
-    <!-- Form Group -->
-    <div class="js-form-message form-group">
-        <label class="input-label" style="float:left;" asp-for="Input.ConfirmPassword"></label><span class="text-danger">*</span>
-        <input class="form-control" asp-for="Input.ConfirmPassword" placeholder="******" aria-label="" required
-               data-msg="Please fill field.">
-        <span asp-validation-for="Input.ConfirmPassword"></span>
-    </div>
-    <!-- End Form Group -->
+            </select>
+        </div>
+        <!-- End Select -->
+        <!-- Form Group -->
+        <div class="js-form-message form-group">
+            <label class="input-label" style="float:left;" asp-for="Input.RegionID"></label>
+            <select asp-for="Input.RegionID"
+                    asp-items="@ViewData["regions"] as IEnumerable<SelectListItem>"
+                    class="form-control">
+                <option disabled selected>--- @localizer["SelectRegion"] ---</option>
+            </select>
+            <span asp-validation-for="Input.RegionID" class="text-danger"></span>
+        </div>
+        <!-- End Form Group -->
+        <!-- Form Group -->
+        <div class="js-form-message form-group">
+            <label class="input-label" asp-for="Input.CityID"></label>
+            <select asp-for="Input.CityID"
+                    asp-items="@ViewData["cities"] as IEnumerable<SelectListItem>"
+                    class="form-control">
+                <option disabled selected>--- @localizer["SelectCity"] ---</option>
+            </select>
+            <span asp-validation-for="Input.CityID" class="text-danger"></span>
+        </div>
+        <!-- End Form Group -->
+        <!-- Form Group -->
+        <div class="js-form-message form-group">
+            <label class="input-label" asp-for="Input.CityOther"></label>
+            <input class="form-control" asp-for="Input.CityOther" placeholder="@localizer["lblCityOther"]" aria-label="" required
+                   data-msg="Please fill field.">
+            <span asp-validation-for="Input.CityOther"></span>
+        </div>
+        <!-- End Form Group -->
+        <!-- Form Group -->
+        <div class="js-form-message form-group">
+            <label class="input-label" style="float:left;" asp-for="Input.Email"></label><span class="text-danger">*</span>
+            <input class="form-control" asp-for="Input.Email" placeholder="@localizer["Email"]" aria-label="" required
+                   data-msg="Please fill field.">
+            <span asp-validation-for="Input.Email"></span>
+        </div>
+        <!-- End Form Group -->
+        <!-- Form Group -->
+        <div class="js-form-message form-group">
+            <label class="input-label" style="float:left;" asp-for="Input.Password"></label><span class="text-danger">*</span>
+            <input class="form-control" asp-for="Input.Password" placeholder="******" aria-label="" required
+                   data-msg="Please fill field.">
+            <span asp-validation-for="Input.Password"></span>
+        </div>
+        <!-- End Form Group -->
+        <!-- Form Group -->
+        <div class="js-form-message form-group">
+            <label class="input-label" style="float:left;" asp-for="Input.ConfirmPassword"></label><span class="text-danger">*</span>
+            <input class="form-control" asp-for="Input.ConfirmPassword" placeholder="******" aria-label="" required
+                   data-msg="Please fill field.">
+            <span asp-validation-for="Input.ConfirmPassword"></span>
+        </div>
+        <!-- End Form Group -->
 
-    <div class="text-center"><button type="submit" class="btn btn-primary">@localizer["Register"]</button></div>
+        <div class="text-center"><button type="submit" class="btn btn-primary">@localizer["Register"]</button></div>
 
-    <!-- Form Group -->
-    @*<div class="js-form-message form-group">
+        <!-- Form Group -->
+        @*<div class="js-form-message form-group">
             <select class="js-custom-select" id="locationLabel"
                     data-hs-select2-options='{
                                 "customClass": "custom-select",
@@ -151,10 +159,10 @@
 
             </select>
         </div>*@
-    <!-- End Form Group -->
+        <!-- End Form Group -->
 
 
-</form>
+    </form>
 <br />
 
 @section Scripts {

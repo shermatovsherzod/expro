@@ -16,15 +16,15 @@ namespace Expro.Services
         {
         }
 
-        public List<SelectListItem> GetAsSelectList()
-        {
-            var result = _repository.GetAll().Select(item => new SelectListItem()
-            {
-                Value = item.ID.ToString(),
-                Text = item.Name.ToString()
-            }).ToList();
+        //public List<SelectListItem> GetAsSelectList()
+        //{
+        //    var result = _repository.GetAll().Select(item => new SelectListItem()
+        //    {
+        //        Value = item.ID.ToString(),
+        //        Text = item.Name.ToString()
+        //    }).ToList();
 
-            return result;
-        }
+        //    return result;
+        //}
     }
 }

@@ -373,7 +373,7 @@
     <value>Ответов нет</value>
   </data>
   <data name="PracticeDocuments" xml:space="preserve">
-    <value>Практические документы</value>
+    <value>Практика</value>
   </data>
   <data name="ProfileEdit" xml:space="preserve">
     <value>Редактировать профайл</value>
@@ -1301,5 +1301,38 @@
   </data>
   <data name="LegalDocuments" xml:space="preserve">
     <value>Правовые документы</value>
+  </data>
+  <data name="UserName" xml:space="preserve">
+    <value>Логин пользователя</value>
+  </data>
+  <data name="Aphorism1" xml:space="preserve">
+    <value>Для меня не важно, на чьей стороне сила; важно то, на чьей стороне право.</value>
+  </data>
+  <data name="Aphorism1Owner" xml:space="preserve">
+    <value>Виктор Гюго</value>
+  </data>
+  <data name="Aphorism2" xml:space="preserve">
+    <value>Налогообложение в любой его форме – всего лишь выбор одного из зол.</value>
+  </data>
+  <data name="Aphorism2Owner" xml:space="preserve">
+    <value>Давид Рикардо</value>
+  </data>
+  <data name="Aphorism3" xml:space="preserve">
+    <value>Один нечестный бухгалтер страшнее армии неприятеля.</value>
+  </data>
+  <data name="Aphorism3Owner" xml:space="preserve">
+    <value>Наполеон Бонапарт</value>
+  </data>
+  <data name="FilterQuestionsByPrice" xml:space="preserve">
+    <value>Фильтр вопросов</value>
+  </data>
+  <data name="FreeQuestion" xml:space="preserve">
+    <value>Бесплатные</value>
+  </data>
+  <data name="OurPartners1" xml:space="preserve">
+    <value>Наши партнеры</value>
+  </data>
+  <data name="PaidQuestion" xml:space="preserve">
+    <value>Платные</value>
   </data>
 </root>

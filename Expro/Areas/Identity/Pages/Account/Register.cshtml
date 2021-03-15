@@ -6,78 +6,86 @@
 }
 
 
-<form class="js-validate w-md-75 w-lg-50 mx-md-auto" asp-route-returnUrl="@Model.ReturnUrl" method="post">
-    <!-- Title -->
-    <div class="mb-5 mb-md-7 text-sm-center">
-        <h1 class="h2 mb-0">@ViewData["Title"]</h1>
-        <p><a href="/Identity/Account/RegisterExpert">@localizer["RegistrateAsExpert"]</a></p>
-    </div>
+    <form class="js-validate w-md-75 w-lg-50 mx-md-auto" asp-route-returnUrl="@Model.ReturnUrl" method="post">
+        <!-- Title -->
+        <div class="mb-5 mb-md-7 text-sm-center">
+            <h1 class="h2 mb-0">@ViewData["Title"]</h1>
+            <p><a href="/Identity/Account/RegisterExpert">@localizer["RegistrateAsExpert"]</a></p>
+        </div>
 
-    <!-- End Title -->
-    <!-- Form Group -->
-    <div class="js-form-message form-group">
-        <label class="input-label" style="float:left;" asp-for="Input.Surname"></label><span class="text-danger">*</span>
-        <input class="form-control" asp-for="Input.Surname" placeholder="@localizer["lblLastName"]" aria-label="" required
-               data-msg="Please fill field.">
-        <span asp-validation-for="Input.Surname"></span>
-    </div>
-    <!-- End Form Group -->
-    <!-- Form Group -->
-    <div class="js-form-message form-group">
-        <label class="input-label" style="float:left;" asp-for="Input.Name"></label><span class="text-danger">*</span>
-        <input class="form-control" asp-for="Input.Name" placeholder="@localizer["lblFirstName"]" aria-label="" required
-               data-msg="Please fill field.">
-        <span asp-validation-for="Input.Name"></span>
-    </div>
+        <!-- End Title -->
+        <!-- Form Group -->
+        @*<div class="js-form-message form-group">
+            <label class="input-label" style="float:left;" asp-for="Input.UserName"></label><span class="text-danger">*</span>
+            <input class="form-control" asp-for="Input.UserName" placeholder="@localizer["UserName"]" aria-label="" required
+                   data-msg="@localizer["RequiredField"]">
+            <span asp-validation-for="Input.UserName"></span>
+        </div>*@
+        <!-- End Form Group -->
+        <!-- Form Group -->
+        <div class="js-form-message form-group">
+            <label class="input-label" style="float:left;" asp-for="Input.Surname"></label><span class="text-danger">*</span>
+            <input class="form-control" asp-for="Input.Surname" placeholder="@localizer["lblLastName"]" aria-label="" required
+                   data-msg="@localizer["RequiredField"]">
+            <span asp-validation-for="Input.Surname"></span>
+        </div>
+        <!-- End Form Group -->
+        <!-- Form Group -->
+        <div class="js-form-message form-group">
+            <label class="input-label" style="float:left;" asp-for="Input.Name"></label><span class="text-danger">*</span>
+            <input class="form-control" asp-for="Input.Name" placeholder="@localizer["lblFirstName"]" aria-label="" required
+                   data-msg="@localizer["RequiredField"]">
+            <span asp-validation-for="Input.Name"></span>
+        </div>
 
-    <!-- Form Group -->
-    @*<div class="js-form-message form-group">
-        <label class="input-label"  style="float:left;" asp-for="Input.PhoneNumber"></label><span class="text-danger">*</span>
-        <input class="form-control" asp-for="Input.PhoneNumber" placeholder="Телефон" aria-label="" required
-               data-msg="Please fill field.">
-        <span asp-validation-for="Input.PhoneNumber"></span>
-    </div>*@
-    <!-- End Form Group -->
-    <!-- Form Group -->
-    <div class="js-form-message form-group">
-        <label class="input-label" style="float:left;" asp-for="Input.Email"></label><span class="text-danger">*</span>
-        <input class="form-control" asp-for="Input.Email" placeholder="Емейл" aria-label="" required
-               data-msg="Please fill field.">
-        <span asp-validation-for="Input.Email"></span>
-    </div>
-    <!-- End Form Group -->
-    <!-- Form Group -->
-    <div class="js-form-message form-group">
-        <label class="input-label" style="float:left;" asp-for="Input.Password"></label><span class="text-danger">*</span>
-        <input class="form-control"  asp-for="Input.Password" placeholder="******" aria-label="" required
-               data-msg="Please fill field.">
-        <span asp-validation-for="Input.Password"></span>
-    </div>
-    <!-- End Form Group -->
-    <!-- Form Group -->
-    <div class="js-form-message form-group">
-        <label class="input-label"  style="float:left;" asp-for="Input.ConfirmPassword"></label><span class="text-danger">*</span>
-        <input class="form-control" asp-for="Input.ConfirmPassword" placeholder="******" aria-label="" required
-               data-msg="Please fill field.">
-        <span asp-validation-for="Input.ConfirmPassword"></span>
-    </div>
-    <!-- End Form Group -->
-    <!-- Form Group -->
-    @*<div class="js-form-message form-group">
+        <!-- Form Group -->
+        @*<div class="js-form-message form-group">
+            <label class="input-label"  style="float:left;" asp-for="Input.PhoneNumber"></label><span class="text-danger">*</span>
+            <input class="form-control" asp-for="Input.PhoneNumber" placeholder="Телефон" aria-label="" required
+                   data-msg="Please fill field.">
+            <span asp-validation-for="Input.PhoneNumber"></span>
+        </div>*@
+        <!-- End Form Group -->
+        <!-- Form Group -->
+        <div class="js-form-message form-group">
+            <label class="input-label" style="float:left;" asp-for="Input.Email"></label><span class="text-danger">*</span>
+            <input class="form-control" asp-for="Input.Email" placeholder="Емейл" aria-label="" required
+                   data-msg="@localizer["RequiredField"]">
+            <span asp-validation-for="Input.Email"></span>
+        </div>
+        <!-- End Form Group -->
+        <!-- Form Group -->
+        <div class="js-form-message form-group">
+            <label class="input-label" style="float:left;" asp-for="Input.Password"></label><span class="text-danger">*</span>
+            <input class="form-control" asp-for="Input.Password" placeholder="******" aria-label="" required
+                   data-msg="@localizer["RequiredField"]">
+            <span asp-validation-for="Input.Password"></span>
+        </div>
+        <!-- End Form Group -->
+        <!-- Form Group -->
+        <div class="js-form-message form-group">
+            <label class="input-label" style="float:left;" asp-for="Input.ConfirmPassword"></label><span class="text-danger">*</span>
+            <input class="form-control" asp-for="Input.ConfirmPassword" placeholder="******" aria-label="" required
+                   data-msg="@localizer["RequiredField"]">
+            <span asp-validation-for="Input.ConfirmPassword"></span>
+        </div>
+        <!-- End Form Group -->
+        <!-- Form Group -->
+        @*<div class="js-form-message form-group">
             <label class="input-label" asp-for="Input."></label>
             <input class="form-control" asp-for="Input." placeholder="" aria-label="" required
                    data-msg="Please fill field.">
             <span asp-validation-for="Input."></span>
         </div>*@
-    <!-- End Form Group -->
-    <!-- Button -->
-    <div class="row align-items-center mb-5">
-        <div class="col-sm-12 text-sm-center">
-            <button type="submit" class="btn btn-primary transition-3d-hover">@localizer["Register"]</button>
+        <!-- End Form Group -->
+        <!-- Button -->
+        <div class="row align-items-center mb-5">
+            <div class="col-sm-12 text-sm-center">
+                <button type="submit" class="btn btn-primary transition-3d-hover">@localizer["Register"]</button>
+            </div>
         </div>
-    </div>
-    <!-- End Button -->
-</form>
+        <!-- End Button -->
+    </form>
 
 
 

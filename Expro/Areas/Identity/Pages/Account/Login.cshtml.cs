@@ -24,7 +24,7 @@ namespace Expro.Areas.Identity.Pages.Account
         private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly ILogger<LoginModel> _logger;
         IStringLocalizer<Resources.ResourceTexts> _localizer;
-        public LoginModel(SignInManager<ApplicationUser> signInManager, 
+        public LoginModel(SignInManager<ApplicationUser> signInManager,
             ILogger<LoginModel> logger,
             UserManager<ApplicationUser> userManager,
             IStringLocalizer<Resources.ResourceTexts> localizer
@@ -60,6 +60,11 @@ namespace Expro.Areas.Identity.Pages.Account
 
             [Display(Name = "Запомнить ?")]
             public bool RememberMe { get; set; }
+
+            //[Required(ErrorMessageResourceName = "RequiredField", ErrorMessageResourceType = typeof(ResourceTexts))]
+            //[Display(Name = "UserName", ResourceType = typeof(ResourceTexts))]
+            //[DataType(DataType.Text)]
+            //public string UserName { get; set; }
         }
 
         public async Task OnGetAsync(string returnUrl = null)
@@ -109,7 +114,7 @@ namespace Expro.Areas.Identity.Pages.Account
                 }
                 else
                 {
-                    ModelState.AddModelError(string.Empty, _localizer["InvalidLoginAttempt"] );
+                    ModelState.AddModelError(string.Empty, _localizer["InvalidLoginAttempt"]);
                     return Page();
                 }
             }

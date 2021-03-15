@@ -87,6 +87,10 @@ namespace Expro.Areas.Identity.Pages.Account
             [Compare("Password", ErrorMessageResourceName = "lblConfirmPasswordError", ErrorMessageResourceType = typeof(ResourceTexts))]
             public string ConfirmPassword { get; set; }
 
+            //[Required(ErrorMessageResourceName = "RequiredField", ErrorMessageResourceType = typeof(ResourceTexts))]
+            //[Display(Name = "UserName", ResourceType = typeof(ResourceTexts))]
+            //public string UserName { get; set; }
+
             [Required(ErrorMessageResourceName = "RequiredField", ErrorMessageResourceType = typeof(ResourceTexts))]
             [Display(Name = "lblFirstName", ResourceType = typeof(ResourceTexts))]
             [StringLength(256)]
