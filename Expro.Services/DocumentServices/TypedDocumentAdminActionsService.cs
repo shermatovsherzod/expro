@@ -36,7 +36,7 @@ namespace Expro.Services
                 string subjectUz = "Мақола администратор томонидан тасдиқланди";
                 string subjectRu = "Статья подтверждена администратором";
 
-                string documentUrl = "/ArticleDocument/Details/" + entity.ID;
+                string documentUrl = "https://expro.uz/ArticleDocument/Details/" + entity.ID;
                 string messageUz = "Мақола администратор томонидан тасдиқланди. <a href='" + documentUrl + "'>" + entity.Title + "</a>";
                 string messageRu = "Статья подтверждена администратором. <a href='" + documentUrl + "'>" + entity.Title + "</a>";
 
@@ -61,7 +61,7 @@ namespace Expro.Services
                 string subjectUz = "Мақола администратор томонидан рад этилди";
                 string subjectRu = "Статья отменена администратором";
 
-                string documentUrl = "/Expert/ArticleDocument/Details/" + entity.ID;
+                string documentUrl = "https://expro.uz/Expert/ArticleDocument/Details/" + entity.ID;
                 string messageUz = "Мақола администратор томонидан рад этилди. <a href='" + documentUrl + "'>" + entity.Title + "</a>";
                 string messageRu = "Статья отменена администратором. <a href='" + documentUrl + "'>" + entity.Title + "</a>";
 
@@ -100,7 +100,7 @@ namespace Expro.Services
                 string subjectUz = "Намунавий хужжат администратор томонидан тасдиқланди";
                 string subjectRu = "Образцовый документ подтвержден администратором";
 
-                string documentUrl = "/SampleDocument/Details/" + entity.ID;
+                string documentUrl = "https://expro.uz/SampleDocument/Details/" + entity.ID;
                 string messageUz = "Намунавий хужжат администратор томонидан тасдиқланди. <a href='" + documentUrl + "'>" + entity.Title + "</a>";
                 string messageRu = "Образцовый документ подтвержден администратором. <a href='" + documentUrl + "'>" + entity.Title + "</a>";
 
@@ -125,7 +125,7 @@ namespace Expro.Services
                 string subjectUz = "Намунавий хужжат администратор томонидан рад этилди";
                 string subjectRu = "Образцовый документ отменен администратором";
 
-                string documentUrl = "/Expert/SampleDocument/Details/" + entity.ID;
+                string documentUrl = "https://expro.uz/Expert/SampleDocument/Details/" + entity.ID;
                 string messageUz = "Намунавий хужжат администратор томонидан рад этилди. <a href='" + documentUrl + "'>" + entity.Title + "</a>";
                 string messageRu = "Образцовый документ отменен администратором. <a href='" + documentUrl + "'>" + entity.Title + "</a>";
 
@@ -164,7 +164,7 @@ namespace Expro.Services
                 string subjectUz = "Амалиёт администратор томонидан тасдиқланди";
                 string subjectRu = "Практический документ подтвержден администратором";
 
-                string documentUrl = "/PracticeDocument/Details/" + entity.ID;
+                string documentUrl = "https://expro.uz/PracticeDocument/Details/" + entity.ID;
                 string messageUz = "Амалиёт администратор томонидан тасдиқланди. <a href='" + documentUrl + "'>" + entity.Title + "</a>";
                 string messageRu = "Практический документ подтвержден администратором. <a href='" + documentUrl + "'>" + entity.Title + "</a>";
 
@@ -189,7 +189,7 @@ namespace Expro.Services
                 string subjectUz = "Амалиёт администратор томонидан рад этилди";
                 string subjectRu = "Практический документ отменен администратором";
 
-                string documentUrl = "/Expert/PracticeDocument/Details/" + entity.ID;
+                string documentUrl = "https://expro.uz/Expert/PracticeDocument/Details/" + entity.ID;
                 string messageUz = "Амалиёт администратор томонидан рад этилди. <a href='" + documentUrl + "'>" + entity.Title + "</a>";
                 string messageRu = "Практический документ отменен администратором. <a href='" + documentUrl + "'>" + entity.Title + "</a>";
 

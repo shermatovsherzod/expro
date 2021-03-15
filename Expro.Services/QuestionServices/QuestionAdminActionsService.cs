@@ -55,7 +55,7 @@ namespace Expro.Services
                 string subjectUz = "Савол администратор томонидан тасдиқланди";
                 string subjectRu = "Вопрос подтвержден администратором";
 
-                string questionUrl = "/User/Question/Details/" + entity.ID;
+                string questionUrl = "https://expro.uz/User/Question/Details/" + entity.ID;
                 string messageUz = "Савол администратор томонидан тасдиқланди. <a href='" + questionUrl + "'>" + entity.Title + "</a>";
                 string messageRu = "Вопрос подтвержден администратором. <a href='" + questionUrl + "'>" + entity.Title + "</a>";
 
@@ -80,7 +80,7 @@ namespace Expro.Services
                 string subjectUz = "Савол администратор томонидан рад этилди";
                 string subjectRu = "Вопрос отменен администратором";
 
-                string questionUrl = "/User/Question/Details/" + entity.ID;
+                string questionUrl = "https://expro.uz/User/Question/Details/" + entity.ID;
                 string messageUz = "Савол администратор томонидан рад этилди. <a href='" + questionUrl + "'>" + entity.Title + "</a>";
                 string messageRu = "Вопрос отменен администратором. <a href='" + questionUrl + "'>" + entity.Title + "</a>";
 

@@ -47,7 +47,7 @@ namespace Expro.Services
                 string subjectUz = "Саволга янги жавоб берилди";
                 string subjectRu = "Получен новый ответ на вопрос";
 
-                string questionUrl = "/Question/Details/" + entity.ID;
+                string questionUrl = "https://expro.uz/Question/Details/" + entity.ID;
                 var answerGiver = _userService.GetByID(creatorID);
                 string answerGiverFullName = answerGiver.FirstName + " " + answerGiver.LastName;
                 string messageUz = "Сизнинг саволингизга (<a href='" + questionUrl + "'>\"" + question.Title + "\"</a>) " + answerGiverFullName + " жавоб берди.";

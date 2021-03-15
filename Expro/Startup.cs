@@ -46,7 +46,11 @@ namespace Expro
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+#if DEBUG
             string connectionStringName = "DefaultConnection";
+#else
+            string connectionStringName = "ServerConnection";
+#endif
 
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(
@@ -162,11 +166,11 @@ namespace Expro
             }
             else
             {
-                app.UseStatusCodePagesWithReExecute("/Error/Status/{0}");
-                app.UseExceptionHandler("/Error/Index");
+                //app.UseStatusCodePagesWithReExecute("/Error/Status/{0}");
+                //app.UseExceptionHandler("/Error/Index");
 
-                //app.UseDeveloperExceptionPage();
-                //app.UseDatabaseErrorPage();
+                app.UseDeveloperExceptionPage();
+                app.UseDatabaseErrorPage();
 
                 app.UseHsts();
             }

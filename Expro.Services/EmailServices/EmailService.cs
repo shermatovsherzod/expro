@@ -34,13 +34,42 @@ namespace Expro.Services
 
             using (var client = new SmtpClient())
             {
-#if DEBUG
-#else
-                //await client.ConnectAsync(AppConfiguration.ExproEmailSmtpClient, AppConfiguration.ExproEmailSmtpPort, SecureSocketOptions.SslOnConnect);
-                //await client.ConnectAsync(AppConfiguration.ExproEmailSmtpClient, AppConfiguration.ExproEmailSmtpPort, SecureSocketOptions.StartTls);
+                ////await client.ConnectAsync(AppConfiguration.ExproEmailSmtpClient, AppConfiguration.ExproEmailSmtpPort, SecureSocketOptions.SslOnConnect);
+                //await client.ConnectAsync(AppConfiguration.ExproEmailSmtpClient, AppConfiguration.ExproEmailSmtpPort, SecureSocketOptions.StartTlsWhenAvailable);
                 //await client.AuthenticateAsync(AppConfiguration.ExproEmailUsername, AppConfiguration.ExproEmailPassword);
                 //await client.SendAsync(emailMessage);
-#endif
+                await client.DisconnectAsync(true);
+            }
+        }
+
+        public async Task SendEmail2Async(string email, string subject, string message)
+        {
+            var emailMessage = new MimeMessage();
+
+            emailMessage.From.Add(new MailboxAddress("Администрация сайта Expro.Uz", AppConfiguration.ExproEmailAddress));
+            emailMessage.To.Add(new MailboxAddress("", email));
+            emailMessage.Subject = subject;
+            emailMessage.Body = new TextPart(MimeKit.Text.TextFormat.Html)
+            {
+                Text = message
+            };
+
+            using (var client = new SmtpClient())
+            {
+                //client.Connect(AppConfiguration.ExproEmailSmtpClient, AppConfiguration.ExproEmailSmtpPort, true);
+                //client.Authenticate(AppConfiguration.ExproEmailUsername, AppConfiguration.ExproEmailPassword);
+                //client.Send(emailMessage);
+                //client.Disconnect(true);
+
+                //client.Connect(AppConfiguration.ExproEmailSmtpClient, AppConfiguration.ExproEmailSmtpPort, AppConfiguration.ExproEmailEnableSsl);
+                //client.Authenticate(AppConfiguration.ExproEmailUsername, AppConfiguration.ExproEmailPassword);
+                //client.Send(emailMessage);
+                //client.Disconnect(true);
+
+                await client.ConnectAsync(AppConfiguration.ExproEmailSmtpClient, AppConfiguration.ExproEmailSmtpPort, SecureSocketOptions.SslOnConnect);
+                //await client.ConnectAsync(AppConfiguration.ExproEmailSmtpClient, AppConfiguration.ExproEmailSmtpPort, SecureSocketOptions.StartTls);
+                await client.AuthenticateAsync(AppConfiguration.ExproEmailUsername, AppConfiguration.ExproEmailPassword);
+                await client.SendAsync(emailMessage);
                 await client.DisconnectAsync(true);
             }
         }

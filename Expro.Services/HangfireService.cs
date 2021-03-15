@@ -76,7 +76,7 @@ namespace Expro.Services
                     subjectUz = "Мақола администратор томонидан рад этилди";
                     subjectRu = "Статья отменена администратором";
 
-                    documentUrl = "/Expert/ArticleDocument/Details/" + document.ID;
+                    documentUrl = "https://expro.uz/Expert/ArticleDocument/Details/" + document.ID;
                     messageUz = "Мақола администратор томонидан рад этилди. <a href='" + documentUrl + "'>" + document.Title + "</a>";
                     messageRu = "Статья отменена администратором. <a href='" + documentUrl + "'>" + document.Title + "</a>";
                 }
@@ -85,7 +85,7 @@ namespace Expro.Services
                     subjectUz = "Намунавий хужжат администратор томонидан рад этилди";
                     subjectRu = "Образцовый документ отменен администратором";
 
-                    documentUrl = "/Expert/SampleDocument/Details/" + document.ID;
+                    documentUrl = "https://expro.uz/Expert/SampleDocument/Details/" + document.ID;
                     messageUz = "Намунавий хужжат администратор томонидан рад этилди. <a href='" + documentUrl + "'>" + document.Title + "</a>";
                     messageRu = "Образцовый документ отменен администратором. <a href='" + documentUrl + "'>" + document.Title + "</a>";
                 }
@@ -94,7 +94,7 @@ namespace Expro.Services
                     subjectUz = "Амалиёт администратор томонидан рад этилди";
                     subjectRu = "Практический документ отменен администратором";
 
-                    documentUrl = "/Expert/PracticeDocument/Details/" + document.ID;
+                    documentUrl = "https://expro.uz/Expert/PracticeDocument/Details/" + document.ID;
                     messageUz = "Амалиёт администратор томонидан рад этилди. <a href='" + documentUrl + "'>" + document.Title + "</a>";
                     messageRu = "Практический документ отменен администратором. <a href='" + documentUrl + "'>" + document.Title + "</a>";
                 }
@@ -142,7 +142,7 @@ namespace Expro.Services
                 string subjectUz = "Савол администратор томонидан рад этилди";
                 string subjectRu = "Вопрос отменен администратором";
 
-                string questionUrl = "/User/Question/Details/" + question.ID;
+                string questionUrl = "https://expro.uz/User/Question/Details/" + question.ID;
                 string messageUz = "Савол администратор томонидан рад этилди. <a href='" + questionUrl + "'>" + question.Title + "</a>";
                 string messageRu = "Вопрос отменен администратором. <a href='" + questionUrl + "'>" + question.Title + "</a>";
 

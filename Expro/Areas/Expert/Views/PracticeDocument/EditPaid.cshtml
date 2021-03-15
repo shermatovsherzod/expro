@@ -248,7 +248,7 @@
                 var file = input.files[0];
                 var fileSizeInKB = file.size / 1024;
                 if (fileSizeInKB > Number("@AppData.Configuration.FileMaxLengthInKB")) {
-                    alert("@Html.Raw(localizer["FileSizeMustNotBeGreaterThan", AppData.Configuration.FileMaxLengthInKB / 1024])";
+                    alert("@Html.Raw(localizer["FileSizeMustNotBeGreaterThan", AppData.Configuration.FileMaxLengthInKB / 1024])");
                     return;
                 }
 

@@ -148,7 +148,7 @@ namespace Expro.Services
                     subjectRu = "Новый вопрос с вознаграждением";
                 }
 
-                string questionUrl = "/Admin/Question/Details/" + entity.ID;
+                string questionUrl = "https://expro.uz/Admin/Question/Details/" + entity.ID;
                 string messageUz = "Янги савол тасдиқлашга жўнатилинди. <a href='" + questionUrl + "'>" + entity.Title + "</a>";
                 string messageRu = "Поступил новый вопрос на подтверждение. <a href='" + questionUrl + "'>" + entity.Title + "</a>";
 
@@ -244,7 +244,7 @@ namespace Expro.Services
                         string subjectUz = "Саволга жавоб учун мукофот олинди";
                         string subjectRu = "Получено вознаграждение за ответ на вопрос";
 
-                        string questionUrl = "/Question/Details/" + question.ID;
+                        string questionUrl = "https://expro.uz/Question/Details/" + question.ID;
                         string messageUz = "Саволга (<a href='" + questionUrl + "'>\"" + question.Title + "\"</a>) жавоб учун " + answer.PaidFee.Value + " сум мукофот олинди.";
                         string messageRu = "Получено вознаграждение в размере " + answer.PaidFee.Value + " сум за ответил на вопрос (<a href='" + questionUrl + "'>\"" + question.Title + "\"</a>)";
 

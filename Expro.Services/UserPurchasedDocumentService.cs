@@ -94,7 +94,7 @@ namespace Expro.Services
                 string subjectRu = "Статья куплена";
 
                 string documentUrl = (user.UserType == UserTypesEnum.SimpleUser) ? "/User" : "/Expert";
-                documentUrl += "/ArticleDocumentPurchased/Details/" + document.ID;
+                documentUrl += "https://expro.uz/ArticleDocumentPurchased/Details/" + document.ID;
                 string messageUz = "Мақолани сотиб олганингиз учут рахмат <a href='" + documentUrl + "'>" + document.Title + "</a>";
                 string messageRu = "Спасибо за покупку статьи <a href='" + documentUrl + "'>" + document.Title + "</a>";
 
@@ -111,7 +111,7 @@ namespace Expro.Services
                 subjectUz = "Мақолангизни сотиб олишди";
                 subjectRu = "Вашу статью купили";
 
-                documentUrl = "/ArticleDocument/Details/" + document.ID;
+                documentUrl = "https://expro.uz/ArticleDocument/Details/" + document.ID;
                 messageUz = "Сизнинг мақолангизни сотиб олишди <a href='" + documentUrl + "'>" + document.Title + "</a>";
                 messageRu = "Вашу статью купили <a href='" + documentUrl + "'>" + document.Title + "</a>";
 
@@ -153,7 +153,7 @@ namespace Expro.Services
                 string subjectRu = "Образцовый документ куплен";
 
                 string documentUrl = (user.UserType == UserTypesEnum.SimpleUser) ? "/User" : "/Expert";
-                documentUrl += "/SampleDocumentPurchased/Details/" + document.ID;
+                documentUrl += "https://expro.uz/SampleDocumentPurchased/Details/" + document.ID;
                 string messageUz = "Намунавий хужжатни сотиб олганингиз учут рахмат <a href='" + documentUrl + "'>" + document.Title + "</a>";
                 string messageRu = "Спасибо за покупку образцового документа <a href='" + documentUrl + "'>" + document.Title + "</a>";
 
@@ -170,7 +170,7 @@ namespace Expro.Services
                 subjectUz = "Намунавий хужжатингизни сотиб олишди";
                 subjectRu = "Ваш образцовый документ купили";
 
-                documentUrl = "/SampleDocument/Details/" + document.ID;
+                documentUrl = "https://expro.uz/SampleDocument/Details/" + document.ID;
                 messageUz = "Сизнинг намунавий хужжатингизни сотиб олишди <a href='" + documentUrl + "'>" + document.Title + "</a>";
                 messageRu = "Ваш образцовый документ купили <a href='" + documentUrl + "'>" + document.Title + "</a>";
 
@@ -212,7 +212,7 @@ namespace Expro.Services
                 string subjectRu = "Практический документ куплена";
 
                 string documentUrl = (user.UserType == UserTypesEnum.SimpleUser) ? "/User" : "/Expert";
-                documentUrl += "/PracticeDocumentPurchased/Details/" + document.ID;
+                documentUrl += "https://expro.uz/PracticeDocumentPurchased/Details/" + document.ID;
                 string messageUz = "Амалиётни сотиб олганингиз учут рахмат <a href='" + documentUrl + "'>" + document.Title + "</a>";
                 string messageRu = "Спасибо за покупку статьи <a href='" + documentUrl + "'>" + document.Title + "</a>";
 
@@ -229,7 +229,7 @@ namespace Expro.Services
                 subjectUz = "Амалиётингизни сотиб олишди";
                 subjectRu = "Ваш практический документ купили";
 
-                documentUrl = "/PracticeDocument/Details/" + document.ID;
+                documentUrl = "https://expro.uz/PracticeDocument/Details/" + document.ID;
                 messageUz = "Сизнинг амалиётингизни сотиб олишди <a href='" + documentUrl + "'>" + document.Title + "</a>";
                 messageRu = "Ваш практический документ купили <a href='" + documentUrl + "'>" + document.Title + "</a>";
 

@@ -27,7 +27,7 @@ namespace Expro.Areas.Admin.Controllers
         public async Task<ActionResult> Index(string emailaddress, string subject, string emailBody)
         {
             ViewBag.Message = true;
-            await _emailService.SendEmailAsync(emailaddress, subject, emailBody);
+            await _emailService.SendEmail2Async(emailaddress, subject, emailBody);
             return View();
         }
     }

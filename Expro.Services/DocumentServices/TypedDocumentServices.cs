@@ -58,7 +58,7 @@ namespace Expro.Services
                     subjectRu = "Новый платный образцовый документ";
                 }
 
-                string documentUrl = "/Admin/SampleDocument/Details/" + entity.ID;
+                string documentUrl = "https://expro.uz/Admin/SampleDocument/Details/" + entity.ID;
                 string messageUz = "Янги намунавий хужжат тасдиқлашга жўнатилинди. <a href='" + documentUrl + "'>" + entity.Title + "</a>";
                 string messageRu = "Поступил новый образцовый документ на подтверждение. <a href='" + documentUrl + "'>" + entity.Title + "</a>";
 
@@ -117,7 +117,7 @@ namespace Expro.Services
                     subjectRu = "Новая платная статья";
                 }
 
-                string documentUrl = "/Admin/ArticleDocument/Details/" + entity.ID;
+                string documentUrl = "https://expro.uz/Admin/ArticleDocument/Details/" + entity.ID;
                 string messageUz = "Янги мақола тасдиқлашга жўнатилинди. <a href='" + documentUrl + "'>" + entity.Title + "</a>";
                 string messageRu = "Поступила новая статья на подтверждение. <a href='" + documentUrl + "'>" + entity.Title + "</a>";
 
@@ -176,7 +176,7 @@ namespace Expro.Services
                     subjectRu = "Новый платный практический документ";
                 }
 
-                string documentUrl = "/Admin/PracticeDocument/Details/" + entity.ID;
+                string documentUrl = "https://expro.uz/Admin/PracticeDocument/Details/" + entity.ID;
                 string messageUz = "Янги амалиёт тасдиқлашга жўнатилинди. <a href='" + documentUrl + "'>" + entity.Title + "</a>";
                 string messageRu = "Поступил новый практический документ на подтверждение. <a href='" + documentUrl + "'>" + entity.Title + "</a>";
 
